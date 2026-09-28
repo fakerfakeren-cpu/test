@@ -117,6 +117,20 @@ public final class Starfall {
         Vec3 impact = new Vec3(target.getX() + 0.5, y, target.getZ() + 0.5);
         double angle = rand.nextDouble() * Math.PI * 2;
         boolean steep = variant == Variant.BOSS || variant == Variant.SMALL;
+        if (!steep) {
+            // Launch from the nearest player's side of the sky so the meteor streaks overhead towards its
+            // impact instead of starting beyond the client's entity-tracking range and popping in late.
+            ServerPlayer nearest = null;
+            double best = 220 * 220;
+            for (ServerPlayer p : level.players()) {
+                double d = p.distanceToSqr(impact.x, p.getY(), impact.z);
+                if (d < best) {
+                    best = d;
+                    nearest = p;
+                }
+            }
+            if (nearest != null) angle = Math.atan2(nearest.getZ() - impact.z, nearest.getX() - impact.x) + (rand.nextDouble() - 0.5) * 1.6;
+        }
         double horiz = steep ? 18 + rand.nextDouble() * 10 : 60 + rand.nextDouble() * 35;
         double height = steep ? 70 : 95 + rand.nextDouble() * 35;
         double startY = Math.min(level.getMaxY() + 40, impact.y + height);

@@ -17,6 +17,26 @@ Stars**.
 
 ---
 
+## Screenshots
+
+These are real in-game captures, taken automatically on Minecraft 26.2 + Forge 65.1.0 by this repo's CI (software
+rendering, HUD hidden).
+
+| | |
+|---|---|
+| ![Astraeus, Devourer of Stars](docs/screenshots/astraeus_attack_2.jpg) | ![Astraeus attacking with the Star Lance](docs/screenshots/astraeus_attack.jpg) |
+| **Astraeus**: Gravity Collapse, arms spread | Star Lance setting its target on fire |
+| ![The bestiary on the /astralfall gallery stage](docs/screenshots/bestiary.jpg) | ![Meteorite Crawler](docs/screenshots/meteorite_crawler.jpg) |
+| `/astralfall gallery`: wisp, stalker, crawler, gazer, boss | Meteorite Crawler |
+| ![The secret Star Vault](docs/screenshots/vault.jpg) | ![Telescope chamber](docs/screenshots/telescope_chamber.jpg) |
+| The sealed **Star Vault** under the Observatory | The shattered telescope chamber and Astral Altar |
+| ![Observatory entrance hall](docs/screenshots/observatory_hall.jpg) | ![Sky Shrine](docs/screenshots/sky_shrine.jpg) |
+| Observatory entrance hall | Sky Shrine floating above a lake |
+| ![Void Stalker](docs/screenshots/void_stalker.jpg) | ![Singularity](docs/screenshots/singularity.jpg) |
+| Void Stalker | A Riftcaller / grenade singularity at night |
+
+---
+
 ## Installing with CurseForge
 
 1. **Get the jar.**
