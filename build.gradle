@@ -1,0 +1,76 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'eclipse'
+    id 'net.minecraftforge.gradle' version '[7.0.17,8)'
+}
+
+version = project.mod_version
+group = 'com.astralfall'
+
+base {
+    archivesName = "astralfall-${project.minecraft_version}"
+}
+
+// Minecraft 26.x ships Java 25 to players, so the mod targets Java 25.
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
+
+minecraft {
+    runs {
+        configureEach {
+            workingDir = layout.projectDirectory.dir('run')
+            systemProperty 'eventbus.api.strictRuntimeChecks', 'true'
+            if (project.hasProperty('selftest')) {
+                systemProperty 'astralfall.selftest', 'true'
+            }
+        }
+
+        register('client')
+
+        register('server') {
+            args '--nogui'
+        }
+    }
+}
+
+repositories {
+    minecraft.mavenizer(it)
+    maven fg.forgeMaven
+    maven fg.minecraftLibsMaven
+    mavenCentral()
+}
+
+dependencies {
+    implementation minecraft.dependency("net.minecraftforge:forge:${project.minecraft_version}-${project.forge_version}")
+    annotationProcessor 'net.minecraftforge:eventbus-validator:7.0.5'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.compilerArgs += ['-Xmaxerrs', '1000']
+}
+
+tasks.named('processResources', ProcessResources) {
+    var props = [mod_version: project.mod_version]
+    inputs.properties(props)
+    filesMatching('META-INF/mods.toml') {
+        expand(props)
+    }
+}
+
+tasks.named('jar', Jar) {
+    manifest {
+        attributes([
+            'Implementation-Title'  : 'Astralfall',
+            'Implementation-Version': project.version
+        ])
+    }
+}
+
+// Used by CI to locate the Minecraft/Forge jars for API inspection.
+tasks.register('printCompileClasspath') {
+    var cp = sourceSets.main.compileClasspath
+    doLast {
+        println 'CP=' + cp.asPath
+    }
+}

@@ -1,0 +1,35 @@
+modLoader="javafml"
+loaderVersion="[65,)"
+license="MIT"
+issueTrackerURL="https://github.com/fakerfakeren-cpu/test/issues"
+
+[[mods]]
+modId="astralfall"
+version="${mod_version}"
+displayName="Astralfall"
+logoFile="astralfall_logo.png"
+authors="Astralfall Team"
+description='''
+The stars are falling.
+
+Meteor showers crash into the world, leaving craters of Starmetal and Skyshard.
+Void creatures crawl out of the dark between the stars. Explore the Shattered
+Observatory, unlock celestial weapons, tame Astral Wisps, and summon
+Astraeus, Devourer of Stars.
+
+Start with /astralfall help or the Astralfall creative tab.
+'''
+
+[[dependencies.astralfall]]
+    modId="forge"
+    mandatory=true
+    versionRange="[65.1.0,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.astralfall]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[26.2,26.3)"
+    ordering="NONE"
+    side="BOTH"

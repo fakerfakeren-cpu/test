@@ -1,0 +1,63 @@
+name: API Dump
+
+on:
+  workflow_dispatch:
+    inputs:
+      classes:
+        description: 'Space separated fully-qualified class names for javap'
+        required: false
+        default: ''
+      list:
+        description: 'Regex matched against class names in the Minecraft/Forge jars'
+        required: false
+        default: ''
+      members:
+        description: 'Only print javap lines matching this regex (optional)'
+        required: false
+        default: ''
+
+jobs:
+  dump:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-read-only: false
+      - name: Resolve classpath
+        run: |
+          chmod +x gradlew
+          ./gradlew printCompileClasspath -q > cp.txt 2> cp.err || (cat cp.err; exit 1)
+          grep '^CP=' cp.txt | sed 's/^CP=//' > classpath.txt
+          tr ':' '\n' < classpath.txt | grep -iE "forge|minecraft|mojang|client|server" > jars.txt || true
+      - name: Dump
+        env:
+          CLASSES: ${{ inputs.classes }}
+          LIST: ${{ inputs.list }}
+          MEMBERS: ${{ inputs.members }}
+        run: |
+          CP=$(cat classpath.txt)
+          {
+          if [ -n "$LIST" ]; then
+            echo "##### LIST $LIST"
+            while read -r j; do
+              [ -f "$j" ] && unzip -Z1 "$j" 2>/dev/null | grep '\.class$' | grep -v '\$[0-9]' | sed 's/\.class$//; s#/#.#g' | grep -E "$LIST"
+            done < jars.txt | sort -u | head -1500
+          fi
+          for c in $CLASSES; do
+            echo "##### CLASS $c"
+            if [ -n "$MEMBERS" ]; then
+              javap -cp "$CP" -protected "$c" 2>&1 | grep -E "$MEMBERS|^(public|protected|abstract|final)? *(class|interface|record|enum)|^[a-z].*(class|interface|record|enum) " | head -400
+            else
+              javap -cp "$CP" -protected "$c" 2>&1 | head -500
+            fi
+          done
+          } > dump.txt
+          wc -l dump.txt
+      - name: Print dump
+        run: cat dump.txt
