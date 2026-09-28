@@ -15,6 +15,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 
@@ -28,7 +29,7 @@ import java.util.UUID;
  *   <li>Starmetal: immune to fall damage, and hard landings release a Meteor Landing shockwave.</li>
  *   <li>Voidwalker: night vision, Void Stalkers ignore you, and sneaking in mid-air blinks you forward.</li>
  *   <li>Crown of Astraeus: rains golden stars on nearby monsters.</li>
- *   <li>Nebula Wings: leave a nebula trail while gliding.</li>
+ *   <li>Nebula Wings: leave a nebula trail while gliding; sneak mid-glide for a Nebula Boost.</li>
  * </ul>
  */
 public final class ArmorEffects {
@@ -89,10 +90,26 @@ public final class ArmorEffects {
             }
         }
 
-        if (player.isFallFlying() && player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.NEBULA_WINGS.get()) && player.tickCount % 2 == 0) {
-            Vec3 back = player.position().add(player.getLookAngle().scale(-1.0)).add(0, 0.6, 0);
-            FX.burst(level, ModParticles.VOID_MOTE.get(), back, 2, 0.3, 0.0);
-            FX.burst(level, ModParticles.STAR_SPARKLE.get(), back, 1, 0.4, 0.0);
+        ItemStack chest = player.getItemBySlot(EquipmentSlot.CHEST);
+        if (player.isFallFlying() && chest.is(ModItems.NEBULA_WINGS.get())) {
+            if (player.tickCount % 2 == 0) {
+                Vec3 back = player.position().add(player.getLookAngle().scale(-1.0)).add(0, 0.6, 0);
+                FX.burst(level, ModParticles.VOID_MOTE.get(), back, 2, 0.3, 0.0);
+                FX.burst(level, ModParticles.STAR_SPARKLE.get(), back, 1, 0.4, 0.0);
+            }
+            // Nebula Boost: sneak mid-glide for a firework-free burst of speed.
+            if (sneaking && !was && !player.getCooldowns().isOnCooldown(chest)) {
+                Vec3 look = player.getLookAngle();
+                player.setDeltaMovement(player.getDeltaMovement().scale(0.35).add(look.scale(1.9)));
+                player.hurtMarked = true;
+                player.getCooldowns().addCooldown(chest, 80);
+                Vec3 at = player.position().add(0, 0.6, 0);
+                FX.burst(level, ModParticles.STAR_SPARKLE.get(), at, 36, 0.7, 0.25);
+                FX.ring(level, ModParticles.VOID_MOTE.get(), at.subtract(look.scale(1.5)), 1.6, 28, 0.08);
+                level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.VOID_BLINK.get(), SoundSource.PLAYERS, 1.0f, 1.5f);
+                level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.STAR_SLASH.get(), SoundSource.PLAYERS, 0.8f, 0.7f);
+                chest.hurtAndBreak(2, player, EquipmentSlot.CHEST);
+            }
         }
     }
 

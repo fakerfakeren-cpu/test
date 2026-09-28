@@ -127,7 +127,7 @@ the journal, craft **Book + Gold Nugget** (or Book + Stardust).
 | **Starmetal** | No fall damage. Landing from high up releases a **Meteor Landing** shockwave |
 | **Voidwalker** | Night vision. Void Stalkers ignore you. **Sneak in mid-air** to blink forward |
 | **Crown of Astraeus** | Rains golden stars on nearby monsters and gives night vision (boss drop) |
-| **Nebula Wings** | An elytra with a nebula trail, repaired with Void Essence |
+| **Nebula Wings** | Glide like an elytra with a nebula trail. **Sneak mid-glide for a Nebula Boost** (a firework-free burst of speed, 4 s cooldown). Double elytra durability, repaired with Void Essence |
 
 ### Creatures
 | Creature | Behaviour |

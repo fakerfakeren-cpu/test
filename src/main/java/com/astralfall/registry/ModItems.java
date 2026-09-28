@@ -104,7 +104,7 @@ public final class ModItems {
     public static final RegistryObject<Item> VOIDWALKER_BOOTS = armor("voidwalker_boots", VOIDWALKER_ARMOR, ArmorType.BOOTS, Rarity.RARE);
     public static final RegistryObject<Item> CROWN_OF_ASTRAEUS = reg("crown_of_astraeus", p -> new LoreItem(p, 3, false),
         () -> new Item.Properties().humanoidArmor(CROWN_ARMOR, ArmorType.HELMET).rarity(Rarity.EPIC).fireResistant());
-    public static final RegistryObject<Item> NEBULA_WINGS = reg("nebula_wings", p -> new LoreItem(p, 2, false),
+    public static final RegistryObject<Item> NEBULA_WINGS = reg("nebula_wings", p -> new LoreItem(p, 3, false),
         () -> new Item.Properties().durability(864).rarity(Rarity.EPIC)
             .component(DataComponents.GLIDER, Unit.INSTANCE)
             .component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.CHEST).setEquipSound(SoundEvents.ARMOR_EQUIP_ELYTRA).setAsset(WINGS_ASSET).setDamageOnHurt(false).build())
