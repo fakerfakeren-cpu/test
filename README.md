@@ -25,7 +25,7 @@ rendering, HUD hidden).
 | | |
 |---|---|
 | ![Astraeus, Devourer of Stars](docs/screenshots/astraeus_attack_2.jpg) | ![Astraeus attacking with the Star Lance](docs/screenshots/astraeus_attack.jpg) |
-| **Astraeus**: Gravity Collapse, arms spread | Star Lance setting its target on fire |
+| **Astraeus, Devourer of Stars** mid-fight | Astraeus attacking a target dummy (set on fire) |
 | ![The bestiary on the /astralfall gallery stage](docs/screenshots/bestiary.jpg) | ![Meteorite Crawler](docs/screenshots/meteorite_crawler.jpg) |
 | `/astralfall gallery`: wisp, stalker, crawler, gazer, boss | Meteorite Crawler |
 | ![The secret Star Vault](docs/screenshots/vault.jpg) | ![Telescope chamber](docs/screenshots/telescope_chamber.jpg) |
