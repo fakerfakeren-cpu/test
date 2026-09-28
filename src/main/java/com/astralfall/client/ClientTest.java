@@ -51,9 +51,8 @@ public final class ClientTest {
                     Thread.sleep(30_000);
                     long secs = (System.currentTimeMillis() - start) / 1000;
                     Minecraft mc = Minecraft.getInstance();
-                    Object screen = mc == null ? null : mc.screen;
                     log("watchdog " + secs + "s: joined=" + joined + " step=" + index + "/" + STEPS.size()
-                        + " screen=" + (screen == null ? "none" : screen.getClass().getName())
+                        + " screen=" + screenName(mc)
                         + " level=" + (mc != null && mc.level != null) + " server=" + (mc != null && mc.getSingleplayerServer() != null));
                     if ((!joined && secs > 420) || secs > 960) {
                         log("RESULT: FAIL (" + (joined ? "scenario did not finish" : "never joined the world") + ")");
@@ -72,6 +71,23 @@ public final class ClientTest {
         }, "astralfall-clienttest-watchdog");
         t.setDaemon(true);
         t.start();
+    }
+
+    /** The current screen's class name (the field is not public in 26.2, so read it reflectively). */
+    private static String screenName(Minecraft mc) {
+        if (mc == null) return "no-client";
+        try {
+            for (java.lang.reflect.Field f : Minecraft.class.getDeclaredFields()) {
+                if (net.minecraft.client.gui.screens.Screen.class.isAssignableFrom(f.getType())) {
+                    f.setAccessible(true);
+                    Object screen = f.get(mc);
+                    return screen == null ? "none" : screen.getClass().getName();
+                }
+            }
+            return "no-screen-field";
+        } catch (Throwable t) {
+            return "unknown(" + t.getClass().getSimpleName() + ")";
+        }
     }
 
     private static void log(String s) {
@@ -239,8 +255,14 @@ public final class ClientTest {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player == null || mc.level == null) {
             if (++preJoinTicks % 100 == 0) {
-                log("waiting for world, screen=" + (mc.screen == null ? "none" : mc.screen.getClass().getName()));
+                String screen = screenName(mc);
+                log("waiting for world, screen=" + screen);
                 if (preJoinTicks % 600 == 0) shot(mc, "prejoin_" + preJoinTicks / 600);
+                // Quick play did not get us in (title / error screen): open the test world directly.
+                if (preJoinTicks % 1200 == 0 && (screen.contains("TitleScreen") || screen.contains("SelectWorld") || screen.contains("Disconnected") || screen.contains("Alert"))) {
+                    log("quick play did not join; opening world 'world' directly");
+                    mc.createWorldOpenFlows().openWorld("world", () -> log("openWorld cancelled"));
+                }
             }
             return;
         }
