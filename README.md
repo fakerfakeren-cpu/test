@@ -32,10 +32,11 @@ Stars**.
 
 That is the whole install. No other files are needed.
 
-> **"Worlds using Experimental Settings are not supported"**: when you load a world, Minecraft shows this
-> for every mod that adds world generation through data packs (Astralfall adds structures and meteor
-> impact sites). Click **"I Know What I'm Doing!"**. The world is fine. For a clean recording, open the
-> world once before you start filming.
+> **About "Worlds using Experimental Settings are not supported"**: vanilla shows this prompt for every mod
+> that adds world generation through data packs (Astralfall adds structures and meteor impact sites).
+> Astralfall answers it for you automatically, the same as clicking "I Know What I'm Doing!". To get the
+> prompt back, set `skipExperimentalWarning = false` in `config/astralfall-common.toml`. If it ever
+> still appears, click **"I Know What I'm Doing!"**. The world is fine.
 
 ---
 
@@ -52,7 +53,7 @@ stage every set piece:
 | `/astralfall starstorm` | A full Starstorm with a title card, constant meteors and shooting stars (`stop` ends it) |
 | `/astralfall fallenstar` | A golden meteor lands ahead and leaves a Fallen Star under a pillar of light |
 | `/astralfall summon` | The Eclipse ritual: the sky goes dark, lightning strikes, the boss meteor falls and **Astraeus** rises |
-| `/astralfall gallery` | Every creature lined up in front of you for close-up shots |
+| `/astralfall gallery` | Builds a lit display stage in front of you and lines up every creature (and the boss) facing the camera |
 | `/astralfall build observatory` | Builds the Shattered Observatory in front of you. Also works with `fallen_vessel`, `sky_shrine` and `crater` |
 | `/astralfall locate observatory` | Distance and coordinates of the nearest naturally generated one |
 
@@ -189,6 +190,7 @@ Every recipe unlocks in the recipe book when you join, and the journal covers th
 | `starstormChance` | `7` | 1 in N nights becomes a Starstorm (0 turns them off) |
 | `meteorCraters` | `true` | Meteors carve craters. They never break blocks that have block entities |
 | `bossHealthMultiplier` | `1.0` | Scales Astraeus' health |
+| `skipExperimentalWarning` | `true` | Answers vanilla's "Experimental Settings" prompt for you on world load and creation |
 
 ---
 
