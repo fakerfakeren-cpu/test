@@ -107,7 +107,9 @@ public final class ClientTest {
     }
 
     private static void cmd(Minecraft mc, String command) {
-        server(mc, p -> p.level().getServer().getCommands().performPrefixedCommand(p.createCommandSourceStack(), command));
+        // The test world has cheats off, so run as the server (full permissions) positioned at the player.
+        server(mc, p -> p.level().getServer().getCommands().performPrefixedCommand(
+            p.level().getServer().createCommandSourceStack().withEntity(p).withPosition(p.position()).withRotation(p.getRotationVector()).withLevel(p.level()), command));
     }
 
     private static void camera(Minecraft mc, double x, double y, double z, float yaw, float pitch) {
