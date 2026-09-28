@@ -68,7 +68,7 @@ public final class ClientTest {
     }
 
     private static void shot(Minecraft mc, String name) {
-        Screenshot.grab(mc.gameDirectory, "astralfall_" + name + ".png", mc.getMainRenderTarget(), 1, msg -> log("screenshot " + name + ": " + msg.getString()));
+        Screenshot.grab(mc.gameDirectory, "astralfall_" + name + ".png", mc.gameRenderer.mainRenderTarget(), 1, msg -> log("screenshot " + name + ": " + msg.getString()));
         shots++;
     }
 
@@ -83,7 +83,6 @@ public final class ClientTest {
     private static void script() {
         STEPS.clear();
         step(1, "setup", mc -> {
-            mc.options.hideGui = true;
             cmd(mc, "gamemode spectator");
             cmd(mc, "gamerule advance_time false");
             cmd(mc, "gamerule advance_weather false");

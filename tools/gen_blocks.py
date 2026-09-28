@@ -39,19 +39,19 @@ def cracks(c, seed, count, colors, glow=True):
     pts = []
     for _ in range(count):
         x, y = r.randrange(16), r.randrange(16)
-        length = r.randrange(5, 11)
+        length = r.randrange(4, 9)
         dx, dy = r.choice([(1, 0), (0, 1), (1, 1), (1, -1)])
         for i in range(length):
             pts.append((x % 16, y % 16, i / max(1, length - 1)))
-            if r.random() < 0.45:
-                dx, dy = r.choice([(1, 0), (0, 1), (1, 1), (1, -1), (-1, 1)])
+            if r.random() < 0.6:
+                dx, dy = r.choice([(1, 0), (0, 1), (1, 1), (1, -1), (-1, 1), (1, 0)])
             x += dx
             y += dy
     if glow:
         for (x, y, _) in pts:
             for ox, oy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
                 base = c.get(x + ox, y + oy)
-                c.set((x + ox) % 16, (y + oy) % 16, lerp(base, colors[1], 0.35))
+                c.set((x + ox) % 16, (y + oy) % 16, lerp(base, colors[0], 0.25))
     for (x, y, t) in pts:
         v = 1 - abs(t - 0.5) * 1.2
         c.set(x, y, ramp(colors, 0.35 + 0.6 * v))
@@ -150,6 +150,29 @@ def skyshard_block():
 
 
 def skyshard_cluster():
+    rows = [
+        "................",
+        ".......W........",
+        "......WcQ.......",
+        "......Wcq.......",
+        "..V...ccqQ......",
+        ".vpP..ccqQ...W..",
+        ".vpP.WccqQ..WcQ.",
+        ".vpP.Wccqq..Wcq.",
+        "vvpPPWccqq..ccqQ",
+        "vppPPcccqqV.ccqQ",
+        "vppPPccqqQvpcqqQ",
+        ".ppP.ccqqQvpcqQ.",
+        ".vpPcccqqQvpPqQ.",
+        "..pPcccqqQvpPq..",
+        "..ppccqqqQvpP...",
+        "...pcqqqQQppP...",
+    ]
+    leg = {'W': CYAN[4], 'c': CYAN[3], 'q': CYAN[2], 'Q': CYAN[1], 'V': VIOLET[4], 'v': VIOLET[3], 'p': VIOLET[2], 'P': VIOLET[1]}
+    return sprite(rows, leg)
+
+
+def _old_skyshard_cluster():
     c = Canvas(16, 16)
     crystals = [(7, 15, 2, 12, CYAN), (4, 15, 1, 7, VIOLET), (11, 15, 1, 8, VIOLET), (9, 15, 1, 10, CYAN), (5, 15, 1, 5, CYAN), (12, 15, 1, 5, CYAN)]
     for (cx, base_y, half, height, pal) in crystals:
@@ -202,8 +225,8 @@ def astral_bricks(variant='plain'):
         m = value_noise(16, 16, 3, 64, octaves=2)
         for y in range(16):
             for x in range(16):
-                if m[y, x] > 0.62:
-                    c.set(x, y, ramp(VIOLET[:3], m[y, x]))
+                if m[y, x] > 0.7 and (x + y) % 2 == 0:
+                    c.set(x, y, ramp([hexc('#1e5a4f'), hexc('#2f8f76'), hexc('#6fe0b8')], (m[y, x] - 0.7) * 3))
     return c
 
 

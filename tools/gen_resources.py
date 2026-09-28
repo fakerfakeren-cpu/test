@@ -523,6 +523,12 @@ def gen_quests():
         if rewards:
             adv['rewards'] = rewards
         w(f'{D}/advancement/quests/{qid}.json', adv)
+    # Hidden helper: unlock every Astralfall recipe in the recipe book on first join.
+    recipes = sorted(f'{M}:' + f[:-5] for f in os.listdir(f'{D}/recipe') if f.endswith('.json'))
+    w(f'{D}/advancement/recipes/unlock_all.json', {
+        'criteria': {'joined': {'trigger': 'minecraft:tick'}},
+        'requirements': [['joined']],
+        'rewards': {'recipes': recipes}})
 
 
 def main():

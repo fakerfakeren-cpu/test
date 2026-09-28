@@ -217,7 +217,7 @@ JOURNAL = [
     "§4Phase III§r (20%)\nThe sky itself falls: constant meteors, faster attacks.\n\nThe shards regrow. Destroy it before the dawn.\n\nWhen it dies, the sun rises.",
     # 28 - chapter 9
     "§5§lIX. Beyond§r\n\nAstraeus leaves:\n§6Stellar Core§r\n§6Eclipse Greatsword§r\n§6Crown of Astraeus§r\nand a fortune in starmetal.\n\nThe Crown rains golden stars on your enemies.",
-    "§6Eclipse Greatsword§r\nEvery hit charges the eclipse. At 12, right-click for the §lEclipse Nova§r.\n\n§5Nebula Wings§r\nStellar Core + 4 Void Essence + 2 Phantom Membrane + 2 Skyshards.",
+    "§6Eclipse Greatsword§r\nEvery hit charges the eclipse. At 12, right-click for the §lEclipse Nova§r.\n\n§5Nebula Wings§r\nStellar Core + 4 Void Essence + 2 Phantom Membrane + 1 Skyshard.",
     # 30 - chapter 10
     "§5§lX. Quests§r\n\nOpen §lAdvancements§r (L) and choose the §5Astralfall§r tab: every step from your first meteor to the end, with rewards.\n\nLost this book? Craft a Book + Gold Nugget.",
     "§5For builders§r\n\nAstral bricks, glass, star jars and meteorite blocks are all craftable.\n\n§8Creative:§r §o/astralfall help§r lists showcase commands.\n\n§8Keep watching the sky.§r",
