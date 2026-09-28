@@ -86,6 +86,7 @@ public final class ClientTest {
             cmd(mc, "gamemode spectator");
             cmd(mc, "gamerule advance_time false");
             cmd(mc, "gamerule advance_weather false");
+            cmd(mc, "gamerule send_command_feedback false");
             cmd(mc, "weather clear");
             cmd(mc, "time set minecraft:noon");
             base = mc.player.blockPosition();

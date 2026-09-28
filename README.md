@@ -135,7 +135,7 @@ the journal, craft **Book + Gold Nugget** (or Book + Stardust).
 | **Shattered Observatory** (large) | Overworld, rare | A meteor-split tower with a telescope chamber on top (the eyepiece pulls a star out of the night sky), an Astral Altar, Gravity Rune and Starfire Vent traps, and a hidden **Star Vault** under the entrance hall that opens with a Skyshard |
 | **Fallen Vessel** | Overworld | A crashed ship half-buried in its own trench. A crawler-infested reactor and holds with gravity tech |
 | **Sky Shrine** | High above the Overworld | A floating island shrine holding flight gear |
-| **Impact Sites** | Everywhere | Old meteor craters with ore and meteorite |
+| **Impact Sites** | Plains, forests, taiga, savanna, desert, badlands, meadows | Old meteor craters with ore and meteorite |
 
 ### World events
 - **Meteor showers:** natural meteor strikes near players at night, which carve craters.
