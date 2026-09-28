@@ -17,6 +17,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -200,18 +201,22 @@ public final class AstralfallCommand {
     private static int gallery(CommandContext<CommandSourceStack> c) {
         ServerLevel level = c.getSource().getLevel();
         Vec3 pos = c.getSource().getPosition();
-        Vec3 look = c.getSource().getEntity() != null ? c.getSource().getEntity().getLookAngle() : new Vec3(1, 0, 0);
-        Vec3 fwd = new Vec3(look.x, 0, look.z).normalize();
+        float yRot = c.getSource().getEntity() != null ? c.getSource().getEntity().getYRot() : -90f;
+        Direction facing = Direction.fromYRot(yRot);
+        Vec3 fwd = new Vec3(facing.getStepX(), 0, facing.getStepZ());
         Vec3 right = fwd.cross(new Vec3(0, 1, 0)).normalize();
+        BlockPos origin = BlockPos.containing(pos);
+        int floorY = origin.getY() - 1;
+        buildStage(level, origin, facing, (int) Math.round(right.x), (int) Math.round(right.z), floorY);
         List<Supplier<? extends EntityType<? extends Mob>>> types = List.of(ModEntities.ASTRAL_WISP, ModEntities.VOID_STALKER, ModEntities.METEORITE_CRAWLER, ModEntities.VOID_GAZER, ModEntities.ASTRAEUS);
         double[] offsets = {-9, -4.5, 0, 4.5, 11};
+        float yaw = facing.getOpposite().toYRot();
         for (int i = 0; i < types.size(); i++) {
             Mob m = types.get(i).get().create(level, EntitySpawnReason.COMMAND);
             if (m == null) continue;
-            Vec3 at = pos.add(fwd.scale(i == 4 ? 16 : 8)).add(right.scale(offsets[i]));
-            int y = level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (int) Math.floor(at.x), (int) Math.floor(at.z));
-            float yaw = (float) (Math.atan2(-fwd.z, -fwd.x) * 180 / Math.PI) - 90f;
-            m.snapTo(at.x, y + (m instanceof com.astralfall.entity.mob.AstralWispEntity || m instanceof com.astralfall.entity.mob.VoidGazerEntity ? 1.5 : 0), at.z, yaw, 0);
+            Vec3 at = Vec3.atBottomCenterOf(origin).add(fwd.scale(i == 4 ? 16 : 8)).add(right.scale(offsets[i]));
+            boolean flyer = m instanceof com.astralfall.entity.mob.AstralWispEntity || m instanceof com.astralfall.entity.mob.VoidGazerEntity;
+            m.snapTo(at.x, floorY + 1 + (flyer ? 1.5 : 0), at.z, yaw, 0);
             m.setYHeadRot(yaw);
             m.setYBodyRot(yaw);
             m.setNoAi(true);
@@ -222,5 +227,25 @@ public final class AstralfallCommand {
         }
         c.getSource().sendSuccess(() -> Component.translatable("command.astralfall.gallery").withStyle(ChatFormatting.AQUA), false);
         return 1;
+    }
+
+    /** A lit astral-brick stage in front of the viewer, cleared of terrain, so the lineup films well anywhere. */
+    private static void buildStage(ServerLevel level, BlockPos origin, Direction facing, int rx, int rz, int floorY) {
+        BlockPos.MutableBlockPos m = new BlockPos.MutableBlockPos();
+        var air = net.minecraft.world.level.block.Blocks.AIR.defaultBlockState();
+        var floor = com.astralfall.registry.ModBlocks.ASTRAL_BRICKS.get().defaultBlockState();
+        var trim = com.astralfall.registry.ModBlocks.CHISELED_ASTRAL_BRICKS.get().defaultBlockState();
+        var lamp = com.astralfall.registry.ModBlocks.STAR_JAR.get().defaultBlockState();
+        for (int f = 2; f <= 22; f++) {
+            for (int r = -15; r <= 15; r++) {
+                int x = origin.getX() + facing.getStepX() * f + rx * r;
+                int z = origin.getZ() + facing.getStepZ() * f + rz * r;
+                for (int y = floorY + 1; y <= floorY + 18; y++) level.setBlock(m.set(x, y, z), air, 2);
+                boolean edge = f == 2 || f == 22 || Math.abs(r) == 15;
+                level.setBlock(m.set(x, floorY, z), edge ? trim : floor, 2);
+                for (int y = floorY - 1; y >= floorY - 4 && level.getBlockState(m.set(x, y, z)).canBeReplaced(); y--) level.setBlock(m, floor, 2);
+                if (edge && Math.floorMod(f + r, 5) == 0) level.setBlock(m.set(x, floorY + 1, z), lamp, 3);
+            }
+        }
     }
 }
