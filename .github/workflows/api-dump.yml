@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       classes:
-        description: 'Space separated fully-qualified class names for javap'
+        description: 'Space separated class names for javap; append @regex to filter members of that class'
         required: false
         default: ''
       list:
@@ -49,10 +49,14 @@ jobs:
               [ -f "$j" ] && unzip -Z1 "$j" 2>/dev/null | grep '\.class$' | grep -v '\$[0-9]' | sed 's/\.class$//; s#/#.#g' | grep -E "$LIST"
             done < jars.txt | sort -u | head -1500
           fi
-          for c in $CLASSES; do
+          for spec in $CLASSES; do
+            c="${spec%%@*}"
+            filt=""
+            [ "$spec" != "$c" ] && filt="${spec#*@}"
+            [ -z "$filt" ] && filt="$MEMBERS"
             echo "##### CLASS $c"
-            if [ -n "$MEMBERS" ]; then
-              javap -cp "$CP" -protected "$c" 2>&1 | grep -E "$MEMBERS|^(public|protected|abstract|final)? *(class|interface|record|enum)|^[a-z].*(class|interface|record|enum) " | head -400
+            if [ -n "$filt" ]; then
+              javap -cp "$CP" -protected "$c" 2>&1 | grep -E "$filt|^(public|protected|abstract|final|sealed| )*.*(class|interface|record|enum) [a-zA-Z.$]+|Error" | head -300
             else
               javap -cp "$CP" -protected "$c" 2>&1 | head -500
             fi
@@ -60,4 +64,7 @@ jobs:
           } > dump.txt
           wc -l dump.txt
       - name: Print dump
-        run: cat dump.txt
+        run: |
+          echo '=====DUMP-BEGIN====='
+          cat dump.txt
+          echo '=====DUMP-END====='
