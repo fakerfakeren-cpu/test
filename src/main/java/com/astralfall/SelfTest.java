@@ -90,11 +90,11 @@ public final class SelfTest {
             if (active) {
                 Astralfall.LOGGER.error("[SELFTEST] WATCHDOG: scenario stalled at tick {}", tick);
                 for (var entry : Thread.getAllStackTraces().entrySet()) {
-                    if (entry.getKey().getName().contains("Server thread")) {
-                        StringBuilder sb = new StringBuilder();
-                        for (StackTraceElement el : entry.getValue()) sb.append("\n    at ").append(el);
-                        Astralfall.LOGGER.error("[SELFTEST] server thread stack:{}", sb);
-                    }
+                    String name = entry.getKey().getName();
+                    if (!(name.contains("Server") || name.contains("Worker"))) continue;
+                    log("| thread " + name + " state=" + entry.getKey().getState());
+                    StackTraceElement[] st = entry.getValue();
+                    for (int i = 0; i < Math.min(st.length, 40); i++) log("|   at " + st[i]);
                 }
                 Astralfall.LOGGER.error("[SELFTEST] RESULT: FAIL (timeout)");
                 Runtime.getRuntime().halt(3);
@@ -152,7 +152,8 @@ public final class SelfTest {
             case 200 -> step("meteor impacts", () -> {
                 int rock = 0, stars = 0;
                 BlockPos c = arena.offset(65, 0, 30);
-                for (BlockPos p : BlockPos.betweenClosed(c.offset(-50, -20, -30), c.offset(50, 10, 30))) {
+                c = c.atY(surface(level, c.getX(), c.getZ()));
+                for (BlockPos p : BlockPos.betweenClosed(c.offset(-50, -24, -30), c.offset(50, 16, 30))) {
                     var s = level.getBlockState(p);
                     if (s.is(ModBlocks.METEORITE_ROCK.get()) || s.is(ModBlocks.STARMETAL_ORE.get())) rock++;
                     if (s.is(ModBlocks.FALLEN_STAR.get())) stars++;
@@ -368,6 +369,13 @@ public final class SelfTest {
         log("checks run: " + checks + ", failures: " + failures.size());
         for (String f : failures) log("  failed: " + f);
         log(failures.isEmpty() ? "RESULT: PASS" : "RESULT: FAIL");
+        if (arena != null) {
+            ServerLevel level = server.overworld();
+            int acx = (arena.getX() + 32) >> 4, acz = arena.getZ() >> 4;
+            for (int cx = acx - 6; cx <= acx + 6; cx++)
+                for (int cz = acz - 6; cz <= acz + 6; cz++)
+                    level.setChunkForced(cx, cz, false);
+        }
         server.halt(false);
     }
 }

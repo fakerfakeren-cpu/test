@@ -45,6 +45,7 @@ jobs:
           simulation-distance=6
           spawn-protection=0
           level-seed=astralfall
+          pause-when-empty-seconds=0
           PROPS
           sed -i 's/^ *//' run/server.properties
           timeout 1500 ./gradlew runServer -Pselftest --stacktrace 2>&1 | tee server.log || true
@@ -56,7 +57,9 @@ jobs:
         run: |
           sudo apt-get update -qq >/dev/null && sudo apt-get install -y -qq xvfb libgl1-mesa-dri mesa-utils >/dev/null
           mkdir -p run/saves
-          if [ -d run/world ]; then rm -rf run/saves/world && cp -r run/world run/saves/world; fi
+          if [ -d run/world ]; then rm -rf run/saves/world && cp -r run/world run/saves/world && rm -f run/saves/world/session.lock; fi
+          ls run/saves/world || echo "no world to copy"
+
           printf 'onboardAccessibility:false\nrenderDistance:10\nsimulationDistance:6\npauseOnLostFocus:false\nguiScale:2\nsoundCategory_master:0.0\nfov:0.35\n' > run/options.txt
           export LIBGL_ALWAYS_SOFTWARE=1
           timeout 1200 xvfb-run -a -s "-screen 0 1280x720x24" ./gradlew runClient -Pclienttest --stacktrace 2>&1 | tee client.log || true
@@ -105,8 +108,11 @@ jobs:
           for f in run/crash-reports/*; do [ -f "$f" ] && head -120 "$f"; done
           echo "===== CLIENT PROBLEMS ====="
           if [ -f client.log ]; then
-            grep -nE "(ERROR|FATAL)|Exception|Caused by|CLIENTTEST|Failed to load|Missing|Unable to" client.log | grep -vE "Narrator|narrator|Realms|realms|OpenAL|ALSA|audio|Sound|sound" | cut -c1-400 | head -250 || true
+            grep -nE "(ERROR|FATAL)|Exception|Caused by|Failed to load|Missing|Unable to" client.log | grep -vE "Narrator|narrator|Realms|realms|OpenAL|ALSA|audio|Sound|sound" | cut -c1-400 | head -250 || true
           fi
+          echo "===== CLIENTTEST ====="
+          [ -f client.log ] && grep -F "[CLIENTTEST]" client.log | cut -c1-300 | tail -300 || true
+          [ -f client.log ] && echo "--- client.log tail ---" && grep -vE "^\s+at |Transformer Audit|REASON:|PLUGIN:" client.log | tail -40 | cut -c1-300 || true
           echo "===== SELFTEST ====="
           [ -f server.log ] && grep -F "[SELFTEST]" server.log | cut -c1-400 | tail -400 || true
           echo "===== SCREENSHOTS ====="

@@ -24,7 +24,10 @@ public final class ClientSetup {
         ViewportEvent.ComputeCameraAngles.BUS.addListener(ClientFX::onCameraAngles);
         ViewportEvent.ComputeFogColor.BUS.addListener(ClientFX::onFogColor);
         TickEvent.ClientTickEvent.Post.BUS.addListener(ClientFX::onClientTick);
-        if (ClientTest.enabled()) TickEvent.ClientTickEvent.Post.BUS.addListener(ClientTest::onClientTick);
+        if (ClientTest.enabled()) {
+            TickEvent.ClientTickEvent.Post.BUS.addListener(ClientTest::onClientTick);
+            ClientTest.startWatchdog();
+        }
     }
 
     private static void layers(EntityRenderersEvent.RegisterLayerDefinitions e) {

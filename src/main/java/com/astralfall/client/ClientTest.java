@@ -29,11 +29,49 @@ public final class ClientTest {
     private static int wait = 200;
     private static BlockPos base;
     private static int shots;
+    private static int preJoinTicks;
+    private static volatile boolean joined;
+    private static volatile boolean done;
 
     private ClientTest() {}
 
     public static boolean enabled() {
         return Boolean.getBoolean("astralfall.clienttest");
+    }
+
+    /**
+     * Background watchdog: reports what the client is doing every 30 s, and if the scenario never
+     * starts (or never ends) dumps every interesting thread's stack and exits so CI gets a clear log.
+     */
+    public static void startWatchdog() {
+        Thread t = new Thread(() -> {
+            long start = System.currentTimeMillis();
+            try {
+                while (!done) {
+                    Thread.sleep(30_000);
+                    long secs = (System.currentTimeMillis() - start) / 1000;
+                    Minecraft mc = Minecraft.getInstance();
+                    Object screen = mc == null ? null : mc.screen;
+                    log("watchdog " + secs + "s: joined=" + joined + " step=" + index + "/" + STEPS.size()
+                        + " screen=" + (screen == null ? "none" : screen.getClass().getName())
+                        + " level=" + (mc != null && mc.level != null) + " server=" + (mc != null && mc.getSingleplayerServer() != null));
+                    if ((!joined && secs > 420) || secs > 960) {
+                        log("RESULT: FAIL (" + (joined ? "scenario did not finish" : "never joined the world") + ")");
+                        for (var e : Thread.getAllStackTraces().entrySet()) {
+                            String name = e.getKey().getName();
+                            if (!(name.contains("Render") || name.contains("Server") || name.contains("Worker") || name.contains("main") || name.contains("IO"))) continue;
+                            log("| thread " + name + " state=" + e.getKey().getState());
+                            StackTraceElement[] st = e.getValue();
+                            for (int i = 0; i < Math.min(st.length, 40); i++) log("|   at " + st[i]);
+                        }
+                        Runtime.getRuntime().halt(4);
+                    }
+                }
+            } catch (InterruptedException ignored) {
+            }
+        }, "astralfall-clienttest-watchdog");
+        t.setDaemon(true);
+        t.start();
     }
 
     private static void log(String s) {
@@ -185,6 +223,7 @@ public final class ClientTest {
         step(120, "shot boss 2", mc -> shot(mc, "astraeus_attack"));
         step(100, "quit", mc -> {
             log("RESULT: PASS screenshots=" + shots);
+            done = true;
             mc.stop();
         });
     }
@@ -198,7 +237,14 @@ public final class ClientTest {
 
     static void onClientTick(TickEvent.ClientTickEvent.Post event) {
         Minecraft mc = Minecraft.getInstance();
-        if (mc.player == null || mc.level == null) return;
+        if (mc.player == null || mc.level == null) {
+            if (++preJoinTicks % 100 == 0) {
+                log("waiting for world, screen=" + (mc.screen == null ? "none" : mc.screen.getClass().getName()));
+                if (preJoinTicks % 600 == 0) shot(mc, "prejoin_" + preJoinTicks / 600);
+            }
+            return;
+        }
+        joined = true;
         if (index == -1) {
             script();
             index = 0;
