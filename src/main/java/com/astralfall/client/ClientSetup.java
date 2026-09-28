@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
+import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.client.event.ViewportEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -24,6 +25,8 @@ public final class ClientSetup {
         ViewportEvent.ComputeCameraAngles.BUS.addListener(ClientFX::onCameraAngles);
         ViewportEvent.ComputeFogColor.BUS.addListener(ClientFX::onFogColor);
         TickEvent.ClientTickEvent.Post.BUS.addListener(ClientFX::onClientTick);
+        ScreenEvent.Opening.BUS.addListener(ExperimentalWarningSkipper::onScreenOpening);
+        TickEvent.ClientTickEvent.Post.BUS.addListener(ExperimentalWarningSkipper::onClientTick);
         if (ClientTest.enabled()) {
             TickEvent.ClientTickEvent.Post.BUS.addListener(ClientTest::onClientTick);
             ClientTest.startWatchdog();

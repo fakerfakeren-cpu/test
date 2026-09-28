@@ -69,7 +69,8 @@ jobs:
           ( for i in $(seq 1 150); do
               sleep 4
               grep -q "world joined" client.log && break
-              grep -q "waiting for world" client.log && xdotool mousemove 800 274 click 1 >/dev/null 2>&1
+              # fallback only: the mod skips the prompt itself (config skipExperimentalWarning)
+              [ $i -gt 20 ] && grep -q "waiting for world" client.log && xdotool mousemove 800 274 click 1 >/dev/null 2>&1
             done ) &
           wait $GPID
           SH
@@ -123,6 +124,7 @@ jobs:
             grep -nE "(ERROR|FATAL)|Exception|Caused by|Failed to load|Missing|Unable to" client.log | grep -vE "Narrator|narrator|Realms|realms|OpenAL|ALSA|audio|Sound|sound" | cut -c1-400 | head -250 || true
           fi
           echo "===== CLIENTTEST ====="
+          [ -f client.log ] && grep -E "Skipped the|Could not skip" client.log | cut -c1-300 || true
           [ -f client.log ] && grep -F "[CLIENTTEST]" client.log | cut -c1-300 | tail -300 || true
           [ -f client.log ] && echo "--- client.log tail ---" && grep -vE "^\s+at |Transformer Audit|REASON:|PLUGIN:" client.log | tail -40 | cut -c1-300 || true
           echo "===== SELFTEST ====="

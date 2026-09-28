@@ -21,6 +21,10 @@ public final class Config {
     public static final ForgeConfigSpec.DoubleValue BOSS_HEALTH_MULTIPLIER = BUILDER
         .comment("Multiplier for Astraeus' health.")
         .defineInRange("bossHealthMultiplier", 1.0, 0.1, 20.0);
+    public static final ForgeConfigSpec.BooleanValue SKIP_EXPERIMENTAL_WARNING = BUILDER
+        .comment("Client: skip vanilla's 'Experimental Settings' prompts, which appear for any mod that adds world",
+                 "generation through data packs. Equivalent to clicking 'I Know What I'm Doing!' (no backup is made).")
+        .define("skipExperimentalWarning", true);
 
     public static final ForgeConfigSpec SPEC = BUILDER.build();
 
@@ -31,6 +35,7 @@ public final class Config {
     public static int starstormChance() { return safe(() -> STARSTORM_CHANCE.get(), 7); }
     public static boolean meteorCraters() { return safe(() -> METEOR_CRATERS.get(), true); }
     public static double bossHealthMultiplier() { return safe(() -> BOSS_HEALTH_MULTIPLIER.get(), 1.0); }
+    public static boolean skipExperimentalWarning() { return safe(() -> SKIP_EXPERIMENTAL_WARNING.get(), true); }
 
     private static <T> T safe(java.util.function.Supplier<T> s, T fallback) {
         try {
