@@ -59,7 +59,7 @@ jobs:
           mkdir -p run/saves
           if [ -d run/world ]; then rm -rf run/saves/world && cp -r run/world run/saves/world && rm -f run/saves/world/session.lock; fi
           ls run/saves/world || echo "no world to copy"
-          printf 'onboardAccessibility:false\nrenderDistance:10\nsimulationDistance:6\npauseOnLostFocus:false\nguiScale:2\nsoundCategory_master:0.0\nfov:0.35\n' > run/options.txt
+          printf 'onboardAccessibility:false\nrenderDistance:10\nsimulationDistance:6\npauseOnLostFocus:false\ntutorialStep:none\nguiScale:2\nsoundCategory_master:0.0\nfov:0.35\n' > run/options.txt
           export LIBGL_ALWAYS_SOFTWARE=1
           # Worlds with data-pack worldgen show vanilla's "Experimental Settings" prompt on load;
           # click "I Know What I'm Doing!" (centre-right button at 1280x720, GUI scale 2) until the world is joined.
@@ -68,7 +68,7 @@ jobs:
           GPID=$!
           ( for i in $(seq 1 150); do
               sleep 4
-              grep -q "world joined" client.log && break
+              if grep -q "world joined" client.log; then sleep 2; xdotool mousemove 640 360 key F1 >/dev/null 2>&1; echo "HUD hidden (F1)"; break; fi
               # fallback only: the mod skips the prompt itself (config skipExperimentalWarning)
               [ $i -gt 20 ] && grep -q "waiting for world" client.log && xdotool mousemove 800 274 click 1 >/dev/null 2>&1
             done ) &

@@ -195,7 +195,7 @@ public final class ClientTest {
             run(p, "astralfall gallery");
             log("gallery stage at " + g);
         }));
-        step(80, "gallery wide", mc -> lookAt(mc, c(gallery).add(-1, 5.5, 1), c(gallery).add(11, 1.5, 1)));
+        step(80, "gallery wide", mc -> lookAt(mc, c(gallery).add(2.5, 6.5, 1), c(gallery).add(12, 1.2, 1)));
         step(80, "shot gallery", mc -> shot(mc, "bestiary"));
         String[] names = {"astral_wisp", "void_stalker", "meteorite_crawler", "void_gazer"};
         double[] offsets = {-9, -4.5, 0, 4.5};
@@ -220,7 +220,7 @@ public final class ClientTest {
             vessel = v;
             log("vessel at " + v);
         }));
-        step(60, "vessel view", mc -> lookAt(mc, c(vessel).add(24, 14, -20), c(vessel).add(0, 2, 0)));
+        step(60, "vessel view", mc -> lookAt(mc, c(vessel).add(6, 20, 26), c(vessel).add(-3, 3, 0)));
         step(160, "shot vessel", mc -> shot(mc, "fallen_vessel"));
         step(5, "shrine", mc -> {
             int sx = base.getX() + 80, sz = base.getZ() + 80;
@@ -238,16 +238,17 @@ public final class ClientTest {
             run(p, "time set minecraft:midnight");
             BlockPos m = surface(p.level(), base.getX() - 60, base.getZ() + 70);
             meteorCam = m;
-            run(p, String.format(java.util.Locale.ROOT, "tp @s %.1f %d %.1f 180 -12", m.getX() + 0.5, m.getY() + 3, m.getZ() + 0.5));
+            run(p, String.format(java.util.Locale.ROOT, "tp @s %.1f %d %.1f 180 -22", m.getX() + 0.5, m.getY() + 4, m.getZ() + 0.5));
         }));
         step(40, "meteors", mc -> server(mc, p -> {
-            for (int i = 0; i < 6; i++) {
-                BlockPos t = meteorCam.offset(-18 + i * 7, 0, -28 - (i % 3) * 8);
-                Starfall.spawnMeteor(p.level(), t, i == 3 ? Starfall.Variant.FALLEN_STAR : Starfall.Variant.NORMAL, 1.6f);
+            for (int i = 0; i < 10; i++) {
+                BlockPos t = meteorCam.offset(-36 + i * 8, 0, -45 - (i % 3) * 15);
+                Starfall.spawnMeteor(p.level(), t, i == 4 ? Starfall.Variant.FALLEN_STAR : Starfall.Variant.NORMAL, 1.6f);
             }
         }));
-        step(30, "shot meteors", mc -> shot(mc, "meteor_shower"));
-        step(70, "shot impact", mc -> shot(mc, "meteor_impacts"));
+        step(18, "shot meteors", mc -> shot(mc, "meteor_shower"));
+        step(14, "shot meteors 2", mc -> shot(mc, "meteor_shower_2"));
+        step(80, "shot impact", mc -> shot(mc, "meteor_impacts"));
         step(5, "singularity", mc -> server(mc, p -> {
             Vec3 at = p.position().add(p.getLookAngle().multiply(1, 0, 1).normalize().scale(9)).add(0, 2, 0);
             SingularityEntity.spawn(p.level(), at, p, 200, 8f, 0f, false);
