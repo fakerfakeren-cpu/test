@@ -99,7 +99,7 @@ jobs:
         if: always()
         run: |
           echo "===== COMPILE ERRORS ====="
-          grep -E "error:|\.java:[0-9]+: " build.log | head -300 || true
+          grep -E "error:" -A3 build.log | grep -v "^\s*\^" | head -300 || true
           grep -E "BUILD (SUCCESSFUL|FAILED)|What went wrong" -A3 build.log | head -40 || true
           echo "===== SERVER PROBLEMS ====="
           if [ -f server.log ]; then
