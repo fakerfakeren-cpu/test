@@ -47,7 +47,7 @@ public class BlueprintStructure extends Structure {
         if (y <= ctx.chunkGenerator().getSeaLevel() - 2 && type != Blueprints.Type.SKY_SHRINE) return Optional.empty();
         int baseY = type == Blueprints.Type.SKY_SHRINE ? Math.max(mean, ctx.chunkGenerator().getSeaLevel()) : y;
         BlockPos origin = new BlockPos(x, baseY + yOffset, z);
-        long seed = ctx.seed() ^ ctx.chunkPos().toLong() * 341873128712L;
+        long seed = ctx.seed() ^ ctx.chunkPos().pack() * 341873128712L;
         return Optional.of(new GenerationStub(origin, builder -> builder.addPiece(new BlueprintPiece(type, seed, origin))));
     }
 

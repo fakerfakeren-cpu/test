@@ -60,7 +60,7 @@ public class StarbladeItem extends Item {
         AABB path = new AABB(start, end).inflate(1.3, 1.0, 1.3);
         for (Entity e : level.getEntities(player, path, e -> e instanceof LivingEntity && e.isAlive() && !e.isAlliedTo(player))) {
             float dmg = 8.0f;
-            if (e.getType().is(ModTags.VOID_CREATURES)) dmg *= 1.5f;
+            if (e.typeHolder().is(ModTags.VOID_CREATURES)) dmg *= 1.5f;
             e.hurtServer(level, level.damageSources().playerAttack(player), dmg);
             FX.burst(level, ModParticles.STAR_SPARKLE.get(), e.getBoundingBox().getCenter(), 12, 0.3, 0.1);
         }
@@ -74,7 +74,7 @@ public class StarbladeItem extends Item {
 
     @Override
     public float getAttackDamageBonus(Entity target, float damage, DamageSource source) {
-        return target.getType().is(ModTags.VOID_CREATURES) ? damage * 0.5f : 0.0f;
+        return target.typeHolder().is(ModTags.VOID_CREATURES) ? damage * 0.5f : 0.0f;
     }
 
     @Override

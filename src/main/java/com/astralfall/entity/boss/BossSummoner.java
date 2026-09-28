@@ -67,7 +67,7 @@ public final class BossSummoner {
         if (t % 20 == 0 && t < 110) {
             double a = level.getRandom().nextDouble() * Math.PI * 2;
             double d = 10 + level.getRandom().nextDouble() * 14;
-            LightningBolt bolt = EntityType.LIGHTNING_BOLT.create(level, EntitySpawnReason.EVENT);
+            LightningBolt bolt = net.minecraft.world.entity.EntityTypes.LIGHTNING_BOLT.create(level, EntitySpawnReason.EVENT);
             if (bolt != null) {
                 bolt.snapTo(c.x + Math.cos(a) * d, c.y - 1, c.z + Math.sin(a) * d);
                 bolt.setVisualOnly(true);

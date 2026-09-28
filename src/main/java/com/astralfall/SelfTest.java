@@ -140,7 +140,7 @@ public final class SelfTest {
                 int y = surface(level, altar.getX(), altar.getZ());
                 BossSummoner.begin(level, new BlockPos(altar.getX(), y, altar.getZ()));
                 check("ritual_started", BossSummoner.isRitualActive(level), "");
-                dummy = spawn(level, EntityType.IRON_GOLEM, altar.offset(8, 0, 0));
+                dummy = spawn(level, net.minecraft.world.entity.EntityTypes.IRON_GOLEM, altar.offset(8, 0, 0));
                 if (dummy instanceof Mob m) m.setNoAi(true);
             });
             case 470 -> step("boss emerged", () -> {
@@ -157,7 +157,7 @@ public final class SelfTest {
                 log("boss hp before phase 2: " + boss.getHealth() + " attack=" + boss.getAttack());
                 boss.setHealth(boss.getMaxHealth() * 0.45f);
                 if (dummy != null && !dummy.isAlive()) {
-                    dummy = spawn(level, EntityType.IRON_GOLEM, boss.blockPosition().offset(6, -4, 0));
+                    dummy = spawn(level, net.minecraft.world.entity.EntityTypes.IRON_GOLEM, boss.blockPosition().offset(6, -4, 0));
                     if (dummy instanceof Mob m) m.setNoAi(true);
                 }
                 boss.setTarget(dummy);
@@ -169,7 +169,7 @@ public final class SelfTest {
                 if (boss == null) return;
                 boss.setHealth(boss.getMaxHealth() * 0.15f);
                 if (dummy == null || !dummy.isAlive()) {
-                    dummy = spawn(level, EntityType.IRON_GOLEM, boss.blockPosition().offset(6, -4, 0));
+                    dummy = spawn(level, net.minecraft.world.entity.EntityTypes.IRON_GOLEM, boss.blockPosition().offset(6, -4, 0));
                     if (dummy instanceof Mob m) m.setNoAi(true);
                 }
                 boss.setTarget(dummy);
@@ -303,7 +303,7 @@ public final class SelfTest {
         var stalker = spawn(level, ModEntities.VOID_STALKER.get(), arena.offset(6, 0, 0));
         var crawler = spawn(level, ModEntities.METEORITE_CRAWLER.get(), arena.offset(12, 0, 0));
         var gazer = spawn(level, ModEntities.VOID_GAZER.get(), arena.offset(18, 0, 0));
-        var target = spawn(level, EntityType.VILLAGER, arena.offset(12, 0, 8));
+        var target = spawn(level, net.minecraft.world.entity.EntityTypes.VILLAGER, arena.offset(12, 0, 8));
         crawler.setTarget(target);
         gazer.setTarget(target);
         stalker.setTarget(target);
@@ -313,7 +313,7 @@ public final class SelfTest {
     private static void weapons(ServerLevel level) {
         int y = surface(level, arena.getX(), arena.getZ() + 20);
         Vec3 c = new Vec3(arena.getX() + 0.5, y + 1.5, arena.getZ() + 20.5);
-        var victim = spawn(level, EntityType.ZOMBIE, BlockPos.containing(c.add(4, 0, 0)));
+        var victim = spawn(level, net.minecraft.world.entity.EntityTypes.ZOMBIE, BlockPos.containing(c.add(4, 0, 0)));
         var slash = new StarSlashEntity(ModEntities.STAR_SLASH.get(), level);
         slash.setPos(c.x, c.y, c.z);
         slash.setDeltaMovement(1.6, 0, 0);

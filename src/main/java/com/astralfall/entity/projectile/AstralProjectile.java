@@ -56,7 +56,7 @@ public abstract class AstralProjectile extends Projectile {
     protected void onHitTarget(ServerLevel level, Entity target) {
         Entity owner = getOwner();
         float dmg = damage;
-        if (target.getType().is(ModTags.VOID_CREATURES) && voidBane()) dmg *= 1.5f;
+        if (target.typeHolder().is(ModTags.VOID_CREATURES) && voidBane()) dmg *= 1.5f;
         DamageSource src = owner instanceof LivingEntity living ? level.damageSources().mobProjectile(this, living) : level.damageSources().magic();
         target.hurtServer(level, src, dmg);
     }
