@@ -246,9 +246,10 @@ public final class ClientTest {
                 Starfall.spawnMeteor(p.level(), t, i == 4 ? Starfall.Variant.FALLEN_STAR : Starfall.Variant.NORMAL, 1.6f);
             }
         }));
-        step(18, "shot meteors", mc -> shot(mc, "meteor_shower"));
+        step(40, "shot meteors", mc -> shot(mc, "meteor_shower"));
         step(14, "shot meteors 2", mc -> shot(mc, "meteor_shower_2"));
-        step(80, "shot impact", mc -> shot(mc, "meteor_impacts"));
+        step(14, "shot meteors 3", mc -> shot(mc, "meteor_shower_3"));
+        step(50, "shot impact", mc -> shot(mc, "meteor_impacts"));
         step(5, "singularity", mc -> server(mc, p -> {
             Vec3 at = p.position().add(p.getLookAngle().multiply(1, 0, 1).normalize().scale(9)).add(0, 2, 0);
             SingularityEntity.spawn(p.level(), at, p, 200, 8f, 0f, false);
