@@ -15,6 +15,10 @@ on:
         description: 'Only print javap lines matching this regex (optional)'
         required: false
         default: ''
+      flags:
+        description: 'javap visibility flag'
+        required: false
+        default: '-protected'
 
 jobs:
   dump:
@@ -40,6 +44,7 @@ jobs:
           CLASSES: ${{ inputs.classes }}
           LIST: ${{ inputs.list }}
           MEMBERS: ${{ inputs.members }}
+          FLAGS: ${{ inputs.flags }}
         run: |
           CP=$(cat classpath.txt)
           {
@@ -56,9 +61,9 @@ jobs:
             [ -z "$filt" ] && filt="$MEMBERS"
             echo "##### CLASS $c"
             if [ -n "$filt" ]; then
-              javap -cp "$CP" -protected "$c" 2>&1 | grep -E "$filt|^(public|protected|abstract|final|sealed| )*.*(class|interface|record|enum) [a-zA-Z.$]+|Error" | head -300
+              javap -cp "$CP" ${FLAGS:--protected} "$c" 2>&1 | grep -E "$filt|^(public|protected|abstract|final|sealed| )*.*(class|interface|record|enum) [a-zA-Z.$]+|Error" | head -300
             else
-              javap -cp "$CP" -protected "$c" 2>&1 | head -4000
+              javap -cp "$CP" ${FLAGS:--protected} "$c" 2>&1 | head -4000
             fi
           done
           } > dump.txt
