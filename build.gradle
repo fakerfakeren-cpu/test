@@ -25,7 +25,12 @@ minecraft {
             }
         }
 
-        register('client')
+        register('client') {
+            if (project.hasProperty('clienttest')) {
+                systemProperty 'astralfall.clienttest', 'true'
+                args '--quickPlaySingleplayer', 'world', '--width', '1280', '--height', '720'
+            }
+        }
 
         register('server') {
             args '--nogui'

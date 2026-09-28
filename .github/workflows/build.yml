@@ -27,6 +27,7 @@ jobs:
           cache-read-only: false
 
       - name: Build mod jar
+        id: build
         run: |
           chmod +x gradlew
           ./gradlew build --stacktrace 2>&1 | tee build.log
@@ -49,6 +50,27 @@ jobs:
           timeout 1500 ./gradlew runServer -Pselftest --stacktrace 2>&1 | tee server.log || true
           grep -q "\[SELFTEST\] RESULT: PASS" server.log
 
+      - name: Client smoke test (real client, screenshots)
+        id: clienttest
+        if: always() && steps.build.outcome == 'success'
+        run: |
+          sudo apt-get update -qq >/dev/null && sudo apt-get install -y -qq xvfb libgl1-mesa-dri mesa-utils >/dev/null
+          mkdir -p run/saves
+          if [ -d run/world ]; then rm -rf run/saves/world && cp -r run/world run/saves/world; fi
+          printf 'onboardAccessibility:false\nrenderDistance:10\nsimulationDistance:6\npauseOnLostFocus:false\nguiScale:2\nsoundCategory_master:0.0\nfov:0.35\n' > run/options.txt
+          export LIBGL_ALWAYS_SOFTWARE=1
+          timeout 1200 xvfb-run -a -s "-screen 0 1280x720x24" ./gradlew runClient -Pclienttest --stacktrace 2>&1 | tee client.log || true
+          ls -la run/screenshots || true
+          grep -q "\[CLIENTTEST\] RESULT: PASS" client.log
+
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: run/screenshots/
+          if-no-files-found: ignore
+
       - name: Upload mod jar
         if: always()
         uses: actions/upload-artifact@v4
@@ -65,6 +87,7 @@ jobs:
           path: |
             build.log
             server.log
+            client.log
             run/logs/
             run/crash-reports/
           if-no-files-found: ignore
@@ -80,5 +103,24 @@ jobs:
             grep -nE "(ERROR|FATAL)|Exception|Caused by|Failed to|Couldn't|Unknown|astralfall.*WARN|WARN.*astralfall|Missing|Invalid" server.log | grep -vE "Narrator|narrator|Realms|realms|Unknown custom packet" | head -250 || true
           fi
           for f in run/crash-reports/*; do [ -f "$f" ] && head -120 "$f"; done
+          echo "===== CLIENT PROBLEMS ====="
+          if [ -f client.log ]; then
+            grep -nE "(ERROR|FATAL)|Exception|Caused by|CLIENTTEST|Failed to load|Missing|Unable to" client.log | grep -vE "Narrator|narrator|Realms|realms|OpenAL|ALSA|audio|Sound|sound" | cut -c1-400 | head -250 || true
+          fi
           echo "===== SELFTEST ====="
           [ -f server.log ] && grep -F "[SELFTEST]" server.log | cut -c1-400 | tail -400 || true
+          echo "===== SCREENSHOTS ====="
+          python3 -m pip install -q pillow >/dev/null 2>&1 || true
+          python3 - <<'PY' || true
+          import glob, base64, io
+          from PIL import Image
+          for f in sorted(glob.glob('run/screenshots/astralfall_*.png')):
+              im = Image.open(f).convert('RGB')
+              im.thumbnail((800, 450))
+              buf = io.BytesIO()
+              im.save(buf, 'JPEG', quality=72)
+              data = base64.b64encode(buf.getvalue()).decode()
+              name = f.split('/')[-1]
+              for i in range(0, len(data), 3000):
+                  print('=SHOT ' + name + ' ' + str(i // 3000) + ' ' + data[i:i + 3000])
+          PY

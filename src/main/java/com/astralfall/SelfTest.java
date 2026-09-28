@@ -67,6 +67,7 @@ public final class SelfTest {
     }
 
     private static void step(String name, Runnable r) {
+        log("step: " + name + " (tick " + tick + ")");
         try {
             r.run();
         } catch (Throwable t) {
@@ -78,7 +79,29 @@ public final class SelfTest {
     public static void onServerStarted(ServerStartedEvent event) {
         if (!Boolean.getBoolean("astralfall.selftest")) return;
         active = true;
-        log("Astralfall self-test starting on " + event.getServer().getServerVersion());
+        MinecraftServer server = event.getServer();
+        log("Astralfall self-test starting on " + server.getServerVersion());
+        Thread watchdog = new Thread(() -> {
+            try {
+                Thread.sleep(6 * 60 * 1000L);
+            } catch (InterruptedException e) {
+                return;
+            }
+            if (active) {
+                Astralfall.LOGGER.error("[SELFTEST] WATCHDOG: scenario stalled at tick {}", tick);
+                for (var entry : Thread.getAllStackTraces().entrySet()) {
+                    if (entry.getKey().getName().contains("Server thread")) {
+                        StringBuilder sb = new StringBuilder();
+                        for (StackTraceElement el : entry.getValue()) sb.append("\n    at ").append(el);
+                        Astralfall.LOGGER.error("[SELFTEST] server thread stack:{}", sb);
+                    }
+                }
+                Astralfall.LOGGER.error("[SELFTEST] RESULT: FAIL (timeout)");
+                Runtime.getRuntime().halt(3);
+            }
+        }, "astralfall-selftest-watchdog");
+        watchdog.setDaemon(true);
+        watchdog.start();
     }
 
     public static void onServerTick(TickEvent.ServerTickEvent.Post event) {
@@ -86,6 +109,11 @@ public final class SelfTest {
         MinecraftServer server = event.server();
         ServerLevel level = server.overworld();
         tick++;
+        if (tick % 100 == 0) {
+            int n = 0;
+            for (Entity ignored : level.getAllEntities()) n++;
+            log("tick " + tick + " entities=" + n);
+        }
         try {
             run(server, level);
         } catch (Throwable t) {
@@ -217,8 +245,8 @@ public final class SelfTest {
     }
 
     private static void staticChecks(MinecraftServer server, ServerLevel level) {
-        check("items_registered", ModItems.ITEMS.getEntries().size() >= 60, "items=" + ModItems.ITEMS.getEntries().size());
-        check("blocks_registered", ModBlocks.BLOCKS.getEntries().size() >= 25, "blocks=" + ModBlocks.BLOCKS.getEntries().size());
+        check("items_registered", ModItems.ITEMS.getEntries().size() >= 58, "items=" + ModItems.ITEMS.getEntries().size());
+        check("blocks_registered", ModBlocks.BLOCKS.getEntries().size() >= 24, "blocks=" + ModBlocks.BLOCKS.getEntries().size());
         check("entities_registered", ModEntities.ENTITIES.getEntries().size() == 11, "entities=" + ModEntities.ENTITIES.getEntries().size());
         check("spawn_egg_bound", ModItems.VOID_STALKER_SPAWN_EGG.get().getDefaultInstance().getComponents().has(net.minecraft.core.component.DataComponents.ENTITY_DATA), "");
 
@@ -257,6 +285,13 @@ public final class SelfTest {
         BlockPos spawn = level.getRespawnData().pos();
         arena = new BlockPos(spawn.getX() + 300, 0, spawn.getZ() + 300);
         log("arena at " + arena);
+        // No player is online, so keep the arena loaded and entity-ticking.
+        int acx = (arena.getX() + 32) >> 4, acz = arena.getZ() >> 4;
+        int forced = 0;
+        for (int cx = acx - 6; cx <= acx + 6; cx++)
+            for (int cz = acz - 6; cz <= acz + 6; cz++)
+                if (level.setChunkForced(cx, cz, true)) forced++;
+        log("force-loaded " + forced + " arena chunks");
 
         long t0 = System.nanoTime();
         BlockPos found = level.findNearestMapStructure(ModTags.OBSERVATORY, spawn, 100, false);
