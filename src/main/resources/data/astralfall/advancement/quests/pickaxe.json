@@ -1,0 +1,38 @@
+{
+  "display": {
+    "icon": {
+      "id": "astralfall:starmetal_pickaxe"
+    },
+    "title": {
+      "translate": "quest.astralfall.pickaxe.title"
+    },
+    "description": {
+      "translate": "quest.astralfall.pickaxe.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "got": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "astralfall:starmetal_pickaxe"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "got"
+    ]
+  ],
+  "parent": "astralfall:quests/ingot",
+  "rewards": {
+    "experience": 30
+  }
+}

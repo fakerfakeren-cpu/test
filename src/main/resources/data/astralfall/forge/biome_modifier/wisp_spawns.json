@@ -1,0 +1,12 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#astralfall:has_impact_sites",
+  "spawners": [
+    {
+      "type": "astralfall:astral_wisp",
+      "weight": 10,
+      "minCount": 1,
+      "maxCount": 3
+    }
+  ]
+}

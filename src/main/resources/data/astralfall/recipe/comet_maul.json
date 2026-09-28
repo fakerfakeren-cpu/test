@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "MBM",
+    " T ",
+    " T "
+  ],
+  "key": {
+    "M": "astralfall:meteorite_rock",
+    "B": "astralfall:starmetal_block",
+    "T": "minecraft:stick"
+  },
+  "result": {
+    "id": "astralfall:comet_maul",
+    "count": 1
+  }
+}

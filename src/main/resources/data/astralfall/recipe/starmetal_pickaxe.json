@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "III",
+    " T ",
+    " T "
+  ],
+  "key": {
+    "I": "astralfall:starmetal_ingot",
+    "T": "minecraft:stick"
+  },
+  "result": {
+    "id": "astralfall:starmetal_pickaxe",
+    "count": 1
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "F",
+    "C",
+    "S"
+  ],
+  "key": {
+    "F": "astralfall:fallen_star",
+    "C": "astralfall:stellar_core",
+    "S": "astralfall:starblade"
+  },
+  "result": {
+    "id": "astralfall:eclipse_greatsword",
+    "count": 1
+  }
+}

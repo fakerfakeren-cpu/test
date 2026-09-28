@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "active=false": {
+      "model": "astralfall:block/starfire_vent"
+    },
+    "active=true": {
+      "model": "astralfall:block/starfire_vent_active"
+    }
+  }
+}

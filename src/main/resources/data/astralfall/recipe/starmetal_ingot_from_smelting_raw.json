@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "ingredient": "astralfall:raw_starmetal",
+  "result": {
+    "id": "astralfall:starmetal_ingot"
+  },
+  "experience": 1.0
+}

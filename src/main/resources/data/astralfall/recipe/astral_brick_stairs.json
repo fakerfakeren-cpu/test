@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "B  ",
+    "BB ",
+    "BBB"
+  ],
+  "key": {
+    "B": "astralfall:astral_bricks"
+  },
+  "result": {
+    "id": "astralfall:astral_brick_stairs",
+    "count": 4
+  }
+}

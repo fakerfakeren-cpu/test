@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "astralfall:starmetal_ingot"
+  ],
+  "result": {
+    "id": "astralfall:starmetal_nugget",
+    "count": 9
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    " N ",
+    "GSG",
+    "GGG"
+  ],
+  "key": {
+    "N": "minecraft:gold_nugget",
+    "G": "minecraft:glass",
+    "S": "astralfall:stardust"
+  },
+  "result": {
+    "id": "astralfall:star_jar",
+    "count": 1
+  }
+}

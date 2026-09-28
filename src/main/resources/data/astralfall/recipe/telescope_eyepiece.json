@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "GKG",
+    "IBI"
+  ],
+  "key": {
+    "G": "minecraft:gold_ingot",
+    "K": "astralfall:astral_glass",
+    "I": "astralfall:starmetal_ingot",
+    "B": "astralfall:starmetal_block"
+  },
+  "result": {
+    "id": "astralfall:telescope_eyepiece",
+    "count": 1
+  }
+}

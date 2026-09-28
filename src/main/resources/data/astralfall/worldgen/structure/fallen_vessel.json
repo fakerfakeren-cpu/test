@@ -1,0 +1,9 @@
+{
+  "type": "astralfall:blueprint",
+  "biomes": "#astralfall:has_structure/fallen_vessel",
+  "spawn_overrides": {},
+  "step": "surface_structures",
+  "terrain_adaptation": "none",
+  "blueprint": "fallen_vessel",
+  "y_offset": -2
+}

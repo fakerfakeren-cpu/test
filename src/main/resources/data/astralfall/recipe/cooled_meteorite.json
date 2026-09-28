@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "ingredient": "astralfall:meteorite_rock",
+  "result": {
+    "id": "astralfall:cooled_meteorite"
+  },
+  "experience": 0.1
+}

@@ -1,0 +1,38 @@
+{
+  "display": {
+    "icon": {
+      "id": "astralfall:crown_of_astraeus"
+    },
+    "title": {
+      "translate": "quest.astralfall.crown.title"
+    },
+    "description": {
+      "translate": "quest.astralfall.crown.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "got": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "astralfall:crown_of_astraeus"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "got"
+    ]
+  ],
+  "parent": "astralfall:quests/astraeus",
+  "rewards": {
+    "experience": 100
+  }
+}

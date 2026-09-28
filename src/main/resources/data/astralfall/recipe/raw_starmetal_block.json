@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "III",
+    "III",
+    "III"
+  ],
+  "key": {
+    "I": "astralfall:raw_starmetal"
+  },
+  "result": {
+    "id": "astralfall:raw_starmetal_block",
+    "count": 1
+  }
+}

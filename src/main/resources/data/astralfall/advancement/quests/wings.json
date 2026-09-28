@@ -1,0 +1,38 @@
+{
+  "display": {
+    "icon": {
+      "id": "astralfall:nebula_wings"
+    },
+    "title": {
+      "translate": "quest.astralfall.wings.title"
+    },
+    "description": {
+      "translate": "quest.astralfall.wings.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "got": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "astralfall:nebula_wings"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "got"
+    ]
+  ],
+  "parent": "astralfall:quests/astraeus",
+  "rewards": {
+    "experience": 150
+  }
+}

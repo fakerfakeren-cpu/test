@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "astralfall:voidwalker"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "astralfall:voidwalker"
+      }
+    ]
+  }
+}

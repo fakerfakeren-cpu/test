@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "astralfall:starmetal_helmet",
+    "astralfall:starmetal_chestplate",
+    "astralfall:starmetal_leggings",
+    "astralfall:starmetal_boots",
+    "astralfall:voidwalker_helmet",
+    "astralfall:voidwalker_chestplate",
+    "astralfall:voidwalker_leggings",
+    "astralfall:voidwalker_boots"
+  ]
+}

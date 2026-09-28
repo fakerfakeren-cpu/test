@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "VKV",
+    "KFK",
+    "VKV"
+  ],
+  "key": {
+    "V": "astralfall:void_essence",
+    "K": "astralfall:skyshard",
+    "F": "astralfall:fallen_star"
+  },
+  "result": {
+    "id": "astralfall:eclipse_sigil",
+    "count": 1
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "display": {
+    "icon": {
+      "id": "astralfall:starmetal_chestplate"
+    },
+    "title": {
+      "translate": "quest.astralfall.starmetal_armor.title"
+    },
+    "description": {
+      "translate": "quest.astralfall.starmetal_armor.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "got_0": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "astralfall:starmetal_helmet"
+          }
+        ]
+      }
+    },
+    "got_1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "astralfall:starmetal_chestplate"
+          }
+        ]
+      }
+    },
+    "got_2": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "astralfall:starmetal_leggings"
+          }
+        ]
+      }
+    },
+    "got_3": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "astralfall:starmetal_boots"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "got_0"
+    ],
+    [
+      "got_1"
+    ],
+    [
+      "got_2"
+    ],
+    [
+      "got_3"
+    ]
+  ],
+  "parent": "astralfall:quests/ingot",
+  "rewards": {
+    "experience": 60
+  }
+}

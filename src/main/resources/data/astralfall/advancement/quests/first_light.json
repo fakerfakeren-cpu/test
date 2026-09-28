@@ -1,0 +1,74 @@
+{
+  "display": {
+    "icon": {
+      "id": "astralfall:meteorite_rock"
+    },
+    "title": {
+      "translate": "quest.astralfall.first_light.title"
+    },
+    "description": {
+      "translate": "quest.astralfall.first_light.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "got_0": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "astralfall:meteorite_rock"
+          }
+        ]
+      }
+    },
+    "got_1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "astralfall:raw_starmetal"
+          }
+        ]
+      }
+    },
+    "got_2": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "astralfall:skyshard"
+          }
+        ]
+      }
+    },
+    "got_3": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "astralfall:starmetal_ore"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "got_0",
+      "got_1",
+      "got_2",
+      "got_3"
+    ]
+  ],
+  "parent": "astralfall:quests/root",
+  "rewards": {
+    "experience": 20,
+    "loot": [
+      "astralfall:quests/first_light"
+    ]
+  }
+}

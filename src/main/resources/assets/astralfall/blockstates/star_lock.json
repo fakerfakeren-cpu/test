@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "open=false": {
+      "model": "astralfall:block/star_lock"
+    },
+    "open=true": {
+      "model": "astralfall:block/star_lock_open"
+    }
+  }
+}

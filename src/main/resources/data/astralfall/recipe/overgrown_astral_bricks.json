@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "BV"
+  ],
+  "key": {
+    "B": "astralfall:astral_bricks",
+    "V": "minecraft:vine"
+  },
+  "result": {
+    "id": "astralfall:overgrown_astral_bricks",
+    "count": 1
+  }
+}

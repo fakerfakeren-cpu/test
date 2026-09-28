@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "id": "astralfall:astral_journal"
+    },
+    "title": {
+      "translate": "quest.astralfall.root.title"
+    },
+    "description": {
+      "translate": "quest.astralfall.root.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false,
+    "background": "astralfall:block/astral_bricks"
+  },
+  "criteria": {
+    "unlock": {
+      "trigger": "minecraft:tick"
+    }
+  },
+  "requirements": [
+    [
+      "unlock"
+    ]
+  ],
+  "rewards": {
+    "loot": [
+      "astralfall:quests/journal"
+    ]
+  }
+}

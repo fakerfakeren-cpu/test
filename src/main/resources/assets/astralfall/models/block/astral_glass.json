@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": {
+      "sprite": "astralfall:block/astral_glass",
+      "force_translucent": true
+    }
+  }
+}

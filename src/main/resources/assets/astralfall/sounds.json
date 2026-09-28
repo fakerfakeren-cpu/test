@@ -1,0 +1,277 @@
+{
+  "meteor_incoming": {
+    "subtitle": "subtitles.astralfall.meteor_incoming",
+    "sounds": [
+      {
+        "name": "astralfall:meteor_incoming1",
+        "volume": 1.0
+      },
+      {
+        "name": "astralfall:meteor_incoming2",
+        "volume": 1.0
+      }
+    ]
+  },
+  "meteor_impact": {
+    "subtitle": "subtitles.astralfall.meteor_impact",
+    "sounds": [
+      {
+        "name": "astralfall:meteor_impact1",
+        "volume": 1.0
+      },
+      {
+        "name": "astralfall:meteor_impact2",
+        "volume": 1.0
+      }
+    ]
+  },
+  "star_chime": {
+    "subtitle": "subtitles.astralfall.star_chime",
+    "sounds": [
+      {
+        "name": "astralfall:star_chime1",
+        "volume": 0.8
+      },
+      {
+        "name": "astralfall:star_chime2",
+        "volume": 0.8
+      },
+      {
+        "name": "astralfall:star_chime3",
+        "volume": 0.8
+      }
+    ]
+  },
+  "starstorm": {
+    "subtitle": "subtitles.astralfall.starstorm",
+    "sounds": [
+      {
+        "name": "astralfall:starstorm",
+        "volume": 1.0
+      }
+    ]
+  },
+  "wisp_ambient": {
+    "subtitle": "subtitles.astralfall.wisp_ambient",
+    "sounds": [
+      {
+        "name": "astralfall:wisp_ambient1",
+        "volume": 0.6
+      },
+      {
+        "name": "astralfall:wisp_ambient2",
+        "volume": 0.6
+      }
+    ]
+  },
+  "wisp_hurt": {
+    "subtitle": "subtitles.astralfall.wisp_hurt",
+    "sounds": [
+      {
+        "name": "astralfall:wisp_hurt",
+        "volume": 0.8
+      }
+    ]
+  },
+  "stalker_ambient": {
+    "subtitle": "subtitles.astralfall.stalker_ambient",
+    "sounds": [
+      {
+        "name": "astralfall:stalker_ambient1",
+        "volume": 1.0
+      },
+      {
+        "name": "astralfall:stalker_ambient2",
+        "volume": 1.0
+      }
+    ]
+  },
+  "stalker_scream": {
+    "subtitle": "subtitles.astralfall.stalker_scream",
+    "sounds": [
+      {
+        "name": "astralfall:stalker_scream",
+        "volume": 1.0
+      }
+    ]
+  },
+  "stalker_blink": {
+    "subtitle": "subtitles.astralfall.stalker_blink",
+    "sounds": [
+      {
+        "name": "astralfall:stalker_blink",
+        "volume": 1.0
+      }
+    ]
+  },
+  "crawler_roll": {
+    "subtitle": "subtitles.astralfall.crawler_roll",
+    "sounds": [
+      {
+        "name": "astralfall:crawler_roll",
+        "volume": 1.0
+      }
+    ]
+  },
+  "crawler_hurt": {
+    "subtitle": "subtitles.astralfall.crawler_hurt",
+    "sounds": [
+      {
+        "name": "astralfall:crawler_hurt",
+        "volume": 1.0
+      }
+    ]
+  },
+  "gazer_charge": {
+    "subtitle": "subtitles.astralfall.gazer_charge",
+    "sounds": [
+      {
+        "name": "astralfall:gazer_charge",
+        "volume": 1.0
+      }
+    ]
+  },
+  "gazer_beam": {
+    "subtitle": "subtitles.astralfall.gazer_beam",
+    "sounds": [
+      {
+        "name": "astralfall:gazer_beam",
+        "volume": 1.0
+      }
+    ]
+  },
+  "boss_roar": {
+    "subtitle": "subtitles.astralfall.boss_roar",
+    "sounds": [
+      {
+        "name": "astralfall:boss_roar1",
+        "volume": 1.0
+      },
+      {
+        "name": "astralfall:boss_roar2",
+        "volume": 1.0
+      }
+    ]
+  },
+  "boss_summon": {
+    "subtitle": "subtitles.astralfall.boss_summon",
+    "sounds": [
+      {
+        "name": "astralfall:boss_summon",
+        "volume": 1.0
+      }
+    ]
+  },
+  "boss_beam": {
+    "subtitle": "subtitles.astralfall.boss_beam",
+    "sounds": [
+      {
+        "name": "astralfall:boss_beam",
+        "volume": 1.0
+      }
+    ]
+  },
+  "boss_death": {
+    "subtitle": "subtitles.astralfall.boss_death",
+    "sounds": [
+      {
+        "name": "astralfall:boss_death",
+        "volume": 1.0
+      }
+    ]
+  },
+  "shockwave": {
+    "subtitle": "subtitles.astralfall.shockwave",
+    "sounds": [
+      {
+        "name": "astralfall:shockwave",
+        "volume": 1.0
+      }
+    ]
+  },
+  "singularity_hum": {
+    "subtitle": "subtitles.astralfall.singularity_hum",
+    "sounds": [
+      {
+        "name": "astralfall:singularity_hum",
+        "volume": 1.0
+      }
+    ]
+  },
+  "singularity_collapse": {
+    "subtitle": "subtitles.astralfall.singularity_collapse",
+    "sounds": [
+      {
+        "name": "astralfall:singularity_collapse",
+        "volume": 1.0
+      }
+    ]
+  },
+  "star_slash": {
+    "subtitle": "subtitles.astralfall.star_slash",
+    "sounds": [
+      {
+        "name": "astralfall:star_slash1",
+        "volume": 1.0
+      },
+      {
+        "name": "astralfall:star_slash2",
+        "volume": 1.0
+      }
+    ]
+  },
+  "star_bolt": {
+    "subtitle": "subtitles.astralfall.star_bolt",
+    "sounds": [
+      {
+        "name": "astralfall:star_bolt",
+        "volume": 0.8
+      }
+    ]
+  },
+  "gravity_grab": {
+    "subtitle": "subtitles.astralfall.gravity_grab",
+    "sounds": [
+      {
+        "name": "astralfall:gravity_grab",
+        "volume": 1.0
+      }
+    ]
+  },
+  "gravity_throw": {
+    "subtitle": "subtitles.astralfall.gravity_throw",
+    "sounds": [
+      {
+        "name": "astralfall:gravity_throw",
+        "volume": 1.0
+      }
+    ]
+  },
+  "void_blink": {
+    "subtitle": "subtitles.astralfall.void_blink",
+    "sounds": [
+      {
+        "name": "astralfall:void_blink",
+        "volume": 1.0
+      }
+    ]
+  },
+  "eclipse_nova": {
+    "subtitle": "subtitles.astralfall.eclipse_nova",
+    "sounds": [
+      {
+        "name": "astralfall:eclipse_nova",
+        "volume": 1.0
+      }
+    ]
+  },
+  "vault_open": {
+    "subtitle": "subtitles.astralfall.vault_open",
+    "sounds": [
+      {
+        "name": "astralfall:vault_open",
+        "volume": 1.0
+      }
+    ]
+  }
+}

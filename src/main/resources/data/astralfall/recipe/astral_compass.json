@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " K ",
+    "KCK",
+    " K "
+  ],
+  "key": {
+    "K": "astralfall:skyshard",
+    "C": "minecraft:compass"
+  },
+  "result": {
+    "id": "astralfall:astral_compass",
+    "count": 1
+  }
+}

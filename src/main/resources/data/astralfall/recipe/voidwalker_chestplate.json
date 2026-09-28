@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "V V",
+    "VIV",
+    "VVV"
+  ],
+  "key": {
+    "V": "astralfall:void_essence",
+    "I": "astralfall:starmetal_ingot"
+  },
+  "result": {
+    "id": "astralfall:voidwalker_chestplate",
+    "count": 1
+  }
+}

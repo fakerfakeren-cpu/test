@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "astralfall:block/skyshard_cluster"
+  }
+}

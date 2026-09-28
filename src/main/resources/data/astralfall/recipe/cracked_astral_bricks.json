@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "ingredient": "astralfall:astral_bricks",
+  "result": {
+    "id": "astralfall:cracked_astral_bricks"
+  },
+  "experience": 0.1
+}

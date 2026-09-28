@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "active=false": {
+      "model": "astralfall:block/gravity_rune"
+    },
+    "active=true": {
+      "model": "astralfall:block/gravity_rune_active"
+    }
+  }
+}

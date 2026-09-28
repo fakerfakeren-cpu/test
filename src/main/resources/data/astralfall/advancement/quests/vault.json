@@ -1,0 +1,38 @@
+{
+  "display": {
+    "icon": {
+      "id": "astralfall:constellation_bow"
+    },
+    "title": {
+      "translate": "quest.astralfall.vault.title"
+    },
+    "description": {
+      "translate": "quest.astralfall.vault.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "got": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "astralfall:constellation_bow"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "got"
+    ]
+  ],
+  "parent": "astralfall:quests/observatory",
+  "rewards": {
+    "experience": 120
+  }
+}
