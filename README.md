@@ -52,11 +52,12 @@ rendering, HUD hidden).
 
 That is the whole install. No other files are needed.
 
-> **About "Worlds using Experimental Settings are not supported"**: vanilla shows this prompt for every mod
-> that adds world generation through data packs (Astralfall adds structures and meteor impact sites).
-> Astralfall answers it for you automatically, the same as clicking "I Know What I'm Doing!". To get the
-> prompt back, set `skipExperimentalWarning = false` in `config/astralfall-common.toml`. If it ever
-> still appears, click **"I Know What I'm Doing!"**. The world is fine.
+> **About the "Experimental Settings" warnings**: vanilla flags every mod that adds world generation
+> through data packs (Astralfall adds structures and meteor impact sites). You'd normally see a warning
+> when creating a world, and "Worlds using Experimental Settings are not supported" when opening a world
+> that hasn't confirmed it yet. Astralfall answers both for you automatically, the same as clicking
+> "Proceed" / "I Know What I'm Doing!". To get the prompts back, set `skipExperimentalWarning = false` in
+> `config/astralfall-common.toml`. If one ever still appears, confirm it. The world is fine.
 
 ---
 

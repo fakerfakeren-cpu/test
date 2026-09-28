@@ -70,7 +70,7 @@ jobs:
               sleep 4
               if grep -q "world joined" client.log; then sleep 2; xdotool mousemove 640 360 key F1 >/dev/null 2>&1; echo "HUD hidden (F1)"; break; fi
               # fallback only: the mod skips the prompt itself (config skipExperimentalWarning)
-              [ $i -gt 20 ] && grep -q "waiting for world" client.log && xdotool mousemove 800 274 click 1 >/dev/null 2>&1
+              [ $i -gt 20 ] && ! grep -q "Skipped the" client.log && grep -q "waiting for world" client.log && xdotool mousemove 800 274 click 1 >/dev/null 2>&1
             done ) &
           wait $GPID
           SH

@@ -2,8 +2,10 @@ package com.astralfall.client;
 
 import com.astralfall.Astralfall;
 import com.astralfall.Config;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.BackupConfirmScreen;
 import net.minecraft.client.gui.screens.ConfirmScreen;
+import net.minecraft.client.gui.screens.GenericMessageScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.client.event.ScreenEvent;
@@ -15,8 +17,8 @@ import java.lang.reflect.Modifier;
 
 /**
  * Astralfall's structures and impact sites are data-pack world generation, which vanilla flags as
- * "experimental": every world load asks "Worlds using Experimental Settings are not supported" and world
- * creation shows an experimental-settings warning. This answers those two prompts the way a player
+ * "experimental": creating a world shows an experimental-settings warning, and loading a world that has not
+ * confirmed it yet (e.g. one made by a dedicated server) asks "Worlds using Experimental Settings are not supported". This answers those two prompts the way a player
  * clicking "I Know What I'm Doing!" / "Proceed" would, one tick after they open. Other prompts are untouched.
  */
 public final class ExperimentalWarningSkipper {
@@ -47,6 +49,9 @@ public final class ExperimentalWarningSkipper {
                 Object listener = field.get(screen);
                 // Listener.proceed(boolean backup, boolean eraseCache)
                 if (invoke(listener, field.getType(), false, false)) {
+                    // Take the prompt off screen straight away (the world load continues asynchronously), so its
+                    // buttons cannot be pressed a second time and start a second, conflicting load.
+                    Minecraft.getInstance().setScreenAndShow(new GenericMessageScreen(Component.translatable("selectWorld.data_read")));
                     Astralfall.LOGGER.info("Skipped the 'Experimental Settings' world-load prompt (config: skipExperimentalWarning)");
                 }
             } else {
