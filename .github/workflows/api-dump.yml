@@ -58,7 +58,7 @@ jobs:
             if [ -n "$filt" ]; then
               javap -cp "$CP" -protected "$c" 2>&1 | grep -E "$filt|^(public|protected|abstract|final|sealed| )*.*(class|interface|record|enum) [a-zA-Z.$]+|Error" | head -300
             else
-              javap -cp "$CP" -protected "$c" 2>&1 | head -500
+              javap -cp "$CP" -protected "$c" 2>&1 | head -4000
             fi
           done
           } > dump.txt
