@@ -32,6 +32,11 @@ Stars**.
 
 That is the whole install. No other files are needed.
 
+> **"Worlds using Experimental Settings are not supported"**: when you load a world, Minecraft shows this
+> for every mod that adds world generation through data packs (Astralfall adds structures and meteor
+> impact sites). Click **"I Know What I'm Doing!"**. The world is fine. For a clean recording, open the
+> world once before you start filming.
+
 ---
 
 ## Filming it fast (showcase mode)

@@ -55,14 +55,26 @@ jobs:
         id: clienttest
         if: always() && steps.build.outcome == 'success'
         run: |
-          sudo apt-get update -qq >/dev/null && sudo apt-get install -y -qq xvfb libgl1-mesa-dri mesa-utils >/dev/null
+          sudo apt-get update -qq >/dev/null && sudo apt-get install -y -qq xvfb xdotool libgl1-mesa-dri mesa-utils >/dev/null
           mkdir -p run/saves
           if [ -d run/world ]; then rm -rf run/saves/world && cp -r run/world run/saves/world && rm -f run/saves/world/session.lock; fi
           ls run/saves/world || echo "no world to copy"
-
           printf 'onboardAccessibility:false\nrenderDistance:10\nsimulationDistance:6\npauseOnLostFocus:false\nguiScale:2\nsoundCategory_master:0.0\nfov:0.35\n' > run/options.txt
           export LIBGL_ALWAYS_SOFTWARE=1
-          timeout 1200 xvfb-run -a -s "-screen 0 1280x720x24" ./gradlew runClient -Pclienttest --stacktrace 2>&1 | tee client.log || true
+          # Worlds with data-pack worldgen show vanilla's "Experimental Settings" prompt on load;
+          # click "I Know What I'm Doing!" (centre-right button at 1280x720, GUI scale 2) until the world is joined.
+          cat > clienttest.sh <<'SH'
+          ./gradlew runClient -Pclienttest --stacktrace > client.log 2>&1 &
+          GPID=$!
+          ( for i in $(seq 1 150); do
+              sleep 4
+              grep -q "world joined" client.log && break
+              grep -q "waiting for world" client.log && xdotool mousemove 800 274 click 1 >/dev/null 2>&1
+            done ) &
+          wait $GPID
+          SH
+          sed -i 's/^          //' clienttest.sh
+          timeout 1200 xvfb-run -a -s "-screen 0 1280x720x24" bash clienttest.sh || true
           ls -la run/screenshots || true
           grep -q "\[CLIENTTEST\] RESULT: PASS" client.log
 

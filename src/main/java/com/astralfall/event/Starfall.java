@@ -121,6 +121,11 @@ public final class Starfall {
         double height = steep ? 70 : 95 + rand.nextDouble() * 35;
         double startY = Math.min(level.getMaxY() + 40, impact.y + height);
         Vec3 start = new Vec3(impact.x + Math.cos(angle) * horiz, startY, impact.z + Math.sin(angle) * horiz);
+        // A meteor that starts in a chunk that is not entity-ticking would hang frozen in the sky:
+        // pull the start point towards the impact until it is somewhere that ticks.
+        for (int i = 0; i < 6 && !level.isPositionEntityTicking(BlockPos.containing(start.x, impact.y, start.z)); i++) {
+            start = impact.add(start.subtract(impact).scale(0.7));
+        }
         double speed = switch (variant) {
             case SMALL -> 2.6;
             case BOSS -> 2.2;

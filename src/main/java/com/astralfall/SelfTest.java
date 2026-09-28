@@ -206,9 +206,14 @@ public final class SelfTest {
             case 2100 -> step("boss death", () -> {
                 if (boss == null) return;
                 check("astraeus_phase3", boss.getPhase() >= 3, "phase=" + boss.getPhase());
-                boss.hurtServer(level, level.damageSources().generic(), 45f);
+                float before = boss.getHealth();
+                boss.hurtServer(level, level.damageSources().generic(), 1000f);
+                check("astraeus_damage_capped", before - boss.getHealth() <= 45.01f, "took " + (before - boss.getHealth()));
+                // Next hit lands after the normal invulnerability window, like a second player swing would.
+                boss.invulnerableTime = 0;
                 boss.setHealth(0.5f);
                 boss.hurtServer(level, level.damageSources().generic(), 10f);
+                check("astraeus_dies", boss.isDeadOrDying(), "hp=" + boss.getHealth());
             });
             case 2260 -> step("boss loot", () -> {
                 if (boss == null) return;
