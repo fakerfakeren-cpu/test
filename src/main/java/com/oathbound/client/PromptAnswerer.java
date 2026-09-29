@@ -42,7 +42,6 @@ public final class PromptAnswerer {
         Screen s = waiting;
         if (s == null) return;
         waiting = null;
-        if (Minecraft.getInstance().screen != s) return;
         boolean done = s instanceof BackupConfirmScreen ? pressProceed(s, BackupConfirmScreen.class, false) : pressProceed(s, ConfirmScreen.class, true);
         Oathbound.LOGGER.info(done ? "Answered the experimental-settings prompt ({})" : "Could not answer the experimental-settings prompt ({})",
             s.getClass().getSimpleName());

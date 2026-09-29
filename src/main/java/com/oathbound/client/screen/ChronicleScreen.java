@@ -192,7 +192,8 @@ public class ChronicleScreen extends Screen {
     }
 
     private void sound(boolean page) {
-        Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(page ? SoundEvents.BOOK_PAGE_TURN : SoundEvents.UI_BUTTON_CLICK, page ? 1.0f : 1.3f));
+        Minecraft.getInstance().getSoundManager().play(page ? SimpleSoundInstance.forUI(SoundEvents.BOOK_PAGE_TURN, 1.0f)
+            : SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.3f));
     }
 
     @Override

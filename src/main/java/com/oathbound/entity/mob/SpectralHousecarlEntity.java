@@ -105,9 +105,9 @@ public class SpectralHousecarlEntity extends Monster {
     }
 
     @Override
-    public boolean isAlliedTo(Entity other) {
+    protected boolean considersEntityAsAlly(Entity other) {
         if (isAlly() && owner != null && (other.getUUID().equals(owner) || other instanceof SpectralHousecarlEntity h && h.isAlly())) return true;
-        return super.isAlliedTo(other);
+        return super.considersEntityAsAlly(other);
     }
 
     @Override

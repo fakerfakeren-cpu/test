@@ -36,6 +36,7 @@ jobs:
           java-version: '25'
       - uses: gradle/actions/setup-gradle@v4
         with:
+          cache-cleanup: never
           cache-read-only: false
       - name: Resolve classpath
         run: |

@@ -270,11 +270,12 @@ public final class SelfTest {
                 ServerLevel level = s.overworld();
                 int x = 400 + base, z = 520;
                 BlockPos at = new BlockPos(x, ground(level, x, z) + 1, z);
-                KeeperEntity k = (KeeperEntity) spawn(level, switch (keeper) {
+                EntityType<? extends KeeperEntity> type = switch (keeper) {
                     case "caldris" -> ModEntities.SIR_CALDRIS.get();
                     case "veyl" -> ModEntities.ARCHMAGE_VEYL.get();
                     default -> ModEntities.HRODGAR.get();
-                }, at);
+                };
+                KeeperEntity k = spawn(level, type, at);
                 k.wake(level, null);
                 check(keeper + "_awake", !k.isSleeping(), "");
             });

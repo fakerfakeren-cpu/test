@@ -28,7 +28,7 @@ import java.util.function.Consumer;
  * Chronicle, and saves a screenshot of each scene. Proves the renderers, models, textures and GUI on a real client.
  */
 public final class Showcase {
-    private record Scene(int wait, String name, Consumer<Minecraft> action) {}
+    private record Scene(int delay, String name, Consumer<Minecraft> action) {}
 
     private static final List<Scene> SCENES = new ArrayList<>();
     private static int cursor = -1;
@@ -132,7 +132,6 @@ public final class Showcase {
             run(mc, "gamerule send_command_feedback false");
             run(mc, "weather clear");
             run(mc, "time set 12600");
-            mc.options.hideGui = true;
         });
         scene(60, "wayshrine", mc -> {
             Vec3 s = site(mc, 0);
@@ -235,7 +234,6 @@ public final class Showcase {
             run(mc, "gamemode creative");
             run(mc, "give @s oathbound:lantern_chronicle");
             for (String q : List.of("lantern", "wayshrine", "hymn", "oathsteel_arms", "lanternmoth")) run(mc, "oathbound stage " + q);
-            mc.options.hideGui = false;
         });
         String[] tabs = {"path", "story", "tithes", "bestiary", "armory"};
         int[] ids = {ChronicleScreen.TAB_PATH, ChronicleScreen.TAB_STORY, ChronicleScreen.TAB_TITHES, ChronicleScreen.TAB_BESTIARY, ChronicleScreen.TAB_ARMORY};
@@ -277,6 +275,6 @@ public final class Showcase {
         } catch (Throwable t) {
             Oathbound.LOGGER.error("[CLIENTTEST] scene {} failed", s.name(), t);
         }
-        countdown = cursor < SCENES.size() ? SCENES.get(cursor).wait() : 0;
+        countdown = cursor < SCENES.size() ? SCENES.get(cursor).delay() : 0;
     }
 }

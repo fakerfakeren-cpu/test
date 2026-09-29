@@ -67,7 +67,7 @@ public final class Puzzles {
     public static int unseal(ServerLevel level, BlockPos center, int radius, Block block, ParticleOptions particle, SoundEvent sound) {
         List<BlockPos> found = find(level, center, radius, block);
         if (found.isEmpty()) return 0;
-        found.sort(Comparator.comparingInt(BlockPos::getY).reversed());
+        found.sort((a, b) -> Integer.compare(b.getY(), a.getY()));
         int maxY = found.get(0).getY();
         level.playSound(null, center, sound, SoundSource.BLOCKS, 2.0f, 1.0f);
         for (BlockPos p : found) {
