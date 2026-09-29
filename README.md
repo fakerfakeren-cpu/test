@@ -112,14 +112,14 @@ Hearthfire Stew thaws you instantly. Winter creatures are immune to chill.
 | **Rimebow** | Fires icicles without arrows. Full draws hit harder and chill more |
 | **Blizzard Staff** | Hold to breathe a cone of blizzard for up to 5 s. Light damage, heavy chill |
 | **Frost Charge** | Thrown. Chills mobs in a burst and turns nearby water into temporary frosted ice |
-| **Winterfang** | Boss-tier blade, about netherite damage. Heavy chill, +40% Shatter. Use: **Absolute Zero** freezes every enemy within 8 blocks (20 s cooldown) |
+| **Winterfang** | Boss-tier blade: 9 damage (a netherite sword does 8), 1800 durability. Heavy chill, +40% Shatter. Use: **Absolute Zero** freezes every enemy within 8 blocks (20 s cooldown) |
 | **Winter Horn** | Sound it at a Glacial Altar to summon the Frost Sovereign |
 | **Hearthfire Stew** | Food. Removes freezing and grants Regeneration |
 
 ### Armour
 | Set | Stats | Full-set bonus |
 |---|---|---|
-| **Frostiron** | 16 armour, 0.5 toughness per set (between iron and diamond) | **Glacial Stride:** water freezes underfoot, and melee attackers are chilled |
+| **Frostiron** | 16 armour for the full set, 0.5 toughness per piece (between iron and diamond) | **Glacial Stride:** water freezes underfoot, and melee attackers are chilled |
 | **Wraithweave** | 13 armour, high enchantability | **Spectral Step:** speed on snow and ice. **Fade:** below 30% health you turn invisible with Speed II and nearby monsters lose you (90 s cooldown) |
 
 ### Creatures
