@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "oathbound:block/gloam_moss"
+      },
+      {
+        "model": "oathbound:block/gloam_moss",
+        "y": 90
+      },
+      {
+        "model": "oathbound:block/gloam_moss",
+        "y": 180
+      },
+      {
+        "model": "oathbound:block/gloam_moss",
+        "y": 270
+      }
+    ]
+  }
+}

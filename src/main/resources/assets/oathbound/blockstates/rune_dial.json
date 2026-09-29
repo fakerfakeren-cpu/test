@@ -1,0 +1,364 @@
+{
+  "variants": {
+    "facing=north,glyph=0,number=0": {
+      "model": "oathbound:block/rune_dial_0_0"
+    },
+    "facing=east,glyph=0,number=0": {
+      "model": "oathbound:block/rune_dial_0_0",
+      "y": 90
+    },
+    "facing=south,glyph=0,number=0": {
+      "model": "oathbound:block/rune_dial_0_0",
+      "y": 180
+    },
+    "facing=west,glyph=0,number=0": {
+      "model": "oathbound:block/rune_dial_0_0",
+      "y": 270
+    },
+    "facing=north,glyph=0,number=1": {
+      "model": "oathbound:block/rune_dial_0_1"
+    },
+    "facing=east,glyph=0,number=1": {
+      "model": "oathbound:block/rune_dial_0_1",
+      "y": 90
+    },
+    "facing=south,glyph=0,number=1": {
+      "model": "oathbound:block/rune_dial_0_1",
+      "y": 180
+    },
+    "facing=west,glyph=0,number=1": {
+      "model": "oathbound:block/rune_dial_0_1",
+      "y": 270
+    },
+    "facing=north,glyph=0,number=2": {
+      "model": "oathbound:block/rune_dial_0_2"
+    },
+    "facing=east,glyph=0,number=2": {
+      "model": "oathbound:block/rune_dial_0_2",
+      "y": 90
+    },
+    "facing=south,glyph=0,number=2": {
+      "model": "oathbound:block/rune_dial_0_2",
+      "y": 180
+    },
+    "facing=west,glyph=0,number=2": {
+      "model": "oathbound:block/rune_dial_0_2",
+      "y": 270
+    },
+    "facing=north,glyph=0,number=3": {
+      "model": "oathbound:block/rune_dial_0_3"
+    },
+    "facing=east,glyph=0,number=3": {
+      "model": "oathbound:block/rune_dial_0_3",
+      "y": 90
+    },
+    "facing=south,glyph=0,number=3": {
+      "model": "oathbound:block/rune_dial_0_3",
+      "y": 180
+    },
+    "facing=west,glyph=0,number=3": {
+      "model": "oathbound:block/rune_dial_0_3",
+      "y": 270
+    },
+    "facing=north,glyph=1,number=0": {
+      "model": "oathbound:block/rune_dial_1_0"
+    },
+    "facing=east,glyph=1,number=0": {
+      "model": "oathbound:block/rune_dial_1_0",
+      "y": 90
+    },
+    "facing=south,glyph=1,number=0": {
+      "model": "oathbound:block/rune_dial_1_0",
+      "y": 180
+    },
+    "facing=west,glyph=1,number=0": {
+      "model": "oathbound:block/rune_dial_1_0",
+      "y": 270
+    },
+    "facing=north,glyph=1,number=1": {
+      "model": "oathbound:block/rune_dial_1_1"
+    },
+    "facing=east,glyph=1,number=1": {
+      "model": "oathbound:block/rune_dial_1_1",
+      "y": 90
+    },
+    "facing=south,glyph=1,number=1": {
+      "model": "oathbound:block/rune_dial_1_1",
+      "y": 180
+    },
+    "facing=west,glyph=1,number=1": {
+      "model": "oathbound:block/rune_dial_1_1",
+      "y": 270
+    },
+    "facing=north,glyph=1,number=2": {
+      "model": "oathbound:block/rune_dial_1_2"
+    },
+    "facing=east,glyph=1,number=2": {
+      "model": "oathbound:block/rune_dial_1_2",
+      "y": 90
+    },
+    "facing=south,glyph=1,number=2": {
+      "model": "oathbound:block/rune_dial_1_2",
+      "y": 180
+    },
+    "facing=west,glyph=1,number=2": {
+      "model": "oathbound:block/rune_dial_1_2",
+      "y": 270
+    },
+    "facing=north,glyph=1,number=3": {
+      "model": "oathbound:block/rune_dial_1_3"
+    },
+    "facing=east,glyph=1,number=3": {
+      "model": "oathbound:block/rune_dial_1_3",
+      "y": 90
+    },
+    "facing=south,glyph=1,number=3": {
+      "model": "oathbound:block/rune_dial_1_3",
+      "y": 180
+    },
+    "facing=west,glyph=1,number=3": {
+      "model": "oathbound:block/rune_dial_1_3",
+      "y": 270
+    },
+    "facing=north,glyph=2,number=0": {
+      "model": "oathbound:block/rune_dial_2_0"
+    },
+    "facing=east,glyph=2,number=0": {
+      "model": "oathbound:block/rune_dial_2_0",
+      "y": 90
+    },
+    "facing=south,glyph=2,number=0": {
+      "model": "oathbound:block/rune_dial_2_0",
+      "y": 180
+    },
+    "facing=west,glyph=2,number=0": {
+      "model": "oathbound:block/rune_dial_2_0",
+      "y": 270
+    },
+    "facing=north,glyph=2,number=1": {
+      "model": "oathbound:block/rune_dial_2_1"
+    },
+    "facing=east,glyph=2,number=1": {
+      "model": "oathbound:block/rune_dial_2_1",
+      "y": 90
+    },
+    "facing=south,glyph=2,number=1": {
+      "model": "oathbound:block/rune_dial_2_1",
+      "y": 180
+    },
+    "facing=west,glyph=2,number=1": {
+      "model": "oathbound:block/rune_dial_2_1",
+      "y": 270
+    },
+    "facing=north,glyph=2,number=2": {
+      "model": "oathbound:block/rune_dial_2_2"
+    },
+    "facing=east,glyph=2,number=2": {
+      "model": "oathbound:block/rune_dial_2_2",
+      "y": 90
+    },
+    "facing=south,glyph=2,number=2": {
+      "model": "oathbound:block/rune_dial_2_2",
+      "y": 180
+    },
+    "facing=west,glyph=2,number=2": {
+      "model": "oathbound:block/rune_dial_2_2",
+      "y": 270
+    },
+    "facing=north,glyph=2,number=3": {
+      "model": "oathbound:block/rune_dial_2_3"
+    },
+    "facing=east,glyph=2,number=3": {
+      "model": "oathbound:block/rune_dial_2_3",
+      "y": 90
+    },
+    "facing=south,glyph=2,number=3": {
+      "model": "oathbound:block/rune_dial_2_3",
+      "y": 180
+    },
+    "facing=west,glyph=2,number=3": {
+      "model": "oathbound:block/rune_dial_2_3",
+      "y": 270
+    },
+    "facing=north,glyph=3,number=0": {
+      "model": "oathbound:block/rune_dial_3_0"
+    },
+    "facing=east,glyph=3,number=0": {
+      "model": "oathbound:block/rune_dial_3_0",
+      "y": 90
+    },
+    "facing=south,glyph=3,number=0": {
+      "model": "oathbound:block/rune_dial_3_0",
+      "y": 180
+    },
+    "facing=west,glyph=3,number=0": {
+      "model": "oathbound:block/rune_dial_3_0",
+      "y": 270
+    },
+    "facing=north,glyph=3,number=1": {
+      "model": "oathbound:block/rune_dial_3_1"
+    },
+    "facing=east,glyph=3,number=1": {
+      "model": "oathbound:block/rune_dial_3_1",
+      "y": 90
+    },
+    "facing=south,glyph=3,number=1": {
+      "model": "oathbound:block/rune_dial_3_1",
+      "y": 180
+    },
+    "facing=west,glyph=3,number=1": {
+      "model": "oathbound:block/rune_dial_3_1",
+      "y": 270
+    },
+    "facing=north,glyph=3,number=2": {
+      "model": "oathbound:block/rune_dial_3_2"
+    },
+    "facing=east,glyph=3,number=2": {
+      "model": "oathbound:block/rune_dial_3_2",
+      "y": 90
+    },
+    "facing=south,glyph=3,number=2": {
+      "model": "oathbound:block/rune_dial_3_2",
+      "y": 180
+    },
+    "facing=west,glyph=3,number=2": {
+      "model": "oathbound:block/rune_dial_3_2",
+      "y": 270
+    },
+    "facing=north,glyph=3,number=3": {
+      "model": "oathbound:block/rune_dial_3_3"
+    },
+    "facing=east,glyph=3,number=3": {
+      "model": "oathbound:block/rune_dial_3_3",
+      "y": 90
+    },
+    "facing=south,glyph=3,number=3": {
+      "model": "oathbound:block/rune_dial_3_3",
+      "y": 180
+    },
+    "facing=west,glyph=3,number=3": {
+      "model": "oathbound:block/rune_dial_3_3",
+      "y": 270
+    },
+    "facing=north,glyph=4,number=0": {
+      "model": "oathbound:block/rune_dial_4_0"
+    },
+    "facing=east,glyph=4,number=0": {
+      "model": "oathbound:block/rune_dial_4_0",
+      "y": 90
+    },
+    "facing=south,glyph=4,number=0": {
+      "model": "oathbound:block/rune_dial_4_0",
+      "y": 180
+    },
+    "facing=west,glyph=4,number=0": {
+      "model": "oathbound:block/rune_dial_4_0",
+      "y": 270
+    },
+    "facing=north,glyph=4,number=1": {
+      "model": "oathbound:block/rune_dial_4_1"
+    },
+    "facing=east,glyph=4,number=1": {
+      "model": "oathbound:block/rune_dial_4_1",
+      "y": 90
+    },
+    "facing=south,glyph=4,number=1": {
+      "model": "oathbound:block/rune_dial_4_1",
+      "y": 180
+    },
+    "facing=west,glyph=4,number=1": {
+      "model": "oathbound:block/rune_dial_4_1",
+      "y": 270
+    },
+    "facing=north,glyph=4,number=2": {
+      "model": "oathbound:block/rune_dial_4_2"
+    },
+    "facing=east,glyph=4,number=2": {
+      "model": "oathbound:block/rune_dial_4_2",
+      "y": 90
+    },
+    "facing=south,glyph=4,number=2": {
+      "model": "oathbound:block/rune_dial_4_2",
+      "y": 180
+    },
+    "facing=west,glyph=4,number=2": {
+      "model": "oathbound:block/rune_dial_4_2",
+      "y": 270
+    },
+    "facing=north,glyph=4,number=3": {
+      "model": "oathbound:block/rune_dial_4_3"
+    },
+    "facing=east,glyph=4,number=3": {
+      "model": "oathbound:block/rune_dial_4_3",
+      "y": 90
+    },
+    "facing=south,glyph=4,number=3": {
+      "model": "oathbound:block/rune_dial_4_3",
+      "y": 180
+    },
+    "facing=west,glyph=4,number=3": {
+      "model": "oathbound:block/rune_dial_4_3",
+      "y": 270
+    },
+    "facing=north,glyph=5,number=0": {
+      "model": "oathbound:block/rune_dial_5_0"
+    },
+    "facing=east,glyph=5,number=0": {
+      "model": "oathbound:block/rune_dial_5_0",
+      "y": 90
+    },
+    "facing=south,glyph=5,number=0": {
+      "model": "oathbound:block/rune_dial_5_0",
+      "y": 180
+    },
+    "facing=west,glyph=5,number=0": {
+      "model": "oathbound:block/rune_dial_5_0",
+      "y": 270
+    },
+    "facing=north,glyph=5,number=1": {
+      "model": "oathbound:block/rune_dial_5_1"
+    },
+    "facing=east,glyph=5,number=1": {
+      "model": "oathbound:block/rune_dial_5_1",
+      "y": 90
+    },
+    "facing=south,glyph=5,number=1": {
+      "model": "oathbound:block/rune_dial_5_1",
+      "y": 180
+    },
+    "facing=west,glyph=5,number=1": {
+      "model": "oathbound:block/rune_dial_5_1",
+      "y": 270
+    },
+    "facing=north,glyph=5,number=2": {
+      "model": "oathbound:block/rune_dial_5_2"
+    },
+    "facing=east,glyph=5,number=2": {
+      "model": "oathbound:block/rune_dial_5_2",
+      "y": 90
+    },
+    "facing=south,glyph=5,number=2": {
+      "model": "oathbound:block/rune_dial_5_2",
+      "y": 180
+    },
+    "facing=west,glyph=5,number=2": {
+      "model": "oathbound:block/rune_dial_5_2",
+      "y": 270
+    },
+    "facing=north,glyph=5,number=3": {
+      "model": "oathbound:block/rune_dial_5_3"
+    },
+    "facing=east,glyph=5,number=3": {
+      "model": "oathbound:block/rune_dial_5_3",
+      "y": 90
+    },
+    "facing=south,glyph=5,number=3": {
+      "model": "oathbound:block/rune_dial_5_3",
+      "y": 180
+    },
+    "facing=west,glyph=5,number=3": {
+      "model": "oathbound:block/rune_dial_5_3",
+      "y": 270
+    }
+  }
+}

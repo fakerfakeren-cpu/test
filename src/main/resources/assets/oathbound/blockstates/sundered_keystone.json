@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "active=false": {
+      "model": "oathbound:block/sundered_keystone"
+    },
+    "active=true": {
+      "model": "oathbound:block/sundered_keystone_active"
+    }
+  }
+}

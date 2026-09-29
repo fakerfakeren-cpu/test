@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "oathbound:block/wardstone_bricks",
+    "top": "oathbound:block/wardstone_bricks",
+    "side": "oathbound:block/wardstone_bricks"
+  }
+}

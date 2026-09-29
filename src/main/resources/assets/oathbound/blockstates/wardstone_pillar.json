@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=y": {
+      "model": "oathbound:block/wardstone_pillar"
+    },
+    "axis=z": {
+      "model": "oathbound:block/wardstone_pillar_horizontal",
+      "x": 90
+    },
+    "axis=x": {
+      "model": "oathbound:block/wardstone_pillar_horizontal",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

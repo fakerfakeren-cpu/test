@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "oathbound:block/gloam_veil",
+    "veil": {
+      "sprite": "oathbound:block/gloam_veil",
+      "force_translucent": true
+    }
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        7.5
+      ],
+      "to": [
+        16,
+        16,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#veil"
+        },
+        "south": {
+          "texture": "#veil"
+        }
+      },
+      "light_emission": 11,
+      "shade": false
+    }
+  ]
+}

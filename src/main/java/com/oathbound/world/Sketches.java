@@ -11,7 +11,6 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CandleBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
@@ -224,12 +223,12 @@ public final class Sketches {
         s.box(-1, 0, 13, 1, 0, 13, stairs(ModBlocks.WARDSTONE_BRICK_STAIRS, Direction.NORTH));
         // plain windows
         for (int z : new int[]{-8, 9}) {
-            s.box(-6, 3, z, -6, 5, z, st(Blocks.STAINED_GLASS.get(DyeColor.LIGHT_GRAY)));
-            s.box(6, 3, z, 6, 5, z, st(Blocks.STAINED_GLASS.get(DyeColor.LIGHT_GRAY)));
+            s.box(-6, 3, z, -6, 5, z, st(Blocks.STAINED_GLASS.lightGray()));
+            s.box(6, 3, z, 6, 5, z, st(Blocks.STAINED_GLASS.lightGray()));
         }
         // the four bells, their glass and their floor tiles
-        Block[] glass = {Blocks.STAINED_GLASS.get(DyeColor.BLUE), Blocks.STAINED_GLASS.get(DyeColor.LIME), Blocks.STAINED_GLASS.get(DyeColor.YELLOW), Blocks.STAINED_GLASS.get(DyeColor.RED)};
-        Block[] tiles = {Blocks.GLAZED_TERRACOTTA.get(DyeColor.BLUE), Blocks.GLAZED_TERRACOTTA.get(DyeColor.LIME), Blocks.GLAZED_TERRACOTTA.get(DyeColor.YELLOW), Blocks.GLAZED_TERRACOTTA.get(DyeColor.RED)};
+        Block[] glass = {Blocks.STAINED_GLASS.blue(), Blocks.STAINED_GLASS.lime(), Blocks.STAINED_GLASS.yellow(), Blocks.STAINED_GLASS.red()};
+        Block[] tiles = {Blocks.GLAZED_TERRACOTTA.blue(), Blocks.GLAZED_TERRACOTTA.lime(), Blocks.GLAZED_TERRACOTTA.yellow(), Blocks.GLAZED_TERRACOTTA.red()};
         int[][] bells = {{-4, -2}, {4, -2}, {-4, 4}, {4, 4}};
         for (int i = 0; i < 4; i++) {
             int x = bells[i][0], z = bells[i][1];
@@ -336,11 +335,11 @@ public final class Sketches {
             // windows on the four sides
             for (int[] w : new int[][]{{0, -6}, {0, 6}, {-6, 0}, {6, 0}}) {
                 if (f == 0 && w[1] == 6) continue;
-                s.box(w[0], f + 3, w[1], w[0], f + 4, w[1], st(Blocks.STAINED_GLASS.get(DyeColor.BLUE)));
+                s.box(w[0], f + 3, w[1], w[0], f + 4, w[1], st(Blocks.STAINED_GLASS.blue()));
                 if (w[0] == 0) {
-                    s.box(-1, f + 3, w[1], 1, f + 4, w[1], st(Blocks.STAINED_GLASS.get(DyeColor.BLUE)));
+                    s.box(-1, f + 3, w[1], 1, f + 4, w[1], st(Blocks.STAINED_GLASS.blue()));
                 } else {
-                    s.box(w[0], f + 3, -1, w[0], f + 4, 1, st(Blocks.STAINED_GLASS.get(DyeColor.BLUE)));
+                    s.box(w[0], f + 3, -1, w[0], f + 4, 1, st(Blocks.STAINED_GLASS.blue()));
                 }
             }
         }

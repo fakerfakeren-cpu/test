@@ -1,0 +1,90 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "oathbound:block/barrow_stone",
+    "front": "oathbound:block/sarcophagus_2",
+    "side": "oathbound:block/barrow_stone",
+    "lid": "oathbound:block/sarcophagus_top",
+    "inside": "oathbound:block/barrow_stone"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        10,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#front",
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#side",
+          "cullface": "south"
+        },
+        "east": {
+          "texture": "#side",
+          "cullface": "east"
+        },
+        "west": {
+          "texture": "#side",
+          "cullface": "west"
+        },
+        "down": {
+          "texture": "#side",
+          "cullface": "down"
+        },
+        "up": {
+          "texture": "#inside"
+        }
+      }
+    },
+    {
+      "from": [
+        5,
+        10,
+        -2
+      ],
+      "to": [
+        21,
+        12,
+        14
+      ],
+      "faces": {
+        "down": {
+          "texture": "#lid"
+        },
+        "up": {
+          "texture": "#lid"
+        },
+        "north": {
+          "texture": "#lid"
+        },
+        "south": {
+          "texture": "#lid"
+        },
+        "west": {
+          "texture": "#lid"
+        },
+        "east": {
+          "texture": "#lid"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8,
+          10,
+          8
+        ],
+        "axis": "y",
+        "angle": 22.5
+      }
+    }
+  ]
+}

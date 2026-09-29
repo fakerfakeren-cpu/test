@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "side": "oathbound:block/wardstone_pillar",
+    "end": "oathbound:block/wardstone_pillar_top"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "variants": {
+    "solved=true": {
+      "model": "oathbound:block/hymn_stone_solved"
+    },
+    "progress=0,solved=false": {
+      "model": "oathbound:block/hymn_stone_0"
+    },
+    "progress=1,solved=false": {
+      "model": "oathbound:block/hymn_stone_1"
+    },
+    "progress=2,solved=false": {
+      "model": "oathbound:block/hymn_stone_2"
+    },
+    "progress=3,solved=false": {
+      "model": "oathbound:block/hymn_stone_3"
+    },
+    "progress=4,solved=false": {
+      "model": "oathbound:block/hymn_stone_4"
+    },
+    "progress=5,solved=false": {
+      "model": "oathbound:block/hymn_stone_5"
+    }
+  }
+}

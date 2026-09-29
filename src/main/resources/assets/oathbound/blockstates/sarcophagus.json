@@ -1,0 +1,94 @@
+{
+  "variants": {
+    "facing=north,king=0,open=false": {
+      "model": "oathbound:block/sarcophagus_0"
+    },
+    "facing=east,king=0,open=false": {
+      "model": "oathbound:block/sarcophagus_0",
+      "y": 90
+    },
+    "facing=south,king=0,open=false": {
+      "model": "oathbound:block/sarcophagus_0",
+      "y": 180
+    },
+    "facing=west,king=0,open=false": {
+      "model": "oathbound:block/sarcophagus_0",
+      "y": 270
+    },
+    "facing=north,king=0,open=true": {
+      "model": "oathbound:block/sarcophagus_0_open"
+    },
+    "facing=east,king=0,open=true": {
+      "model": "oathbound:block/sarcophagus_0_open",
+      "y": 90
+    },
+    "facing=south,king=0,open=true": {
+      "model": "oathbound:block/sarcophagus_0_open",
+      "y": 180
+    },
+    "facing=west,king=0,open=true": {
+      "model": "oathbound:block/sarcophagus_0_open",
+      "y": 270
+    },
+    "facing=north,king=1,open=false": {
+      "model": "oathbound:block/sarcophagus_1"
+    },
+    "facing=east,king=1,open=false": {
+      "model": "oathbound:block/sarcophagus_1",
+      "y": 90
+    },
+    "facing=south,king=1,open=false": {
+      "model": "oathbound:block/sarcophagus_1",
+      "y": 180
+    },
+    "facing=west,king=1,open=false": {
+      "model": "oathbound:block/sarcophagus_1",
+      "y": 270
+    },
+    "facing=north,king=1,open=true": {
+      "model": "oathbound:block/sarcophagus_1_open"
+    },
+    "facing=east,king=1,open=true": {
+      "model": "oathbound:block/sarcophagus_1_open",
+      "y": 90
+    },
+    "facing=south,king=1,open=true": {
+      "model": "oathbound:block/sarcophagus_1_open",
+      "y": 180
+    },
+    "facing=west,king=1,open=true": {
+      "model": "oathbound:block/sarcophagus_1_open",
+      "y": 270
+    },
+    "facing=north,king=2,open=false": {
+      "model": "oathbound:block/sarcophagus_2"
+    },
+    "facing=east,king=2,open=false": {
+      "model": "oathbound:block/sarcophagus_2",
+      "y": 90
+    },
+    "facing=south,king=2,open=false": {
+      "model": "oathbound:block/sarcophagus_2",
+      "y": 180
+    },
+    "facing=west,king=2,open=false": {
+      "model": "oathbound:block/sarcophagus_2",
+      "y": 270
+    },
+    "facing=north,king=2,open=true": {
+      "model": "oathbound:block/sarcophagus_2_open"
+    },
+    "facing=east,king=2,open=true": {
+      "model": "oathbound:block/sarcophagus_2_open",
+      "y": 90
+    },
+    "facing=south,king=2,open=true": {
+      "model": "oathbound:block/sarcophagus_2_open",
+      "y": 180
+    },
+    "facing=west,king=2,open=true": {
+      "model": "oathbound:block/sarcophagus_2_open",
+      "y": 270
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "oathbound:block/lore_tablet"
+    },
+    "facing=east": {
+      "model": "oathbound:block/lore_tablet",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "oathbound:block/lore_tablet",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "oathbound:block/lore_tablet",
+      "y": 270
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "tone=0": {
+      "model": "oathbound:block/chapel_bell_0"
+    },
+    "tone=1": {
+      "model": "oathbound:block/chapel_bell_1"
+    },
+    "tone=2": {
+      "model": "oathbound:block/chapel_bell_2"
+    },
+    "tone=3": {
+      "model": "oathbound:block/chapel_bell_3"
+    }
+  }
+}

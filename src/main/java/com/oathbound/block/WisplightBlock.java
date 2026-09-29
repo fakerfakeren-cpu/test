@@ -42,6 +42,11 @@ public class WisplightBlock extends Block {
     }
 
     @Override
+    protected net.minecraft.world.level.block.RenderShape getRenderShape(BlockState state) {
+        return net.minecraft.world.level.block.RenderShape.INVISIBLE;
+    }
+
+    @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext ctx) {
         return Shapes.empty();
     }

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "oathbound:block/wayshrine_brazier"
+    },
+    "lit=true": {
+      "model": "oathbound:block/wayshrine_brazier_lit"
+    }
+  }
+}

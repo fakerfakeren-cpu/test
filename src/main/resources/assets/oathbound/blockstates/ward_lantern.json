@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "oathbound:block/ward_lantern"
+    },
+    "lit=true": {
+      "model": "oathbound:block/ward_lantern_lit"
+    }
+  }
+}
