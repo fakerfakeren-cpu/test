@@ -326,7 +326,34 @@ public class JournalScreen extends Screen {
     }
 
     private Component guideText(int chapter) {
-        return Component.translatable("guide.rimeheart." + chapter + ".text");
+        return legacy(Component.translatable("guide.rimeheart." + chapter + ".text").getString());
+    }
+
+    /**
+     * Turns legacy formatting codes into real component styles, so colours and bold survive line wrapping
+     * (raw codes would bleed into the next wrapped line).
+     */
+    static MutableComponent legacy(String text) {
+        MutableComponent out = Component.empty();
+        net.minecraft.network.chat.Style style = net.minecraft.network.chat.Style.EMPTY;
+        StringBuilder run = new StringBuilder();
+        for (int i = 0; i < text.length(); i++) {
+            char ch = text.charAt(i);
+            if (ch == '\u00a7' && i + 1 < text.length()) {
+                if (run.length() > 0) {
+                    out.append(Component.literal(run.toString()).withStyle(style));
+                    run.setLength(0);
+                }
+                ChatFormatting f = ChatFormatting.getByCode(text.charAt(++i));
+                if (f == null) continue;
+                style = f == ChatFormatting.RESET ? net.minecraft.network.chat.Style.EMPTY
+                    : f.isColor() ? net.minecraft.network.chat.Style.EMPTY.applyFormat(f) : style.applyFormat(f);
+                continue;
+            }
+            run.append(ch);
+        }
+        if (run.length() > 0) out.append(Component.literal(run.toString()).withStyle(style));
+        return out;
     }
 
     private String guideTitle(int chapter) {

@@ -194,7 +194,7 @@ public final class ClientTest {
             cmd(mc, "rimejournal claim root");
             cmd(mc, "rimejournal claim frostiron");
         });
-        step(60, "open journal", mc -> openJournal(mc, JournalScreen.TAB_QUESTS));
+        step(160, "open journal", mc -> openJournal(mc, JournalScreen.TAB_QUESTS));
         step(40, "shot journal quests", mc -> shot(mc, "journal_quests"));
         step(5, "journal story", mc -> openJournal(mc, JournalScreen.TAB_STORY));
         step(30, "shot journal story", mc -> shot(mc, "journal_story"));
@@ -212,7 +212,7 @@ public final class ClientTest {
             sanctum = o.below();
             log("sanctum at " + o);
         }));
-        step(80, "sanctum view", mc -> lookAt(mc, c(sanctum).add(-15, 13, -24), c(sanctum).add(0, 0, -5)));
+        step(80, "sanctum view", mc -> lookAt(mc, c(sanctum).add(-11, 9, -19), c(sanctum).add(0, 0, -4)));
         step(160, "shot sanctum", mc -> shot(mc, "sanctum_surface"));
         step(5, "hall view", mc -> lookAt(mc, c(sanctum).add(-7.2, Blueprints.HALL_FLOOR + 4.6, -7.2), c(sanctum).add(1, Blueprints.HALL_FLOOR + 1.5, 1)));
         step(100, "shot hall", mc -> shot(mc, "sanctum_hall"));
@@ -230,7 +230,7 @@ public final class ClientTest {
             spawnStill(p.level(), com.rimeheart.registry.ModEntities.FROST_WRAITH.get(), g.offset(6, 1, -3));
             spawnStill(p.level(), com.rimeheart.registry.ModEntities.SHARDLING.get(), g.offset(6, 0, 3));
         }));
-        step(40, "wraith view", mc -> lookAt(mc, c(stage).add(3.3, 2.6, -4.4), c(stage).add(6, 2.0, -3)));
+        step(40, "wraith view", mc -> lookAt(mc, c(stage).add(3.9, 2.5, -4.0), c(stage).add(6, 2.1, -3)));
         step(40, "shot wraith", mc -> shot(mc, "mob_frost_wraith"));
         step(5, "shardling view", mc -> lookAt(mc, c(stage).add(4.4, 1.3, 2.3), c(stage).add(6, 0.3, 3)));
         step(40, "shot shardling", mc -> shot(mc, "mob_shardling"));
@@ -243,22 +243,25 @@ public final class ClientTest {
             p.level().setBlock(b.below(), com.rimeheart.registry.ModBlocks.GLACIAL_ALTAR.get().defaultBlockState(), 3);
             com.rimeheart.entity.boss.SovereignRitual.begin(p.level(), b);
         }));
-        step(20, "ritual camera", mc -> lookAt(mc, c(bossAt).add(-9, 5, -12), c(bossAt).add(0, 1.5, 0)));
+        step(20, "ritual camera", mc -> lookAt(mc, c(bossAt).add(-6, 3.5, -8), c(bossAt).add(0, 1.2, 0)));
         step(70, "shot ritual", mc -> shot(mc, "winter_ritual"));
-        step(150, "boss camera", mc -> lookAt(mc, c(bossAt).add(-10, 6, -13), c(bossAt).add(0, 4, 0)));
+        step(150, "boss camera", ClientTest::bossCamera);
         step(20, "shot boss", mc -> shot(mc, "frost_sovereign"));
         step(5, "boss target", mc -> server(mc, p -> {
             var golem = net.minecraft.world.entity.EntityTypes.IRON_GOLEM.create(p.level(), net.minecraft.world.entity.EntitySpawnReason.COMMAND);
             if (golem == null) return;
-            BlockPos gp = surface(p.level(), bossAt.getX() + 7, bossAt.getZ() - 4);
+            BlockPos gp = surface(p.level(), bossAt.getX() + 5, bossAt.getZ() - 3);
             golem.snapTo(gp.getX() + 0.5, gp.getY(), gp.getZ() + 0.5, 0, 0);
             golem.setNoAi(true);
             p.level().addFreshEntity(golem);
             for (var boss : p.level().getEntities(com.rimeheart.registry.ModEntities.FROST_SOVEREIGN.get(), e -> e.distanceToSqr(c(bossAt)) < 64 * 64)) boss.setTarget(golem);
         }));
-        step(90, "shot boss attack", mc -> shot(mc, "frost_sovereign_attack"));
-        step(50, "shot boss attack 2", mc -> shot(mc, "frost_sovereign_attack_2"));
-        step(50, "shot boss attack 3", mc -> shot(mc, "frost_sovereign_attack_3"));
+        step(85, "boss camera 2", ClientTest::bossCamera);
+        step(5, "shot boss attack", mc -> shot(mc, "frost_sovereign_attack"));
+        step(45, "boss camera 3", ClientTest::bossCamera);
+        step(5, "shot boss attack 2", mc -> shot(mc, "frost_sovereign_attack_2"));
+        step(45, "boss camera 4", ClientTest::bossCamera);
+        step(5, "shot boss attack 3", mc -> shot(mc, "frost_sovereign_attack_3"));
         step(100, "quit", mc -> {
             log("RESULT: PASS screenshots=" + shots);
             done = true;
@@ -267,6 +270,21 @@ public final class ClientTest {
     }
 
     private static JournalScreen journal;
+
+    /** Frames the Frost Sovereign wherever it currently is (it moves while it fights). */
+    private static void bossCamera(Minecraft mc) {
+        if (mc.level == null) return;
+        Vec3 target = c(bossAt).add(0, 4, 0);
+        for (var e : mc.level.entitiesForRendering()) {
+            if (e instanceof com.rimeheart.entity.boss.FrostSovereignEntity && e.distanceToSqr(c(bossAt)) < 64 * 64) {
+                target = e.position().add(0, 3.6, 0);
+                break;
+            }
+        }
+        Vec3 away = target.subtract(c(bossAt).add(5, 0, -3)).multiply(1, 0, 1);
+        Vec3 dir = away.lengthSqr() < 1 ? new Vec3(-0.6, 0, -0.8) : away.normalize();
+        lookAt(mc, target.add(dir.scale(10)).add(0, 1.6, 0), target);
+    }
 
     private static void openJournal(Minecraft mc, int tab) {
         journal = new JournalScreen(net.minecraft.world.InteractionHand.MAIN_HAND, tab);
