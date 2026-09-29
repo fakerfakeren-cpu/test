@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "oathbound:wardstone_bricks",
+    "minecraft:moss_block"
+  ],
+  "result": {
+    "id": "oathbound:mossy_wardstone_bricks",
+    "count": 1
+  }
+}

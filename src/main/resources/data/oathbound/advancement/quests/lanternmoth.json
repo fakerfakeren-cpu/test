@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "id": "oathbound:luminous_dust"
+    },
+    "title": {
+      "translate": "quest.oathbound.lanternmoth.title"
+    },
+    "description": {
+      "translate": "quest.oathbound.lanternmoth.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "dust": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "oathbound:luminous_dust"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "dust"
+    ]
+  ],
+  "parent": "oathbound:quests/root"
+}

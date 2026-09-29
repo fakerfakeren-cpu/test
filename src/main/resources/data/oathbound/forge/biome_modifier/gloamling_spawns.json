@@ -1,0 +1,12 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#oathbound:has_gloamlings",
+  "spawners": [
+    {
+      "type": "oathbound:gloamling",
+      "weight": 14,
+      "minCount": 1,
+      "maxCount": 3
+    }
+  ]
+}

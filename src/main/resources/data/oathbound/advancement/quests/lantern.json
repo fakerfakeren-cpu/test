@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "id": "oathbound:wardens_lantern"
+    },
+    "title": {
+      "translate": "quest.oathbound.lantern.title"
+    },
+    "description": {
+      "translate": "quest.oathbound.lantern.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "lantern": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "oathbound:wardens_lantern"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "lantern"
+    ]
+  ],
+  "parent": "oathbound:quests/oathsteel"
+}

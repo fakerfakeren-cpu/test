@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "oathbound:drowned_chapel",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 36,
+    "separation": 12,
+    "salt": 71211311
+  }
+}

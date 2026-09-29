@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:honey_bottle",
+    "minecraft:wheat",
+    "minecraft:sugar"
+  ],
+  "result": {
+    "id": "oathbound:honeyed_mead",
+    "count": 1
+  }
+}

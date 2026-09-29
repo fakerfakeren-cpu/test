@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "oathbound:lumenite_ore",
+    "oathbound:deepslate_lumenite_ore",
+    "oathbound:lumenite_block",
+    "oathbound:oathsteel_block"
+  ]
+}

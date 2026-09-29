@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "NNN",
+    "NNN",
+    "NNN"
+  ],
+  "key": {
+    "N": "oathbound:oathsteel_nugget"
+  },
+  "result": {
+    "id": "oathbound:oathsteel_ingot",
+    "count": 1
+  }
+}

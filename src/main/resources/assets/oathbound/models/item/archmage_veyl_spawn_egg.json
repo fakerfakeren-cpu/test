@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "oathbound:item/archmage_veyl_spawn_egg"
+  }
+}

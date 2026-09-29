@@ -1,25 +1,23 @@
-# eclipse
-bin
-*.launch
-.settings
-.metadata
-.classpath
-.project
 
+# eclipse
+# gradle
 # idea
-out
+# other
+*.iml
 *.ipr
 *.iws
-*.iml
-.idea
-
-# gradle
-build
+*.launch
+*.pyc
+.classpath
 .gradle
-
-# other
+.idea
+.metadata
+.project
+.settings
+__pycache__/
+bin
+build
 eclipse
+out
 run
 run-data
-__pycache__/
-*.pyc

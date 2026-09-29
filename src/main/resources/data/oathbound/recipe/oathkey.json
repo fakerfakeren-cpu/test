@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " V ",
+    "WKS",
+    " G "
+  ],
+  "key": {
+    "V": "oathbound:seal_of_valor",
+    "W": "oathbound:seal_of_wisdom",
+    "S": "oathbound:seal_of_sacrifice",
+    "K": "oathbound:oathsteel_ingot",
+    "G": "minecraft:gold_ingot"
+  },
+  "result": {
+    "id": "oathbound:oathkey",
+    "count": 1
+  }
+}

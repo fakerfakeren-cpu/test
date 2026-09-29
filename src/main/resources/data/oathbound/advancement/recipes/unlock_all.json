@@ -1,0 +1,64 @@
+{
+  "criteria": {
+    "joined": {
+      "trigger": "minecraft:tick"
+    }
+  },
+  "requirements": [
+    [
+      "joined"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "oathbound:arcanist_boots",
+      "oathbound:arcanist_hood",
+      "oathbound:arcanist_leggings",
+      "oathbound:arcanist_robe",
+      "oathbound:chiseled_wardstone",
+      "oathbound:cracked_wardstone_bricks",
+      "oathbound:dawnstring_longbow",
+      "oathbound:elixir_of_dawn",
+      "oathbound:everflame_lantern",
+      "oathbound:gloamstone_bricks",
+      "oathbound:gloamwood_planks",
+      "oathbound:honeyed_mead",
+      "oathbound:knights_stew",
+      "oathbound:lantern_chronicle",
+      "oathbound:lantern_chronicle_simple",
+      "oathbound:lumen_flask",
+      "oathbound:lumenite_block",
+      "oathbound:lumenite_dust",
+      "oathbound:lumenite_shard_from_block",
+      "oathbound:lumenite_shard_from_deepslate",
+      "oathbound:lumenite_shard_smelting",
+      "oathbound:mossy_wardstone_bricks",
+      "oathbound:oathkey",
+      "oathbound:oathsteel_axe",
+      "oathbound:oathsteel_blend",
+      "oathbound:oathsteel_block",
+      "oathbound:oathsteel_boots",
+      "oathbound:oathsteel_chestplate",
+      "oathbound:oathsteel_helmet",
+      "oathbound:oathsteel_ingot",
+      "oathbound:oathsteel_ingot_blasting",
+      "oathbound:oathsteel_ingot_from_block",
+      "oathbound:oathsteel_ingot_from_nuggets",
+      "oathbound:oathsteel_leggings",
+      "oathbound:oathsteel_longsword",
+      "oathbound:oathsteel_nugget",
+      "oathbound:oathsteel_pickaxe",
+      "oathbound:oathsteel_shovel",
+      "oathbound:shadowreap_sickle",
+      "oathbound:wardens_halberd",
+      "oathbound:wardens_lantern",
+      "oathbound:wardstone",
+      "oathbound:wardstone_brick_slab",
+      "oathbound:wardstone_brick_stairs",
+      "oathbound:wardstone_bricks",
+      "oathbound:wardstone_pillar",
+      "oathbound:wayfarers_bread",
+      "oathbound:wayshrine_brazier"
+    ]
+  }
+}

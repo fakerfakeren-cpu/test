@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "id": "oathbound:dawnstring_longbow"
+    },
+    "title": {
+      "translate": "quest.oathbound.dawnstring.title"
+    },
+    "description": {
+      "translate": "quest.oathbound.dawnstring.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "bow": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "oathbound:dawnstring_longbow"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "bow"
+    ]
+  ],
+  "parent": "oathbound:quests/spellsilk"
+}

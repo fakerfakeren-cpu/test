@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "I I",
+    "III",
+    "III"
+  ],
+  "key": {
+    "I": "oathbound:oathsteel_ingot"
+  },
+  "result": {
+    "id": "oathbound:oathsteel_chestplate",
+    "count": 1
+  }
+}

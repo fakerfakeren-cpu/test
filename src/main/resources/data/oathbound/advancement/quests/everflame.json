@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "id": "oathbound:everflame_lantern"
+    },
+    "title": {
+      "translate": "quest.oathbound.everflame.title"
+    },
+    "description": {
+      "translate": "quest.oathbound.everflame.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "lantern": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "oathbound:everflame_lantern"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "lantern"
+    ]
+  ],
+  "parent": "oathbound:quests/morvane"
+}

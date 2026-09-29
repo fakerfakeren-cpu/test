@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "oathbound:lumenite_ore",
+    "oathbound:deepslate_lumenite_ore",
+    "oathbound:lumenite_block",
+    "oathbound:oathsteel_block",
+    "oathbound:wardstone",
+    "oathbound:wardstone_bricks",
+    "oathbound:cracked_wardstone_bricks",
+    "oathbound:mossy_wardstone_bricks",
+    "oathbound:chiseled_wardstone",
+    "oathbound:wardstone_brick_stairs",
+    "oathbound:wardstone_brick_slab",
+    "oathbound:wardstone_pillar",
+    "oathbound:gloamstone",
+    "oathbound:gloam_moss",
+    "oathbound:gloamstone_bricks",
+    "oathbound:wayshrine_brazier"
+  ]
+}

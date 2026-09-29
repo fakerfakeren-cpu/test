@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "id": "oathbound:spellsilk"
+    },
+    "title": {
+      "translate": "quest.oathbound.spellsilk.title"
+    },
+    "description": {
+      "translate": "quest.oathbound.spellsilk.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "silk": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "oathbound:spellsilk"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "silk"
+    ]
+  ],
+  "parent": "oathbound:quests/spire"
+}

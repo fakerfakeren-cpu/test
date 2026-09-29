@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "oathbound:lumenite_shard"
+  ],
+  "result": {
+    "id": "oathbound:lumenite_dust",
+    "count": 2
+  }
+}

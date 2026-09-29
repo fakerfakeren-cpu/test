@@ -1,0 +1,9 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#oathbound:has_lumenite",
+  "features": [
+    "oathbound:ore_lumenite",
+    "oathbound:ore_lumenite_deep"
+  ],
+  "step": "underground_ores"
+}

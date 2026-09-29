@@ -87,6 +87,8 @@ public final class ModSounds {
     public static final RegistryObject<SoundEvent> THEME_KEEPER = reg("theme_keeper");
     public static final RegistryObject<SoundEvent> THEME_MORVANE = reg("theme_morvane");
     public static final RegistryObject<SoundEvent> GLOAMING_AMBIENT = reg("gloaming_ambient");
+    public static final RegistryObject<SoundEvent> MUSIC_GLOAMING = reg("music_gloaming");
+    public static final RegistryObject<SoundEvent> GLOAMING_MOOD = reg("gloaming_mood");
 
     private static RegistryObject<SoundEvent> reg(String name) {
         NAMES.add(name);

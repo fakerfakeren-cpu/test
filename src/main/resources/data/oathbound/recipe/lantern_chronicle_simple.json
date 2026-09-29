@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:book",
+    "minecraft:torch"
+  ],
+  "result": {
+    "id": "oathbound:lantern_chronicle",
+    "count": 1
+  }
+}

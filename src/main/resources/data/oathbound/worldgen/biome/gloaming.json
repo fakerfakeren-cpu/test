@@ -1,0 +1,77 @@
+{
+  "attributes": {
+    "minecraft:visual/fog_color": "#2a2238",
+    "minecraft:visual/sky_color": "#120e1c",
+    "minecraft:visual/water_fog_color": "#1a1426",
+    "minecraft:visual/ambient_particles": [
+      {
+        "particle": {
+          "type": "oathbound:gloam_wisp"
+        },
+        "probability": 0.004
+      },
+      {
+        "particle": {
+          "type": "oathbound:lumen_mote"
+        },
+        "probability": 0.0015
+      }
+    ]
+  },
+  "carvers": [],
+  "downfall": 0.0,
+  "effects": {
+    "water_color": "#3a2a5a",
+    "grass_color": "#5a3a7a",
+    "foliage_color": "#4a2f66"
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "oathbound:gloamwood_tree",
+      "oathbound:gloam_ruin",
+      "oathbound:veilbloom_patch"
+    ]
+  ],
+  "has_precipitation": false,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": [],
+    "monster": [
+      {
+        "type": "oathbound:gloamling",
+        "maxCount": 4,
+        "minCount": 2,
+        "weight": 30
+      },
+      {
+        "type": "oathbound:veilhound",
+        "maxCount": 3,
+        "minCount": 2,
+        "weight": 16
+      },
+      {
+        "type": "oathbound:forsworn_knight",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 8
+      }
+    ]
+  },
+  "temperature": 0.5
+}

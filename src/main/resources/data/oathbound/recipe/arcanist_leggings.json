@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "SSS",
+    "S S",
+    "S S"
+  ],
+  "key": {
+    "S": "oathbound:spellsilk"
+  },
+  "result": {
+    "id": "oathbound:arcanist_leggings",
+    "count": 1
+  }
+}

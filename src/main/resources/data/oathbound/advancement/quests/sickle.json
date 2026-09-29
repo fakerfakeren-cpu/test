@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "id": "oathbound:shadowreap_sickle"
+    },
+    "title": {
+      "translate": "quest.oathbound.sickle.title"
+    },
+    "description": {
+      "translate": "quest.oathbound.sickle.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "sickle": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "oathbound:shadowreap_sickle"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "sickle"
+    ]
+  ],
+  "parent": "oathbound:quests/gloaming"
+}

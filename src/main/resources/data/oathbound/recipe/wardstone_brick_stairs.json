@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "W  ",
+    "WW ",
+    "WWW"
+  ],
+  "key": {
+    "W": "oathbound:wardstone_bricks"
+  },
+  "result": {
+    "id": "oathbound:wardstone_brick_stairs",
+    "count": 4
+  }
+}

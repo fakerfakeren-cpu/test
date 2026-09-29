@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "id": "oathbound:lanternguard_insignia"
+    },
+    "title": {
+      "translate": "quest.oathbound.insignia.title"
+    },
+    "description": {
+      "translate": "quest.oathbound.insignia.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "insignia": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "oathbound:lanternguard_insignia"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "insignia"
+    ]
+  ],
+  "parent": "oathbound:quests/root"
+}

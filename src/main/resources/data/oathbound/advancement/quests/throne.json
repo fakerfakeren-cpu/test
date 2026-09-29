@@ -1,0 +1,28 @@
+{
+  "display": {
+    "icon": {
+      "id": "oathbound:ward_lantern"
+    },
+    "title": {
+      "translate": "quest.oathbound.throne.title"
+    },
+    "description": {
+      "translate": "quest.oathbound.throne.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "challenged": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "challenged"
+    ]
+  ],
+  "parent": "oathbound:quests/gloaming"
+}

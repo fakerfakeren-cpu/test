@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "IEI",
+    "IWI",
+    "IEI"
+  ],
+  "key": {
+    "I": "oathbound:lanternguard_insignia",
+    "E": "oathbound:everflame_ember",
+    "W": "oathbound:wardens_lantern"
+  },
+  "result": {
+    "id": "oathbound:everflame_lantern",
+    "count": 1
+  }
+}

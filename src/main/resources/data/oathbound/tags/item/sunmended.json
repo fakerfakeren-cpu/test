@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "oathbound:oathsteel_pickaxe",
+    "oathbound:oathsteel_axe",
+    "oathbound:oathsteel_shovel",
+    "oathbound:oathsteel_longsword",
+    "oathbound:wardens_halberd"
+  ]
+}

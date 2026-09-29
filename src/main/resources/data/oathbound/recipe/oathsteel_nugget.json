@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "oathbound:oathsteel_ingot"
+  ],
+  "result": {
+    "id": "oathbound:oathsteel_nugget",
+    "count": 9
+  }
+}

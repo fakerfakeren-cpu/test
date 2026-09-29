@@ -1,0 +1,46 @@
+{
+  "display": {
+    "icon": {
+      "id": "oathbound:oathsteel_longsword"
+    },
+    "title": {
+      "translate": "quest.oathbound.oathsteel_arms.title"
+    },
+    "description": {
+      "translate": "quest.oathbound.oathsteel_arms.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "longsword": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "oathbound:oathsteel_longsword"
+          }
+        ]
+      }
+    },
+    "halberd": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "oathbound:wardens_halberd"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "longsword",
+      "halberd"
+    ]
+  ],
+  "parent": "oathbound:quests/oathsteel"
+}

@@ -1,0 +1,41 @@
+{
+  "display": {
+    "icon": {
+      "id": "oathbound:sarcophagus"
+    },
+    "title": {
+      "translate": "quest.oathbound.barrow.title"
+    },
+    "description": {
+      "translate": "quest.oathbound.barrow.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "found": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "minecraft:location": {
+                "structures": "oathbound:barrow_of_kings"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "found"
+    ]
+  ],
+  "parent": "oathbound:quests/veyl"
+}

@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "oathbound:arcanist"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "oathbound:arcanist"
+      }
+    ]
+  }
+}

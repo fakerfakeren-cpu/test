@@ -1,0 +1,43 @@
+{
+  "display": {
+    "icon": {
+      "id": "oathbound:everflame_ember"
+    },
+    "title": {
+      "translate": "quest.oathbound.morvane.title"
+    },
+    "description": {
+      "translate": "quest.oathbound.morvane.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "slain": {
+      "trigger": "minecraft:impossible"
+    },
+    "killed": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "minecraft:entity_type": "oathbound:morvane"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "slain",
+      "killed"
+    ]
+  ],
+  "parent": "oathbound:quests/throne"
+}

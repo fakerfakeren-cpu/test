@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "oathbound:barrow_wight",
+    "oathbound:forsworn_knight",
+    "oathbound:hrodgar",
+    "oathbound:spectral_housecarl",
+    "oathbound:morvane"
+  ]
+}

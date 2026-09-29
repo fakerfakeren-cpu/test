@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:is_forest",
+    "#minecraft:is_taiga",
+    "minecraft:meadow",
+    "minecraft:old_growth_birch_forest",
+    "minecraft:windswept_forest"
+  ]
+}

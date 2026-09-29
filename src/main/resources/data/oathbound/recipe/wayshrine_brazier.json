@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "LSL",
+    " G ",
+    "GGG"
+  ],
+  "key": {
+    "L": "minecraft:gold_ingot",
+    "S": "oathbound:lumenite_shard",
+    "G": "oathbound:wardstone_bricks"
+  },
+  "result": {
+    "id": "oathbound:wayshrine_brazier",
+    "count": 1
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:glass_bottle",
+    "oathbound:luminous_dust",
+    "oathbound:gloam_essence",
+    "minecraft:golden_carrot"
+  ],
+  "result": {
+    "id": "oathbound:elixir_of_dawn",
+    "count": 1
+  }
+}

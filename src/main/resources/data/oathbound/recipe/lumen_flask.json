@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " G ",
+    "GDG",
+    " G "
+  ],
+  "key": {
+    "G": "minecraft:glass",
+    "D": "oathbound:luminous_dust"
+  },
+  "result": {
+    "id": "oathbound:lumen_flask",
+    "count": 3
+  }
+}

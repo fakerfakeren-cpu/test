@@ -1,0 +1,674 @@
+{
+  "lantern_ignite": {
+    "sounds": [
+      {
+        "name": "oathbound:lantern_ignite_1"
+      },
+      {
+        "name": "oathbound:lantern_ignite_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.lantern_ignite"
+  },
+  "lantern_seek": {
+    "sounds": [
+      {
+        "name": "oathbound:lantern_seek"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.lantern_seek"
+  },
+  "chronicle_page": {
+    "sounds": [
+      {
+        "name": "oathbound:chronicle_page_1"
+      },
+      {
+        "name": "oathbound:chronicle_page_2"
+      },
+      {
+        "name": "oathbound:chronicle_page_3"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.chronicle_page"
+  },
+  "quest_complete": {
+    "sounds": [
+      {
+        "name": "oathbound:quest_complete"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.quest_complete"
+  },
+  "wayshrine_kindle": {
+    "sounds": [
+      {
+        "name": "oathbound:wayshrine_kindle"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.wayshrine_kindle"
+  },
+  "bell_0": {
+    "sounds": [
+      {
+        "name": "oathbound:bell_0"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.bell_0"
+  },
+  "bell_1": {
+    "sounds": [
+      {
+        "name": "oathbound:bell_1"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.bell_1"
+  },
+  "bell_2": {
+    "sounds": [
+      {
+        "name": "oathbound:bell_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.bell_2"
+  },
+  "bell_3": {
+    "sounds": [
+      {
+        "name": "oathbound:bell_3"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.bell_3"
+  },
+  "bell_wrong": {
+    "sounds": [
+      {
+        "name": "oathbound:bell_wrong"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.bell_wrong"
+  },
+  "puzzle_solved": {
+    "sounds": [
+      {
+        "name": "oathbound:puzzle_solved"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.puzzle_solved"
+  },
+  "ward_dissolve": {
+    "sounds": [
+      {
+        "name": "oathbound:ward_dissolve_1"
+      },
+      {
+        "name": "oathbound:ward_dissolve_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.ward_dissolve"
+  },
+  "dial_turn": {
+    "sounds": [
+      {
+        "name": "oathbound:dial_turn_1"
+      },
+      {
+        "name": "oathbound:dial_turn_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.dial_turn"
+  },
+  "tomb_open": {
+    "sounds": [
+      {
+        "name": "oathbound:tomb_open"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.tomb_open"
+  },
+  "liar_wakes": {
+    "sounds": [
+      {
+        "name": "oathbound:liar_wakes"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.liar_wakes"
+  },
+  "gate_open": {
+    "sounds": [
+      {
+        "name": "oathbound:gate_open"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.gate_open"
+  },
+  "gate_hum": {
+    "sounds": [
+      {
+        "name": "oathbound:gate_hum"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.gate_hum"
+  },
+  "riposte": {
+    "sounds": [
+      {
+        "name": "oathbound:riposte_1"
+      },
+      {
+        "name": "oathbound:riposte_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.riposte"
+  },
+  "halberd_thrust": {
+    "sounds": [
+      {
+        "name": "oathbound:halberd_thrust_1"
+      },
+      {
+        "name": "oathbound:halberd_thrust_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.halberd_thrust"
+  },
+  "anchor_throw": {
+    "sounds": [
+      {
+        "name": "oathbound:anchor_throw_1"
+      },
+      {
+        "name": "oathbound:anchor_throw_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.anchor_throw"
+  },
+  "anchor_hit": {
+    "sounds": [
+      {
+        "name": "oathbound:anchor_hit_1"
+      },
+      {
+        "name": "oathbound:anchor_hit_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.anchor_hit"
+  },
+  "arcane_chain": {
+    "sounds": [
+      {
+        "name": "oathbound:arcane_chain_1"
+      },
+      {
+        "name": "oathbound:arcane_chain_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.arcane_chain"
+  },
+  "arcane_orb": {
+    "sounds": [
+      {
+        "name": "oathbound:arcane_orb_1"
+      },
+      {
+        "name": "oathbound:arcane_orb_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.arcane_orb"
+  },
+  "orb_reflect": {
+    "sounds": [
+      {
+        "name": "oathbound:orb_reflect"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.orb_reflect"
+  },
+  "warhorn": {
+    "sounds": [
+      {
+        "name": "oathbound:warhorn"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.warhorn"
+  },
+  "dawn_charge": {
+    "sounds": [
+      {
+        "name": "oathbound:dawn_charge"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.dawn_charge"
+  },
+  "dawn_burst": {
+    "sounds": [
+      {
+        "name": "oathbound:dawn_burst"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.dawn_burst"
+  },
+  "sickle_reap": {
+    "sounds": [
+      {
+        "name": "oathbound:sickle_reap_1"
+      },
+      {
+        "name": "oathbound:sickle_reap_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.sickle_reap"
+  },
+  "flask_shatter": {
+    "sounds": [
+      {
+        "name": "oathbound:flask_shatter_1"
+      },
+      {
+        "name": "oathbound:flask_shatter_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.flask_shatter"
+  },
+  "sun_arrow": {
+    "sounds": [
+      {
+        "name": "oathbound:sun_arrow_1"
+      },
+      {
+        "name": "oathbound:sun_arrow_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.sun_arrow"
+  },
+  "sunmark": {
+    "sounds": [
+      {
+        "name": "oathbound:sunmark"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.sunmark"
+  },
+  "gloamling_ambient": {
+    "sounds": [
+      {
+        "name": "oathbound:gloamling_ambient_1"
+      },
+      {
+        "name": "oathbound:gloamling_ambient_2"
+      },
+      {
+        "name": "oathbound:gloamling_ambient_3"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.gloamling_ambient"
+  },
+  "gloamling_hurt": {
+    "sounds": [
+      {
+        "name": "oathbound:gloamling_hurt_1"
+      },
+      {
+        "name": "oathbound:gloamling_hurt_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.gloamling_hurt"
+  },
+  "gloamling_death": {
+    "sounds": [
+      {
+        "name": "oathbound:gloamling_death"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.gloamling_death"
+  },
+  "forsworn_ambient": {
+    "sounds": [
+      {
+        "name": "oathbound:forsworn_ambient_1"
+      },
+      {
+        "name": "oathbound:forsworn_ambient_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.forsworn_ambient"
+  },
+  "forsworn_collapse": {
+    "sounds": [
+      {
+        "name": "oathbound:forsworn_collapse_1"
+      },
+      {
+        "name": "oathbound:forsworn_collapse_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.forsworn_collapse"
+  },
+  "forsworn_rise": {
+    "sounds": [
+      {
+        "name": "oathbound:forsworn_rise"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.forsworn_rise"
+  },
+  "wight_ambient": {
+    "sounds": [
+      {
+        "name": "oathbound:wight_ambient_1"
+      },
+      {
+        "name": "oathbound:wight_ambient_2"
+      },
+      {
+        "name": "oathbound:wight_ambient_3"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.wight_ambient"
+  },
+  "wight_hurt": {
+    "sounds": [
+      {
+        "name": "oathbound:wight_hurt_1"
+      },
+      {
+        "name": "oathbound:wight_hurt_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.wight_hurt"
+  },
+  "veilhound_howl": {
+    "sounds": [
+      {
+        "name": "oathbound:veilhound_howl_1"
+      },
+      {
+        "name": "oathbound:veilhound_howl_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.veilhound_howl"
+  },
+  "veilhound_growl": {
+    "sounds": [
+      {
+        "name": "oathbound:veilhound_growl_1"
+      },
+      {
+        "name": "oathbound:veilhound_growl_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.veilhound_growl"
+  },
+  "tome_flutter": {
+    "sounds": [
+      {
+        "name": "oathbound:tome_flutter_1"
+      },
+      {
+        "name": "oathbound:tome_flutter_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.tome_flutter"
+  },
+  "tome_cast": {
+    "sounds": [
+      {
+        "name": "oathbound:tome_cast_1"
+      },
+      {
+        "name": "oathbound:tome_cast_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.tome_cast"
+  },
+  "moth_flutter": {
+    "sounds": [
+      {
+        "name": "oathbound:moth_flutter_1"
+      },
+      {
+        "name": "oathbound:moth_flutter_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.moth_flutter"
+  },
+  "housecarl_rise": {
+    "sounds": [
+      {
+        "name": "oathbound:housecarl_rise_1"
+      },
+      {
+        "name": "oathbound:housecarl_rise_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.housecarl_rise"
+  },
+  "caldris_roar": {
+    "sounds": [
+      {
+        "name": "oathbound:caldris_roar"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.caldris_roar"
+  },
+  "shield_block": {
+    "sounds": [
+      {
+        "name": "oathbound:shield_block_1"
+      },
+      {
+        "name": "oathbound:shield_block_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.shield_block"
+  },
+  "shield_charge": {
+    "sounds": [
+      {
+        "name": "oathbound:shield_charge"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.shield_charge"
+  },
+  "undertow": {
+    "sounds": [
+      {
+        "name": "oathbound:undertow"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.undertow"
+  },
+  "veyl_laugh": {
+    "sounds": [
+      {
+        "name": "oathbound:veyl_laugh"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.veyl_laugh"
+  },
+  "veyl_blink": {
+    "sounds": [
+      {
+        "name": "oathbound:veyl_blink_1"
+      },
+      {
+        "name": "oathbound:veyl_blink_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.veyl_blink"
+  },
+  "veyl_mirror": {
+    "sounds": [
+      {
+        "name": "oathbound:veyl_mirror"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.veyl_mirror"
+  },
+  "hrodgar_roar": {
+    "sounds": [
+      {
+        "name": "oathbound:hrodgar_roar"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.hrodgar_roar"
+  },
+  "flail_slam": {
+    "sounds": [
+      {
+        "name": "oathbound:flail_slam_1"
+      },
+      {
+        "name": "oathbound:flail_slam_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.flail_slam"
+  },
+  "tether_snap": {
+    "sounds": [
+      {
+        "name": "oathbound:tether_snap_1"
+      },
+      {
+        "name": "oathbound:tether_snap_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.tether_snap"
+  },
+  "morvane_voice": {
+    "sounds": [
+      {
+        "name": "oathbound:morvane_voice_1"
+      },
+      {
+        "name": "oathbound:morvane_voice_2"
+      },
+      {
+        "name": "oathbound:morvane_voice_3"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.morvane_voice"
+  },
+  "morvane_roar": {
+    "sounds": [
+      {
+        "name": "oathbound:morvane_roar"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.morvane_roar"
+  },
+  "blade_crown": {
+    "sounds": [
+      {
+        "name": "oathbound:blade_crown"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.blade_crown"
+  },
+  "eclipse_pillar": {
+    "sounds": [
+      {
+        "name": "oathbound:eclipse_pillar_1"
+      },
+      {
+        "name": "oathbound:eclipse_pillar_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.eclipse_pillar"
+  },
+  "lantern_snuff": {
+    "sounds": [
+      {
+        "name": "oathbound:lantern_snuff_1"
+      },
+      {
+        "name": "oathbound:lantern_snuff_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.lantern_snuff"
+  },
+  "lantern_relight": {
+    "sounds": [
+      {
+        "name": "oathbound:lantern_relight"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.lantern_relight"
+  },
+  "unveiled": {
+    "sounds": [
+      {
+        "name": "oathbound:unveiled"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.unveiled"
+  },
+  "crown_shatter": {
+    "sounds": [
+      {
+        "name": "oathbound:crown_shatter"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.crown_shatter"
+  },
+  "boss_slash": {
+    "sounds": [
+      {
+        "name": "oathbound:boss_slash_1"
+      },
+      {
+        "name": "oathbound:boss_slash_2"
+      },
+      {
+        "name": "oathbound:boss_slash_3"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.boss_slash"
+  },
+  "gloaming_mood": {
+    "sounds": [
+      {
+        "name": "oathbound:gloaming_mood_1"
+      },
+      {
+        "name": "oathbound:gloaming_mood_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.gloaming_mood"
+  },
+  "theme_keeper": {
+    "sounds": [
+      {
+        "name": "oathbound:theme_keeper",
+        "stream": true
+      }
+    ],
+    "subtitle": "subtitles.oathbound.theme_keeper"
+  },
+  "theme_morvane": {
+    "sounds": [
+      {
+        "name": "oathbound:theme_morvane",
+        "stream": true
+      }
+    ],
+    "subtitle": "subtitles.oathbound.theme_morvane"
+  },
+  "music_gloaming": {
+    "sounds": [
+      {
+        "name": "oathbound:music_gloaming",
+        "stream": true
+      }
+    ]
+  },
+  "gloaming_ambient": {
+    "sounds": [
+      {
+        "name": "oathbound:gloaming_ambient",
+        "stream": true
+      }
+    ],
+    "subtitle": "subtitles.oathbound.gloaming_ambient"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "oathbound:gloaming",
+  "generator": {
+    "type": "minecraft:noise",
+    "settings": "oathbound:gloaming",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "oathbound:gloaming"
+    }
+  }
+}

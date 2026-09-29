@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "id": "oathbound:hollow_crown"
+    },
+    "title": {
+      "translate": "quest.oathbound.crown.title"
+    },
+    "description": {
+      "translate": "quest.oathbound.crown.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "crown": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "oathbound:hollow_crown"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "crown"
+    ]
+  ],
+  "parent": "oathbound:quests/morvane"
+}

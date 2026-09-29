@@ -1,0 +1,82 @@
+{
+  "display": {
+    "icon": {
+      "id": "oathbound:lore_tablet"
+    },
+    "title": {
+      "translate": "quest.oathbound.loremaster.title"
+    },
+    "description": {
+      "translate": "quest.oathbound.loremaster.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "tablet_0": {
+      "trigger": "minecraft:impossible"
+    },
+    "tablet_1": {
+      "trigger": "minecraft:impossible"
+    },
+    "tablet_2": {
+      "trigger": "minecraft:impossible"
+    },
+    "tablet_3": {
+      "trigger": "minecraft:impossible"
+    },
+    "tablet_4": {
+      "trigger": "minecraft:impossible"
+    },
+    "tablet_5": {
+      "trigger": "minecraft:impossible"
+    },
+    "tablet_6": {
+      "trigger": "minecraft:impossible"
+    },
+    "tablet_7": {
+      "trigger": "minecraft:impossible"
+    },
+    "tablet_8": {
+      "trigger": "minecraft:impossible"
+    },
+    "tablet_9": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "tablet_0"
+    ],
+    [
+      "tablet_1"
+    ],
+    [
+      "tablet_2"
+    ],
+    [
+      "tablet_3"
+    ],
+    [
+      "tablet_4"
+    ],
+    [
+      "tablet_5"
+    ],
+    [
+      "tablet_6"
+    ],
+    [
+      "tablet_7"
+    ],
+    [
+      "tablet_8"
+    ],
+    [
+      "tablet_9"
+    ]
+  ],
+  "parent": "oathbound:quests/root"
+}

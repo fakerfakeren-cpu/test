@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "oathbound:oathsteel_longsword",
+    "oathbound:wardens_halberd",
+    "oathbound:dawnbreaker",
+    "oathbound:drowned_anchor",
+    "oathbound:oathsteel_pickaxe",
+    "oathbound:oathsteel_axe",
+    "oathbound:oathsteel_shovel"
+  ]
+}

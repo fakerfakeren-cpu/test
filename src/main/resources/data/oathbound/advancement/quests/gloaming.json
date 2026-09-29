@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "id": "oathbound:gloam_moss"
+    },
+    "title": {
+      "translate": "quest.oathbound.gloaming.title"
+    },
+    "description": {
+      "translate": "quest.oathbound.gloaming.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "entered": {
+      "trigger": "minecraft:impossible"
+    },
+    "travelled": {
+      "trigger": "minecraft:changed_dimension",
+      "conditions": {
+        "to": "oathbound:gloaming"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "entered",
+      "travelled"
+    ]
+  ],
+  "parent": "oathbound:quests/gate"
+}

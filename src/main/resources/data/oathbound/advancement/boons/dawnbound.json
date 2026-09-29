@@ -1,0 +1,12 @@
+{
+  "criteria": {
+    "sworn": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "sworn"
+    ]
+  ]
+}

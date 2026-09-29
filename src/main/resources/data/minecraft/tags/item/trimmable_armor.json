@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "oathbound:oathsteel_helmet",
+    "oathbound:oathsteel_chestplate",
+    "oathbound:oathsteel_leggings",
+    "oathbound:oathsteel_boots",
+    "oathbound:arcanist_hood",
+    "oathbound:arcanist_robe",
+    "oathbound:arcanist_leggings",
+    "oathbound:arcanist_boots"
+  ]
+}

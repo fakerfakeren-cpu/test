@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "SC",
+    "CS"
+  ],
+  "key": {
+    "S": "minecraft:sandstone",
+    "C": "minecraft:calcite"
+  },
+  "result": {
+    "id": "oathbound:wardstone",
+    "count": 4
+  }
+}
