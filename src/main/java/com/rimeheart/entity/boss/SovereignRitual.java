@@ -76,7 +76,7 @@ public final class SovereignRitual {
         if (t == 90) {
             FrostSovereignEntity boss = ModEntities.FROST_SOVEREIGN.get().create(level, EntitySpawnReason.EVENT);
             if (boss != null) {
-                boss.snapTo(c.x + 4, c.y - 5.5, c.z, level.getRandom().nextFloat() * 360f, 0f);
+                boss.snapTo(c.x, c.y - 5.5, c.z, level.getRandom().nextFloat() * 360f, 0f);
                 boss.beginEmerging(pos);
                 level.addFreshEntity(boss);
             }

@@ -55,7 +55,7 @@ jobs:
 
       - name: Client smoke test (real client, screenshots)
         id: clienttest
-        if: always() && steps.build.outcome == 'success'
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
         run: |
           sudo apt-get update -qq >/dev/null && sudo apt-get install -y -qq xvfb xdotool libgl1-mesa-dri mesa-utils >/dev/null
           mkdir -p run/saves

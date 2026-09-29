@@ -19,8 +19,8 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * Procedural layout of the Frozen Sanctum: broken pillars and a stairwell on the surface, a buried hall
- * with the Glacial Altar, and a sealed vault behind a hollow wall.
+ * Procedural layout of the Frozen Sanctum: the Glacial Altar on an open plaza ringed by broken pillars, a
+ * stairwell down to a buried hall, and a sealed vault behind a hollow wall.
  */
 public final class Blueprints {
     public enum Type {
@@ -85,6 +85,14 @@ public final class Blueprints {
         // ---------------- surface: frozen plaza, broken pillars, stairwell arch
         bp.fillAir(-10, 1, -18, 10, 7, 10);
         bp.disk(0, 0, 0, 7.5, ground);
+        // the Glacial Altar stands under open sky on a chiseled dais
+        for (int x = -2; x <= 2; x++)
+            for (int z = -2; z <= 2; z++) bp.set(x, 0, z, Math.abs(x) == 2 || Math.abs(z) == 2 ? chiseled : bricks);
+        bp.set(0, 1, 0, ModBlocks.GLACIAL_ALTAR.get().defaultBlockState());
+        for (int[] p : new int[][]{{-2, -2}, {2, -2}, {-2, 2}, {2, 2}}) {
+            bp.set(p[0], 1, p[1], bricks);
+            bp.set(p[0], 2, p[1], lamp);
+        }
         for (int i = 0; i < 8; i++) {
             double a = i * Math.PI / 4 + 0.2;
             int px = (int) Math.round(Math.cos(a) * 9), pz = (int) Math.round(Math.sin(a) * 9);
@@ -137,11 +145,12 @@ public final class Blueprints {
         for (int[] p : new int[][]{{-5, -5}, {5, -5}, {-5, 5}, {5, 5}}) {
             for (int y = f + 1; y <= f + 6; y++) bp.set(p[0], y, p[1], y == f + 4 ? lamp : bricks);
         }
-        // dais and the Glacial Altar
+        // central shrine: a pillar of rime crystal ringed with lamps and crystal growth
         for (int x = -2; x <= 2; x++)
             for (int z = -2; z <= 2; z++) bp.set(x, f + 1, z, Math.abs(x) == 2 || Math.abs(z) == 2 ? chiseled : bricks);
-        bp.set(0, f + 2, 0, ModBlocks.GLACIAL_ALTAR.get().defaultBlockState());
+        for (int y = f + 2; y <= f + 6; y++) bp.set(0, y, 0, y == f + 6 ? lamp : ModBlocks.RIME_CRYSTAL_BLOCK.get().defaultBlockState());
         for (int[] p : new int[][]{{-2, -2}, {2, -2}, {-2, 2}, {2, 2}}) bp.set(p[0], f + 2, p[1], lamp);
+        for (int[] p : new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}}) bp.set(p[0], f + 2, p[1], cluster);
         // crystal growth along the walls
         for (int i = 0; i < 10; i++) {
             int x = -8 + r.nextInt(17), z = -8 + r.nextInt(17);

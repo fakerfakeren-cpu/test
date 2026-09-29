@@ -146,6 +146,8 @@ public class FrostSovereignEntity extends Monster {
         if (home == null) home = blockPosition();
         bossEvent.setProgress(getHealth() / getMaxHealth());
         int emerge = getEmerge();
+        // Rising out of the ice: pass through terrain until fully emerged.
+        noPhysics = emerge > 0;
         if (emerge > 0) {
             tickEmerge(level, emerge);
             return;
@@ -227,7 +229,7 @@ public class FrostSovereignEntity extends Monster {
         if (target != null) {
             getLookControl().setLookAt(target, 20f, 20f);
             double orbit = tickCount * 0.01;
-            double radius = getAttack() == STOMP ? 2.5 : 9;
+            double radius = getAttack() == STOMP ? 2.5 : 8;
             want = target.position().add(Math.cos(orbit) * radius, 0, Math.sin(orbit) * radius);
             int ground = level().getHeight(Heightmap.Types.MOTION_BLOCKING, (int) Math.floor(want.x), (int) Math.floor(want.z));
             want = new Vec3(want.x, Math.max(ground, target.getY()) + 0.6, want.z);

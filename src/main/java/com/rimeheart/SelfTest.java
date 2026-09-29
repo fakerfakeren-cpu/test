@@ -288,7 +288,8 @@ public final class SelfTest {
         check("build_frozen_sanctum", sample > 0 && present >= sample * 0.9, "blocks=" + bp.blocks.size() + " verified=" + present + "/" + Math.min(sample, 600));
         sanctum = origin;
         int f = Blueprints.HALL_FLOOR;
-        check("sanctum_altar", level.getBlockState(origin.offset(0, f + 2, 0)).is(ModBlocks.GLACIAL_ALTAR.get()), "");
+        check("sanctum_altar", level.getBlockState(origin.offset(0, 1, 0)).is(ModBlocks.GLACIAL_ALTAR.get()), "");
+        check("sanctum_altar_open_sky", level.canSeeSky(origin.offset(0, 2, 0)), "");
         check("sanctum_hollow_wall", level.getBlockState(origin.offset(9, f + 1, 0)).is(ModBlocks.HOLLOW_RIMESTONE_BRICKS.get()), "");
         int chests = 0;
         for (BlockPos p : BlockPos.betweenClosed(origin.offset(-10, f, -10), origin.offset(16, f + 3, 10))) {

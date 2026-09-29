@@ -83,6 +83,7 @@ TOOLTIPS = {
 MESSAGES = {
     'message.rimeheart.altar.hint': 'The altar is cold and silent. Sound a Winter Horn here to wake what sleeps below.',
     'message.rimeheart.altar.busy': 'The winter is already stirring.',
+    'message.rimeheart.altar.sky': 'The Sovereign will only rise beneath open sky. The altar must stand outdoors.',
     'message.rimeheart.horn.echo': 'The note echoes over the snow... but nothing answers. Find a Glacial Altar.',
     'message.rimeheart.ritual.begin': 'The horn\'s note does not fade. A blizzard gathers around the altar...',
     'message.rimeheart.boss.phase2': 'The Frost Sovereign calls the Long Winter down upon you!',
@@ -156,7 +157,7 @@ QUEST_HINTS = {
     'sanctum': 'Sanctums are buried under snowy plains and taiga. Look for a ring of broken pillars and a stairwell down.',
     'vault': 'The Sanctum hall hides more than its altar. One wall sounds hollow, where the bricks are cracked.',
     'winter_horn': 'Two Wraith Essence, four Frostiron Ingots and the Glacial Heart.',
-    'sovereign': 'Sound the Winter Horn at a Glacial Altar. Bring stew, armour and room to dodge the telegraphed eruptions.',
+    'sovereign': 'Sound the Winter Horn at a Glacial Altar under open sky, like the one on the Sanctum plaza. Bring stew, armour and room to dodge the telegraphed eruptions.',
     'winterfang': "Place the Sovereign's Core above a Frostbite Blade.",
 }
 
@@ -234,11 +235,11 @@ GUIDE = [
      'Their bite chills. Drop Rime Shards.\n\nBoth are immune to chill.'),
     ('The Frozen Sanctum',
      'Buried temples of the Wardens, found under snowy plains, taiga and slopes. Look for a ring of broken rimestone pillars on the '
-     'surface and a stairwell leading down.\n\nThe hall below holds a §lGlacial Altar§r, supply chests and old guardians.\n\n'
+     'surface around a §lGlacial Altar§r, and a stairwell leading down.\n\nThe hall below holds supply chests, crystal growths and old guardians.\n\n'
      '§1§lA secret:§r the Wardens sealed their vault behind a wall that only looks solid. Look for cracked bricks, and a stretch of wall '
      'that crumbles at a touch.'),
     ('The Frost Sovereign',
-     'Craft a §lWinter Horn§r from a Glacial Heart and sound it at a Glacial Altar.\n\n§1Attacks:§r\n- §lIcicle Barrage§r: homing shards\n'
+     'Craft a §lWinter Horn§r from a Glacial Heart and sound it at a Glacial Altar. The altar must stand under open sky.\n\n§1Attacks:§r\n- §lIcicle Barrage§r: homing shards\n'
      '- §lGlacial Eruption§r: rings of frost mark where spikes will burst. Step out!\n- §lFrost Breath§r: a slow-turning cone of blizzard\n'
      '- §lStomp§r when you get close\n\nAt half health it summons Frost Wraiths, erupts three times at once and attacks twice as often.\n\n'
      '§1Rewards:§r Sovereign\'s Core, a Glacial Heart, Frostiron and Rime Shards.'),

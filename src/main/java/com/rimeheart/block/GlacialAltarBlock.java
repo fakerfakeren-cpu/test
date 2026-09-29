@@ -36,6 +36,10 @@ public class GlacialAltarBlock extends Block {
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (!stack.is(ModItems.WINTER_HORN.get())) return InteractionResult.TRY_WITH_EMPTY_HAND;
         if (level instanceof ServerLevel server) {
+            if (!server.canSeeSky(pos.above())) {
+                player.sendOverlayMessage(Component.translatable("message.rimeheart.altar.sky").withStyle(ChatFormatting.RED));
+                return InteractionResult.FAIL;
+            }
             if (SovereignRitual.isActive(server)) {
                 player.sendOverlayMessage(Component.translatable("message.rimeheart.altar.busy").withStyle(ChatFormatting.RED));
                 return InteractionResult.FAIL;

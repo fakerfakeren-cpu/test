@@ -75,6 +75,7 @@
   "item.rimeheart.hearthfire_stew.desc.1": "Thaws you out instantly and grants Regeneration.",
   "message.rimeheart.altar.hint": "The altar is cold and silent. Sound a Winter Horn here to wake what sleeps below.",
   "message.rimeheart.altar.busy": "The winter is already stirring.",
+  "message.rimeheart.altar.sky": "The Sovereign will only rise beneath open sky. The altar must stand outdoors.",
   "message.rimeheart.horn.echo": "The note echoes over the snow... but nothing answers. Find a Glacial Altar.",
   "message.rimeheart.ritual.begin": "The horn's note does not fade. A blizzard gathers around the altar...",
   "message.rimeheart.boss.phase2": "The Frost Sovereign calls the Long Winter down upon you!",
@@ -161,7 +162,7 @@
   "quest.rimeheart.winter_horn.hint": "Two Wraith Essence, four Frostiron Ingots and the Glacial Heart.",
   "quest.rimeheart.sovereign.title": "The Thaw",
   "quest.rimeheart.sovereign.description": "Defeat the Frost Sovereign",
-  "quest.rimeheart.sovereign.hint": "Sound the Winter Horn at a Glacial Altar. Bring stew, armour and room to dodge the telegraphed eruptions.",
+  "quest.rimeheart.sovereign.hint": "Sound the Winter Horn at a Glacial Altar under open sky, like the one on the Sanctum plaza. Bring stew, armour and room to dodge the telegraphed eruptions.",
   "quest.rimeheart.winterfang.title": "Winterfang",
   "quest.rimeheart.winterfang.description": "Reforge the Frostbite Blade into Winterfang",
   "quest.rimeheart.winterfang.hint": "Place the Sovereign's Core above a Frostbite Blade.",
@@ -203,9 +204,9 @@
   "guide.rimeheart.5.title": "Creatures",
   "guide.rimeheart.5.text": "\u00a71\u00a7lFrost Wraith\u00a7r\nHooded spirits that drift over snowy biomes at night. They circle and cast volleys of ice shards. They fade in direct sunlight. Drop Wraith Essence and, rarely, a Glacial Heart.\n\n\u00a71\u00a7lShardling\u00a7r\nSmall crystal crawlers that nest in rime clusters and cold caves. Their bite chills. Drop Rime Shards.\n\nBoth are immune to chill.",
   "guide.rimeheart.6.title": "The Frozen Sanctum",
-  "guide.rimeheart.6.text": "Buried temples of the Wardens, found under snowy plains, taiga and slopes. Look for a ring of broken rimestone pillars on the surface and a stairwell leading down.\n\nThe hall below holds a \u00a7lGlacial Altar\u00a7r, supply chests and old guardians.\n\n\u00a71\u00a7lA secret:\u00a7r the Wardens sealed their vault behind a wall that only looks solid. Look for cracked bricks, and a stretch of wall that crumbles at a touch.",
+  "guide.rimeheart.6.text": "Buried temples of the Wardens, found under snowy plains, taiga and slopes. Look for a ring of broken rimestone pillars on the surface around a \u00a7lGlacial Altar\u00a7r, and a stairwell leading down.\n\nThe hall below holds supply chests, crystal growths and old guardians.\n\n\u00a71\u00a7lA secret:\u00a7r the Wardens sealed their vault behind a wall that only looks solid. Look for cracked bricks, and a stretch of wall that crumbles at a touch.",
   "guide.rimeheart.7.title": "The Frost Sovereign",
-  "guide.rimeheart.7.text": "Craft a \u00a7lWinter Horn\u00a7r from a Glacial Heart and sound it at a Glacial Altar.\n\n\u00a71Attacks:\u00a7r\n- \u00a7lIcicle Barrage\u00a7r: homing shards\n- \u00a7lGlacial Eruption\u00a7r: rings of frost mark where spikes will burst. Step out!\n- \u00a7lFrost Breath\u00a7r: a slow-turning cone of blizzard\n- \u00a7lStomp\u00a7r when you get close\n\nAt half health it summons Frost Wraiths, erupts three times at once and attacks twice as often.\n\n\u00a71Rewards:\u00a7r Sovereign's Core, a Glacial Heart, Frostiron and Rime Shards.",
+  "guide.rimeheart.7.text": "Craft a \u00a7lWinter Horn\u00a7r from a Glacial Heart and sound it at a Glacial Altar. The altar must stand under open sky.\n\n\u00a71Attacks:\u00a7r\n- \u00a7lIcicle Barrage\u00a7r: homing shards\n- \u00a7lGlacial Eruption\u00a7r: rings of frost mark where spikes will burst. Step out!\n- \u00a7lFrost Breath\u00a7r: a slow-turning cone of blizzard\n- \u00a7lStomp\u00a7r when you get close\n\nAt half health it summons Frost Wraiths, erupts three times at once and attacks twice as often.\n\n\u00a71Rewards:\u00a7r Sovereign's Core, a Glacial Heart, Frostiron and Rime Shards.",
   "guide.rimeheart.8.title": "Beyond the Winter",
   "guide.rimeheart.8.text": "Place the \u00a7lSovereign's Core\u00a7r above a Frostbite Blade to forge \u00a71\u00a7lWinterfang\u00a7r: a blade on par with netherite, whose hits chill deeply and whose \u00a7lAbsolute Zero\u00a7r freezes every enemy within 8 blocks.\n\nThe Sovereign can be summoned again with another Glacial Heart.\n\nThe winter is over... until next time."
 }
