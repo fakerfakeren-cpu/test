@@ -172,20 +172,20 @@ public final class ClientTest {
             cmd(mc, "gamemode creative");
             cmd(mc, "clear @s");
             cmd(mc, "give @s rimeheart:wardens_journal");
-            cmd(mc, "advancement grant @s through rimeheart:quests/ingot");
+            cmd(mc, "advancement grant @s until rimeheart:quests/ingot");
             cmd(mc, "advancement grant @s only rimeheart:quests/rime_shard");
             cmd(mc, "advancement grant @s only rimeheart:quests/hearthfire");
             cmd(mc, "rimejournal claim root");
             cmd(mc, "rimejournal claim frostiron");
         });
-        step(60, "open journal", mc -> mc.setScreenAndShow(new JournalScreen(net.minecraft.world.InteractionHand.MAIN_HAND, JournalScreen.TAB_QUESTS)));
+        step(60, "open journal", mc -> openJournal(mc, JournalScreen.TAB_QUESTS));
         step(40, "shot journal quests", mc -> shot(mc, "journal_quests"));
-        step(5, "journal story", mc -> mc.setScreenAndShow(new JournalScreen(net.minecraft.world.InteractionHand.MAIN_HAND, JournalScreen.TAB_STORY)));
+        step(5, "journal story", mc -> openJournal(mc, JournalScreen.TAB_STORY));
         step(30, "shot journal story", mc -> shot(mc, "journal_story"));
-        step(5, "journal guide", mc -> mc.setScreenAndShow(new JournalScreen(net.minecraft.world.InteractionHand.MAIN_HAND, JournalScreen.TAB_GUIDE)));
+        step(5, "journal guide", mc -> openJournal(mc, JournalScreen.TAB_GUIDE));
         step(30, "shot journal guide", mc -> shot(mc, "journal_guide"));
         step(5, "close journal", mc -> {
-            mc.setScreenAndShow(null);
+            if (journal != null) journal.onClose();
             cmd(mc, "gamemode spectator");
         });
         // --- Frozen Sanctum, placed at a known origin so every camera lands exactly
@@ -247,6 +247,13 @@ public final class ClientTest {
             done = true;
             mc.stop();
         });
+    }
+
+    private static JournalScreen journal;
+
+    private static void openJournal(Minecraft mc, int tab) {
+        journal = new JournalScreen(net.minecraft.world.InteractionHand.MAIN_HAND, tab);
+        mc.setScreenAndShow(journal);
     }
 
     private static void spawnStill(ServerLevel level, net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.Mob> type, BlockPos at) {
