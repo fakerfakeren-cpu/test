@@ -273,8 +273,8 @@ def gen_worldgen():
     w(f'{D}/forge/biome_modifier/frozen_ores.json', {'type': 'forge:add_features', 'biomes': f'#{M}:is_frozen',
                                                      'features': [m('frostiron_ore'), m('rime_crystal_ore'), m('rimestone_blob')], 'step': 'underground_ores'})
     w(f'{D}/forge/biome_modifier/frozen_spawns.json', {'type': 'forge:add_spawns', 'biomes': f'#{M}:is_frozen', 'spawners': [
-        {'type': m('frost_wraith'), 'weight': 15, 'minCount': 1, 'maxCount': 2},
-        {'type': m('shardling'), 'weight': 12, 'minCount': 1, 'maxCount': 3}]})
+        {'type': m('frost_wraith'), 'weight': 30, 'minCount': 1, 'maxCount': 2},
+        {'type': m('shardling'), 'weight': 20, 'minCount': 1, 'maxCount': 3}]})
     w(f'{D}/worldgen/structure/frozen_sanctum.json', {'type': m('blueprint'), 'biomes': f'#{M}:has_structure/frozen_sanctum', 'spawn_overrides': {},
                                                       'step': 'underground_structures', 'terrain_adaptation': 'none', 'blueprint': 'frozen_sanctum', 'y_offset': 0})
     w(f'{D}/worldgen/structure_set/frozen_sanctum.json', {'structures': [{'structure': m('frozen_sanctum'), 'weight': 1}],
