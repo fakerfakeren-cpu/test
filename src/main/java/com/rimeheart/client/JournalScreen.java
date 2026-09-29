@@ -344,10 +344,12 @@ public class JournalScreen extends Screen {
                     out.append(Component.literal(run.toString()).withStyle(style));
                     run.setLength(0);
                 }
-                ChatFormatting f = ChatFormatting.getByCode(text.charAt(++i));
+                char code = Character.toLowerCase(text.charAt(++i));
+                ChatFormatting f = ChatFormatting.getByCode(code);
                 if (f == null) continue;
+                boolean colour = "0123456789abcdef".indexOf(code) >= 0;
                 style = f == ChatFormatting.RESET ? net.minecraft.network.chat.Style.EMPTY
-                    : f.isColor() ? net.minecraft.network.chat.Style.EMPTY.applyFormat(f) : style.applyFormat(f);
+                    : colour ? net.minecraft.network.chat.Style.EMPTY.applyFormat(f) : style.applyFormat(f);
                 continue;
             }
             run.append(ch);
