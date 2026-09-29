@@ -219,6 +219,8 @@ def gen_lang():
     for q in L.QUESTS:
         lang[f'quest.astralfall.{q[0]}.title'] = q[3]
         lang[f'quest.astralfall.{q[0]}.description'] = q[4]
+        lang[f'quest.astralfall.{q[0]}.hint'] = L.QUEST_HINTS[q[0]]
+    lang.update(L.JOURNAL_UI)
     w(f'{A}/lang/en_us.json', lang)
     assert len(L.JOURNAL) == 29, len(L.JOURNAL)
 
@@ -438,6 +440,13 @@ def gen_tags():
     tag('item', 'minecraft', 'enchantable/bow', [m('constellation_bow')])
     tag('item', 'minecraft', 'stairs', [m('astral_brick_stairs')])
     tag('item', 'minecraft', 'slabs', [m('astral_brick_slab')])
+    # Meteors only carve natural terrain, so craters never eat into player builds (pack makers can extend this).
+    tag('block', M, 'meteor_carvable', ['#minecraft:overworld_carver_replaceables', '#minecraft:replaceable', '#minecraft:leaves',
+        '#minecraft:flowers', '#minecraft:dirt', '#minecraft:sand', '#minecraft:base_stone_overworld', '#minecraft:terracotta',
+        '#minecraft:snow', 'minecraft:gravel', 'minecraft:clay', 'minecraft:sandstone', 'minecraft:red_sandstone', 'minecraft:ice',
+        'minecraft:packed_ice', 'minecraft:magma_block', 'minecraft:blackstone', 'minecraft:coarse_dirt', 'minecraft:sweet_berry_bush',
+        'minecraft:cactus', 'minecraft:pumpkin', 'minecraft:melon']
+        + [m(b) for b in ('meteorite_rock', 'cooled_meteorite', 'starmetal_ore', 'skyshard_cluster', 'void_stone')])
     tag('entity_type', M, 'void_creatures', [m('void_stalker'), m('void_gazer')])
     tag('worldgen/structure', M, 'observatory', [m('shattered_observatory')])
     tag('worldgen/structure', M, 'fallen_vessel', [m('fallen_vessel')])
@@ -515,14 +524,15 @@ def gen_quests():
         adv = {'display': display, 'criteria': crit, 'requirements': req}
         if parent:
             adv['parent'] = f'{M}:quests/{parent}'
-        rewards = {}
-        if xp:
-            rewards['experience'] = xp
-        if loot:
-            rewards['loot'] = [f'{M}:quests/{loot}']
-        if rewards:
-            adv['rewards'] = rewards
+        # Quest rewards (items + XP) are claimed from the Astral Journal (QuestLog.java); only the root
+        # quest hands out the journal itself on first join.
+        if parent is None:
+            adv['rewards'] = {'loot': [f'{M}:quests/journal']}
         w(f'{D}/advancement/quests/{qid}.json', adv)
+        # Hidden per-player marker the server awards when this quest's reward has been claimed.
+        w(f'{D}/advancement/claimed/{qid}.json', {
+            'criteria': {'claimed': {'trigger': 'minecraft:impossible'}},
+            'requirements': [['claimed']]})
     # Hidden helper: unlock every Astralfall recipe in the recipe book on first join.
     recipes = sorted(f'{M}:' + f[:-5] for f in os.listdir(f'{D}/recipe') if f.endswith('.json'))
     w(f'{D}/advancement/recipes/unlock_all.json', {

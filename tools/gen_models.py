@@ -14,8 +14,8 @@ sys.path.insert(0, os.path.dirname(__file__))
 from pixel import *  # noqa
 
 ROOT = os.path.join(os.path.dirname(__file__), '..')
-TEX = os.path.join(ROOT, 'src', 'main', 'resources', 'assets', 'astralfall', 'textures', 'entity')
-JAVA = os.path.join(ROOT, 'src', 'main', 'java', 'com', 'astralfall', 'client', 'model', 'ModelDefs.java')
+TEX = os.path.join(ROOT, 'src', 'main', 'resources', 'assets', 'rimeheart', 'textures', 'entity')
+JAVA = os.path.join(ROOT, 'src', 'main', 'java', 'com', 'rimeheart', 'client', 'model', 'ModelDefs.java')
 
 
 class Box:
@@ -60,168 +60,76 @@ def pal(*hexes):
 
 
 MATS = {
-    'wisp_core': dict(p=pal('#3fc6e0', '#9af3ff', '#effeff', '#ffffff'), glow=True, pattern='gradient'),
-    'wisp_shell': dict(p=pal('#1f7ea3', '#3fc6e0', '#9af3ff'), glow=True, pattern='lattice', alpha=110),
-    'wisp_wing': dict(p=pal('#9af3ff', '#effeff', '#c998ff'), glow=True, pattern='wing', alpha=150),
-    'wisp_tail': dict(p=pal('#3fc6e0', '#9af3ff', '#effeff'), glow=True, pattern='gradient', alpha=190),
-    'wisp_mote': dict(p=pal('#ffe9a3', '#fff6d0', '#ffffff'), glow=True, pattern='flat'),
-    'void_skin': dict(p=pal('#07040f', '#120a1f', '#1d1030', '#2a1548'), pattern='noise'),
-    'void_skin_light': dict(p=pal('#120a1f', '#241339', '#35205a', '#4a2c78'), pattern='noise'),
-    'void_cloth': dict(p=pal('#05030a', '#100820', '#1c0f33'), pattern='tatter'),
-    'void_claw': dict(p=pal('#d8c8f0', '#f3e4ff', '#ffffff'), pattern='flat', glow=True),
-    'rock': dict(p=pal('#120f16', '#1f1a25', '#2d2634', '#3d3446', '#4d4358'), pattern='cracks', crack=pal('#5a1606', '#b4380c', '#ff7a1f', '#ffc56b')),
-    'rock_dark': dict(p=pal('#0d0b10', '#17131c', '#221c29', '#2d2634'), pattern='noise'),
-    'rock_leg': dict(p=pal('#17131c', '#221c29', '#2d2634', '#3d3446'), pattern='segments'),
-    'ore_bump': dict(p=pal('#46587f', '#6f86b6', '#a9c1ea', '#eef5ff'), pattern='noise'),
-    'mandible': dict(p=pal('#3d3446', '#5c5068', '#8a7aa0'), pattern='flat'),
-    'eye_white': dict(p=pal('#b8a8d8', '#d8ccf0', '#f3eeff'), pattern='gradient'),
-    'eye_lid': dict(p=pal('#1d1030', '#2a1548', '#3a1f60'), pattern='noise'),
-    'tentacle': dict(p=pal('#1a0d2e', '#2a1548', '#46236e', '#6a3aa0'), pattern='rings'),
-    'spike': dict(p=pal('#2a1548', '#46236e', '#9150e0'), pattern='gradient'),
-    'titan_armor': dict(p=pal('#0c0f2a', '#161b44', '#212962', '#2e3880', '#4150a6'), pattern='plates', trim=pal('#6b4a12', '#b9862a', '#f2c14e', '#ffe9a3')),
-    'titan_gold': dict(p=pal('#6b4a12', '#b9862a', '#f2c14e', '#ffe9a3'), pattern='gradient'),
-    'titan_skin': dict(p=pal('#12061f', '#1d0c33', '#2a1248', '#3d1c66'), pattern='nebula'),
-    'titan_nebula': dict(p=pal('#1d0c33', '#3d1c66', '#6a2ca0', '#a55cf0', '#e0b8ff'), pattern='nebula', glow=True, alpha=235),
-    'titan_core': dict(p=pal('#ffd35c', '#fff1b0', '#ffffff'), pattern='star', glow=True),
-    'titan_rune': dict(p=pal('#9af3ff', '#effeff'), pattern='flat', glow=True),
-    'crystal': dict(p=pal('#1f7ea3', '#3fc6e0', '#9af3ff', '#effeff'), pattern='facets', glow=True),
-    'meteor': dict(p=pal('#120f16', '#1f1a25', '#2d2634', '#3d3446'), pattern='cracks', crack=pal('#b4380c', '#ff7a1f', '#ffc56b', '#fff1c9'), glowcracks=True),
-    'star_rock': dict(p=pal('#f08a24', '#ffd35c', '#fff3b8', '#ffffff'), pattern='gradient', glow=True),
-    'void_core': dict(p=pal('#000000', '#02010a', '#060312'), pattern='flat'),
-    'void_disk': dict(p=pal('#3a1560', '#6a2ca0', '#a55cf0', '#e0b8ff', '#ffffff'), pattern='disk', glow=True, alpha=220),
+    'wraith_robe': dict(p=pal('#0e1f2e', '#16324a', '#1f4866', '#2b6184'), pattern='tatter'),
+    'wraith_hood': dict(p=pal('#0a1622', '#12283b', '#1b3a55', '#25507a'), pattern='noise'),
+    'wraith_tatter': dict(p=pal('#16324a', '#1f4866', '#4f8fb8', '#8fd0f0'), pattern='tatter', alpha=210),
+    'ice_claw': dict(p=pal('#9fe6ff', '#d8f6ff', '#ffffff'), pattern='gradient', glow=True),
+    'crystal_shell': dict(p=pal('#2c6f96', '#4aa3cf', '#8fd8f5', '#d8f6ff'), pattern='facets'),
+    'rime_crystal': dict(p=pal('#5fc3ee', '#a8e8ff', '#e8fbff', '#ffffff'), pattern='facets', glow=True),
+    'crystal_leg': dict(p=pal('#1d4a66', '#2c6f96', '#4aa3cf'), pattern='segments'),
+    'sov_ice': dict(p=pal('#7fb8d8', '#a9d6ee', '#d2eefa', '#f2fbff'), pattern='noise'),
+    'sov_armor': dict(p=pal('#1b2f4a', '#274466', '#365c85', '#4a78a6', '#6b98c4'), pattern='plates', trim=pal('#9fe6ff', '#d8f6ff', '#ffffff', '#ffffff')),
+    'sov_robe': dict(p=pal('#0f2238', '#16304d', '#1f4266', '#2c5a88'), pattern='noise'),
+    'sov_mist': dict(p=pal('#a9d6ee', '#d2eefa', '#ffffff'), pattern='gradient', glow=True, alpha=170),
 }
 
 
 # ------------------------------------------------------------------ model definitions
-def wisp():
-    motes = Part('orbit', (0, 0, 0), boxes=[Box(6, -1, -1, 2, 2, 2, 'wisp_mote'), Box(-8, 0, -1, 2, 2, 2, 'wisp_mote'), Box(-1, -2, 6, 2, 2, 2, 'wisp_mote')])
-    tail3 = Part('tail3', (0, 3, 0), boxes=[Box(-1, 0, -1, 2, 2, 2, 'wisp_tail')])
-    tail2 = Part('tail2', (0, 3, 0), boxes=[Box(-1, 0, -1, 2, 3, 2, 'wisp_tail')], children=[tail3])
-    tail1 = Part('tail1', (0, 3, 0), boxes=[Box(-2, 0, -2, 4, 3, 4, 'wisp_tail')], children=[tail2])
-    body = Part('body', (0, 16, 0), boxes=[Box(-3, -3, -3, 6, 6, 6, 'wisp_core', feature='wisp_face'), Box(-4, -4, -4, 8, 8, 8, 'wisp_shell')],
-                children=[Part('left_wing', (3, -1, 1), boxes=[Box(0, -4, 0, 7, 7, 0, 'wisp_wing')]),
-                          Part('right_wing', (-3, -1, 1), boxes=[Box(-7, -4, 0, 7, 7, 0, 'wisp_wing', mirror=True)]),
-                          tail1, motes])
-    return Model('astral_wisp', 64, 64, [body])
-
-
-def stalker():
-    def arm(side):
-        name = 'left' if side > 0 else 'right'
-        x = 0 if side > 0 else -2
-        claw = Part(name + '_claw', (x + 1 if side > 0 else x + 1, 21, 0), boxes=[
-            Box(-1.5, 0, -1.5, 1, 5, 1, 'void_claw'), Box(0.5, 0, -1.5, 1, 6, 1, 'void_claw'), Box(-0.5, 0, 0.5, 1, 4, 1, 'void_claw')])
-        return Part(name + '_arm', (4.5 * side, -11, 0), rot=(0, 0, -0.08 * side), boxes=[Box(x, -1, -1, 2, 22, 2, 'void_skin_light')], children=[claw])
-    head = Part('head', (0, -12, 0), boxes=[Box(-3, -11, -3, 6, 11, 6, 'void_skin', feature='stalker_face')])
-    cape = Part('cape', (0, -12, 1.6), boxes=[Box(-4, 0, 0, 8, 16, 0, 'void_cloth')])
-    body = Part('body', (0, 8, 0), rot=(0.18, 0, 0), boxes=[Box(-3.5, -12, -1.5, 7, 12, 3, 'void_skin', feature='stalker_ribs')],
-                children=[head, arm(1), arm(-1), cape])
-    return Model('void_stalker', 64, 64, [body,
-                                          Part('left_leg', (2, 8, 0), boxes=[Box(-1, 0, -1, 2, 16, 2, 'void_skin_light')]),
-                                          Part('right_leg', (-2, 8, 0), boxes=[Box(-1, 0, -1, 2, 16, 2, 'void_skin_light', mirror=True)])])
-
-
-def crawler():
-    legs = []
-    for side in (1, -1):
-        for i, z in enumerate((-5, 0, 5)):
-            nm = ('left' if side > 0 else 'right') + '_leg' + str(i)
-            lower = Part(nm + '_lower', (8 * side, 0, 0), rot=(0, 0, -1.25 * side),
-                         boxes=[Box(-1, 0, -1, 2, 9, 2, 'rock_leg')])
-            upper = Part(nm, (6 * side, 2, z), rot=(0, (0.35 * (i - 1)) * side, 0.45 * side),
-                         boxes=[Box(0 if side > 0 else -8, -1, -1, 8, 2, 2, 'rock_leg')], children=[lower])
-            legs.append(upper)
-    head = Part('head', (0, 1, -8), boxes=[Box(-4, -3, -6, 8, 6, 6, 'rock', feature='crawler_face')],
-                children=[Part('left_mandible', (2.5, 2, -6), rot=(0, -0.3, 0), boxes=[Box(-1, -1, -4, 2, 2, 4, 'mandible')]),
-                          Part('right_mandible', (-2.5, 2, -6), rot=(0, 0.3, 0), boxes=[Box(-1, -1, -4, 2, 2, 4, 'mandible')])])
-    body = Part('body', (0, 15, 0), boxes=[Box(-7, -4, -8, 14, 8, 16, 'rock'),
-                                           Box(-5, -7, -5, 10, 3, 10, 'rock_dark'),
-                                           Box(-2, -9, -2, 4, 2, 4, 'ore_bump'),
-                                           Box(3, -6, 4, 3, 2, 3, 'ore_bump'),
-                                           Box(-6, -6, -6, 3, 2, 3, 'ore_bump')],
-                children=[head] + legs)
-    return Model('meteorite_crawler', 128, 64, [body])
-
-
-def gazer():
-    tentacles = []
-    for i in range(6):
-        a = i * math.pi / 3
-        x, z = round(math.cos(a) * 3.5, 1), round(math.sin(a) * 3.5, 1)
-        s3 = Part(f'tentacle{i}_c', (0, 5, 0), boxes=[Box(-0.5, 0, -0.5, 1, 5, 1, 'tentacle')])
-        s2 = Part(f'tentacle{i}_b', (0, 5, 0), boxes=[Box(-1, 0, -1, 2, 5, 2, 'tentacle')], children=[s3])
-        s1 = Part(f'tentacle{i}', (x, 5, z), boxes=[Box(-1, 0, -1, 2, 5, 2, 'tentacle')], children=[s2])
-        tentacles.append(s1)
-    spikes = [Box(-1, -9, -1, 2, 3, 2, 'spike'), Box(-5, -8, -3, 2, 2, 2, 'spike'), Box(3, -8, -3, 2, 2, 2, 'spike'),
-              Box(-4, -8, 2, 2, 2, 2, 'spike'), Box(2, -8, 2, 2, 2, 2, 'spike')]
-    body = Part('body', (0, 12, 0), boxes=[Box(-6, -6, -6, 12, 12, 12, 'eye_white', feature='gazer_eye'),
-                                           Box(-5, -7, -5, 10, 1, 10, 'eye_lid'), Box(-5, 6, -5, 10, 1, 10, 'eye_lid')] + spikes,
-                children=[Part('top_lid', (0, -6, -6.2), boxes=[Box(-6.5, 0, -1, 13, 6, 1, 'eye_lid')]),
-                          Part('bottom_lid', (0, 6, -6.2), boxes=[Box(-6.5, -6, -1, 13, 6, 1, 'eye_lid')])] + tentacles)
-    return Model('void_gazer', 128, 64, [body])
-
-
-def astraeus():
+def frost_wraith():
     def arm(side):
         nm = 'left' if side > 0 else 'right'
-        claws = [Box(-4 + i * 3, 5, -3.5, 2, 5, 2, 'titan_gold') for i in range(3)]
-        hand = Part(nm + '_hand', (0, 13, 0), boxes=[Box(-4, 0, -4, 8, 6, 8, 'titan_armor')] + claws)
-        fore = Part(nm + '_forearm', (0, 13, 0), boxes=[Box(-3.5, 0, -3.5, 7, 13, 7, 'titan_armor')], children=[hand])
-        return Part(nm + '_arm', (15 * side, -12, 0), rot=(0, 0, -0.15 * side), boxes=[Box(-3, 0, -3, 6, 13, 6, 'titan_skin')], children=[fore])
-    halo = Part('halo', (0, -6, 7), boxes=[Box(round(math.cos(i * math.pi / 6) * 10) - 1, round(math.sin(i * math.pi / 6) * 10) - 1, 0, 2, 2, 1, 'titan_rune') for i in range(12)])
-    crown = [Box(-6, -15, -6, 2, 4, 2, 'titan_gold'), Box(-1, -18, -6, 2, 7, 2, 'titan_gold'), Box(4, -15, -6, 2, 4, 2, 'titan_gold'),
-             Box(-6, -14, 3, 2, 3, 2, 'titan_gold'), Box(4, -14, 3, 2, 3, 2, 'titan_gold'), Box(-6, -12, -6, 12, 1, 12, 'titan_gold')]
-    head = Part('head', (0, -16, 0), boxes=[Box(-6, -12, -6, 12, 12, 12, 'titan_armor', feature='titan_face')] + crown, children=[halo])
-    tail4 = Part('tail4', (0, 8, 0), boxes=[Box(-1, 0, -1, 2, 6, 2, 'titan_nebula')])
-    tail3 = Part('tail3', (0, 8, 0), boxes=[Box(-2, 0, -2, 4, 8, 4, 'titan_nebula')], children=[tail4])
-    tail2 = Part('tail2', (0, 8, 0), boxes=[Box(-4, 0, -3, 8, 8, 6, 'titan_nebula')], children=[tail3])
-    tail = Part('tail', (0, 6, 0), boxes=[Box(-6, 0, -4, 12, 8, 8, 'titan_nebula')], children=[tail2])
-    torso = Part('torso', (0, -14, 0), boxes=[Box(-10, -16, -5, 20, 16, 10, 'titan_armor', feature='titan_chest'),
-                                              Box(-3, -12, -6, 6, 6, 1, 'titan_core'),
-                                              Box(-7, 0, -4, 14, 6, 8, 'titan_skin')],
-                 children=[head, arm(1), arm(-1),
-                           Part('left_pauldron', (12, -14, 0), boxes=[Box(-2, -3, -5, 10, 7, 10, 'titan_armor')]),
-                           Part('right_pauldron', (-12, -14, 0), boxes=[Box(-8, -3, -5, 10, 7, 10, 'titan_armor')]),
-                           tail])
+        x = 0 if side > 0 else -3
+        claw = Part(nm + '_claw', (x + 1.5, 11, 0), boxes=[Box(-1, 0, -1, 2, 3, 2, 'ice_claw')])
+        return Part(nm + '_arm', (4.5 * side, 1, 0), rot=(-0.35, 0, -0.12 * side), boxes=[Box(x, 0, -1.5, 3, 11, 3, 'wraith_robe', mirror=side < 0)], children=[claw])
+    head = Part('head', (0, 0, 0), boxes=[Box(-3.5, -8, -3.5, 7, 8, 7, 'wraith_hood', feature='wraith_face'),
+                                          Box(-4, -8.5, -1, 8, 3, 5, 'wraith_hood')])
+    tail2 = Part('tail2', (0, 6, 0), boxes=[Box(-2.5, 0, -1.5, 5, 6, 3, 'wraith_tatter')])
+    tail = Part('tail', (0, 10, 0), boxes=[Box(-3.5, 0, -2, 7, 6, 4, 'wraith_tatter')], children=[tail2])
+    body = Part('body', (0, 2, 0), boxes=[Box(-4, 0, -2.5, 8, 10, 5, 'wraith_robe', feature='wraith_chest')],
+                children=[head, arm(1), arm(-1), tail])
+    return Model('frost_wraith', 64, 64, [body])
+
+
+def shardling():
+    legs = []
+    for i in range(6):
+        side = 1 if i < 3 else -1
+        z = (-2.5, 0, 2.5)[i % 3]
+        x0 = 0 if side > 0 else -5
+        legs.append(Part(f'leg{i}', (3.5 * side, -1, z), rot=(0, 0, 0.55 * side), boxes=[Box(x0, -0.5, -0.5, 5, 1, 1, 'crystal_leg')]))
+    spikes = Part('spikes', (0, -3, 0), boxes=[Box(-1, -4, -2, 2, 4, 2, 'rime_crystal'), Box(-2.5, -3, 1, 2, 3, 2, 'rime_crystal'),
+                                               Box(1, -3, 0, 2, 3, 2, 'rime_crystal'), Box(-0.5, -2, 2.5, 1, 2, 1, 'rime_crystal')])
+    head = Part('head', (0, -1, -4), boxes=[Box(-2.5, -2, -3, 5, 3, 3, 'crystal_shell', feature='shardling_eyes')])
+    body = Part('body', (0, 21, 0), boxes=[Box(-3.5, -3, -4, 7, 4, 8, 'crystal_shell')], children=[spikes, head] + legs)
+    return Model('shardling', 64, 32, [body])
+
+
+def frost_sovereign():
+    def arm(side):
+        nm = 'left' if side > 0 else 'right'
+        claws = [Box(-3 + i * 2.2, 5, -2.5, 1.5, 4, 1.5, 'rime_crystal') for i in range(3)]
+        hand = Part(nm + '_hand', (0, 12, 0), boxes=[Box(-3, 0, -3, 6, 5, 6, 'sov_ice')] + claws)
+        fore = Part(nm + '_forearm', (0, 12, 0), boxes=[Box(-3.5, 0, -3.5, 7, 12, 7, 'sov_armor')], children=[hand])
+        return Part(nm + '_arm', (11 * side, -12, 0), rot=(0, 0, -0.12 * side), boxes=[Box(-3, 0, -3, 6, 12, 6, 'sov_ice')], children=[fore])
+    crown = [Box(-5, -15, -5, 2, 5, 2, 'rime_crystal'), Box(-1, -18, -5, 2, 8, 2, 'rime_crystal'), Box(3, -15, -5, 2, 5, 2, 'rime_crystal'),
+             Box(-4, -14, 3, 2, 4, 2, 'rime_crystal'), Box(2, -14, 3, 2, 4, 2, 'rime_crystal'), Box(-5.5, -11, -5.5, 11, 1, 11, 'sov_armor')]
+    head = Part('head', (0, -14, 0), boxes=[Box(-5, -10, -5, 10, 10, 10, 'sov_ice', feature='sov_face')] + crown)
+    skirt3 = Part('skirt3', (0, 8, 0), boxes=[Box(-3, 0, -2, 6, 6, 4, 'sov_mist')])
+    skirt2 = Part('skirt2', (0, 8, 0), boxes=[Box(-5, 0, -3, 10, 8, 6, 'sov_mist')], children=[skirt3])
+    skirt = Part('skirt', (0, 6, 0), boxes=[Box(-7, 0, -4, 14, 8, 8, 'sov_robe')], children=[skirt2])
+    body = Part('body', (0, -8, 0), boxes=[Box(-8, -14, -4.5, 16, 14, 9, 'sov_armor', feature='sov_chest'), Box(-6, 0, -3.5, 12, 6, 7, 'sov_robe')],
+                children=[head, arm(1), arm(-1), skirt,
+                          Part('left_pauldron', (10, -13, 0), boxes=[Box(-2, -4, -4, 8, 6, 8, 'sov_armor'), Box(1, -10, -1, 2, 6, 2, 'rime_crystal'), Box(4, -8, 1.5, 2, 4, 2, 'rime_crystal')]),
+                          Part('right_pauldron', (-10, -13, 0), boxes=[Box(-6, -4, -4, 8, 6, 8, 'sov_armor'), Box(-3, -10, -1, 2, 6, 2, 'rime_crystal'), Box(-6, -8, 1.5, 2, 4, 2, 'rime_crystal')])])
     shards = []
     for i in range(6):
         a = i * math.pi / 3
-        shards.append(Part(f'shard{i}', (round(math.cos(a) * 22, 1), 0, round(math.sin(a) * 22, 1)), boxes=[Box(-1, -5, -1, 2, 10, 2, 'crystal')]))
-    orbit = Part('orbit', (0, -22, 0), children=shards)
-    return Model('astraeus', 256, 128, [torso, orbit])
+        shards.append(Part(f'shard{i}', (round(math.cos(a) * 18, 1), round(math.sin(i * 1.7) * 3, 1), round(math.sin(a) * 18, 1)), boxes=[Box(-1, -4, -1, 2, 8, 2, 'rime_crystal')]))
+    orbit = Part('orbit', (0, -18, 0), children=shards)
+    return Model('frost_sovereign', 128, 128, [body, orbit])
 
 
-def meteor():
-    boxes = [Box(-8, -8, -8, 16, 16, 16, 'meteor'),
-             Box(-10, -5, -5, 2, 10, 10, 'meteor'), Box(8, -6, -4, 2, 9, 8, 'meteor'),
-             Box(-5, -10, -6, 10, 2, 12, 'meteor'), Box(-6, 8, -5, 12, 2, 10, 'meteor'),
-             Box(-5, -4, -10, 10, 9, 2, 'meteor'), Box(-4, -6, 8, 8, 10, 2, 'meteor')]
-    return Model('meteor', 128, 128, [Part('rock', (0, 0, 0), boxes=boxes)])
-
-
-def fallen_star_meteor():
-    m = meteor()
-    m.name = 'meteor_star'
-    for b in m.boxes():
-        b.mat = 'star_rock'
-    return m
-
-
-def singularity():
-    core = Part('core', (0, 0, 0), boxes=[Box(-4, -4, -4, 8, 8, 8, 'void_core'), Box(-3, -5, -3, 6, 10, 6, 'void_core'),
-                                          Box(-5, -3, -3, 10, 6, 6, 'void_core'), Box(-3, -3, -5, 6, 6, 10, 'void_core')])
-    disk_boxes = []
-    for i in range(16):
-        a = i * math.pi / 8
-        disk_boxes.append(Box(round(math.cos(a) * 8) - 2, 0, round(math.sin(a) * 8) - 2, 4, 1, 4, 'void_disk'))
-    for i in range(12):
-        a = i * math.pi / 6 + 0.2
-        disk_boxes.append(Box(round(math.cos(a) * 11) - 1, 0, round(math.sin(a) * 11) - 1, 3, 1, 3, 'void_disk'))
-    disk = Part('disk', (0, 0, 0), boxes=disk_boxes)
-    return Model('singularity', 64, 64, [core, disk])
-
-
-MODELS = [wisp(), stalker(), crawler(), gazer(), astraeus(), meteor(), fallen_star_meteor(), singularity()]
+MODELS = [frost_wraith(), shardling(), frost_sovereign()]
 
 
 # ------------------------------------------------------------------ UV packing
@@ -336,97 +244,67 @@ def paint_box(tex, glow, b, seed):
         FEATURES[b.feature](tex, glow, face_rects(b)['north'], face_rects(b))
 
 
-def fx_wisp_face(tex, glow, r, rects):
+def fx_wraith_face(tex, glow, r, rects):
     x, y, w, h = r
-    for (ex, ey) in ((1, 2), (4, 2)):
-        tex.set(x + ex, y + ey, hexc('#123e5c'))
-        tex.set(x + ex, y + ey + 1, hexc('#123e5c'))
-    tex.set(x + 2, y + 4, hexc('#1f7ea3')); tex.set(x + 3, y + 4, hexc('#1f7ea3'))
-
-
-def fx_stalker_face(tex, glow, r, rects):
-    x, y, w, h = r
-    for ex in (1, 4):
-        for yy in (3, 4):
-            tex.set(x + ex, y + yy, hexc('#ffffff'))
-            glow.set(x + ex, y + yy, hexc('#e8e0ff'))
-    for yy in range(6, 10):
-        tex.set(x + 2 + (yy % 2), y + yy, hexc('#c998ff'))
-        glow.set(x + 2 + (yy % 2), y + yy, hexc('#9150e0'))
-
-
-def fx_stalker_ribs(tex, glow, r, rects):
-    x, y, w, h = r
-    for yy in range(2, h - 2, 2):
+    for yy in range(2, h - 1):
         for xx in range(1, w - 1):
-            if xx != w // 2:
-                tex.set(x + xx, y + yy, hexc('#35205a'))
-    for yy in range(3, 6):
-        tex.set(x + w // 2, y + yy, hexc('#9150e0'))
-        glow.set(x + w // 2, y + yy, hexc('#9150e0'))
+            tex.set(x + xx, y + yy, hexc('#03070c'))
+    for ex in (2, 4):
+        tex.set(x + ex, y + 4, hexc('#bff4ff'))
+        glow.set(x + ex, y + 4, hexc('#9fe6ff'))
+        tex.set(x + ex, y + 5, hexc('#4fc3ee'))
+        glow.set(x + ex, y + 5, hexc('#4fc3ee'))
 
 
-def fx_crawler_face(tex, glow, r, rects):
+def fx_wraith_chest(tex, glow, r, rects):
     x, y, w, h = r
-    for (ex, ey) in ((1, 1), (5, 1), (2, 3), (4, 3)):
-        tex.set(x + ex, y + ey, hexc('#ffc56b'))
-        glow.set(x + ex, y + ey, hexc('#ff9a3c'))
+    for i in range(4):
+        tex.set(x + w // 2 - 1 + (i % 2), y + 2 + i, hexc('#8fd0f0'))
+        glow.set(x + w // 2 - 1 + (i % 2), y + 2 + i, hexc('#8fd0f0'))
 
 
-def fx_gazer_eye(tex, glow, r, rects):
+def fx_shardling_eyes(tex, glow, r, rects):
     x, y, w, h = r
-    cx, cy = (w - 1) / 2, (h - 1) / 2
+    for (ex, ey) in ((1, 1), (3, 1), (0, 2), (4, 2)):
+        if ex < w and ey < h:
+            tex.set(x + ex, y + ey, hexc('#e8fbff'))
+            glow.set(x + ex, y + ey, hexc('#9fe6ff'))
+
+
+def fx_sov_face(tex, glow, r, rects):
+    x, y, w, h = r
+    for ex in (2, 6):
+        for dx in (0, 1):
+            tex.set(x + ex + dx, y + 4, hexc('#ffffff'))
+            glow.set(x + ex + dx, y + 4, hexc('#9fe6ff'))
+            tex.set(x + ex + dx, y + 5, hexc('#5fc3ee'))
+            glow.set(x + ex + dx, y + 5, hexc('#5fc3ee'))
+    for xx in range(3, w - 3):
+        tex.set(x + xx, y + 8, hexc('#274466'))
+    for yy in range(1, 4):
+        tex.set(x + w // 2, y + yy, hexc('#d2eefa'))
+
+
+def fx_sov_chest(tex, glow, r, rects):
+    x, y, w, h = r
+    cx, cy = w // 2, 6
     for yy in range(h):
         for xx in range(w):
-            d = math.hypot(xx - cx, yy - cy)
-            if d < 4.6:
-                col = ramp(pal('#3a1560', '#9150e0', '#9af3ff'), 1 - d / 4.6)
-                tex.set(x + xx, y + yy, col)
-                glow.set(x + xx, y + yy, col)
-            if d < 1.8:
-                tex.set(x + xx, y + yy, hexc('#05020a'))
-                glow.set(x + xx, y + yy, (0, 0, 0, 0))
-            if 4.6 <= d < 5.5:
-                tex.set(x + xx, y + yy, hexc('#5a2394'))
-    tex.set(x + int(cx) - 2, y + int(cy) - 2, hexc('#ffffff'))
-    glow.set(x + int(cx) - 2, y + int(cy) - 2, hexc('#ffffff'))
-
-
-def fx_titan_face(tex, glow, r, rects):
-    x, y, w, h = r
-    # visor slit
-    for xx in range(2, w - 2):
-        tex.set(x + xx, y + 5, hexc('#05030a'))
-        tex.set(x + xx, y + 6, hexc('#05030a'))
-    for ex in (3, 8):
-        for dx in (0, 1):
-            tex.set(x + ex + dx, y + 5, hexc('#ffe9a3'))
-            glow.set(x + ex + dx, y + 5, hexc('#ffd35c'))
-            tex.set(x + ex + dx, y + 6, hexc('#f2c14e'))
-            glow.set(x + ex + dx, y + 6, hexc('#f2c14e'))
-    for yy in range(8, 11):
-        tex.set(x + w // 2 - 1, y + yy, hexc('#b9862a'))
-        tex.set(x + w // 2, y + yy, hexc('#b9862a'))
-
-
-def fx_titan_chest(tex, glow, r, rects):
-    x, y, w, h = r
-    cx = w // 2
-    for yy in range(h):
-        tex.set(x + cx, y + yy, hexc('#b9862a'))
-        tex.set(x + cx - 1, y + yy, hexc('#6b4a12'))
-    for xx in range(w):
-        tex.set(x + xx, y + 1, hexc('#f2c14e'))
-    for i in range(6):
-        tex.set(x + 2 + i, y + 10 + i // 2, hexc('#9af3ff'))
-        glow.set(x + 2 + i, y + 10 + i // 2, hexc('#9af3ff'))
-        tex.set(x + w - 3 - i, y + 10 + i // 2, hexc('#9af3ff'))
-        glow.set(x + w - 3 - i, y + 10 + i // 2, hexc('#9af3ff'))
+            d = abs(xx - cx + 0.5) + abs(yy - cy)
+            if d <= 3:
+                c = hexc('#ffffff') if d <= 1 else hexc('#9fe6ff')
+                tex.set(x + xx, y + yy, c)
+                glow.set(x + xx, y + yy, c)
+    for i in range(5):
+        tex.set(x + 2 + i, y + 10 + i // 2, hexc('#9fe6ff'))
+        glow.set(x + 2 + i, y + 10 + i // 2, hexc('#9fe6ff'))
+        tex.set(x + w - 3 - i, y + 10 + i // 2, hexc('#9fe6ff'))
+        glow.set(x + w - 3 - i, y + 10 + i // 2, hexc('#9fe6ff'))
 
 
 FEATURES = {
-    'wisp_face': fx_wisp_face, 'stalker_face': fx_stalker_face, 'stalker_ribs': fx_stalker_ribs,
-    'crawler_face': fx_crawler_face, 'gazer_eye': fx_gazer_eye, 'titan_face': fx_titan_face, 'titan_chest': fx_titan_chest,
+    'wraith_face': fx_wraith_face, 'wraith_chest': fx_wraith_chest, 'shardling_eyes': fx_shardling_eyes,
+    'sov_face': fx_sov_face, 'sov_chest': fx_sov_chest,
 }
 
 
@@ -460,7 +338,7 @@ def emit_part(lines, parent_var, part, depth):
 
 
 def emit_java(models):
-    out = ['package com.astralfall.client.model;', '',
+    out = ['package com.rimeheart.client.model;', '',
            'import net.minecraft.client.model.geom.PartPose;',
            'import net.minecraft.client.model.geom.builders.*;', '',
            '/** GENERATED by tools/gen_models.py — do not edit by hand. */',

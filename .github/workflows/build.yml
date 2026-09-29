@@ -44,7 +44,7 @@ jobs:
           view-distance=6
           simulation-distance=6
           spawn-protection=0
-          level-seed=astralfall
+          level-seed=rimeheart
           pause-when-empty-seconds=0
           PROPS
           sed -i 's/^ *//' run/server.properties
@@ -91,7 +91,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: astralfall-mod-jar
+          name: rimeheart-mod-jar
           path: build/libs/*.jar
           if-no-files-found: ignore
 
@@ -116,7 +116,7 @@ jobs:
           grep -E "BUILD (SUCCESSFUL|FAILED)|What went wrong" -A3 build.log | head -40 || true
           echo "===== SERVER PROBLEMS ====="
           if [ -f server.log ]; then
-            grep -nE "(ERROR|FATAL)|Exception|Caused by|Failed to|Couldn't|Unknown|astralfall.*WARN|WARN.*astralfall|Missing|Invalid" server.log | grep -vE "Narrator|narrator|Realms|realms|Unknown custom packet" | head -250 || true
+            grep -nE "(ERROR|FATAL)|Exception|Caused by|Failed to|Couldn't|Unknown|rimeheart.*WARN|WARN.*rimeheart|Missing|Invalid" server.log | grep -vE "Narrator|narrator|Realms|realms|Unknown custom packet" | head -250 || true
           fi
           for f in run/crash-reports/*; do [ -f "$f" ] && head -120 "$f"; done
           echo "===== CLIENT PROBLEMS ====="
@@ -134,7 +134,7 @@ jobs:
           python3 - <<'PY' || true
           import glob, base64, io
           from PIL import Image
-          for f in sorted(glob.glob('run/screenshots/astralfall_*.png')):
+          for f in sorted(glob.glob("run/screenshots/rimeheart_*.png")):
               im = Image.open(f).convert('RGB')
               im.thumbnail((800, 450))
               buf = io.BytesIO()

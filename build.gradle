@@ -6,10 +6,10 @@ plugins {
 }
 
 version = project.mod_version
-group = 'com.astralfall'
+group = 'com.rimeheart'
 
 base {
-    archivesName = "astralfall-${project.minecraft_version}"
+    archivesName = "rimeheart-${project.minecraft_version}"
 }
 
 // Minecraft 26.x ships Java 25 to players, so the mod targets Java 25.
@@ -21,13 +21,13 @@ minecraft {
             workingDir = layout.projectDirectory.dir('run')
             systemProperty 'eventbus.api.strictRuntimeChecks', 'true'
             if (project.hasProperty('selftest')) {
-                systemProperty 'astralfall.selftest', 'true'
+                systemProperty 'rimeheart.selftest', 'true'
             }
         }
 
         register('client') {
             if (project.hasProperty('clienttest')) {
-                systemProperty 'astralfall.clienttest', 'true'
+                systemProperty 'rimeheart.clienttest', 'true'
                 args '--quickPlaySingleplayer', 'world', '--width', '1280', '--height', '720'
             }
         }
@@ -56,6 +56,8 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 tasks.named('processResources', ProcessResources) {
+    // Leftovers from an unrelated earlier project in this repository; never ship them.
+    exclude 'assets/astralfall/**', 'data/astralfall/**', 'astralfall_logo.png'
     var props = [mod_version: project.mod_version]
     inputs.properties(props)
     filesMatching('META-INF/mods.toml') {
@@ -66,7 +68,7 @@ tasks.named('processResources', ProcessResources) {
 tasks.named('jar', Jar) {
     manifest {
         attributes([
-            'Implementation-Title'  : 'Astralfall',
+            'Implementation-Title'  : 'Rimeheart',
             'Implementation-Version': project.version
         ])
     }

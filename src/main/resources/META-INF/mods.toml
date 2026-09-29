@@ -4,30 +4,30 @@ license="MIT"
 issueTrackerURL="https://github.com/fakerfakeren-cpu/test/issues"
 
 [[mods]]
-modId="astralfall"
+modId="rimeheart"
 version="${mod_version}"
-displayName="Astralfall"
-logoFile="astralfall_logo.png"
-authors="Astralfall Team"
+displayName="Rimeheart"
+logoFile="rimeheart_logo.png"
+authors="Rimeheart Team"
 description='''
-The stars are falling.
+The Long Winter has come.
 
-Meteor showers crash into the world, leaving craters of Starmetal and Skyshard.
-Void creatures crawl out of the dark between the stars. Explore the Shattered
-Observatory, unlock celestial weapons, tame Astral Wisps, and summon
-Astraeus, Devourer of Stars.
+Mine Frostiron and rime crystal in the frozen north, master chill-based combat,
+survive Frost Wraiths and crystal Shardlings, uncover the buried Frozen Sanctum
+and its hidden vault, and wake the Frost Sovereign with the Winter Horn.
 
-Start with /astralfall help or the Astralfall creative tab.
+Your Warden's Journal (given on first join) holds the story, a field guide and
+a quest line with rewards.
 '''
 
-[[dependencies.astralfall]]
+[[dependencies.rimeheart]]
     modId="forge"
     mandatory=true
     versionRange="[65.1.0,)"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.astralfall]]
+[[dependencies.rimeheart]]
     modId="minecraft"
     mandatory=true
     versionRange="[26.2,26.3)"

@@ -260,3 +260,79 @@ QUESTS = [
     ('crown', 'astraeus', 'astralfall:crown_of_astraeus', 'Crowned by the Cosmos', 'Obtain the Crown of Astraeus', 'goal', 100, None, ('item', 'astralfall:crown_of_astraeus')),
     ('wings', 'astraeus', 'astralfall:nebula_wings', 'Nebula Flight', 'Craft Nebula Wings from a Stellar Core', 'challenge', 150, None, ('item', 'astralfall:nebula_wings')),
 ]
+
+# ---------------------------------------------------------------------------- journal GUI
+# Practical "how do I do this" hint for every quest, shown in the journal's quest page.
+QUEST_HINTS = {
+    'root': 'Open this journal any time. Quests unlock one after another; finished quests glow gold until you claim their reward.',
+    'first_light': 'Stay up after dark and watch the sky. When a meteor screams overhead, run to the smoking crater and mine its glowing core with an iron pickaxe.',
+    'ingot': 'Smelt Raw Starmetal or Starmetal Ore in a furnace or blast furnace.',
+    'pickaxe': 'Three Starmetal Ingots and two sticks. It mines 3x3; sneak to mine a single block.',
+    'starblade': 'Skyshard over Starmetal Ingot over Stick. Right-click fires a Star Slash, sneak-use dashes.',
+    'starmetal_armor': 'Craft all four pieces. The full set softens falls and turns hard landings into a shockwave.',
+    'comet_maul': 'Block of Starmetal and two Meteorite on top, two sticks below. Hold use to call down a small meteor.',
+    'compass': 'A Compass surrounded by four Skyshards. Sneak-use to switch between Observatory, Vessel and Shrine.',
+    'crawler': 'Crawlers ride in on meteors. When one curls into a boulder, sidestep so it rolls into a wall, then strike while it is stunned.',
+    'stalker': 'Void Stalkers freeze while you look at them. Keep your eyes on it as you close in.',
+    'gazer': 'Gazers charge a gravity beam for two seconds. Break line of sight, then strike.',
+    'riftcaller': 'Three Void Essence, a Starmetal Ingot and two sticks.',
+    'voidwalker': 'Void Essence armour. The full set grants night vision and a mid-air blink when you sneak.',
+    'observatory': 'Follow the Astral Compass. Observatories are rare, so bring food for the journey.',
+    'vault': 'A Star Lock in the entrance hall hides the Vault. It opens for a Skyshard.',
+    'vessel': 'Crashed ships lie half-buried in trenches of meteorite. Crawlers nest in the reactor.',
+    'gauntlet': 'Look in the Fallen Vessel\'s holds. Hold use on a mob to lift it, release to hurl it.',
+    'shrine': 'Sky Shrines float high above the land. Pillar up, or glide in from a mountain.',
+    'fallen_star': 'About one meteor in a dozen is golden and marked by a pillar of light. Mine the Fallen Star it leaves behind.',
+    'star_jar': 'Bottled starlight: a lamp made from glass and Stardust.',
+    'wisp': 'Astral Wisps drift around Fallen Stars. Feed one Stardust until hearts appear.',
+    'sigil': 'Surround a Fallen Star Shard with four Void Essence and four Skyshards. Prepare well before using it.',
+    'astraeus': 'Use the Sigil on an Astral Altar at night. Bring armour, food, and space to dodge. Astraeus fights in three phases.',
+    'greatsword': 'Fallen Star Shard over Stellar Core over Starblade. Hits charge the Eclipse Nova.',
+    'crown': 'Sometimes dropped by Astraeus. Defeat it again if you missed it.',
+    'wings': 'Stellar Core, four Void Essence, two Phantom Membrane and a Skyshard. Sneak mid-glide for a Nebula Boost.',
+}
+
+JOURNAL_UI = {
+    'journal.astralfall.title': 'Astral Journal',
+    'journal.astralfall.tab.story': 'Story',
+    'journal.astralfall.tab.guide': 'Field Guide',
+    'journal.astralfall.tab.quests': 'Quests',
+    'journal.astralfall.progress': '%s / %s quests',
+    'journal.astralfall.chapter.0': 'First Light',
+    'journal.astralfall.chapter.1': 'Creatures of the Void',
+    'journal.astralfall.chapter.2': 'Ruins and Relics',
+    'journal.astralfall.chapter.3': 'Fallen Stars',
+    'journal.astralfall.chapter.4': 'The Eclipse',
+    'journal.astralfall.status.locked': 'Locked. Finish "%s" first.',
+    'journal.astralfall.status.active': 'In progress',
+    'journal.astralfall.status.ready': 'Complete! Claim your reward.',
+    'journal.astralfall.status.claimed': 'Complete. Reward claimed.',
+    'journal.astralfall.locked_title': '? ? ?',
+    'journal.astralfall.hint': 'How to',
+    'journal.astralfall.rewards': 'Rewards',
+    'journal.astralfall.xp': '+%s XP',
+    'journal.astralfall.claim': 'Claim Reward',
+    'journal.astralfall.claimed': 'Claimed',
+    'journal.astralfall.page': 'Page %s / %s',
+    'journal.astralfall.claim.done': 'Reward claimed: %s',
+    'journal.astralfall.claim.not_ready': 'That quest is not complete yet.',
+    'journal.astralfall.claim.already': 'You already claimed that reward.',
+    'journal.astralfall.claim.unknown': 'Unknown quest.',
+    'journal.astralfall.story': (
+        'The Last Astronomer\n\n'
+        'For a thousand years the Order of the Observatory watched the heavens from their towers of pale astral stone. '
+        'They charted every star, and every star was where it should be.\n\n'
+        'Then one night a star went dark. The next night, three more. The astronomers realised that something beyond '
+        'the sky was eating the light. They named it Astraeus, the Devourer of Stars.\n\n'
+        'Astraeus does not just devour. What it cannot swallow, it hurls down. Now the stars fall. Meteors of '
+        'Starmetal and Skyshard crash into the world every night, and the void that follows them breeds hungry things: '
+        'Stalkers that move only when unseen, Gazers that bend gravity, Crawlers of living stone.\n\n'
+        'The Order fell with its Observatory, split in half by a falling star. Its ships fell with it, and its floating '
+        'shrines drifted away into the clouds. I am the last of them, and this journal is all I can leave you.\n\n'
+        'Take what the sky gives. Forge Starmetal. Learn the void\'s creatures. Find the ruins of my Order and the '
+        'secrets sealed inside them. When a golden star falls, catch it, for a Fallen Star is the key to the Eclipse '
+        'Sigil, the only way to call Astraeus down to where it can be fought.\n\n'
+        'Defeat it, and the sun will rise on a sky that keeps its stars.\n\n'
+        'The Quests tab will guide you, step by step. Each quest you finish holds a reward, so return here often.'
+    ),
+}
