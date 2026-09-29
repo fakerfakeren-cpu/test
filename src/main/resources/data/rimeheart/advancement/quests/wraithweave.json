@@ -1,0 +1,74 @@
+{
+  "display": {
+    "icon": {
+      "id": "rimeheart:wraithweave_robe"
+    },
+    "title": {
+      "translate": "quest.rimeheart.wraithweave.title"
+    },
+    "description": {
+      "translate": "quest.rimeheart.wraithweave.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "got_0": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "rimeheart:wraithweave_hood"
+          }
+        ]
+      }
+    },
+    "got_1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "rimeheart:wraithweave_robe"
+          }
+        ]
+      }
+    },
+    "got_2": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "rimeheart:wraithweave_leggings"
+          }
+        ]
+      }
+    },
+    "got_3": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "rimeheart:wraithweave_boots"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "got_0"
+    ],
+    [
+      "got_1"
+    ],
+    [
+      "got_2"
+    ],
+    [
+      "got_3"
+    ]
+  ],
+  "parent": "rimeheart:quests/wraith"
+}

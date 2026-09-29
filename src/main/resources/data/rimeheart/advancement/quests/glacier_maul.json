@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "id": "rimeheart:glacier_maul"
+    },
+    "title": {
+      "translate": "quest.rimeheart.glacier_maul.title"
+    },
+    "description": {
+      "translate": "quest.rimeheart.glacier_maul.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "got": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "rimeheart:glacier_maul"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "got"
+    ]
+  ],
+  "parent": "rimeheart:quests/rime_shard"
+}

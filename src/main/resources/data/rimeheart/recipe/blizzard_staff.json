@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "  C",
+    " W ",
+    "I  "
+  ],
+  "key": {
+    "C": "rimeheart:rime_crystal_block",
+    "W": "rimeheart:wraith_essence",
+    "I": "rimeheart:frostiron_ingot"
+  },
+  "result": {
+    "id": "rimeheart:blizzard_staff",
+    "count": 1
+  }
+}

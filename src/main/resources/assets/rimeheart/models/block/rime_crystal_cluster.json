@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "rimeheart:block/rime_crystal_cluster"
+  }
+}

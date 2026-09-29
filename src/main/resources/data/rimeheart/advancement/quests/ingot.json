@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "id": "rimeheart:frostiron_ingot"
+    },
+    "title": {
+      "translate": "quest.rimeheart.ingot.title"
+    },
+    "description": {
+      "translate": "quest.rimeheart.ingot.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "got": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "rimeheart:frostiron_ingot"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "got"
+    ]
+  ],
+  "parent": "rimeheart:quests/frostiron"
+}

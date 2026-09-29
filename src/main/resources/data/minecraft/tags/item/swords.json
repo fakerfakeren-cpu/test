@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
-    "astralfall:starblade",
-    "astralfall:comet_maul",
-    "astralfall:riftcaller",
-    "astralfall:eclipse_greatsword"
+    "rimeheart:frostiron_sword",
+    "rimeheart:frostbite_blade",
+    "rimeheart:glacier_maul",
+    "rimeheart:winterfang"
   ]
 }

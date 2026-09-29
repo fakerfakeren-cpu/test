@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "rimeheart:item/frost_sovereign_spawn_egg"
+  }
+}

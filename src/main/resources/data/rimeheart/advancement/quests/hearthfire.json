@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "id": "rimeheart:hearthfire_stew"
+    },
+    "title": {
+      "translate": "quest.rimeheart.hearthfire.title"
+    },
+    "description": {
+      "translate": "quest.rimeheart.hearthfire.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "got": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "rimeheart:hearthfire_stew"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "got"
+    ]
+  ],
+  "parent": "rimeheart:quests/root"
+}

@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "id": "rimeheart:winter_horn"
+    },
+    "title": {
+      "translate": "quest.rimeheart.winter_horn.title"
+    },
+    "description": {
+      "translate": "quest.rimeheart.winter_horn.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "got": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "rimeheart:winter_horn"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "got"
+    ]
+  ],
+  "parent": "rimeheart:quests/vault"
+}

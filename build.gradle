@@ -57,7 +57,10 @@ tasks.withType(JavaCompile).configureEach {
 
 tasks.named('processResources', ProcessResources) {
     // Leftovers from an unrelated earlier project in this repository; never ship them.
-    exclude 'assets/astralfall/**', 'data/astralfall/**', 'astralfall_logo.png'
+    exclude 'assets/astralfall/**', 'data/astralfall/**', 'astralfall_logo.png',
+        'data/minecraft/tags/block/slabs.json', 'data/minecraft/tags/block/stairs.json',
+        'data/minecraft/tags/item/slabs.json', 'data/minecraft/tags/item/stairs.json',
+        'data/minecraft/tags/item/enchantable/equippable.json'
     var props = [mod_version: project.mod_version]
     inputs.properties(props)
     filesMatching('META-INF/mods.toml') {

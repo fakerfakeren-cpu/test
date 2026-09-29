@@ -1,0 +1,9 @@
+{
+  "type": "rimeheart:blueprint",
+  "biomes": "#rimeheart:has_structure/frozen_sanctum",
+  "spawn_overrides": {},
+  "step": "underground_structures",
+  "terrain_adaptation": "none",
+  "blueprint": "frozen_sanctum",
+  "y_offset": 0
+}

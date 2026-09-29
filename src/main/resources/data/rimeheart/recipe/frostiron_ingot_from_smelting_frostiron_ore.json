@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "ingredient": "rimeheart:frostiron_ore",
+  "result": {
+    "id": "rimeheart:frostiron_ingot"
+  },
+  "experience": 0.8
+}

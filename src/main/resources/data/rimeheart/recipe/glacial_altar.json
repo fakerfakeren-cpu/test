@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "RCR",
+    "BBB",
+    "BBB"
+  ],
+  "key": {
+    "R": "rimeheart:rime_shard",
+    "C": "rimeheart:rime_crystal_block",
+    "B": "rimeheart:chiseled_rimestone_bricks"
+  },
+  "result": {
+    "id": "rimeheart:glacial_altar",
+    "count": 1
+  }
+}

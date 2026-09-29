@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "id": "rimeheart:rime_shard"
+    },
+    "title": {
+      "translate": "quest.rimeheart.rime_shard.title"
+    },
+    "description": {
+      "translate": "quest.rimeheart.rime_shard.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "got": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "rimeheart:rime_shard"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "got"
+    ]
+  ],
+  "parent": "rimeheart:quests/frostiron"
+}

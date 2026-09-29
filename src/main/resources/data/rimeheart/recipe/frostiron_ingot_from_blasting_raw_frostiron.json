@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "ingredient": "rimeheart:raw_frostiron",
+  "result": {
+    "id": "rimeheart:frostiron_ingot"
+  },
+  "experience": 0.8
+}

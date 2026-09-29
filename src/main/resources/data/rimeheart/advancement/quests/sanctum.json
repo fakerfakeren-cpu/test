@@ -1,0 +1,41 @@
+{
+  "display": {
+    "icon": {
+      "id": "rimeheart:chiseled_rimestone_bricks"
+    },
+    "title": {
+      "translate": "quest.rimeheart.sanctum.title"
+    },
+    "description": {
+      "translate": "quest.rimeheart.sanctum.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "found": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "minecraft:location": {
+                "structures": "rimeheart:frozen_sanctum"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "found"
+    ]
+  ],
+  "parent": "rimeheart:quests/frostiron"
+}

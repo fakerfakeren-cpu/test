@@ -1,11 +1,11 @@
-"""Synthesises every Astralfall sound effect (mono Ogg Vorbis, deterministic)."""
+"""Synthesises every Rimeheart sound effect (mono Ogg Vorbis, deterministic)."""
 import os
 
 import numpy as np
 import soundfile as sf
 
 SR = 44100
-OUT = os.path.join(os.path.dirname(__file__), '..', 'src', 'main', 'resources', 'assets', 'astralfall', 'sounds')
+OUT = os.path.join(os.path.dirname(__file__), '..', 'src', 'main', 'resources', 'assets', 'rimeheart', 'sounds')
 rng = np.random.default_rng(1234)
 
 
@@ -111,105 +111,83 @@ def whoosh(sec, f0, f1, loud=1.0):
     return y * loud
 
 
+def shatter(sec=0.9, base=2600, seed_n=18):
+    n = int(SR * sec)
+    y = highpass(noise(n), 3000) * env(n, 0.001, 0.05, 8) * 1.2
+    parts = [y]
+    for k in range(seed_n):
+        f = base * (0.6 + rng.random() * 1.6)
+        parts.append(pad(bell(f, 0.35, 9) * (0.15 + rng.random() * 0.25), rng.random() * sec * 0.35))
+    return mix(*parts)[:n]
+
+
 def main():
-    # meteors
-    for i, (dur, p) in enumerate(((3.2, 1.0), (2.6, 1.15))):
+    # freezing crackle
+    n = int(SR * 0.7)
+    crackle = (rng.random(n) > 0.994) * rng.standard_normal(n) * 3 * np.linspace(1, 0.2, n)
+    save('freeze', mix(highpass(crackle, 1500), bell(1975, 0.7, 5) * 0.4, pad(bell(2637, 0.5, 6) * 0.3, 0.08)), 0.7)
+    save('ice_shatter1', shatter(0.9, 2600))
+    save('ice_shatter2', shatter(0.8, 3100))
+    # cold snap: crack + inward whoosh + shimmer
+    n = int(SR * 1.1)
+    crack = highpass(noise(n), 2500) * env(n, 0.001, 0.04, 9) * 1.5
+    save('cold_snap', mix(crack, whoosh(1.1, 5000, 400, 0.7), pad(mix(bell(1568, 0.8, 4), bell(2093, 0.8, 4) * 0.6) * 0.5, 0.05)))
+    # glacier slam: deep boom plus shattering ice
+    save('glacier_slam', mix(boom(1.8, 45), pad(shatter(0.9, 1800) * 0.7, 0.02)))
+    # blizzard wind
+    n = int(SR * 1.8)
+    tt = t(1.8)
+    howl = sweep(420, 640, 1.8) * (0.5 + 0.5 * np.sin(2 * np.pi * 0.9 * tt)) * 0.25
+    wind = lowpass(noise(n), 900 + 700 * np.sin(2 * np.pi * 0.6 * tt) ** 2) * 1.6
+    save('blizzard', mix(wind, howl) * adsr(n, 0.2, 1, 0.3), 0.7)
+    # icicle shot
+    n = int(SR * 0.5)
+    save('icicle_shoot', mix(whoosh(0.5, 800, 7000, 0.9), bell(2349, 0.4, 7) * 0.35), 0.8)
+    # frost wraith voices
+    for i, f0 in enumerate((180, 150)):
+        dur = 1.8
         n = int(SR * dur)
-        whistle = sweep(1800 * p, 350 * p, dur, curve=0.7) * np.linspace(0.2, 1, n) ** 2 * 0.35
-        roar = lowpass(noise(n), np.linspace(400, 2500, n)) * np.linspace(0.1, 1, n) ** 2
-        crackle = (rng.random(n) > 0.9985) * rng.standard_normal(n) * 4 * np.linspace(0, 1, n)
-        save(f'meteor_incoming{i + 1}', mix(whistle, roar, crackle))
-    save('meteor_impact1', boom(2.8, 50))
-    save('meteor_impact2', boom(2.4, 62))
-    # chimes
-    for i, root in enumerate((880, 1046.5, 1318.5)):
-        save(f'star_chime{i + 1}', mix(bell(root, 2.0), pad(bell(root * 1.5, 1.6) * 0.6, 0.12), pad(bell(root * 2, 1.2) * 0.35, 0.25)), 0.7)
-    n = int(SR * 5)
-    chord = sum(np.sin(2 * np.pi * f * t(5)) for f in (110, 164.8, 220, 261.6, 329.6)) * adsr(n, 0.4, 1.0, 0.3)
-    chord = lowpass(chord, np.linspace(200, 2000, n))
-    sparkle = mix(*(pad(bell(f, 1.0) * 0.3, s) for f, s in ((1760, 1.0), (2093, 1.8), (1568, 2.6), (2637, 3.3))))
-    save('starstorm', mix(chord, sparkle))
-    # wisp
-    for i, base in enumerate((1568, 1760)):
-        y = mix(*(pad(bell(base * r, 0.5, 6) * 0.5, k * 0.07) for k, r in enumerate((1, 1.25, 1.5, 2))))
-        save(f'wisp_ambient{i + 1}', y, 0.5)
-    save('wisp_hurt', sweep(2400, 900, 0.3) * env(int(SR * 0.3), 0.005, 0.2, 3), 0.6)
-    # stalker
-    for i in range(2):
-        n = int(SR * 2.2)
-        base = lowpass(highpass(noise(n), 800), 4500)
-        formant = 0.5 + 0.5 * np.sin(2 * np.pi * (3 + i) * t(2.2)) * np.sin(2 * np.pi * 0.7 * t(2.2))
-        save(f'stalker_ambient{i + 1}', base * formant * adsr(n, 0.2, 1.0, 0.4), 0.6)
-    n = int(SR * 1.3)
-    scream = np.tanh(3 * (sweep(900, 180, 1.3, 'saw') + 0.4 * sweep(1210, 250, 1.3, 'saw')))
-    scream = mix(scream * env(n, 0.02, 0.8, 1.5), highpass(noise(n), 2000) * env(n, 0.01, 0.5, 2) * 0.5)
-    save('stalker_scream', scream)
-    n = int(SR * 0.45)
-    blink = whoosh(0.45, 300, 6000)[::-1] + sweep(200, 1600, 0.45) * env(n, 0.3, 0.2, 4) * 0.4
-    save('stalker_blink', blink)
-    # crawler
-    n = int(SR * 1.6)
-    rolls = mix(lowpass(noise(n), 250) * 2, *(pad(lowpass(noise(int(SR * 0.05)), 3000) * 0.8, s) for s in rng.uniform(0, 1.5, 14)))[:n]
-    save('crawler_roll', rolls * adsr(n, 0.1, 1, 0.3))
-    save('crawler_hurt', mix(lowpass(noise(int(SR * 0.4)), 1200) * env(int(SR * 0.4), 0.002, 0.15, 5), sweep(160, 60, 0.4) * env(int(SR * 0.4), 0.002, 0.3, 3)))
-    # gazer
-    n = int(SR * 2.0)
-    charge = sweep(200, 1400, 2.0, curve=1.6) * (0.6 + 0.4 * np.sin(2 * np.pi * np.linspace(4, 24, n) * t(2.0))) * np.linspace(0.2, 1, n)
-    save('gazer_charge', charge, 0.7)
-    n = int(SR * 0.9)
-    beam = np.tanh(2 * (sweep(1400, 300, 0.9, 'saw') + sweep(700, 150, 0.9, 'square') * 0.5)) * env(n, 0.003, 0.5, 2)
-    save('gazer_beam', mix(beam, whoosh(0.9, 800, 4000, 0.6)))
-    # boss
-    for i, p in enumerate((1.0, 0.85)):
-        dur = 2.8
-        n = int(SR * dur)
-        vib = 1 + 0.03 * np.sin(2 * np.pi * 6 * t(dur))
         tt = t(dur)
-        f = (95 * p) * vib * (1 - 0.3 * tt / dur)
+        breath = lowpass(highpass(noise(n), 500), 3000) * (0.5 + 0.5 * np.sin(2 * np.pi * (2.5 + i) * tt))
+        moan = sum(np.sin(2 * np.pi * f0 * r * tt * (1 + 0.02 * np.sin(2 * np.pi * 4 * tt))) * a for r, a in ((1, 0.5), (2, 0.25), (3.01, 0.12)))
+        save(f'wraith_ambient{i + 1}', mix(breath * 0.6, moan * 0.5) * adsr(n, 0.3, 1.0, 0.4), 0.55)
+    n = int(SR * 0.45)
+    save('wraith_hurt', mix(sweep(900, 300, 0.45) * env(n, 0.005, 0.3, 3), highpass(noise(n), 2000) * env(n, 0.002, 0.1, 6) * 0.5), 0.7)
+    n = int(SR * 1.6)
+    save('wraith_death', mix(sweep(700, 90, 1.6, curve=0.6) * env(n, 0.01, 0.9, 2), whoosh(1.6, 4000, 300, 0.6), pad(shatter(0.8, 2400) * 0.5, 0.5)), 0.8)
+    # shardling clicks
+    n = int(SR * 0.6)
+    clicks = mix(*(pad(bell(3000 + rng.random() * 1500, 0.06, 20) * 0.8, s) for s in np.sort(rng.uniform(0, 0.5, 9))))[:n]
+    save('shardling_chitter', clicks, 0.6)
+    # winter horn
+    dur = 2.6
+    n = int(SR * dur)
+    tt = t(dur)
+    f = 146.8 * (1 + 0.02 * np.minimum(1, tt / 0.4)) * (1 + 0.006 * np.sin(2 * np.pi * 5 * tt))
+    ph = 2 * np.pi * np.cumsum(f) / SR
+    saw = 2 * ((ph / (2 * np.pi)) % 1.0) - 1
+    horn = lowpass(saw + 0.5 * np.sin(ph * 2) + 0.3 * np.sin(ph * 3), 1200) * adsr(n, 0.15, 1.0, 0.3)
+    save('winter_horn', mix(horn, lowpass(noise(n), 300) * adsr(n, 0.2, 1, 0.3) * 0.5), 0.85)
+    # sovereign
+    for i, p in enumerate((1.0, 0.85)):
+        dur = 2.6
+        n = int(SR * dur)
+        tt = t(dur)
+        f = (80 * p) * (1 + 0.03 * np.sin(2 * np.pi * 5 * tt)) * (1 - 0.25 * tt / dur)
         ph = 2 * np.pi * np.cumsum(f) / SR
         saw = 2 * ((ph / (2 * np.pi)) % 1.0) - 1
-        roar = np.tanh(2.5 * (saw + 0.5 * np.sin(ph * 1.5) + 0.3 * lowpass(noise(n), 900)))
-        roar = lowpass(roar, 2200) * adsr(n, 0.08, 1.0, 0.35)
-        save(f'boss_roar{i + 1}', mix(roar, lowpass(noise(n), 120) * adsr(n, 0.1, 1, 0.4) * 2))
-    n = int(SR * 5.5)
-    drone = sum(np.sin(2 * np.pi * f * t(5.5)) * a for f, a in ((41.2, 1.0), (55, 0.7), (82.4, 0.5), (110, 0.3)))
-    choir = lowpass(sum(sweep(f, f * 1.5, 5.5, 'saw') for f in (220, 277, 330)), 1500) * np.linspace(0, 1, n) ** 2 * 0.4
-    save('boss_summon', mix(drone * adsr(n, 0.2, 1, 0.2), choir))
-    n = int(SR * 3.0)
-    tt = t(3.0)
-    beam = (np.sin(2 * np.pi * 220 * tt) + 0.6 * np.sin(2 * np.pi * 330 * tt) + 0.4 * np.sin(2 * np.pi * 660 * tt + np.sin(2 * np.pi * 7 * tt)))
-    beam = np.tanh(1.5 * beam) * adsr(n, 0.05, 1, 0.2) + highpass(noise(n), 3000) * 0.15
-    save('boss_beam', beam, 0.8)
-    death = mix(boom(3.0, 40), pad(boom(2.0, 60) * 0.7, 0.8), pad(sum(sweep(f, f * 0.5, 4.0) for f in (440, 554, 659)) * env(int(SR * 4.0), 0.3, 1.5, 1.5) * 0.5, 1.2))
-    save('boss_death', death)
-    save('shockwave', mix(boom(1.6, 70), whoosh(1.2, 200, 3000, 0.8)))
-    # singularity
-    n = int(SR * 2.0)
-    tt = t(2.0)
-    hum = (np.sin(2 * np.pi * 48 * tt) + 0.5 * np.sin(2 * np.pi * 96.5 * tt)) * (0.6 + 0.4 * np.sin(2 * np.pi * 3 * tt))
-    save('singularity_hum', mix(hum, lowpass(noise(n), 300) * 0.4) * adsr(n, 0.2, 1, 0.3), 0.7)
-    rev = whoosh(1.2, 200, 5000)[::-1] * np.linspace(0.2, 1.5, int(SR * 1.2))
-    save('singularity_collapse', mix(rev, pad(boom(2.0, 45), 1.1)))
-    # player weapons
-    for i, (f0, f1) in enumerate(((900, 5500), (700, 4800))):
-        save(f'star_slash{i + 1}', mix(whoosh(0.35, f0, f1), pad(bell(2093 + i * 200, 0.6, 6) * 0.3, 0.08)))
-    n = int(SR * 0.4)
-    save('star_bolt', mix(sweep(2600, 1200, 0.4) * env(n, 0.002, 0.25, 4), bell(3136, 0.4, 8) * 0.4), 0.7)
-    n = int(SR * 0.9)
-    tt = t(0.9)
-    grab = np.sin(2 * np.pi * (180 + 300 * tt) * tt + 3 * np.sin(2 * np.pi * 9 * tt)) * adsr(n, 0.05, 1, 0.3)
-    save('gravity_grab', grab, 0.7)
-    save('gravity_throw', mix(whoosh(0.6, 400, 6000, 1.2), sweep(600, 120, 0.6) * env(int(SR * 0.6), 0.005, 0.4, 3) * 0.5))
-    n = int(SR * 0.5)
-    tt = t(0.5)
-    zap = np.sin(2 * np.pi * (1200 * np.exp(-6 * tt)) * tt * 8) * env(n, 0.002, 0.3, 3)
-    save('void_blink', mix(zap, whoosh(0.5, 3000, 300, 0.6)))
-    nova = mix(boom(3.0, 45), whoosh(2.0, 300, 7000, 0.8), pad(sum(bell(f, 2.5, 1.5) for f in (523, 659, 784, 1046)) * 0.4, 0.3))
-    save('eclipse_nova', nova)
-    n = int(SR * 2.4)
-    grind = lowpass(noise(n), 500 + 300 * np.sin(2 * np.pi * 11 * t(2.4))) * adsr(n, 0.05, 1, 0.3) * 1.5
-    save('vault_open', mix(grind, pad(bell(659, 2.0) * 0.5, 1.4), pad(bell(988, 1.5) * 0.4, 1.6)))
-    print('sounds written:', len([f for f in os.listdir(OUT) if f.endswith('.ogg')]))
+        roar = np.tanh(2.2 * (saw + 0.5 * np.sin(ph * 1.5) + 0.3 * lowpass(noise(n), 900)))
+        roar = lowpass(roar, 1800) * adsr(n, 0.1, 1.0, 0.35)
+        shimmer = highpass(noise(n), 5000) * adsr(n, 0.3, 1, 0.3) * 0.3
+        save(f'sovereign_roar{i + 1}', mix(roar, shimmer, lowpass(noise(n), 120) * adsr(n, 0.1, 1, 0.4) * 1.5))
+    n = int(SR * 4.0)
+    tt = t(4.0)
+    f = 70 * (1 - 0.5 * tt / 4.0)
+    ph = 2 * np.pi * np.cumsum(f) / SR
+    death = lowpass(np.tanh(2 * (2 * ((ph / (2 * np.pi)) % 1.0) - 1)), 1500) * adsr(n, 0.05, 1, 0.5)
+    cascade = mix(*(pad(shatter(0.7, 2000 + k * 250) * 0.5, 0.4 + k * 0.35) for k in range(8)))
+    save('sovereign_death', mix(death, cascade[:n]))
+    print('sounds written')
 
 
 if __name__ == '__main__':

@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#rimeheart:is_frozen",
+  "features": [
+    "rimeheart:frostiron_ore",
+    "rimeheart:rime_crystal_ore",
+    "rimeheart:rimestone_blob"
+  ],
+  "step": "underground_ores"
+}

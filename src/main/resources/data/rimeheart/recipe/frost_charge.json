@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "rimeheart:rime_shard",
+    "minecraft:snowball",
+    "minecraft:gunpowder"
+  ],
+  "result": {
+    "id": "rimeheart:frost_charge",
+    "count": 2
+  }
+}

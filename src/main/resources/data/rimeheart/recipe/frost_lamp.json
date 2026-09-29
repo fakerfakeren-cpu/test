@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    " R ",
+    "RGR",
+    " R "
+  ],
+  "key": {
+    "R": "rimeheart:rime_shard",
+    "G": "minecraft:glowstone"
+  },
+  "result": {
+    "id": "rimeheart:frost_lamp",
+    "count": 1
+  }
+}

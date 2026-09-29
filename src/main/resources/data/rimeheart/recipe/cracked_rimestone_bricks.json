@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "ingredient": "rimeheart:rimestone_bricks",
+  "result": {
+    "id": "rimeheart:cracked_rimestone_bricks"
+  },
+  "experience": 0.1
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": "rimeheart:frostiron_nugget"
+  },
+  "result": {
+    "id": "rimeheart:frostiron_ingot",
+    "count": 1
+  }
+}

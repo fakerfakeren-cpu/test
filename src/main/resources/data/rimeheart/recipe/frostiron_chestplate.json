@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "# #",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": "rimeheart:frostiron_ingot"
+  },
+  "result": {
+    "id": "rimeheart:frostiron_chestplate",
+    "count": 1
+  }
+}

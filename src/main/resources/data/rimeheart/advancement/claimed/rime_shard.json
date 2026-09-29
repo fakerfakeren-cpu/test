@@ -1,0 +1,12 @@
+{
+  "criteria": {
+    "claimed": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "claimed"
+    ]
+  ]
+}

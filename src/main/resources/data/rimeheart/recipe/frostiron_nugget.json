@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "rimeheart:frostiron_ingot"
+  ],
+  "result": {
+    "id": "rimeheart:frostiron_nugget",
+    "count": 9
+  }
+}

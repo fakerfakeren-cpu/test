@@ -5,10 +5,9 @@ import sys
 
 sys.path.insert(0, os.path.dirname(__file__))
 from pixel import *  # noqa
-import gen_blocks as GB  # noqa
 
 RES = os.path.join(os.path.dirname(__file__), '..', 'src', 'main', 'resources')
-T = os.path.join(RES, 'assets', 'astralfall', 'textures')
+T = os.path.join(RES, 'assets', 'rimeheart', 'textures')
 
 
 def box_faces(u, v, w, h, d):
@@ -117,53 +116,12 @@ def armor_set(name, base, trim, accent, glowy=False):
     leg.save(os.path.join(T, 'entity', 'equipment', 'humanoid_leggings', name + '.png'))
 
 
-def crown():
-    c = Canvas(64, 32)
-    gold = [hexc('#6b4a12'), hexc('#b9862a'), hexc('#f2c14e'), hexc('#ffe9a3')]
-    # crown band + spikes drawn on the head box sides (8x8x8 at 0,0), upper rows only
-    for face, r in box_faces(0, 0, 8, 8, 8).items():
-        if face in ('bottom', 'top'):
-            continue
-        def f(xx, yy, w, h):
-            spike = (xx % 3 == 1)
-            if yy >= 3 and yy <= 4:
-                return gold[2] if xx % 2 else gold[1]
-            if yy < 3 and spike:
-                return gold[3] if yy == 0 else gold[2]
-            if yy == 4 and xx == w // 2:
-                return hexc('#9af3ff')
-            return None
-        paint(c, r, f)
-    c.set(8 + 3, 8 + 3, hexc('#effeff'))
-    c.set(8 + 4, 8 + 3, hexc('#9af3ff'))
-    c.save(os.path.join(T, 'entity', 'equipment', 'humanoid', 'crown_of_astraeus.png'))
-
-
-def wings():
-    c = Canvas(64, 32)
-    neb = [hexc('#12061f'), hexc('#2a1248'), hexc('#5a2394'), hexc('#9150e0'), hexc('#c998ff'), hexc('#f3e4ff')]
-    n = value_noise(64, 32, 4, 777, octaves=3)
-    r = rng(778)
-    # elytra wing box: texOffs(22,0) size 10x20x2
-    for face, rect in box_faces(22, 0, 10, 20, 2).items():
-        def f(xx, yy, w, h):
-            t = 0.2 + 0.7 * n[yy % 32, (xx + rect[0]) % 64] + 0.15 * (1 - yy / max(1, h))
-            col = ramp(neb, t)
-            if r.random() < 0.04:
-                col = hexc('#ffffff')
-            edge = xx == 0 or xx == w - 1 or yy == h - 1
-            return shade(col, 1.25) if edge else col
-        paint(c, rect, f)
-    c.save(os.path.join(T, 'entity', 'equipment', 'wings', 'nebula_wings.png'))
-
-
 def particles():
     out = os.path.join(T, 'particle')
     specs = {
-        'star_sparkle': ('star', (255, 255, 255)),
-        'gold_sparkle': ('star', (255, 255, 255)),
-        'void_mote': ('orb', (255, 255, 255)),
-        'comet_trail': ('ember', (255, 255, 255)),
+        'frost_glint': ('star', (255, 255, 255)),
+        'snow_puff': ('orb', (255, 255, 255)),
+        'wraith_wisp': ('ember', (255, 255, 255)),
     }
     for name, (shape, col) in specs.items():
         for i in range(4):
@@ -185,99 +143,42 @@ def particles():
             c.save(os.path.join(out, f'{name}_{i}.png'))
 
 
-def compass_frames():
-    base = [
-        "................",
-        "......KKKK......",
-        "....KKhgghKK....",
-        "...KhgZZZZghK...",
-        "..KhZZZZZZZZhK..",
-        "..KgZZZZZZZZgK..",
-        ".KhZZZZZZZZZZhK.",
-        ".KgZZZZZZZZZZgK.",
-        ".KgZZZZZZZZZZgK.",
-        ".KhZZZZZZZZZZhK.",
-        "..KgZZZZZZZZgK..",
-        "..KhZZZZZZZZhK..",
-        "...KhgZZZZghK...",
-        "....KKhgghKK....",
-        "......KKKK......",
-        "................",
-    ]
-    leg = {'K': hexc('#0b0a14'), 'h': hexc('#b9862a'), 'g': hexc('#f2c14e'), 'Z': hexc('#161b44')}
-    star_dots = [(5, 5), (10, 6), (6, 10), (9, 10)]
-    for i in range(32):
-        c = sprite(base, leg)
-        for (x, y) in star_dots:
-            c.set(x, y, hexc('#4150a6'))
-        ang = i / 32 * math.pi * 2 + math.pi
-        cx, cy = 7.5, 7.5
-        for t in range(0, 11):
-            d = t / 10 * 4.6
-            x, y = int(round(cx + math.sin(ang) * d)), int(round(cy - math.cos(ang) * d))
-            c.set(x, y, hexc('#9af3ff') if t > 5 else hexc('#effeff'))
-        for t in range(0, 6):
-            d = t / 5 * 2.5
-            x, y = int(round(cx - math.sin(ang) * d)), int(round(cy + math.cos(ang) * d))
-            c.set(x, y, hexc('#9150e0'))
-        c.set(7, 7, hexc('#ffe9a3'))
-        c.set(8, 8, hexc('#ffe9a3'))
-        c.save(os.path.join(T, 'item', f'astral_compass_{i:02d}.png'))
-
-
-def extra_blocks():
-    c = GB.astral_bricks()
-    r = rng(901)
-    for (x, y) in ((3, 5), (4, 5), (5, 5), (11, 9), (12, 9), (10, 1)):
-        c.set(x, y, lerp(c.get(x, y), hexc('#3fc6e0'), 0.45))
-    c.save(os.path.join(T, 'block', 'sealed_astral_bricks.png'))
-    e = GB.starmetal_block()
-    for y in range(4, 12):
-        for x in range(4, 12):
-            d = math.hypot(x - 7.5, y - 7.5)
-            if d < 3.8:
-                e.set(x, y, ramp([hexc('#9af3ff'), hexc('#3fc6e0'), hexc('#123e5c'), hexc('#0b0a14')], d / 3.8))
-            elif d < 4.6:
-                e.set(x, y, hexc('#b9862a'))
-    e.save(os.path.join(T, 'block', 'telescope_eyepiece.png'))
-
-
 def logo():
     W, H = 256, 128
     c = Canvas(W, H)
     rs = rng(5)
     for y in range(H):
         for x in range(W):
-            t = y / H
-            c.set(x, y, lerp(hexc('#070617'), hexc('#1d1040'), t))
-    for _ in range(160):
+            c.set(x, y, lerp(hexc('#07131f'), hexc('#1d4466'), y / H))
+    for _ in range(220):
         x, y = rs.randrange(W), rs.randrange(H)
-        c.set(x, y, lerp(hexc('#ffffff'), hexc('#9af3ff'), rs.random()))
-    # meteor streak
-    for i in range(90):
-        x = 30 + i * 1.6
-        y = 20 + i * 0.55
-        for w_ in range(-2, 3):
-            a = max(0, 1 - abs(w_) / 3) * (i / 90)
-            c.set(int(x), int(y + w_), lerp(c.get(int(x), int(y + w_)), hexc('#ffc56b'), a))
-    for dx in range(-5, 6):
-        for dy in range(-5, 6):
-            d = math.hypot(dx, dy)
-            if d < 5:
-                c.set(int(30 + 90 * 1.6) + dx, int(20 + 90 * 0.55) + dy, ramp([hexc('#ffffff'), hexc('#ffd35c'), hexc('#ff7a1f')], d / 5))
-    # title text "ASTRALFALL" in a 5x7 pixel font, scaled x3
+        c.set(x, y, lerp(hexc('#ffffff'), hexc('#9fe6ff'), rs.random()))
+    # a large snowflake
+    cx, cy = 128, 40
+    for k in range(6):
+        a = k * math.pi / 3
+        for i in range(0, 26):
+            x, y = cx + math.cos(a) * i, cy + math.sin(a) * i
+            for w_ in (-1, 0, 1):
+                c.set(int(x + w_ * math.sin(a)), int(y - w_ * math.cos(a)), ramp([hexc('#ffffff'), hexc('#b8eefc'), hexc('#6fcff0')], i / 26))
+            if i in (10, 18):
+                for s_ in (-1, 1):
+                    b = a + s_ * math.pi / 4
+                    for j in range(7):
+                        c.set(int(x + math.cos(b) * j), int(y + math.sin(b) * j), hexc('#d8f6ff'))
     font = {
-        'A': ["01110", "10001", "10001", "11111", "10001", "10001", "10001"],
-        'S': ["01111", "10000", "10000", "01110", "00001", "00001", "11110"],
-        'T': ["11111", "00100", "00100", "00100", "00100", "00100", "00100"],
         'R': ["11110", "10001", "10001", "11110", "10100", "10010", "10001"],
-        'L': ["10000", "10000", "10000", "10000", "10000", "10000", "11111"],
-        'F': ["11111", "10000", "10000", "11110", "10000", "10000", "10000"],
+        'I': ["11111", "00100", "00100", "00100", "00100", "00100", "11111"],
+        'M': ["10001", "11011", "10101", "10101", "10001", "10001", "10001"],
+        'E': ["11111", "10000", "10000", "11110", "10000", "10000", "11111"],
+        'H': ["10001", "10001", "10001", "11111", "10001", "10001", "10001"],
+        'A': ["01110", "10001", "10001", "11111", "10001", "10001", "10001"],
+        'T': ["11111", "00100", "00100", "00100", "00100", "00100", "00100"],
     }
-    text = "ASTRALFALL"
+    text = "RIMEHEART"
     scale = 3
     tw = len(text) * 6 * scale
-    x0, y0 = (W - tw) // 2, 72
+    x0, y0 = (W - tw) // 2, 84
     for i, ch in enumerate(text):
         for ry, row in enumerate(font[ch]):
             for rx, bit in enumerate(row):
@@ -285,24 +186,19 @@ def logo():
                     for sy in range(scale):
                         for sx in range(scale):
                             px, py = x0 + (i * 6 + rx) * scale + sx, y0 + ry * scale + sy
-                            t = (ry * scale + sy) / (7 * scale)
-                            c.set(px, py, ramp([hexc('#fff3b8'), hexc('#ffd35c'), hexc('#c998ff')], t))
-                            c.set(px + 2, py + 2, c.get(px + 2, py + 2)) if False else None
-    c.save(os.path.join(RES, 'astralfall_logo.png'))
+                            c.set(px, py, ramp([hexc('#ffffff'), hexc('#b8eefc'), hexc('#4fa8d8')], (ry * scale + sy) / (7 * scale)))
+    c.save(os.path.join(RES, 'rimeheart_logo.png'))
 
 
 def main():
-    steel = [hexc('#28324d'), hexc('#46587f'), hexc('#6f86b6'), hexc('#a9c1ea'), hexc('#eef5ff')]
-    gold = [hexc('#6b4a12'), hexc('#b9862a'), hexc('#f2c14e'), hexc('#ffe9a3')]
-    violet = [hexc('#12061f'), hexc('#2a0f4a'), hexc('#5a2394'), hexc('#9150e0'), hexc('#c998ff')]
-    cyan = [hexc('#1f7ea3'), hexc('#3fc6e0'), hexc('#9af3ff'), hexc('#effeff')]
-    armor_set('starmetal', steel, gold, cyan)
-    armor_set('voidwalker', violet, [hexc('#123e5c'), hexc('#3fc6e0'), hexc('#9af3ff')], cyan, glowy=True)
-    crown()
-    wings()
+    frost = [hexc('#304c64'), hexc('#56809f'), hexc('#86aecb'), hexc('#bcd8ec'), hexc('#f2f9ff')]
+    ice = [hexc('#2f93c2'), hexc('#6fcff0'), hexc('#b8eefc'), hexc('#f4fdff')]
+    wraith = [hexc('#062224'), hexc('#10474a'), hexc('#23847e'), hexc('#4fc4b4'), hexc('#9ff0e0')]
+    for d in ('entity/equipment/humanoid', 'entity/equipment/humanoid_leggings', 'particle'):
+        os.makedirs(os.path.join(T, d), exist_ok=True)
+    armor_set('frostiron', frost, ice, ice)
+    armor_set('wraithweave', wraith, [hexc('#10474a'), hexc('#4fc4b4'), hexc('#9ff0e0')], ice, glowy=True)
     particles()
-    compass_frames()
-    extra_blocks()
     logo()
     print('extra textures written')
 

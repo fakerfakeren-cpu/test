@@ -1,0 +1,131 @@
+{
+  "freeze": {
+    "subtitle": "subtitles.rimeheart.freeze",
+    "sounds": [
+      {
+        "name": "rimeheart:freeze",
+        "volume": 1.0
+      }
+    ]
+  },
+  "ice_shatter": {
+    "subtitle": "subtitles.rimeheart.ice_shatter",
+    "sounds": [
+      {
+        "name": "rimeheart:ice_shatter1",
+        "volume": 1.0
+      },
+      {
+        "name": "rimeheart:ice_shatter2",
+        "volume": 1.0
+      }
+    ]
+  },
+  "cold_snap": {
+    "subtitle": "subtitles.rimeheart.cold_snap",
+    "sounds": [
+      {
+        "name": "rimeheart:cold_snap",
+        "volume": 1.0
+      }
+    ]
+  },
+  "glacier_slam": {
+    "subtitle": "subtitles.rimeheart.glacier_slam",
+    "sounds": [
+      {
+        "name": "rimeheart:glacier_slam",
+        "volume": 1.0
+      }
+    ]
+  },
+  "blizzard": {
+    "subtitle": "subtitles.rimeheart.blizzard",
+    "sounds": [
+      {
+        "name": "rimeheart:blizzard",
+        "volume": 1.0
+      }
+    ]
+  },
+  "icicle_shoot": {
+    "subtitle": "subtitles.rimeheart.icicle_shoot",
+    "sounds": [
+      {
+        "name": "rimeheart:icicle_shoot",
+        "volume": 1.0
+      }
+    ]
+  },
+  "wraith_ambient": {
+    "subtitle": "subtitles.rimeheart.wraith_ambient",
+    "sounds": [
+      {
+        "name": "rimeheart:wraith_ambient1",
+        "volume": 1.0
+      },
+      {
+        "name": "rimeheart:wraith_ambient2",
+        "volume": 1.0
+      }
+    ]
+  },
+  "wraith_hurt": {
+    "subtitle": "subtitles.rimeheart.wraith_hurt",
+    "sounds": [
+      {
+        "name": "rimeheart:wraith_hurt",
+        "volume": 1.0
+      }
+    ]
+  },
+  "wraith_death": {
+    "subtitle": "subtitles.rimeheart.wraith_death",
+    "sounds": [
+      {
+        "name": "rimeheart:wraith_death",
+        "volume": 1.0
+      }
+    ]
+  },
+  "shardling_chitter": {
+    "subtitle": "subtitles.rimeheart.shardling_chitter",
+    "sounds": [
+      {
+        "name": "rimeheart:shardling_chitter",
+        "volume": 1.0
+      }
+    ]
+  },
+  "winter_horn": {
+    "subtitle": "subtitles.rimeheart.winter_horn",
+    "sounds": [
+      {
+        "name": "rimeheart:winter_horn",
+        "volume": 1.0
+      }
+    ]
+  },
+  "sovereign_roar": {
+    "subtitle": "subtitles.rimeheart.sovereign_roar",
+    "sounds": [
+      {
+        "name": "rimeheart:sovereign_roar1",
+        "volume": 1.0
+      },
+      {
+        "name": "rimeheart:sovereign_roar2",
+        "volume": 1.0
+      }
+    ]
+  },
+  "sovereign_death": {
+    "subtitle": "subtitles.rimeheart.sovereign_death",
+    "sounds": [
+      {
+        "name": "rimeheart:sovereign_death",
+        "volume": 1.0
+      }
+    ]
+  }
+}

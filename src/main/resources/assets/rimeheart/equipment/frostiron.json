@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "rimeheart:frostiron"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "rimeheart:frostiron"
+      }
+    ]
+  }
+}

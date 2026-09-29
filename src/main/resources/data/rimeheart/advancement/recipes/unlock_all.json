@@ -1,0 +1,52 @@
+{
+  "criteria": {
+    "joined": {
+      "trigger": "minecraft:tick"
+    }
+  },
+  "requirements": [
+    [
+      "joined"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "rimeheart:blizzard_staff",
+      "rimeheart:chiseled_rimestone_bricks",
+      "rimeheart:cracked_rimestone_bricks",
+      "rimeheart:frost_charge",
+      "rimeheart:frost_lamp",
+      "rimeheart:frostbite_blade",
+      "rimeheart:frostiron_axe",
+      "rimeheart:frostiron_block",
+      "rimeheart:frostiron_boots",
+      "rimeheart:frostiron_chestplate",
+      "rimeheart:frostiron_helmet",
+      "rimeheart:frostiron_ingot_from_blasting_frostiron_ore",
+      "rimeheart:frostiron_ingot_from_blasting_raw_frostiron",
+      "rimeheart:frostiron_ingot_from_block",
+      "rimeheart:frostiron_ingot_from_nuggets",
+      "rimeheart:frostiron_ingot_from_smelting_frostiron_ore",
+      "rimeheart:frostiron_ingot_from_smelting_raw_frostiron",
+      "rimeheart:frostiron_leggings",
+      "rimeheart:frostiron_nugget",
+      "rimeheart:frostiron_pickaxe",
+      "rimeheart:frostiron_shovel",
+      "rimeheart:frostiron_sword",
+      "rimeheart:glacial_altar",
+      "rimeheart:glacier_maul",
+      "rimeheart:hearthfire_stew",
+      "rimeheart:rime_crystal_block",
+      "rimeheart:rimebow",
+      "rimeheart:rimestone_bricks",
+      "rimeheart:wardens_journal",
+      "rimeheart:wardens_journal_from_snowball",
+      "rimeheart:winter_horn",
+      "rimeheart:winterfang",
+      "rimeheart:wraithweave_boots",
+      "rimeheart:wraithweave_hood",
+      "rimeheart:wraithweave_leggings",
+      "rimeheart:wraithweave_robe"
+    ]
+  }
+}

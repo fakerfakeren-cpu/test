@@ -1,0 +1,74 @@
+{
+  "display": {
+    "icon": {
+      "id": "rimeheart:frostiron_chestplate"
+    },
+    "title": {
+      "translate": "quest.rimeheart.frostiron_armor.title"
+    },
+    "description": {
+      "translate": "quest.rimeheart.frostiron_armor.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "got_0": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "rimeheart:frostiron_helmet"
+          }
+        ]
+      }
+    },
+    "got_1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "rimeheart:frostiron_chestplate"
+          }
+        ]
+      }
+    },
+    "got_2": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "rimeheart:frostiron_leggings"
+          }
+        ]
+      }
+    },
+    "got_3": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "rimeheart:frostiron_boots"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "got_0"
+    ],
+    [
+      "got_1"
+    ],
+    [
+      "got_2"
+    ],
+    [
+      "got_3"
+    ]
+  ],
+  "parent": "rimeheart:quests/ingot"
+}

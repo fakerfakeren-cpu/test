@@ -1,10 +1,8 @@
 {
   "replace": false,
   "values": [
-    "astralfall:meteorite_rock",
-    "astralfall:starmetal_ore",
-    "astralfall:raw_starmetal_block",
-    "astralfall:starmetal_block",
-    "astralfall:void_stone"
+    "rimeheart:frostiron_ore",
+    "rimeheart:rime_crystal_ore",
+    "rimeheart:frostiron_block"
   ]
 }

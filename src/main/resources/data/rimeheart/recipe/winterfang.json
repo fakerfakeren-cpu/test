@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "C",
+    "B"
+  ],
+  "key": {
+    "C": "rimeheart:sovereign_core",
+    "B": "rimeheart:frostbite_blade"
+  },
+  "result": {
+    "id": "rimeheart:winterfang",
+    "count": 1
+  }
+}

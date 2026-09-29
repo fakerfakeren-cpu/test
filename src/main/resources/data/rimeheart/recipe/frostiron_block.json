@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": "rimeheart:frostiron_ingot"
+  },
+  "result": {
+    "id": "rimeheart:frostiron_block",
+    "count": 1
+  }
+}

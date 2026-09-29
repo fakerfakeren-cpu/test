@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:bowl",
+    "minecraft:baked_potato",
+    "minecraft:carrot",
+    "minecraft:sweet_berries"
+  ],
+  "result": {
+    "id": "rimeheart:hearthfire_stew",
+    "count": 1
+  }
+}

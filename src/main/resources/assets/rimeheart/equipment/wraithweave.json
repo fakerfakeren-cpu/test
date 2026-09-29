@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "rimeheart:wraithweave"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "rimeheart:wraithweave"
+      }
+    ]
+  }
+}
