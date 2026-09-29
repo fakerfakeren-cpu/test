@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:blasting",
-  "category": "misc",
-  "ingredient": "astralfall:starmetal_ore",
-  "result": {
-    "id": "astralfall:starmetal_ingot"
-  },
-  "experience": 1.0
-}

@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "astralfall:block/astral_bricks",
-    "side": "astralfall:block/astral_bricks",
-    "top": "astralfall:block/astral_bricks"
-  }
-}

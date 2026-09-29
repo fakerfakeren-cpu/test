@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "#astralfall:has_impact_sites",
-  "features": "astralfall:impact_site",
-  "step": "local_modifications"
-}

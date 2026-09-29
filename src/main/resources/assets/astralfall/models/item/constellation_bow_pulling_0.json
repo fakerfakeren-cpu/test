@@ -1,6 +1,0 @@
-{
-  "parent": "astralfall:item/constellation_bow",
-  "textures": {
-    "layer0": "astralfall:item/constellation_bow_pulling_0"
-  }
-}

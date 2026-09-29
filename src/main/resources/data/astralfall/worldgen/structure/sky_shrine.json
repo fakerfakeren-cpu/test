@@ -1,9 +1,0 @@
-{
-  "type": "astralfall:blueprint",
-  "biomes": "#astralfall:has_structure/sky_shrine",
-  "spawn_overrides": {},
-  "step": "surface_structures",
-  "terrain_adaptation": "none",
-  "blueprint": "sky_shrine",
-  "y_offset": 62
-}

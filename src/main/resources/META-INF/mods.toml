@@ -4,30 +4,31 @@ license="MIT"
 issueTrackerURL="https://github.com/fakerfakeren-cpu/test/issues"
 
 [[mods]]
-modId="astralfall"
+modId="oathbound"
 version="${mod_version}"
-displayName="Astralfall"
-logoFile="astralfall_logo.png"
-authors="Astralfall Team"
+displayName="Oathbound: The Hollow Crown"
+logoFile="oathbound_logo.png"
+authors="Oathbound contributors"
 description='''
-The stars are falling.
+The Lanternguard is gone. Its oath is not.
 
-Meteor showers crash into the world, leaving craters of Starmetal and Skyshard.
-Void creatures crawl out of the dark between the stars. Explore the Shattered
-Observatory, unlock celestial weapons, tame Astral Wisps, and summon
-Astraeus, Devourer of Stars.
+Take up the Lantern Chronicle as the last squire of a fallen order of knight-wizards.
+Forge Oathsteel, kindle the Wayshrines, and win back the three Oath Seals from the
+hollowed keepers of the Drowned Chapel, the Arcanist's Spire and the Barrow of Kings.
+Then open the Sundered Gate, cross into the Gloaming, and break the Hollow Crown.
 
-Start with /astralfall help or the Astralfall creative tab.
+A complete adventure with puzzles, three minibosses, a multi-phase final boss,
+a new dimension, and a quest book that tells the story as you live it.
 '''
 
-[[dependencies.astralfall]]
+[[dependencies.oathbound]]
     modId="forge"
     mandatory=true
     versionRange="[65.1.0,)"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.astralfall]]
+[[dependencies.oathbound]]
     modId="minecraft"
     mandatory=true
     versionRange="[26.2,26.3)"

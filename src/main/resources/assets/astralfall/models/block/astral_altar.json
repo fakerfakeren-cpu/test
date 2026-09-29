@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "top": "astralfall:block/astral_altar_top",
-    "side": "astralfall:block/astral_altar_side",
-    "bottom": "astralfall:block/astral_altar_bottom"
-  }
-}

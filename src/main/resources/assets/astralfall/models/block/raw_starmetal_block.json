@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "astralfall:block/raw_starmetal_block"
-  }
-}

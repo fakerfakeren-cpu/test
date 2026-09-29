@@ -14,6 +14,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
 
@@ -44,7 +46,7 @@ jobs:
           view-distance=6
           simulation-distance=6
           spawn-protection=0
-          level-seed=astralfall
+          level-seed=lanternguard
           pause-when-empty-seconds=0
           PROPS
           sed -i 's/^ *//' run/server.properties
@@ -53,7 +55,7 @@ jobs:
 
       - name: Client smoke test (real client, screenshots)
         id: clienttest
-        if: always() && steps.build.outcome == 'success'
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
         run: |
           sudo apt-get update -qq >/dev/null && sudo apt-get install -y -qq xvfb xdotool libgl1-mesa-dri mesa-utils >/dev/null
           mkdir -p run/saves
@@ -91,9 +93,30 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: astralfall-mod-jar
+          name: oathbound-mod-jar
           path: build/libs/*.jar
           if-no-files-found: ignore
+
+      - name: Publish tested jar and screenshots to the branch
+        if: success() && github.ref == 'refs/heads/claude/nice-fermi-3xossn'
+        continue-on-error: true
+        run: |
+          python3 -m pip install -q pillow >/dev/null 2>&1 || true
+          mkdir -p dist docs/oathbound
+          rm -f dist/*.jar
+          cp build/libs/oathbound-*.jar dist/
+          python3 - <<'PY'
+          import glob, os
+          from PIL import Image
+          for f in sorted(glob.glob('run/screenshots/oathbound_*.png')):
+              name = os.path.basename(f)[len('oathbound_'):-4]
+              Image.open(f).convert('RGB').save(f'docs/oathbound/{name}.jpg', 'JPEG', quality=85)
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dist docs/oathbound
+          git commit -m "CI: publish the tested jar and client screenshots [skip ci]" || exit 0
+          git push
 
       - name: Upload logs
         if: always()
@@ -116,7 +139,7 @@ jobs:
           grep -E "BUILD (SUCCESSFUL|FAILED)|What went wrong" -A3 build.log | head -40 || true
           echo "===== SERVER PROBLEMS ====="
           if [ -f server.log ]; then
-            grep -nE "(ERROR|FATAL)|Exception|Caused by|Failed to|Couldn't|Unknown|astralfall.*WARN|WARN.*astralfall|Missing|Invalid" server.log | grep -vE "Narrator|narrator|Realms|realms|Unknown custom packet" | head -250 || true
+            grep -nE "(ERROR|FATAL)|Exception|Caused by|Failed to|Couldn't|Unknown|oathbound.*WARN|WARN.*oathbound|Missing|Invalid" server.log | grep -vE "Narrator|narrator|Realms|realms|Unknown custom packet" | head -250 || true
           fi
           for f in run/crash-reports/*; do [ -f "$f" ] && head -120 "$f"; done
           echo "===== CLIENT PROBLEMS ====="
@@ -134,7 +157,7 @@ jobs:
           python3 - <<'PY' || true
           import glob, base64, io
           from PIL import Image
-          for f in sorted(glob.glob('run/screenshots/astralfall_*.png')):
+          for f in sorted(glob.glob("run/screenshots/oathbound_*.png")):
               im = Image.open(f).convert('RGB')
               im.thumbnail((800, 450))
               buf = io.BytesIO()

@@ -1,9 +1,0 @@
-{
-  "type": "astralfall:blueprint",
-  "biomes": "#astralfall:has_structure/observatory",
-  "spawn_overrides": {},
-  "step": "surface_structures",
-  "terrain_adaptation": "none",
-  "blueprint": "observatory",
-  "y_offset": 0
-}

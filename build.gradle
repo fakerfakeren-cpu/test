@@ -6,10 +6,10 @@ plugins {
 }
 
 version = project.mod_version
-group = 'com.astralfall'
+group = 'com.oathbound'
 
 base {
-    archivesName = "astralfall-${project.minecraft_version}"
+    archivesName = "oathbound-${project.minecraft_version}"
 }
 
 // Minecraft 26.x ships Java 25 to players, so the mod targets Java 25.
@@ -21,13 +21,13 @@ minecraft {
             workingDir = layout.projectDirectory.dir('run')
             systemProperty 'eventbus.api.strictRuntimeChecks', 'true'
             if (project.hasProperty('selftest')) {
-                systemProperty 'astralfall.selftest', 'true'
+                systemProperty 'oathbound.selftest', 'true'
             }
         }
 
         register('client') {
             if (project.hasProperty('clienttest')) {
-                systemProperty 'astralfall.clienttest', 'true'
+                systemProperty 'oathbound.clienttest', 'true'
                 args '--quickPlaySingleplayer', 'world', '--width', '1280', '--height', '720'
             }
         }
@@ -66,7 +66,7 @@ tasks.named('processResources', ProcessResources) {
 tasks.named('jar', Jar) {
     manifest {
         attributes([
-            'Implementation-Title'  : 'Astralfall',
+            'Implementation-Title'  : 'Oathbound',
             'Implementation-Version': project.version
         ])
     }
