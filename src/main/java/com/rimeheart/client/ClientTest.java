@@ -116,11 +116,27 @@ public final class ClientTest {
         cmd(mc, String.format(java.util.Locale.ROOT, "tp @s %.2f %.2f %.2f %.1f %.1f", x, y, z, yaw, pitch));
     }
 
+    /** Places the camera (the spectator's eyes) at {@code from}, looking at {@code at}. */
     private static void lookAt(Minecraft mc, Vec3 from, Vec3 at) {
         Vec3 d = at.subtract(from);
         float yaw = (float) (Math.atan2(-d.x, d.z) * 180 / Math.PI);
         float pitch = (float) (-Math.atan2(d.y, Math.sqrt(d.x * d.x + d.z * d.z)) * 180 / Math.PI);
-        camera(mc, from.x, from.y, from.z, yaw, pitch);
+        camera(mc, from.x, from.y - 1.62, from.z, yaw, pitch);
+    }
+
+    /** Flattens a snowy clearing (radius r) around {@code c} so cameras are not blocked by trees. */
+    private static void clearing(ServerLevel level, BlockPos c, int r, int height) {
+        for (int x = -r; x <= r; x++) {
+            for (int z = -r; z <= r; z++) {
+                if (x * x + z * z > r * r) continue;
+                BlockPos col = c.offset(x, 0, z);
+                for (int y = 0; y <= height; y++) level.setBlock(col.above(y), net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(), 2);
+                level.setBlock(col.below(), net.minecraft.world.level.block.Blocks.SNOW_BLOCK.defaultBlockState(), 2);
+                for (int y = 2; y <= 6; y++) {
+                    if (level.getBlockState(col.below(y)).isAir()) level.setBlock(col.below(y), net.minecraft.world.level.block.Blocks.STONE.defaultBlockState(), 2);
+                }
+            }
+        }
     }
 
     private static void shot(Minecraft mc, String name) {
@@ -191,44 +207,45 @@ public final class ClientTest {
         // --- Frozen Sanctum, placed at a known origin so every camera lands exactly
         step(10, "build sanctum", mc -> server(mc, p -> {
             BlockPos o = surface(p.level(), base.getX(), base.getZ() + 40);
-            BlueprintPlacer.placeNow(p.level(), Blueprints.build(Blueprints.Type.FROZEN_SANCTUM, 12345L), o);
-            sanctum = o;
+            clearing(p.level(), o, 26, 30);
+            BlueprintPlacer.placeNow(p.level(), Blueprints.build(Blueprints.Type.FROZEN_SANCTUM, 12345L), o.below());
+            sanctum = o.below();
             log("sanctum at " + o);
         }));
-        step(80, "sanctum view", mc -> lookAt(mc, c(sanctum).add(-14, 9, -26), c(sanctum).add(0, 0, -4)));
+        step(80, "sanctum view", mc -> lookAt(mc, c(sanctum).add(-15, 13, -24), c(sanctum).add(0, 0, -5)));
         step(160, "shot sanctum", mc -> shot(mc, "sanctum_surface"));
-        step(5, "hall view", mc -> lookAt(mc, c(sanctum).add(-6.5, Blueprints.HALL_FLOOR + 5.5, -7.5), c(sanctum).add(0, Blueprints.HALL_FLOOR + 2, 0)));
+        step(5, "hall view", mc -> lookAt(mc, c(sanctum).add(-7.2, Blueprints.HALL_FLOOR + 4.6, -7.2), c(sanctum).add(1, Blueprints.HALL_FLOOR + 1.5, 1)));
         step(100, "shot hall", mc -> shot(mc, "sanctum_hall"));
         step(5, "open vault", mc -> server(mc, p -> {
             for (int y = 1; y <= 2; y++)
                 for (int z = -1; z <= 1; z++) p.level().removeBlock(sanctum.offset(9, Blueprints.HALL_FLOOR + y, z), false);
         }));
-        step(20, "vault view", mc -> lookAt(mc, c(sanctum).add(6, Blueprints.HALL_FLOOR + 3.2, 0), c(sanctum).add(14, Blueprints.HALL_FLOOR + 1, 0)));
+        step(20, "vault view", mc -> lookAt(mc, c(sanctum).add(10.3, Blueprints.HALL_FLOOR + 3.3, -2.3), c(sanctum).add(14, Blueprints.HALL_FLOOR + 1.2, 0.5)));
         step(100, "shot vault", mc -> shot(mc, "sanctum_vault"));
         // --- Bestiary close-ups on a snowy stage
         step(5, "stage", mc -> server(mc, p -> {
             BlockPos g = surface(p.level(), base.getX() - 60, base.getZ());
             stage = g;
-            for (BlockPos q : BlockPos.betweenClosed(g.offset(-2, -1, -8), g.offset(14, -1, 8))) p.level().setBlock(q, net.minecraft.world.level.block.Blocks.SNOW_BLOCK.defaultBlockState(), 2);
-            for (BlockPos q : BlockPos.betweenClosed(g.offset(-2, 0, -8), g.offset(14, 8, 8))) p.level().setBlock(q, net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(), 2);
+            clearing(p.level(), g, 16, 24);
             spawnStill(p.level(), com.rimeheart.registry.ModEntities.FROST_WRAITH.get(), g.offset(6, 1, -3));
             spawnStill(p.level(), com.rimeheart.registry.ModEntities.SHARDLING.get(), g.offset(6, 0, 3));
         }));
-        step(40, "wraith view", mc -> lookAt(mc, c(stage).add(2.5, 2.6, -4.5), c(stage).add(6, 2.0, -3)));
+        step(40, "wraith view", mc -> lookAt(mc, c(stage).add(3.3, 2.6, -4.4), c(stage).add(6, 2.0, -3)));
         step(40, "shot wraith", mc -> shot(mc, "mob_frost_wraith"));
-        step(5, "shardling view", mc -> lookAt(mc, c(stage).add(3.8, 1.2, 2.2), c(stage).add(6, 0.3, 3)));
+        step(5, "shardling view", mc -> lookAt(mc, c(stage).add(4.4, 1.3, 2.3), c(stage).add(6, 0.3, 3)));
         step(40, "shot shardling", mc -> shot(mc, "mob_shardling"));
         // --- The Winter Horn ritual and the Frost Sovereign
         step(5, "boss", mc -> server(mc, p -> {
             BlockPos b = surface(p.level(), base.getX() - 130, base.getZ() + 70);
+            clearing(p.level(), b, 26, 32);
             bossAt = b;
             run(p, String.format(java.util.Locale.ROOT, "tp @s %.1f %d %.1f 0 -10", b.getX() - 9.5, b.getY() + 7, b.getZ() - 13.5));
             p.level().setBlock(b.below(), com.rimeheart.registry.ModBlocks.GLACIAL_ALTAR.get().defaultBlockState(), 3);
             com.rimeheart.entity.boss.SovereignRitual.begin(p.level(), b);
         }));
-        step(20, "ritual camera", mc -> lookAt(mc, c(bossAt).add(-10, 6, -14), c(bossAt).add(0, 1, 0)));
+        step(20, "ritual camera", mc -> lookAt(mc, c(bossAt).add(-9, 5, -12), c(bossAt).add(0, 1.5, 0)));
         step(70, "shot ritual", mc -> shot(mc, "winter_ritual"));
-        step(150, "boss camera", mc -> lookAt(mc, c(bossAt).add(-8, 5, -11), c(bossAt).add(0, 4, 0)));
+        step(150, "boss camera", mc -> lookAt(mc, c(bossAt).add(-10, 6, -13), c(bossAt).add(0, 4, 0)));
         step(20, "shot boss", mc -> shot(mc, "frost_sovereign"));
         step(5, "boss target", mc -> server(mc, p -> {
             var golem = net.minecraft.world.entity.EntityTypes.IRON_GOLEM.create(p.level(), net.minecraft.world.entity.EntitySpawnReason.COMMAND);

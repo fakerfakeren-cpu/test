@@ -387,7 +387,7 @@ public class JournalScreen extends Screen {
             g.fill(c[0], c[1], c[0] + 3, c[1] + 3, GOLD);
         }
         // title
-        Component title = Component.literal("✦ ").append(Component.translatable("journal.rimeheart.title")).append(" ✦").withStyle(ChatFormatting.BOLD);
+        Component title = Component.literal("❄ ").append(Component.translatable("journal.rimeheart.title")).append(" ❄").withStyle(ChatFormatting.BOLD);
         g.centeredText(font, title, left + W / 2, top + 7, GOLD_BRIGHT);
         // tabs
         String[] names = {"journal.rimeheart.tab.story", "journal.rimeheart.tab.guide", "journal.rimeheart.tab.quests"};

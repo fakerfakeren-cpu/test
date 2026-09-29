@@ -19,6 +19,26 @@ story, a field guide and a quest line with claimable rewards.
 
 ---
 
+## Screenshots
+
+These are real in-game captures from Minecraft 26.2 + Forge 65.1.0, taken automatically by this repository's CI
+client test (software rendering, HUD hidden).
+
+| | |
+|---|---|
+| ![Quest log](docs/rimeheart/journal_quests.jpg) | ![Story](docs/rimeheart/journal_story.jpg) |
+| Warden's Journal: the quest log with claimable rewards | Warden's Journal: the story |
+| ![Field guide](docs/rimeheart/journal_guide.jpg) | ![Frozen Sanctum](docs/rimeheart/sanctum_surface.jpg) |
+| Warden's Journal: the field guide | The Frozen Sanctum's plaza and Glacial Altar |
+| ![Sanctum hall](docs/rimeheart/sanctum_hall.jpg) | ![Sanctum vault](docs/rimeheart/sanctum_vault.jpg) |
+| The buried hall | The hidden vault behind the hollow wall |
+| ![Frost Wraith](docs/rimeheart/mob_frost_wraith.jpg) | ![Shardling](docs/rimeheart/mob_shardling.jpg) |
+| Frost Wraith | Shardling |
+| ![Winter Horn ritual](docs/rimeheart/winter_ritual.jpg) | ![Frost Sovereign](docs/rimeheart/frost_sovereign_attack.jpg) |
+| The Winter Horn ritual | The Frost Sovereign attacking |
+
+---
+
 ## Installing with CurseForge
 
 1. **Get the jar:** `rimeheart-26.2-1.0.0.jar`.
@@ -171,13 +191,6 @@ Hearthfire Stew thaws you instantly. Winter creatures are immune to chill.
 | `bossHealthMultiplier` | `1.0` | Scales the Frost Sovereign's health |
 | `shardlingAmbushChance` | `20` | % chance that breaking a crystal cluster without Silk Touch releases a Shardling |
 | `skipExperimentalWarning` | `true` | Client answers vanilla's "Experimental Settings" prompt automatically |
-
----
-
-## Screenshots
-
-Real captures from Minecraft 26.2 + Forge 65.1.0, taken automatically by this repository's CI client test (software
-rendering) and stored in [`docs/rimeheart/`](docs/rimeheart/).
 
 ---
 
