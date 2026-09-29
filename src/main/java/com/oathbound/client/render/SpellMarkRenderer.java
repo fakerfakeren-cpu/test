@@ -137,7 +137,7 @@ public class SpellMarkRenderer extends EntityRenderer<SpellMarkEntity, SpellMark
     /** A shockwave: a flat ring that races outward and a short wall of light standing on its edge. */
     private static void ring(State s, PoseStack pose, SubmitNodeCollector c, float fade) {
         float t = s.age / s.life;
-        float r = Math.max(0.2f, s.size * ease(t));
+        float r = Math.max(0.6f, s.size * t);
         float band = 0.35f + s.size * 0.08f;
         float f = fade * (1f - t * 0.6f);
         int col = tint(s.rgb, f);

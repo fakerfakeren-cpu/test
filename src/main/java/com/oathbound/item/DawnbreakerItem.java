@@ -1,5 +1,6 @@
 package com.oathbound.item;
 
+import com.oathbound.entity.SpellMarkEntity;
 import com.oathbound.registry.ModParticles;
 import com.oathbound.registry.ModSounds;
 import com.oathbound.registry.ModTags;
@@ -77,6 +78,9 @@ public class DawnbreakerItem extends Item {
         for (int ring = 1; ring <= 3; ring++) Vfx.ring(level, ModParticles.SUNBURST.get(), c.add(0, -0.8, 0), RADIUS * ring / 3.0, 30 * ring, 0.04);
         Vfx.burst(level, ModParticles.SUNBURST.get(), c, 40, 0.3, 0.3);
         Vfx.burst(level, ModParticles.EMBER.get(), c, 60, 1.5, 0.2);
+        SpellMarkEntity.sigil(level, player.position(), (float) RADIUS * 0.7f, SpellMarkEntity.Hue.DAWN, 40);
+        SpellMarkEntity.ring(level, player.position(), (float) RADIUS + 1.5f, SpellMarkEntity.Hue.DAWN, 14);
+        SpellMarkEntity.pillar(level, player.position(), 1.3f, SpellMarkEntity.Hue.DAWN, 24);
         for (LivingEntity e : level.getEntitiesOfClass(LivingEntity.class, player.getBoundingBox().inflate(RADIUS), e -> e != player && e.isAlive())) {
             if (e.distanceTo(player) > RADIUS) continue;
             if (e instanceof TamableAnimal pet && pet.isOwnedBy(player)) continue;

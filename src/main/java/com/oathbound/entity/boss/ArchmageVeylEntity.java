@@ -1,5 +1,6 @@
 package com.oathbound.entity.boss;
 
+import com.oathbound.entity.SpellMarkEntity;
 import com.oathbound.entity.projectile.ArcaneOrbEntity;
 import com.oathbound.registry.ModEntities;
 import com.oathbound.registry.ModParticles;
@@ -94,6 +95,16 @@ public class ArchmageVeylEntity extends KeeperEntity {
     }
 
     @Override
+    protected SpellMarkEntity.Hue hue() {
+        return SpellMarkEntity.Hue.ARCANE;
+    }
+
+    @Override
+    protected boolean flaresOnWake() {
+        return !isIllusion();
+    }
+
+    @Override
     protected void onWake(ServerLevel level, Player by) {
         if (home == null) home = blockPosition();
         level.playSound(null, getX(), getY(), getZ(), ModSounds.VEYL_LAUGH.get(), SoundSource.HOSTILE, 3.0f, 1.0f);
@@ -133,6 +144,7 @@ public class ArchmageVeylEntity extends KeeperEntity {
             }
             case ORBS -> {
                 int count = getHealth() < getMaxHealth() * 0.5f ? 3 : 2;
+                if (t == 1) SpellMarkEntity.wallSigil(level, staffTip(), 1.1f, SpellMarkEntity.Hue.ARCANE, 30 + count * 12, getYRot());
                 if (t < 20) Vfx.spiralIn(level, ModParticles.ARCANE_GLYPH.get(), staffTip(), 1.5, 3, t);
                 if (t >= 20 && t < 20 + count * 12 && (t - 20) % 12 == 0) {
                     ArcaneOrbEntity.cast(level, this, staffTip(), target);
@@ -144,6 +156,7 @@ public class ArchmageVeylEntity extends KeeperEntity {
                 if (t == 1) {
                     glyphAt = target.position();
                     level.playSound(null, glyphAt.x, glyphAt.y, glyphAt.z, ModSounds.VEYL_MIRROR.get(), SoundSource.HOSTILE, 1.5f, 0.6f);
+                    SpellMarkEntity.sigil(level, glyphAt, 3.2f, SpellMarkEntity.Hue.ARCANE, 34);
                 }
                 if (t < 28 && t % 2 == 0) {
                     Vfx.ring(level, ModParticles.ARCANE_GLYPH.get(), glyphAt.add(0, 0.15, 0), 3.0, 30, 0.0);
@@ -151,6 +164,7 @@ public class ArchmageVeylEntity extends KeeperEntity {
                 }
                 if (t == 28) {
                     Vfx.column(level, ModParticles.ARCANE_GLYPH.get(), glyphAt, 8, 60);
+                    SpellMarkEntity.pillar(level, glyphAt, 1.3f, SpellMarkEntity.Hue.ARCANE, 22);
                     level.playSound(null, glyphAt.x, glyphAt.y, glyphAt.z, ModSounds.ARCANE_CHAIN.get(), SoundSource.HOSTILE, 2f, 0.6f);
                     for (Player p : challengers(level, 30)) {
                         if (p.position().distanceTo(glyphAt) < 3.2) p.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 28, 5));
@@ -163,7 +177,10 @@ public class ArchmageVeylEntity extends KeeperEntity {
                 if (t > 6) endMove(20);
             }
             case MIRROR -> {
-                if (t == 1) level.playSound(null, getX(), getY(), getZ(), ModSounds.VEYL_MIRROR.get(), SoundSource.HOSTILE, 3.0f, 1.0f);
+                if (t == 1) {
+                    level.playSound(null, getX(), getY(), getZ(), ModSounds.VEYL_MIRROR.get(), SoundSource.HOSTILE, 3.0f, 1.0f);
+                    SpellMarkEntity.halo(level, position().add(0, 0.2, 0), 2.2f, SpellMarkEntity.Hue.ARCANE, 32);
+                }
                 if (t < 30) Vfx.sphere(level, ModParticles.ARCANE_GLYPH.get(), position().add(0, 1.2, 0), 1.5 + t * 0.05, 30);
                 if (t == 30) splitImages(level, target);
                 if (t > 40) endMove(40);
@@ -200,6 +217,8 @@ public class ArchmageVeylEntity extends KeeperEntity {
 
     private void blink(ServerLevel level, LivingEntity target) {
         Vfx.burst(level, ModParticles.ARCANE_GLYPH.get(), position().add(0, 1.2, 0), 40, 0.5, 0.1);
+        SpellMarkEntity.ring(level, position(), 3f, SpellMarkEntity.Hue.ARCANE, 10);
+        Vec3 from = position().add(0, 1.2, 0);
         level.playSound(null, getX(), getY(), getZ(), ModSounds.VEYL_BLINK.get(), SoundSource.HOSTILE, 2.0f, 1.0f);
         for (int tries = 0; tries < 12; tries++) {
             double a = random.nextDouble() * Math.PI * 2;
@@ -213,6 +232,8 @@ public class ArchmageVeylEntity extends KeeperEntity {
             }
         }
         Vfx.burst(level, ModParticles.ARCANE_GLYPH.get(), position().add(0, 1.2, 0), 40, 0.5, 0.1);
+        SpellMarkEntity.beam(level, from, position().add(0, 1.2, 0), 0.25f, SpellMarkEntity.Hue.ARCANE, 6);
+        SpellMarkEntity.ring(level, position(), 3f, SpellMarkEntity.Hue.ARCANE, 10);
         hitsTaken = 0;
     }
 
@@ -252,6 +273,7 @@ public class ArchmageVeylEntity extends KeeperEntity {
             level.addFreshEntity(img);
             images.add(img.getUUID());
             Vfx.burst(level, ModParticles.ARCANE_GLYPH.get(), s.add(0, 1.2, 0), 30, 0.4, 0.1);
+            SpellMarkEntity.halo(level, s.add(0, 0.1, 0), 1.4f, SpellMarkEntity.Hue.ARCANE, 24);
         }
     }
 
@@ -292,6 +314,8 @@ public class ArchmageVeylEntity extends KeeperEntity {
         startMove(DAZED);
         level.playSound(null, getX(), getY(), getZ(), ModSounds.VEYL_LAUGH.get(), SoundSource.HOSTILE, 2.0f, 0.6f);
         Vfx.sphere(level, ModParticles.SUNBURST.get(), position().add(0, 1.2, 0), 1.8, 60);
+        SpellMarkEntity.ring(level, position(), 4.5f, SpellMarkEntity.Hue.DAWN, 12);
+        SpellMarkEntity.halo(level, position().add(0, 2.7, 0), 0.9f, SpellMarkEntity.Hue.DAWN, 80);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.oathbound.block;
 
+import com.oathbound.entity.SpellMarkEntity;
 import com.mojang.serialization.MapCodec;
 import com.oathbound.entity.boss.MorvaneEntity;
 import com.oathbound.item.WardensLanternItem;
@@ -81,6 +82,8 @@ public class WardLanternBlock extends Block {
         Vec3 c = Vec3.atCenterOf(pos);
         Vfx.burst(level, ModParticles.SUNBURST.get(), c, 30, 0.3, 0.1);
         Vfx.burst(level, ModParticles.EMBER.get(), c, 20, 0.3, 0.08);
+        SpellMarkEntity.pillar(level, Vec3.atBottomCenterOf(pos), 0.45f, SpellMarkEntity.Hue.DAWN, 26);
+        SpellMarkEntity.ring(level, Vec3.atBottomCenterOf(pos), 3f, SpellMarkEntity.Hue.DAWN, 12);
     }
 
     public static void snuff(ServerLevel level, BlockPos pos) {

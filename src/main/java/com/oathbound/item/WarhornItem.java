@@ -1,5 +1,6 @@
 package com.oathbound.item;
 
+import com.oathbound.entity.SpellMarkEntity;
 import com.oathbound.entity.mob.SpectralHousecarlEntity;
 import com.oathbound.registry.ModEntities;
 import com.oathbound.registry.ModParticles;
@@ -44,8 +45,11 @@ public class WarhornItem extends Item {
                 h.makeAlly(player, 800);
                 server.addFreshEntity(h);
                 Vfx.burst(server, ModParticles.SPIRIT.get(), at.add(0, 1, 0), 40, 0.4, 0.08);
+                SpellMarkEntity.sigil(server, at, 1.3f, SpellMarkEntity.Hue.SPIRIT, 40);
+                SpellMarkEntity.pillar(server, at, 0.7f, SpellMarkEntity.Hue.SPIRIT, 18);
             }
             Vfx.ring(server, ModParticles.SPIRIT.get(), player.position().add(0, 0.2, 0), 3, 40, 0.05);
+            SpellMarkEntity.ring(server, player.position(), 6f, SpellMarkEntity.Hue.SPIRIT, 16);
         }
         player.getCooldowns().addCooldown(stack, com.oathbound.event.GameEvents.cooldown(player, COOLDOWN));
         return InteractionResult.SUCCESS;

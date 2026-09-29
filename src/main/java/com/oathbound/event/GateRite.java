@@ -1,5 +1,6 @@
 package com.oathbound.event;
 
+import com.oathbound.entity.SpellMarkEntity;
 import com.oathbound.block.SunderedKeystoneBlock;
 import com.oathbound.quest.QuestLog;
 import com.oathbound.registry.ModBlocks;
@@ -86,11 +87,18 @@ public final class GateRite {
             if (t == start) {
                 level.playSound(null, k, ModSounds.bell(i + 1), SoundSource.BLOCKS, 3.0f, 0.8f);
                 Vfx.burst(level, colors[i], sconces[i], 40, 0.3, 0.1);
+                // each oath wakes in its own colour and reaches for the keystone
+                SpellMarkEntity.Hue hue = i == 0 ? SpellMarkEntity.Hue.TIDE : i == 1 ? SpellMarkEntity.Hue.ARCANE : SpellMarkEntity.Hue.SPIRIT;
+                SpellMarkEntity.halo(level, sconces[i].add(0, -0.4, 0), 0.9f, hue, DURATION - start);
+                SpellMarkEntity.beam(level, sconces[i], c, 0.4f, hue, DURATION - start - 5);
             }
             if (t >= start && t < DURATION - 10 && t % 2 == 0) Vfx.line(level, colors[i], sconces[i], c, 0.5);
         }
         if (t > 60 && t < DURATION) Vfx.spiralIn(level, ModParticles.GLOAM_WISP.get(), c, 5.0, 10, t);
-        if (t == 70) level.playSound(null, k, ModSounds.GATE_OPEN.get(), SoundSource.BLOCKS, 4.0f, 0.8f);
+        if (t == 70) {
+            level.playSound(null, k, ModSounds.GATE_OPEN.get(), SoundSource.BLOCKS, 4.0f, 0.8f);
+            SpellMarkEntity.wallSigil(level, c, 4.5f, SpellMarkEntity.Hue.GLOAM, DURATION - 70 + 40, 0f);
+        }
         if (t == DURATION - 1) {
             openNow(level, k);
             for (int i = 0; i < 2; i++) {
@@ -102,6 +110,7 @@ public final class GateRite {
             }
             Vfx.burst(level, ParticleTypes.EXPLOSION_EMITTER, c, 1, 0, 0);
             Vfx.sphere(level, ModParticles.GLOAM_WISP.get(), c, 5, 160);
+            SpellMarkEntity.ring(level, Vec3.atBottomCenterOf(k), 24f, SpellMarkEntity.Hue.GLOAM, 30);
             for (ServerPlayer p : level.getEntitiesOfClass(ServerPlayer.class, new net.minecraft.world.phys.AABB(k).inflate(40))) {
                 QuestLog.grant(p, "gate", "opened");
                 GloamingTravel.title(p, Component.translatable("title.oathbound.gate").withStyle(ChatFormatting.LIGHT_PURPLE, ChatFormatting.BOLD),

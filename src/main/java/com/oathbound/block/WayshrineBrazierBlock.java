@@ -1,5 +1,6 @@
 package com.oathbound.block;
 
+import com.oathbound.entity.SpellMarkEntity;
 import com.mojang.serialization.MapCodec;
 import com.oathbound.item.WardensLanternItem;
 import com.oathbound.quest.QuestLog;
@@ -76,6 +77,10 @@ public class WayshrineBrazierBlock extends Block {
                 Vfx.burst(server, ModParticles.EMBER.get(), c, 50, 0.4, 0.12);
                 Vfx.burst(server, ParticleTypes.FLAME, c, 20, 0.3, 0.05);
                 Vfx.ring(server, ModParticles.LUMEN_MOTE.get(), c.add(0, -0.5, 0), 2.5, 32, 0.08);
+                Vec3 foot = Vec3.atBottomCenterOf(pos);
+                SpellMarkEntity.sigil(server, foot, 2.6f, SpellMarkEntity.Hue.DAWN, 70);
+                SpellMarkEntity.pillar(server, foot.add(0, 0.8, 0), 0.55f, SpellMarkEntity.Hue.DAWN, 45);
+                SpellMarkEntity.ring(server, foot, 7f, SpellMarkEntity.Hue.DAWN, 22);
                 player.sendSystemMessage(Component.translatable("message.oathbound.wayshrine.kindled").withStyle(ChatFormatting.GOLD, ChatFormatting.ITALIC));
             } else {
                 server.playSound(null, pos, ModSounds.LANTERN_IGNITE.get(), SoundSource.BLOCKS, 1.0f, 1.2f);

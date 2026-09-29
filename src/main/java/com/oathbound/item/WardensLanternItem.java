@@ -1,5 +1,6 @@
 package com.oathbound.item;
 
+import com.oathbound.entity.SpellMarkEntity;
 import com.oathbound.quest.QuestLog;
 import com.oathbound.registry.ModParticles;
 import com.oathbound.registry.ModSounds;
@@ -114,6 +115,8 @@ public class WardensLanternItem extends Item {
             level.sendParticles(player, i % 3 == 0 ? ModParticles.EMBER.get() : ModParticles.LUMEN_MOTE.get(), true, true, p.x, p.y, p.z, 1, 0.02, 0.02, 0.02, 0.0);
         }
         Vfx.burst(level, ModParticles.EMBER.get(), eye.add(dir.scale(0.8)).add(0, -0.3, 0), 8, 0.1, 0.03);
+        // a thread of light that lingers, pointing the way
+        SpellMarkEntity.beam(level, eye.add(dir.scale(1.2)).add(0, -0.45, 0), eye.add(dir.scale(14)).add(0, 0.2, 0), 0.08f, SpellMarkEntity.Hue.DAWN, 40);
         level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.LANTERN_SEEK.get(), SoundSource.PLAYERS, 0.9f, 1.0f);
         float yaw = (float) (Mth.atan2(dir.z, dir.x) * (180 / Math.PI)) - 90f;
         String compass = compass(Mth.wrapDegrees(yaw + 180f));

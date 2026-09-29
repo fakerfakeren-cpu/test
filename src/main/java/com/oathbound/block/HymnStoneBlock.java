@@ -1,5 +1,6 @@
 package com.oathbound.block;
 
+import com.oathbound.entity.SpellMarkEntity;
 import com.mojang.serialization.MapCodec;
 import com.oathbound.quest.QuestLog;
 import com.oathbound.registry.ModBlocks;
@@ -166,6 +167,9 @@ public class HymnStoneBlock extends Block {
         Vec3 c = Vec3.atCenterOf(pos);
         Vfx.sphere(level, ModParticles.TIDE.get(), c, 3, 90);
         Vfx.ring(level, ModParticles.LUMEN_MOTE.get(), c, 5, 60, 0.1);
+        SpellMarkEntity.sigil(level, Vec3.atBottomCenterOf(pos), 3f, SpellMarkEntity.Hue.TIDE, 80);
+        SpellMarkEntity.ring(level, Vec3.atBottomCenterOf(pos), 10f, SpellMarkEntity.Hue.TIDE, 24);
+        SpellMarkEntity.pillar(level, Vec3.atBottomCenterOf(pos), 0.7f, SpellMarkEntity.Hue.TIDE, 40);
         int[] hymn = hymn(pos);
         for (int i = 0; i < hymn.length; i++) {
             int tone = hymn[i];

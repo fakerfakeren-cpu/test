@@ -97,6 +97,8 @@ public class ForswornKnightEntity extends Monster {
                 entityData.set(FALLEN, false);
                 setNoAi(false);
                 rises = 99;
+                // the collapse left it inside its hurt cooldown; the rite must land regardless
+                invulnerableTime = 0;
                 return super.hurtServer(level, source, Math.max(amount, getHealth() + 50));
             }
             if (source.getEntity() instanceof Player p) {

@@ -1,5 +1,6 @@
 package com.oathbound.entity.boss;
 
+import com.oathbound.entity.SpellMarkEntity;
 import com.oathbound.registry.ModParticles;
 import com.oathbound.registry.ModSounds;
 import com.oathbound.util.Vfx;
@@ -76,6 +77,11 @@ public class SirCaldrisEntity extends KeeperEntity {
     }
 
     @Override
+    protected SpellMarkEntity.Hue hue() {
+        return SpellMarkEntity.Hue.TIDE;
+    }
+
+    @Override
     protected void onWake(ServerLevel level, Player by) {
         level.playSound(null, getX(), getY(), getZ(), ModSounds.CALDRIS_ROAR.get(), SoundSource.HOSTILE, 3.0f, 1.0f);
         Vfx.burst(level, ParticleTypes.SPLASH, position().add(0, 1, 0), 80, 1.0, 0.3);
@@ -131,6 +137,8 @@ public class SirCaldrisEntity extends KeeperEntity {
                 if (t == 1) {
                     chargeDir = target.position().subtract(position()).multiply(1, 0, 1).normalize();
                     level.playSound(null, getX(), getY(), getZ(), ModSounds.SHIELD_CHARGE.get(), SoundSource.HOSTILE, 2.0f, 0.8f);
+                    // the charge lane, drawn before he runs it
+                    SpellMarkEntity.beam(level, position().add(0, 0.15, 0), position().add(chargeDir.scale(13)).add(0, 0.15, 0), 0.9f, SpellMarkEntity.Hue.TIDE, 18);
                 }
                 if (t < 16) {
                     setYRot((float) (Mth.atan2(chargeDir.z, chargeDir.x) * Mth.RAD_TO_DEG) - 90f);
@@ -161,7 +169,10 @@ public class SirCaldrisEntity extends KeeperEntity {
             case UNDERTOW -> {
                 getNavigation().stop();
                 Vec3 c = position();
-                if (t == 1) level.playSound(null, getX(), getY(), getZ(), ModSounds.UNDERTOW.get(), SoundSource.HOSTILE, 2.5f, 1.0f);
+                if (t == 1) {
+                    level.playSound(null, getX(), getY(), getZ(), ModSounds.UNDERTOW.get(), SoundSource.HOSTILE, 2.5f, 1.0f);
+                    SpellMarkEntity.sigil(level, c, 6.5f, SpellMarkEntity.Hue.TIDE, 40);
+                }
                 if (t < 34) {
                     Vfx.spiralIn(level, ModParticles.TIDE.get(), c.add(0, 0.4, 0), 10, 8, t);
                     Vfx.spiralIn(level, ParticleTypes.BUBBLE, c.add(0, 0.6, 0), 8, 4, t + 2);
@@ -174,6 +185,8 @@ public class SirCaldrisEntity extends KeeperEntity {
                     level.playSound(null, getX(), getY(), getZ(), net.minecraft.sounds.SoundEvents.GENERIC_EXPLODE.value(), SoundSource.HOSTILE, 1.5f, 0.6f);
                     for (int r = 1; r <= 4; r++) Vfx.ring(level, ParticleTypes.SPLASH, c.add(0, 0.2, 0), r, 12 * r, 0.25);
                     Vfx.ring(level, ModParticles.TIDE.get(), c.add(0, 0.2, 0), 4.5, 48, 0.15);
+                    SpellMarkEntity.ring(level, c, 5.5f, SpellMarkEntity.Hue.TIDE, 12);
+                    SpellMarkEntity.pillar(level, c, 1.1f, SpellMarkEntity.Hue.TIDE, 14);
                     for (Player p : challengers(level, 4.5)) {
                         p.hurtServer(level, damageSources().mobAttack(this), 13f);
                         p.setDeltaMovement(p.position().subtract(c).normalize().scale(1.0).add(0, 0.7, 0));
@@ -196,6 +209,7 @@ public class SirCaldrisEntity extends KeeperEntity {
                         m.setPersistenceRequired();
                         level.addFreshEntity(m);
                         Vfx.burst(level, ParticleTypes.SPLASH, m.position().add(0, 1, 0), 40, 0.5, 0.2);
+                        SpellMarkEntity.sigil(level, m.position(), 1.3f, SpellMarkEntity.Hue.TIDE, 30);
                     }
                 }
                 if (t > 30) endMove(30);
@@ -230,6 +244,7 @@ public class SirCaldrisEntity extends KeeperEntity {
             level.playSound(null, getX(), getY(), getZ(), ModSounds.SHIELD_BLOCK.get(), SoundSource.HOSTILE, 1.5f, 0.9f + random.nextFloat() * 0.2f);
             Vec3 fwd = Vec3.directionFromRotation(0, yBodyRot);
             Vfx.burst(level, ModParticles.TIDE.get(), position().add(fwd.scale(0.9)).add(0, 1.3, 0), 10, 0.3, 0.1);
+            SpellMarkEntity.wallSigil(level, position().add(fwd.scale(1.3)).add(0, 1.4, 0), 1.0f, SpellMarkEntity.Hue.TIDE, 8, yBodyRot);
             if (attacker instanceof LivingEntity l && l.distanceTo(this) < 4) {
                 Vec3 push = l.position().subtract(position()).multiply(1, 0, 1).normalize().scale(0.7);
                 l.setDeltaMovement(l.getDeltaMovement().add(push.x, 0.2, push.z));

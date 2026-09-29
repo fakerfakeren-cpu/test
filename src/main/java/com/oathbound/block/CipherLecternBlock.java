@@ -1,5 +1,6 @@
 package com.oathbound.block;
 
+import com.oathbound.entity.SpellMarkEntity;
 import com.mojang.serialization.MapCodec;
 import com.oathbound.quest.QuestLog;
 import com.oathbound.registry.ModBlocks;
@@ -127,6 +128,9 @@ public class CipherLecternBlock extends HorizontalDirectionalBlock {
         level.setBlock(pos, level.getBlockState(pos).setValue(SOLVED, true), 3);
         level.playSound(null, pos, ModSounds.PUZZLE_SOLVED.get(), SoundSource.BLOCKS, 2.5f, 1.15f);
         Vfx.sphere(level, ModParticles.ARCANE_GLYPH.get(), Vec3.atCenterOf(pos), 3, 100);
+        SpellMarkEntity.sigil(level, Vec3.atBottomCenterOf(pos), 3.2f, SpellMarkEntity.Hue.ARCANE, 80);
+        SpellMarkEntity.ring(level, Vec3.atBottomCenterOf(pos), 12f, SpellMarkEntity.Hue.ARCANE, 26);
+        SpellMarkEntity.halo(level, Vec3.atCenterOf(pos).add(0, 1.2, 0), 1.2f, SpellMarkEntity.Hue.ARCANE, 80);
         Puzzles.unseal(level, pos, 24, ModBlocks.ARCANE_WARD.get(), ModParticles.ARCANE_GLYPH.get(), ModSounds.WARD_DISSOLVE.get());
         if (player != null) {
             player.sendSystemMessage(Component.translatable("message.oathbound.cipher.opened").withStyle(ChatFormatting.LIGHT_PURPLE, ChatFormatting.ITALIC));

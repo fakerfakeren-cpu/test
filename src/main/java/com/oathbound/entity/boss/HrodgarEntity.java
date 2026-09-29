@@ -1,5 +1,6 @@
 package com.oathbound.entity.boss;
 
+import com.oathbound.entity.SpellMarkEntity;
 import com.oathbound.entity.mob.SpectralHousecarlEntity;
 import com.oathbound.registry.ModEntities;
 import com.oathbound.registry.ModParticles;
@@ -88,6 +89,11 @@ public class HrodgarEntity extends KeeperEntity {
     }
 
     @Override
+    protected SpellMarkEntity.Hue hue() {
+        return SpellMarkEntity.Hue.SPIRIT;
+    }
+
+    @Override
     protected void onWake(ServerLevel level, Player by) {
         level.playSound(null, getX(), getY(), getZ(), ModSounds.HRODGAR_ROAR.get(), SoundSource.HOSTILE, 4.0f, 0.8f);
         Vfx.ring(level, ModParticles.SPIRIT.get(), position().add(0, 0.2, 0), 4, 50, 0.1);
@@ -117,6 +123,12 @@ public class HrodgarEntity extends KeeperEntity {
         }
         if (tickCount % 4 == 0) {
             for (SpectralHousecarlEntity h : alive) Vfx.line(level, ModParticles.SPIRIT.get(), h.position().add(0, 1.2, 0), position().add(0, 2.6, 0), 0.7);
+        }
+        if (tickCount % 10 == 0 && move() != DEVOUR) {
+            // the oath-tethers, drawn as living beams from each housecarl to their king
+            for (SpectralHousecarlEntity h : alive) {
+                SpellMarkEntity.beam(level, h.position().add(0, 1.3, 0), position().add(0, 2.8, 0), 0.22f, SpellMarkEntity.Hue.SPIRIT, 12);
+            }
         }
         if (target == null) {
             getNavigation().stop();
@@ -168,6 +180,9 @@ public class HrodgarEntity extends KeeperEntity {
                 if (t == 12) {
                     slamCenter = position();
                     level.playSound(null, getX(), getY(), getZ(), ModSounds.FLAIL_SLAM.get(), SoundSource.HOSTILE, 3.0f, 0.6f);
+                    // the shockwave itself: it grows at the same pace as the damage ring, so jump when it reaches you
+                    SpellMarkEntity.ring(level, slamCenter, 15.4f, SpellMarkEntity.Hue.SPIRIT, 18);
+                    SpellMarkEntity.sigil(level, slamCenter, 3f, SpellMarkEntity.Hue.SPIRIT, 30);
                     Vfx.burst(level, ParticleTypes.EXPLOSION_EMITTER, position(), 1, 0, 0);
                 }
                 if (t >= 12 && t < 30) {
@@ -186,7 +201,10 @@ public class HrodgarEntity extends KeeperEntity {
                 if (t > 36) endMove(30 + random.nextInt(20));
             }
             case RAISE -> {
-                if (t == 1) level.playSound(null, getX(), getY(), getZ(), ModSounds.HOUSECARL_RISE.get(), SoundSource.HOSTILE, 3.0f, 0.8f);
+                if (t == 1) {
+                    level.playSound(null, getX(), getY(), getZ(), ModSounds.HOUSECARL_RISE.get(), SoundSource.HOSTILE, 3.0f, 0.8f);
+                    SpellMarkEntity.sigil(level, position(), 5f, SpellMarkEntity.Hue.SPIRIT, 36);
+                }
                 if (t < 24) Vfx.spiralIn(level, ModParticles.SPIRIT.get(), position().add(0, 2, 0), 6, 6, t);
                 if (t == 24) {
                     raises++;
@@ -199,6 +217,8 @@ public class HrodgarEntity extends KeeperEntity {
                         level.addFreshEntity(h);
                         guard.add(h.getUUID());
                         Vfx.column(level, ModParticles.SPIRIT.get(), h.position(), 3, 30);
+                        SpellMarkEntity.pillar(level, h.position(), 0.8f, SpellMarkEntity.Hue.SPIRIT, 20);
+                        SpellMarkEntity.sigil(level, h.position(), 1.4f, SpellMarkEntity.Hue.SPIRIT, 40);
                     }
                 }
                 if (t > 34) endMove(30);
@@ -211,6 +231,7 @@ public class HrodgarEntity extends KeeperEntity {
                     h.setDeltaMovement(pull.x, 0.05, pull.z);
                     h.hurtMarked = true;
                     Vfx.line(level, ModParticles.SPIRIT.get(), h.position().add(0, 1, 0), position().add(0, 2.4, 0), 0.4);
+                    if (t % 4 == 1) SpellMarkEntity.beam(level, h.position().add(0, 1, 0), position().add(0, 2.4, 0), 0.5f, SpellMarkEntity.Hue.SPIRIT, 5);
                 }
                 if (t == 40) {
                     int eaten = alive.size();
@@ -224,6 +245,8 @@ public class HrodgarEntity extends KeeperEntity {
                         if (speed != null) speed.setBaseValue(0.3);
                     }
                     Vfx.sphere(level, ModParticles.SPIRIT.get(), position().add(0, 2, 0), 3, 100);
+                    SpellMarkEntity.ring(level, position(), 9f, SpellMarkEntity.Hue.SPIRIT, 16);
+                    SpellMarkEntity.halo(level, position().add(0, 0.2, 0), 2.6f, SpellMarkEntity.Hue.SPIRIT, 40);
                 }
                 if (t > 50) endMove(20);
             }

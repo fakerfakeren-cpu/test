@@ -1,5 +1,6 @@
 package com.oathbound.entity.boss;
 
+import com.oathbound.entity.SpellMarkEntity;
 import com.oathbound.Config;
 import com.oathbound.block.WardLanternBlock;
 import com.oathbound.entity.mob.ForswornKnightEntity;
@@ -211,11 +212,14 @@ public class MorvaneEntity extends KeeperEntity {
                         plume(level, ls.get(i));
                     }
                 }
+                if (t == 1) SpellMarkEntity.sigil(level, position(), 5f, SpellMarkEntity.Hue.GLOAM, 70);
                 if (t < 60) Vfx.spiralIn(level, ModParticles.GLOAM_WISP.get(), position().add(0, 1.5, 0), 5, 8, t);
                 if (t == 60) {
                     level.playSound(null, getX(), getY(), getZ(), ModSounds.MORVANE_ROAR.get(), SoundSource.HOSTILE, 5.0f, 0.8f);
                     Vfx.sphere(level, ModParticles.GLOAM_WISP.get(), position().add(0, 1.6, 0), 4, 120);
                     Vfx.burst(level, ParticleTypes.EXPLOSION_EMITTER, position().add(0, 1, 0), 1, 0, 0);
+                    SpellMarkEntity.ring(level, position(), 18f, SpellMarkEntity.Hue.GLOAM, 26);
+                    SpellMarkEntity.pillar(level, position(), 2f, SpellMarkEntity.Hue.GLOAM, 30);
                     for (BlockPos l : lanterns(level)) WardLanternBlock.relight(level, l);
                 }
                 if (t > 70) endMove(20);
@@ -236,6 +240,9 @@ public class MorvaneEntity extends KeeperEntity {
                 if (t == 1) {
                     countered = false;
                     level.playSound(null, getX(), getY(), getZ(), ModSounds.MORVANE_VOICE.get(), SoundSource.HOSTILE, 2.5f, 0.7f);
+                    // the Oath of Ruin: a blood-red seal under him while the stance holds
+                    SpellMarkEntity.sigil(level, position(), 2.8f, SpellMarkEntity.Hue.BLOOD, 50);
+                    SpellMarkEntity.halo(level, position().add(0, 0.1, 0), 2.0f, SpellMarkEntity.Hue.BLOOD, 50);
                 }
                 if (t % 3 == 0) Vfx.ring(level, ModParticles.GLOAM_WISP.get(), position().add(0, 0.2, 0), 1.6, 16, 0.08);
                 if (t > 50) endMove(30);
@@ -244,6 +251,7 @@ public class MorvaneEntity extends KeeperEntity {
                 if (t == 1 && target != null) {
                     level.playSound(null, getX(), getY(), getZ(), ModSounds.BLADE_CROWN.get(), SoundSource.HOSTILE, 3.0f, 0.8f);
                     for (int i = 0; i < 6; i++) CrownBladeEntity.summon(level, this, target, i, 40 + i * 8, 9f);
+                    SpellMarkEntity.halo(level, position().add(0, 4.2, 0), 2.6f, SpellMarkEntity.Hue.GLOAM, 90);
                 }
                 if (t > 100) endMove(40);
             }
@@ -356,7 +364,10 @@ public class MorvaneEntity extends KeeperEntity {
     private void transition(ServerLevel level, int t) {
         getNavigation().stop();
         Vec3 c = position().add(0, 1.6, 0);
-        if (t == 1) level.playSound(null, getX(), getY(), getZ(), ModSounds.MORVANE_ROAR.get(), SoundSource.HOSTILE, 5.0f, phase() == 3 ? 0.6f : 0.9f);
+        if (t == 1) {
+            level.playSound(null, getX(), getY(), getZ(), ModSounds.MORVANE_ROAR.get(), SoundSource.HOSTILE, 5.0f, phase() == 3 ? 0.6f : 0.9f);
+            SpellMarkEntity.sigil(level, position(), 7f, SpellMarkEntity.Hue.GLOAM, 60);
+        }
         Vfx.spiralIn(level, ModParticles.GLOAM_WISP.get(), c, 7, 10, t);
         if (phase() == 2 && t < 40) setDeltaMovement(0, 0.08, 0);
         if (phase() == 3) {
@@ -365,6 +376,8 @@ public class MorvaneEntity extends KeeperEntity {
         }
         if (t == 50) {
             Vfx.sphere(level, ModParticles.GLOAM_WISP.get(), c, 6, 200);
+            SpellMarkEntity.ring(level, position(), 20f, SpellMarkEntity.Hue.GLOAM, 28);
+            SpellMarkEntity.pillar(level, position(), 2.4f, SpellMarkEntity.Hue.GLOAM, 26);
             for (Player p : challengers(level, 10)) {
                 p.setDeltaMovement(p.position().subtract(position()).normalize().scale(1.4).add(0, 0.6, 0));
                 p.hurtMarked = true;
@@ -417,6 +430,7 @@ public class MorvaneEntity extends KeeperEntity {
         if (t == 1 && target != null) {
             lungeDir = target.position().add(0, 0.5, 0).subtract(position()).normalize();
             level.playSound(null, getX(), getY(), getZ(), ModSounds.MORVANE_VOICE.get(), SoundSource.HOSTILE, 2.0f, 1.3f);
+            SpellMarkEntity.beam(level, position().add(0, 1, 0), position().add(0, 1, 0).add(lungeDir.scale(14)), 0.7f, SpellMarkEntity.Hue.BLOOD, 16);
         }
         if (t < 14) {
             Vfx.line(level, ModParticles.GLOAM_WISP.get(), position().add(0, 1, 0), position().add(0, 1, 0).add(lungeDir.scale(14)), 0.8);
@@ -446,6 +460,9 @@ public class MorvaneEntity extends KeeperEntity {
             }
             level.playSound(null, getX(), getY(), getZ(), ModSounds.MORVANE_VOICE.get(), SoundSource.HOSTILE, 2.5f, 0.8f);
         }
+        if (t == 2) {
+            for (Vec3 p : pillars) SpellMarkEntity.sigil(level, p, 1.7f, SpellMarkEntity.Hue.GLOAM, 26);
+        }
         if (t < 26 && t % 2 == 0) {
             for (Vec3 p : pillars) Vfx.ring(level, ModParticles.GLOAM_WISP.get(), p.add(0, 0.1, 0), 1.6, 12, 0.0);
         }
@@ -454,6 +471,8 @@ public class MorvaneEntity extends KeeperEntity {
                 level.playSound(null, p.x, p.y, p.z, ModSounds.ECLIPSE_PILLAR.get(), SoundSource.HOSTILE, 2.0f, 0.8f + random.nextFloat() * 0.4f);
                 Vfx.column(level, ModParticles.GLOAM_WISP.get(), p, 9, 50);
                 Vfx.column(level, ParticleTypes.REVERSE_PORTAL, p, 7, 30);
+                SpellMarkEntity.pillar(level, p, 1.5f, SpellMarkEntity.Hue.GLOAM, 22);
+                SpellMarkEntity.ring(level, p, 3.5f, SpellMarkEntity.Hue.GLOAM, 12);
                 for (Player pl : challengers(level, 40)) {
                     if (pl.position().multiply(1, 0, 1).distanceTo(p.multiply(1, 0, 1)) < 1.7 && Math.abs(pl.getY() - p.y) < 3) {
                         pl.hurtServer(level, damageSources().indirectMagic(this, this), 13f);
@@ -487,11 +506,14 @@ public class MorvaneEntity extends KeeperEntity {
 
     private void shadowstep(ServerLevel level, LivingEntity target) {
         Vfx.burst(level, ModParticles.GLOAM_WISP.get(), position().add(0, 1.5, 0), 50, 0.6, 0.1);
+        SpellMarkEntity.ring(level, position(), 3.5f, SpellMarkEntity.Hue.GLOAM, 12);
         double a = random.nextDouble() * Math.PI * 2, r = 5 + random.nextDouble() * 7;
         BlockPos h = home();
         teleportTo(h.getX() + 0.5 + Math.cos(a) * r, h.getY() + 1, h.getZ() + 0.5 + Math.sin(a) * r);
         Vfx.burst(level, ModParticles.GLOAM_WISP.get(), position().add(0, 1.5, 0), 50, 0.6, 0.1);
         level.playSound(null, getX(), getY(), getZ(), ModSounds.VEYL_BLINK.get(), SoundSource.HOSTILE, 2.0f, 0.5f);
+        SpellMarkEntity.ring(level, position(), 3.5f, SpellMarkEntity.Hue.GLOAM, 12);
+        SpellMarkEntity.sigil(level, position(), 1.6f, SpellMarkEntity.Hue.GLOAM, 20);
     }
 
     /** A Ward Lantern was relit near the throne. */
@@ -499,6 +521,7 @@ public class MorvaneEntity extends KeeperEntity {
         if (!isHollow()) return;
         Vec3 from = Vec3.atCenterOf(lantern).add(0, 0.5, 0);
         Vfx.line(level, ModParticles.SUNBURST.get(), from, position().add(0, 1.8, 0), 0.4);
+        SpellMarkEntity.beam(level, from, position().add(0, 1.8, 0), 0.35f, SpellMarkEntity.Hue.DAWN, 16);
         level.playSound(null, getX(), getY(), getZ(), ModSounds.UNVEILED.get(), SoundSource.HOSTILE, 1.5f, 1.6f);
         super.hurtServer(level, by != null ? damageSources().indirectMagic(by, by) : damageSources().magic(), 10f);
         checkUnveil(level);
@@ -517,7 +540,13 @@ public class MorvaneEntity extends KeeperEntity {
             startMove(UNVEILED);
             level.playSound(null, getX(), getY(), getZ(), ModSounds.UNVEILED.get(), SoundSource.HOSTILE, 4.0f, 0.8f);
             Vfx.sphere(level, ModParticles.SUNBURST.get(), position().add(0, 1.6, 0), 3.5, 140);
-            for (BlockPos p : lanterns(level)) Vfx.line(level, ModParticles.SUNBURST.get(), Vec3.atCenterOf(p).add(0, 0.5, 0), position().add(0, 1.8, 0), 0.3);
+            for (BlockPos p : lanterns(level)) {
+                Vfx.line(level, ModParticles.SUNBURST.get(), Vec3.atCenterOf(p).add(0, 0.5, 0), position().add(0, 1.8, 0), 0.3);
+                SpellMarkEntity.beam(level, Vec3.atCenterOf(p).add(0, 0.5, 0), position().add(0, 1.8, 0), 0.45f, SpellMarkEntity.Hue.DAWN, 40);
+            }
+            SpellMarkEntity.pillar(level, position(), 1.6f, SpellMarkEntity.Hue.DAWN, 40);
+            SpellMarkEntity.halo(level, position().add(0, 4.4, 0), 1.4f, SpellMarkEntity.Hue.DAWN, 200);
+            SpellMarkEntity.ring(level, position(), 12f, SpellMarkEntity.Hue.DAWN, 20);
             for (ServerPlayer p : level.getEntitiesOfClass(ServerPlayer.class, getBoundingBox().inflate(40))) {
                 p.sendOverlayMessage(Component.translatable("message.oathbound.morvane.unveiled").withStyle(ChatFormatting.GOLD, ChatFormatting.BOLD));
                 p.removeEffect(MobEffects.DARKNESS);
@@ -581,6 +610,11 @@ public class MorvaneEntity extends KeeperEntity {
         setDeltaMovement(0, 0.03, 0);
         if (level() instanceof ServerLevel level) {
             Vec3 c = position().add(0, 2.4, 0);
+            if (deathTime == 1) {
+                SpellMarkEntity.pillar(level, position(), 2.2f, SpellMarkEntity.Hue.DAWN, 110);
+                SpellMarkEntity.sigil(level, position(), 6f, SpellMarkEntity.Hue.DAWN, 110);
+            }
+            if (deathTime % 25 == 0) SpellMarkEntity.ring(level, position(), 10f + deathTime * 0.1f, SpellMarkEntity.Hue.DAWN, 20);
             for (int i = 0; i < 3; i++) {
                 double a = random.nextDouble() * Math.PI * 2, b = (random.nextDouble() - 0.3) * Math.PI / 2;
                 Vec3 dir = new Vec3(Math.cos(a) * Math.cos(b), Math.sin(b), Math.sin(a) * Math.cos(b));
@@ -591,6 +625,7 @@ public class MorvaneEntity extends KeeperEntity {
                 Vfx.sphere(level, ModParticles.SUNBURST.get(), c, 10, 400);
                 Vfx.burst(level, ModParticles.SUNBURST.get(), c, 40, 0.3, 0.3);
                 ExperienceOrb.award(level, c, 1500);
+                SpellMarkEntity.ring(level, position(), 32f, SpellMarkEntity.Hue.DAWN, 36);
                 level.playSound(null, getX(), getY(), getZ(), ModSounds.DAWN_BURST.get(), SoundSource.HOSTILE, 6.0f, 0.7f);
                 remove(RemovalReason.KILLED);
             }

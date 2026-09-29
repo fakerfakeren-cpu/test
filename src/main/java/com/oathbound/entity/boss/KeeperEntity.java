@@ -1,5 +1,6 @@
 package com.oathbound.entity.boss;
 
+import com.oathbound.entity.SpellMarkEntity;
 import com.oathbound.Config;
 import com.oathbound.event.GloamingTravel;
 import com.oathbound.quest.QuestLog;
@@ -146,6 +147,19 @@ public abstract class KeeperEntity extends Monster {
         themeTimer = 0;
         if (by != null) setTarget(by);
         onWake(level, by);
+        if (flaresOnWake()) {
+            SpellMarkEntity.sigil(level, position(), 3.5f, hue(), 60);
+            SpellMarkEntity.ring(level, position(), 12f, hue(), 24);
+        }
+    }
+
+    /** The colour of this keeper's magic, for spell marks. */
+    protected SpellMarkEntity.Hue hue() {
+        return SpellMarkEntity.Hue.GLOAM;
+    }
+
+    protected boolean flaresOnWake() {
+        return true;
     }
 
     @Override
@@ -218,6 +232,9 @@ public abstract class KeeperEntity extends Monster {
         super.die(source);
         if (level() instanceof ServerLevel level) {
             bar.setVisible(false);
+            SpellMarkEntity.pillar(level, position(), 1.4f, hue(), 50);
+            SpellMarkEntity.ring(level, position(), 16f, hue(), 30);
+            SpellMarkEntity.sigil(level, position(), 4.5f, hue(), 90);
             for (ServerPlayer p : level.getEntitiesOfClass(ServerPlayer.class, new AABB(blockPosition()).inflate(64))) {
                 QuestLog.grant(p, questId(), "slain");
                 p.connection.send(new ClientboundStopSoundPacket(theme().location(), SoundSource.RECORDS));

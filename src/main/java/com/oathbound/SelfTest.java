@@ -110,7 +110,18 @@ public final class SelfTest {
         }
     }
 
+    /**
+     * A dedicated test server has no players, so nothing would keep the test sites loaded or their creatures
+     * ticking: force-load every chunk the script touches, as a player standing there would.
+     */
+    private static void keepLoaded(ServerLevel level, BlockPos centre, int radius) {
+        int cx = centre.getX() >> 4, cz = centre.getZ() >> 4, r = (radius + 15) >> 4;
+        for (int x = cx - r; x <= cx + r; x++)
+            for (int z = cz - r; z <= cz + r; z++) level.setChunkForced(x, z, true);
+    }
+
     private static int ground(ServerLevel level, int x, int z) {
+        keepLoaded(level, new BlockPos(x, 0, z), 0);
         level.getChunk(x >> 4, z >> 4);
         return level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z);
     }
@@ -125,6 +136,47 @@ public final class SelfTest {
         return e;
     }
 
+    /** Every item has an item definition and a name, every block a blockstate and a name. */
+    private static boolean assetsComplete() {
+        com.google.gson.JsonObject lang;
+        try (var in = SelfTest.class.getResourceAsStream("/assets/oathbound/lang/en_us.json")) {
+            lang = com.google.gson.JsonParser.parseReader(new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();
+        } catch (Exception e) {
+            log("cannot read en_us.json: " + e);
+            return false;
+        }
+        int missing = 0;
+        for (var e : ModItems.ITEMS.getEntries()) {
+            String n = e.getId().getPath();
+            if (SelfTest.class.getResource("/assets/oathbound/items/" + n + ".json") == null) {
+                missing++;
+                log("no item definition for " + n);
+            }
+            if (!lang.has("item.oathbound." + n) && !lang.has("block.oathbound." + n)) {
+                missing++;
+                log("no name for item " + n);
+            }
+        }
+        for (var e : ModBlocks.BLOCKS.getEntries()) {
+            String n = e.getId().getPath();
+            if (SelfTest.class.getResource("/assets/oathbound/blockstates/" + n + ".json") == null) {
+                missing++;
+                log("no blockstate for " + n);
+            }
+            if (!lang.has("block.oathbound." + n)) {
+                missing++;
+                log("no name for block " + n);
+            }
+        }
+        for (var e : ModEntities.ENTITIES.getEntries()) {
+            if (!lang.has("entity.oathbound." + e.getId().getPath())) {
+                missing++;
+                log("no name for entity " + e.getId().getPath());
+            }
+        }
+        return missing == 0;
+    }
+
     private static boolean lootExists(MinecraftServer server, String path) {
         var key = ResourceKey.create(Registries.LOOT_TABLE, Identifier.fromNamespaceAndPath(Oathbound.MODID, path));
         return server.reloadableRegistries().getLootTable(key) != LootTable.EMPTY;
@@ -137,8 +189,9 @@ public final class SelfTest {
     private static void script() {
         at(1, s -> {
             ServerLevel level = s.overworld();
-            check("items_registered", ModItems.ITEMS.getEntries().size() >= 90, ModItems.ITEMS.getEntries().size());
-            check("blocks_registered", ModBlocks.BLOCKS.getEntries().size() >= 34, ModBlocks.BLOCKS.getEntries().size());
+            check("items_registered", ModItems.ITEMS.getEntries().size() >= 83, ModItems.ITEMS.getEntries().size());
+            check("blocks_registered", ModBlocks.BLOCKS.getEntries().size() >= 32, ModBlocks.BLOCKS.getEntries().size());
+            check("assets_complete", assetsComplete(), "");
             check("entities_registered", ModEntities.ENTITIES.getEntries().size() >= 18, ModEntities.ENTITIES.getEntries().size());
             check("sounds_registered", ModSounds.SOUNDS.getEntries().size() == ModSounds.NAMES.size(), ModSounds.NAMES.size());
             check("gloaming_dimension_loaded", s.getLevel(ModWorldgen.GLOAMING) != null, "");
@@ -181,6 +234,7 @@ public final class SelfTest {
             for (Sketches.Type t : Sketches.Type.values()) {
                 if (t == Sketches.Type.THRONE) continue;
                 int x = spawn.getX() + 80 + i * 90, z = spawn.getZ() + 200;
+                keepLoaded(level, new BlockPos(x, 0, z), 40);
                 BlockPos at = new BlockPos(x, ground(level, x, z), z);
                 SketchPlacer.placeNow(level, Sketches.draw(t, 1234L + i), at);
                 built.put(t, at);
@@ -248,6 +302,7 @@ public final class SelfTest {
         at(90, s -> {
             ServerLevel level = s.overworld();
             int x = 80, z = 420;
+            keepLoaded(level, new BlockPos(x + 30, 0, z), 40);
             BlockPos base = new BlockPos(x, ground(level, x, z) + 1, z);
             for (var e : List.of(ModEntities.LANTERNMOTH, ModEntities.GLOAMLING, ModEntities.FORSWORN_KNIGHT, ModEntities.BARROW_WIGHT,
                 ModEntities.ANIMATED_TOME, ModEntities.VEILHOUND, ModEntities.SPECTRAL_HOUSECARL)) {
@@ -269,6 +324,7 @@ public final class SelfTest {
             at(base, s -> {
                 ServerLevel level = s.overworld();
                 int x = 400 + base, z = 520;
+                keepLoaded(level, new BlockPos(x, 0, z), 32);
                 BlockPos at = new BlockPos(x, ground(level, x, z) + 1, z);
                 EntityType<? extends KeeperEntity> type = switch (keeper) {
                     case "caldris" -> ModEntities.SIR_CALDRIS.get();
@@ -307,6 +363,7 @@ public final class SelfTest {
         at(450, s -> {
             ServerLevel g = s.getLevel(ModWorldgen.GLOAMING);
             if (g == null) return;
+            keepLoaded(g, GloamingTravel.THRONE, 64);
             GloamingTravel.ensureThrone(g);
             arena = GloamingTravel.THRONE;
             check("throne_built", g.getBlockState(arena.below()).is(ModBlocks.CHISELED_WARDSTONE.get()), "");

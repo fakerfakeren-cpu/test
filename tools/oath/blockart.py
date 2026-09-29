@@ -789,3 +789,322 @@ def cipher_book(solved):
                 if solved:
                     glow.put(x, row, P['blue_glow'].smooth(0.6))
     return im, glow
+
+
+# ====================================================================== building families (second wave)
+P.update({
+    'tidestone': Ramp('#0f201c', '#16302a', '#1f4136', '#2b5546', '#3a6b58', '#4f846d'),
+    'tide_mortar': hexrgb('#08120f'),
+    'barrowstone': Ramp('#2a2722', '#38342d', '#48433a', '#59534a', '#6d665a', '#827a6b'),
+    'barrow_mortar': hexrgb('#171512'),
+    'runestone': Ramp('#10142e', '#171d40', '#1f2754', '#29336a', '#354182', '#44529c'),
+    'rune_mortar': hexrgb('#080a18'),
+    'stripped': Ramp('#2a1d36', '#382748', '#48335c', '#583f70', '#6a4c84'),
+    'bone': Ramp('#6e6450', '#948870', '#b8ad92', '#d8cfb4', '#efe9d6'),
+    'shell': Ramp('#6b6a5a', '#8f8c78', '#b4b09a', '#d6d2bc', '#f0ecd8'),
+    'ember_glow': Ramp('#6a1a04', '#b83a0c', '#f06a1c', '#ffb040', '#fff0a0'),
+    'moon_glow': Ramp('#3a4a8a', '#6a86d0', '#a8c0f0', '#dce8ff', '#ffffff'),
+})
+
+
+def tidestone():
+    im = stone(P['tidestone'], 701, lo=0.2, hi=0.85)
+    r = rng(702)
+    for _ in range(6):
+        x, y = int(r.integers(0, N)), int(r.integers(0, N))
+        im.put(x, y, P['shell'].smooth(0.7))
+        im.put((x + 1) % N, y, P['shell'].smooth(0.45))
+    return im
+
+
+def tidestone_bricks(seed=710):
+    return bricks(P['tidestone'], P['tide_mortar'], seed, tone=0.55)
+
+
+def barnacled_tidestone_bricks():
+    im = tidestone_bricks(711)
+    r = rng(712)
+    for _ in range(9):
+        x, y = int(r.integers(0, N)), int(r.integers(0, N))
+        for dx, dy, t in ((0, 0, 0.8), (1, 0, 0.6), (0, 1, 0.55), (1, 1, 0.35)):
+            im.put((x + dx) % N, (y + dy) % N, P['shell'].smooth(t))
+        im.put(x, y, P['shell'].smooth(0.15))
+    return moss_over(im, P['moss_green'], 713, 0.2, top_bias=False)
+
+
+def chiseled_tidestone():
+    im = tiles(P['tidestone'], P['tide_mortar'], 720, size=16, tone=0.55)
+    glow = img()
+    for x in range(2, 14):
+        y = int(round(8 + math.sin(x * 0.8) * 2))
+        for dy in (0, 1):
+            im.put(x, y + dy, P['teal_glow'].smooth(0.55 if dy == 0 else 0.35))
+            glow.put(x, y + dy, P['teal_glow'].smooth(0.5 if dy == 0 else 0.3))
+    for x in range(1, 15):
+        im.put(x, 2, P['tidestone'].smooth(0.85))
+        im.put(x, 13, P['tidestone'].smooth(0.2))
+    return im, glow
+
+
+def barrowstone():
+    return speckle(stone(P['barrowstone'], 730, lo=0.2, hi=0.8), P['barrowstone'], 731, 0.04, 0.15)
+
+
+def barrowstone_bricks(seed=740):
+    return bricks(P['barrowstone'], P['barrow_mortar'], seed, rows=4, width=8, tone=0.52)
+
+
+def bone_inlaid_barrowstone():
+    """Barrow masonry with a femur and skulls pressed into the mortar courses."""
+    im = barrowstone_bricks(741)
+    for x in range(3, 13):
+        im.put(x, 7, P['bone'].smooth(0.75))
+        im.put(x, 8, P['bone'].smooth(0.45))
+    for (x, y) in ((2, 7), (2, 8), (13, 7), (13, 8)):
+        im.put(x, y, P['bone'].smooth(0.9))
+    for cx in (4, 11):
+        for dx in range(3):
+            im.put(cx - 1 + dx, 2, P['bone'].smooth(0.8))
+            im.put(cx - 1 + dx, 3, P['bone'].smooth(0.6))
+        im.put(cx - 1, 3, P['barrowstone'].smooth(0.05))
+        im.put(cx + 1, 3, P['barrowstone'].smooth(0.05))
+        im.put(cx, 4, P['bone'].smooth(0.5))
+    return im
+
+
+def runestone():
+    return stone(P['runestone'], 750, lo=0.3, hi=0.8)
+
+
+def runestone_bricks(seed=760):
+    return bricks(P['runestone'], P['rune_mortar'], seed, rows=2, width=8, offset=4, tone=0.5)
+
+
+def glyphed_runestone():
+    im = tiles(P['runestone'], P['rune_mortar'], 770, size=16, tone=0.5)
+    glow = img()
+    glyph = RUNE_GLYPHS[4]
+    for j, row in enumerate(glyph):
+        for i, ch in enumerate(row):
+            if ch == '#':
+                for (ox, oy) in ((0, 0),):
+                    x, y = 3 + i * 2 + ox, 3 + j * 2 + oy
+                    for dx in range(2):
+                        for dy in range(2):
+                            im.put(x + dx, y + dy, P['blue_glow'].smooth(0.7))
+                            glow.put(x + dx, y + dy, P['blue_glow'].smooth(0.65))
+    return im, glow
+
+
+def cracked_gloamstone_bricks():
+    return cracks(gloamstone_bricks(211), 212, hexrgb('#050308'), count=4, length=8)
+
+
+def gloamstone_tiles():
+    return tiles(P['gloam'], P['gloam_mortar'], 213)
+
+
+def stripped_gloamwood_side():
+    im = img()
+    f = field(780, 4, 2)
+    for y in range(N):
+        for x in range(N):
+            t = 0.5 + 0.18 * math.sin(x * 1.3 + f[y, x] * 3) + (f[y, x] - 0.5) * 0.2
+            im.px[y, x] = P['stripped'].smooth(t)
+    return im
+
+
+def stripped_gloamwood_top():
+    im = img()
+    for y in range(N):
+        for x in range(N):
+            d = math.hypot(x - 7.5, y - 7.5)
+            t = 0.55 + 0.25 * math.sin(d * 2.1)
+            if x in (0, N - 1) or y in (0, N - 1):
+                t = 0.35
+            im.px[y, x] = P['stripped'].smooth(t)
+    return im
+
+
+def gloamwood_door(top):
+    """A heavy plank door with iron straps; the upper half has a small window of violet glass."""
+    im = gloamwood_planks()
+    for y in range(N):
+        im.put(0, y, P['plank'].smooth(0.1))
+        im.put(N - 1, y, P['plank'].smooth(0.1))
+    strap_rows = (3, 12)
+    for y in strap_rows:
+        for x in range(1, N - 1):
+            im.put(x, y, P['iron'].smooth(0.55))
+            im.put(x, y + 1, P['iron'].smooth(0.3))
+        im.put(3, y, P['iron'].smooth(0.9))
+        im.put(12, y, P['iron'].smooth(0.9))
+    if top:
+        for y in range(5, 10):
+            for x in range(5, 11):
+                if x in (5, 10) or y in (5, 9):
+                    im.put(x, y, P['iron'].smooth(0.4))
+                else:
+                    c = P['violet_glow'].smooth(0.3 + 0.1 * ((x + y) % 2))
+                    c[3] = 0.75
+                    im.px[y, x] = c
+    else:
+        im.put(12, 7, P['brass'].smooth(0.9))
+        im.put(12, 8, P['brass'].smooth(0.6))
+    return im
+
+
+def gloamwood_trapdoor():
+    im = gloamwood_planks()
+    for x in range(N):
+        for y in (0, N - 1):
+            im.put(x, y, P['iron'].smooth(0.4))
+    for y in range(N):
+        for x in (0, N - 1):
+            im.put(x, y, P['iron'].smooth(0.4))
+    for y in range(4, 12):
+        for x in range(4, 12):
+            if (x + y) % 4 == 0:
+                im.px[y, x] = np.zeros(4)
+    return im
+
+
+def lumenite_lamp(lit):
+    im = img()
+    glow = img()
+    for y in range(N):
+        for x in range(N):
+            frame = x in (0, 1, 14, 15) or y in (0, 1, 14, 15)
+            if frame:
+                im.px[y, x] = P['brass'].smooth(0.35 + (0.3 if x in (0, 1) or y in (0, 1) else 0))
+                continue
+            cx, cy = (x // 4) * 4 + 1.5, (y // 4) * 4 + 1.5
+            d = abs(x - cx) + abs(y - cy)
+            t = 0.75 - d * 0.12
+            if lit:
+                im.px[y, x] = P['lumen'].smooth(t)
+                glow.px[y, x] = P['amber_glow'].smooth(t)
+            else:
+                im.px[y, x] = mix(hexrgb('#3a2e1c'), hexrgb('#6a5634'), max(0, t))
+    return im, glow
+
+
+def tinted_glass(ramp, alpha=0.45, streak=0.3):
+    im = img()
+    for y in range(N):
+        for x in range(N):
+            edge = x in (0, N - 1) or y in (0, N - 1)
+            if edge:
+                c = ramp.smooth(0.3)
+                c[3] = 0.95
+            else:
+                t = 0.55 + (streak if (x + y) % 7 == 0 and 3 < x < 12 else 0)
+                c = ramp.smooth(t)
+                c[3] = alpha
+            im.px[y, x] = c
+    return im
+
+
+def oathsteel_bars():
+    im = img()
+    for y in range(N):
+        for x in (7, 8):
+            im.put(x, y, P['steel'].smooth(0.75 if x == 7 else 0.4))
+    for y in (2, 13):
+        for x in range(N):
+            im.put(x, y, P['steel'].smooth(0.6))
+    im.put(7, 2, P['gold'].smooth(0.8))
+    im.put(8, 13, P['gold'].smooth(0.8))
+    return im
+
+
+def hanging_lantern(ramp, glow_ramp):
+    """A lantern texture in vanilla's lantern layout (body 6x7 at the top-left, cap and chain beside it)."""
+    im = img()
+    glow = img()
+    for y in range(9):
+        for x in range(6):
+            edge = x in (0, 5) or y in (0, 1, 8)
+            if edge:
+                im.put(x, y, P['iron'].smooth(0.5 + (0.2 if x == 0 else 0)))
+            else:
+                c = glow_ramp.smooth(0.55 + 0.3 * (1 - abs(x - 2.5) / 3))
+                im.put(x, y, c)
+                glow.put(x, y, c)
+    for y in range(9, 11):
+        for x in range(1, 5):
+            im.put(x, y, P['iron'].smooth(0.6))
+    for y in range(2):
+        for x in range(1, 5):
+            im.put(x, 12 + y, P['iron'].smooth(0.45))
+    for y in range(N):
+        im.put(11, y, P['iron'].smooth(0.5 if y % 2 else 0.8))
+    return im, glow
+
+
+def flower(kind):
+    im = img()
+    glow = img()
+    stem = hexrgb('#1f3319')
+    leaf = hexrgb('#35572a')
+    if kind == 'dusk_lily':
+        for y in range(7, N):
+            im.put(8, y, stem)
+        im.put(7, 12, leaf)
+        im.put(6, 11, leaf)
+        im.put(9, 13, leaf)
+        petals = [(8, 3), (7, 4), (9, 4), (6, 5), (10, 5), (7, 5), (9, 5), (8, 5), (8, 4), (6, 6), (10, 6), (8, 6)]
+        for (x, y) in petals:
+            t = 0.35 + (0.3 if y <= 4 else 0) + (0.2 if x == 8 else 0)
+            im.put(x, y, P['violet_glow'].smooth(t))
+        im.put(8, 5, P['amber_glow'].smooth(0.9))
+        glow.put(8, 5, P['amber_glow'].smooth(0.8))
+    elif kind == 'emberroot':
+        for (x0, top) in ((5, 7), (10, 5)):
+            for y in range(top, N):
+                im.put(x0 + (1 if y > 11 else 0), y, hexrgb('#3a1c10'))
+            for dy in range(3):
+                c = P['ember_glow'].smooth(0.5 + dy * 0.15)
+                im.put(x0, top - dy, c)
+                glow.put(x0, top - dy, c)
+                if dy < 2:
+                    im.put(x0 + 1, top - dy, P['ember_glow'].smooth(0.35))
+        im.put(7, 14, leaf)
+        im.put(8, 13, leaf)
+    elif kind == 'moonpetal':
+        for y in range(8, N):
+            im.put(7, y, stem)
+        for a in range(6):
+            ang = a * math.pi / 3
+            for rr in (1, 2, 3):
+                x, y = int(round(7 + math.cos(ang) * rr)), int(round(5 + math.sin(ang) * rr * 0.8))
+                c = P['moon_glow'].smooth(0.85 - rr * 0.15)
+                im.put(x, y, c)
+                glow.put(x, y, P['moon_glow'].smooth(0.6 - rr * 0.12))
+        im.put(7, 5, P['amber_glow'].smooth(0.9))
+        im.put(6, 11, leaf)
+        im.put(8, 12, leaf)
+    elif kind == 'gloam_fern':
+        r = rng(790)
+        for frond in range(5):
+            x0 = 3 + frond * 2.4
+            h = int(r.integers(8, 14))
+            for k in range(h):
+                x = int(round(x0 + math.sin(k * 0.4 + frond) * 1.2))
+                y = N - 1 - k
+                im.put(x, y, P['moss'].smooth(0.3 + k / h * 0.5))
+                if k % 2 == 0 and k > 2:
+                    im.put(x + 1, y, P['moss'].smooth(0.45 + k / h * 0.3))
+            glow.put(int(round(x0)), N - h, P['teal_glow'].smooth(0.5))
+            im.put(int(round(x0)), N - h, P['teal_glow'].smooth(0.6))
+    return im, glow
+
+
+def glimmer_moss():
+    im, gl = gloam_moss_top()
+    r = rng(795)
+    for _ in range(8):
+        x, y = int(r.integers(0, N)), int(r.integers(0, N))
+        im.put(x, y, P['teal_glow'].smooth(0.7))
+        gl.put(x, y, P['teal_glow'].smooth(0.6))
+    return im, gl

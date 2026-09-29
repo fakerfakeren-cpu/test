@@ -1,5 +1,6 @@
 package com.oathbound.item;
 
+import com.oathbound.entity.SpellMarkEntity;
 import com.oathbound.event.GameEvents;
 import com.oathbound.registry.ModParticles;
 import com.oathbound.registry.ModSounds;
@@ -107,6 +108,7 @@ public class StaffOfVeylItem extends Item {
 
     /** A jagged violet lightning arc. */
     public static void arc(ServerLevel level, Vec3 from, Vec3 to) {
+        SpellMarkEntity.beam(level, from, to, 0.28f, SpellMarkEntity.Hue.ARCANE, 8);
         Vec3 d = to.subtract(from);
         int segs = Math.max(3, (int) (d.length() * 1.5));
         var r = level.getRandom();

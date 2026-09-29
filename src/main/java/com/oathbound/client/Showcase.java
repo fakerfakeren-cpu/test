@@ -1,5 +1,6 @@
 package com.oathbound.client;
 
+import com.oathbound.entity.SpellMarkEntity;
 import com.oathbound.Oathbound;
 import com.oathbound.client.screen.ChronicleScreen;
 import com.oathbound.registry.ModEntities;
@@ -210,6 +211,24 @@ public final class Showcase {
             p.teleportTo(level, x + 8, y + 3 - 1.62 + 0.5, z - 13, java.util.Set.of(), 0f, 10f, false);
         }));
         scene(140, "keepers_shot", mc -> shoot(mc, "seal_keepers"));
+        scene(10, "spells", mc -> onServer(mc, p -> {
+            ServerLevel level = p.level().getServer().overworld();
+            int x = 80, z = 760;
+            int y = level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z) + 12;
+            for (int dx = -6; dx <= 30; dx++)
+                for (int dz = -7; dz <= 7; dz++) level.setBlock(new BlockPos(x + dx, y - 1, z + dz), com.oathbound.registry.ModBlocks.GLOAMSTONE_BRICKS.get().defaultBlockState(), 2);
+            Vec3 b = new Vec3(x + 0.5, y, z + 0.5);
+            SpellMarkEntity.sigil(level, b, 3.5f, SpellMarkEntity.Hue.DAWN, 400);
+            SpellMarkEntity.sigil(level, b.add(8, 0, 0), 2.5f, SpellMarkEntity.Hue.ARCANE, 400);
+            SpellMarkEntity.pillar(level, b.add(8, 0, 0), 1.2f, SpellMarkEntity.Hue.ARCANE, 400);
+            SpellMarkEntity.ring(level, b.add(16, 0, 0), 6f, SpellMarkEntity.Hue.SPIRIT, 170);
+            SpellMarkEntity.sigil(level, b.add(16, 0, 0), 1.5f, SpellMarkEntity.Hue.SPIRIT, 400);
+            SpellMarkEntity.halo(level, b.add(24, 1.2, 0), 1.6f, SpellMarkEntity.Hue.TIDE, 400);
+            SpellMarkEntity.beam(level, b.add(-3, 1.4, -5), b.add(27, 1.4, -5), 0.35f, SpellMarkEntity.Hue.GLOAM, 400);
+            SpellMarkEntity.wallSigil(level, b.add(12, 3.6, 6), 2.6f, SpellMarkEntity.Hue.BLOOD, 400, 180f);
+            p.teleportTo(level, x + 12, y + 6 - 1.62, z - 15, java.util.Set.of(), 0f, 22f, false);
+        }));
+        scene(120, "spells_shot", mc -> shoot(mc, "spellcraft"));
         scene(10, "gloaming", mc -> onServer(mc, p -> {
             ServerLevel g = p.level().getServer().getLevel(ModWorldgen.GLOAMING);
             if (g == null) return;

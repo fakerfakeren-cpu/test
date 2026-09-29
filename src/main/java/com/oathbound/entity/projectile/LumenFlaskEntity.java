@@ -1,5 +1,6 @@
 package com.oathbound.entity.projectile;
 
+import com.oathbound.entity.SpellMarkEntity;
 import com.oathbound.block.WisplightBlock;
 import com.oathbound.registry.ModEntities;
 import com.oathbound.registry.ModItems;
@@ -53,6 +54,8 @@ public class LumenFlaskEntity extends ThrowableItemProjectile {
         Vfx.burst(level, ModParticles.SUNBURST.get(), at, 30, 0.3, 0.25);
         Vfx.sphere(level, ModParticles.SUNBURST.get(), at, 2.5, 60);
         Vfx.burst(level, ModParticles.LUMEN_MOTE.get(), at, 40, 1.5, 0.05);
+        SpellMarkEntity.ring(level, at.add(0, -0.3, 0), 5.5f, SpellMarkEntity.Hue.DAWN, 12);
+        SpellMarkEntity.halo(level, at, 1.1f, SpellMarkEntity.Hue.DAWN, 20);
         for (LivingEntity e : level.getEntitiesOfClass(LivingEntity.class, new AABB(at, at).inflate(5))) {
             if (e == owner || !e.isAlive() || e.distanceToSqr(at) > 25) continue;
             if (e.typeHolder().is(ModTags.GLOAM_CREATURES)) {
