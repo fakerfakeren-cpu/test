@@ -1,0 +1,32 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:overworld_carver_replaceables",
+    "#minecraft:replaceable",
+    "#minecraft:leaves",
+    "#minecraft:flowers",
+    "#minecraft:dirt",
+    "#minecraft:sand",
+    "#minecraft:base_stone_overworld",
+    "#minecraft:terracotta",
+    "#minecraft:snow",
+    "minecraft:gravel",
+    "minecraft:clay",
+    "minecraft:sandstone",
+    "minecraft:red_sandstone",
+    "minecraft:ice",
+    "minecraft:packed_ice",
+    "minecraft:magma_block",
+    "minecraft:blackstone",
+    "minecraft:coarse_dirt",
+    "minecraft:sweet_berry_bush",
+    "minecraft:cactus",
+    "minecraft:pumpkin",
+    "minecraft:melon",
+    "astralfall:meteorite_rock",
+    "astralfall:cooled_meteorite",
+    "astralfall:starmetal_ore",
+    "astralfall:skyshard_cluster",
+    "astralfall:void_stone"
+  ]
+}
