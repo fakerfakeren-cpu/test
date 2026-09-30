@@ -1,210 +1,400 @@
-commit e56f1a4a9f4e66b10049401b2e64c65b81609265
+commit d3243808842c8de34a030006fdfc6eb0d5394bcd
 ===== SELFTEST =====
-[18:23:20] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] Oathbound self-test on 26.2
-[18:23:20] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS items_registered (290)
-[18:23:20] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS blocks_registered (113)
-[18:23:20] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS assets_complete
-[18:23:20] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS entities_registered (39)
-[18:23:20] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS sounds_registered (101)
-[18:23:20] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS gloaming_dimension_loaded
-[18:23:20] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS quest_advancements_loaded (missing=0)
-[18:23:20] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS loot_tables_loaded (54/54)
-[18:23:20] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS wild_structures_registered (7/7)
-[18:23:20] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS worldgen_biome_tags (8/8)
-[18:23:20] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS enchantments_loaded (4/4)
-[18:23:20] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS hymn_is_fair ([3, 0, 3, 0, 1])
-[18:23:20] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS cipher_answers_distinct ([1, 0, 2, 4])
-[18:23:54] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS wayshrine_brazier (BlockPos{x=80, y=63, z=200})
-[18:23:54] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS chapel_bells
-[18:23:54] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS chapel_hymn_stone
-[18:23:54] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS spire_dials
-[18:23:54] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS spire_ward
-[18:23:54] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS barrow_tombs
-[18:23:54] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS citadel_keystone
-[18:23:56] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS cipher_accepts_answer
-[18:23:56] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS epitaph_puzzle_unique (consistent readings=1)
-[18:23:57] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS grove_king_sleeps
-[18:23:57] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS bog_mother_at_home
-[18:23:57] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS colossus_in_sanctum
-[18:23:57] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS watchtower_warden
-[18:23:57] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS grotto_shrine
-[18:23:57] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS mine_shaft_and_vein
-[18:23:57] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS observatory_telescope
-[18:24:03] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS landmarks_place (4/4)
-[18:24:03] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS lumen_clusters_grow (clusters=30)
-[18:24:04] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS hymn_lifts_grate
-[18:24:04] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS cipher_dissolves_ward
-[18:24:04] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS honest_king_opens_barrow
-[18:24:04] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS gate_opens (veil=35)
-[18:24:12] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS pilgrim_trades (offers=12)
-[18:24:12] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS forsworn_collapses_not_dies (alive=true fallen=true)
-[18:24:12] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS fire_lays_forsworn_to_rest (hp=0.0)
-[18:24:15] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS caldris_awake
-[18:24:17] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS caldris_drops_seal (drops=3)
-[18:24:18] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS veyl_awake
-[18:24:19] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS veyl_drops_seal (drops=4)
-[18:24:21] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS hrodgar_awake
-[18:24:24] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS hrodgar_drops_seal (drops=4)
-[18:24:28] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS gloaming_biomes (2/2)
-[18:24:28] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS throne_built
-[18:24:28] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS ward_lanterns
-[18:24:28] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS return_veil
-[18:24:28] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS morvane_waits (count=1)
-[18:24:28] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS grove_shrine_keeper_wakes
-[18:24:31] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS grove_shrine_keeper_leaves_relic
-[18:24:32] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS morvane_risen (move=2)
-[18:24:32] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS arena_sealed
-[18:24:32] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS bog_hut_keeper_wakes
-[18:24:37] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS bog_hut_keeper_leaves_relic
-[18:24:38] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS cinder_sanctum_keeper_wakes
-[18:24:39] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS morvane_phase2 (phase=2)
-[18:24:42] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS cinder_sanctum_keeper_leaves_relic
-[18:24:45] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS morvane_hollow (phase=3 hollow=true)
-[18:24:45] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS hollow_is_untouchable
-[18:24:45] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS lanterns_unveil_morvane (move=10)
-[18:24:46] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS morvane_dies (hp=0.0)
-[18:24:53] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS morvane_removed
-[18:24:53] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS morvane_rewards (crown=true dawnbreaker=true)
-[18:24:53] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS arena_unsealed
-[18:24:54] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] creatures alive at end: 22/29
-[18:24:54] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] 65 checks, 0 failures
-[18:24:54] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] RESULT: PASS
+[18:50:40] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] Oathbound self-test on 26.2
+[18:50:40] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS items_registered (290)
+[18:50:40] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS blocks_registered (113)
+[18:50:40] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS assets_complete
+[18:50:40] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS entities_registered (39)
+[18:50:40] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS sounds_registered (101)
+[18:50:40] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS gloaming_dimension_loaded
+[18:50:40] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS quest_advancements_loaded (missing=0)
+[18:50:40] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS loot_tables_loaded (54/54)
+[18:50:40] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS wild_structures_registered (7/7)
+[18:50:40] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS worldgen_biome_tags (8/8)
+[18:50:40] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS enchantments_loaded (4/4)
+[18:50:40] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS hymn_is_fair ([3, 0, 3, 0, 1])
+[18:50:40] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS cipher_answers_distinct ([1, 0, 2, 4])
+[18:51:19] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS wayshrine_brazier (BlockPos{x=80, y=63, z=200})
+[18:51:19] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS chapel_bells
+[18:51:19] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS chapel_hymn_stone
+[18:51:19] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS spire_dials
+[18:51:19] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS spire_ward
+[18:51:19] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS barrow_tombs
+[18:51:19] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS citadel_keystone
+[18:51:20] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS cipher_accepts_answer
+[18:51:20] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS epitaph_puzzle_unique (consistent readings=1)
+[18:51:21] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS grove_king_sleeps
+[18:51:21] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS bog_mother_at_home
+[18:51:21] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS colossus_in_sanctum
+[18:51:21] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS watchtower_warden
+[18:51:21] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS grotto_shrine
+[18:51:21] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS mine_shaft_and_vein
+[18:51:21] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS observatory_telescope
+[18:51:27] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS landmarks_place (4/4)
+[18:51:27] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS lumen_clusters_grow (clusters=30)
+[18:51:28] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS hymn_lifts_grate
+[18:51:28] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS cipher_dissolves_ward
+[18:51:28] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS honest_king_opens_barrow
+[18:51:28] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS gate_opens (veil=35)
+[18:51:36] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS pilgrim_trades (offers=13)
+[18:51:36] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS forsworn_collapses_not_dies (alive=true fallen=true)
+[18:51:36] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS fire_lays_forsworn_to_rest (hp=0.0)
+[18:51:40] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS caldris_awake
+[18:51:42] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS caldris_drops_seal (drops=3)
+[18:51:43] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS veyl_awake
+[18:51:45] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS veyl_drops_seal (drops=4)
+[18:51:47] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS hrodgar_awake
+[18:51:50] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS hrodgar_drops_seal (drops=4)
+[18:51:54] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS gloaming_biomes (2/2)
+[18:51:54] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS throne_built
+[18:51:54] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS ward_lanterns
+[18:51:54] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS return_veil
+[18:51:54] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS morvane_waits (count=1)
+[18:51:54] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS grove_shrine_keeper_wakes
+[18:51:57] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS grove_shrine_keeper_leaves_relic
+[18:51:57] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS morvane_risen (move=3)
+[18:51:57] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS arena_sealed
+[18:51:58] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS bog_hut_keeper_wakes
+[18:52:02] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS bog_hut_keeper_leaves_relic
+[18:52:03] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS cinder_sanctum_keeper_wakes
+[18:52:04] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS morvane_phase2 (phase=2)
+[18:52:08] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS cinder_sanctum_keeper_leaves_relic
+[18:52:10] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS morvane_hollow (phase=3 hollow=true)
+[18:52:10] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS hollow_is_untouchable
+[18:52:10] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS lanterns_unveil_morvane (move=10)
+[18:52:11] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS morvane_dies (hp=0.0)
+[18:52:18] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS morvane_removed
+[18:52:18] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS morvane_rewards (crown=true dawnbreaker=true)
+[18:52:18] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS arena_unsealed
+[18:52:19] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] creatures alive at end: 21/29
+[18:52:19] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] 65 checks, 0 failures
+[18:52:19] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] RESULT: PASS
 ===== CLIENTTEST =====
-[18:25:52] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] waiting for world
-[18:26:16] [oathbound-showcase-watchdog/INFO] [co.oa.Oathbound/]: [CLIENTTEST] watchdog 30s joined=false scene=-1/0
-[18:26:24] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] waiting for world
-[18:26:27] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] world joined, 78 scenes
-[18:26:39] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene setup
-[18:26:42] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene wayshrine
-[18:26:46] [oathbound-showcase-watchdog/INFO] [co.oa.Oathbound/]: [CLIENTTEST] watchdog 60s joined=true scene=2/78
-[18:26:48] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene wayshrine_shot
-[18:26:48] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene chapel
-[18:26:48] [IO-Worker-1/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot wayshrine: Saved screenshot as oathbound_wayshrine.png
-[18:26:55] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene chapel_shot
-[18:26:56] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene chapel_nave
-[18:26:56] [IO-Worker-8/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot drowned_chapel: Saved screenshot as oathbound_drowned_chapel.png
-[18:27:01] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene chapel_nave_shot
-[18:27:01] [IO-Worker-5/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot chapel_bells: Saved screenshot as oathbound_chapel_bells.png
-[18:27:01] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene spire
-[18:27:08] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene spire_shot
-[18:27:08] [IO-Worker-10/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot arcanist_spire: Saved screenshot as oathbound_arcanist_spire.png
-[18:27:09] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene dials
-[18:27:14] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene dials_shot
-[18:27:14] [IO-Worker-10/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot rune_dials: Saved screenshot as oathbound_rune_dials.png
-[18:27:14] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene barrow
-[18:27:16] [oathbound-showcase-watchdog/INFO] [co.oa.Oathbound/]: [CLIENTTEST] watchdog 90s joined=true scene=12/78
-[18:27:21] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene barrow_shot
-[18:27:22] [IO-Worker-10/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot barrow_of_kings: Saved screenshot as oathbound_barrow_of_kings.png
-[18:27:22] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene tombs
-[18:27:27] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene tombs_shot
-[18:27:27] [IO-Worker-5/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot hall_of_kings: Saved screenshot as oathbound_hall_of_kings.png
-[18:27:27] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene citadel
-[18:27:34] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene citadel_shot
-[18:27:35] [IO-Worker-5/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot sundered_gate: Saved screenshot as oathbound_sundered_gate.png
-[18:27:35] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene bestiary
-[18:27:41] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene bestiary_shot
-[18:27:41] [IO-Worker-10/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot bestiary: Saved screenshot as oathbound_bestiary.png
-[18:27:41] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene wilds
-[18:27:46] [oathbound-showcase-watchdog/INFO] [co.oa.Oathbound/]: [CLIENTTEST] watchdog 120s joined=true scene=20/78
-[18:27:48] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene wilds_shot
-[18:27:48] [IO-Worker-2/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot the_wilds: Saved screenshot as oathbound_the_wilds.png
-[18:27:48] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene wild_keepers
-[18:27:55] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene wild_keepers_shot
-[18:27:56] [IO-Worker-6/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot wild_keepers: Saved screenshot as oathbound_wild_keepers.png
-[18:27:56] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene landmarks
-[18:27:56] [Server thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] temperate stage at 176, 1180
-[18:28:03] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene landmarks_shot
-[18:28:03] [IO-Worker-6/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot landmarks: Saved screenshot as oathbound_landmarks.png
-[18:28:03] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene crystal_cave
-[18:28:10] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene crystal_cave_shot
-[18:28:11] [IO-Worker-5/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot crystal_cave: Saved screenshot as oathbound_crystal_cave.png
-[18:28:11] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene fireflies
-[18:28:16] [oathbound-showcase-watchdog/INFO] [co.oa.Oathbound/]: [CLIENTTEST] watchdog 150s joined=true scene=28/78
-[18:28:19] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene fireflies_shot
-[18:28:19] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene day_again
-[18:28:19] [IO-Worker-1/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot fireflies: Saved screenshot as oathbound_fireflies.png
-[18:28:20] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene stags_ring
-[18:28:26] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene stags_ring_shot
-[18:28:27] [IO-Worker-5/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot stags_ring: Saved screenshot as oathbound_stags_ring.png
-[18:28:27] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene bog_mothers_house
-[18:28:33] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene bog_mothers_house_shot
-[18:28:34] [IO-Worker-9/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot bog_mothers_house: Saved screenshot as oathbound_bog_mothers_house.png
-[18:28:34] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene cinder_sanctum
-[18:28:40] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene cinder_sanctum_shot
-[18:28:41] [IO-Worker-1/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot cinder_sanctum: Saved screenshot as oathbound_cinder_sanctum.png
-[18:28:41] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene sanctum_hall
-[18:28:46] [oathbound-showcase-watchdog/INFO] [co.oa.Oathbound/]: [CLIENTTEST] watchdog 180s joined=true scene=37/78
-[18:28:47] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene sanctum_hall_shot
-[18:28:47] [IO-Worker-11/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot sanctum_hall: Saved screenshot as oathbound_sanctum_hall.png
-[18:28:48] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene last_watch
-[18:28:54] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene last_watch_shot
-[18:28:55] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene tideglass_grotto
-[18:28:55] [IO-Worker-2/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot last_watch: Saved screenshot as oathbound_last_watch.png
-[18:29:01] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene tideglass_grotto_shot
-[18:29:02] [IO-Worker-11/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot tideglass_grotto: Saved screenshot as oathbound_tideglass_grotto.png
-[18:29:02] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene lumenite_headframe
-[18:29:08] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene lumenite_headframe_shot
-[18:29:09] [IO-Worker-2/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot lumenite_headframe: Saved screenshot as oathbound_lumenite_headframe.png
-[18:29:09] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene lumenite_delve
-[18:29:15] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene lumenite_delve_shot
-[18:29:15] [IO-Worker-10/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot lumenite_delve: Saved screenshot as oathbound_lumenite_delve.png
-[18:29:16] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene shattered_observatory
-[18:29:16] [oathbound-showcase-watchdog/INFO] [co.oa.Oathbound/]: [CLIENTTEST] watchdog 210s joined=true scene=47/78
-[18:29:22] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene shattered_observatory_shot
-[18:29:22] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene dusk_again
-[18:29:23] [IO-Worker-9/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot shattered_observatory: Saved screenshot as oathbound_shattered_observatory.png
-[18:29:23] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene keepers
-[18:29:30] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene keepers_shot
-[18:29:30] [IO-Worker-5/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot seal_keepers: Saved screenshot as oathbound_seal_keepers.png
-[18:29:30] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene spells
-[18:29:36] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene spells_shot
-[18:29:37] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene masonry
-[18:29:37] [IO-Worker-8/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot spellcraft: Saved screenshot as oathbound_spellcraft.png
-[18:29:44] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene masonry_shot
-[18:29:44] [IO-Worker-8/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot masonry: Saved screenshot as oathbound_masonry.png
-[18:29:44] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene veilwood
-[18:29:46] [oathbound-showcase-watchdog/INFO] [co.oa.Oathbound/]: [CLIENTTEST] watchdog 240s joined=true scene=56/78
-[18:29:52] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene veilwood_shot
-[18:29:52] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene ashen_reach
-[18:29:52] [IO-Worker-12/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot gloaming_veilwood: Saved screenshot as oathbound_gloaming_veilwood.png
-[18:30:00] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene ashen_reach_shot
-[18:30:00] [IO-Worker-2/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot gloaming_ashen_reach: Saved screenshot as oathbound_gloaming_ashen_reach.png
-[18:30:00] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene gloaming
-[18:30:02] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene throne
-[18:30:10] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene throne_shot
-[18:30:11] [IO-Worker-2/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot hollow_throne: Saved screenshot as oathbound_hollow_throne.png
-[18:30:11] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene king
-[18:30:16] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene king_shot
-[18:30:16] [oathbound-showcase-watchdog/INFO] [co.oa.Oathbound/]: [CLIENTTEST] watchdog 270s joined=true scene=64/78
-[18:30:16] [IO-Worker-12/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot morvane: Saved screenshot as oathbound_morvane.png
-[18:30:16] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene island
-[18:30:24] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene island_shot
-[18:30:25] [IO-Worker-12/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot the_gloaming: Saved screenshot as oathbound_the_gloaming.png
-[18:30:25] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene book_setup
-[18:30:29] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene book_path
-[18:30:31] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene book_path_shot
-[18:30:32] [IO-Worker-6/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot chronicle_path: Saved screenshot as oathbound_chronicle_path.png
-[18:30:32] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene book_story
-[18:30:34] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene book_story_shot
-[18:30:34] [IO-Worker-6/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot chronicle_story: Saved screenshot as oathbound_chronicle_story.png
-[18:30:34] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene book_tithes
-[18:30:36] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene book_tithes_shot
-[18:30:37] [IO-Worker-14/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot chronicle_tithes: Saved screenshot as oathbound_chronicle_tithes.png
-[18:30:37] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene book_bestiary
-[18:30:39] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene book_bestiary_shot
-[18:30:39] [IO-Worker-14/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot chronicle_bestiary: Saved screenshot as oathbound_chronicle_bestiary.png
-[18:30:39] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene book_armory
-[18:30:41] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene book_armory_shot
-[18:30:42] [IO-Worker-14/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot chronicle_armory: Saved screenshot as oathbound_chronicle_armory.png
-[18:30:42] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene finish
-[18:30:42] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] RESULT: PASS
-[18:30:46] [oathbound-showcase-watchdog/INFO] [co.oa.Oathbound/]: [CLIENTTEST] watchdog 300s joined=true scene=78/78
+[18:54:05] [oathbound-showcase-watchdog/INFO] [co.oa.Oathbound/]: [CLIENTTEST] watchdog 30s joined=false scene=-1/0
+[18:54:05] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] waiting for world
+[18:54:09] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] waiting for world
+[18:54:12] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] world joined, 78 scenes
+[18:54:23] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene setup
+[18:54:26] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene wayshrine
+[18:54:32] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene wayshrine_shot
+[18:54:33] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene chapel
+[18:54:33] [IO-Worker-9/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot wayshrine: Saved screenshot as oathbound_wayshrine.png
+[18:54:35] [oathbound-showcase-watchdog/INFO] [co.oa.Oathbound/]: [CLIENTTEST] watchdog 60s joined=true scene=4/78
+[18:54:40] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene chapel_shot
+[18:54:40] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene chapel_nave
+[18:54:40] [IO-Worker-8/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot drowned_chapel: Saved screenshot as oathbound_drowned_chapel.png
+[18:54:45] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene chapel_nave_shot
+[18:54:45] [IO-Worker-8/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot chapel_bells: Saved screenshot as oathbound_chapel_bells.png
+[18:54:46] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene spire
+[18:54:52] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene spire_shot
+[18:54:53] [IO-Worker-6/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot arcanist_spire: Saved screenshot as oathbound_arcanist_spire.png
+[18:54:53] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene dials
+[18:54:58] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene dials_shot
+[18:54:58] [IO-Worker-8/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot rune_dials: Saved screenshot as oathbound_rune_dials.png
+[18:54:58] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene barrow
+[18:55:05] [oathbound-showcase-watchdog/INFO] [co.oa.Oathbound/]: [CLIENTTEST] watchdog 90s joined=true scene=12/78
+[18:55:06] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene barrow_shot
+[18:55:06] [IO-Worker-6/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot barrow_of_kings: Saved screenshot as oathbound_barrow_of_kings.png
+[18:55:06] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene tombs
+[18:55:11] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene tombs_shot
+[18:55:12] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene citadel
+[18:55:12] [IO-Worker-4/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot hall_of_kings: Saved screenshot as oathbound_hall_of_kings.png
+[18:55:19] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene citadel_shot
+[18:55:19] [IO-Worker-7/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot sundered_gate: Saved screenshot as oathbound_sundered_gate.png
+[18:55:19] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene bestiary
+[18:55:25] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene bestiary_shot
+[18:55:26] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene wilds
+[18:55:26] [IO-Worker-9/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot bestiary: Saved screenshot as oathbound_bestiary.png
+[18:55:32] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene wilds_shot
+[18:55:32] [IO-Worker-7/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot the_wilds: Saved screenshot as oathbound_the_wilds.png
+[18:55:33] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene wild_keepers
+[18:55:35] [oathbound-showcase-watchdog/INFO] [co.oa.Oathbound/]: [CLIENTTEST] watchdog 120s joined=true scene=22/78
+[18:55:40] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene wild_keepers_shot
+[18:55:40] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene landmarks
+[18:55:40] [Server thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] temperate stage at 176, 1180
+[18:55:40] [IO-Worker-4/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot wild_keepers: Saved screenshot as oathbound_wild_keepers.png
+[18:55:47] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene landmarks_shot
+[18:55:47] [IO-Worker-11/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot landmarks: Saved screenshot as oathbound_landmarks.png
+[18:55:48] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene crystal_cave
+[18:55:55] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene crystal_cave_shot
+[18:55:55] [IO-Worker-7/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot crystal_cave: Saved screenshot as oathbound_crystal_cave.png
+[18:55:55] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene fireflies
+[18:56:03] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene fireflies_shot
+[18:56:03] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene day_again
+[18:56:04] [IO-Worker-11/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot fireflies: Saved screenshot as oathbound_fireflies.png
+[18:56:04] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene stags_ring
+[18:56:05] [oathbound-showcase-watchdog/INFO] [co.oa.Oathbound/]: [CLIENTTEST] watchdog 150s joined=true scene=31/78
+[18:56:10] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene stags_ring_shot
+[18:56:11] [IO-Worker-7/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot stags_ring: Saved screenshot as oathbound_stags_ring.png
+[18:56:11] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene bog_mothers_house
+[18:56:17] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene bog_mothers_house_shot
+[18:56:18] [IO-Worker-12/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot bog_mothers_house: Saved screenshot as oathbound_bog_mothers_house.png
+[18:56:18] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene cinder_sanctum
+[18:56:24] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene cinder_sanctum_shot
+[18:56:25] [IO-Worker-13/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot cinder_sanctum: Saved screenshot as oathbound_cinder_sanctum.png
+[18:56:25] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene sanctum_hall
+[18:56:31] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene sanctum_hall_shot
+[18:56:32] [IO-Worker-13/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot sanctum_hall: Saved screenshot as oathbound_sanctum_hall.png
+[18:56:32] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene last_watch
+[18:56:35] [oathbound-showcase-watchdog/INFO] [co.oa.Oathbound/]: [CLIENTTEST] watchdog 180s joined=true scene=39/78
+[18:56:38] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene last_watch_shot
+[18:56:39] [IO-Worker-2/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot last_watch: Saved screenshot as oathbound_last_watch.png
+[18:56:39] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene tideglass_grotto
+[18:56:45] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene tideglass_grotto_shot
+[18:56:46] [IO-Worker-2/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot tideglass_grotto: Saved screenshot as oathbound_tideglass_grotto.png
+[18:56:46] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene lumenite_headframe
+[18:56:52] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene lumenite_headframe_shot
+[18:56:53] [IO-Worker-4/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot lumenite_headframe: Saved screenshot as oathbound_lumenite_headframe.png
+[18:56:53] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene lumenite_delve
+[18:56:59] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene lumenite_delve_shot
+[18:57:00] [IO-Worker-2/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot lumenite_delve: Saved screenshot as oathbound_lumenite_delve.png
+[18:57:00] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene shattered_observatory
+[18:57:05] [oathbound-showcase-watchdog/INFO] [co.oa.Oathbound/]: [CLIENTTEST] watchdog 210s joined=true scene=47/78
+[18:57:06] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene shattered_observatory_shot
+[18:57:07] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene dusk_again
+[18:57:07] [IO-Worker-2/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot shattered_observatory: Saved screenshot as oathbound_shattered_observatory.png
+[18:57:07] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene keepers
+[18:57:14] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene keepers_shot
+[18:57:15] [IO-Worker-6/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot seal_keepers: Saved screenshot as oathbound_seal_keepers.png
+[18:57:15] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene spells
+[18:57:21] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene spells_shot
+[18:57:21] [IO-Worker-2/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot spellcraft: Saved screenshot as oathbound_spellcraft.png
+[18:57:21] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene masonry
+[18:57:28] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene masonry_shot
+[18:57:28] [IO-Worker-4/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot masonry: Saved screenshot as oathbound_masonry.png
+[18:57:29] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene veilwood
+[18:57:35] [oathbound-showcase-watchdog/INFO] [co.oa.Oathbound/]: [CLIENTTEST] watchdog 240s joined=true scene=56/78
+[18:57:36] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene veilwood_shot
+[18:57:36] [IO-Worker-12/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot gloaming_veilwood: Saved screenshot as oathbound_gloaming_veilwood.png
+[18:57:37] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene ashen_reach
+[18:57:44] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene ashen_reach_shot
+[18:57:44] [IO-Worker-4/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot gloaming_ashen_reach: Saved screenshot as oathbound_gloaming_ashen_reach.png
+[18:57:45] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene gloaming
+[18:57:47] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene throne
+[18:57:55] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene throne_shot
+[18:57:55] [IO-Worker-7/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot hollow_throne: Saved screenshot as oathbound_hollow_throne.png
+[18:57:55] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene king
+[18:58:00] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene king_shot
+[18:58:00] [IO-Worker-9/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot morvane: Saved screenshot as oathbound_morvane.png
+[18:58:01] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene island
+[18:58:05] [oathbound-showcase-watchdog/INFO] [co.oa.Oathbound/]: [CLIENTTEST] watchdog 270s joined=true scene=65/78
+[18:58:09] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene island_shot
+[18:58:09] [IO-Worker-2/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot the_gloaming: Saved screenshot as oathbound_the_gloaming.png
+[18:58:09] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene book_setup
+[18:58:13] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene book_path
+[18:58:13] [Render thread/ERROR] [co.oa.Oathbound/]: [CLIENTTEST] scene book_path failed
+[18:58:15] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene book_path_shot
+[18:58:16] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene book_story
+[18:58:18] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene book_story_shot
+[18:58:18] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene book_tithes
+[18:58:20] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene book_tithes_shot
+[18:58:21] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene book_bestiary
+[18:58:23] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene book_bestiary_shot
+[18:58:23] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene book_armory
+[18:58:25] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene book_armory_shot
+[18:58:26] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene finish
+[18:58:26] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] RESULT: PASS
 ===== SERVER PROBLEMS =====
-[18:23:11] [main/WARN] [ne.mi.co.ForgeConfigSpec/CORE]: Configuration file /home/runner/work/test/test/run/config/oathbound-common.toml is not correct. Correcting
-2026-09-30T18:23:15.152203056Z Server thread ERROR An exception occurred processing Appender DebugFile
+[18:50:32] [main/WARN] [ne.mi.co.ForgeConfigSpec/CORE]: Configuration file /home/runner/work/test/test/run/config/oathbound-common.toml is not correct. Correcting
+2026-09-30T18:50:35.517900204Z Server thread ERROR An exception occurred processing Appender DebugFile
 org.apache.logging.log4j.core.appender.AppenderLoggingException: java.lang.NoClassDefFoundError: Could not initialize class io.netty.channel.kqueue.Native
 Caused by: java.lang.NoClassDefFoundError: Could not initialize class io.netty.channel.kqueue.Native
 Caused by: java.lang.ExceptionInInitializerError: Exception java.lang.IllegalStateException: Only supported on OSX/BSD [in thread "Server thread"]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [4, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [4, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [4, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [4, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [4, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [4, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [4, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [4, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [4, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [4, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [4, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [4, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [4, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [4, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [4, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [4, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [4, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [4, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [4, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [4, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [4, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [4, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [4, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [4, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
+[18:50:45] [Worker-Main-2/ERROR] [minecraft/Util]: Detected unsafe terrain read during worldgen: reading from chunk [3, 19] while generating chunk [2, 16] (distance: 3, write radius: 1), step: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/structure / oathbound:barrow_of_kings]
 ===== CLIENT PROBLEMS =====
   Downloading missing asset: icons/icon_128x128.png
   Downloading missing asset: icons/icon_16x16.png
@@ -406,3 +596,154 @@ Caused by: java.lang.ExceptionInInitializerError: Exception java.lang.IllegalSta
   Downloading missing asset: minecraft/sounds/ambient/nether/basalt_deltas/click4.ogg
   Downloading missing asset: minecraft/sounds/ambient/nether/basalt_deltas/click5.ogg
   Downloading missing asset: minecraft/sounds/ambient/nether/basalt_deltas/click6.ogg
+===== CRASH run/crash-reports/crash-2026-09-30_18.58.29-client.txt =====
+---- Minecraft Crash Report ----
+// Hi. I'm Minecraft, and I'm a crashaholic.
+
+Time: 2026-09-30 18:58:29
+Description: Game shutdown
+
+java.lang.IllegalStateException: Cannot close a surface while it is acquired
+	at TRANSFORMER/minecraft@26.2/com.mojang.blaze3d.systems.GpuSurface.close(GpuSurface.java:23) ~[forge-26.2-65.1.0.jar%230!/:?]
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.Minecraft.close(Minecraft.java:1151) [forge-26.2-65.1.0.jar%230!/:?]
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.Minecraft.exitWorldAndClose(Minecraft.java:1122) [forge-26.2-65.1.0.jar%230!/:?]
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.main.Main.main(Main.java:289) [forge-26.2-65.1.0.jar%230!/:?]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[?:?]
+	at SECURE-BOOTSTRAP/net.minecraftforge.fmlloader@26.2-65.1.0/net.minecraftforge.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:96) [fmlloader-26.2-65.1.0.jar!/:?]
+	at SECURE-BOOTSTRAP/net.minecraftforge.fmlloader@26.2-65.1.0/net.minecraftforge.fml.loading.targets.CommonLaunchHandler.lambda$makeService$0(CommonLaunchHandler.java:79) [fmlloader-26.2-65.1.0.jar!/:?]
+	at SECURE-BOOTSTRAP/cpw.mods.modlauncher@10.2.6/cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:84) [modlauncher-10.2.6.jar!/:?]
+	at SECURE-BOOTSTRAP/cpw.mods.modlauncher@10.2.6/cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:104) [modlauncher-10.2.6.jar!/:?]
+	at SECURE-BOOTSTRAP/cpw.mods.modlauncher@10.2.6/cpw.mods.modlauncher.Launcher.run(Launcher.java:151) [modlauncher-10.2.6.jar!/:?]
+	at SECURE-BOOTSTRAP/cpw.mods.modlauncher@10.2.6/cpw.mods.modlauncher.Launcher.main(Launcher.java:110) [modlauncher-10.2.6.jar!/:?]
+	at SECURE-BOOTSTRAP/cpw.mods.modlauncher@10.2.6/cpw.mods.modlauncher.BootstrapEntry.main(BootstrapEntry.java:17) [modlauncher-10.2.6.jar!/:?]
+	at net.minecraftforge.bootstrap@2.1.7/net.minecraftforge.bootstrap.Bootstrap.moduleMain(Bootstrap.java:188) [bootstrap-2.1.8.jar!/:?]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[?:?]
+	at net.minecraftforge.bootstrap.Bootstrap.bootstrapMain(Bootstrap.java:133) [bootstrap-2.1.8.jar:2.1.8]
+	at net.minecraftforge.bootstrap.Bootstrap.start(Bootstrap.java:53) [bootstrap-2.1.8.jar:2.1.8]
+	at net.minecraftforge.bootstrap.ForgeBootstrap.main(ForgeBootstrap.java:19) [bootstrap-2.1.8.jar:2.1.8]
+	at net.minecraftforge.launcher.Main$Launcher.run(Main.java:282) [slime-launcher-0.2.3.jar:0.2.3]
+	at net.minecraftforge.launcher.Main$Launcher.access$000(Main.java:268) [slime-launcher-0.2.3.jar:0.2.3]
+	at net.minecraftforge.launcher.Main.main(Main.java:57) [slime-launcher-0.2.3.jar:0.2.3]
+Transformer Audit:
+  com.mojang.blaze3d.systems.GpuSurface
+    REASON: classloading
+  net.minecraft.client.Minecraft
+    REASON: classloading
+    PLUGIN: accesstransformer:BEFORE
+  net.minecraft.client.main.Main
+    REASON: classloading
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- System Details --
+Details:
+	Minecraft Version: 26.2
+	Minecraft Version ID: 26.2
+	Operating System: Linux (amd64) version 6.17.0-1022-azure
+	Java Version: 25.0.4.1, Eclipse Adoptium
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode, sharing), Eclipse Adoptium
+	Memory: 1168679480 bytes (1114 MiB) / 2631925760 bytes (2510 MiB) up to 4192206848 bytes (3998 MiB)
+	Memory (heap): init: 250MiB, used: 1393MiB, committed: 2510MiB, max: 3998MiB
+	Memory (non-head): init: 007MiB, used: 238MiB, committed: 254MiB, max: 000MiB
+	CPUs: 4
+	Processor Vendor: AuthenticAMD
+	Processor Name: AMD EPYC 9V74 80-Core Processor
+	Identifier: AuthenticAMD Family 25 Model 17 Stepping 1
+	Microarchitecture: Zen 3
+	Frequency (GHz): -0.00
+	Number of physical packages: 1
+	Number of physical CPUs: 2
+	Number of logical CPUs: 4
+	Graphics card #0 name: hyperv_drmdrmfb
+	Graphics card #0 vendor: unknown
+	Graphics card #0 VRAM (MiB): 0.00
+	Graphics card #0 deviceId: unknown
+	Graphics card #0 versionInfo: unknown
+	Virtual memory max (MiB): 11066.84
+	Virtual memory used (MiB): 5619.27
+	Swap memory total (MiB): 3072.00
+	Swap memory used (MiB): 0.00
+	Space in storage for jna.tmpdir (MiB): <path not set>
+	Space in storage for org.lwjgl.system.SharedLibraryExtractPath (MiB): <path not set>
+	Space in storage for io.netty.native.workdir (MiB): <path not set>
+	Space in storage for java.io.tmpdir (MiB): available: 86159.42, total: 147718.61
+	Space in storage for workdir (MiB): available: 86159.42, total: 147718.61
+	Operating System Version: GNU/Linux Ubuntu 24.04.5 LTS (Noble Numbat) build 6.17.0-1022-azure
+	Process Elevated: false
+	Process Loads: Uptime: 352s, user: 1037s (294.70%), kernel: 25s (7.01%), total: 1062s (301.71%)
+	Process Virtual Size (MiB): 8812.66
+	Process Resident Size (MiB): 3728.06
+	JVM Flags: 1 total; -XX:+UseCompactObjectHeaders
+	Debug Flags: 0 total; 
+	Launched Version: MOD_DEV
+	Backend library: LWJGL version 3.4.1+2
+	Window size: <not initialized>
+	Surface Info: <no surface>
+	GFLW Platform: x11
+	Graphics Device: llvmpipe (LLVM 20.1.2, 256 bits)
+	Graphics Backend: OpenGL
+	Graphics Vendor: Mesa
+	Graphics Drivers: 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.3
+	Graphics Device Extensions: GL_ARB_multi_draw_indirect, GL_ARB_buffer_storage, GL_ARB_shader_draw_parameters, GL_ARB_base_instance, GL_KHR_debug, GL_ARB_draw_indirect, GL_ARB_clip_control, GL_ARB_vertex_attrib_binding, GL_ARB_direct_state_access, GL_EXT_texture_filter_anisotropic
+	Graphics Device Type: CPU
+	Graphics Device Features: DeviceFeatures[shaderDrawParameters=true, multiDrawDirectInterleaved=false, multiDrawDirectSeparate=true, multiDrawIndirect=true, drawIndirect=true, nonZeroFirstInstance=true, persistentMapping=true]
+	GL debug messages: 
+	Is Modded: Definitely; Client brand changed to 'forge'
+	Universe: 404
+	Type: Client
+	Locale: en
+	System encoding: UTF-8
+	File encoding: UTF-8
+	CPU: 4x AMD EPYC 9V74 80-Core Processor
+	ModLauncher: 10.2
+	ModLauncher launch target: forge_userdev_client
+	ModLauncher naming: mcp
+	ModLauncher services: 
+		/ slf4jfixer PLUGINSERVICE 
+		/ runtimedistcleaner PLUGINSERVICE 
+		/ runtime_enum_extender PLUGINSERVICE 
+		/ capability_token_subclass PLUGINSERVICE 
+		/ accesstransformer PLUGINSERVICE 
+		/ mixin PLUGINSERVICE 
+		/ fml TRANSFORMATIONSERVICE 
+		/ forge TRANSFORMATIONSERVICE 
+		/ mixin TRANSFORMATIONSERVICE 
+	FML Language Providers: 
+		lowcodefml@65
+		minecraft@1.0
+		javafml@65.1.0
+	Mod List: 
+		union:/home/runner/work/test/test/.gradle/mavenize|Minecraft                     |minecraft                     |26.2                |DONE      |Manifest: NOSIGNATURE
+		union:/home/runner/work/test/test/.gradle/mavenize|Forge                         |forge                         |65.1.0              |DONE      |Manifest: NOSIGNATURE
+		/home/runner/work/test/test/build/sourceSets/main |Oathbound: The Hollow Crown   |oathbound                     |1.0.0               |DONE      |Manifest: NOSIGNATURE
+	Crash Report UUID: eb2d218b-3ee2-4591-b6d1-f6835df38bc7
+	FML: 65.1
+	Forge: net.minecraftforge:65.1.0
+	ModLauncher: 10.2
+	ModLauncher launch target: forge_userdev_client
+	ModLauncher naming: mcp
+	ModLauncher services: 
+		/ slf4jfixer PLUGINSERVICE 
+		/ runtimedistcleaner PLUGINSERVICE 
+		/ runtime_enum_extender PLUGINSERVICE 
+		/ capability_token_subclass PLUGINSERVICE 
+		/ accesstransformer PLUGINSERVICE 
+		/ mixin PLUGINSERVICE 
+		/ fml TRANSFORMATIONSERVICE 
+		/ forge TRANSFORMATIONSERVICE 
+		/ mixin TRANSFORMATIONSERVICE 
+	FML Language Providers: 
+		lowcodefml@65
+		minecraft@1.0
+		javafml@65.1.0
+	Mod List: 
+		union:/home/runner/work/test/test/.gradle/mavenize|Minecraft                     |minecraft                     |26.2                |DONE      |Manifest: NOSIGNATURE
+		union:/home/runner/work/test/test/.gradle/mavenize|Forge                         |forge                         |65.1.0              |DONE      |Manifest: NOSIGNATURE
+		/home/runner/work/test/test/build/sourceSets/main |Oathbound: The Hollow Crown   |oathbound                     |1.0.0               |DONE      |Manifest: NOSIGNATURE
+	Crash Report UUID: 08962059-ab98-4d88-b366-27fac09b2ce9
+	FML: 65.1
+	Forge: net.minecraftforge:65.1.0
