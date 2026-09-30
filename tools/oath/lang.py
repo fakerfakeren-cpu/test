@@ -337,6 +337,43 @@ ARMORY = {
                      'the Gloam\'s creatures will not trouble its wearer unless provoked.', 'You never swore on it. That is why it is safe.'),
     'everflame_lantern': ('The Everflame Lantern', 'The Order\'s own lantern, rekindled with an ember of the first dawn and the '
                           'insignia of its fallen knights. It never gutters.', 'Some oaths are worth keeping after all.'),
+    # the five metals and their signature blades
+    'tidebronze_gladius': ('Tidebronze Gladius', 'A short sea-blade. It strikes half again as hard while you stand in water or rain. '
+                           'A full suit of tidebronze lets you breathe and swim like the chapel\'s drowned knights.',
+                           'Blend copper, sea-glass and lumenite; smelt it.'),
+    'runesilver_rapier': ('Runesilver Rapier', 'Every thrust carries a glyph for four more points of magic, and it reaches a little '
+                          'further than a sword. A full suit of runesilver turns aside two fifths of all magic.',
+                          'The Spire\'s metal. Mind the witches.'),
+    'gravegold_khopesh': ('Gravegold Khopesh', 'The barrow kings were buried with these. It cuts the undead for 60% more, and a full '
+                          'suit of gravegold hardens you against their blows and sharpens yours against them.',
+                          'Cold even in the sun.'),
+    'duskiron_glaive': ('Duskiron Glaive', 'A long-reaching glaive of the Gloaming\'s iron that hits 30% harder in the dark. Full '
+                        'duskiron makes you quick and strong at night and lets you see in the Gloaming.',
+                        'Mined only on the Gloaming\'s islands.'),
+    'dawnsteel_greatsword': ('Dawnsteel Greatsword', 'Oathsteel quenched in the Everflame. It burns the Gloam and the undead for half '
+                             'again as much and sets them alight. Full dawnsteel heals you in sunlight, keeps fire off you and '
+                             'makes you immune to Gloamrot.', 'The last forge of the Path.'),
+    # relics
+    'huntsmans_horn': ("Huntsman's Horn", 'Sounded, it outlines every hostile thing within thirty-two blocks in light.',
+                       'Craft it from boar tusks and gold.'),
+    'bell_of_the_drowned': ('Bell of the Drowned', 'A tolling wave that hurls back and reveals every foe within seven blocks.',
+                            'Found in the chapel\'s reliquary.'),
+    'veyls_mirror': ("Veyl's Mirror", 'Step through the glass to where you are looking, up to eight blocks.',
+                     'Found in the Spire\'s sanctum.'),
+    'barrow_censer': ('Barrow Censer', 'Grave-smoke that knits the wounds of you and your companions and hardens their skin.',
+                      'Found in the barrow\'s hoard.'),
+    'lanternguard_signet': ('Lanternguard Signet', 'The captains\' call to arms: strength and swiftness for everyone near you.',
+                            'Found in the citadel\'s armory.'),
+    'grove_kings_crown': ("Grove King's Crown", 'Roots burst up under every foe near you and hold them fast, and the grove mends '
+                          'you and yours.', 'The Elderhorn\'s, from his ring of stones.'),
+    'bog_mothers_lantern': ("Bog Mother's Lantern", 'Snuff it to step ten blocks ahead, leaving a cloud of poisonous marsh-gas where '
+                            'you stood. Whatever hunted you loses you.', 'The Bog Mother\'s, from her stilt-house.'),
+    'cinder_heart': ('Cinder Heart', 'The ground erupts in fire under every foe within ten blocks, and fire cannot touch you for '
+                     'half a minute.', 'The Colossus\'s, from the sun-cult\'s sanctum.'),
+    'heart_of_the_gloam': ('Heart of the Gloam', 'The dusk wraps you: you vanish, see in the dark, and whatever hunted you forgets '
+                           'you.', 'Craft it from shadow fangs and gloam essence.'),
+    'sunshard_talisman': ('Sunshard Talisman', 'A flash of the first dawn that burns the Gloam and the dead around you.',
+                          'A splinter of what the Hollow Crown held.'),
 }
 
 GLYPHS = ['the Lantern', 'the Crossing', 'the Seal', 'the Keep', 'the Eye', 'the Crown']
@@ -471,9 +508,9 @@ MESSAGES = {
     'command.oathbound.help.header': '— Oathbound admin commands (/oathbound ...) —',
     'command.oathbound.help.kit': 'kit — the gear of a knight who has walked the whole Path',
     'command.oathbound.help.build': 'build <structure> — build a structure at your feet',
-    'command.oathbound.help.keeper': 'keeper <name> — summon a keeper or the Hollow King',
+    'command.oathbound.help.keeper': 'keeper <name> — summon a seal keeper, a wild keeper or the Hollow King',
     'command.oathbound.help.stage': 'stage <1-7> — complete the Path up to a chapter',
-    'command.oathbound.help.locate': 'locate — find the Chronicle\'s next destination',
+    'command.oathbound.help.locate': 'locate <structure> — find the nearest site of that kind',
     'command.oathbound.help.gate': 'gate — open the nearest Sundered Gate',
     'command.oathbound.help.gloaming': 'gloaming — travel to the Hollow Throne',
     'command.oathbound.help.home': 'home — return from the Gloaming',

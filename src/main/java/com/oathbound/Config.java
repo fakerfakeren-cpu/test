@@ -10,7 +10,7 @@ public final class Config {
         .comment("Give every player the Lantern Chronicle the first time they join a world.")
         .define("giveChronicleOnFirstJoin", true);
     public static final ForgeConfigSpec.DoubleValue KEEPER_HEALTH_MULTIPLIER = BUILDER
-        .comment("Health multiplier for the three seal keepers (Sir Caldris, Archmage Veyl, Hrodgar).")
+        .comment("Health multiplier for the seal keepers (Caldris, Veyl, Hrodgar) and the wild keepers (Elderhorn, Bog Mother, Cinder Colossus).")
         .defineInRange("keeperHealthMultiplier", 1.0, 0.1, 20.0);
     public static final ForgeConfigSpec.DoubleValue BOSS_HEALTH_MULTIPLIER = BUILDER
         .comment("Health multiplier for Morvane, the Hollow King (useful for multiplayer servers).")

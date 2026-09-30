@@ -148,14 +148,14 @@ public final class Sketches {
     }
 
     private static Mix drownedStone() {
-        return Mix.of(st(ModBlocks.MOSSY_WARDSTONE_BRICKS)).and(st(ModBlocks.MOSSY_WARDSTONE_BRICKS), 3)
-            .and(st(ModBlocks.WARDSTONE_BRICKS), 3).and(st(ModBlocks.CRACKED_WARDSTONE_BRICKS), 2)
-            .and(st(Blocks.PRISMARINE_BRICKS), 1).and(st(Blocks.MUD_BRICKS), 1);
+        return Mix.of(st(ModBlocks.TIDESTONE_BRICKS)).and(st(ModBlocks.TIDESTONE_BRICKS), 4).and(st(ModBlocks.BARNACLED_TIDESTONE_BRICKS), 3)
+            .and(st(ModBlocks.MOSSY_WARDSTONE_BRICKS), 2).and(st(ModBlocks.TIDESTONE), 1).and(st(Blocks.PRISMARINE_BRICKS), 1)
+            .and(st(Blocks.MUD_BRICKS), 1);
     }
 
     private static Mix barrowStone() {
-        return Mix.of(st(Blocks.STONE_BRICKS)).and(st(Blocks.MOSSY_STONE_BRICKS), 2).and(st(Blocks.CRACKED_STONE_BRICKS), 1)
-            .and(st(Blocks.TUFF_BRICKS), 2).and(st(Blocks.COBBLED_DEEPSLATE), 1);
+        return Mix.of(st(ModBlocks.BARROWSTONE_BRICKS)).and(st(ModBlocks.BARROWSTONE_BRICKS), 5).and(st(ModBlocks.BARROWSTONE), 2)
+            .and(st(ModBlocks.BONE_INLAID_BARROWSTONE), 1).and(st(Blocks.MOSSY_STONE_BRICKS), 1).and(st(Blocks.COBBLED_DEEPSLATE), 1);
     }
 
     private static Mix gloamBricks() {
@@ -274,8 +274,8 @@ public final class Sketches {
         s.put(-5, 1, 10, tablet(1, Direction.EAST));
         s.put(5, 2, -10, tablet(2, Direction.WEST));
         // the crypt shell and chamber
-        Mix crypt = Mix.of(st(ModBlocks.MOSSY_WARDSTONE_BRICKS)).and(st(ModBlocks.WARDSTONE_BRICKS), 2).and(st(Blocks.DARK_PRISMARINE), 1)
-            .and(st(ModBlocks.CRACKED_WARDSTONE_BRICKS), 1);
+        Mix crypt = Mix.of(st(ModBlocks.BARNACLED_TIDESTONE_BRICKS)).and(st(ModBlocks.TIDESTONE_BRICKS), 2).and(st(Blocks.DARK_PRISMARINE), 1)
+            .and(st(ModBlocks.MOSSY_WARDSTONE_BRICKS), 1).and(st(ModBlocks.TIDESTONE), 1);
         s.box(-8, -10, -1, 8, -1, 16, crypt);
         s.hollow(-7, -9, 0, 7, -3, 15);
         // stair shaft down from the altar grate
@@ -335,8 +335,9 @@ public final class Sketches {
      */
     private static void spire(Sketch s) {
         s.footingState(st(ModBlocks.WARDSTONE));
-        Mix wall = Mix.of(st(ModBlocks.WARDSTONE_BRICKS)).and(st(ModBlocks.WARDSTONE_BRICKS), 8).and(st(ModBlocks.CRACKED_WARDSTONE_BRICKS), 1)
-            .and(st(ModBlocks.MOSSY_WARDSTONE_BRICKS), 1);
+        // pale wardstone banded with the Arcanists' runestone; here and there a glyph still glows
+        Mix wall = Mix.of(st(ModBlocks.WARDSTONE_BRICKS)).and(st(ModBlocks.WARDSTONE_BRICKS), 6).and(st(ModBlocks.RUNESTONE_BRICKS), 3)
+            .and(st(ModBlocks.CRACKED_WARDSTONE_BRICKS), 1).and(st(ModBlocks.MOSSY_WARDSTONE_BRICKS), 1).and(st(ModBlocks.GLYPHED_RUNESTONE), 1);
         s.disc(0, 0, 0, 6.5, Mix.of(st(ModBlocks.WARDSTONE)));
         s.footingUnder(-6, -6, 6, 6);
         for (int y = 1; y <= SPIRE_TOP; y++) {
@@ -437,7 +438,7 @@ public final class Sketches {
             int x = (int) Math.round(Math.cos(a) * 13.5), z = (int) Math.round(Math.sin(a) * 13.5);
             if (z > 10 && Math.abs(x) < 4) continue;
             int h = 2 + s.rng.nextInt(3);
-            s.box(x, 0, z, x, h, z, Mix.of(st(Blocks.STONE)).and(st(Blocks.MOSSY_COBBLESTONE), 1).and(st(Blocks.ANDESITE), 1));
+            s.box(x, 0, z, x, h, z, Mix.of(st(ModBlocks.BARROWSTONE)).and(st(ModBlocks.BARROWSTONE), 2).and(st(Blocks.MOSSY_COBBLESTONE), 1));
             s.footing(x, z);
         }
         // doorway into the mound

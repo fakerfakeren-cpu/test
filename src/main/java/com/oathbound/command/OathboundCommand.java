@@ -43,10 +43,18 @@ import java.util.function.Supplier;
  */
 public final class OathboundCommand {
     private static final Map<String, Supplier<? extends EntityType<? extends KeeperEntity>>> KEEPERS = Map.of(
-        "caldris", ModEntities.SIR_CALDRIS, "veyl", ModEntities.ARCHMAGE_VEYL, "hrodgar", ModEntities.HRODGAR, "morvane", ModEntities.MORVANE);
-    private static final Map<String, TagKey<Structure>> STRUCTURES = Map.of(
-        "wayshrine", ModTags.WAYSHRINE, "drowned_chapel", ModTags.DROWNED_CHAPEL, "arcanist_spire", ModTags.ARCANIST_SPIRE,
-        "barrow_of_kings", ModTags.BARROW, "sundered_citadel", ModTags.SUNDERED_CITADEL);
+        "caldris", ModEntities.SIR_CALDRIS, "veyl", ModEntities.ARCHMAGE_VEYL, "hrodgar", ModEntities.HRODGAR, "morvane", ModEntities.MORVANE,
+        "elderhorn", ModEntities.ELDERHORN, "bog_mother", ModEntities.BOG_MOTHER, "cinder_colossus", ModEntities.CINDER_COLOSSUS);
+    private static final Map<String, TagKey<Structure>> STRUCTURES = Map.ofEntries(
+        Map.entry("wayshrine", ModTags.WAYSHRINE), Map.entry("drowned_chapel", ModTags.DROWNED_CHAPEL),
+        Map.entry("arcanist_spire", ModTags.ARCANIST_SPIRE), Map.entry("barrow_of_kings", ModTags.BARROW),
+        Map.entry("sundered_citadel", ModTags.SUNDERED_CITADEL), site("grove_shrine"), site("bog_hut"), site("cinder_sanctum"),
+        site("watchtower"), site("tideglass_grotto"), site("lumenite_mine"), site("shattered_observatory"));
+
+    private static Map.Entry<String, TagKey<Structure>> site(String id) {
+        return Map.entry(id, TagKey.create(net.minecraft.core.registries.Registries.STRUCTURE,
+            net.minecraft.resources.Identifier.fromNamespaceAndPath(com.oathbound.Oathbound.MODID, id)));
+    }
 
     private OathboundCommand() {}
 

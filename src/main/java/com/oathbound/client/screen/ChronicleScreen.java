@@ -93,7 +93,15 @@ public class ChronicleScreen extends Screen {
         new Entry("dawnstring_longbow", 2, ModItems.DAWNSTRING_LONGBOW), new Entry("arcanist_robe", 2, ModItems.ARCANIST_ROBE),
         new Entry("housecarl_warhorn", 3, ModItems.HOUSECARL_WARHORN), new Entry("oathkey", 4, ModItems.OATHKEY),
         new Entry("shadowreap_sickle", 5, ModItems.SHADOWREAP_SICKLE), new Entry("dawnbreaker", 5, ModItems.DAWNBREAKER),
-        new Entry("hollow_crown", 5, ModItems.HOLLOW_CROWN), new Entry("everflame_lantern", 5, ModItems.EVERFLAME_LANTERN));
+        new Entry("hollow_crown", 5, ModItems.HOLLOW_CROWN), new Entry("everflame_lantern", 5, ModItems.EVERFLAME_LANTERN),
+        new Entry("tidebronze_gladius", 1, ModItems.TIDEBRONZE_GLADIUS), new Entry("runesilver_rapier", 2, ModItems.RUNESILVER_RAPIER),
+        new Entry("gravegold_khopesh", 3, ModItems.GRAVEGOLD_KHOPESH), new Entry("duskiron_glaive", 5, ModItems.DUSKIRON_GLAIVE),
+        new Entry("dawnsteel_greatsword", 5, ModItems.DAWNSTEEL_GREATSWORD),
+        new Entry("huntsmans_horn", 0, ModItems.HUNTSMANS_HORN), new Entry("bell_of_the_drowned", 1, ModItems.BELL_OF_THE_DROWNED),
+        new Entry("grove_kings_crown", 1, ModItems.GROVE_KINGS_CROWN), new Entry("veyls_mirror", 2, ModItems.VEYLS_MIRROR),
+        new Entry("bog_mothers_lantern", 2, ModItems.BOG_MOTHERS_LANTERN), new Entry("barrow_censer", 3, ModItems.BARROW_CENSER),
+        new Entry("cinder_heart", 3, ModItems.CINDER_HEART), new Entry("lanternguard_signet", 4, ModItems.LANTERNGUARD_SIGNET),
+        new Entry("heart_of_the_gloam", 5, ModItems.HEART_OF_THE_GLOAM), new Entry("sunshard_talisman", 5, ModItems.SUNSHARD_TALISMAN));
 
     private final InteractionHand hand;
     private int tab = TAB_PATH;
