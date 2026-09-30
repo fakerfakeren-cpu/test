@@ -33,6 +33,10 @@ public final class SketchPlacer {
         // builds overhanging a cliff or floating in the Gloaming do not grow long pillars into the void.
         for (long col : sketch.footings) {
             int x = BlockPos.getX(col), z = BlockPos.getZ(col);
+            // only this chunk's columns: reading the ground of a neighbour mid-generation is unsafe (and its own
+            // pass pours those footings)
+            if (clip != null && (origin.getX() + x < clip.minX() || origin.getX() + x > clip.maxX()
+                || origin.getZ() + z < clip.minZ() || origin.getZ() + z > clip.maxZ())) continue;
             int top = -1;
             while (sketch.blocks.containsKey(new BlockPos(x, top, z))) top--;
             int depth = 0;
