@@ -3,6 +3,7 @@ package com.oathbound.client;
 import com.oathbound.entity.SpellMarkEntity;
 import com.oathbound.Oathbound;
 import com.oathbound.client.screen.ChronicleScreen;
+import com.oathbound.registry.ModBlocks;
 import com.oathbound.registry.ModEntities;
 import com.oathbound.registry.ModWorldgen;
 import net.minecraft.client.Minecraft;
@@ -229,6 +230,14 @@ public final class Showcase {
             p.teleportTo(level, x + 12, y + 6 - 1.62, z - 15, java.util.Set.of(), 0f, 22f, false);
         }));
         scene(120, "spells_shot", mc -> shoot(mc, "spellcraft"));
+        scene(10, "masonry", mc -> onServer(mc, p -> {
+            ServerLevel level = p.level().getServer().overworld();
+            int x0 = 80, z0 = 880;
+            int y = level.getHeight(Heightmap.Types.MOTION_BLOCKING, x0, z0) + 8;
+            buildGallery(level, new BlockPos(x0, y, z0));
+            p.teleportTo(level, x0 + 17.5, y + 4 - 1.62, z0 - 11.5, java.util.Set.of(), 0f, 18f, false);
+        }));
+        scene(140, "masonry_shot", mc -> shoot(mc, "masonry"));
         scene(10, "gloaming", mc -> onServer(mc, p -> {
             ServerLevel g = p.level().getServer().getLevel(ModWorldgen.GLOAMING);
             if (g == null) return;
@@ -295,5 +304,76 @@ public final class Showcase {
             Oathbound.LOGGER.error("[CLIENTTEST] scene {} failed", s.name(), t);
         }
         countdown = cursor < SCENES.size() ? SCENES.get(cursor).delay() : 0;
+    }
+
+    /** Six bays, one per building family: a wall of its stones, its stairs, slabs and walls in front, lit by lanterns. */
+    private static void buildGallery(ServerLevel level, BlockPos o) {
+        java.util.List<java.util.List<net.minecraftforge.registries.RegistryObject<net.minecraft.world.level.block.Block>>> bays = java.util.List.of(
+            java.util.List.of(ModBlocks.WARDSTONE_BRICKS, ModBlocks.POLISHED_WARDSTONE, ModBlocks.CHISELED_WARDSTONE, ModBlocks.WARDSTONE_BRICK_STAIRS,
+                ModBlocks.WARDSTONE_BRICK_SLAB, ModBlocks.WARDSTONE_BRICK_WALL, ModBlocks.WARDSTONE_TILES),
+            java.util.List.of(ModBlocks.GLOAMSTONE_BRICKS, ModBlocks.POLISHED_GLOAMSTONE, ModBlocks.CHISELED_GLOAMSTONE, ModBlocks.GLOAMSTONE_BRICK_STAIRS,
+                ModBlocks.GLOAMSTONE_BRICK_SLAB, ModBlocks.GLOAMSTONE_BRICK_WALL, ModBlocks.GLOAMSTONE_TILES),
+            java.util.List.of(ModBlocks.TIDESTONE_BRICKS, ModBlocks.BARNACLED_TIDESTONE_BRICKS, ModBlocks.CHISELED_TIDESTONE, ModBlocks.TIDESTONE_BRICK_STAIRS,
+                ModBlocks.TIDESTONE_BRICK_SLAB, ModBlocks.TIDESTONE_BRICK_WALL, ModBlocks.TIDESTONE),
+            java.util.List.of(ModBlocks.BARROWSTONE_BRICKS, ModBlocks.BARROWSTONE, ModBlocks.BONE_INLAID_BARROWSTONE, ModBlocks.BARROWSTONE_BRICK_STAIRS,
+                ModBlocks.BARROWSTONE_BRICK_SLAB, ModBlocks.BARROWSTONE_BRICK_WALL, ModBlocks.BARROWSTONE),
+            java.util.List.of(ModBlocks.RUNESTONE_BRICKS, ModBlocks.RUNESTONE, ModBlocks.GLYPHED_RUNESTONE, ModBlocks.RUNESTONE_BRICK_STAIRS,
+                ModBlocks.RUNESTONE_BRICK_SLAB, ModBlocks.RUNESTONE_BRICK_WALL, ModBlocks.RUNESTONE),
+            java.util.List.of(ModBlocks.GLOAMWOOD_PLANKS, ModBlocks.STRIPPED_GLOAMWOOD, ModBlocks.GLOAMWOOD, ModBlocks.GLOAMWOOD_STAIRS,
+                ModBlocks.GLOAMWOOD_SLAB, ModBlocks.GLOAMWOOD_FENCE, ModBlocks.GLOAMWOOD_PLANKS));
+        net.minecraft.world.level.block.state.BlockState air = net.minecraft.world.level.block.Blocks.AIR.defaultBlockState();
+        for (int dx = -2; dx <= 37; dx++)
+            for (int dz = -8; dz <= 2; dz++) {
+                level.setBlock(o.offset(dx, -1, dz), (dz < -5 ? ModBlocks.GLOAM_MOSS : ModBlocks.POLISHED_WARDSTONE).get().defaultBlockState(), 2);
+                for (int dy = 0; dy < 7; dy++) level.setBlock(o.offset(dx, dy, dz), air, 2);
+            }
+        for (int i = 0; i < bays.size(); i++) {
+            var bay = bays.get(i);
+            BlockPos b = o.offset(i * 6, 0, 0);
+            for (int dx = 0; dx < 5; dx++)
+                for (int dy = 0; dy < 4; dy++) {
+                    var block = (dx == 2 && dy == 1) ? bay.get(2) : (dy == 3 || dx == 0 || dx == 4) ? bay.get(1) : bay.get(0);
+                    level.setBlock(b.offset(dx, dy, 1), block.get().defaultBlockState(), 2);
+                }
+            for (int dx = 0; dx < 5; dx++) level.setBlock(b.offset(dx, 0, -1), bay.get(6).get().defaultBlockState(), 2);
+            level.setBlock(b.offset(1, 0, 0), bay.get(3).get().defaultBlockState(), 2);
+            level.setBlock(b.offset(3, 0, 0), bay.get(4).get().defaultBlockState(), 2);
+            level.setBlock(b.offset(0, 0, -2), bay.get(5).get().defaultBlockState(), 3);
+            level.setBlock(b.offset(4, 0, -2), bay.get(5).get().defaultBlockState(), 3);
+            level.setBlock(b.offset(2, 4, 1), (i % 2 == 0 ? ModBlocks.OATHSTEEL_LANTERN : ModBlocks.GLOAM_LANTERN).get().defaultBlockState(), 2);
+        }
+        // the woodwork bay's door and trapdoor, and the lamps, glass and bars between the bays
+        level.setBlock(o.offset(32, 0, 1), ModBlocks.GLOAMWOOD_DOOR.get().defaultBlockState(), 2);
+        level.setBlock(o.offset(32, 1, 1), ModBlocks.GLOAMWOOD_DOOR.get().defaultBlockState()
+            .setValue(net.minecraft.world.level.block.DoorBlock.HALF, net.minecraft.world.level.block.state.properties.DoubleBlockHalf.UPPER), 2);
+        level.setBlock(o.offset(32, 3, 0), ModBlocks.GLOAMWOOD_TRAPDOOR.get().defaultBlockState()
+            .setValue(net.minecraft.world.level.block.TrapDoorBlock.HALF, net.minecraft.world.level.block.state.properties.Half.TOP), 2);
+        for (int i = 0; i < 5; i++) {
+            BlockPos gap = o.offset(i * 6 + 5, 0, 1);
+            var fill = switch (i) {
+                case 0 -> ModBlocks.LUMENITE_LAMP;
+                case 1 -> ModBlocks.GLOAMGLASS;
+                case 2 -> ModBlocks.LANTERNGLASS;
+                case 3 -> ModBlocks.OATHSTEEL_BARS;
+                default -> ModBlocks.GLOAMWOOD_LEAVES;
+            };
+            for (int dy = 0; dy < 3; dy++) {
+                var st = fill.get().defaultBlockState();
+                if (st.hasProperty(net.minecraft.world.level.block.RedstoneLampBlock.LIT)) st = st.setValue(net.minecraft.world.level.block.RedstoneLampBlock.LIT, dy == 1);
+                if (st.hasProperty(net.minecraft.world.level.block.LeavesBlock.PERSISTENT)) st = st.setValue(net.minecraft.world.level.block.LeavesBlock.PERSISTENT, true);
+                level.setBlock(gap.above(dy), st, 3);
+            }
+        }
+        // a strip of wildflowers, pots and moss carpet along the front
+        var flowers = java.util.List.of(ModBlocks.DUSK_LILY, ModBlocks.EMBERROOT, ModBlocks.MOONPETAL, ModBlocks.GLOAM_FERN, ModBlocks.VEILBLOOM,
+            ModBlocks.GLOAMWOOD_SAPLING);
+        var pots = java.util.List.of(ModBlocks.POTTED_DUSK_LILY, ModBlocks.POTTED_EMBERROOT, ModBlocks.POTTED_MOONPETAL, ModBlocks.POTTED_GLOAM_FERN,
+            ModBlocks.POTTED_VEILBLOOM, ModBlocks.POTTED_GLOAMWOOD_SAPLING);
+        for (int dx = 0; dx < 36; dx++) {
+            BlockPos f = o.offset(dx, 0, -6);
+            if (dx % 6 == 5) level.setBlock(f, pots.get((dx / 6) % pots.size()).get().defaultBlockState(), 2);
+            else if (dx % 3 == 0) level.setBlock(f, ModBlocks.GLIMMER_MOSS.get().defaultBlockState(), 2);
+            else level.setBlock(f, flowers.get((dx / 6) % flowers.size()).get().defaultBlockState(), 2);
+        }
     }
 }

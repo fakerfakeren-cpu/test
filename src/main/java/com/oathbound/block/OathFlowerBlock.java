@@ -39,8 +39,7 @@ public class OathFlowerBlock extends FlowerBlock {
                 if (random.nextInt(6) == 0) level.addParticle(ModParticles.EMBER.get(), x, y + 0.2, z, 0, 0.02, 0);
             }
             case MOON -> {
-                long time = level.getDayTime() % 24000L;
-                if (time > 12500 && time < 23500 && random.nextInt(5) == 0) level.addParticle(ModParticles.LUMEN_MOTE.get(), x, y, z, 0, 0.008, 0);
+                if (level.isDarkOutside() && random.nextInt(5) == 0) level.addParticle(ModParticles.LUMEN_MOTE.get(), x, y, z, 0, 0.008, 0);
             }
             case DUSK -> {
                 if (random.nextInt(8) == 0) level.addParticle(ModParticles.GLOAM_WISP.get(), x, y, z, 0, 0.012, 0);
