@@ -51,6 +51,11 @@ public class HrodgarEntity extends KeeperEntity {
         super(type, level, BossEvent.BossBarColor.YELLOW);
     }
 
+    @Override
+    protected boolean guardedByPuzzle() {
+        return true;
+    }
+
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
             .add(Attributes.MAX_HEALTH, 300.0)

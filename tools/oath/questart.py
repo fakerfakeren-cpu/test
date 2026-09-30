@@ -26,9 +26,19 @@ PLACES = {
 CREATURES = {q: 'portrait_' + q for q in ('caldris', 'veyl', 'hrodgar', 'veilhound', 'gloamling', 'lanternmoth', 'forsworn')}
 
 
+# the portraits frame the creature at the centre of the shot; smaller creatures get a closer crop
+PORTRAIT_WIDTH = {'lanternmoth': 300, 'gloamling': 360, 'veilhound': 380}
+PORTRAIT_CY = {'caldris': 0.41, 'veyl': 0.41}
+
+
 def picture(shot):
     im = Image.open(os.path.join(SHOTS, shot + '.jpg')).convert('RGB')
     w, h = im.size
+    if shot.startswith('portrait_'):
+        cw = int(PORTRAIT_WIDTH.get(shot[len('portrait_'):], 440) * w / 960)
+        ch = int(cw * H / W)
+        cx, cy = w // 2, int(h * PORTRAIT_CY.get(shot[len('portrait_'):], 0.47))
+        return im.crop((cx - cw // 2, cy - ch // 2, cx - cw // 2 + cw, cy - ch // 2 + ch)).resize((W, H), Image.LANCZOS)
     ch = int(w * H / W)
     top = max(0, min(h - ch, int((h - ch) * 0.55)))
     im = im.crop((0, top, w, top + ch)).resize((W, H), Image.LANCZOS)

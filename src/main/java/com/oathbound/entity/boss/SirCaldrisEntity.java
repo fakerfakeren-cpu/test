@@ -45,6 +45,11 @@ public class SirCaldrisEntity extends KeeperEntity {
         super(type, level, BossEvent.BossBarColor.BLUE);
     }
 
+    @Override
+    protected boolean guardedByPuzzle() {
+        return true;
+    }
+
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
             .add(Attributes.MAX_HEALTH, 180.0)

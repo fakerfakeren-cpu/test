@@ -100,6 +100,29 @@ public abstract class KeeperEntity extends Monster {
         builder.define(MOVE_TICKS, 0);
     }
 
+    /**
+     * Story keepers sleep behind their structure's puzzle: until it is solved they cannot be woken or harmed, so
+     * digging round a ward gains nothing. Solving the puzzle unseals every keeper nearby ({@link #unsealNear}).
+     * Keepers saved before seals existed load unsealed.
+     */
+    private boolean sealed = guardedByPuzzle();
+
+    protected boolean guardedByPuzzle() {
+        return false;
+    }
+
+    public boolean isSealed() {
+        return sealed;
+    }
+
+    public static void unsealNear(ServerLevel level, net.minecraft.core.BlockPos pos, double radius) {
+        for (KeeperEntity k : level.getEntitiesOfClass(KeeperEntity.class, new net.minecraft.world.phys.AABB(pos).inflate(radius))) k.sealed = false;
+    }
+
+    private void sealedNotice(Player p) {
+        p.sendOverlayMessage(Component.translatable("message.oathbound.keeper.sealed").withStyle(net.minecraft.ChatFormatting.LIGHT_PURPLE));
+    }
+
     public boolean isSleeping() {
         return entityData.get(SLEEPING);
     }
@@ -172,6 +195,10 @@ public abstract class KeeperEntity extends Monster {
             if (tickCount % 10 == 0) {
                 for (Player p : level.getEntitiesOfClass(Player.class, getBoundingBox().inflate(wakeRange()), this::isChallenger)) {
                     if (hasLineOfSight(p)) {
+                        if (sealed) {
+                            if (tickCount % 60 == 0) sealedNotice(p);
+                            continue;
+                        }
                         wake(level, p);
                         break;
                     }
@@ -223,6 +250,10 @@ public abstract class KeeperEntity extends Monster {
     public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
         if (source.is(DamageTypeTags.IS_FALL) || source.is(DamageTypes.IN_WALL) || source.is(DamageTypes.DROWN)) return false;
         if (source.getEntity() == this) return false;
+        if (isSleeping() && sealed && !source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
+            if (source.getEntity() instanceof Player p) sealedNotice(p);
+            return false;
+        }
         if (isSleeping() && source.getEntity() instanceof Player p) wake(level, p);
         return super.hurtServer(level, source, Math.min(amount, damageCap()));
     }
@@ -276,12 +307,14 @@ public abstract class KeeperEntity extends Monster {
     protected void addAdditionalSaveData(ValueOutput out) {
         super.addAdditionalSaveData(out);
         out.putBoolean("Sleeping", isSleeping());
+        out.putBoolean("Sealed", sealed);
     }
 
     @Override
     protected void readAdditionalSaveData(ValueInput in) {
         super.readAdditionalSaveData(in);
         entityData.set(SLEEPING, in.getBooleanOr("Sleeping", true));
+        sealed = in.getBooleanOr("Sealed", false);
         bar.setVisible(!isSleeping());
         scaled = true;
     }

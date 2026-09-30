@@ -12,6 +12,7 @@ import com.oathbound.util.Puzzles;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -105,6 +106,12 @@ public class CipherLecternBlock extends HorizontalDirectionalBlock {
             player.sendSystemMessage(Component.literal(RuneDialBlock.NUMERALS[i] + ". ").withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.BOLD)
                 .append(Component.translatable("riddle.oathbound." + ans[i] + "." + variant(pos, i)).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC)));
         }
+        MutableComponent glyphs = Component.empty();
+        for (int g = 0; g < RuneDialBlock.GLYPHS; g++) {
+            if (g > 0) glyphs.append(Component.literal(" \u00b7 ").withStyle(ChatFormatting.DARK_GRAY));
+            glyphs.append(RuneDialBlock.glyphName(g));
+        }
+        player.sendSystemMessage(Component.translatable("message.oathbound.cipher.glyphs", glyphs).withStyle(ChatFormatting.GRAY));
         player.sendSystemMessage(Component.translatable("message.oathbound.cipher.instructions").withStyle(ChatFormatting.DARK_GRAY));
         Vfx.burst(server, ModParticles.ARCANE_GLYPH.get(), Vec3.atCenterOf(pos).add(0, 0.8, 0), 20, 0.4, 0.03);
         return InteractionResult.SUCCESS;

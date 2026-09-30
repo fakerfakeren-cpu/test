@@ -58,6 +58,11 @@ public class ArchmageVeylEntity extends KeeperEntity {
         setNoGravity(true);
     }
 
+    @Override
+    protected boolean guardedByPuzzle() {
+        return true;
+    }
+
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
             .add(Attributes.MAX_HEALTH, 220.0)

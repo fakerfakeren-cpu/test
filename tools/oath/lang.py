@@ -378,12 +378,18 @@ ARMORY = {
 
 GLYPHS = ['the Lantern', 'the Crossing', 'the Seal', 'the Keep', 'the Eye', 'the Crown']
 RIDDLES = {
-    0: ["I am carried into the dark so that the dark may be carried out.", "I have a heart of fire and a body of iron, and I hang from a hand."],
-    1: ["Two roads meet in me, and neither ends.", "I am where the sword and the oath cross."],
-    2: ["Break me, and what I held is free.", "I am pressed in wax and in stone, and I keep what I close."],
-    3: ["I have walls but no rooms, and I am the last to fall.", "Four towers, one heart; the siege ends when I do."],
-    4: ["I see only what is lit, and I am the first thing a ward must fool.", "I open at dawn and close at dusk, and I weep."],
-    5: ["I sat on the head of a man who lied, and I was empty.", "I have points but no edge, and a king under me."],
+    0: ["I hold a flame in a cage of glass and iron, and every warden carries me into the dark.",
+        "Light me and the shadows run; let me go out and they come back."],
+    1: ["Where one road meets another and both go on, there I am.",
+        "Mark me with an X on a map: the place where two ways cross."],
+    2: ["Pressed into hot wax, I keep a letter shut until the right hand breaks me.",
+        "Every keeper you defeat leaves one of me behind."],
+    3: ["I am the strongest tower of a castle, the last place its defenders run to.",
+        "Castle, fortress, stronghold: I am the heart of all three, and the siege ends when I fall."],
+    4: ["I have a lid but hold no treasure; I can see, but I cannot touch.",
+        "Close me and the world goes dark, though the sun still shines."],
+    5: ["A king wears me on his head, and the Hollow King's is empty.",
+        "A ring of gold with points but no edge; whoever wears me rules."],
 }
 KINGS = ['Eadric Oakenhelm', 'Wulfstan the Sword-Oath', 'Aethelwin Shieldbearer']
 TONES = ['blue', 'green', 'gold', 'red']
@@ -417,7 +423,10 @@ MESSAGES = {
     'message.oathbound.hymn.opened': 'The last bell fades... and far below, the crypt grate lifts.',
     'message.oathbound.bell.rung': 'The %s bell tolls.',
     'message.oathbound.cipher.title': '~ The Archmage\'s Cipher ~',
-    'message.oathbound.cipher.instructions': 'Set each numbered Rune Dial to the glyph its riddle names.',
+    'message.oathbound.cipher.instructions': 'Set each numbered Rune Dial to the glyph its riddle names. Right-click a dial to turn it; sneak to turn it back.',
+    'message.oathbound.cipher.glyphs': 'The six glyphs: %s',
+    'message.oathbound.keeper.sealed': 'It sleeps behind its seal and cannot be woken or harmed. Solve the puzzle that guards this place first.',
+    'message.oathbound.sealed_stone': 'The stones of this place are bound by the keeper\'s seal.',
     'message.oathbound.cipher.dark': 'The pages are blank. The cipher reveals itself only to one who holds the Seal of Valor.',
     'message.oathbound.cipher.solved': 'The dials lock. The ward before the sanctum shivers and dissolves.',
     'message.oathbound.cipher.opened': 'The cipher is solved. The sanctum stands open.',

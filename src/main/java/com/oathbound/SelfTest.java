@@ -503,6 +503,9 @@ public final class SelfTest {
                     default -> ModEntities.HRODGAR.get();
                 };
                 KeeperEntity k = spawn(level, type, at);
+                check(keeper + "_sealed_until_solved", k.isSealed(), "");
+                KeeperEntity.unsealNear(level, at, 4);
+                check(keeper + "_unsealed_by_puzzle", !k.isSealed(), "");
                 k.wake(level, null);
                 check(keeper + "_awake", !k.isSleeping(), "");
             });

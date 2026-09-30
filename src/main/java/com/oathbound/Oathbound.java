@@ -62,6 +62,9 @@ public final class Oathbound {
         TickEvent.LevelTickEvent.Post.BUS.addListener(Oathbound::levelTick);
         TickEvent.PlayerTickEvent.Post.BUS.addListener(e -> GameEvents.onPlayerTick(e.player()));
         LivingHurtEvent.BUS.addListener(GameEvents::onLivingHurt);
+        net.minecraftforge.event.level.BlockEvent.BreakEvent.BUS.addListener(
+            (java.util.function.Predicate<net.minecraftforge.event.level.BlockEvent.BreakEvent>) GameEvents::onBreak);
+        net.minecraftforge.event.level.ExplosionEvent.Detonate.BUS.addListener(GameEvents::onDetonate);
         PlayerEvent.PlayerLoggedInEvent.BUS.addListener(GameEvents::onLogin);
         PlayerEvent.PlayerChangedDimensionEvent.BUS.addListener(GameEvents::onChangedDimension);
         ServerStartedEvent.BUS.addListener(SelfTest::onServerStarted);

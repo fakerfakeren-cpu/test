@@ -35,6 +35,7 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -328,6 +329,34 @@ public final class GameEvents {
         } finally {
             IN_CHARGE.set(false);
         }
+    }
+
+    // ------------------------------------------------------------------ sealed keeps
+    /** The story keeps and the keeper whose defeat lifts their seal: until then their stones cannot be broken or blasted. */
+    private static final List<java.util.Map.Entry<net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure>, String>> SEALED = List.of(
+        java.util.Map.entry(ModTags.DROWNED_CHAPEL, "caldris"), java.util.Map.entry(ModTags.ARCANIST_SPIRE, "veyl"),
+        java.util.Map.entry(ModTags.BARROW, "hrodgar"));
+
+    /** The keeper quest that guards this position, or null outside the story keeps. */
+    public static String sealedBy(ServerLevel level, BlockPos pos) {
+        for (var e : SEALED) if (level.structureManager().getStructureWithPieceAt(pos, e.getKey()).isValid()) return e.getValue();
+        return null;
+    }
+
+    /** Survival players cannot dig into a keep before they have beaten its keeper. Returns true to cancel. */
+    public static boolean onBreak(net.minecraftforge.event.level.BlockEvent.BreakEvent event) {
+        if (!(event.getLevel() instanceof ServerLevel level) || !(event.getPlayer() instanceof ServerPlayer p) || p.isCreative()) return false;
+        if (event.getState().getDestroySpeed(level, event.getPos()) == 0) return false;
+        String keeper = sealedBy(level, event.getPos());
+        if (keeper == null || QuestLog.isComplete(p, keeper)) return false;
+        p.sendOverlayMessage(Component.translatable("message.oathbound.sealed_stone").withStyle(ChatFormatting.LIGHT_PURPLE));
+        return true;
+    }
+
+    /** Explosions (creepers, TNT, a keeper's own blasts) leave the keeps' stones standing. */
+    public static void onDetonate(net.minecraftforge.event.level.ExplosionEvent.Detonate event) {
+        if (!(event.getLevel() instanceof ServerLevel level)) return;
+        event.getAffectedBlocks().removeIf(pos -> sealedBy(level, pos) != null);
     }
 
     // ------------------------------------------------------------------ joining & travelling

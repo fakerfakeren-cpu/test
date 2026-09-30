@@ -65,6 +65,8 @@ public final class Puzzles {
      * and a sound, so seals visibly dissolve rather than vanish.
      */
     public static int unseal(ServerLevel level, BlockPos center, int radius, Block block, ParticleOptions particle, SoundEvent sound) {
+        // the keeper this seal guarded can now be woken
+        com.oathbound.entity.boss.KeeperEntity.unsealNear(level, center, 48);
         List<BlockPos> found = find(level, center, radius, block);
         if (found.isEmpty()) return 0;
         found.sort((a, b) -> Integer.compare(b.getY(), a.getY()));
