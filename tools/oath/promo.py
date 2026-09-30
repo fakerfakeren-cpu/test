@@ -112,7 +112,7 @@ GALLERY = [
     ('wild_keepers', 'The Wild Keepers', 'The Elderhorn, the Bog Mother and the Cinder Colossus, each in its own lair.'),
     ('spellcraft', 'Spellcraft', 'Rune circles, pillars of light, shockwaves and beams.'),
     ('chronicle_path', 'The Lantern Chronicle', 'A living quest book: the story, the Path, tithes, a bestiary and an armory.'),
-    ('landmarks', 'The Land Remembers', 'Waystones, ruined outposts and a pilgrim of the Order on the road.'),
+    ('gloaming_veilwood', 'The Veilwood', 'Violet groves of the Gloaming, where the Order hung its lanterns and never came back for them.'),
     ('masonry', 'Five Stone Families', 'Wardstone, gloamstone, tidestone, barrowstone and runestone, and more.'),
     ('cinder_sanctum', 'The Places off the Path', 'Seven sites in seven kinds of country, none like another.'),
 ]
