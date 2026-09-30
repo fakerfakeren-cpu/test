@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.oathbound.Oathbound;
 import com.oathbound.client.model.CreatureModels;
 import com.oathbound.client.model.KeeperModels;
+import com.oathbound.client.model.Rig;
 import com.oathbound.entity.boss.*;
 import com.oathbound.entity.mob.*;
 import com.oathbound.entity.projectile.CrownBladeEntity;
@@ -71,6 +72,34 @@ public final class Renderers {
         @Override
         public Identifier getTextureLocation(S s) {
             return texture;
+        }
+    }
+
+    // ------------------------------------------------------------------ the wider roster
+    /** One renderer for every fauna creature: its rig, texture, glow layer, scale and ghostliness. */
+    public static class Fauna<E extends Mob & FaunaEntity> extends Base<E, States.Fauna, Rig<States.Fauna>> {
+        public Fauna(EntityRendererProvider.Context c, Function<net.minecraft.client.model.geom.ModelPart, Rig<States.Fauna>> rig, String name,
+                     float shadow, float scale) {
+            super(c, rig.apply(c.bakeLayer(layer(name))), name, shadow, scale);
+        }
+
+        @Override
+        public States.Fauna createRenderState() {
+            return new States.Fauna();
+        }
+
+        @Override
+        public void extractRenderState(E e, States.Fauna s, float pt) {
+            super.extractRenderState(e, s, pt);
+            s.attack = e.getAttackAnim(pt);
+            s.action = e.fauna$action();
+            s.variant = e.fauna$variant();
+            s.ghost = e.fauna$ghost();
+        }
+
+        @Override
+        protected boolean ghostly(States.Fauna s) {
+            return s.ghost;
         }
     }
 

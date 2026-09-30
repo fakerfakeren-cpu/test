@@ -611,12 +611,8 @@ FLOWER_BIOMES = {
 
 
 def patch(name, block, tries, spread, rarity):
-    D.write(f'worldgen/configured_feature/{name}.json', {'type': 'minecraft:flower', 'config': {
-        'tries': tries, 'xz_spread': spread, 'y_spread': 3,
-        'feature': {'feature': {'type': 'minecraft:simple_block', 'config': {
-            'to_place': {'type': 'minecraft:simple_state_provider', 'state': {'Name': D.o(block)}}}},
-            'placement': [{'type': 'minecraft:block_predicate_filter',
-                           'predicate': {'type': 'minecraft:matching_blocks', 'blocks': 'minecraft:air'}}]}}})
+    """A meadow of one plant, placed by its own oathbound:<name> feature (GloamFeatures.Wildflowers)."""
+    D.write(f'worldgen/configured_feature/{name}.json', {'type': f'oathbound:{name}', 'config': {}})
     D.write(f'worldgen/placed_feature/{name}.json', {'feature': f'oathbound:{name}', 'placement': [
         {'type': 'minecraft:rarity_filter', 'chance': rarity}, {'type': 'minecraft:in_square'},
         {'type': 'minecraft:heightmap', 'heightmap': 'MOTION_BLOCKING'}, {'type': 'minecraft:biome'}]})

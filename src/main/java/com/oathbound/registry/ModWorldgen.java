@@ -36,6 +36,16 @@ public final class ModWorldgen {
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> VEILBLOOM_PATCH =
         FEATURES.register("veilbloom_patch", () -> new GloamFeatures.Flowers(NoneFeatureConfiguration.CODEC));
 
+    /** Wildflower meadows and the Gloaming's ferns. */
+    public static final RegistryObject<Feature<NoneFeatureConfiguration>> DUSK_LILY_PATCH = FEATURES.register("dusk_lily_patch",
+        () -> new GloamFeatures.Wildflowers(NoneFeatureConfiguration.CODEC, ModBlocks.DUSK_LILY, 48, 6));
+    public static final RegistryObject<Feature<NoneFeatureConfiguration>> EMBERROOT_PATCH = FEATURES.register("emberroot_patch",
+        () -> new GloamFeatures.Wildflowers(NoneFeatureConfiguration.CODEC, ModBlocks.EMBERROOT, 40, 6));
+    public static final RegistryObject<Feature<NoneFeatureConfiguration>> MOONPETAL_PATCH = FEATURES.register("moonpetal_patch",
+        () -> new GloamFeatures.Wildflowers(NoneFeatureConfiguration.CODEC, ModBlocks.MOONPETAL, 40, 6));
+    public static final RegistryObject<Feature<NoneFeatureConfiguration>> GLOAM_FERN_PATCH = FEATURES.register("gloam_fern_patch",
+        () -> new GloamFeatures.Wildflowers(NoneFeatureConfiguration.CODEC, ModBlocks.GLOAM_FERN, 40, 7));
+
     public static final ResourceKey<Level> GLOAMING = ResourceKey.create(Registries.DIMENSION, Identifier.fromNamespaceAndPath(Oathbound.MODID, "gloaming"));
 
     private ModWorldgen() {}

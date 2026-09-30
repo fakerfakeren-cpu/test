@@ -477,6 +477,8 @@ def crown_blade():
 
 MODELS = [lanternmoth, gloamling, forsworn_knight, barrow_wight, animated_tome, veilhound, spectral_housecarl,
           sir_caldris, archmage_veyl, hrodgar, morvane, crown_blade]
+from .fauna import FAUNA  # noqa: E402  (the wider roster)
+MODELS += FAUNA
 
 # representative poses for the previews (part -> added rotation)
 PREVIEW_POSES = {

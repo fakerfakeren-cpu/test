@@ -1,30 +1,4 @@
 {
-  "type": "minecraft:flower",
-  "config": {
-    "tries": 40,
-    "xz_spread": 7,
-    "y_spread": 3,
-    "feature": {
-      "feature": {
-        "type": "minecraft:simple_block",
-        "config": {
-          "to_place": {
-            "type": "minecraft:simple_state_provider",
-            "state": {
-              "Name": "oathbound:gloam_fern"
-            }
-          }
-        }
-      },
-      "placement": [
-        {
-          "type": "minecraft:block_predicate_filter",
-          "predicate": {
-            "type": "minecraft:matching_blocks",
-            "blocks": "minecraft:air"
-          }
-        }
-      ]
-    }
-  }
+  "type": "oathbound:gloam_fern_patch",
+  "config": {}
 }

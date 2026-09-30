@@ -157,4 +157,34 @@ public final class GloamFeatures {
             return placed > 0;
         }
     }
+
+    /** A meadow of one wildflower: scattered plants wherever the ground will hold them. */
+    public static class Wildflowers extends Feature<NoneFeatureConfiguration> {
+        private final java.util.function.Supplier<? extends net.minecraft.world.level.block.Block> flower;
+        private final int tries, spread;
+
+        public Wildflowers(Codec<NoneFeatureConfiguration> codec, java.util.function.Supplier<? extends net.minecraft.world.level.block.Block> flower,
+                           int tries, int spread) {
+            super(codec);
+            this.flower = flower;
+            this.tries = tries;
+            this.spread = spread;
+        }
+
+        @Override
+        public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> ctx) {
+            WorldGenLevel level = ctx.level();
+            RandomSource r = ctx.random();
+            BlockState state = flower.get().defaultBlockState();
+            int placed = 0;
+            for (int i = 0; i < tries; i++) {
+                BlockPos p = ctx.origin().offset(r.nextInt(spread * 2 + 1) - spread, r.nextInt(5) - 2, r.nextInt(spread * 2 + 1) - spread);
+                if (level.getBlockState(p).isAir() && state.canSurvive(level, p)) {
+                    level.setBlock(p, state, 2);
+                    placed++;
+                }
+            }
+            return placed > 0;
+        }
+    }
 }

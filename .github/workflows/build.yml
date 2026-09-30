@@ -51,7 +51,7 @@ jobs:
           pause-when-empty-seconds=0
           PROPS
           sed -i 's/^ *//' run/server.properties
-          timeout 1500 ./gradlew runServer -Pselftest --stacktrace 2>&1 | tee server.log || true
+          timeout 600 ./gradlew runServer -Pselftest --stacktrace 2>&1 | tee server.log || true
           grep -q "\[SELFTEST\] RESULT: PASS" server.log
 
       - name: Client smoke test (real client, screenshots)

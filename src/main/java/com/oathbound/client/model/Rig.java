@@ -18,6 +18,11 @@ public abstract class Rig<S extends EntityRenderState> extends EntityModel<S> {
         this.hull = root.getChild("hull");
     }
 
+    /** The named part, or null if this model has none (for rigs shared by several body plans). */
+    protected ModelPart opt(String name) {
+        return ModelDefs.path(model, name) == null ? null : part(name);
+    }
+
     protected ModelPart part(String name) {
         String[] path = ModelDefs.path(model, name);
         if (path == null) throw new IllegalArgumentException(model + " has no part " + name);

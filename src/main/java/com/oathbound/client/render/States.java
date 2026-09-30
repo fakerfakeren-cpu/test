@@ -9,6 +9,14 @@ public final class States {
 
     public static class Moth extends LivingEntityRenderState {}
 
+    /** Shared by every creature of the wider roster: an attack swing, one special action and a variant. */
+    public static class Fauna extends LivingEntityRenderState {
+        public float attack;
+        public boolean action;
+        public int variant;
+        public boolean ghost;
+    }
+
     public static class Gloamling extends LivingEntityRenderState {
         public boolean veiled;
         public float attack;
