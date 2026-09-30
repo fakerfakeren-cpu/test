@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "oathbound:wardstone_bricks",
+  "result": {
+    "id": "oathbound:wardstone_brick_wall",
+    "count": 1
+  }
+}

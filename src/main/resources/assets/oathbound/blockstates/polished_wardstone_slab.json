@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "oathbound:block/polished_wardstone_slab"
+    },
+    "type=top": {
+      "model": "oathbound:block/polished_wardstone_slab_top"
+    },
+    "type=double": {
+      "model": "oathbound:block/polished_wardstone"
+    }
+  }
+}

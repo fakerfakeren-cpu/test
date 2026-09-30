@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "oathbound:block/tidestone_brick_slab"
+    },
+    "type=top": {
+      "model": "oathbound:block/tidestone_brick_slab_top"
+    },
+    "type=double": {
+      "model": "oathbound:block/tidestone_bricks"
+    }
+  }
+}

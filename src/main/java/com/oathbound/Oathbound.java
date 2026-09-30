@@ -11,6 +11,9 @@ import com.oathbound.registry.*;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ComposterBlock;
+import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.RegisterCommandsEvent;
@@ -22,6 +25,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import org.slf4j.Logger;
@@ -49,6 +53,7 @@ public final class Oathbound {
         ModTabs.TABS.register(modBus);
 
         context.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+        FMLCommonSetupEvent.getBus(modBus).addListener(Oathbound::commonSetup);
 
         EntityAttributeCreationEvent.BUS.addListener(Oathbound::attributes);
         SpawnPlacementRegisterEvent.BUS.addListener(Oathbound::spawnPlacements);
@@ -65,6 +70,24 @@ public final class Oathbound {
         if (FMLEnvironment.dist == Dist.CLIENT) {
             com.oathbound.client.ClientSetup.init(context);
         }
+    }
+
+    /** Potted plants and compost: both are vanilla lookup tables that mods fill once registries are frozen. */
+    private static void commonSetup(FMLCommonSetupEvent event) {
+        event.enqueueWork(() -> {
+            FlowerPotBlock pot = (FlowerPotBlock) Blocks.FLOWER_POT;
+            pot.addPlant(ModBlocks.DUSK_LILY.getId(), ModBlocks.POTTED_DUSK_LILY);
+            pot.addPlant(ModBlocks.EMBERROOT.getId(), ModBlocks.POTTED_EMBERROOT);
+            pot.addPlant(ModBlocks.MOONPETAL.getId(), ModBlocks.POTTED_MOONPETAL);
+            pot.addPlant(ModBlocks.GLOAM_FERN.getId(), ModBlocks.POTTED_GLOAM_FERN);
+            pot.addPlant(ModBlocks.VEILBLOOM.getId(), ModBlocks.POTTED_VEILBLOOM);
+            pot.addPlant(ModBlocks.GLOAMWOOD_SAPLING.getId(), ModBlocks.POTTED_GLOAMWOOD_SAPLING);
+            for (var plant : java.util.List.of(ModBlocks.DUSK_LILY, ModBlocks.EMBERROOT, ModBlocks.MOONPETAL, ModBlocks.VEILBLOOM,
+                ModBlocks.GLOAM_FERN, ModBlocks.GLOAMWOOD_SAPLING, ModBlocks.GLOAMWOOD_LEAVES)) {
+                ComposterBlock.COMPOSTABLES.put(plant.get().asItem(), 0.3f);
+            }
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.GLIMMER_MOSS.get().asItem(), 0.3f);
+        });
     }
 
     private static void attributes(EntityAttributeCreationEvent event) {

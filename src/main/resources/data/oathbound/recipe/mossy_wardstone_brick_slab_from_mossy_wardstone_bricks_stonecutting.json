@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "oathbound:mossy_wardstone_bricks",
+  "result": {
+    "id": "oathbound:mossy_wardstone_brick_slab",
+    "count": 2
+  }
+}

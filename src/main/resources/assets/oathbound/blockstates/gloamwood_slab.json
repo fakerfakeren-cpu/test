@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "oathbound:block/gloamwood_slab"
+    },
+    "type=top": {
+      "model": "oathbound:block/gloamwood_slab_top"
+    },
+    "type=double": {
+      "model": "oathbound:block/gloamwood_planks"
+    }
+  }
+}

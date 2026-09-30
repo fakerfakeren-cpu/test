@@ -501,8 +501,10 @@ def subtitles():
 
 
 def build():
+    from .building import NAMES as BUILDING
     names('item', ITEMS)
     names('block', BLOCKS)
+    names('block', BUILDING)
     names('entity', ENTITIES)
     for mob in ('lanternmoth', 'gloamling', 'forsworn_knight', 'barrow_wight', 'animated_tome', 'veilhound', 'spectral_housecarl',
                 'sir_caldris', 'archmage_veyl', 'hrodgar', 'morvane'):

@@ -270,8 +270,21 @@ def loot_tables():
 
 
 # ====================================================================== tags
+_TAGS = {}
+
+
 def tag(path, values, ns=NS, replace=False):
-    write(f'tags/{path}.json', {'replace': replace, 'values': [o(v) if ':' not in v and not v.startswith('#') else v for v in values]}, ns)
+    """Collects a tag's values; several callers may add to the same tag. flush_tags() writes them all."""
+    cur = _TAGS.setdefault((ns, path), [])
+    for v in values:
+        v = o(v) if ':' not in v and not v.startswith('#') else v
+        if v not in cur:
+            cur.append(v)
+
+
+def flush_tags():
+    for (ns, path), values in _TAGS.items():
+        write(f'tags/{path}.json', {'replace': False, 'values': values}, ns)
 
 
 PICKAXE_BLOCKS = ['lumenite_ore', 'deepslate_lumenite_ore', 'lumenite_block', 'oathsteel_block', 'wardstone', 'wardstone_bricks',
@@ -439,7 +452,7 @@ def gloaming():
                                                         'secondary_depth_range': 0, 'surface_type': 'floor'},
              'then_run': {'type': 'minecraft:block', 'result_state': {'Name': 'oathbound:gloam_moss'}}},
             {'type': 'minecraft:block', 'result_state': {'Name': 'oathbound:gloamstone'}}]}})
-    features = []
+    features = ['oathbound:gloam_fern_patch']   # written by building.worldgen()
     for fid, count, chance in (('gloamwood_tree', None, 3), ('gloam_ruin', None, 18), ('veilbloom_patch', 2, None)):
         write(f'worldgen/configured_feature/{fid}.json', {'type': f'oathbound:{fid}', 'config': {}})
         placement = []
@@ -555,11 +568,19 @@ def recipes():
 
 
 def generate():
+    from . import building
     recipes()
+    building.recipes()
     advancements()
     loot_tables()
+    for b in building.TABLE:
+        building.loot(b)
     tags()
+    for path, values in building.TAGS.items():
+        tag(path, values, 'minecraft')
     worldgen()
+    building.worldgen()
+    flush_tags()
     print('data written')
 
 

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "oathbound:block/gloam_lantern"
+    },
+    "hanging=true": {
+      "model": "oathbound:block/gloam_lantern_hanging"
+    }
+  }
+}

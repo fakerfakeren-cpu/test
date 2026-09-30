@@ -1,6 +1,16 @@
 {
   "replace": false,
   "values": [
-    "oathbound:wardstone_brick_stairs"
+    "oathbound:wardstone_brick_stairs",
+    "oathbound:wardstone_stairs",
+    "oathbound:mossy_wardstone_brick_stairs",
+    "oathbound:polished_wardstone_stairs",
+    "oathbound:gloamstone_stairs",
+    "oathbound:gloamstone_brick_stairs",
+    "oathbound:polished_gloamstone_stairs",
+    "oathbound:gloamwood_stairs",
+    "oathbound:tidestone_brick_stairs",
+    "oathbound:barrowstone_brick_stairs",
+    "oathbound:runestone_brick_stairs"
   ]
 }

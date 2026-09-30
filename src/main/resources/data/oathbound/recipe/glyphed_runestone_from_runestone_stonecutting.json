@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "oathbound:runestone",
+  "result": {
+    "id": "oathbound:glyphed_runestone",
+    "count": 1
+  }
+}

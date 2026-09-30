@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "oathbound:block/runestone_bricks",
+    "top": "oathbound:block/runestone_bricks",
+    "side": "oathbound:block/runestone_bricks"
+  }
+}

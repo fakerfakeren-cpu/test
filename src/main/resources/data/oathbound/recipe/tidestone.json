@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "SP",
+    "PS"
+  ],
+  "key": {
+    "S": "minecraft:stone",
+    "P": "minecraft:prismarine_shard"
+  },
+  "result": {
+    "id": "oathbound:tidestone",
+    "count": 4
+  }
+}

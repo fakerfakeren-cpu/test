@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "oathbound:block/gloamstone_tiles"
+  }
+}

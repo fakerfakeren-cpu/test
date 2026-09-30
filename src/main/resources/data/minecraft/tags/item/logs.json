@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-    "oathbound:gloamwood_log"
+    "oathbound:gloamwood_log",
+    "oathbound:gloamwood",
+    "oathbound:stripped_gloamwood_log",
+    "oathbound:stripped_gloamwood"
   ]
 }

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    "oathbound:polished_wardstone"
+  ],
+  "result": {
+    "id": "oathbound:wardstone_button",
+    "count": 1
+  }
+}

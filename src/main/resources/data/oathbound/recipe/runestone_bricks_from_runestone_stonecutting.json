@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "oathbound:runestone",
+  "result": {
+    "id": "oathbound:runestone_bricks",
+    "count": 1
+  }
+}

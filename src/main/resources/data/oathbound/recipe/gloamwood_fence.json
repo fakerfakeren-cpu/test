@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "W#W",
+    "W#W"
+  ],
+  "key": {
+    "W": "oathbound:gloamwood_planks",
+    "#": "minecraft:stick"
+  },
+  "result": {
+    "id": "oathbound:gloamwood_fence",
+    "count": 3
+  },
+  "group": "wooden_fence"
+}

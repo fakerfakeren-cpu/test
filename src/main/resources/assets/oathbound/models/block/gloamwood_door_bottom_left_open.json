@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom_left_open",
+  "textures": {
+    "top": "oathbound:block/gloamwood_door_top",
+    "bottom": "oathbound:block/gloamwood_door_bottom"
+  }
+}

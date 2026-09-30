@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "oathbound:barrowstone",
+  "result": {
+    "id": "oathbound:barrowstone_bricks",
+    "count": 1
+  }
+}

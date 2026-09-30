@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": "oathbound:stripped_gloamwood_log"
+  },
+  "result": {
+    "id": "oathbound:stripped_gloamwood",
+    "count": 3
+  }
+}

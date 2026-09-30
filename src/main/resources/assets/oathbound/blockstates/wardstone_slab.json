@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "oathbound:block/wardstone_slab"
+    },
+    "type=top": {
+      "model": "oathbound:block/wardstone_slab_top"
+    },
+    "type=double": {
+      "model": "oathbound:block/wardstone"
+    }
+  }
+}

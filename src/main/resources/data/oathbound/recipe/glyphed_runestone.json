@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "oathbound:runestone_bricks",
+    "oathbound:lumenite_dust"
+  ],
+  "result": {
+    "id": "oathbound:glyphed_runestone",
+    "count": 1
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#oathbound:has_flower/dusk_lily",
+  "features": [
+    "oathbound:dusk_lily_patch"
+  ],
+  "step": "vegetal_decoration"
+}

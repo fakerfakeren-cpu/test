@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "oathbound:barrowstone_bricks",
+    "minecraft:bone"
+  ],
+  "result": {
+    "id": "oathbound:bone_inlaid_barrowstone",
+    "count": 1
+  }
+}

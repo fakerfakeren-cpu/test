@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-    "oathbound:veilbloom"
+    "oathbound:veilbloom",
+    "oathbound:dusk_lily",
+    "oathbound:emberroot",
+    "oathbound:moonpetal"
   ]
 }

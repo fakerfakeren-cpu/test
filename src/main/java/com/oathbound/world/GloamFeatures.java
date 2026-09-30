@@ -28,8 +28,8 @@ public final class GloamFeatures {
     }
 
     /**
-     * A leafless gloamwood: a trunk that leans and splits into crooked boughs, hung with veilbloom-lit
-     * lantern husks. Every tree is different.
+     * A gloamwood: a trunk that leans and splits into crooked boughs crowned with glowing violet leaves
+     * and hung with gloam lanterns. Every tree is different.
      */
     public static class Tree extends Feature<NoneFeatureConfiguration> {
         public Tree(Codec<NoneFeatureConfiguration> codec) {
@@ -64,15 +64,33 @@ public final class GloamFeatures {
                     p = p.offset((int) Math.round(Math.cos(a)), r.nextInt(3) == 0 ? 1 : 0, (int) Math.round(Math.sin(a)));
                     set(level, p, log.setValue(RotatedPillarBlock.AXIS, i == len ? Direction.Axis.Y : axis));
                 }
-                if (r.nextInt(3) == 0) set(level, p.below(), Blocks.SOUL_LANTERN.defaultBlockState()
+                canopy(level, r, p);
+                if (r.nextInt(3) == 0) set(level, p.below(), ModBlocks.GLOAM_LANTERN.get().defaultBlockState()
                     .setValue(net.minecraft.world.level.block.LanternBlock.HANGING, true));
             }
+            canopy(level, r, top);
             // roots
             for (Direction d : Direction.Plane.HORIZONTAL) {
                 if (r.nextInt(2) == 0) set(level, base.relative(d), log.setValue(RotatedPillarBlock.AXIS, d.getAxis()));
             }
             return true;
         }
+    }
+
+    /** A loose, glowing crown of gloamwood leaves over a bough's end, never below it (lanterns hang there). */
+    private static void canopy(WorldGenLevel level, RandomSource r, BlockPos end) {
+        BlockState leaves = ModBlocks.GLOAMWOOD_LEAVES.get().defaultBlockState();
+        int rad = 1 + r.nextInt(2);
+        for (int dx = -rad; dx <= rad; dx++)
+            for (int dy = 0; dy <= rad; dy++)
+                for (int dz = -rad; dz <= rad; dz++) {
+                    int d = Math.abs(dx) + Math.abs(dy) + Math.abs(dz);
+                    if (d == 0 || d > rad + 1 || (d == rad + 1 && r.nextInt(3) != 0)) continue;
+                    BlockPos q = end.offset(dx, dy, dz);
+                    if (level.getBlockState(q).isAir()) {
+                        level.setBlock(q, leaves.setValue(net.minecraft.world.level.block.LeavesBlock.DISTANCE, Math.min(6, Math.max(1, d))), 2);
+                    }
+                }
     }
 
     /**

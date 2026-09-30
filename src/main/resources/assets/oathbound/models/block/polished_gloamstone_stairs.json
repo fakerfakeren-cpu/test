@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "oathbound:block/polished_gloamstone",
+    "top": "oathbound:block/polished_gloamstone",
+    "side": "oathbound:block/polished_gloamstone"
+  }
+}

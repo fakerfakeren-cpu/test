@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "oathbound:block/gloamwood_pressure_plate"
+    },
+    "powered=true": {
+      "model": "oathbound:block/gloamwood_pressure_plate_down"
+    }
+  }
+}

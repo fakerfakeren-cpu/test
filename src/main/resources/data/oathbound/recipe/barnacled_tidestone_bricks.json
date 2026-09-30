@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "oathbound:tidestone_bricks",
+    "minecraft:kelp"
+  ],
+  "result": {
+    "id": "oathbound:barnacled_tidestone_bricks",
+    "count": 1
+  }
+}

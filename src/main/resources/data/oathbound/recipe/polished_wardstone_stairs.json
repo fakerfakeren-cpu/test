@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": "oathbound:polished_wardstone"
+  },
+  "result": {
+    "id": "oathbound:polished_wardstone_stairs",
+    "count": 4
+  }
+}

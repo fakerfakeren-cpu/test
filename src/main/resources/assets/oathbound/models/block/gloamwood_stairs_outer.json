@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "oathbound:block/gloamwood_planks",
+    "top": "oathbound:block/gloamwood_planks",
+    "side": "oathbound:block/gloamwood_planks"
+  }
+}

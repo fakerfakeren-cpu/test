@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "##",
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": "oathbound:gloamwood_planks"
+  },
+  "result": {
+    "id": "oathbound:gloamwood_door",
+    "count": 3
+  },
+  "group": "wooden_door"
+}

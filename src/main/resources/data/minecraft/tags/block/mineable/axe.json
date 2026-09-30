@@ -2,6 +2,17 @@
   "replace": false,
   "values": [
     "oathbound:gloamwood_log",
-    "oathbound:gloamwood_planks"
+    "oathbound:gloamwood_planks",
+    "oathbound:gloamwood",
+    "oathbound:stripped_gloamwood_log",
+    "oathbound:stripped_gloamwood",
+    "oathbound:gloamwood_stairs",
+    "oathbound:gloamwood_slab",
+    "oathbound:gloamwood_fence",
+    "oathbound:gloamwood_fence_gate",
+    "oathbound:gloamwood_door",
+    "oathbound:gloamwood_trapdoor",
+    "oathbound:gloamwood_button",
+    "oathbound:gloamwood_pressure_plate"
   ]
 }

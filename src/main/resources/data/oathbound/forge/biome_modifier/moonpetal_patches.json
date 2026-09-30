@@ -1,0 +1,8 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#oathbound:has_flower/moonpetal",
+  "features": [
+    "oathbound:moonpetal_patch"
+  ],
+  "step": "vegetal_decoration"
+}

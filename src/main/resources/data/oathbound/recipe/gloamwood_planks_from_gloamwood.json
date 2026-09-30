@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "oathbound:gloamwood"
+  ],
+  "result": {
+    "id": "oathbound:gloamwood_planks",
+    "count": 4
+  }
+}

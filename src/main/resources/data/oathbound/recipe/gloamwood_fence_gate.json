@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "#W#",
+    "#W#"
+  ],
+  "key": {
+    "W": "oathbound:gloamwood_planks",
+    "#": "minecraft:stick"
+  },
+  "result": {
+    "id": "oathbound:gloamwood_fence_gate",
+    "count": 1
+  },
+  "group": "wooden_fence_gate"
+}

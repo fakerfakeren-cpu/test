@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button_pressed",
+  "textures": {
+    "texture": "oathbound:block/gloamwood_planks"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "oathbound:wardstone",
+  "result": {
+    "id": "oathbound:wardstone_slab",
+    "count": 2
+  }
+}

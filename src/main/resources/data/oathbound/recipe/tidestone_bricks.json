@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": "oathbound:tidestone"
+  },
+  "result": {
+    "id": "oathbound:tidestone_bricks",
+    "count": 4
+  }
+}

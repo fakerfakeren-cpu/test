@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "oathbound:wardstone_wall",
+    "oathbound:wardstone_brick_wall",
+    "oathbound:mossy_wardstone_brick_wall",
+    "oathbound:gloamstone_wall",
+    "oathbound:gloamstone_brick_wall",
+    "oathbound:tidestone_brick_wall",
+    "oathbound:barrowstone_brick_wall",
+    "oathbound:runestone_brick_wall"
+  ]
+}

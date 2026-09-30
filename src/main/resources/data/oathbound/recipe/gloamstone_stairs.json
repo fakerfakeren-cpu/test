@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": "oathbound:gloamstone"
+  },
+  "result": {
+    "id": "oathbound:gloamstone_stairs",
+    "count": 4
+  }
+}

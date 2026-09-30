@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "##"
+  ],
+  "key": {
+    "#": "oathbound:gloamwood_planks"
+  },
+  "result": {
+    "id": "oathbound:gloamwood_pressure_plate",
+    "count": 1
+  }
+}

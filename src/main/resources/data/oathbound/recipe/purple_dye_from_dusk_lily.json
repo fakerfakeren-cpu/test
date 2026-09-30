@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "oathbound:dusk_lily"
+  ],
+  "result": {
+    "id": "minecraft:purple_dye",
+    "count": 1
+  }
+}

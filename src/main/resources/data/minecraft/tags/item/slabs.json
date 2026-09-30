@@ -1,6 +1,16 @@
 {
   "replace": false,
   "values": [
-    "oathbound:wardstone_brick_slab"
+    "oathbound:wardstone_brick_slab",
+    "oathbound:wardstone_slab",
+    "oathbound:mossy_wardstone_brick_slab",
+    "oathbound:polished_wardstone_slab",
+    "oathbound:gloamstone_slab",
+    "oathbound:gloamstone_brick_slab",
+    "oathbound:polished_gloamstone_slab",
+    "oathbound:gloamwood_slab",
+    "oathbound:tidestone_brick_slab",
+    "oathbound:barrowstone_brick_slab",
+    "oathbound:runestone_brick_slab"
   ]
 }

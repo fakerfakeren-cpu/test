@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "##"
+  ],
+  "key": {
+    "#": "oathbound:gloam_moss"
+  },
+  "result": {
+    "id": "oathbound:glimmer_moss",
+    "count": 3
+  }
+}

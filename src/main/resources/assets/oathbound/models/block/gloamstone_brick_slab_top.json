@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "oathbound:block/gloamstone_bricks",
+    "top": "oathbound:block/gloamstone_bricks",
+    "side": "oathbound:block/gloamstone_bricks"
+  }
+}

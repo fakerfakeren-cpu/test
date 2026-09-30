@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": "oathbound:mossy_wardstone_bricks"
+  },
+  "result": {
+    "id": "oathbound:mossy_wardstone_brick_wall",
+    "count": 6
+  }
+}

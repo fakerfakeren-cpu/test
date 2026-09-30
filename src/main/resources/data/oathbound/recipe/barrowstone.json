@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "SB",
+    "BS"
+  ],
+  "key": {
+    "S": "minecraft:tuff",
+    "B": "minecraft:bone_meal"
+  },
+  "result": {
+    "id": "oathbound:barrowstone",
+    "count": 4
+  }
+}

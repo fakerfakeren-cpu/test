@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": "oathbound:polished_gloamstone"
+  },
+  "result": {
+    "id": "oathbound:polished_gloamstone_slab",
+    "count": 6
+  }
+}

@@ -222,7 +222,6 @@ def generate():
     im, gl = A.hymn_stone(5, True)
     tex('hymn_stone_solved', im)
     tex('hymn_stone_solved_glow', gl)
-    tex('tidestone', A.tiles(A.P['tide'], A.hexrgb('#0a1714'), 409, size=16, tone=0.55))
     for g in range(6):
         for n in range(4):
             im, gl = A.rune_dial(g)

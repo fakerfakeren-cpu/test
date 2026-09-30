@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": "oathbound:runestone_bricks"
+  },
+  "result": {
+    "id": "oathbound:runestone_brick_stairs",
+    "count": 4
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "oathbound:polished_gloamstone",
+  "result": {
+    "id": "oathbound:gloamstone_tiles",
+    "count": 1
+  }
+}

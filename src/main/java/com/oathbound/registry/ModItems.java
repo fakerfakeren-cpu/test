@@ -152,7 +152,7 @@ public final class ModItems {
     static {
         for (var entry : ModBlocks.BLOCKS.getEntries()) {
             String name = entry.getId().getPath();
-            if (name.equals("wisplight") || name.equals("gloam_veil")) continue;
+            if (name.equals("wisplight") || name.equals("gloam_veil") || name.startsWith("potted_")) continue;
             Rarity rarity = switch (name) {
                 case "sundered_keystone", "ward_lantern" -> Rarity.EPIC;
                 case "lore_tablet", "hymn_stone", "cipher_lectern", "rune_dial", "chapel_bell", "sarcophagus", "arcane_ward",
@@ -160,7 +160,11 @@ public final class ModItems {
                 case "lumenite_block", "oathsteel_block" -> Rarity.UNCOMMON;
                 default -> Rarity.COMMON;
             };
-            ORDER.add(ITEMS.register(name, () -> new BlockItem(entry.get(), new Item.Properties().setId(ITEMS.key(name)).useBlockDescriptionPrefix().rarity(rarity))));
+            ORDER.add(ITEMS.register(name, () -> {
+                Item.Properties props = new Item.Properties().setId(ITEMS.key(name)).useBlockDescriptionPrefix().rarity(rarity);
+                return entry.get() instanceof net.minecraft.world.level.block.DoorBlock
+                    ? new net.minecraft.world.item.DoubleHighBlockItem(entry.get(), props) : new BlockItem(entry.get(), props);
+            }));
         }
     }
 

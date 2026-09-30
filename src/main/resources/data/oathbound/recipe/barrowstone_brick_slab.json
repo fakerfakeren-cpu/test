@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": "oathbound:barrowstone_bricks"
+  },
+  "result": {
+    "id": "oathbound:barrowstone_brick_slab",
+    "count": 6
+  }
+}

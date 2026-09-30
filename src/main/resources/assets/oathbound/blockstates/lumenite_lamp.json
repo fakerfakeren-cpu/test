@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "oathbound:block/lumenite_lamp"
+    },
+    "lit=true": {
+      "model": "oathbound:block/lumenite_lamp_on"
+    }
+  }
+}

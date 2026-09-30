@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": "oathbound:gloamwood_planks"
+  },
+  "result": {
+    "id": "oathbound:gloamwood_slab",
+    "count": 6
+  }
+}

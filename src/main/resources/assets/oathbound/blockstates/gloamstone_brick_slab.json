@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "oathbound:block/gloamstone_brick_slab"
+    },
+    "type=top": {
+      "model": "oathbound:block/gloamstone_brick_slab_top"
+    },
+    "type=double": {
+      "model": "oathbound:block/gloamstone_bricks"
+    }
+  }
+}

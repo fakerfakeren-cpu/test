@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "oathbound:wardstone",
+  "result": {
+    "id": "oathbound:polished_wardstone",
+    "count": 1
+  }
+}

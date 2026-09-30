@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "NNN",
+    "NSN",
+    "NNN"
+  ],
+  "key": {
+    "N": "oathbound:oathsteel_nugget",
+    "S": "oathbound:gloam_essence"
+  },
+  "result": {
+    "id": "oathbound:gloam_lantern",
+    "count": 1
+  }
+}

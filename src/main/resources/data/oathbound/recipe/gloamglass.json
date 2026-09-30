@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "GGG",
+    "GDG",
+    "GGG"
+  ],
+  "key": {
+    "G": "minecraft:glass",
+    "D": "oathbound:gloam_essence"
+  },
+  "result": {
+    "id": "oathbound:gloamglass",
+    "count": 8
+  }
+}

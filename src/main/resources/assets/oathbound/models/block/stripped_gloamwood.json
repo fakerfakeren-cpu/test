@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "side": "oathbound:block/stripped_gloamwood_log",
+    "end": "oathbound:block/stripped_gloamwood_log"
+  }
+}
