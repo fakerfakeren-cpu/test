@@ -85,6 +85,7 @@ public class ChronicleScreen extends Screen {
         new Entry("elderhorn", 1, ModItems.ELDERHORN_SPAWN_EGG),
         new Entry("bog_mother", 2, ModItems.BOG_MOTHER_SPAWN_EGG),
         new Entry("cinder_colossus", 3, ModItems.CINDER_COLOSSUS_SPAWN_EGG),
+        new Entry("glimmerstag", 0, ModItems.GLIMMERSTAG_SPAWN_EGG),
         new Entry("lanternguard_pilgrim", 0, ModItems.LANTERNGUARD_PILGRIM_SPAWN_EGG));
 
     private static final List<Entry> RELICS = List.of(

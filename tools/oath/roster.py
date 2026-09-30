@@ -138,6 +138,14 @@ ROSTER = [
       [D.pool([D.item('cinder_heart')]), D.pool([D.item('ember_core', 2, 4)]), D.pool([D.item('gravegold_ingot', 3, 5)]),
        D.pool([D.item('minecraft:experience_bottle', 5, 9)]), D.pool([D.item('minecraft:gold_block', 1, 2)])],
       scale=2.2, shadow=1.5, boss=True, extra='.fireImmune()'),
+    M('glimmerstag', 'GlimmerstagEntity', 'Glimmerstag', 'CREATURE', (1.3, 1.9), 'Quadruped(r, "glimmerstag", 1.0f, false, 0.6f)', 'wild',
+      ('#7e5430', '#dce8ff'), 0,
+      ('A grown stag of the glimmer herds, strong enough to carry a knight. Tame it as you would a horse, with patience and apples, '
+       'or with moonpetals, which it loves; saddle it and ride. At a gallop its antlers leave a trail of moonlight.',
+       'Quick and a high jumper. Breed two with moonpetals.'),
+      [D.pool([D.item('raw_venison', 1, 3, funcs=[L])]), D.pool([D.item('glimmer_antler', 0, 1)])],
+      ['minecraft:meadow', 'minecraft:flower_forest', 'minecraft:birch_forest', 'minecraft:old_growth_birch_forest', 'minecraft:cherry_grove'],
+      3, (1, 2), shadow=0.8, extra='.passengerAttachments(1.35f)'),
     # ------------------------------------------------------------------ people of the roads
     M('lanternguard_pilgrim', 'LanternguardPilgrimEntity', 'Lanternguard Pilgrim', 'CREATURE', (0.6, 1.95),
       'Biped(r, "lanternguard_pilgrim", 0.7f, 0.1f)', None, ('#7e2a20', '#ffcb58'), 0,

@@ -17,7 +17,7 @@ public final class FaunaModels {
 
     // ------------------------------------------------------------------ four legs
     public static class Quadruped extends Rig<States.Fauna> {
-        private final ModelPart body, head, jaw, tail, earL, earR, legFL, legFR, legBL, legBR;
+        private final ModelPart body, head, jaw, tail, earL, earR, legFL, legFR, legBL, legBR, saddle;
         private final float stride, headDown;
         private final boolean hop;
 
@@ -34,6 +34,7 @@ public final class FaunaModels {
             tail = opt("tail");
             earL = opt("ear_l");
             earR = opt("ear_r");
+            saddle = opt("saddle");
             legFL = opt("leg_fl");
             legFR = opt("leg_fr");
             legBL = opt("leg_bl");
@@ -46,6 +47,7 @@ public final class FaunaModels {
         @Override
         public void setupAnim(States.Fauna s) {
             super.setupAnim(s);
+            if (saddle != null) saddle.visible = s.variant == 1;
             float p = s.walkAnimationPos * 0.6662f, sp = Math.min(1f, s.walkAnimationSpeed) * stride;
             if (head != null) {
                 head.yRot = s.yRot * Mth.DEG_TO_RAD * 0.8f;

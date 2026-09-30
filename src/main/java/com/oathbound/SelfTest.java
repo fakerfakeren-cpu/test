@@ -234,10 +234,10 @@ public final class SelfTest {
     private static void script() {
         at(1, s -> {
             ServerLevel level = s.overworld();
-            check("items_registered", ModItems.ITEMS.getEntries().size() >= 289, ModItems.ITEMS.getEntries().size());
+            check("items_registered", ModItems.ITEMS.getEntries().size() >= 290, ModItems.ITEMS.getEntries().size());
             check("blocks_registered", ModBlocks.BLOCKS.getEntries().size() >= 112, ModBlocks.BLOCKS.getEntries().size());
             check("assets_complete", assetsComplete(), "");
-            check("entities_registered", ModEntities.ENTITIES.getEntries().size() >= 38, ModEntities.ENTITIES.getEntries().size());
+            check("entities_registered", ModEntities.ENTITIES.getEntries().size() >= 39, ModEntities.ENTITIES.getEntries().size());
             check("sounds_registered", ModSounds.SOUNDS.getEntries().size() == ModSounds.NAMES.size(), ModSounds.NAMES.size());
             check("gloaming_dimension_loaded", s.getLevel(ModWorldgen.GLOAMING) != null, "");
             int missing = 0;
@@ -473,7 +473,7 @@ public final class SelfTest {
                 ModEntities.ANIMATED_TOME, ModEntities.VEILHOUND, ModEntities.SPECTRAL_HOUSECARL,
                 ModEntities.GLIMMERFAWN, ModEntities.DUSKHARE, ModEntities.MOSSBACK_TORTOISE, ModEntities.LUMEN_BEETLE, ModEntities.TIDEWADER,
                 ModEntities.THORNBACK_BOAR, ModEntities.STONEWARDEN, ModEntities.RUNEWISP, ModEntities.DROWNED_CHOIRMONK, ModEntities.MIRE_HAG,
-                ModEntities.GRAVE_CRAWLER, ModEntities.GLOAM_STALKER, ModEntities.SHADE_WRAITH, ModEntities.LUMENITE_MITE, ModEntities.ASHEN_REVENANT)) {
+                ModEntities.GRAVE_CRAWLER, ModEntities.GLOAM_STALKER, ModEntities.SHADE_WRAITH, ModEntities.LUMENITE_MITE, ModEntities.ASHEN_REVENANT, ModEntities.GLIMMERSTAG)) {
                 spawn(level, e.get(), base);
                 base = base.offset(6, 0, 0);
                 base = base.atY(ground(level, base.getX(), base.getZ()) + 1);

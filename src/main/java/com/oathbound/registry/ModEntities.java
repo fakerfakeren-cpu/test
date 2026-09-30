@@ -80,6 +80,8 @@ public final class ModEntities {
         b -> b.sized(0.9f, 2.9f).clientTrackingRange(12));
     public static final RegistryObject<EntityType<CinderColossusEntity>> CINDER_COLOSSUS = reg("cinder_colossus", CinderColossusEntity::new, MobCategory.MONSTER,
         b -> b.sized(1.6f, 4.3f).clientTrackingRange(12).fireImmune());
+    public static final RegistryObject<EntityType<GlimmerstagEntity>> GLIMMERSTAG = reg("glimmerstag", GlimmerstagEntity::new, MobCategory.CREATURE,
+        b -> b.sized(1.3f, 1.9f).clientTrackingRange(10).passengerAttachments(1.35f));
     public static final RegistryObject<EntityType<LanternguardPilgrimEntity>> LANTERNGUARD_PILGRIM = reg("lanternguard_pilgrim", LanternguardPilgrimEntity::new, MobCategory.CREATURE,
         b -> b.sized(0.6f, 1.95f).clientTrackingRange(10));
 

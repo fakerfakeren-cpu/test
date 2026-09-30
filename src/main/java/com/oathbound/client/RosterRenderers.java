@@ -28,6 +28,7 @@ public final class RosterRenderers {
         e.registerEntityRenderer(ModEntities.ELDERHORN.get(), c -> new Renderers.Fauna<>(c, r -> new FaunaModels.Quadruped(r, "elderhorn", 0.8f, false, 0.75f), "elderhorn", 1.4f, 1.8f));
         e.registerEntityRenderer(ModEntities.BOG_MOTHER.get(), c -> new Renderers.Fauna<>(c, r -> new FaunaModels.Biped(r, "bog_mother", 0.6f, 0.4f), "bog_mother", 0.9f, 1.5f));
         e.registerEntityRenderer(ModEntities.CINDER_COLOSSUS.get(), c -> new Renderers.Fauna<>(c, r -> new FaunaModels.Biped(r, "cinder_colossus", 0.55f, 0.0f), "cinder_colossus", 1.5f, 2.2f));
+        e.registerEntityRenderer(ModEntities.GLIMMERSTAG.get(), c -> new Renderers.Fauna<>(c, r -> new FaunaModels.Quadruped(r, "glimmerstag", 1.0f, false, 0.6f), "glimmerstag", 0.8f, 1.0f));
         e.registerEntityRenderer(ModEntities.LANTERNGUARD_PILGRIM.get(), c -> new Renderers.Fauna<>(c, r -> new FaunaModels.Biped(r, "lanternguard_pilgrim", 0.7f, 0.1f), "lanternguard_pilgrim", 0.5f, 1.0f));
     }
 }

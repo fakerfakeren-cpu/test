@@ -37,6 +37,7 @@ public final class RosterRegistry {
         event.put(ModEntities.ELDERHORN.get(), ElderhornEntity.createAttributes().build());
         event.put(ModEntities.BOG_MOTHER.get(), BogMotherEntity.createAttributes().build());
         event.put(ModEntities.CINDER_COLOSSUS.get(), CinderColossusEntity.createAttributes().build());
+        event.put(ModEntities.GLIMMERSTAG.get(), GlimmerstagEntity.createAttributes().build());
         event.put(ModEntities.LANTERNGUARD_PILGRIM.get(), LanternguardPilgrimEntity.createAttributes().build());
     }
 
@@ -71,6 +72,8 @@ public final class RosterRegistry {
             RosterRegistry::checkMiteSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
         event.register(ModEntities.ASHEN_REVENANT.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
             Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.GLIMMERSTAG.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+            WildAnimal::checkWildSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
     }
 
     /** Lumenite mites: monster rules, and only deep underground. */
