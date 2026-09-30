@@ -504,10 +504,23 @@ public final class SelfTest {
                 };
                 KeeperEntity k = spawn(level, type, at);
                 check(keeper + "_sealed_until_solved", k.isSealed(), "");
-                KeeperEntity.unsealNear(level, at, 4);
-                check(keeper + "_unsealed_by_puzzle", !k.isSealed(), "");
                 k.wake(level, null);
                 check(keeper + "_awake", !k.isSleeping(), "");
+            });
+            // a tick later, once the freshly loaded chunk's entities can be looked up, as they are in play
+            at(base + 2, s -> {
+                ServerLevel level = s.overworld();
+                int x = 400 + base, z = 520;
+                BlockPos at = new BlockPos(x, ground(level, x, z) + 1, z);
+                KeeperEntity.unsealNear(level, at, 8);
+                boolean any = false, unsealed = true;
+                for (Entity e : spawned) {
+                    if (e instanceof KeeperEntity k && k.blockPosition().closerThan(at, 8)) {
+                        any = true;
+                        unsealed &= !k.isSealed();
+                    }
+                }
+                check(keeper + "_unsealed_by_puzzle", any && unsealed, "found=" + any);
             });
             at(base + 60, s -> {
                 ServerLevel level = s.overworld();
