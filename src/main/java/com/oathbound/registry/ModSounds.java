@@ -87,6 +87,25 @@ public final class ModSounds {
     public static final RegistryObject<SoundEvent> THEME_KEEPER = reg("theme_keeper");
     public static final RegistryObject<SoundEvent> THEME_MORVANE = reg("theme_morvane");
     public static final RegistryObject<SoundEvent> GLOAMING_AMBIENT = reg("gloaming_ambient");
+    // --- the wider roster
+    public static final RegistryObject<SoundEvent> FAWN_CALL = reg("fawn_call");
+    public static final RegistryObject<SoundEvent> FAWN_HURT = reg("fawn_hurt");
+    public static final RegistryObject<SoundEvent> HARE_SQUEAK = reg("hare_squeak");
+    public static final RegistryObject<SoundEvent> TORTOISE_HISS = reg("tortoise_hiss");
+    public static final RegistryObject<SoundEvent> BEETLE_CLICK = reg("beetle_click");
+    public static final RegistryObject<SoundEvent> HERON_CROAK = reg("heron_croak");
+    public static final RegistryObject<SoundEvent> BOAR_GRUNT = reg("boar_grunt");
+    public static final RegistryObject<SoundEvent> BOAR_SQUEAL = reg("boar_squeal");
+    public static final RegistryObject<SoundEvent> WARDEN_RUMBLE = reg("warden_rumble");
+    public static final RegistryObject<SoundEvent> WISP_CHIME = reg("wisp_chime");
+    public static final RegistryObject<SoundEvent> MONK_CHANT = reg("monk_chant");
+    public static final RegistryObject<SoundEvent> HAG_CACKLE = reg("hag_cackle");
+    public static final RegistryObject<SoundEvent> HAG_CURSE = reg("hag_curse");
+    public static final RegistryObject<SoundEvent> CRAWLER_RATTLE = reg("crawler_rattle");
+    public static final RegistryObject<SoundEvent> STALKER_SNARL = reg("stalker_snarl");
+    public static final RegistryObject<SoundEvent> WRAITH_WAIL = reg("wraith_wail");
+    public static final RegistryObject<SoundEvent> MITE_CHITTER = reg("mite_chitter");
+    public static final RegistryObject<SoundEvent> REVENANT_ROAR = reg("revenant_roar");
     public static final RegistryObject<SoundEvent> DISC_LANTERNGUARD_HYMN = reg("disc_lanternguard_hymn");
     public static final RegistryObject<SoundEvent> DISC_WAYSHRINE_NOCTURNE = reg("disc_wayshrine_nocturne");
     public static final RegistryObject<SoundEvent> DISC_CHAPEL_TIDES = reg("disc_chapel_tides");

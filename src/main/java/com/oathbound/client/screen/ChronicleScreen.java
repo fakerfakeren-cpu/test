@@ -66,7 +66,22 @@ public class ChronicleScreen extends Screen {
         new Entry("archmage_veyl", 2, ModItems.ARCHMAGE_VEYL_SPAWN_EGG), new Entry("barrow_wight", 3, ModItems.BARROW_WIGHT_SPAWN_EGG),
         new Entry("spectral_housecarl", 3, ModItems.SPECTRAL_HOUSECARL_SPAWN_EGG), new Entry("hrodgar", 3, ModItems.HRODGAR_SPAWN_EGG),
         new Entry("forsworn_knight", 4, ModItems.FORSWORN_KNIGHT_SPAWN_EGG), new Entry("veilhound", 5, ModItems.VEILHOUND_SPAWN_EGG),
-        new Entry("morvane", 5, ModItems.MORVANE_SPAWN_EGG));
+        new Entry("morvane", 5, ModItems.MORVANE_SPAWN_EGG),
+        new Entry("glimmerfawn", 0, ModItems.GLIMMERFAWN_SPAWN_EGG),
+        new Entry("duskhare", 0, ModItems.DUSKHARE_SPAWN_EGG),
+        new Entry("mossback_tortoise", 0, ModItems.MOSSBACK_TORTOISE_SPAWN_EGG),
+        new Entry("lumen_beetle", 0, ModItems.LUMEN_BEETLE_SPAWN_EGG),
+        new Entry("tidewader", 0, ModItems.TIDEWADER_SPAWN_EGG),
+        new Entry("thornback_boar", 0, ModItems.THORNBACK_BOAR_SPAWN_EGG),
+        new Entry("stonewarden", 0, ModItems.STONEWARDEN_SPAWN_EGG),
+        new Entry("runewisp", 2, ModItems.RUNEWISP_SPAWN_EGG),
+        new Entry("drowned_choirmonk", 1, ModItems.DROWNED_CHOIRMONK_SPAWN_EGG),
+        new Entry("mire_hag", 3, ModItems.MIRE_HAG_SPAWN_EGG),
+        new Entry("grave_crawler", 3, ModItems.GRAVE_CRAWLER_SPAWN_EGG),
+        new Entry("gloam_stalker", 5, ModItems.GLOAM_STALKER_SPAWN_EGG),
+        new Entry("shade_wraith", 5, ModItems.SHADE_WRAITH_SPAWN_EGG),
+        new Entry("lumenite_mite", 0, ModItems.LUMENITE_MITE_SPAWN_EGG),
+        new Entry("ashen_revenant", 4, ModItems.ASHEN_REVENANT_SPAWN_EGG));
 
     private static final List<Entry> RELICS = List.of(
         new Entry("wardens_lantern", 0, ModItems.WARDENS_LANTERN), new Entry("oathsteel_longsword", 0, ModItems.OATHSTEEL_LONGSWORD),
@@ -675,7 +690,13 @@ public class ChronicleScreen extends Screen {
         heading(g, Component.translatable("chronicle.oathbound.tab." + kind), x, y, PAGE_W);
         y += 20;
         listIndex = Mth.clamp(listIndex, 0, entries.size() - 1);
-        for (int i = 0; i < entries.size(); i++) {
+        // a window of rows that follows the selection; arrows show there is more above or below
+        int rows = (PAGE_H - 34) / 17;
+        int first = Mth.clamp(listIndex - rows / 2, 0, Math.max(0, entries.size() - rows));
+        int last = Math.min(entries.size(), first + rows);
+        if (first > 0) g.centeredText(font, "\u25B2", x + PAGE_W - 8, y - 12, INK_SOFT);
+        if (last < entries.size()) g.centeredText(font, "\u25BC", x + PAGE_W - 8, y + rows * 17 - 2, INK_SOFT);
+        for (int i = first; i < last; i++) {
             Entry e = entries.get(i);
             boolean open = chapterOpen(e.chapter()) && (e.chapter() < 5 || done.contains("gloaming") || done.contains("morvane"));
             boolean sel = i == listIndex;

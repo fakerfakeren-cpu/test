@@ -1,0 +1,12 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#oathbound:has_creature/mire_hag",
+  "spawners": [
+    {
+      "type": "oathbound:mire_hag",
+      "weight": 12,
+      "minCount": 1,
+      "maxCount": 1
+    }
+  ]
+}

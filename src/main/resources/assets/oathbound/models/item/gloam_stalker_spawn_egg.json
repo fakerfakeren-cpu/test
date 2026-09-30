@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "oathbound:item/gloam_stalker_spawn_egg"
+  }
+}

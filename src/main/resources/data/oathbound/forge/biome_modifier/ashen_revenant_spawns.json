@@ -1,0 +1,12 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#oathbound:has_creature/ashen_revenant",
+  "spawners": [
+    {
+      "type": "oathbound:ashen_revenant",
+      "weight": 15,
+      "minCount": 1,
+      "maxCount": 1
+    }
+  ]
+}

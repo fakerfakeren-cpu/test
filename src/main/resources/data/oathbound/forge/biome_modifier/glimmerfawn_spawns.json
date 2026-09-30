@@ -1,0 +1,12 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#oathbound:has_creature/glimmerfawn",
+  "spawners": [
+    {
+      "type": "oathbound:glimmerfawn",
+      "weight": 6,
+      "minCount": 2,
+      "maxCount": 3
+    }
+  ]
+}

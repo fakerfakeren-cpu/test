@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "category": "misc",
+  "ingredient": "oathbound:raw_venison",
+  "result": {
+    "id": "oathbound:cooked_venison"
+  },
+  "experience": 0.35,
+  "cookingtime": 600
+}

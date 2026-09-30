@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:glass_bottle",
+    "oathbound:mossback_scute",
+    "minecraft:golden_carrot",
+    "oathbound:luminous_dust"
+  ],
+  "result": {
+    "id": "oathbound:elixir_of_wards",
+    "count": 1
+  }
+}

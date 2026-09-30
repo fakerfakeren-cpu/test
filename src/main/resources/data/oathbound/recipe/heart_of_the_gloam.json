@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "FEF",
+    "ESE",
+    "FEF"
+  ],
+  "key": {
+    "F": "oathbound:shadow_fang",
+    "E": "oathbound:gloam_essence",
+    "S": "oathbound:lumenite_shard"
+  },
+  "result": {
+    "id": "oathbound:heart_of_the_gloam",
+    "count": 1
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#oathbound:has_creature/stonewarden",
+  "spawners": [
+    {
+      "type": "oathbound:stonewarden",
+      "weight": 1,
+      "minCount": 1,
+      "maxCount": 1
+    }
+  ]
+}

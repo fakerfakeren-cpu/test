@@ -54,6 +54,7 @@ public final class ClientSetup {
         e.registerEntityRenderer(ModEntities.SUN_ARROW.get(), c -> new SpellMarkRenderer.Orb<>(c, 0xFFD36B, 0.16f));
         e.registerEntityRenderer(ModEntities.ANCHOR_HOOK.get(), c -> new ThrownItemRenderer<>(c, 1.4f, true));
         e.registerEntityRenderer(ModEntities.LUMEN_FLASK.get(), ThrownItemRenderer::new);
+        RosterRenderers.register(e);
     }
 
     private static void particles(RegisterParticleProvidersEvent e) {

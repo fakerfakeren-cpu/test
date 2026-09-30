@@ -53,6 +53,10 @@ jobs:
           sed -i 's/^ *//' run/server.properties
           timeout 600 ./gradlew runServer -Pselftest --stacktrace 2>&1 | tee server.log || true
           grep -q "\[SELFTEST\] RESULT: PASS" server.log
+          # any data file of ours that the game rejected is a failure, even if the self-test passed
+          if grep -E "Couldn't parse data file 'oathbound:|Failed to parse oathbound:|Couldn't load .*oathbound:" server.log; then
+            echo "::error::Oathbound data files were rejected"; exit 1
+          fi
 
       - name: Client smoke test (real client, screenshots)
         id: clienttest

@@ -480,7 +480,7 @@ def gloaming():
         'has_precipitation': False, 'spawn_costs': {},
         'spawners': {'ambient': [], 'axolotls': [], 'creature': [], 'misc': [], 'underground_water_creature': [], 'water_ambient': [],
                      'water_creature': [],
-                     'monster': [{'type': 'oathbound:gloamling', 'maxCount': 4, 'minCount': 2, 'weight': 30},
+                     'monster': __import__('tools.oath.roster', fromlist=['x']).gloaming_spawners() + [{'type': 'oathbound:gloamling', 'maxCount': 4, 'minCount': 2, 'weight': 30},
                                  {'type': 'oathbound:veilhound', 'maxCount': 3, 'minCount': 2, 'weight': 16},
                                  {'type': 'oathbound:forsworn_knight', 'maxCount': 1, 'minCount': 1, 'weight': 8}]},
         'temperature': 0.5})
@@ -571,7 +571,7 @@ def recipes():
 
 
 def generate():
-    from . import building, gear, wares
+    from . import building, gear, wares, roster
     recipes()
     building.recipes()
     gear.recipes()
@@ -581,12 +581,15 @@ def generate():
     loot_tables()
     for b in building.TABLE:
         building.loot(b)
+    roster.loot()
     tags()
+    roster.tags()
     for path, values in building.TAGS.items():
         tag(path, values, 'minecraft')
     gear.tags()
     wares.tags()
     worldgen()
+    roster.spawns()
     building.worldgen()
     gear.worldgen()
     flush_tags()

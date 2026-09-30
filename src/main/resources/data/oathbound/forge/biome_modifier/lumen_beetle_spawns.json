@@ -1,0 +1,12 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#oathbound:has_creature/lumen_beetle",
+  "spawners": [
+    {
+      "type": "oathbound:lumen_beetle",
+      "weight": 10,
+      "minCount": 2,
+      "maxCount": 4
+    }
+  ]
+}

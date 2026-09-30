@@ -58,6 +58,18 @@ ELIXIRS = [
     ('elixir_of_valor', 'Elixir of Valor', [('STRENGTH', 90, 1), ('HASTE', 90, 0)], 'blood', 'Sir Caldris\' squires drank it before battle.'),
 ]
 
+# creature drops (roster.py): id, English, description, rarity
+DROPS = [
+    ('raw_venison', 'Raw Venison', 'Lean meat from a glimmerfawn. Better cooked.', 'COMMON'),
+    ('cooked_venison', 'Venison Steak', 'Rich and filling; a hunter\'s supper.', 'COMMON'),
+    ('glimmer_antler', 'Glimmer Antler', 'The tip still holds a little moonlight. Grind it into luminous dust.', 'UNCOMMON'),
+    ('mossback_scute', 'Mossback Scute', 'A shed plate of tortoise shell, green with moss. It turns blows aside.', 'UNCOMMON'),
+    ('boar_tusk', 'Boar Tusk', 'Yellowed and sharp. Huntsmen carve horns from them.', 'COMMON'),
+    ('hag_eye', "Hag's Eye", 'It is not a real eye. It still blinks.', 'UNCOMMON'),
+    ('shadow_fang', 'Shadow Fang', 'A stalker\'s fang, cold and hard to see even in the hand.', 'RARE'),
+    ('ember_core', 'Ember Core', 'The heart of a revenant, still burning after four hundred years.', 'UNCOMMON'),
+]
+
 # page slug, title, lines
 PAGES = [
     ('first_lantern', 'The First Lantern', [
@@ -130,6 +142,15 @@ def java():
         props = (f'new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON).food(new FoodProperties(0, 0.0f, true), {cons})'
                  f'.usingConvertsTo(net.minecraft.world.item.Items.GLASS_BOTTLE)')
         L.append(f'    public static final RegistryObject<Item> {eid.upper()} = reg("{eid}", p -> new InscribedItem(p, 1, true), () -> {props});\n')
+    for did, _, _, rarity in DROPS:
+        props = f'new Item.Properties().rarity(Rarity.{rarity})'
+        if did == 'raw_venison':
+            props += '.food(new FoodProperties(3, 0.3f, false))'
+        elif did == 'cooked_venison':
+            props += '.food(new FoodProperties(8, 0.9f, false))'
+        elif did == 'ember_core':
+            props += '.fireResistant()'
+        L.append(f'    public static final RegistryObject<Item> {did.upper()} = reg("{did}", p -> new InscribedItem(p, 1, false), () -> {props});\n')
     for slug, _, lines in PAGES:
         L.append(f'    public static final RegistryObject<Item> LORE_PAGE_{slug.upper()} = reg("lore_page_{slug}", p -> new LorePageItem(p, "{slug}", {len(lines)}), '
                  f'() -> new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON));\n')
@@ -408,6 +429,132 @@ DISC = [
     ".....KKKKKK.....",
     "................",
 ]
+VENISON = [
+    "................",
+    "................",
+    "................",
+    ".....KKKKK......",
+    "...KK54443KK....",
+    "..K5544443332K..",
+    ".K554w44433322K.",
+    ".K5444w4433322K.",
+    ".K54444w333221K.",
+    "..K444433332aaK.",
+    "...KK4333221aK..",
+    ".....KKK2221K...",
+    "........KKK.....",
+    "................",
+    "................",
+    "................",
+]
+ANTLER = [
+    "................",
+    "..y.......y.....",
+    "..K4.....K4.....",
+    "...K4...K4..y...",
+    "...K4K.K4..K4...",
+    "....K4K4..K4....",
+    "....K44K.K4.....",
+    ".....K44K4......",
+    "......K444K.....",
+    "......K443K.....",
+    ".......K43K.....",
+    ".......K43K.....",
+    "........K3K.....",
+    "........K3K.....",
+    ".........K......",
+    "................",
+]
+SCUTE = [
+    "................",
+    "................",
+    ".....KKKKKK.....",
+    "...KKaabaaaKK...",
+    "..Kaab5554baaK..",
+    "..Kab554443baK..",
+    ".Kab55444433baK.",
+    ".Ka554444333baK.",
+    ".Kab4444333322K.",
+    "..K44443333222K.",
+    "..K4443332221K..",
+    "...KK33322211K..",
+    ".....KKKKKKK....",
+    "................",
+    "................",
+    "................",
+]
+TUSK = [
+    "................",
+    "................",
+    "............K...",
+    "...........K5K..",
+    "..........K54K..",
+    ".........K543K..",
+    "........K5432K..",
+    ".......K5433K...",
+    "......K5432K....",
+    ".....K5432K.....",
+    "....K543KK......",
+    "...Kaa3K........",
+    "..KbaaK.........",
+    "..KbbK..........",
+    "...KK...........",
+    "................",
+]
+EYE = [
+    "................",
+    "................",
+    "................",
+    ".....KKKKKK.....",
+    "...KK555554KK...",
+    "..K554yyy4443K..",
+    ".K54yyKKyy4332K.",
+    ".K54yKwwKy4332K.",
+    ".K54yKwKKy4332K.",
+    ".K544yyyy44321K.",
+    "..K5444444332K..",
+    "...KK333322KK...",
+    ".....KKKKKK.....",
+    "................",
+    "................",
+    "................",
+]
+FANG = [
+    "................",
+    "....KKK.........",
+    "...K554K........",
+    "...K5443K.......",
+    "....K5443K......",
+    "....K54432K.....",
+    ".....K5443K.....",
+    ".....K54432K....",
+    "......K5432K....",
+    "......K5432K....",
+    ".......K532K....",
+    ".......K542K....",
+    "........K4K.....",
+    "........K3K.....",
+    ".........K......",
+    "................",
+]
+CORE = [
+    "................",
+    "................",
+    ".......K........",
+    "......K5K.......",
+    ".....K555K......",
+    "...KK55w54KK....",
+    "..K5555w5544K...",
+    ".K555ww44443K...",
+    "..K554444332K...",
+    "...KK443332K....",
+    ".....K4332K.....",
+    "......K32K......",
+    ".......KK.......",
+    "................",
+    "................",
+    "................",
+]
 DISC_LABELS = {'disc_lanternguard_hymn': 'gold', 'disc_wayshrine_nocturne': 'ember', 'disc_chapel_tides': 'tide',
                'disc_crown_of_ash': 'blood'}
 
@@ -436,6 +583,14 @@ def icons():
     for i, (slug, _, _) in enumerate(PAGES):
         seal = ('blood', 'gold', 'tide', 'arcane', 'bone', 'gloam')[i % 6]
         out[f'lore_page_{slug}'] = I.sprite(PAGE, G['paper'], G['stew'], {'r': (G[seal], 3)})
+    out['raw_venison'] = I.sprite(VENISON, G['blood'], G['bone'], {'w': (G['white'], 4)})
+    out['cooked_venison'] = I.sprite(VENISON, G['stew'], G['bone'], {'w': (G['bread'], 5)})
+    out['glimmer_antler'] = I.sprite(ANTLER, G['bone'], None, {'y': (G['white'], 5)})
+    out['mossback_scute'] = I.sprite(SCUTE, G['rust'], G['moss'])
+    out['boar_tusk'] = I.sprite(TUSK, G['bone'], G['leather'])
+    out['hag_eye'] = I.sprite(EYE, G['moss'], None, {'y': (G['honey'], 5), 'w': (G['white'], 5)})
+    out['shadow_fang'] = I.sprite(FANG, G['gloam'])
+    out['ember_core'] = I.sprite(CORE, G['ember'], None, {'w': (G['white'], 5)})
     for sid, colour in DISC_LABELS.items():
         out['music_' + sid] = I.sprite(DISC, M['hollow'], G[colour])
     return out
@@ -468,6 +623,9 @@ for _f in FOODS:
 for _e in ELIXIRS:
     NAMES[_e[0]] = _e[1]
     DESC[_e[0]] = [_e[4]]
+for _d in DROPS:
+    NAMES[_d[0]] = _d[1]
+    DESC[_d[0]] = [_d[2]]
 for _slug, _title, _lines in PAGES:
     NAMES[f'lore_page_{_slug}'] = 'Torn Page'
     LORE[f'lore.oathbound.{_slug}.title'] = _title
@@ -482,7 +640,7 @@ LORE['message.oathbound.horn'] = '%s foes answer the horn'
 
 # ====================================================================== data (called by data.py)
 def recipes():
-    F = 'food'
+    F = 'misc'   # crafting recipes accept building, redstone, equipment and misc only
     D.shapeless('hearth_pie', ['minecraft:cooked_beef', 'minecraft:wheat', 'minecraft:egg', 'minecraft:wheat'], 'hearth_pie', category=F)
     D.shapeless('hearth_pie_from_pork', ['minecraft:cooked_porkchop', 'minecraft:wheat', 'minecraft:egg', 'minecraft:wheat'], 'hearth_pie', category=F)
     D.shapeless('honeycake', ['minecraft:honey_bottle', 'minecraft:wheat', 'minecraft:sugar', 'minecraft:egg'], 'honeycake', 2, category=F)
@@ -497,6 +655,16 @@ def recipes():
     D.shapeless('elixir_of_wards', ['minecraft:glass_bottle', 'spellsilk', 'minecraft:golden_carrot', 'luminous_dust'], 'elixir_of_wards', category=F)
     D.shapeless('elixir_of_shrouds', ['minecraft:glass_bottle', 'gloam_essence', 'minecraft:fermented_spider_eye', 'dusk_lily'], 'elixir_of_shrouds', category=F)
     D.shapeless('elixir_of_the_wayfarer', ['minecraft:glass_bottle', 'minecraft:rabbit_foot', 'minecraft:sugar', 'luminous_dust'], 'elixir_of_the_wayfarer', category=F)
+    D.cooking('cooked_venison', 'smelting', 'raw_venison', 'cooked_venison', 0.35, 200)
+    D.cooking('cooked_venison_smoking', 'smoking', 'raw_venison', 'cooked_venison', 0.35, 100)
+    D.cooking('cooked_venison_campfire', 'campfire_cooking', 'raw_venison', 'cooked_venison', 0.35, 600)
+    D.shapeless('luminous_dust_from_antler', ['glimmer_antler'], 'luminous_dust', 4)
+    D.shapeless('elixir_of_wards_from_scute', ['minecraft:glass_bottle', 'mossback_scute', 'minecraft:golden_carrot', 'luminous_dust'], 'elixir_of_wards', category=F)
+    D.shapeless('elixir_of_shrouds_from_eye', ['minecraft:glass_bottle', 'hag_eye', 'gloam_essence'], 'elixir_of_shrouds', category=F)
+    D.shapeless('elixir_of_valor_from_core', ['minecraft:glass_bottle', 'ember_core', 'luminous_dust'], 'elixir_of_valor', category=F)
+    D.shaped('huntsmans_horn', ['T  ', 'TT ', ' GT'], {'T': 'boar_tusk', 'G': 'minecraft:gold_ingot'}, 'huntsmans_horn', category='equipment')
+    D.shaped('heart_of_the_gloam', ['FEF', 'ESE', 'FEF'], {'F': 'shadow_fang', 'E': 'gloam_essence', 'S': 'lumenite_shard'}, 'heart_of_the_gloam', category='equipment')
+    D.shapeless('gloam_essence_from_fang', ['shadow_fang'], 'gloam_essence', 2)
     D.shapeless('elixir_of_valor', ['minecraft:glass_bottle', 'minecraft:blaze_powder', 'emberroot', 'luminous_dust'], 'elixir_of_valor', category=F)
 
 
@@ -541,7 +709,7 @@ def tags():
 def generate():
     java()
     assets()
-    print(len(RELICS) + len(FOODS) + len(ELIXIRS) + len(PAGES) + len(DISCS), 'wares written')
+    print(len(RELICS) + len(FOODS) + len(ELIXIRS) + len(DROPS) + len(PAGES) + len(DISCS), 'wares written')
 
 
 if __name__ == '__main__':

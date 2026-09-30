@@ -57,6 +57,18 @@
     "water_creature": [],
     "monster": [
       {
+        "type": "oathbound:gloam_stalker",
+        "weight": 14,
+        "minCount": 1,
+        "maxCount": 2
+      },
+      {
+        "type": "oathbound:shade_wraith",
+        "weight": 10,
+        "minCount": 1,
+        "maxCount": 1
+      },
+      {
         "type": "oathbound:gloamling",
         "maxCount": 4,
         "minCount": 2,

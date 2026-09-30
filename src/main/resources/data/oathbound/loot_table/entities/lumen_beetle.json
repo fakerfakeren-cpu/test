@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "oathbound:luminous_dust",
+          "weight": 1
+        }
+      ]
+    }
+  ],
+  "random_sequence": "oathbound:entities/lumen_beetle"
+}

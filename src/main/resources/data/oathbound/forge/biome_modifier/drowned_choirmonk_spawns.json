@@ -1,0 +1,12 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#oathbound:has_creature/drowned_choirmonk",
+  "spawners": [
+    {
+      "type": "oathbound:drowned_choirmonk",
+      "weight": 20,
+      "minCount": 1,
+      "maxCount": 1
+    }
+  ]
+}

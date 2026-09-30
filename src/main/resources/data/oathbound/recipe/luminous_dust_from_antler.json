@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "oathbound:glimmer_antler"
+  ],
+  "result": {
+    "id": "oathbound:luminous_dust",
+    "count": 4
+  }
+}

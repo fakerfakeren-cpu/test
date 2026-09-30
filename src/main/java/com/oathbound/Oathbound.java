@@ -102,6 +102,7 @@ public final class Oathbound {
         event.put(ModEntities.ARCHMAGE_VEYL.get(), ArchmageVeylEntity.createAttributes().build());
         event.put(ModEntities.HRODGAR.get(), HrodgarEntity.createAttributes().build());
         event.put(ModEntities.MORVANE.get(), MorvaneEntity.createAttributes().build());
+        RosterRegistry.attributes(event);
     }
 
     private static void spawnPlacements(SpawnPlacementRegisterEvent event) {
@@ -113,6 +114,7 @@ public final class Oathbound {
         event.register(ModEntities.BARROW_WIGHT.get(), ground, surface, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
         event.register(ModEntities.LANTERNMOTH.get(), SpawnPlacementTypes.NO_RESTRICTIONS, surface,
             LanternmothEntity::checkMothSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        RosterRegistry.spawnPlacements(event);
     }
 
     private static void levelTick(TickEvent.LevelTickEvent.Post event) {

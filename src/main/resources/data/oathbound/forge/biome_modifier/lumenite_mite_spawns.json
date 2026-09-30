@@ -1,0 +1,12 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#oathbound:has_creature/lumenite_mite",
+  "spawners": [
+    {
+      "type": "oathbound:lumenite_mite",
+      "weight": 12,
+      "minCount": 2,
+      "maxCount": 3
+    }
+  ]
+}

@@ -507,7 +507,14 @@ def build():
     names('block', BLOCKS)
     names('block', BUILDING)
     names('item', gear.NAMES)
-    from . import wares
+    from . import wares, roster
+    names('entity', roster.NAMES)
+    for mob, en in roster.NAMES.items():
+        put(f'item.oathbound.{mob}_spawn_egg', f'{en} Spawn Egg')
+    for k, (name, text, note) in roster.BESTIARY.items():
+        put(f'bestiary.oathbound.{k}.name', name)
+        put(f'bestiary.oathbound.{k}.text', text)
+        put(f'bestiary.oathbound.{k}.note', note)
     names('item', wares.NAMES)
     for item, lines in wares.DESC.items():
         for i, l in enumerate(lines, 1):

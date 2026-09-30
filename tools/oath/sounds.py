@@ -306,7 +306,8 @@ def wight_hurt(i):
 
 def veilhound_howl(i):
     d = 2.2
-    f = np.concatenate([A.glide(300, 520, 0.5), np.full(int(1.0 * A.SR), 520.0), A.glide(520, 380, 0.7)])
+    k = 1.0 + 0.07 * i   # two voices of the pack, not one
+    f = np.concatenate([A.glide(300 * k, 520 * k, 0.5), np.full(int(1.0 * A.SR), 520.0 * k), A.glide(520 * k, 380 * k, 0.7)])
     f = A._freq(f, int(d * A.SR)) * (1 + 0.01 * np.sin(2 * np.pi * 6 * A.t(d)))
     howl = A.formant(A.saw(f, d, 30), 'u', 1.1) * A.env_swell(d, 0.3, 1.0)
     return A.reverb(howl, 3.0, 1.2, 0.45)
@@ -689,6 +690,8 @@ STREAMS = {
     'music_gloaming': (music_gloaming, None),
     'gloaming_ambient': (gloaming_ambient, 'The Gloaming hums'),
 }
+from .voices import VOICES as _VOICES
+SFX.update(_VOICES)
 from .music import DISCS as _DISCS
 for _name, (_fn, _title, _) in _DISCS.items():
     STREAMS[_name] = (_fn, None)

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "oathbound:item/mossback_tortoise_spawn_egg"
+  }
+}

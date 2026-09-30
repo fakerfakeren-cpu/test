@@ -191,6 +191,28 @@ public final class Showcase {
             p.teleportTo(level, x + 11, y + 2.2 - 1.62 + 0.3, z - 9.5, java.util.Set.of(), 0f, 8f, false);
         }));
         scene(120, "bestiary_shot", mc -> shoot(mc, "bestiary"));
+        // the wider roster, in two rows: the wilds in front, the things of the night behind
+        scene(10, "wilds", mc -> onServer(mc, p -> {
+            ServerLevel level = p.level().getServer().overworld();
+            int x = 80, z = 820;
+            int y = level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z) + 12;
+            for (int dx = -3; dx <= 30; dx++)
+                for (int dz = -4; dz <= 8; dz++) level.setBlock(new BlockPos(x + dx, y - 1, z + dz), ModBlocks.GLOAM_MOSS.get().defaultBlockState(), 2);
+            double cx = x + 0.5;
+            for (var t : List.of(ModEntities.GLIMMERFAWN, ModEntities.DUSKHARE, ModEntities.MOSSBACK_TORTOISE, ModEntities.LUMEN_BEETLE,
+                ModEntities.TIDEWADER, ModEntities.THORNBACK_BOAR, ModEntities.STONEWARDEN, ModEntities.RUNEWISP)) {
+                still(level, t.get(), new Vec3(cx, y + (t == ModEntities.RUNEWISP ? 1.2 : 0), z + 0.5), 180f);
+                cx += t == ModEntities.STONEWARDEN ? 4.5 : 3.5;
+            }
+            cx = x + 2.5;
+            for (var t : List.of(ModEntities.DROWNED_CHOIRMONK, ModEntities.MIRE_HAG, ModEntities.GRAVE_CRAWLER, ModEntities.GLOAM_STALKER,
+                ModEntities.SHADE_WRAITH, ModEntities.LUMENITE_MITE, ModEntities.ASHEN_REVENANT)) {
+                still(level, t.get(), new Vec3(cx, y + (t == ModEntities.SHADE_WRAITH ? 0.6 : 0), z + 5.5), 180f);
+                cx += 3.8;
+            }
+            p.teleportTo(level, x + 14, y + 3.4 - 1.62, z - 10, java.util.Set.of(), 0f, 14f, false);
+        }));
+        scene(130, "wilds_shot", mc -> shoot(mc, "the_wilds"));
         scene(10, "keepers", mc -> onServer(mc, p -> {
             ServerLevel level = p.level().getServer().overworld();
             int x = 80, z = 700;

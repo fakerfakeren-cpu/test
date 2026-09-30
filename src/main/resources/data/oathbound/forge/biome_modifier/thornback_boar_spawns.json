@@ -1,0 +1,12 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#oathbound:has_creature/thornback_boar",
+  "spawners": [
+    {
+      "type": "oathbound:thornback_boar",
+      "weight": 6,
+      "minCount": 2,
+      "maxCount": 4
+    }
+  ]
+}

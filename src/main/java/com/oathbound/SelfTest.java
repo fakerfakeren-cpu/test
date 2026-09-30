@@ -189,10 +189,10 @@ public final class SelfTest {
     private static void script() {
         at(1, s -> {
             ServerLevel level = s.overworld();
-            check("items_registered", ModItems.ITEMS.getEntries().size() >= 249, ModItems.ITEMS.getEntries().size());
+            check("items_registered", ModItems.ITEMS.getEntries().size() >= 272, ModItems.ITEMS.getEntries().size());
             check("blocks_registered", ModBlocks.BLOCKS.getEntries().size() >= 112, ModBlocks.BLOCKS.getEntries().size());
             check("assets_complete", assetsComplete(), "");
-            check("entities_registered", ModEntities.ENTITIES.getEntries().size() >= 18, ModEntities.ENTITIES.getEntries().size());
+            check("entities_registered", ModEntities.ENTITIES.getEntries().size() >= 34, ModEntities.ENTITIES.getEntries().size());
             check("sounds_registered", ModSounds.SOUNDS.getEntries().size() == ModSounds.NAMES.size(), ModSounds.NAMES.size());
             check("gloaming_dimension_loaded", s.getLevel(ModWorldgen.GLOAMING) != null, "");
             int missing = 0;
@@ -211,7 +211,11 @@ public final class SelfTest {
             String[] loot = {"chests/wayshrine_cache", "chests/chapel_reliquary", "chests/chapel_secret", "chests/chapel_nave", "chests/spire_library",
                 "chests/spire_alchemy", "chests/spire_sanctum", "chests/spire_secret", "chests/barrow_tomb", "chests/barrow_hoard", "chests/barrow_secret",
                 "chests/citadel_armory", "chests/citadel_barracks", "chests/citadel_secret", "entities/sir_caldris", "entities/archmage_veyl",
-                "entities/hrodgar", "entities/morvane", "entities/gloamling", "entities/forsworn_knight", "blocks/lumenite_ore"};
+                "entities/hrodgar", "entities/morvane", "entities/gloamling", "entities/forsworn_knight", "blocks/lumenite_ore",
+                "entities/glimmerfawn", "entities/duskhare", "entities/mossback_tortoise", "entities/lumen_beetle", "entities/tidewader",
+                "entities/thornback_boar", "entities/stonewarden", "entities/runewisp", "entities/drowned_choirmonk", "entities/mire_hag",
+                "entities/grave_crawler", "entities/gloam_stalker", "entities/shade_wraith", "entities/lumenite_mite", "entities/ashen_revenant",
+                "blocks/duskiron_ore", "blocks/gloamwood_leaves", "blocks/gloamwood_door", "chests/citadel_barracks"};
             int ok = 0;
             for (String l : loot) {
                 if (lootExists(s, l)) ok++;
@@ -302,10 +306,13 @@ public final class SelfTest {
         at(90, s -> {
             ServerLevel level = s.overworld();
             int x = 80, z = 420;
-            keepLoaded(level, new BlockPos(x + 30, 0, z), 40);
+            keepLoaded(level, new BlockPos(x + 70, 0, z), 90);
             BlockPos base = new BlockPos(x, ground(level, x, z) + 1, z);
             for (var e : List.of(ModEntities.LANTERNMOTH, ModEntities.GLOAMLING, ModEntities.FORSWORN_KNIGHT, ModEntities.BARROW_WIGHT,
-                ModEntities.ANIMATED_TOME, ModEntities.VEILHOUND, ModEntities.SPECTRAL_HOUSECARL)) {
+                ModEntities.ANIMATED_TOME, ModEntities.VEILHOUND, ModEntities.SPECTRAL_HOUSECARL,
+                ModEntities.GLIMMERFAWN, ModEntities.DUSKHARE, ModEntities.MOSSBACK_TORTOISE, ModEntities.LUMEN_BEETLE, ModEntities.TIDEWADER,
+                ModEntities.THORNBACK_BOAR, ModEntities.STONEWARDEN, ModEntities.RUNEWISP, ModEntities.DROWNED_CHOIRMONK, ModEntities.MIRE_HAG,
+                ModEntities.GRAVE_CRAWLER, ModEntities.GLOAM_STALKER, ModEntities.SHADE_WRAITH, ModEntities.LUMENITE_MITE, ModEntities.ASHEN_REVENANT)) {
                 spawn(level, e.get(), base);
                 base = base.offset(6, 0, 0);
                 base = base.atY(ground(level, base.getX(), base.getZ()) + 1);

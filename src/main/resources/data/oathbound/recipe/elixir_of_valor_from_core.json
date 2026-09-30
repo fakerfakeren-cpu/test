@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:glass_bottle",
+    "oathbound:ember_core",
+    "oathbound:luminous_dust"
+  ],
+  "result": {
+    "id": "oathbound:elixir_of_valor",
+    "count": 1
+  }
+}

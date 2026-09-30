@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "oathbound:shadow_fang"
+  ],
+  "result": {
+    "id": "oathbound:gloam_essence",
+    "count": 2
+  }
+}

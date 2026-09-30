@@ -636,6 +636,225 @@
     ],
     "subtitle": "subtitles.oathbound.gloaming_mood"
   },
+  "fawn_call": {
+    "sounds": [
+      {
+        "name": "oathbound:fawn_call_1"
+      },
+      {
+        "name": "oathbound:fawn_call_2"
+      },
+      {
+        "name": "oathbound:fawn_call_3"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.fawn_call"
+  },
+  "fawn_hurt": {
+    "sounds": [
+      {
+        "name": "oathbound:fawn_hurt_1"
+      },
+      {
+        "name": "oathbound:fawn_hurt_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.fawn_hurt"
+  },
+  "hare_squeak": {
+    "sounds": [
+      {
+        "name": "oathbound:hare_squeak_1"
+      },
+      {
+        "name": "oathbound:hare_squeak_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.hare_squeak"
+  },
+  "tortoise_hiss": {
+    "sounds": [
+      {
+        "name": "oathbound:tortoise_hiss_1"
+      },
+      {
+        "name": "oathbound:tortoise_hiss_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.tortoise_hiss"
+  },
+  "beetle_click": {
+    "sounds": [
+      {
+        "name": "oathbound:beetle_click_1"
+      },
+      {
+        "name": "oathbound:beetle_click_2"
+      },
+      {
+        "name": "oathbound:beetle_click_3"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.beetle_click"
+  },
+  "heron_croak": {
+    "sounds": [
+      {
+        "name": "oathbound:heron_croak_1"
+      },
+      {
+        "name": "oathbound:heron_croak_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.heron_croak"
+  },
+  "boar_grunt": {
+    "sounds": [
+      {
+        "name": "oathbound:boar_grunt_1"
+      },
+      {
+        "name": "oathbound:boar_grunt_2"
+      },
+      {
+        "name": "oathbound:boar_grunt_3"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.boar_grunt"
+  },
+  "boar_squeal": {
+    "sounds": [
+      {
+        "name": "oathbound:boar_squeal_1"
+      },
+      {
+        "name": "oathbound:boar_squeal_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.boar_squeal"
+  },
+  "warden_rumble": {
+    "sounds": [
+      {
+        "name": "oathbound:warden_rumble_1"
+      },
+      {
+        "name": "oathbound:warden_rumble_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.warden_rumble"
+  },
+  "wisp_chime": {
+    "sounds": [
+      {
+        "name": "oathbound:wisp_chime_1"
+      },
+      {
+        "name": "oathbound:wisp_chime_2"
+      },
+      {
+        "name": "oathbound:wisp_chime_3"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.wisp_chime"
+  },
+  "monk_chant": {
+    "sounds": [
+      {
+        "name": "oathbound:monk_chant_1"
+      },
+      {
+        "name": "oathbound:monk_chant_2"
+      },
+      {
+        "name": "oathbound:monk_chant_3"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.monk_chant"
+  },
+  "hag_cackle": {
+    "sounds": [
+      {
+        "name": "oathbound:hag_cackle_1"
+      },
+      {
+        "name": "oathbound:hag_cackle_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.hag_cackle"
+  },
+  "hag_curse": {
+    "sounds": [
+      {
+        "name": "oathbound:hag_curse_1"
+      },
+      {
+        "name": "oathbound:hag_curse_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.hag_curse"
+  },
+  "crawler_rattle": {
+    "sounds": [
+      {
+        "name": "oathbound:crawler_rattle_1"
+      },
+      {
+        "name": "oathbound:crawler_rattle_2"
+      },
+      {
+        "name": "oathbound:crawler_rattle_3"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.crawler_rattle"
+  },
+  "stalker_snarl": {
+    "sounds": [
+      {
+        "name": "oathbound:stalker_snarl_1"
+      },
+      {
+        "name": "oathbound:stalker_snarl_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.stalker_snarl"
+  },
+  "wraith_wail": {
+    "sounds": [
+      {
+        "name": "oathbound:wraith_wail_1"
+      },
+      {
+        "name": "oathbound:wraith_wail_2"
+      },
+      {
+        "name": "oathbound:wraith_wail_3"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.wraith_wail"
+  },
+  "mite_chitter": {
+    "sounds": [
+      {
+        "name": "oathbound:mite_chitter_1"
+      },
+      {
+        "name": "oathbound:mite_chitter_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.mite_chitter"
+  },
+  "revenant_roar": {
+    "sounds": [
+      {
+        "name": "oathbound:revenant_roar_1"
+      },
+      {
+        "name": "oathbound:revenant_roar_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.revenant_roar"
+  },
   "theme_keeper": {
     "sounds": [
       {

@@ -1,0 +1,12 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#oathbound:has_creature/duskhare",
+  "spawners": [
+    {
+      "type": "oathbound:duskhare",
+      "weight": 8,
+      "minCount": 1,
+      "maxCount": 3
+    }
+  ]
+}

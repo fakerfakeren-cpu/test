@@ -176,6 +176,10 @@ EGGS = {
 }
 
 
+from .roster import EGGS as _ROSTER_EGGS  # noqa: E402
+EGGS.update(_ROSTER_EGGS)
+
+
 def ramp_of(h):
     c = hexrgb(h)
     stops = []

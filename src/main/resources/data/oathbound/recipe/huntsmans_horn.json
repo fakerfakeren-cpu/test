@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "T  ",
+    "TT ",
+    " GT"
+  ],
+  "key": {
+    "T": "oathbound:boar_tusk",
+    "G": "minecraft:gold_ingot"
+  },
+  "result": {
+    "id": "oathbound:huntsmans_horn",
+    "count": 1
+  }
+}

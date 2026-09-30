@@ -474,12 +474,12 @@ public final class ModelDefs {
         PartDefinition p_hull = root.addOrReplaceChild("hull", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, 24.0F, 0.0F, 0.0F, 0.0F, 0.0F));
         PartDefinition p_body = p_hull.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-1.5F, -1.0F, -2.0F, 3.0F, 2.0F, 4.0F).texOffs(14, 0).addBox(-1.0F, -0.8F, 2.0F, 2.0F, 1.0F, 2.0F), PartPose.offsetAndRotation(0.0F, -2.0F, 0.0F, 0.0F, 0.0F, 0.0F));
         PartDefinition p_head = p_body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(22, 0).addBox(-1.0F, -0.5F, -1.5F, 2.0F, 1.0F, 1.0F), PartPose.offsetAndRotation(0.0F, 0.0F, -2.0F, 0.0F, 0.0F, 0.0F));
-        PartDefinition p_leg_0 = p_body.addOrReplaceChild("leg_0", CubeListBuilder.create().texOffs(28, 0).addBox(0.0F, -0.25F, -0.25F, 2.0F, 0.0F, 0.0F), PartPose.offsetAndRotation(1.5F, 0.5F, -1.0F, 0.0F, 0.0F, 0.0F));
-        PartDefinition p_leg_1 = p_body.addOrReplaceChild("leg_1", CubeListBuilder.create().texOffs(32, 0).addBox(-2.5F, -0.25F, -0.25F, 2.0F, 0.0F, 0.0F), PartPose.offsetAndRotation(-1.5F, 0.5F, -1.0F, 0.0F, 0.0F, 0.0F));
-        PartDefinition p_leg_2 = p_body.addOrReplaceChild("leg_2", CubeListBuilder.create().texOffs(36, 0).addBox(0.0F, -0.25F, -0.25F, 2.0F, 0.0F, 0.0F), PartPose.offsetAndRotation(1.5F, 0.5F, 0.5F, 0.0F, 0.0F, 0.0F));
-        PartDefinition p_leg_3 = p_body.addOrReplaceChild("leg_3", CubeListBuilder.create().texOffs(40, 0).addBox(-2.5F, -0.25F, -0.25F, 2.0F, 0.0F, 0.0F), PartPose.offsetAndRotation(-1.5F, 0.5F, 0.5F, 0.0F, 0.0F, 0.0F));
-        PartDefinition p_leg_4 = p_body.addOrReplaceChild("leg_4", CubeListBuilder.create().texOffs(44, 0).addBox(0.0F, -0.25F, -0.25F, 2.0F, 0.0F, 0.0F), PartPose.offsetAndRotation(1.5F, 0.5F, 2.0F, 0.0F, 0.0F, 0.0F));
-        PartDefinition p_leg_5 = p_body.addOrReplaceChild("leg_5", CubeListBuilder.create().texOffs(48, 0).addBox(-2.5F, -0.25F, -0.25F, 2.0F, 0.0F, 0.0F), PartPose.offsetAndRotation(-1.5F, 0.5F, 2.0F, 0.0F, 0.0F, 0.0F));
+        PartDefinition p_leg_0 = p_body.addOrReplaceChild("leg_0", CubeListBuilder.create().texOffs(28, 0).addBox(0.0F, -0.45F, -0.45F, 2.0F, 0.0F, 0.0F), PartPose.offsetAndRotation(1.5F, 0.5F, -1.0F, 0.0F, 0.0F, 0.0F));
+        PartDefinition p_leg_1 = p_body.addOrReplaceChild("leg_1", CubeListBuilder.create().texOffs(32, 0).addBox(-2.5F, -0.45F, -0.45F, 2.0F, 0.0F, 0.0F), PartPose.offsetAndRotation(-1.5F, 0.5F, -1.0F, 0.0F, 0.0F, 0.0F));
+        PartDefinition p_leg_2 = p_body.addOrReplaceChild("leg_2", CubeListBuilder.create().texOffs(36, 0).addBox(0.0F, -0.45F, -0.45F, 2.0F, 0.0F, 0.0F), PartPose.offsetAndRotation(1.5F, 0.5F, 0.5F, 0.0F, 0.0F, 0.0F));
+        PartDefinition p_leg_3 = p_body.addOrReplaceChild("leg_3", CubeListBuilder.create().texOffs(40, 0).addBox(-2.5F, -0.45F, -0.45F, 2.0F, 0.0F, 0.0F), PartPose.offsetAndRotation(-1.5F, 0.5F, 0.5F, 0.0F, 0.0F, 0.0F));
+        PartDefinition p_leg_4 = p_body.addOrReplaceChild("leg_4", CubeListBuilder.create().texOffs(44, 0).addBox(0.0F, -0.45F, -0.45F, 2.0F, 0.0F, 0.0F), PartPose.offsetAndRotation(1.5F, 0.5F, 2.0F, 0.0F, 0.0F, 0.0F));
+        PartDefinition p_leg_5 = p_body.addOrReplaceChild("leg_5", CubeListBuilder.create().texOffs(48, 0).addBox(-2.5F, -0.45F, -0.45F, 2.0F, 0.0F, 0.0F), PartPose.offsetAndRotation(-1.5F, 0.5F, 2.0F, 0.0F, 0.0F, 0.0F));
         return LayerDefinition.create(mesh, 64, 32);
     }
 
@@ -614,14 +614,14 @@ public final class ModelDefs {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();
         PartDefinition p_hull = root.addOrReplaceChild("hull", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, 24.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-        PartDefinition p_body = p_hull.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-2.0F, -1.5F, -2.5F, 4.0F, 3.0F, 5.0F).texOffs(28, 0).addBox(-1.0F, -3.5F, -1.0F, 2.0F, 2.0F, 2.0F).texOffs(36, 0).addBox(0.5F, -3.0F, 1.0F, 1.0F, 2.0F, 1.0F).texOffs(40, 0).addBox(-1.5F, -2.8F, -2.0F, 1.0F, 1.0F, 1.0F), PartPose.offsetAndRotation(0.0F, -2.5F, 0.0F, 0.0F, 0.0F, 0.0F));
+        PartDefinition p_body = p_hull.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-2.0F, -1.5F, -2.5F, 4.0F, 3.0F, 5.0F).texOffs(28, 0).addBox(-1.0F, -3.5F, -1.0F, 2.0F, 2.0F, 2.0F).texOffs(36, 0).addBox(0.5F, -3.0F, 1.0F, 1.0F, 2.0F, 1.0F).texOffs(24, 8).addBox(-1.5F, -2.8F, -2.0F, 1.0F, 1.0F, 1.0F), PartPose.offsetAndRotation(0.0F, -2.5F, 0.0F, 0.0F, 0.0F, 0.0F));
         PartDefinition p_head = p_body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(18, 0).addBox(-1.5F, -1.0F, -2.0F, 3.0F, 2.0F, 2.0F), PartPose.offsetAndRotation(0.0F, 0.0F, -2.5F, 0.0F, 0.0F, 0.0F));
-        PartDefinition p_leg_0 = p_body.addOrReplaceChild("leg_0", CubeListBuilder.create().texOffs(44, 0).addBox(0.0F, -0.4F, -0.4F, 2.0F, 0.0F, 0.0F), PartPose.offsetAndRotation(2.0F, 1.0F, -1.5F, 0.0F, 0.0F, 0.0F));
-        PartDefinition p_leg_1 = p_body.addOrReplaceChild("leg_1", CubeListBuilder.create().texOffs(48, 0).addBox(-2.5F, -0.4F, -0.4F, 2.0F, 0.0F, 0.0F), PartPose.offsetAndRotation(-2.0F, 1.0F, -1.5F, 0.0F, 0.0F, 0.0F));
-        PartDefinition p_leg_2 = p_body.addOrReplaceChild("leg_2", CubeListBuilder.create().texOffs(52, 0).addBox(0.0F, -0.4F, -0.4F, 2.0F, 0.0F, 0.0F), PartPose.offsetAndRotation(2.0F, 1.0F, 0.5F, 0.0F, 0.0F, 0.0F));
-        PartDefinition p_leg_3 = p_body.addOrReplaceChild("leg_3", CubeListBuilder.create().texOffs(56, 0).addBox(-2.5F, -0.4F, -0.4F, 2.0F, 0.0F, 0.0F), PartPose.offsetAndRotation(-2.0F, 1.0F, 0.5F, 0.0F, 0.0F, 0.0F));
-        PartDefinition p_leg_4 = p_body.addOrReplaceChild("leg_4", CubeListBuilder.create().texOffs(60, 0).addBox(0.0F, -0.4F, -0.4F, 2.0F, 0.0F, 0.0F), PartPose.offsetAndRotation(2.0F, 1.0F, 2.0F, 0.0F, 0.0F, 0.0F));
-        PartDefinition p_leg_5 = p_body.addOrReplaceChild("leg_5", CubeListBuilder.create().texOffs(0, 8).addBox(-2.5F, -0.4F, -0.4F, 2.0F, 0.0F, 0.0F), PartPose.offsetAndRotation(-2.0F, 1.0F, 2.0F, 0.0F, 0.0F, 0.0F));
+        PartDefinition p_leg_0 = p_body.addOrReplaceChild("leg_0", CubeListBuilder.create().texOffs(40, 0).addBox(0.0F, -0.5F, -0.5F, 3.0F, 1.0F, 1.0F), PartPose.offsetAndRotation(2.0F, 1.0F, -1.5F, 0.0F, 0.0F, 0.0F));
+        PartDefinition p_leg_1 = p_body.addOrReplaceChild("leg_1", CubeListBuilder.create().texOffs(48, 0).addBox(-3.0F, -0.5F, -0.5F, 3.0F, 1.0F, 1.0F), PartPose.offsetAndRotation(-2.0F, 1.0F, -1.5F, 0.0F, 0.0F, 0.0F));
+        PartDefinition p_leg_2 = p_body.addOrReplaceChild("leg_2", CubeListBuilder.create().texOffs(56, 0).addBox(0.0F, -0.5F, -0.5F, 3.0F, 1.0F, 1.0F), PartPose.offsetAndRotation(2.0F, 1.0F, 0.5F, 0.0F, 0.0F, 0.0F));
+        PartDefinition p_leg_3 = p_body.addOrReplaceChild("leg_3", CubeListBuilder.create().texOffs(0, 8).addBox(-3.0F, -0.5F, -0.5F, 3.0F, 1.0F, 1.0F), PartPose.offsetAndRotation(-2.0F, 1.0F, 0.5F, 0.0F, 0.0F, 0.0F));
+        PartDefinition p_leg_4 = p_body.addOrReplaceChild("leg_4", CubeListBuilder.create().texOffs(8, 8).addBox(0.0F, -0.5F, -0.5F, 3.0F, 1.0F, 1.0F), PartPose.offsetAndRotation(2.0F, 1.0F, 2.0F, 0.0F, 0.0F, 0.0F));
+        PartDefinition p_leg_5 = p_body.addOrReplaceChild("leg_5", CubeListBuilder.create().texOffs(16, 8).addBox(-3.0F, -0.5F, -0.5F, 3.0F, 1.0F, 1.0F), PartPose.offsetAndRotation(-2.0F, 1.0F, 2.0F, 0.0F, 0.0F, 0.0F));
         return LayerDefinition.create(mesh, 64, 32);
     }
 

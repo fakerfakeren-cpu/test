@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:glass_bottle",
+    "oathbound:hag_eye",
+    "oathbound:gloam_essence"
+  ],
+  "result": {
+    "id": "oathbound:elixir_of_shrouds",
+    "count": 1
+  }
+}
