@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "oathbound:gloaming"
+    "oathbound:gloaming",
+    "oathbound:veilwood",
+    "oathbound:ashen_reach"
   ]
 }

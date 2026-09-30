@@ -1,29 +1,29 @@
 {
   "attributes": {
-    "minecraft:visual/fog_color": "#2a2238",
-    "minecraft:visual/sky_color": "#120e1c",
+    "minecraft:visual/fog_color": "#3a2420",
+    "minecraft:visual/sky_color": "#1a0e0c",
     "minecraft:visual/water_fog_color": "#1a1426",
     "minecraft:visual/ambient_particles": [
       {
         "particle": {
-          "type": "oathbound:gloam_wisp"
+          "type": "oathbound:ash"
         },
-        "probability": 0.004
+        "probability": 0.014
       },
       {
         "particle": {
-          "type": "oathbound:lumen_mote"
+          "type": "oathbound:ember"
         },
-        "probability": 0.0015
+        "probability": 0.003
       }
     ]
   },
   "carvers": [],
   "downfall": 0.0,
   "effects": {
-    "water_color": "#3a2a5a",
-    "grass_color": "#5a3a7a",
-    "foliage_color": "#4a2f66"
+    "water_color": "#4a2a22",
+    "grass_color": "#4a3a36",
+    "foliage_color": "#3a2e2a"
   },
   "features": [
     [],
@@ -39,10 +39,8 @@
     [],
     [],
     [
-      "oathbound:gloam_fern_patch",
-      "oathbound:gloamwood_tree",
-      "oathbound:gloam_ruin",
-      "oathbound:veilbloom_patch"
+      "oathbound:ashen_snags",
+      "oathbound:gloam_ruin"
     ]
   ],
   "has_precipitation": false,
@@ -57,31 +55,25 @@
     "water_creature": [],
     "monster": [
       {
-        "type": "oathbound:gloam_stalker",
-        "weight": 14,
+        "type": "oathbound:ashen_revenant",
+        "weight": 22,
         "minCount": 1,
         "maxCount": 2
       },
       {
-        "type": "oathbound:shade_wraith",
-        "weight": 10,
+        "type": "oathbound:forsworn_knight",
+        "weight": 14,
         "minCount": 1,
         "maxCount": 1
       },
       {
         "type": "oathbound:gloamling",
-        "weight": 30,
-        "minCount": 2,
-        "maxCount": 4
+        "weight": 10,
+        "minCount": 1,
+        "maxCount": 2
       },
       {
-        "type": "oathbound:veilhound",
-        "weight": 16,
-        "minCount": 2,
-        "maxCount": 3
-      },
-      {
-        "type": "oathbound:forsworn_knight",
+        "type": "oathbound:gloam_stalker",
         "weight": 8,
         "minCount": 1,
         "maxCount": 1

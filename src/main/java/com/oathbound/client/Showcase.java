@@ -409,6 +409,28 @@ public final class Showcase {
             p.teleportTo(level, x0 + 17.5, y + 4 - 1.62, z0 - 11.5, java.util.Set.of(), 0f, 18f, false);
         }));
         scene(140, "masonry_shot", mc -> shoot(mc, "masonry"));
+        for (String biome : List.of("veilwood", "ashen_reach")) {
+            scene(10, biome, mc -> onServer(mc, p -> {
+                ServerLevel g = p.level().getServer().getLevel(ModWorldgen.GLOAMING);
+                if (g == null) return;
+                var key = net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.BIOME,
+                    net.minecraft.resources.Identifier.fromNamespaceAndPath(Oathbound.MODID, biome));
+                var hit = g.findClosestBiome3d(h -> h.is(key), new BlockPos(0, 64, 0), 4000, 32, 32);
+                if (hit == null) return;
+                BlockPos at = hit.getFirst();
+                // look for solid island ground near the hit, and stand a little above it
+                for (int tries = 0; tries < 24; tries++) {
+                    BlockPos c = at.offset((tries % 5 - 2) * 12, 0, (tries / 5 - 2) * 12);
+                    g.getChunk(c.getX() >> 4, c.getZ() >> 4);
+                    int y = g.getHeight(Heightmap.Types.MOTION_BLOCKING, c.getX(), c.getZ());
+                    if (y > g.getMinY() + 4) {
+                        p.teleportTo(g, c.getX() + 0.5, y + 6 - 1.62, c.getZ() + 0.5, java.util.Set.of(), 30f, 20f, false);
+                        return;
+                    }
+                }
+            }));
+            scene(150, biome + "_shot", mc -> shoot(mc, "gloaming_" + biome));
+        }
         scene(10, "gloaming", mc -> onServer(mc, p -> {
             ServerLevel g = p.level().getServer().getLevel(ModWorldgen.GLOAMING);
             if (g == null) return;

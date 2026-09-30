@@ -19,7 +19,8 @@ public final class GloamFeatures {
 
     private static boolean ground(WorldGenLevel level, BlockPos pos) {
         BlockState below = level.getBlockState(pos.below());
-        return (below.is(ModBlocks.GLOAM_MOSS.get()) || below.is(ModBlocks.GLOAMSTONE.get())) && level.getBlockState(pos).isAir();
+        return (below.is(ModBlocks.GLOAM_MOSS.get()) || below.is(ModBlocks.GLOAMSTONE.get()) || below.is(Blocks.BLACKSTONE))
+            && level.getBlockState(pos).isAir();
     }
 
     private static void set(WorldGenLevel level, BlockPos p, BlockState s) {
@@ -97,6 +98,35 @@ public final class GloamFeatures {
      * A fragment of the Lanternguard's lost chapterhouses: a broken pillar or a crumbling wall corner in pale
      * wardstone, half swallowed by gloamstone, sometimes with a guttered lantern.
      */
+    /** The Ashen Reach: a gloamwood burned to a bare trunk, standing in ground cracked open with embers. */
+    public static class AshenSnag extends Feature<NoneFeatureConfiguration> {
+        public AshenSnag(Codec<NoneFeatureConfiguration> codec) {
+            super(codec);
+        }
+
+        @Override
+        public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> ctx) {
+            WorldGenLevel level = ctx.level();
+            RandomSource r = ctx.random();
+            BlockPos base = ctx.origin();
+            if (!ground(level, base)) return false;
+            BlockState log = ModBlocks.STRIPPED_GLOAMWOOD_LOG.get().defaultBlockState();
+            int h = 3 + r.nextInt(5);
+            for (int y = 0; y < h; y++) set(level, base.above(y), log);
+            for (int b = 0; b < 1 + r.nextInt(2); b++) {
+                Direction d = Direction.Plane.HORIZONTAL.getRandomDirection(r);
+                BlockPos at = base.above(h - 1 - r.nextInt(2)).relative(d);
+                set(level, at, log.setValue(RotatedPillarBlock.AXIS, d.getAxis()));
+            }
+            for (int i = 0; i < 10; i++) {
+                BlockPos g = base.offset(r.nextInt(7) - 3, -1, r.nextInt(7) - 3);
+                if (level.getBlockState(g).is(Blocks.BLACKSTONE) && level.getBlockState(g.above()).isAir())
+                    level.setBlock(g, (r.nextInt(3) == 0 ? Blocks.MAGMA_BLOCK : Blocks.BASALT).defaultBlockState(), 2);
+            }
+            return true;
+        }
+    }
+
     public static class Ruin extends Feature<NoneFeatureConfiguration> {
         public Ruin(Codec<NoneFeatureConfiguration> codec) {
             super(codec);

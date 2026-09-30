@@ -419,8 +419,12 @@ def worldgen():
     wilds.structures()
 
 
+FLOOR = {'type': 'minecraft:stone_depth', 'add_surface_depth': False, 'offset': 0, 'secondary_depth_range': 0, 'surface_type': 'floor'}
+
+
 def gloaming():
-    """The Gloaming: grey-violet floating islands under a starless dusk that never ends."""
+    """The Gloaming: grey-violet floating islands under a starless dusk that never ends. Three countries share them:
+    the mossy Gloaming itself, the burned Ashen Reach and the dense violet Veilwood."""
     write('dimension_type/gloaming.json', {
         'ambient_light': 0.12,
         'attributes': {
@@ -455,11 +459,15 @@ def gloaming():
                                 'argument1': {'type': 'minecraft:y_clamped_gradient', 'from_value': 1.0, 'from_y': 120, 'to_value': 0.0, 'to_y': 300},
                                 'argument2': {'type': 'minecraft:add', 'argument1': 23.4375, 'argument2': 'minecraft:end/base_3d_noise'}}}}}}}}}},
             'fluid_level_floodedness': 0.0, 'fluid_level_spread': 0.0, 'lava': 0.0, 'preliminary_surface_level': 0.0, 'ridges': 0.0,
-            'temperature': 0.0, 'vegetation': 0.0, 'vein_gap': 0.0, 'vein_ridged': 0.0, 'vein_toggle': 0.0},
+            # only the biome choice reads this: broad bands of ash, forest and moss across the islands
+            'temperature': {'type': 'minecraft:noise', 'noise': 'minecraft:temperature', 'xz_scale': 0.6, 'y_scale': 0.0},
+            'vegetation': 0.0, 'vein_gap': 0.0, 'vein_ridged': 0.0, 'vein_toggle': 0.0},
         'ore_veins_enabled': False, 'sea_level': 0, 'spawn_target': [],
         'surface_rule': {'type': 'minecraft:sequence', 'sequence': [
-            {'type': 'minecraft:condition', 'if_true': {'type': 'minecraft:stone_depth', 'add_surface_depth': False, 'offset': 0,
-                                                        'secondary_depth_range': 0, 'surface_type': 'floor'},
+            {'type': 'minecraft:condition', 'if_true': {'type': 'minecraft:biome', 'biome_is': ['oathbound:ashen_reach']},
+             'then_run': {'type': 'minecraft:condition', 'if_true': FLOOR, 'then_run': {'type': 'minecraft:block',
+                                                                                         'result_state': {'Name': 'minecraft:blackstone'}}}},
+            {'type': 'minecraft:condition', 'if_true': FLOOR,
              'then_run': {'type': 'minecraft:block', 'result_state': {'Name': 'oathbound:gloam_moss'}}},
             {'type': 'minecraft:block', 'result_state': {'Name': 'oathbound:gloamstone'}}]}})
     features = ['oathbound:gloam_fern_patch']   # written by building.worldgen()
@@ -474,26 +482,49 @@ def gloaming():
                       {'type': 'minecraft:biome'}]
         write(f'worldgen/placed_feature/{fid}.json', {'feature': f'oathbound:{fid}', 'placement': placement})
         features.append(f'oathbound:{fid}')
-    write('worldgen/biome/gloaming.json', {
-        'attributes': {
-            'minecraft:visual/fog_color': '#2a2238',
-            'minecraft:visual/sky_color': '#120e1c',
-            'minecraft:visual/water_fog_color': '#1a1426',
-            'minecraft:visual/ambient_particles': [{'particle': {'type': 'oathbound:gloam_wisp'}, 'probability': 0.004},
-                                                   {'particle': {'type': 'oathbound:lumen_mote'}, 'probability': 0.0015}],
-        },
-        'carvers': [], 'downfall': 0.0, 'effects': {'water_color': '#3a2a5a', 'grass_color': '#5a3a7a', 'foliage_color': '#4a2f66'},
-        'features': [[], [], [], [], [], [], ['oathbound:ore_duskiron'], [], [], [], features],
-        'has_precipitation': False, 'spawn_costs': {},
-        'spawners': {'ambient': [], 'axolotls': [], 'creature': [], 'misc': [], 'underground_water_creature': [], 'water_ambient': [],
-                     'water_creature': [],
-                     'monster': __import__('tools.oath.roster', fromlist=['x']).gloaming_spawners() + [{'type': 'oathbound:gloamling', 'maxCount': 4, 'minCount': 2, 'weight': 30},
-                                 {'type': 'oathbound:veilhound', 'maxCount': 3, 'minCount': 2, 'weight': 16},
-                                 {'type': 'oathbound:forsworn_knight', 'maxCount': 1, 'minCount': 1, 'weight': 8}]},
-        'temperature': 0.5})
+    # the Veilwood's close-set trees and the Ashen Reach's burned snags
+    for pid, fid, count in (('veilwood_trees', 'gloamwood_tree', 3), ('veilwood_blooms', 'veilbloom_patch', 4), ('ashen_snags', 'ashen_snag', 2)):
+        if fid == 'ashen_snag':
+            write(f'worldgen/configured_feature/{fid}.json', {'type': f'oathbound:{fid}', 'config': {}})
+        write(f'worldgen/placed_feature/{pid}.json', {'feature': f'oathbound:{fid}', 'placement': [
+            {'type': 'minecraft:count', 'count': count}, {'type': 'minecraft:in_square'},
+            {'type': 'minecraft:heightmap', 'heightmap': 'MOTION_BLOCKING'}, {'type': 'minecraft:biome'}]})
+    roster_gloam = __import__('tools.oath.roster', fromlist=['x']).gloaming_spawners()
+
+    def spawn(entity, weight, lo, hi):
+        return {'type': f'oathbound:{entity}', 'weight': weight, 'minCount': lo, 'maxCount': hi}
+
+    def biome(bid, fog, sky, water, grass, foliage, particles, feats, monsters):
+        write(f'worldgen/biome/{bid}.json', {
+            'attributes': {
+                'minecraft:visual/fog_color': fog, 'minecraft:visual/sky_color': sky, 'minecraft:visual/water_fog_color': '#1a1426',
+                'minecraft:visual/ambient_particles': [{'particle': {'type': f'oathbound:{p}'}, 'probability': pr} for p, pr in particles],
+            },
+            'carvers': [], 'downfall': 0.0, 'effects': {'water_color': water, 'grass_color': grass, 'foliage_color': foliage},
+            'features': [[], [], [], [], [], [], ['oathbound:ore_duskiron'], [], [], [], feats],
+            'has_precipitation': False, 'spawn_costs': {},
+            'spawners': {'ambient': [], 'axolotls': [], 'creature': [], 'misc': [], 'underground_water_creature': [], 'water_ambient': [],
+                         'water_creature': [], 'monster': monsters},
+            'temperature': 0.5})
+
+    biome('gloaming', '#2a2238', '#120e1c', '#3a2a5a', '#5a3a7a', '#4a2f66', (('gloam_wisp', 0.004), ('lumen_mote', 0.0015)), features,
+          roster_gloam + [spawn('gloamling', 30, 2, 4), spawn('veilhound', 16, 2, 3), spawn('forsworn_knight', 8, 1, 1)])
+    biome('veilwood', '#3a2458', '#160e24', '#3a2a6a', '#6a3a8a', '#5a2f7e', (('gloam_wisp', 0.012), ('lumen_mote', 0.004), ('spore', 0.002)),
+          ['oathbound:gloam_fern_patch', 'oathbound:veilwood_trees', 'oathbound:veilwood_blooms', 'oathbound:gloam_ruin'],
+          [spawn('shade_wraith', 18, 1, 1), spawn('veilhound', 20, 2, 3), spawn('gloam_stalker', 18, 1, 2), spawn('gloamling', 20, 2, 3)])
+    biome('ashen_reach', '#3a2420', '#1a0e0c', '#4a2a22', '#4a3a36', '#3a2e2a', (('ash', 0.014), ('ember', 0.003)),
+          ['oathbound:ashen_snags', 'oathbound:gloam_ruin'],
+          [spawn('ashen_revenant', 22, 1, 2), spawn('forsworn_knight', 14, 1, 1), spawn('gloamling', 10, 1, 2), spawn('gloam_stalker', 8, 1, 1)])
+
+    def point(t):
+        return {'temperature': t, 'humidity': 0.0, 'continentalness': 0.0, 'erosion': 0.0, 'weirdness': 0.0, 'depth': 0.0, 'offset': 0.0}
+
     write('dimension/gloaming.json', {'type': 'oathbound:gloaming', 'generator': {
         'type': 'minecraft:noise', 'settings': 'oathbound:gloaming',
-        'biome_source': {'type': 'minecraft:fixed', 'biome': 'oathbound:gloaming'}}})
+        'biome_source': {'type': 'minecraft:multi_noise', 'biomes': [
+            {'biome': 'oathbound:gloaming', 'parameters': point(0.0)},
+            {'biome': 'oathbound:ashen_reach', 'parameters': point(0.5)},
+            {'biome': 'oathbound:veilwood', 'parameters': point(-0.5)}]}}})
 
 
 # ====================================================================== recipes

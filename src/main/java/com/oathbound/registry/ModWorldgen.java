@@ -47,6 +47,9 @@ public final class ModWorldgen {
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> GLOAM_FERN_PATCH = FEATURES.register("gloam_fern_patch",
         () -> new GloamFeatures.Wildflowers(NoneFeatureConfiguration.CODEC, ModBlocks.GLOAM_FERN, 40, 7));
 
+    public static final RegistryObject<Feature<NoneFeatureConfiguration>> ASHEN_SNAG = FEATURES.register("ashen_snag",
+        () -> new GloamFeatures.AshenSnag(NoneFeatureConfiguration.CODEC));
+
     /** The land remembers the Order: overworld landmarks and lumenite crystals (LandFeatures). */
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> WAYSTONE = FEATURES.register("waystone",
         () -> new LandFeatures.Waystone(NoneFeatureConfiguration.CODEC));

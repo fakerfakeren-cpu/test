@@ -28,7 +28,7 @@ STRUCTURES = {
     'lumenite_mine': ('underground_structures', 30, 10, 81311411,
                       ['#minecraft:is_forest', '#minecraft:is_taiga', '#minecraft:is_hill', 'minecraft:plains', 'minecraft:meadow',
                        'minecraft:savanna', 'minecraft:snowy_plains']),
-    'shattered_observatory': ('surface_structures', 22, 8, 81311413, ['oathbound:gloaming']),
+    'shattered_observatory': ('surface_structures', 22, 8, 81311413, ['oathbound:gloaming', 'oathbound:veilwood', 'oathbound:ashen_reach']),
 }
 
 
@@ -162,6 +162,9 @@ PARENTS = {q: 'root' for q in QUEST_TABLE}
 QUESTS = {q: (t[3], t[4], t[5]) for q, t in QUEST_TABLE.items()}
 
 TEXT = {
+    'biome.oathbound.gloaming': 'The Gloaming',
+    'biome.oathbound.veilwood': 'The Veilwood',
+    'biome.oathbound.ashen_reach': 'The Ashen Reach',
     'message.oathbound.pilgrim.coming': 'A lantern bobs on the road: a pilgrim of the Order is coming.',
     'message.oathbound.elderhorn.bloom': 'The Grove King kneels to drink from the grove. Strike hard to break the trance!',
     'message.oathbound.bog_mother.brood': 'Her bone-children shield the Bog Mother. Kill the brood!',

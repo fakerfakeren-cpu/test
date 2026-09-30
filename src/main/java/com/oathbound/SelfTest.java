@@ -530,6 +530,14 @@ public final class SelfTest {
             keepLoaded(g, GloamingTravel.THRONE, 64);
             GloamingTravel.ensureThrone(g);
             arena = GloamingTravel.THRONE;
+            int found = 0;
+            for (String b : List.of("veilwood", "ashen_reach")) {
+                var key = ResourceKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(Oathbound.MODID, b));
+                var hit = g.findClosestBiome3d(h -> h.is(key), GloamingTravel.THRONE, 4000, 64, 64);
+                if (hit != null) found++;
+                else log("no " + b + " within 4000 blocks of the throne");
+            }
+            check("gloaming_biomes", found == 2, found + "/2");
             check("throne_built", g.getBlockState(arena.below()).is(ModBlocks.CHISELED_WARDSTONE.get()), "");
             check("ward_lanterns", Puzzles.find(g, arena, 13, ModBlocks.WARD_LANTERN.get()).size() == 4, "");
             check("return_veil", g.getBlockState(arena.offset(0, 2, 51)).is(ModBlocks.GLOAM_VEIL.get()), "");
