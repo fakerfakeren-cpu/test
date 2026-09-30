@@ -616,7 +616,7 @@ CINDER_HEART = [
     "................",
 ]
 DISC_LABELS = {'disc_lanternguard_hymn': 'gold', 'disc_wayshrine_nocturne': 'ember', 'disc_chapel_tides': 'tide',
-               'disc_crown_of_ash': 'blood'}
+               'disc_crown_of_ash': 'blood', 'disc_wild_hunt': 'moss', 'disc_stars_went_out': 'violet'}
 
 
 def icons():

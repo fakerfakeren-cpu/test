@@ -113,7 +113,7 @@ PAGES = [
 
 # chest table -> [(ware, weight)]
 LOOT = {
-    'grove_offering': [('lore_page_grove_king', 6), ('elixir_of_the_wayfarer', 4), ('music_disc_wayshrine_nocturne', 1)],
+    'grove_offering': [('lore_page_grove_king', 6), ('elixir_of_the_wayfarer', 4), ('music_disc_wild_hunt', 3)],
     'bog_hut_larder': [('lore_page_bog_mother', 6), ('moonpetal_tea', 4), ('duskwine', 4)],
     'cinder_sanctum_vault': [('lore_page_sun_cult', 6), ('music_disc_crown_of_ash', 2), ('sunshard_talisman', 1)],
     'cinder_sanctum_offerings': [('lore_page_sun_cult', 3), ('emberroot_stew', 6)],
@@ -123,7 +123,7 @@ LOOT = {
     'grotto_wreck': [('salted_cod', 8), ('lore_page_drowned_choir', 2)],
     'mine_cache': [('lore_page_lumenite_rush', 5), ('trail_rations', 6)],
     'mine_foreman': [('lore_page_lumenite_rush', 6), ('elixir_of_the_wayfarer', 3)],
-    'observatory_charts': [('lore_page_star_readers', 8), ('veyls_mirror', 1), ('elixir_of_shrouds', 4)],
+    'observatory_charts': [('lore_page_star_readers', 8), ('veyls_mirror', 1), ('elixir_of_shrouds', 4), ('music_disc_stars_went_out', 3)],
 }
 
 # quest id: (frame, icon, criteria, English title, description, hint)

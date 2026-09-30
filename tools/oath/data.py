@@ -603,9 +603,14 @@ def generate():
     landmarks.worldgen()
     landmarks.loot()
     landmarks.tags()
+    from . import paintings
+    paintings.data()
     flush_tags()
     print('data written')
 
 
 if __name__ == '__main__':
-    generate()
+    # Run through the package module, not __main__: the helper modules import tools.oath.data, and their tags must
+    # land in the same table that flush_tags() writes.
+    from tools.oath import data as _data
+    _data.generate()

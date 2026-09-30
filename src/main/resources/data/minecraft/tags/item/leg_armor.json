@@ -2,6 +2,11 @@
   "replace": false,
   "values": [
     "oathbound:oathsteel_leggings",
-    "oathbound:arcanist_leggings"
+    "oathbound:arcanist_leggings",
+    "oathbound:tidebronze_leggings",
+    "oathbound:runesilver_leggings",
+    "oathbound:gravegold_leggings",
+    "oathbound:duskiron_leggings",
+    "oathbound:dawnsteel_leggings"
   ]
 }

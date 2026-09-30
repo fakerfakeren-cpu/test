@@ -277,6 +277,18 @@ public final class SelfTest {
                 else log("missing structure " + id);
             }
             check("wild_structures_registered", sites == 7, sites + "/7");
+            // worldgen places things only where these biome tags say: an empty or missing tag means it never appears
+            var biomes = s.registryAccess().lookupOrThrow(Registries.BIOME);
+            int tagged = 0;
+            List<String> biomeTags = List.of("has_structure/grove_shrine", "has_structure/cinder_sanctum", "has_structure/shattered_observatory",
+                "has_creature/glimmerfawn", "has_creature/ashen_revenant", "has_flower/moonpetal", "has_landmark/waystone", "has_landmark/lumen_clusters");
+            for (String t : biomeTags) {
+                var key = net.minecraft.tags.TagKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(Oathbound.MODID, t));
+                var set = biomes.get(key);
+                if (set.isPresent() && set.get().size() > 0) tagged++;
+                else log("empty biome tag " + t);
+            }
+            check("worldgen_biome_tags", tagged == biomeTags.size(), tagged + "/" + biomeTags.size());
             // puzzle logic
             BlockPos probe = new BlockPos(123, 64, -456);
             int[] hymn = HymnStoneBlock.hymn(probe);

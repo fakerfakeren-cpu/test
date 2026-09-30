@@ -1,6 +1,11 @@
 {
   "replace": false,
   "values": [
-    "oathbound:oathsteel_axe"
+    "oathbound:oathsteel_axe",
+    "oathbound:tidebronze_axe",
+    "oathbound:runesilver_axe",
+    "oathbound:gravegold_axe",
+    "oathbound:duskiron_axe",
+    "oathbound:dawnsteel_axe"
   ]
 }

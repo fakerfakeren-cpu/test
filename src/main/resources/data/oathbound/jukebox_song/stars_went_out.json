@@ -1,0 +1,8 @@
+{
+  "sound_event": "oathbound:disc_stars_went_out",
+  "description": {
+    "translate": "jukebox_song.oathbound.stars_went_out"
+  },
+  "length_in_seconds": 142.3,
+  "comparator_output": 4
+}

@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "oathbound:music_disc_lanternguard_hymn",
+    "oathbound:music_disc_wayshrine_nocturne",
+    "oathbound:music_disc_chapel_tides",
+    "oathbound:music_disc_crown_of_ash",
+    "oathbound:music_disc_wild_hunt",
+    "oathbound:music_disc_stars_went_out"
+  ]
+}

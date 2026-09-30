@@ -1,0 +1,13 @@
+{
+  "asset_id": "oathbound:hollow_throne",
+  "width": 2,
+  "height": 3,
+  "title": {
+    "translate": "painting.oathbound.hollow_throne.title",
+    "color": "yellow"
+  },
+  "author": {
+    "translate": "painting.oathbound.hollow_throne.author",
+    "color": "gray"
+  }
+}

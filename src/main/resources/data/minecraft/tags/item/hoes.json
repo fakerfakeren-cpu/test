@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "oathbound:tidebronze_hoe",
+    "oathbound:runesilver_hoe",
+    "oathbound:gravegold_hoe",
+    "oathbound:duskiron_hoe",
+    "oathbound:dawnsteel_hoe",
+    "oathbound:oathsteel_hoe"
+  ]
+}

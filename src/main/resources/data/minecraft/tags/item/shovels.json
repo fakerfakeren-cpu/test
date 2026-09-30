@@ -1,6 +1,11 @@
 {
   "replace": false,
   "values": [
-    "oathbound:oathsteel_shovel"
+    "oathbound:oathsteel_shovel",
+    "oathbound:tidebronze_shovel",
+    "oathbound:runesilver_shovel",
+    "oathbound:gravegold_shovel",
+    "oathbound:duskiron_shovel",
+    "oathbound:dawnsteel_shovel"
   ]
 }

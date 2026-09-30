@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "oathbound:tidebronze_ingot",
+    "oathbound:runesilver_ingot",
+    "oathbound:gravegold_ingot",
+    "oathbound:duskiron_ingot",
+    "oathbound:dawnsteel_ingot"
+  ]
+}

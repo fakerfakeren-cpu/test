@@ -1,6 +1,11 @@
 {
   "replace": false,
   "values": [
-    "oathbound:oathsteel_pickaxe"
+    "oathbound:oathsteel_pickaxe",
+    "oathbound:tidebronze_pickaxe",
+    "oathbound:runesilver_pickaxe",
+    "oathbound:gravegold_pickaxe",
+    "oathbound:duskiron_pickaxe",
+    "oathbound:dawnsteel_pickaxe"
   ]
 }

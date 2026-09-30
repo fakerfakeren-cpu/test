@@ -2,6 +2,11 @@
   "replace": false,
   "values": [
     "oathbound:oathsteel_chestplate",
-    "oathbound:arcanist_robe"
+    "oathbound:arcanist_robe",
+    "oathbound:tidebronze_chestplate",
+    "oathbound:runesilver_chestplate",
+    "oathbound:gravegold_chestplate",
+    "oathbound:duskiron_chestplate",
+    "oathbound:dawnsteel_chestplate"
   ]
 }

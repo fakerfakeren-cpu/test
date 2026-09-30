@@ -1010,5 +1010,21 @@
         "stream": true
       }
     ]
+  },
+  "disc_wild_hunt": {
+    "sounds": [
+      {
+        "name": "oathbound:disc_wild_hunt",
+        "stream": true
+      }
+    ]
+  },
+  "disc_stars_went_out": {
+    "sounds": [
+      {
+        "name": "oathbound:disc_stars_went_out",
+        "stream": true
+      }
+    ]
   }
 }

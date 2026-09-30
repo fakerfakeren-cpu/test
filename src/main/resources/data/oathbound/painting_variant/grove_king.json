@@ -1,0 +1,13 @@
+{
+  "asset_id": "oathbound:grove_king",
+  "width": 2,
+  "height": 2,
+  "title": {
+    "translate": "painting.oathbound.grove_king.title",
+    "color": "yellow"
+  },
+  "author": {
+    "translate": "painting.oathbound.grove_king.author",
+    "color": "gray"
+  }
+}

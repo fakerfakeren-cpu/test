@@ -1,6 +1,11 @@
 {
   "replace": false,
   "values": [
-    "oathbound:oathsteel_ingot"
+    "oathbound:oathsteel_ingot",
+    "oathbound:tidebronze_ingot",
+    "oathbound:runesilver_ingot",
+    "oathbound:gravegold_ingot",
+    "oathbound:duskiron_ingot",
+    "oathbound:dawnsteel_ingot"
   ]
 }

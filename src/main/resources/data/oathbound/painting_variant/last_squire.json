@@ -1,0 +1,13 @@
+{
+  "asset_id": "oathbound:last_squire",
+  "width": 2,
+  "height": 2,
+  "title": {
+    "translate": "painting.oathbound.last_squire.title",
+    "color": "yellow"
+  },
+  "author": {
+    "translate": "painting.oathbound.last_squire.author",
+    "color": "gray"
+  }
+}

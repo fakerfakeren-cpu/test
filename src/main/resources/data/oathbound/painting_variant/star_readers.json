@@ -1,0 +1,13 @@
+{
+  "asset_id": "oathbound:star_readers",
+  "width": 4,
+  "height": 3,
+  "title": {
+    "translate": "painting.oathbound.star_readers.title",
+    "color": "yellow"
+  },
+  "author": {
+    "translate": "painting.oathbound.star_readers.author",
+    "color": "gray"
+  }
+}

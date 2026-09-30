@@ -140,12 +140,12 @@
         },
         {
           "type": "minecraft:item",
-          "name": "oathbound:music_disc_wayshrine_nocturne",
-          "weight": 1
+          "name": "oathbound:music_disc_wild_hunt",
+          "weight": 3
         },
         {
           "type": "minecraft:empty",
-          "weight": 11
+          "weight": 13
         }
       ]
     }

@@ -119,6 +119,8 @@ public final class ModSounds {
     public static final RegistryObject<SoundEvent> DISC_WAYSHRINE_NOCTURNE = reg("disc_wayshrine_nocturne");
     public static final RegistryObject<SoundEvent> DISC_CHAPEL_TIDES = reg("disc_chapel_tides");
     public static final RegistryObject<SoundEvent> DISC_CROWN_OF_ASH = reg("disc_crown_of_ash");
+    public static final RegistryObject<SoundEvent> DISC_WILD_HUNT = reg("disc_wild_hunt");
+    public static final RegistryObject<SoundEvent> DISC_STARS_WENT_OUT = reg("disc_stars_went_out");
     public static final RegistryObject<SoundEvent> MUSIC_GLOAMING = reg("music_gloaming");
     public static final RegistryObject<SoundEvent> GLOAMING_MOOD = reg("gloaming_mood");
 

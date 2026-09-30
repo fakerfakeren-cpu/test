@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "oathbound:tidebronze_block",
+    "oathbound:runesilver_block",
+    "oathbound:gravegold_block",
+    "oathbound:duskiron_block",
+    "oathbound:dawnsteel_block"
+  ]
+}

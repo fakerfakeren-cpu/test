@@ -1,0 +1,13 @@
+{
+  "asset_id": "oathbound:fall_of_the_order",
+  "width": 4,
+  "height": 2,
+  "title": {
+    "translate": "painting.oathbound.fall_of_the_order.title",
+    "color": "yellow"
+  },
+  "author": {
+    "translate": "painting.oathbound.fall_of_the_order.author",
+    "color": "gray"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "asset_id": "oathbound:lantern_vigil",
+  "width": 1,
+  "height": 2,
+  "title": {
+    "translate": "painting.oathbound.lantern_vigil.title",
+    "color": "yellow"
+  },
+  "author": {
+    "translate": "painting.oathbound.lantern_vigil.author",
+    "color": "gray"
+  }
+}

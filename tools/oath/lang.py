@@ -576,6 +576,8 @@ def build():
     put('chronicle.oathbound.lore.epilogue', EPILOGUE)
     from . import wilds
     L.update(wilds.TEXT)
+    from . import paintings
+    L.update(paintings.TEXT)
     for q, (title, desc, hint) in {**QUESTS, **wilds.QUESTS}.items():
         put(f'quest.oathbound.{q}.title', title)
         put(f'quest.oathbound.{q}.description', desc)

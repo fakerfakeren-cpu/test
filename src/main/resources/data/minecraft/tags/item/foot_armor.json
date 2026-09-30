@@ -2,6 +2,11 @@
   "replace": false,
   "values": [
     "oathbound:oathsteel_boots",
-    "oathbound:arcanist_boots"
+    "oathbound:arcanist_boots",
+    "oathbound:tidebronze_boots",
+    "oathbound:runesilver_boots",
+    "oathbound:gravegold_boots",
+    "oathbound:duskiron_boots",
+    "oathbound:dawnsteel_boots"
   ]
 }
