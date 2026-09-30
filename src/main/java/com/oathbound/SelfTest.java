@@ -182,6 +182,36 @@ public final class SelfTest {
         return server.reloadableRegistries().getLootTable(key) != LootTable.EMPTY;
     }
 
+    /**
+     * Worldgen only places the off-Path sites where the ground suits them; the test world puts them wherever the row
+     * falls (jungle, ocean). Cut each one a clearing of the ground it would have chosen, wide enough for the showcase
+     * camera to see it.
+     */
+    private static void clearing(ServerLevel level, BlockPos c, Sketches.Type t) {
+        var air = Blocks.AIR.defaultBlockState();
+        boolean shore = t == Sketches.Type.BOG_HUT || t == Sketches.Type.TIDEGLASS_GROTTO;
+        var top = switch (t) {
+            case CINDER_SANCTUM -> Blocks.SAND.defaultBlockState();
+            case TIDEGLASS_GROTTO -> Blocks.SAND.defaultBlockState();
+            case BOG_HUT -> Blocks.MUD.defaultBlockState();
+            case SHATTERED_OBSERVATORY -> ModBlocks.GLOAM_MOSS.get().defaultBlockState();
+            default -> Blocks.GRASS_BLOCK.defaultBlockState();
+        };
+        var under = t == Sketches.Type.CINDER_SANCTUM || t == Sketches.Type.TIDEGLASS_GROTTO ? Blocks.SANDSTONE.defaultBlockState()
+            : t == Sketches.Type.SHATTERED_OBSERVATORY ? ModBlocks.GLOAMSTONE.get().defaultBlockState() : Blocks.DIRT.defaultBlockState();
+        int r = 30;
+        for (int dx = -r; dx <= r; dx++)
+            for (int dz = -r; dz <= r; dz++) {
+                if (dx * dx + dz * dz > r * r) continue;
+                BlockPos col = c.offset(dx, 0, dz);
+                for (int dy = 1; dy <= 32; dy++) level.setBlock(col.above(dy), air, 2 | 16);
+                // the shore sites stand at the waterline: open water beyond their footprint
+                boolean wet = shore && (t == Sketches.Type.BOG_HUT ? dx * dx + dz * dz > 49 : dz > 7);
+                level.setBlock(col, wet ? Blocks.WATER.defaultBlockState() : top, 2 | 16);
+                for (int dy = 1; dy <= 4; dy++) level.setBlock(col.below(dy), wet && dy == 1 ? top : under, 2 | 16);
+            }
+    }
+
     /** The creature a built site placed as its resident, if it is still there. */
     private static <T extends Entity> T resident(ServerLevel level, Sketches.Type site, Class<T> cls, int radius) {
         BlockPos at = built.get(site);
@@ -257,7 +287,9 @@ public final class SelfTest {
                 if (t == Sketches.Type.THRONE) continue;
                 int x = spawn.getX() + 80 + i * 90, z = spawn.getZ() + 200;
                 keepLoaded(level, new BlockPos(x, 0, z), 40);
-                BlockPos at = new BlockPos(x, ground(level, x, z) - (t == Sketches.Type.LUMENITE_MINE ? 30 : 0), z);
+                int g = ground(level, x, z);
+                if (t.ordinal() > Sketches.Type.THRONE.ordinal()) clearing(level, new BlockPos(x, g, z), t);
+                BlockPos at = new BlockPos(x, g - (t == Sketches.Type.LUMENITE_MINE ? 30 : 0), z);
                 SketchPlacer.placeNow(level, Sketches.draw(t, 1234L + i), at);
                 built.put(t, at);
                 i++;

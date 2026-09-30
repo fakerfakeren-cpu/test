@@ -122,16 +122,24 @@ public final class Showcase {
      * it and clears the air over it, so a lineup never ends up inside a hillside or a cave.
      */
     private static int stage(ServerLevel level, int x0, int z0, int x1, int z1, net.minecraft.world.level.block.state.BlockState floor) {
-        int y = 0;
-        for (int x = x0; x <= x1; x += 2)
-            for (int z = z0; z <= z1; z += 2) y = Math.max(y, level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z));
+        int ax = x0 - 2, bx = x1 + 2, az = z0 - 14, bz = z1 + 2;
+        // Level.getHeight answers the world's floor for chunks that are not loaded, so load them first
+        for (int cx = ax >> 4; cx <= bx >> 4; cx++)
+            for (int cz = az >> 4; cz <= bz >> 4; cz++) level.getChunk(cx, cz);
+        int y = level.getMinY(), top = level.getMinY();
+        for (int x = ax; x <= bx; x++)
+            for (int z = az; z <= bz; z++) {
+                int h = level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z);
+                top = Math.max(top, h);
+                if (x >= x0 && x <= x1 && z >= z0 && z <= z1) y = Math.max(y, h);
+            }
         y += 2;
+        int ceiling = Math.min(top + 2, y + 48);
         var air = net.minecraft.world.level.block.Blocks.AIR.defaultBlockState();
-        for (int x = x0 - 2; x <= x1 + 2; x++)
-            for (int z = z0 - 14; z <= z1 + 2; z++) {
-                boolean inside = x >= x0 && x <= x1 && z >= z0 && z <= z1;
-                if (inside) level.setBlock(new BlockPos(x, y - 1, z), floor, 2);
-                for (int dy = 0; dy < 12; dy++) level.setBlock(new BlockPos(x, y + dy, z), air, 2);
+        for (int x = ax; x <= bx; x++)
+            for (int z = az; z <= bz; z++) {
+                if (x >= x0 && x <= x1 && z >= z0 && z <= z1) level.setBlock(new BlockPos(x, y - 1, z), floor, 2);
+                for (int yy = y; yy <= Math.max(y + 12, ceiling); yy++) level.setBlock(new BlockPos(x, yy, z), air, 2);
             }
         return y;
     }
@@ -147,6 +155,7 @@ public final class Showcase {
             var m = modMarker != null ? modMarker.get() : marker;
             int ly = modMarker != null ? modLocalY : localY;
             int x = 80 + site * 90, z = 200;
+            level.getChunk((x + dx) >> 4, (z + dz) >> 4);
             int top = level.getHeight(Heightmap.Types.MOTION_BLOCKING, x + dx, z + dz);
             int oy = top;
             for (int y = top; y > top - 90; y--) {
@@ -222,9 +231,7 @@ public final class Showcase {
         scene(10, "bestiary", mc -> onServer(mc, p -> {
             ServerLevel level = p.level().getServer().overworld();
             int x = 80, z = 640;
-            int y = level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z) + 12;
-            for (int dx = -2; dx <= 26; dx++)
-                for (int dz = -3; dz <= 3; dz++) level.setBlock(new BlockPos(x + dx, y - 1, z + dz), com.oathbound.registry.ModBlocks.WARDSTONE_BRICKS.get().defaultBlockState(), 2);
+            int y = stage(level, x - 2, z - 3, x + 26, z + 3, ModBlocks.WARDSTONE_BRICKS.get().defaultBlockState());
             float yaw = 180f;
             double cx = x + 0.5;
             for (var t : List.of(ModEntities.LANTERNMOTH, ModEntities.GLOAMLING, ModEntities.FORSWORN_KNIGHT, ModEntities.BARROW_WIGHT, ModEntities.ANIMATED_TOME,
@@ -291,9 +298,7 @@ public final class Showcase {
         scene(10, "keepers", mc -> onServer(mc, p -> {
             ServerLevel level = p.level().getServer().overworld();
             int x = 80, z = 700;
-            int y = level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z) + 12;
-            for (int dx = -4; dx <= 24; dx++)
-                for (int dz = -4; dz <= 4; dz++) level.setBlock(new BlockPos(x + dx, y - 1, z + dz), com.oathbound.registry.ModBlocks.GLOAMSTONE_BRICKS.get().defaultBlockState(), 2);
+            int y = stage(level, x - 4, z - 4, x + 24, z + 4, ModBlocks.GLOAMSTONE_BRICKS.get().defaultBlockState());
             double cx = x + 0.5;
             for (var t : List.of(ModEntities.SIR_CALDRIS, ModEntities.ARCHMAGE_VEYL, ModEntities.HRODGAR)) {
                 Mob m = t.get().create(level, EntitySpawnReason.COMMAND);
@@ -312,9 +317,7 @@ public final class Showcase {
         scene(10, "spells", mc -> onServer(mc, p -> {
             ServerLevel level = p.level().getServer().overworld();
             int x = 80, z = 760;
-            int y = level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z) + 12;
-            for (int dx = -6; dx <= 30; dx++)
-                for (int dz = -7; dz <= 7; dz++) level.setBlock(new BlockPos(x + dx, y - 1, z + dz), com.oathbound.registry.ModBlocks.GLOAMSTONE_BRICKS.get().defaultBlockState(), 2);
+            int y = stage(level, x - 6, z - 7, x + 30, z + 7, ModBlocks.GLOAMSTONE_BRICKS.get().defaultBlockState());
             Vec3 b = new Vec3(x + 0.5, y, z + 0.5);
             SpellMarkEntity.sigil(level, b, 3.5f, SpellMarkEntity.Hue.DAWN, 400);
             SpellMarkEntity.sigil(level, b.add(8, 0, 0), 2.5f, SpellMarkEntity.Hue.ARCANE, 400);
@@ -330,6 +333,7 @@ public final class Showcase {
         scene(10, "masonry", mc -> onServer(mc, p -> {
             ServerLevel level = p.level().getServer().overworld();
             int x0 = 80, z0 = 880;
+            level.getChunk(x0 >> 4, z0 >> 4);
             int y = level.getHeight(Heightmap.Types.MOTION_BLOCKING, x0, z0) + 8;
             buildGallery(level, new BlockPos(x0, y, z0));
             p.teleportTo(level, x0 + 17.5, y + 4 - 1.62, z0 - 11.5, java.util.Set.of(), 0f, 18f, false);
