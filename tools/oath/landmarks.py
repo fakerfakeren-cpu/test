@@ -20,11 +20,11 @@ TEMPERATE = ['minecraft:plains', 'minecraft:sunflower_plains', 'minecraft:meadow
              'minecraft:taiga', 'minecraft:savanna', 'minecraft:windswept_hills', 'minecraft:snowy_plains', 'minecraft:flower_forest']
 # feature: (step, placement, biomes)
 FEATURES = {
-    'waystone': ('surface_structures', [{'type': 'minecraft:rarity_filter', 'chance': 14}], TEMPERATE),
-    'order_ruin': ('surface_structures', [{'type': 'minecraft:rarity_filter', 'chance': 40}], TEMPERATE + ['minecraft:dark_forest']),
-    'glimmer_glade': ('vegetal_decoration', [{'type': 'minecraft:rarity_filter', 'chance': 6}],
+    'waystone': ('surface_structures', [{'type': 'minecraft:rarity_filter', 'chance': 48}], TEMPERATE),
+    'order_ruin': ('surface_structures', [{'type': 'minecraft:rarity_filter', 'chance': 96}], TEMPERATE + ['minecraft:dark_forest']),
+    'glimmer_glade': ('vegetal_decoration', [{'type': 'minecraft:rarity_filter', 'chance': 14}],
                       ['#minecraft:is_forest', '#minecraft:is_taiga', 'minecraft:dark_forest']),
-    'mossy_boulder': ('local_modifications', [{'type': 'minecraft:rarity_filter', 'chance': 8}],
+    'mossy_boulder': ('local_modifications', [{'type': 'minecraft:rarity_filter', 'chance': 18}],
                       ['#minecraft:is_taiga', 'minecraft:old_growth_birch_forest', 'minecraft:dark_forest', 'minecraft:windswept_hills',
                        'minecraft:windswept_forest', 'minecraft:meadow']),
     'lumen_clusters': ('underground_decoration', [

@@ -85,6 +85,7 @@ public final class GameEvents {
         if (!(player instanceof ServerPlayer sp) || !(player.level() instanceof ServerLevel level) || !player.isAlive()) return;
         tickVeil(sp, level);
         int t = player.tickCount;
+        if (t % 40 == 7) com.oathbound.quest.Codex.discover(sp);
 
         if (t % 4 == 0 && Config.lanternLight()) {
             ItemStack lantern = heldLitLantern(player);

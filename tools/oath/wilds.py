@@ -15,20 +15,20 @@ def P(*a, **k):
 
 # sketch id: (step, spacing, separation, salt, biomes)
 STRUCTURES = {
-    'grove_shrine': ('surface_structures', 44, 16, 81311401,
+    'grove_shrine': ('surface_structures', 72, 26, 81311401,
                      ['minecraft:flower_forest', 'minecraft:birch_forest', 'minecraft:old_growth_birch_forest', 'minecraft:forest',
                       'minecraft:cherry_grove']),
-    'bog_hut': ('surface_structures', 40, 14, 81311403, ['minecraft:swamp', 'minecraft:mangrove_swamp']),
-    'cinder_sanctum': ('surface_structures', 48, 16, 81311405,
+    'bog_hut': ('surface_structures', 64, 24, 81311403, ['minecraft:swamp', 'minecraft:mangrove_swamp']),
+    'cinder_sanctum': ('surface_structures', 72, 26, 81311405,
                        ['minecraft:desert', 'minecraft:badlands', 'minecraft:eroded_badlands', 'minecraft:wooded_badlands']),
-    'watchtower': ('surface_structures', 34, 12, 81311407,
+    'watchtower': ('surface_structures', 64, 24, 81311407,
                    ['minecraft:windswept_hills', 'minecraft:windswept_gravelly_hills', 'minecraft:windswept_forest', 'minecraft:meadow',
                     'minecraft:plains', 'minecraft:snowy_plains', 'minecraft:savanna_plateau']),
-    'tideglass_grotto': ('surface_structures', 36, 12, 81311409, ['minecraft:beach', 'minecraft:stony_shore', 'minecraft:snowy_beach']),
-    'lumenite_mine': ('underground_structures', 30, 10, 81311411,
+    'tideglass_grotto': ('surface_structures', 64, 24, 81311409, ['minecraft:beach', 'minecraft:stony_shore', 'minecraft:snowy_beach']),
+    'lumenite_mine': ('underground_structures', 56, 20, 81311411,
                       ['#minecraft:is_forest', '#minecraft:is_taiga', '#minecraft:is_hill', 'minecraft:plains', 'minecraft:meadow',
                        'minecraft:savanna', 'minecraft:snowy_plains']),
-    'shattered_observatory': ('surface_structures', 22, 8, 81311413, ['oathbound:gloaming', 'oathbound:veilwood', 'oathbound:ashen_reach']),
+    'shattered_observatory': ('surface_structures', 36, 14, 81311413, ['oathbound:gloaming', 'oathbound:veilwood', 'oathbound:ashen_reach']),
 }
 
 

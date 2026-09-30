@@ -711,6 +711,39 @@ def write_ogg(path, x, quality=0.4):
         raise RuntimeError(f'{path}: encoder wrote {sf.info(path).frames} of {len(x)} frames')
 
 
+# Loudness targets (dBFS, loudest 400 ms) by kind: everything is synthesised at full scale, so sounds.json turns each one
+# down to sit with vanilla's: idle calls and ambience quiet, combat moderate, only boss moments and rites loud.
+QUIET = ('amb_', 'gloaming_mood', 'gate_hum', '_ambient', 'monk_chant', 'wisp_chime', 'moth_flutter', 'beetle_click', 'mite_chitter',
+         'crawler_rattle', 'tortoise_hiss', 'heron_croak', 'hag_cackle', 'stalker_snarl', 'veilhound_growl', 'boar_grunt', 'fawn_call',
+         'tome_flutter', 'chronicle_page', 'hare_squeak', 'undertow')
+LOUD = ('_roar', 'elderhorn_bellow', 'warhorn', 'wayshrine_kindle', 'tomb_open', 'gate_open', 'bell_', 'eclipse_pillar', 'unveiled',
+        'dawn_burst', 'morvane_voice', 'liar_wakes', 'veilhound_howl')
+
+
+def loudness_target(name):
+    if any(k in name for k in LOUD):
+        return -15.0
+    if any(k in name for k in QUIET):
+        return -23.0
+    return -18.5
+
+
+def measure(path):
+    x, sr = sf.read(path)
+    if x.ndim > 1:
+        x = x.mean(1)
+    w = max(1, min(len(x), int(0.4 * sr)))
+    return 10 * np.log10(max(1e-12, np.convolve(x ** 2, np.ones(w) / w, 'valid').max()))
+
+
+def volume_for(name, files):
+    """sounds.json volume that brings the loudest variant down to the target (never up)."""
+    loud = max(measure(f) for f in files if os.path.exists(f)) if any(os.path.exists(f) for f in files) else None
+    if loud is None:
+        return 1.0
+    return round(float(min(1.0, 10 ** ((loudness_target(name) - loud) / 20))), 3)
+
+
 def generate(only=None):
     os.makedirs(OUT, exist_ok=True)
     defs = {}
@@ -722,6 +755,10 @@ def generate(only=None):
                 x = A.fade(A.normalize(fn(v), 0.85), 0.002, 0.03)
                 write_ogg(os.path.join(OUT, fname + '.ogg'), x, 0.45)
             entries.append({'name': f'oathbound:{fname}'})
+        vol = volume_for(name, [os.path.join(OUT, e['name'].split(':')[1] + '.ogg') for e in entries])
+        if vol < 1.0:
+            for e in entries:
+                e['volume'] = vol
         defs[name] = {'sounds': entries, 'subtitle': f'subtitles.oathbound.{name}'}
     for name, (fn, subtitle) in STREAMS.items():
         if only is None or name in only:

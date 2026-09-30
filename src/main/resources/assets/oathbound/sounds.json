@@ -2,10 +2,12 @@
   "lantern_ignite": {
     "sounds": [
       {
-        "name": "oathbound:lantern_ignite_1"
+        "name": "oathbound:lantern_ignite_1",
+        "volume": 0.417
       },
       {
-        "name": "oathbound:lantern_ignite_2"
+        "name": "oathbound:lantern_ignite_2",
+        "volume": 0.417
       }
     ],
     "subtitle": "subtitles.oathbound.lantern_ignite"
@@ -13,7 +15,8 @@
   "lantern_seek": {
     "sounds": [
       {
-        "name": "oathbound:lantern_seek"
+        "name": "oathbound:lantern_seek",
+        "volume": 0.468
       }
     ],
     "subtitle": "subtitles.oathbound.lantern_seek"
@@ -21,13 +24,16 @@
   "chronicle_page": {
     "sounds": [
       {
-        "name": "oathbound:chronicle_page_1"
+        "name": "oathbound:chronicle_page_1",
+        "volume": 0.715
       },
       {
-        "name": "oathbound:chronicle_page_2"
+        "name": "oathbound:chronicle_page_2",
+        "volume": 0.715
       },
       {
-        "name": "oathbound:chronicle_page_3"
+        "name": "oathbound:chronicle_page_3",
+        "volume": 0.715
       }
     ],
     "subtitle": "subtitles.oathbound.chronicle_page"
@@ -35,7 +41,8 @@
   "quest_complete": {
     "sounds": [
       {
-        "name": "oathbound:quest_complete"
+        "name": "oathbound:quest_complete",
+        "volume": 0.493
       }
     ],
     "subtitle": "subtitles.oathbound.quest_complete"
@@ -43,7 +50,8 @@
   "wayshrine_kindle": {
     "sounds": [
       {
-        "name": "oathbound:wayshrine_kindle"
+        "name": "oathbound:wayshrine_kindle",
+        "volume": 0.651
       }
     ],
     "subtitle": "subtitles.oathbound.wayshrine_kindle"
@@ -51,7 +59,8 @@
   "bell_0": {
     "sounds": [
       {
-        "name": "oathbound:bell_0"
+        "name": "oathbound:bell_0",
+        "volume": 0.632
       }
     ],
     "subtitle": "subtitles.oathbound.bell_0"
@@ -59,7 +68,8 @@
   "bell_1": {
     "sounds": [
       {
-        "name": "oathbound:bell_1"
+        "name": "oathbound:bell_1",
+        "volume": 0.722
       }
     ],
     "subtitle": "subtitles.oathbound.bell_1"
@@ -67,7 +77,8 @@
   "bell_2": {
     "sounds": [
       {
-        "name": "oathbound:bell_2"
+        "name": "oathbound:bell_2",
+        "volume": 0.605
       }
     ],
     "subtitle": "subtitles.oathbound.bell_2"
@@ -75,7 +86,8 @@
   "bell_3": {
     "sounds": [
       {
-        "name": "oathbound:bell_3"
+        "name": "oathbound:bell_3",
+        "volume": 0.724
       }
     ],
     "subtitle": "subtitles.oathbound.bell_3"
@@ -83,7 +95,8 @@
   "bell_wrong": {
     "sounds": [
       {
-        "name": "oathbound:bell_wrong"
+        "name": "oathbound:bell_wrong",
+        "volume": 0.735
       }
     ],
     "subtitle": "subtitles.oathbound.bell_wrong"
@@ -91,7 +104,8 @@
   "puzzle_solved": {
     "sounds": [
       {
-        "name": "oathbound:puzzle_solved"
+        "name": "oathbound:puzzle_solved",
+        "volume": 0.434
       }
     ],
     "subtitle": "subtitles.oathbound.puzzle_solved"
@@ -99,10 +113,12 @@
   "ward_dissolve": {
     "sounds": [
       {
-        "name": "oathbound:ward_dissolve_1"
+        "name": "oathbound:ward_dissolve_1",
+        "volume": 0.599
       },
       {
-        "name": "oathbound:ward_dissolve_2"
+        "name": "oathbound:ward_dissolve_2",
+        "volume": 0.599
       }
     ],
     "subtitle": "subtitles.oathbound.ward_dissolve"
@@ -110,10 +126,12 @@
   "dial_turn": {
     "sounds": [
       {
-        "name": "oathbound:dial_turn_1"
+        "name": "oathbound:dial_turn_1",
+        "volume": 0.522
       },
       {
-        "name": "oathbound:dial_turn_2"
+        "name": "oathbound:dial_turn_2",
+        "volume": 0.522
       }
     ],
     "subtitle": "subtitles.oathbound.dial_turn"
@@ -121,7 +139,8 @@
   "tomb_open": {
     "sounds": [
       {
-        "name": "oathbound:tomb_open"
+        "name": "oathbound:tomb_open",
+        "volume": 0.715
       }
     ],
     "subtitle": "subtitles.oathbound.tomb_open"
@@ -129,7 +148,8 @@
   "liar_wakes": {
     "sounds": [
       {
-        "name": "oathbound:liar_wakes"
+        "name": "oathbound:liar_wakes",
+        "volume": 0.802
       }
     ],
     "subtitle": "subtitles.oathbound.liar_wakes"
@@ -137,7 +157,8 @@
   "gate_open": {
     "sounds": [
       {
-        "name": "oathbound:gate_open"
+        "name": "oathbound:gate_open",
+        "volume": 0.732
       }
     ],
     "subtitle": "subtitles.oathbound.gate_open"
@@ -145,7 +166,8 @@
   "gate_hum": {
     "sounds": [
       {
-        "name": "oathbound:gate_hum"
+        "name": "oathbound:gate_hum",
+        "volume": 0.175
       }
     ],
     "subtitle": "subtitles.oathbound.gate_hum"
@@ -153,10 +175,12 @@
   "riposte": {
     "sounds": [
       {
-        "name": "oathbound:riposte_1"
+        "name": "oathbound:riposte_1",
+        "volume": 0.826
       },
       {
-        "name": "oathbound:riposte_2"
+        "name": "oathbound:riposte_2",
+        "volume": 0.826
       }
     ],
     "subtitle": "subtitles.oathbound.riposte"
@@ -164,10 +188,12 @@
   "halberd_thrust": {
     "sounds": [
       {
-        "name": "oathbound:halberd_thrust_1"
+        "name": "oathbound:halberd_thrust_1",
+        "volume": 0.893
       },
       {
-        "name": "oathbound:halberd_thrust_2"
+        "name": "oathbound:halberd_thrust_2",
+        "volume": 0.893
       }
     ],
     "subtitle": "subtitles.oathbound.halberd_thrust"
@@ -175,10 +201,12 @@
   "anchor_throw": {
     "sounds": [
       {
-        "name": "oathbound:anchor_throw_1"
+        "name": "oathbound:anchor_throw_1",
+        "volume": 0.543
       },
       {
-        "name": "oathbound:anchor_throw_2"
+        "name": "oathbound:anchor_throw_2",
+        "volume": 0.543
       }
     ],
     "subtitle": "subtitles.oathbound.anchor_throw"
@@ -186,10 +214,12 @@
   "anchor_hit": {
     "sounds": [
       {
-        "name": "oathbound:anchor_hit_1"
+        "name": "oathbound:anchor_hit_1",
+        "volume": 0.564
       },
       {
-        "name": "oathbound:anchor_hit_2"
+        "name": "oathbound:anchor_hit_2",
+        "volume": 0.564
       }
     ],
     "subtitle": "subtitles.oathbound.anchor_hit"
@@ -208,10 +238,12 @@
   "arcane_orb": {
     "sounds": [
       {
-        "name": "oathbound:arcane_orb_1"
+        "name": "oathbound:arcane_orb_1",
+        "volume": 0.344
       },
       {
-        "name": "oathbound:arcane_orb_2"
+        "name": "oathbound:arcane_orb_2",
+        "volume": 0.344
       }
     ],
     "subtitle": "subtitles.oathbound.arcane_orb"
@@ -219,7 +251,8 @@
   "orb_reflect": {
     "sounds": [
       {
-        "name": "oathbound:orb_reflect"
+        "name": "oathbound:orb_reflect",
+        "volume": 0.383
       }
     ],
     "subtitle": "subtitles.oathbound.orb_reflect"
@@ -227,7 +260,8 @@
   "warhorn": {
     "sounds": [
       {
-        "name": "oathbound:warhorn"
+        "name": "oathbound:warhorn",
+        "volume": 0.596
       }
     ],
     "subtitle": "subtitles.oathbound.warhorn"
@@ -235,7 +269,8 @@
   "dawn_charge": {
     "sounds": [
       {
-        "name": "oathbound:dawn_charge"
+        "name": "oathbound:dawn_charge",
+        "volume": 0.454
       }
     ],
     "subtitle": "subtitles.oathbound.dawn_charge"
@@ -243,7 +278,8 @@
   "dawn_burst": {
     "sounds": [
       {
-        "name": "oathbound:dawn_burst"
+        "name": "oathbound:dawn_burst",
+        "volume": 0.757
       }
     ],
     "subtitle": "subtitles.oathbound.dawn_burst"
@@ -251,10 +287,12 @@
   "sickle_reap": {
     "sounds": [
       {
-        "name": "oathbound:sickle_reap_1"
+        "name": "oathbound:sickle_reap_1",
+        "volume": 0.359
       },
       {
-        "name": "oathbound:sickle_reap_2"
+        "name": "oathbound:sickle_reap_2",
+        "volume": 0.359
       }
     ],
     "subtitle": "subtitles.oathbound.sickle_reap"
@@ -262,10 +300,12 @@
   "flask_shatter": {
     "sounds": [
       {
-        "name": "oathbound:flask_shatter_1"
+        "name": "oathbound:flask_shatter_1",
+        "volume": 0.865
       },
       {
-        "name": "oathbound:flask_shatter_2"
+        "name": "oathbound:flask_shatter_2",
+        "volume": 0.865
       }
     ],
     "subtitle": "subtitles.oathbound.flask_shatter"
@@ -273,10 +313,12 @@
   "sun_arrow": {
     "sounds": [
       {
-        "name": "oathbound:sun_arrow_1"
+        "name": "oathbound:sun_arrow_1",
+        "volume": 0.336
       },
       {
-        "name": "oathbound:sun_arrow_2"
+        "name": "oathbound:sun_arrow_2",
+        "volume": 0.336
       }
     ],
     "subtitle": "subtitles.oathbound.sun_arrow"
@@ -284,7 +326,8 @@
   "sunmark": {
     "sounds": [
       {
-        "name": "oathbound:sunmark"
+        "name": "oathbound:sunmark",
+        "volume": 0.435
       }
     ],
     "subtitle": "subtitles.oathbound.sunmark"
@@ -292,13 +335,16 @@
   "gloamling_ambient": {
     "sounds": [
       {
-        "name": "oathbound:gloamling_ambient_1"
+        "name": "oathbound:gloamling_ambient_1",
+        "volume": 0.471
       },
       {
-        "name": "oathbound:gloamling_ambient_2"
+        "name": "oathbound:gloamling_ambient_2",
+        "volume": 0.471
       },
       {
-        "name": "oathbound:gloamling_ambient_3"
+        "name": "oathbound:gloamling_ambient_3",
+        "volume": 0.471
       }
     ],
     "subtitle": "subtitles.oathbound.gloamling_ambient"
@@ -306,10 +352,12 @@
   "gloamling_hurt": {
     "sounds": [
       {
-        "name": "oathbound:gloamling_hurt_1"
+        "name": "oathbound:gloamling_hurt_1",
+        "volume": 0.81
       },
       {
-        "name": "oathbound:gloamling_hurt_2"
+        "name": "oathbound:gloamling_hurt_2",
+        "volume": 0.81
       }
     ],
     "subtitle": "subtitles.oathbound.gloamling_hurt"
@@ -317,7 +365,8 @@
   "gloamling_death": {
     "sounds": [
       {
-        "name": "oathbound:gloamling_death"
+        "name": "oathbound:gloamling_death",
+        "volume": 0.545
       }
     ],
     "subtitle": "subtitles.oathbound.gloamling_death"
@@ -325,10 +374,12 @@
   "forsworn_ambient": {
     "sounds": [
       {
-        "name": "oathbound:forsworn_ambient_1"
+        "name": "oathbound:forsworn_ambient_1",
+        "volume": 0.364
       },
       {
-        "name": "oathbound:forsworn_ambient_2"
+        "name": "oathbound:forsworn_ambient_2",
+        "volume": 0.364
       }
     ],
     "subtitle": "subtitles.oathbound.forsworn_ambient"
@@ -336,10 +387,12 @@
   "forsworn_collapse": {
     "sounds": [
       {
-        "name": "oathbound:forsworn_collapse_1"
+        "name": "oathbound:forsworn_collapse_1",
+        "volume": 0.472
       },
       {
-        "name": "oathbound:forsworn_collapse_2"
+        "name": "oathbound:forsworn_collapse_2",
+        "volume": 0.472
       }
     ],
     "subtitle": "subtitles.oathbound.forsworn_collapse"
@@ -347,7 +400,8 @@
   "forsworn_rise": {
     "sounds": [
       {
-        "name": "oathbound:forsworn_rise"
+        "name": "oathbound:forsworn_rise",
+        "volume": 0.472
       }
     ],
     "subtitle": "subtitles.oathbound.forsworn_rise"
@@ -355,13 +409,16 @@
   "wight_ambient": {
     "sounds": [
       {
-        "name": "oathbound:wight_ambient_1"
+        "name": "oathbound:wight_ambient_1",
+        "volume": 0.24
       },
       {
-        "name": "oathbound:wight_ambient_2"
+        "name": "oathbound:wight_ambient_2",
+        "volume": 0.24
       },
       {
-        "name": "oathbound:wight_ambient_3"
+        "name": "oathbound:wight_ambient_3",
+        "volume": 0.24
       }
     ],
     "subtitle": "subtitles.oathbound.wight_ambient"
@@ -369,10 +426,12 @@
   "wight_hurt": {
     "sounds": [
       {
-        "name": "oathbound:wight_hurt_1"
+        "name": "oathbound:wight_hurt_1",
+        "volume": 0.505
       },
       {
-        "name": "oathbound:wight_hurt_2"
+        "name": "oathbound:wight_hurt_2",
+        "volume": 0.505
       }
     ],
     "subtitle": "subtitles.oathbound.wight_hurt"
@@ -380,10 +439,12 @@
   "veilhound_howl": {
     "sounds": [
       {
-        "name": "oathbound:veilhound_howl_1"
+        "name": "oathbound:veilhound_howl_1",
+        "volume": 0.65
       },
       {
-        "name": "oathbound:veilhound_howl_2"
+        "name": "oathbound:veilhound_howl_2",
+        "volume": 0.65
       }
     ],
     "subtitle": "subtitles.oathbound.veilhound_howl"
@@ -391,10 +452,12 @@
   "veilhound_growl": {
     "sounds": [
       {
-        "name": "oathbound:veilhound_growl_1"
+        "name": "oathbound:veilhound_growl_1",
+        "volume": 0.145
       },
       {
-        "name": "oathbound:veilhound_growl_2"
+        "name": "oathbound:veilhound_growl_2",
+        "volume": 0.145
       }
     ],
     "subtitle": "subtitles.oathbound.veilhound_growl"
@@ -402,10 +465,12 @@
   "tome_flutter": {
     "sounds": [
       {
-        "name": "oathbound:tome_flutter_1"
+        "name": "oathbound:tome_flutter_1",
+        "volume": 0.502
       },
       {
-        "name": "oathbound:tome_flutter_2"
+        "name": "oathbound:tome_flutter_2",
+        "volume": 0.502
       }
     ],
     "subtitle": "subtitles.oathbound.tome_flutter"
@@ -413,10 +478,12 @@
   "tome_cast": {
     "sounds": [
       {
-        "name": "oathbound:tome_cast_1"
+        "name": "oathbound:tome_cast_1",
+        "volume": 0.46
       },
       {
-        "name": "oathbound:tome_cast_2"
+        "name": "oathbound:tome_cast_2",
+        "volume": 0.46
       }
     ],
     "subtitle": "subtitles.oathbound.tome_cast"
@@ -424,10 +491,12 @@
   "moth_flutter": {
     "sounds": [
       {
-        "name": "oathbound:moth_flutter_1"
+        "name": "oathbound:moth_flutter_1",
+        "volume": 0.437
       },
       {
-        "name": "oathbound:moth_flutter_2"
+        "name": "oathbound:moth_flutter_2",
+        "volume": 0.437
       }
     ],
     "subtitle": "subtitles.oathbound.moth_flutter"
@@ -435,10 +504,12 @@
   "housecarl_rise": {
     "sounds": [
       {
-        "name": "oathbound:housecarl_rise_1"
+        "name": "oathbound:housecarl_rise_1",
+        "volume": 0.501
       },
       {
-        "name": "oathbound:housecarl_rise_2"
+        "name": "oathbound:housecarl_rise_2",
+        "volume": 0.501
       }
     ],
     "subtitle": "subtitles.oathbound.housecarl_rise"
@@ -446,7 +517,8 @@
   "caldris_roar": {
     "sounds": [
       {
-        "name": "oathbound:caldris_roar"
+        "name": "oathbound:caldris_roar",
+        "volume": 0.687
       }
     ],
     "subtitle": "subtitles.oathbound.caldris_roar"
@@ -454,10 +526,12 @@
   "shield_block": {
     "sounds": [
       {
-        "name": "oathbound:shield_block_1"
+        "name": "oathbound:shield_block_1",
+        "volume": 0.702
       },
       {
-        "name": "oathbound:shield_block_2"
+        "name": "oathbound:shield_block_2",
+        "volume": 0.702
       }
     ],
     "subtitle": "subtitles.oathbound.shield_block"
@@ -465,7 +539,8 @@
   "shield_charge": {
     "sounds": [
       {
-        "name": "oathbound:shield_charge"
+        "name": "oathbound:shield_charge",
+        "volume": 0.44
       }
     ],
     "subtitle": "subtitles.oathbound.shield_charge"
@@ -473,7 +548,8 @@
   "undertow": {
     "sounds": [
       {
-        "name": "oathbound:undertow"
+        "name": "oathbound:undertow",
+        "volume": 0.369
       }
     ],
     "subtitle": "subtitles.oathbound.undertow"
@@ -481,7 +557,8 @@
   "veyl_laugh": {
     "sounds": [
       {
-        "name": "oathbound:veyl_laugh"
+        "name": "oathbound:veyl_laugh",
+        "volume": 0.62
       }
     ],
     "subtitle": "subtitles.oathbound.veyl_laugh"
@@ -489,10 +566,12 @@
   "veyl_blink": {
     "sounds": [
       {
-        "name": "oathbound:veyl_blink_1"
+        "name": "oathbound:veyl_blink_1",
+        "volume": 0.509
       },
       {
-        "name": "oathbound:veyl_blink_2"
+        "name": "oathbound:veyl_blink_2",
+        "volume": 0.509
       }
     ],
     "subtitle": "subtitles.oathbound.veyl_blink"
@@ -500,7 +579,8 @@
   "veyl_mirror": {
     "sounds": [
       {
-        "name": "oathbound:veyl_mirror"
+        "name": "oathbound:veyl_mirror",
+        "volume": 0.48
       }
     ],
     "subtitle": "subtitles.oathbound.veyl_mirror"
@@ -508,7 +588,8 @@
   "hrodgar_roar": {
     "sounds": [
       {
-        "name": "oathbound:hrodgar_roar"
+        "name": "oathbound:hrodgar_roar",
+        "volume": 0.698
       }
     ],
     "subtitle": "subtitles.oathbound.hrodgar_roar"
@@ -516,10 +597,12 @@
   "flail_slam": {
     "sounds": [
       {
-        "name": "oathbound:flail_slam_1"
+        "name": "oathbound:flail_slam_1",
+        "volume": 0.421
       },
       {
-        "name": "oathbound:flail_slam_2"
+        "name": "oathbound:flail_slam_2",
+        "volume": 0.421
       }
     ],
     "subtitle": "subtitles.oathbound.flail_slam"
@@ -527,10 +610,12 @@
   "tether_snap": {
     "sounds": [
       {
-        "name": "oathbound:tether_snap_1"
+        "name": "oathbound:tether_snap_1",
+        "volume": 0.652
       },
       {
-        "name": "oathbound:tether_snap_2"
+        "name": "oathbound:tether_snap_2",
+        "volume": 0.652
       }
     ],
     "subtitle": "subtitles.oathbound.tether_snap"
@@ -538,13 +623,16 @@
   "morvane_voice": {
     "sounds": [
       {
-        "name": "oathbound:morvane_voice_1"
+        "name": "oathbound:morvane_voice_1",
+        "volume": 0.782
       },
       {
-        "name": "oathbound:morvane_voice_2"
+        "name": "oathbound:morvane_voice_2",
+        "volume": 0.782
       },
       {
-        "name": "oathbound:morvane_voice_3"
+        "name": "oathbound:morvane_voice_3",
+        "volume": 0.782
       }
     ],
     "subtitle": "subtitles.oathbound.morvane_voice"
@@ -552,7 +640,8 @@
   "morvane_roar": {
     "sounds": [
       {
-        "name": "oathbound:morvane_roar"
+        "name": "oathbound:morvane_roar",
+        "volume": 0.73
       }
     ],
     "subtitle": "subtitles.oathbound.morvane_roar"
@@ -560,7 +649,8 @@
   "blade_crown": {
     "sounds": [
       {
-        "name": "oathbound:blade_crown"
+        "name": "oathbound:blade_crown",
+        "volume": 0.519
       }
     ],
     "subtitle": "subtitles.oathbound.blade_crown"
@@ -568,10 +658,12 @@
   "eclipse_pillar": {
     "sounds": [
       {
-        "name": "oathbound:eclipse_pillar_1"
+        "name": "oathbound:eclipse_pillar_1",
+        "volume": 0.595
       },
       {
-        "name": "oathbound:eclipse_pillar_2"
+        "name": "oathbound:eclipse_pillar_2",
+        "volume": 0.595
       }
     ],
     "subtitle": "subtitles.oathbound.eclipse_pillar"
@@ -579,10 +671,12 @@
   "lantern_snuff": {
     "sounds": [
       {
-        "name": "oathbound:lantern_snuff_1"
+        "name": "oathbound:lantern_snuff_1",
+        "volume": 0.494
       },
       {
-        "name": "oathbound:lantern_snuff_2"
+        "name": "oathbound:lantern_snuff_2",
+        "volume": 0.494
       }
     ],
     "subtitle": "subtitles.oathbound.lantern_snuff"
@@ -590,7 +684,8 @@
   "lantern_relight": {
     "sounds": [
       {
-        "name": "oathbound:lantern_relight"
+        "name": "oathbound:lantern_relight",
+        "volume": 0.459
       }
     ],
     "subtitle": "subtitles.oathbound.lantern_relight"
@@ -598,7 +693,8 @@
   "unveiled": {
     "sounds": [
       {
-        "name": "oathbound:unveiled"
+        "name": "oathbound:unveiled",
+        "volume": 0.595
       }
     ],
     "subtitle": "subtitles.oathbound.unveiled"
@@ -606,7 +702,8 @@
   "crown_shatter": {
     "sounds": [
       {
-        "name": "oathbound:crown_shatter"
+        "name": "oathbound:crown_shatter",
+        "volume": 0.88
       }
     ],
     "subtitle": "subtitles.oathbound.crown_shatter"
@@ -614,13 +711,16 @@
   "boss_slash": {
     "sounds": [
       {
-        "name": "oathbound:boss_slash_1"
+        "name": "oathbound:boss_slash_1",
+        "volume": 0.892
       },
       {
-        "name": "oathbound:boss_slash_2"
+        "name": "oathbound:boss_slash_2",
+        "volume": 0.892
       },
       {
-        "name": "oathbound:boss_slash_3"
+        "name": "oathbound:boss_slash_3",
+        "volume": 0.892
       }
     ],
     "subtitle": "subtitles.oathbound.boss_slash"
@@ -628,10 +728,12 @@
   "gloaming_mood": {
     "sounds": [
       {
-        "name": "oathbound:gloaming_mood_1"
+        "name": "oathbound:gloaming_mood_1",
+        "volume": 0.159
       },
       {
-        "name": "oathbound:gloaming_mood_2"
+        "name": "oathbound:gloaming_mood_2",
+        "volume": 0.159
       }
     ],
     "subtitle": "subtitles.oathbound.gloaming_mood"
@@ -639,10 +741,12 @@
   "elderhorn_bellow": {
     "sounds": [
       {
-        "name": "oathbound:elderhorn_bellow_1"
+        "name": "oathbound:elderhorn_bellow_1",
+        "volume": 0.624
       },
       {
-        "name": "oathbound:elderhorn_bellow_2"
+        "name": "oathbound:elderhorn_bellow_2",
+        "volume": 0.624
       }
     ],
     "subtitle": "subtitles.oathbound.elderhorn_bellow"
@@ -650,10 +754,12 @@
   "colossus_roar": {
     "sounds": [
       {
-        "name": "oathbound:colossus_roar_1"
+        "name": "oathbound:colossus_roar_1",
+        "volume": 0.625
       },
       {
-        "name": "oathbound:colossus_roar_2"
+        "name": "oathbound:colossus_roar_2",
+        "volume": 0.625
       }
     ],
     "subtitle": "subtitles.oathbound.colossus_roar"
@@ -661,13 +767,16 @@
   "fawn_call": {
     "sounds": [
       {
-        "name": "oathbound:fawn_call_1"
+        "name": "oathbound:fawn_call_1",
+        "volume": 0.279
       },
       {
-        "name": "oathbound:fawn_call_2"
+        "name": "oathbound:fawn_call_2",
+        "volume": 0.279
       },
       {
-        "name": "oathbound:fawn_call_3"
+        "name": "oathbound:fawn_call_3",
+        "volume": 0.279
       }
     ],
     "subtitle": "subtitles.oathbound.fawn_call"
@@ -675,10 +784,12 @@
   "fawn_hurt": {
     "sounds": [
       {
-        "name": "oathbound:fawn_hurt_1"
+        "name": "oathbound:fawn_hurt_1",
+        "volume": 0.745
       },
       {
-        "name": "oathbound:fawn_hurt_2"
+        "name": "oathbound:fawn_hurt_2",
+        "volume": 0.745
       }
     ],
     "subtitle": "subtitles.oathbound.fawn_hurt"
@@ -686,10 +797,12 @@
   "hare_squeak": {
     "sounds": [
       {
-        "name": "oathbound:hare_squeak_1"
+        "name": "oathbound:hare_squeak_1",
+        "volume": 0.566
       },
       {
-        "name": "oathbound:hare_squeak_2"
+        "name": "oathbound:hare_squeak_2",
+        "volume": 0.566
       }
     ],
     "subtitle": "subtitles.oathbound.hare_squeak"
@@ -697,10 +810,12 @@
   "tortoise_hiss": {
     "sounds": [
       {
-        "name": "oathbound:tortoise_hiss_1"
+        "name": "oathbound:tortoise_hiss_1",
+        "volume": 0.365
       },
       {
-        "name": "oathbound:tortoise_hiss_2"
+        "name": "oathbound:tortoise_hiss_2",
+        "volume": 0.365
       }
     ],
     "subtitle": "subtitles.oathbound.tortoise_hiss"
@@ -722,10 +837,12 @@
   "heron_croak": {
     "sounds": [
       {
-        "name": "oathbound:heron_croak_1"
+        "name": "oathbound:heron_croak_1",
+        "volume": 0.422
       },
       {
-        "name": "oathbound:heron_croak_2"
+        "name": "oathbound:heron_croak_2",
+        "volume": 0.422
       }
     ],
     "subtitle": "subtitles.oathbound.heron_croak"
@@ -733,13 +850,16 @@
   "boar_grunt": {
     "sounds": [
       {
-        "name": "oathbound:boar_grunt_1"
+        "name": "oathbound:boar_grunt_1",
+        "volume": 0.201
       },
       {
-        "name": "oathbound:boar_grunt_2"
+        "name": "oathbound:boar_grunt_2",
+        "volume": 0.201
       },
       {
-        "name": "oathbound:boar_grunt_3"
+        "name": "oathbound:boar_grunt_3",
+        "volume": 0.201
       }
     ],
     "subtitle": "subtitles.oathbound.boar_grunt"
@@ -747,10 +867,12 @@
   "boar_squeal": {
     "sounds": [
       {
-        "name": "oathbound:boar_squeal_1"
+        "name": "oathbound:boar_squeal_1",
+        "volume": 0.475
       },
       {
-        "name": "oathbound:boar_squeal_2"
+        "name": "oathbound:boar_squeal_2",
+        "volume": 0.475
       }
     ],
     "subtitle": "subtitles.oathbound.boar_squeal"
@@ -758,10 +880,12 @@
   "warden_rumble": {
     "sounds": [
       {
-        "name": "oathbound:warden_rumble_1"
+        "name": "oathbound:warden_rumble_1",
+        "volume": 0.41
       },
       {
-        "name": "oathbound:warden_rumble_2"
+        "name": "oathbound:warden_rumble_2",
+        "volume": 0.41
       }
     ],
     "subtitle": "subtitles.oathbound.warden_rumble"
@@ -769,13 +893,16 @@
   "wisp_chime": {
     "sounds": [
       {
-        "name": "oathbound:wisp_chime_1"
+        "name": "oathbound:wisp_chime_1",
+        "volume": 0.235
       },
       {
-        "name": "oathbound:wisp_chime_2"
+        "name": "oathbound:wisp_chime_2",
+        "volume": 0.235
       },
       {
-        "name": "oathbound:wisp_chime_3"
+        "name": "oathbound:wisp_chime_3",
+        "volume": 0.235
       }
     ],
     "subtitle": "subtitles.oathbound.wisp_chime"
@@ -783,13 +910,16 @@
   "monk_chant": {
     "sounds": [
       {
-        "name": "oathbound:monk_chant_1"
+        "name": "oathbound:monk_chant_1",
+        "volume": 0.222
       },
       {
-        "name": "oathbound:monk_chant_2"
+        "name": "oathbound:monk_chant_2",
+        "volume": 0.222
       },
       {
-        "name": "oathbound:monk_chant_3"
+        "name": "oathbound:monk_chant_3",
+        "volume": 0.222
       }
     ],
     "subtitle": "subtitles.oathbound.monk_chant"
@@ -797,10 +927,12 @@
   "hag_cackle": {
     "sounds": [
       {
-        "name": "oathbound:hag_cackle_1"
+        "name": "oathbound:hag_cackle_1",
+        "volume": 0.329
       },
       {
-        "name": "oathbound:hag_cackle_2"
+        "name": "oathbound:hag_cackle_2",
+        "volume": 0.329
       }
     ],
     "subtitle": "subtitles.oathbound.hag_cackle"
@@ -808,10 +940,12 @@
   "hag_curse": {
     "sounds": [
       {
-        "name": "oathbound:hag_curse_1"
+        "name": "oathbound:hag_curse_1",
+        "volume": 0.465
       },
       {
-        "name": "oathbound:hag_curse_2"
+        "name": "oathbound:hag_curse_2",
+        "volume": 0.465
       }
     ],
     "subtitle": "subtitles.oathbound.hag_curse"
@@ -819,13 +953,16 @@
   "crawler_rattle": {
     "sounds": [
       {
-        "name": "oathbound:crawler_rattle_1"
+        "name": "oathbound:crawler_rattle_1",
+        "volume": 0.484
       },
       {
-        "name": "oathbound:crawler_rattle_2"
+        "name": "oathbound:crawler_rattle_2",
+        "volume": 0.484
       },
       {
-        "name": "oathbound:crawler_rattle_3"
+        "name": "oathbound:crawler_rattle_3",
+        "volume": 0.484
       }
     ],
     "subtitle": "subtitles.oathbound.crawler_rattle"
@@ -833,10 +970,12 @@
   "stalker_snarl": {
     "sounds": [
       {
-        "name": "oathbound:stalker_snarl_1"
+        "name": "oathbound:stalker_snarl_1",
+        "volume": 0.157
       },
       {
-        "name": "oathbound:stalker_snarl_2"
+        "name": "oathbound:stalker_snarl_2",
+        "volume": 0.157
       }
     ],
     "subtitle": "subtitles.oathbound.stalker_snarl"
@@ -844,13 +983,16 @@
   "wraith_wail": {
     "sounds": [
       {
-        "name": "oathbound:wraith_wail_1"
+        "name": "oathbound:wraith_wail_1",
+        "volume": 0.463
       },
       {
-        "name": "oathbound:wraith_wail_2"
+        "name": "oathbound:wraith_wail_2",
+        "volume": 0.463
       },
       {
-        "name": "oathbound:wraith_wail_3"
+        "name": "oathbound:wraith_wail_3",
+        "volume": 0.463
       }
     ],
     "subtitle": "subtitles.oathbound.wraith_wail"
@@ -858,10 +1000,12 @@
   "mite_chitter": {
     "sounds": [
       {
-        "name": "oathbound:mite_chitter_1"
+        "name": "oathbound:mite_chitter_1",
+        "volume": 0.724
       },
       {
-        "name": "oathbound:mite_chitter_2"
+        "name": "oathbound:mite_chitter_2",
+        "volume": 0.724
       }
     ],
     "subtitle": "subtitles.oathbound.mite_chitter"
@@ -869,10 +1013,12 @@
   "revenant_roar": {
     "sounds": [
       {
-        "name": "oathbound:revenant_roar_1"
+        "name": "oathbound:revenant_roar_1",
+        "volume": 0.963
       },
       {
-        "name": "oathbound:revenant_roar_2"
+        "name": "oathbound:revenant_roar_2",
+        "volume": 0.963
       }
     ],
     "subtitle": "subtitles.oathbound.revenant_roar"
@@ -880,13 +1026,16 @@
   "amb_birdsong": {
     "sounds": [
       {
-        "name": "oathbound:amb_birdsong_1"
+        "name": "oathbound:amb_birdsong_1",
+        "volume": 0.287
       },
       {
-        "name": "oathbound:amb_birdsong_2"
+        "name": "oathbound:amb_birdsong_2",
+        "volume": 0.287
       },
       {
-        "name": "oathbound:amb_birdsong_3"
+        "name": "oathbound:amb_birdsong_3",
+        "volume": 0.287
       }
     ],
     "subtitle": "subtitles.oathbound.amb_birdsong"
@@ -894,10 +1043,12 @@
   "amb_crickets": {
     "sounds": [
       {
-        "name": "oathbound:amb_crickets_1"
+        "name": "oathbound:amb_crickets_1",
+        "volume": 0.313
       },
       {
-        "name": "oathbound:amb_crickets_2"
+        "name": "oathbound:amb_crickets_2",
+        "volume": 0.313
       }
     ],
     "subtitle": "subtitles.oathbound.amb_crickets"
@@ -905,10 +1056,12 @@
   "amb_owl": {
     "sounds": [
       {
-        "name": "oathbound:amb_owl_1"
+        "name": "oathbound:amb_owl_1",
+        "volume": 0.203
       },
       {
-        "name": "oathbound:amb_owl_2"
+        "name": "oathbound:amb_owl_2",
+        "volume": 0.203
       }
     ],
     "subtitle": "subtitles.oathbound.amb_owl"
@@ -916,10 +1069,12 @@
   "amb_frogs": {
     "sounds": [
       {
-        "name": "oathbound:amb_frogs_1"
+        "name": "oathbound:amb_frogs_1",
+        "volume": 0.5
       },
       {
-        "name": "oathbound:amb_frogs_2"
+        "name": "oathbound:amb_frogs_2",
+        "volume": 0.5
       }
     ],
     "subtitle": "subtitles.oathbound.amb_frogs"
@@ -927,10 +1082,12 @@
   "amb_wind": {
     "sounds": [
       {
-        "name": "oathbound:amb_wind_1"
+        "name": "oathbound:amb_wind_1",
+        "volume": 0.276
       },
       {
-        "name": "oathbound:amb_wind_2"
+        "name": "oathbound:amb_wind_2",
+        "volume": 0.276
       }
     ],
     "subtitle": "subtitles.oathbound.amb_wind"

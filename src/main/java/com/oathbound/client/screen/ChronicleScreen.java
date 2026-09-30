@@ -1,17 +1,22 @@
 package com.oathbound.client.screen;
 
+import com.oathbound.quest.Codex;
 import com.oathbound.quest.QuestLog;
 import com.oathbound.quest.QuestLog.Boon;
 import com.oathbound.quest.QuestLog.Quest;
+import com.oathbound.registry.ModEntities;
 import com.oathbound.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.Identifier;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
@@ -19,7 +24,9 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 
@@ -37,9 +44,9 @@ import java.util.function.Supplier;
  * <ul>
  *   <li><b>Chronicle</b>: the story, one chapter unsealing as you reach it.</li>
  *   <li><b>The Path</b>: each chapter's quests drawn as a branching path of seals, with objectives and hints.</li>
- *   <li><b>Tithes &amp; Boons</b>: what the Order owes you (paid at any kindled Wayshrine) and the Oath Boons
+ *   <li><b>Tithes &amp; Boons</b>: what the Order owes you (collected here or at any kindled Wayshrine) and the Oath Boons
  *       you may swear when a chapter closes.</li>
- *   <li><b>Bestiary</b> and <b>Armory</b>: field notes on every creature and relic, unlocked with the story.</li>
+ *   <li><b>Bestiary</b> and <b>Armory</b>: field notes on every creature you have seen and relic you have held.</li>
  * </ul>
  * The state comes from the Chronicle item's custom data, which the server keeps up to date.
  */
@@ -57,53 +64,16 @@ public class ChronicleScreen extends Screen {
     private static final int INK = 0xFF2E1F12, INK_SOFT = 0xFF6E5638, INK_FAINT = 0xFFA89070, RUBRIC = 0xFF8C2A2A;
     private static final int C_DONE = 0xFF3E7A3A, C_ACTIVE = 0xFFC9941E, C_LOCKED = 0xFF9A8B72, C_OWED = 0xFFB0532A;
 
-    // ------------------------------------------------------------------ bestiary & armory entries
-    private record Entry(String id, int chapter, Supplier<? extends Item> icon) {}
+    private static final List<Codex.Entry> BEASTS = Codex.BEASTS, RELICS = Codex.RELICS;
 
-    private static final List<Entry> BEASTS = List.of(
-        new Entry("lanternmoth", 0, ModItems.LANTERNMOTH_SPAWN_EGG), new Entry("gloamling", 0, ModItems.GLOAMLING_SPAWN_EGG),
-        new Entry("sir_caldris", 1, ModItems.SIR_CALDRIS_SPAWN_EGG), new Entry("animated_tome", 2, ModItems.ANIMATED_TOME_SPAWN_EGG),
-        new Entry("archmage_veyl", 2, ModItems.ARCHMAGE_VEYL_SPAWN_EGG), new Entry("barrow_wight", 3, ModItems.BARROW_WIGHT_SPAWN_EGG),
-        new Entry("spectral_housecarl", 3, ModItems.SPECTRAL_HOUSECARL_SPAWN_EGG), new Entry("hrodgar", 3, ModItems.HRODGAR_SPAWN_EGG),
-        new Entry("forsworn_knight", 4, ModItems.FORSWORN_KNIGHT_SPAWN_EGG), new Entry("veilhound", 5, ModItems.VEILHOUND_SPAWN_EGG),
-        new Entry("morvane", 5, ModItems.MORVANE_SPAWN_EGG),
-        new Entry("glimmerfawn", 0, ModItems.GLIMMERFAWN_SPAWN_EGG),
-        new Entry("duskhare", 0, ModItems.DUSKHARE_SPAWN_EGG),
-        new Entry("mossback_tortoise", 0, ModItems.MOSSBACK_TORTOISE_SPAWN_EGG),
-        new Entry("lumen_beetle", 0, ModItems.LUMEN_BEETLE_SPAWN_EGG),
-        new Entry("tidewader", 0, ModItems.TIDEWADER_SPAWN_EGG),
-        new Entry("thornback_boar", 0, ModItems.THORNBACK_BOAR_SPAWN_EGG),
-        new Entry("stonewarden", 0, ModItems.STONEWARDEN_SPAWN_EGG),
-        new Entry("runewisp", 2, ModItems.RUNEWISP_SPAWN_EGG),
-        new Entry("drowned_choirmonk", 1, ModItems.DROWNED_CHOIRMONK_SPAWN_EGG),
-        new Entry("mire_hag", 3, ModItems.MIRE_HAG_SPAWN_EGG),
-        new Entry("grave_crawler", 3, ModItems.GRAVE_CRAWLER_SPAWN_EGG),
-        new Entry("gloam_stalker", 5, ModItems.GLOAM_STALKER_SPAWN_EGG),
-        new Entry("shade_wraith", 5, ModItems.SHADE_WRAITH_SPAWN_EGG),
-        new Entry("lumenite_mite", 0, ModItems.LUMENITE_MITE_SPAWN_EGG),
-        new Entry("ashen_revenant", 4, ModItems.ASHEN_REVENANT_SPAWN_EGG),
-        new Entry("elderhorn", 1, ModItems.ELDERHORN_SPAWN_EGG),
-        new Entry("bog_mother", 2, ModItems.BOG_MOTHER_SPAWN_EGG),
-        new Entry("cinder_colossus", 3, ModItems.CINDER_COLOSSUS_SPAWN_EGG),
-        new Entry("glimmerstag", 0, ModItems.GLIMMERSTAG_SPAWN_EGG),
-        new Entry("lanternguard_pilgrim", 0, ModItems.LANTERNGUARD_PILGRIM_SPAWN_EGG));
-
-    private static final List<Entry> RELICS = List.of(
-        new Entry("wardens_lantern", 0, ModItems.WARDENS_LANTERN), new Entry("oathsteel_longsword", 0, ModItems.OATHSTEEL_LONGSWORD),
-        new Entry("wardens_halberd", 0, ModItems.WARDENS_HALBERD), new Entry("lumen_flask", 0, ModItems.LUMEN_FLASK),
-        new Entry("drowned_anchor", 1, ModItems.DROWNED_ANCHOR), new Entry("staff_of_veyl", 2, ModItems.STAFF_OF_VEYL),
-        new Entry("dawnstring_longbow", 2, ModItems.DAWNSTRING_LONGBOW), new Entry("arcanist_robe", 2, ModItems.ARCANIST_ROBE),
-        new Entry("housecarl_warhorn", 3, ModItems.HOUSECARL_WARHORN), new Entry("oathkey", 4, ModItems.OATHKEY),
-        new Entry("shadowreap_sickle", 5, ModItems.SHADOWREAP_SICKLE), new Entry("dawnbreaker", 5, ModItems.DAWNBREAKER),
-        new Entry("hollow_crown", 5, ModItems.HOLLOW_CROWN), new Entry("everflame_lantern", 5, ModItems.EVERFLAME_LANTERN),
-        new Entry("tidebronze_gladius", 1, ModItems.TIDEBRONZE_GLADIUS), new Entry("runesilver_rapier", 2, ModItems.RUNESILVER_RAPIER),
-        new Entry("gravegold_khopesh", 3, ModItems.GRAVEGOLD_KHOPESH), new Entry("duskiron_glaive", 5, ModItems.DUSKIRON_GLAIVE),
-        new Entry("dawnsteel_greatsword", 5, ModItems.DAWNSTEEL_GREATSWORD),
-        new Entry("huntsmans_horn", 0, ModItems.HUNTSMANS_HORN), new Entry("bell_of_the_drowned", 1, ModItems.BELL_OF_THE_DROWNED),
-        new Entry("grove_kings_crown", 1, ModItems.GROVE_KINGS_CROWN), new Entry("veyls_mirror", 2, ModItems.VEYLS_MIRROR),
-        new Entry("bog_mothers_lantern", 2, ModItems.BOG_MOTHERS_LANTERN), new Entry("barrow_censer", 3, ModItems.BARROW_CENSER),
-        new Entry("cinder_heart", 3, ModItems.CINDER_HEART), new Entry("lanternguard_signet", 4, ModItems.LANTERNGUARD_SIGNET),
-        new Entry("heart_of_the_gloam", 5, ModItems.HEART_OF_THE_GLOAM), new Entry("sunshard_talisman", 5, ModItems.SUNSHARD_TALISMAN));
+    /** Quests about a creature show it, alive; quests about a place show a picture of it (textures/gui/quest/<id>.png). */
+    private static final Map<String, Supplier<? extends EntityType<? extends LivingEntity>>> CREATURES = Map.of(
+        "caldris", ModEntities.SIR_CALDRIS, "veyl", ModEntities.ARCHMAGE_VEYL, "hrodgar", ModEntities.HRODGAR,
+        "veilhound", ModEntities.VEILHOUND, "gloamling", ModEntities.GLOAMLING, "lanternmoth", ModEntities.LANTERNMOTH,
+        "forsworn", ModEntities.FORSWORN_KNIGHT);
+    private static final int PIC_W = 304, PIC_H = 128;
+    private final Map<String, Boolean> hasPicture = new HashMap<>();
+    private final Map<String, LivingEntity> models = new HashMap<>();
 
     private final InteractionHand hand;
     private int tab = TAB_PATH;
@@ -113,10 +83,14 @@ public class ChronicleScreen extends Screen {
     private String selected;
     private int listIndex;
     private int bookPage;
-    private Set<String> done = new HashSet<>(), paid = new HashSet<>(), boons = new HashSet<>();
+    private Set<String> done = new HashSet<>(), paid = new HashSet<>(), boons = new HashSet<>(), seen = new HashSet<>();
     private final List<Hit> hits = new ArrayList<>();
     private String pendingBoon;
     private int pendingTicks;
+    private int claimTicks;
+    /** Scroll offset (in lines) of the right page's body, and how far it can go this frame. */
+    private int bodyScroll, bodyMax;
+    private String bodyKey = "";
 
     private record Hit(int x, int y, int w, int h, Runnable action) {
         boolean in(double mx, double my) {
@@ -161,6 +135,8 @@ public class ChronicleScreen extends Screen {
         done = set(t.getStringOr("done", ""));
         paid = set(t.getStringOr("paid", ""));
         boons = set(t.getStringOr("boons", ""));
+        seen = set(t.getStringOr("seen", ""));
+        if (claimTicks > 0) claimTicks--;
         if (pendingBoon != null && (boons.contains(pendingBoon) || --pendingTicks <= 0)) pendingBoon = null;
     }
 
@@ -196,7 +172,7 @@ public class ChronicleScreen extends Screen {
     // ------------------------------------------------------------------ setup & input
     @Override
     protected void init() {
-        left = (width - W) / 2;
+        left = Math.max(10, (width - W - 72) / 2 + 4);
         top = (height - H) / 2;
         refresh();
         Quest next = nextMain();
@@ -241,6 +217,10 @@ public class ChronicleScreen extends Screen {
     public boolean mouseScrolled(double mx, double my, double sx, double sy) {
         if (sy == 0) return false;
         int d = sy > 0 ? -1 : 1;
+        if (bodyMax > 0 && mx >= rx() - 4 && mx < rx() + PAGE_W + 4 && my >= top && my < top + H) {
+            bodyScroll = Mth.clamp(bodyScroll + d, 0, bodyMax);
+            return true;
+        }
         switch (tab) {
             case TAB_STORY -> turnStory(d);
             case TAB_PATH -> {
@@ -293,6 +273,7 @@ public class ChronicleScreen extends Screen {
     @Override
     public void extractRenderState(GuiGraphicsExtractor g, int mx, int my, float pt) {
         hits.clear();
+        bodyMax = 0;
         drawBook(g, mx, my);
         switch (tab) {
             case TAB_STORY -> drawStory(g, mx, my);
@@ -336,14 +317,14 @@ public class ChronicleScreen extends Screen {
         for (int i = 0; i < TAB_KEYS.length; i++) {
             int x = left + W + 6, y = top + 16 + i * 30;
             boolean on = tab == i;
-            boolean hover = mx >= x && mx < x + 58 && my >= y && my < y + 22;
-            int len = on ? 58 : hover ? 52 : 46;
+            boolean hover = mx >= x && mx < x + 66 && my >= y && my < y + 22;
+            int len = on ? 66 : hover ? 62 : 58;
             g.fill(x, y, x + len, y + 22, TAB_COLORS[i]);
             g.fill(x, y, x + len, y + 2, 0x33FFFFFF);
             g.fill(x + len - 6, y + 22, x + len, y + 26, TAB_COLORS[i]);
-            g.text(font, Component.translatable("chronicle.oathbound.tab." + TAB_KEYS[i]), x + 5, y + 7, on ? GOLD_BRIGHT : 0xFFF3E6C6, true);
+            g.text(font, fit(Component.translatable("chronicle.oathbound.tab." + TAB_KEYS[i]), len - 8), x + 5, y + 7, on ? GOLD_BRIGHT : 0xFFF3E6C6, true);
             final int t = i;
-            hits.add(new Hit(x, y, 58, 22, () -> {
+            hits.add(new Hit(x, y, 66, 22, () -> {
                 if (tab != t) {
                     tab = t;
                     listIndex = 0;
@@ -369,7 +350,8 @@ public class ChronicleScreen extends Screen {
     }
 
     private void heading(GuiGraphicsExtractor g, Component text, int x, int y, int width) {
-        g.centeredText(font, text.copy().withStyle(ChatFormatting.BOLD), x + width / 2, y, RUBRIC);
+        text = fit(text.copy().withStyle(ChatFormatting.BOLD), width - 6);
+        g.centeredText(font, text, x + width / 2, y, RUBRIC);
         int w = Math.min(width - 10, font.width(text) + 24);
         int cx = x + width / 2;
         g.fill(cx - w / 2, y + 11, cx + w / 2, y + 12, GOLD_DIM);
@@ -378,6 +360,61 @@ public class ChronicleScreen extends Screen {
 
     private List<FormattedCharSequence> wrap(Component c, int width) {
         return font.split(c, width);
+    }
+
+    /** Shortens a single line with an ellipsis so it never runs past {@code width}, keeping its style. */
+    private Component fit(Component c, int width) {
+        if (font.width(c) <= width) return c;
+        Style style = c.getStyle();
+        String str = c.getString();
+        int ell = font.width(Component.literal("…").withStyle(style));
+        while (!str.isEmpty() && font.width(Component.literal(str).withStyle(style)) + ell > width) str = str.substring(0, str.length() - 1);
+        return Component.literal(str.stripTrailing() + "…").withStyle(style);
+    }
+
+    private record Line(FormattedCharSequence text, int color) {}
+
+    private void addLines(List<Line> out, Component c, int width, int color) {
+        for (FormattedCharSequence l : wrap(c, width)) out.add(new Line(l, color));
+    }
+
+    /**
+     * Draws wrapped lines between {@code y} and {@code maxY}; if they don't fit, the page scrolls with the mouse
+     * wheel and small arrows show there is more. {@code key} resets the scroll when the page shows something else.
+     */
+    private void scrollBody(GuiGraphicsExtractor g, List<Line> lines, int x, int y, int maxY, int width, String key) {
+        if (!key.equals(bodyKey)) {
+            bodyKey = key;
+            bodyScroll = 0;
+        }
+        int lh = font.lineHeight + 1;
+        int fit = Math.max(1, (maxY - y) / lh);
+        bodyMax = Math.max(0, lines.size() - fit);
+        bodyScroll = Mth.clamp(bodyScroll, 0, bodyMax);
+        for (int i = bodyScroll; i < Math.min(lines.size(), bodyScroll + fit); i++) {
+            g.text(font, lines.get(i).text(), x, y, lines.get(i).color(), false);
+            y += lh;
+        }
+        if (bodyScroll > 0) g.text(font, "\u25B2", x + width - 6, y - fit * lh - 1, INK_SOFT, false);
+        if (bodyScroll < bodyMax) g.text(font, "\u25BC", x + width - 6, y - 8, INK_SOFT, false);
+    }
+
+    /** A small tooled button; returns its height. */
+    private int button(GuiGraphicsExtractor g, int mx, int my, int x, int y, int w, Component label, boolean enabled, Runnable action) {
+        boolean hover = enabled && mx >= x && mx < x + w && my >= y && my < y + 14;
+        g.fill(x, y, x + w, y + 14, !enabled ? 0x22000000 : hover ? 0xFFB0532A : 0xFF8C2A2A);
+        g.outline(x, y, w, 14, enabled ? GOLD : GOLD_DIM);
+        g.centeredText(font, fit(label, w - 6), x + w / 2, y + 3, enabled ? GOLD_BRIGHT : INK_FAINT);
+        if (enabled) hits.add(new Hit(x, y, w, 14, action));
+        return 14;
+    }
+
+    private void collect() {
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.getConnection() == null || claimTicks > 0) return;
+        mc.getConnection().sendCommand("oathchronicle tithes");
+        claimTicks = 40;
+        sound(false);
     }
 
     private int paragraph(GuiGraphicsExtractor g, Component c, int x, int y, int width, int color) {
@@ -444,7 +481,7 @@ public class ChronicleScreen extends Screen {
             g.text(font, num, x + 2, y + 4, open ? RUBRIC : INK_FAINT, false);
             Component title = open ? Component.translatable(c < QuestLog.CHAPTERS ? "chronicle.oathbound.chapter." + c : "chronicle.oathbound.chapter.epilogue")
                 : Component.translatable("chronicle.oathbound.sealed");
-            g.text(font, title, x + 22, y + 4, open ? INK : INK_FAINT, false);
+            g.text(font, fit(title, PAGE_W - 38), x + 22, y + 4, open ? INK : INK_FAINT, false);
             if (open && chapterComplete(c)) g.text(font, "✓", x + PAGE_W - 12, y + 4, C_DONE, false);
             final int cc = c;
             if (open) hits.add(new Hit(x - 2, y - 3, PAGE_W + 2, 20, () -> {
@@ -489,7 +526,7 @@ public class ChronicleScreen extends Screen {
             }));
         }
         y += 22;
-        g.text(font, Component.translatable("chronicle.oathbound.chapter." + pathChapter).withStyle(ChatFormatting.BOLD), x, y, RUBRIC, false);
+        g.text(font, fit(Component.translatable("chronicle.oathbound.chapter." + pathChapter).withStyle(ChatFormatting.BOLD), PAGE_W - 4), x, y, RUBRIC, false);
         y += 14;
         // the path: main quests down the spine, side quests branching right
         List<Quest> mains = new ArrayList<>(), sides = new ArrayList<>();
@@ -559,12 +596,12 @@ public class ChronicleScreen extends Screen {
     private void drawQuestPage(GuiGraphicsExtractor g, int mx, int my) {
         int x = rx(), y = py();
         Quest next = nextMain();
-        g.fill(x - 2, y - 2, x + PAGE_W, y + 26, 0x22C9941E);
-        g.text(font, Component.translatable("chronicle.oathbound.next").withStyle(ChatFormatting.BOLD), x + 2, y, RUBRIC, false);
-        Component nextText = next == null ? Component.translatable("chronicle.oathbound.next.none")
-            : Component.translatable("quest.oathbound." + next.id() + ".title");
-        g.text(font, font.plainSubstrByWidth(nextText.getString(), PAGE_W - 8), x + 2, y + 12, INK, false);
-        y += 34;
+        g.fill(x - 2, y - 2, x + PAGE_W, y + 10, 0x22C9941E);
+        Component nextText = Component.translatable("chronicle.oathbound.next").withStyle(ChatFormatting.BOLD).append(": ").copy()
+            .append(next == null ? Component.translatable("chronicle.oathbound.next.none").withStyle(Style.EMPTY.withBold(false))
+                : Component.translatable("quest.oathbound." + next.id() + ".title").withStyle(Style.EMPTY.withBold(false).withColor(INK & 0xFFFFFF)));
+        g.text(font, fit(nextText, PAGE_W - 6), x + 2, y, RUBRIC, false);
+        y += 14;
         Quest q = QuestLog.QUESTS.get(selected);
         if (q == null) return;
         Status s = status(q);
@@ -573,8 +610,8 @@ public class ChronicleScreen extends Screen {
             paragraph(g, Component.translatable("chronicle.oathbound.locked_quest"), x + 2, y + 22, PAGE_W - 6, INK_SOFT);
             return;
         }
-        heading(g, Component.translatable("quest.oathbound." + q.id() + ".title"), x, y, PAGE_W);
-        y += 20;
+        plate(g, mx, my, q, x, y, PAGE_W - 4, 64);
+        y += 68;
         Component statusText = switch (s) {
             case ACTIVE -> Component.translatable("chronicle.oathbound.status.active").withStyle(ChatFormatting.GOLD);
             case DONE -> Component.translatable("chronicle.oathbound.status.owed").withStyle(ChatFormatting.DARK_RED);
@@ -582,16 +619,18 @@ public class ChronicleScreen extends Screen {
             default -> Component.empty();
         };
         g.centeredText(font, statusText, x + PAGE_W / 2, y, 0xFFFFFFFF);
-        y += 13;
-        y = paragraph(g, Component.translatable("quest.oathbound." + q.id() + ".description"), x + 2, y, PAGE_W - 6, INK);
-        y += 4;
+        y += 12;
+        // the description (and hint) scroll above a fixed tithe block, so nothing runs off the page
+        int ty = top + PAGE_H - 44;
+        List<Line> body = new ArrayList<>();
+        addLines(body, Component.translatable("quest.oathbound." + q.id() + ".description"), PAGE_W - 14, INK);
         if (s == Status.ACTIVE) {
-            y = paragraph(g, Component.literal("❧ ").append(Component.translatable("quest.oathbound." + q.id() + ".hint")).withStyle(ChatFormatting.ITALIC),
-                x + 2, y, PAGE_W - 6, INK_SOFT);
-            y += 4;
+            body.add(new Line(FormattedCharSequence.EMPTY, INK));
+            addLines(body, Component.literal("❧ ").append(Component.translatable("quest.oathbound." + q.id() + ".hint")).withStyle(ChatFormatting.ITALIC),
+                PAGE_W - 14, INK_SOFT);
         }
+        scrollBody(g, body, x + 2, y, ty - 6, PAGE_W - 4, "quest:" + q.id());
         // the tithe
-        int ty = Math.max(y, top + PAGE_H - 50);
         g.fill(x + 4, ty - 4, x + PAGE_W - 6, ty - 3, GOLD_DIM);
         g.text(font, Component.translatable("chronicle.oathbound.tithe").withStyle(ChatFormatting.BOLD), x + 2, ty, RUBRIC, false);
         int ix = x + 2;
@@ -602,10 +641,50 @@ public class ChronicleScreen extends Screen {
             if (mx >= ix && mx < ix + 16 && my >= ty + 11 && my < ty + 27) g.setTooltipForNextFrame(font, st, mx, my);
             ix += 20;
         }
-        if (q.xp() > 0) g.text(font, Component.translatable("chronicle.oathbound.xp", q.xp()), ix + 2, ty + 15, 0xFF4E8A2C, false);
+        int bx = x + PAGE_W - 58;
+        if (q.xp() > 0) g.text(font, fit(Component.translatable("chronicle.oathbound.xp", q.xp()), PAGE_W - 4), x + 2, ty + 30, 0xFF4E8A2C, false);
         if (s == Status.DONE) {
-            g.text(font, Component.translatable("chronicle.oathbound.collect").withStyle(ChatFormatting.ITALIC), x + 2, ty + 30, C_OWED, false);
+            button(g, mx, my, bx, ty + 12, 52, Component.translatable("chronicle.oathbound.collect"), claimTicks == 0, this::collect);
         }
+    }
+
+    /**
+     * The quest's picture: the place itself, the creature (turning to follow the cursor), or the item, large; with
+     * the quest's title on a dark band along the bottom, like a captioned plate.
+     */
+    private void plate(GuiGraphicsExtractor g, int mx, int my, Quest q, int x, int y, int w, int h) {
+        g.fill(x - 1, y - 1, x + w + 1, y + h + 1, GOLD_DIM);
+        Identifier pic = Identifier.fromNamespaceAndPath("oathbound", "textures/gui/quest/" + q.id() + ".png");
+        boolean picture = hasPicture.computeIfAbsent(q.id(), k -> Minecraft.getInstance().getResourceManager().getResource(pic).isPresent());
+        LivingEntity model = picture ? null : model(q.id());
+        if (picture) {
+            g.blit(RenderPipelines.GUI_TEXTURED, pic, x, y, 0f, 0f, w, h, PIC_W, PIC_H, PIC_W, PIC_H);
+        } else {
+            g.fillGradient(x, y, x + w, y + h, 0xFF2A1C2E, 0xFF120C14);
+            if (model != null) {
+                float size = Math.max(model.getBbHeight(), model.getBbWidth() * 1.2f);
+                int scale = (int) Mth.clamp(40 / Math.max(0.4f, size), 10, 48);
+                InventoryScreen.extractEntityInInventoryFollowsMouse(g, x + w / 2 - 40, y + 2, x + w / 2 + 40, y + h - 10, scale, 0.0625f, mx, my, model);
+            } else {
+                g.pose().pushMatrix();
+                g.pose().translate(x + w / 2f - 24, y + 4);
+                g.pose().scale(3f, 3f);
+                g.item(q.iconStack(), 0, 0);
+                g.pose().popMatrix();
+            }
+        }
+        g.fill(x, y + h - 12, x + w, y + h, 0xB0100A06);
+        Component title = fit(Component.translatable("quest.oathbound." + q.id() + ".title").withStyle(ChatFormatting.BOLD), w - 6);
+        g.centeredText(font, title, x + w / 2, y + h - 10, GOLD_BRIGHT);
+    }
+
+    private LivingEntity model(String quest) {
+        var type = CREATURES.get(quest);
+        if (type == null) return null;
+        return models.computeIfAbsent(quest, k -> {
+            Minecraft mc = Minecraft.getInstance();
+            return mc.level == null ? null : type.get().create(mc.level, EntitySpawnReason.LOAD);
+        });
     }
 
     // ------------------------------------------------------------------ Tithes & Boons
@@ -616,24 +695,33 @@ public class ChronicleScreen extends Screen {
         List<Quest> owed = new ArrayList<>();
         for (Quest q : QuestLog.QUESTS.values()) if (status(q) == Status.DONE) owed.add(q);
         y = paragraph(g, Component.translatable(owed.isEmpty() ? "chronicle.oathbound.tithes.none" : "chronicle.oathbound.tithes.owed", owed.size()), x, y, PAGE_W - 4, INK);
-        y += 6;
+        y += 4;
+        List<ItemStack> stacks = new ArrayList<>();
+        for (Quest q : owed) for (QuestLog.Reward r : q.rewards()) stacks.add(r.stack());
+        int perRow = (PAGE_W - 4) / 20, maxRows = 4;
+        int shown = Math.min(stacks.size(), perRow * maxRows);
         int ix = x, iy = y;
-        for (Quest q : owed) {
-            for (QuestLog.Reward r : q.rewards()) {
-                ItemStack st = r.stack();
-                g.fill(ix, iy, ix + 18, iy + 18, 0x22000000);
-                g.item(st, ix + 1, iy + 1);
-                g.itemDecorations(font, st, ix + 1, iy + 1);
-                if (mx >= ix && mx < ix + 18 && my >= iy && my < iy + 18) g.setTooltipForNextFrame(font, st, mx, my);
-                ix += 20;
-                if (ix > x + PAGE_W - 20) {
-                    ix = x;
-                    iy += 20;
-                }
+        for (int i = 0; i < shown; i++) {
+            ItemStack st = stacks.get(i);
+            g.fill(ix, iy, ix + 18, iy + 18, 0x22000000);
+            g.item(st, ix + 1, iy + 1);
+            g.itemDecorations(font, st, ix + 1, iy + 1);
+            if (mx >= ix && mx < ix + 18 && my >= iy && my < iy + 18) g.setTooltipForNextFrame(font, st, mx, my);
+            ix += 20;
+            if (ix + 18 > x + PAGE_W - 4 && i < shown - 1) {
+                ix = x;
+                iy += 20;
             }
         }
-        y = iy + 26;
-        paragraph(g, Component.translatable("chronicle.oathbound.tithes.how").withStyle(ChatFormatting.ITALIC), x, Math.max(y, top + PAGE_H - 40), PAGE_W - 4, INK_SOFT);
+        y = stacks.isEmpty() ? y : iy + 24;
+        if (shown < stacks.size()) {
+            g.text(font, Component.translatable("chronicle.oathbound.tithes.more", stacks.size() - shown), x, y, INK_SOFT, false);
+            y += 12;
+        }
+        if (!owed.isEmpty()) {
+            y += button(g, mx, my, x + 10, y, PAGE_W - 24, Component.translatable("chronicle.oathbound.collect_all"), claimTicks == 0, this::collect) + 6;
+        }
+        paragraph(g, Component.translatable("chronicle.oathbound.tithes.how").withStyle(ChatFormatting.ITALIC), x, y, PAGE_W - 4, INK_SOFT);
 
         // Boons
         int rx = rx(), ry = py();
@@ -654,36 +742,40 @@ public class ChronicleScreen extends Screen {
                 color = C_OWED;
                 if (choosing < 0) choosing = c;
             } else {
-                line = Component.translatable("chronicle.oathbound.boons.sealed");
+                line = Component.translatable("chronicle.oathbound.sealed");
                 color = INK_FAINT;
             }
             g.text(font, NUMERALS[c], rx + 2, ry, RUBRIC, false);
-            g.text(font, line, rx + 20, ry, color, false);
-            ry += 11;
+            g.text(font, fit(line, PAGE_W - 26), rx + 20, ry, color, false);
+            if (chosen == null && !complete && mx >= rx && mx < rx + PAGE_W && my >= ry - 1 && my < ry + 9) {
+                g.setTooltipForNextFrame(font, Component.translatable("chronicle.oathbound.boons.sealed"), mx, my);
+            }
+            ry += 10;
         }
         ry += 4;
         if (choosing >= 0) {
-            g.text(font, Component.translatable("chronicle.oathbound.boons.prompt", NUMERALS[choosing]).withStyle(ChatFormatting.BOLD), rx + 2, ry, RUBRIC, false);
+            g.text(font, fit(Component.translatable("chronicle.oathbound.boons.prompt", NUMERALS[choosing]).withStyle(ChatFormatting.BOLD), PAGE_W - 4), rx + 2, ry, RUBRIC, false);
             ry += 12;
             for (Boon b : QuestLog.BOONS) {
                 if (b.chapter() != choosing) continue;
-                int cardH = 34;
+                int cardH = 32;
                 boolean hover = mx >= rx && mx < rx + PAGE_W - 4 && my >= ry && my < ry + cardH;
                 g.fill(rx, ry, rx + PAGE_W - 4, ry + cardH, hover ? 0x44C9941E : 0x22000000);
                 g.outline(rx, ry, PAGE_W - 4, cardH, hover ? GOLD : GOLD_DIM);
                 g.item(new ItemStack(b.icon().get()), rx + 4, ry + 9);
-                g.text(font, Component.translatable("boon.oathbound." + b.id() + ".title").withStyle(ChatFormatting.BOLD), rx + 24, ry + 3, INK, false);
-                int ly = ry + 14;
-                for (FormattedCharSequence l : wrap(Component.translatable("boon.oathbound." + b.id() + ".description"), PAGE_W - 34)) {
-                    if (ly > ry + cardH - 8) break;
-                    g.text(font, l, rx + 24, ly, INK_SOFT, false);
+                g.text(font, fit(Component.translatable("boon.oathbound." + b.id() + ".title").withStyle(ChatFormatting.BOLD), PAGE_W - 32), rx + 24, ry + 3, INK, false);
+                int ly = ry + 13;
+                List<FormattedCharSequence> desc = wrap(Component.translatable("boon.oathbound." + b.id() + ".description"), PAGE_W - 32);
+                for (int li = 0; li < Math.min(2, desc.size()); li++) {
+                    g.text(font, desc.get(li), rx + 24, ly, INK_SOFT, false);
                     ly += 9;
                 }
+                if (hover && desc.size() > 2) g.setTooltipForNextFrame(font, Component.translatable("boon.oathbound." + b.id() + ".description"), mx, my);
                 boolean waiting = b.id().equals(pendingBoon);
                 if (!waiting) hits.add(new Hit(rx, ry, PAGE_W - 4, cardH, () -> swear(b)));
-                ry += cardH + 3;
+                ry += cardH + 2;
             }
-            g.text(font, Component.translatable("chronicle.oathbound.boons.once").withStyle(ChatFormatting.ITALIC), rx + 2, ry, INK_FAINT, false);
+            g.text(font, fit(Component.translatable("chronicle.oathbound.boons.once").withStyle(ChatFormatting.ITALIC), PAGE_W - 4), rx + 2, ry, INK_FAINT, false);
         } else {
             paragraph(g, Component.translatable("chronicle.oathbound.boons.about").withStyle(ChatFormatting.ITALIC), rx + 2, ry, PAGE_W - 6, INK_SOFT);
         }
@@ -699,7 +791,11 @@ public class ChronicleScreen extends Screen {
     }
 
     // ------------------------------------------------------------------ Bestiary & Armory
-    private void drawCodex(GuiGraphicsExtractor g, int mx, int my, List<Entry> entries, String kind) {
+    private boolean known(Codex.Entry e) {
+        return seen.contains(e.id());
+    }
+
+    private void drawCodex(GuiGraphicsExtractor g, int mx, int my, List<Codex.Entry> entries, String kind) {
         int x = lx(), y = py();
         heading(g, Component.translatable("chronicle.oathbound.tab." + kind), x, y, PAGE_W);
         y += 20;
@@ -711,14 +807,14 @@ public class ChronicleScreen extends Screen {
         if (first > 0) g.centeredText(font, "\u25B2", x + PAGE_W - 8, y - 12, INK_SOFT);
         if (last < entries.size()) g.centeredText(font, "\u25BC", x + PAGE_W - 8, y + rows * 17 - 2, INK_SOFT);
         for (int i = first; i < last; i++) {
-            Entry e = entries.get(i);
-            boolean open = chapterOpen(e.chapter()) && (e.chapter() < 5 || done.contains("gloaming") || done.contains("morvane"));
+            Codex.Entry e = entries.get(i);
+            boolean open = known(e);
             boolean sel = i == listIndex;
             if (sel) g.fill(x - 2, y - 1, x + PAGE_W, y + 16, 0x33C9941E);
             if (open) g.item(new ItemStack(e.icon().get()), x, y);
             else g.centeredText(font, "?", x + 8, y + 4, INK_FAINT);
             Component name = open ? Component.translatable(kind + ".oathbound." + e.id() + ".name") : Component.translatable("chronicle.oathbound.unknown");
-            g.text(font, name, x + 20, y + 4, open ? INK : INK_FAINT, false);
+            g.text(font, fit(name, PAGE_W - 24), x + 20, y + 4, open ? INK : INK_FAINT, false);
             final int idx = i;
             hits.add(new Hit(x - 2, y - 1, PAGE_W + 2, 17, () -> {
                 listIndex = idx;
@@ -727,8 +823,8 @@ public class ChronicleScreen extends Screen {
             }));
             y += 17;
         }
-        Entry e = entries.get(listIndex);
-        boolean open = chapterOpen(e.chapter()) && (e.chapter() < 5 || done.contains("gloaming") || done.contains("morvane"));
+        Codex.Entry e = entries.get(listIndex);
+        boolean open = known(e);
         int rx = rx(), ry = py();
         if (!open) {
             heading(g, Component.translatable("chronicle.oathbound.unknown"), rx, ry, PAGE_W);
@@ -746,9 +842,11 @@ public class ChronicleScreen extends Screen {
         g.item(new ItemStack(e.icon().get()), 0, 0);
         g.pose().popMatrix();
         ry += 50;
-        ry = paragraph(g, styled(Component.translatable(kind + ".oathbound." + e.id() + ".text").getString()), rx + 2, ry, PAGE_W - 6, INK);
-        ry += 4;
-        paragraph(g, Component.literal("❧ ").append(Component.translatable(kind + ".oathbound." + e.id() + ".note")).withStyle(ChatFormatting.ITALIC),
-            rx + 2, ry, PAGE_W - 6, RUBRIC);
+        List<Line> body = new ArrayList<>();
+        addLines(body, styled(Component.translatable(kind + ".oathbound." + e.id() + ".text").getString()), PAGE_W - 14, INK);
+        body.add(new Line(FormattedCharSequence.EMPTY, INK));
+        addLines(body, Component.literal("❧ ").append(Component.translatable(kind + ".oathbound." + e.id() + ".note")).withStyle(ChatFormatting.ITALIC),
+            PAGE_W - 14, RUBRIC);
+        scrollBody(g, body, rx + 2, ry, top + PAGE_H + 4, PAGE_W - 4, kind + ":" + e.id());
     }
 }

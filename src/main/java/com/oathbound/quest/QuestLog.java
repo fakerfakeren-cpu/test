@@ -192,13 +192,15 @@ public final class QuestLog {
         }
         List<String> boons = new ArrayList<>();
         for (Boon b : BOONS) if (hasBoon(player, b.id())) boons.add(b.id());
-        String d = String.join(",", done), c = String.join(",", claimed), bo = String.join(",", boons);
+        String d = String.join(",", done), c = String.join(",", claimed), bo = String.join(",", boons), seen = Codex.csv(player);
         CompoundTag current = book.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        if (d.equals(current.getStringOr("done", "-")) && c.equals(current.getStringOr("paid", "-")) && bo.equals(current.getStringOr("boons", "-"))) return;
+        if (d.equals(current.getStringOr("done", "-")) && c.equals(current.getStringOr("paid", "-")) && bo.equals(current.getStringOr("boons", "-"))
+            && seen.equals(current.getStringOr("seen", "-"))) return;
         CustomData.update(DataComponents.CUSTOM_DATA, book, tag -> {
             tag.putString("done", d);
             tag.putString("paid", c);
             tag.putString("boons", bo);
+            tag.putString("seen", seen);
         });
     }
 
@@ -219,8 +221,8 @@ public final class QuestLog {
     }
 
     /**
-     * Pays every owed tithe at a kindled Wayshrine: the items rise out of the brazier's fire one by one.
-     * Returns the number of tithes paid.
+     * Pays every owed tithe. At a kindled Wayshrine the items rise out of the brazier's fire one by one; from the
+     * Chronicle ({@code brazier == null}) they go straight into the pack. Returns the number of tithes paid.
      */
     public static int payTithes(ServerPlayer player, net.minecraft.core.BlockPos brazier) {
         List<Quest> owed = owedTithes(player);
@@ -235,6 +237,10 @@ public final class QuestLog {
             xp += q.xp();
             for (Reward reward : q.rewards()) {
                 ItemStack stack = reward.stack();
+                if (brazier == null) {
+                    if (!player.getInventory().add(stack)) player.drop(stack, false);
+                    continue;
+                }
                 com.oathbound.util.Scheduler.later(level, 4 + delay, l -> {
                     net.minecraft.world.phys.Vec3 at = net.minecraft.world.phys.Vec3.atCenterOf(brazier).add(0, 0.9, 0);
                     var item = new net.minecraft.world.entity.item.ItemEntity(l, at.x, at.y, at.z, stack);
@@ -248,8 +254,13 @@ public final class QuestLog {
             }
         }
         if (xp > 0) player.giveExperiencePoints(xp);
-        level.playSound(null, brazier, ModSounds.QUEST_COMPLETE.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
-        player.sendSystemMessage(Component.translatable("chronicle.oathbound.tithe.paid", owed.size()).withStyle(ChatFormatting.GOLD, ChatFormatting.ITALIC));
+        if (brazier == null) {
+            level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.QUEST_COMPLETE.get(), SoundSource.PLAYERS, 0.8f, 1.0f);
+            player.sendSystemMessage(Component.translatable("chronicle.oathbound.tithe.paid_book", owed.size()).withStyle(ChatFormatting.GOLD, ChatFormatting.ITALIC));
+        } else {
+            level.playSound(null, brazier, ModSounds.QUEST_COMPLETE.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
+            player.sendSystemMessage(Component.translatable("chronicle.oathbound.tithe.paid", owed.size()).withStyle(ChatFormatting.GOLD, ChatFormatting.ITALIC));
+        }
         syncAll(player);
         return owed.size();
     }
@@ -334,9 +345,14 @@ public final class QuestLog {
         return 1;
     }
 
-    /** {@code /oathchronicle boon <id>}: needs no permission; a player can only swear their own boons. */
+    /**
+     * {@code /oathchronicle boon <id>} and {@code /oathchronicle tithes}: need no permission; a player can only swear
+     * their own boons and collect their own tithes.
+     */
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(Commands.literal("oathchronicle")
+            .then(Commands.literal("tithes")
+                .executes(c -> payTithes(c.getSource().getPlayerOrException(), null)))
             .then(Commands.literal("boon")
                 .then(Commands.argument("boon", StringArgumentType.word())
                     .suggests((c, b) -> SharedSuggestionProvider.suggest(BOONS.stream().map(Boon::id), b))

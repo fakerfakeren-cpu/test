@@ -379,11 +379,11 @@ def tags():
 # ====================================================================== worldgen
 STRUCTURES = {
     # sketch id: (step, spacing, separation, salt)
-    'wayshrine': ('surface_structures', 22, 8, 71211309),
-    'drowned_chapel': ('surface_structures', 36, 12, 71211311),
-    'arcanist_spire': ('surface_structures', 38, 14, 71211313),
-    'barrow_of_kings': ('surface_structures', 40, 14, 71211317),
-    'sundered_citadel': ('surface_structures', 56, 20, 71211319),
+    'wayshrine': ('surface_structures', 36, 12, 71211309),
+    'drowned_chapel': ('surface_structures', 46, 16, 71211311),
+    'arcanist_spire': ('surface_structures', 50, 18, 71211313),
+    'barrow_of_kings': ('surface_structures', 52, 18, 71211317),
+    'sundered_citadel': ('surface_structures', 64, 24, 71211319),
 }
 
 
@@ -471,7 +471,7 @@ def gloaming():
              'then_run': {'type': 'minecraft:block', 'result_state': {'Name': 'oathbound:gloam_moss'}}},
             {'type': 'minecraft:block', 'result_state': {'Name': 'oathbound:gloamstone'}}]}})
     features = ['oathbound:gloam_fern_patch']   # written by building.worldgen()
-    for fid, count, chance in (('gloamwood_tree', None, 3), ('gloam_ruin', None, 18), ('veilbloom_patch', 2, None)):
+    for fid, count, chance in (('gloamwood_tree', None, 3), ('gloam_ruin', None, 40), ('veilbloom_patch', 2, None)):
         write(f'worldgen/configured_feature/{fid}.json', {'type': f'oathbound:{fid}', 'config': {}})
         placement = []
         if count:
