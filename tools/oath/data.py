@@ -599,6 +599,10 @@ def generate():
     roster.spawns()
     building.worldgen()
     gear.worldgen()
+    from . import landmarks
+    landmarks.worldgen()
+    landmarks.loot()
+    landmarks.tags()
     flush_tags()
     print('data written')
 

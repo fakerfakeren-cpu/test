@@ -109,6 +109,12 @@ public final class ModSounds {
     public static final RegistryObject<SoundEvent> ELDERHORN_BELLOW = reg("elderhorn_bellow");
     public static final RegistryObject<SoundEvent> COLOSSUS_ROAR = reg("colossus_roar");
     public static final RegistryObject<SoundEvent> THEME_WILDS = reg("theme_wilds");
+    // --- the world's ambience (client/Ambience.java)
+    public static final RegistryObject<SoundEvent> AMB_BIRDSONG = reg("amb_birdsong");
+    public static final RegistryObject<SoundEvent> AMB_CRICKETS = reg("amb_crickets");
+    public static final RegistryObject<SoundEvent> AMB_OWL = reg("amb_owl");
+    public static final RegistryObject<SoundEvent> AMB_FROGS = reg("amb_frogs");
+    public static final RegistryObject<SoundEvent> AMB_WIND = reg("amb_wind");
     public static final RegistryObject<SoundEvent> DISC_LANTERNGUARD_HYMN = reg("disc_lanternguard_hymn");
     public static final RegistryObject<SoundEvent> DISC_WAYSHRINE_NOCTURNE = reg("disc_wayshrine_nocturne");
     public static final RegistryObject<SoundEvent> DISC_CHAPEL_TIDES = reg("disc_chapel_tides");

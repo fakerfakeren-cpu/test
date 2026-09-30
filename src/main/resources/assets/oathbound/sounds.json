@@ -877,6 +877,64 @@
     ],
     "subtitle": "subtitles.oathbound.revenant_roar"
   },
+  "amb_birdsong": {
+    "sounds": [
+      {
+        "name": "oathbound:amb_birdsong_1"
+      },
+      {
+        "name": "oathbound:amb_birdsong_2"
+      },
+      {
+        "name": "oathbound:amb_birdsong_3"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.amb_birdsong"
+  },
+  "amb_crickets": {
+    "sounds": [
+      {
+        "name": "oathbound:amb_crickets_1"
+      },
+      {
+        "name": "oathbound:amb_crickets_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.amb_crickets"
+  },
+  "amb_owl": {
+    "sounds": [
+      {
+        "name": "oathbound:amb_owl_1"
+      },
+      {
+        "name": "oathbound:amb_owl_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.amb_owl"
+  },
+  "amb_frogs": {
+    "sounds": [
+      {
+        "name": "oathbound:amb_frogs_1"
+      },
+      {
+        "name": "oathbound:amb_frogs_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.amb_frogs"
+  },
+  "amb_wind": {
+    "sounds": [
+      {
+        "name": "oathbound:amb_wind_1"
+      },
+      {
+        "name": "oathbound:amb_wind_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.amb_wind"
+  },
   "theme_keeper": {
     "sounds": [
       {

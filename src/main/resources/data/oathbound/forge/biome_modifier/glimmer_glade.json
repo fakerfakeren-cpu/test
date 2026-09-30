@@ -1,0 +1,8 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#oathbound:has_landmark/glimmer_glade",
+  "features": [
+    "oathbound:glimmer_glade"
+  ],
+  "step": "vegetal_decoration"
+}

@@ -32,6 +32,8 @@ public final class ModParticles {
     public static final RegistryObject<SimpleParticleType> FIREFLY = reg("firefly");
     /** A grey-orange flake of falling ash (the Cinder Colossus, burnt lands). */
     public static final RegistryObject<SimpleParticleType> ASH = reg("ash");
+    /** A pink blossom petal on the wind (cherry groves). */
+    public static final RegistryObject<SimpleParticleType> BLOSSOM = reg("blossom");
 
     private static RegistryObject<SimpleParticleType> reg(String name) {
         return PARTICLES.register(name, () -> new SimpleParticleType(true));

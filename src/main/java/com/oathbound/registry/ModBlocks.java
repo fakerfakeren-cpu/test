@@ -195,6 +195,11 @@ public final class ModBlocks {
     public static final RegistryObject<Block> POTTED_GLOAMWOOD_SAPLING = reg("potted_gloamwood_sapling", p -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, () -> ModBlocks.GLOAMWOOD_SAPLING.get(), p), () -> BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY));
     // ------------------------------------------------------------------ end of building families
 
+    /** Lumenite crystal growing from cave walls (LandFeatures.LumenClusters); mined for shards. */
+    public static final RegistryObject<Block> LUMENITE_CLUSTER = reg("lumenite_cluster", p -> new net.minecraft.world.level.block.AmethystClusterBlock(7f, 3f, p),
+        () -> BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).forceSolidOn().noOcclusion().sound(SoundType.AMETHYST_CLUSTER)
+            .strength(1.5f).lightLevel(s -> 9).pushReaction(PushReaction.DESTROY).requiresCorrectToolForDrops());
+
     private static BlockBehaviour.Properties wardstone() {
         return props(MapColor.SAND, 2.0f, 7.0f, SoundType.STONE).requiresCorrectToolForDrops();
     }

@@ -25,6 +25,10 @@ public final class Config {
         .comment("Client: skip vanilla's 'Experimental Settings' prompts, which appear for any mod that adds world",
                  "generation or dimensions through data packs. Equivalent to clicking 'I Know What I'm Doing!'.")
         .define("skipExperimentalWarning", true);
+    public static final ForgeConfigSpec.BooleanValue AMBIENT_LIFE = BUILDER
+        .comment("Client: the world's ambience. Fireflies, blossoms, glowing plankton, spores, ash and cave motes around you,",
+                 "and birdsong, crickets, owls, frogs and wind. Follows the video settings' particle level.")
+        .define("ambientLife", true);
 
     public static final ForgeConfigSpec SPEC = BUILDER.build();
 
@@ -36,6 +40,7 @@ public final class Config {
     public static boolean gloamrot() { return safe(() -> GLOAMROT.get(), true); }
     public static boolean lanternLight() { return safe(() -> LANTERN_LIGHT.get(), true); }
     public static boolean skipExperimentalWarning() { return safe(() -> SKIP_EXPERIMENTAL_WARNING.get(), true); }
+    public static boolean ambientLife() { return safe(() -> AMBIENT_LIFE.get(), true); }
 
     private static <T> T safe(java.util.function.Supplier<T> s, T fallback) {
         try {

@@ -318,7 +318,7 @@ def sprite_frames(kind, frames=4, n=16):
         elif kind == 'tide':
             v = np.exp(-((R - 0.5) / 0.1) ** 2) * 0.8 + np.exp(-((X + 0.2) ** 2 + (Y + 0.2) ** 2) / 0.02) * 0.7
             v *= (1 - 0.3 * k)
-        elif kind == 'petal':
+        elif kind in ('petal', 'blossom'):
             # a single leaf-petal, turning edge-on and back as it tumbles
             squash = 0.35 + 0.65 * abs(math.cos(i * math.pi / frames))
             Xr, Yr = (X * math.cos(0.6) - Y * math.sin(0.6)) / squash, X * math.sin(0.6) + Y * math.cos(0.6)
@@ -339,7 +339,7 @@ def sprite_frames(kind, frames=4, n=16):
     return out
 
 
-PARTICLES = ['ember', 'lumen_mote', 'gloam_wisp', 'arcane_glyph', 'spirit', 'sunburst', 'tide', 'petal', 'spore', 'firefly', 'ash']
+PARTICLES = ['ember', 'lumen_mote', 'gloam_wisp', 'arcane_glyph', 'spirit', 'sunburst', 'tide', 'petal', 'spore', 'firefly', 'ash', 'blossom']
 
 
 def generate():

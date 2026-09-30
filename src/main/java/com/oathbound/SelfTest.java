@@ -212,6 +212,13 @@ public final class SelfTest {
             }
     }
 
+    /** Places one of our configured features, as world generation would. */
+    public static boolean placeFeature(ServerLevel level, String id, BlockPos at) {
+        var key = ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(Oathbound.MODID, id));
+        var holder = level.registryAccess().lookupOrThrow(Registries.CONFIGURED_FEATURE).get(key);
+        return holder.isPresent() && holder.get().value().place(level, level.getChunkSource().getGenerator(), level.getRandom(), at);
+    }
+
     /** The creature a built site placed as its resident, if it is still there. */
     private static <T extends Entity> T resident(ServerLevel level, Sketches.Type site, Class<T> cls, int radius) {
         BlockPos at = built.get(site);
@@ -356,6 +363,37 @@ public final class SelfTest {
             BlockPos obs = built.get(Sketches.Type.SHATTERED_OBSERVATORY);
             check("observatory_telescope", level.getBlockState(obs.offset(0, 2, 0)).is(ModBlocks.DUSKIRON_BLOCK.get())
                 && level.getBlockState(obs.offset(4, 7, 2)).is(Blocks.SPAWNER), "");
+        });
+        // the land remembers the Order: every landmark feature must place on prepared ground
+        at(40, s -> {
+            ServerLevel level = s.overworld();
+            int x = 80, z = 1100;
+            keepLoaded(level, new BlockPos(x + 30, 0, z), 48);
+            int g = ground(level, x, z);
+            for (int dx = -4; dx <= 64; dx++)
+                for (int dz = -8; dz <= 8; dz++) {
+                    level.setBlock(new BlockPos(x + dx, g, z + dz), Blocks.GRASS_BLOCK.defaultBlockState(), 2 | 16);
+                    for (int dy = 1; dy <= 20; dy++) level.setBlock(new BlockPos(x + dx, g + dy, z + dz), Blocks.AIR.defaultBlockState(), 2 | 16);
+                    for (int dy = 1; dy <= 3; dy++) level.setBlock(new BlockPos(x + dx, g - dy, z + dz), Blocks.DIRT.defaultBlockState(), 2 | 16);
+                }
+            int ok = 0;
+            String[] ids = {"waystone", "order_ruin", "glimmer_glade", "mossy_boulder"};
+            for (int i = 0; i < ids.length; i++) {
+                if (placeFeature(level, ids[i], new BlockPos(x + i * 16, g + 1, z))) ok++;
+                else log("landmark did not place: " + ids[i]);
+            }
+            check("landmarks_place", ok == ids.length, ok + "/" + ids.length);
+            // a hollow of stone deep enough to be a cave, for the crystals
+            BlockPos cave = new BlockPos(x + 56, g - 14, z);
+            for (int dx = -5; dx <= 5; dx++)
+                for (int dy = -5; dy <= 5; dy++)
+                    for (int dz = -5; dz <= 5; dz++) {
+                        boolean shell = Math.abs(dx) == 5 || Math.abs(dy) == 5 || Math.abs(dz) == 5;
+                        level.setBlock(cave.offset(dx, dy, dz), shell ? Blocks.STONE.defaultBlockState() : Blocks.AIR.defaultBlockState(), 2 | 16);
+                    }
+            for (int i = 0; i < 6; i++) placeFeature(level, "lumen_clusters", cave);
+            int clusters = Puzzles.find(level, cave, 6, ModBlocks.LUMENITE_CLUSTER.get()).size();
+            check("lumen_clusters_grow", clusters > 0, "clusters=" + clusters);
         });
         // the wild keepers: each must wake, fall and leave its relic
         int w0 = 460;

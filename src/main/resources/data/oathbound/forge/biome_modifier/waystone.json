@@ -1,0 +1,8 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#oathbound:has_landmark/waystone",
+  "features": [
+    "oathbound:waystone"
+  ],
+  "step": "surface_structures"
+}

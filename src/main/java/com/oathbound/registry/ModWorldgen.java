@@ -4,6 +4,7 @@ import com.oathbound.Oathbound;
 import com.oathbound.world.SketchPiece;
 import com.oathbound.world.SketchStructure;
 import com.oathbound.world.GloamFeatures;
+import com.oathbound.world.LandFeatures;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -45,6 +46,18 @@ public final class ModWorldgen {
         () -> new GloamFeatures.Wildflowers(NoneFeatureConfiguration.CODEC, ModBlocks.MOONPETAL, 40, 6));
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> GLOAM_FERN_PATCH = FEATURES.register("gloam_fern_patch",
         () -> new GloamFeatures.Wildflowers(NoneFeatureConfiguration.CODEC, ModBlocks.GLOAM_FERN, 40, 7));
+
+    /** The land remembers the Order: overworld landmarks and lumenite crystals (LandFeatures). */
+    public static final RegistryObject<Feature<NoneFeatureConfiguration>> WAYSTONE = FEATURES.register("waystone",
+        () -> new LandFeatures.Waystone(NoneFeatureConfiguration.CODEC));
+    public static final RegistryObject<Feature<NoneFeatureConfiguration>> ORDER_RUIN = FEATURES.register("order_ruin",
+        () -> new LandFeatures.OrderRuin(NoneFeatureConfiguration.CODEC));
+    public static final RegistryObject<Feature<NoneFeatureConfiguration>> GLIMMER_GLADE = FEATURES.register("glimmer_glade",
+        () -> new LandFeatures.GlimmerGlade(NoneFeatureConfiguration.CODEC));
+    public static final RegistryObject<Feature<NoneFeatureConfiguration>> MOSSY_BOULDER = FEATURES.register("mossy_boulder",
+        () -> new LandFeatures.MossyBoulder(NoneFeatureConfiguration.CODEC));
+    public static final RegistryObject<Feature<NoneFeatureConfiguration>> LUMEN_CLUSTERS = FEATURES.register("lumen_clusters",
+        () -> new LandFeatures.LumenClusters(NoneFeatureConfiguration.CODEC));
 
     public static final ResourceKey<Level> GLOAMING = ResourceKey.create(Registries.DIMENSION, Identifier.fromNamespaceAndPath(Oathbound.MODID, "gloaming"));
 

@@ -543,6 +543,8 @@ def build():
     names('item', ITEMS)
     names('block', BLOCKS)
     names('block', BUILDING)
+    from . import landmarks
+    names('block', landmarks.NAMES)
     names('item', gear.NAMES)
     from . import wares, roster
     names('entity', roster.NAMES)

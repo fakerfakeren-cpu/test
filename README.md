@@ -64,6 +64,10 @@ automatically on every build, using software rendering with the HUD hidden. They
 | The Stag's Ring | The Cinder Sanctum |
 | ![Masonry](docs/oathbound/ci/masonry.jpg) | ![Shattered Observatory](docs/oathbound/ci/shattered_observatory.jpg) |
 | Building families | The Shattered Observatory |
+| ![Landmarks](docs/oathbound/ci/landmarks.jpg) | ![Crystal cave](docs/oathbound/ci/crystal_cave.jpg) |
+| A Lanternguard ruin, a waystone and a glimmer glade | Lumenite crystal in the caves |
+| ![Fireflies](docs/oathbound/ci/fireflies.jpg) | ![Sanctum hall](docs/oathbound/ci/sanctum_hall.jpg) |
+| Fireflies on a summer night | The Cinder Colossus's buried hall |
 
 ---
 
@@ -141,6 +145,19 @@ Each has its own model, animations, voice and drops. Several have a mechanic to 
 when killed with fire or oathsteel, gloam stalkers show plainly only in lantern light, revenants falter in the rain,
 and mites drink your lantern's oil.
 
+### A world that feels lived in
+
+- **Ambient life:** fireflies drift over grass and marsh on warm nights, blossoms fall in the cherry groves, plankton
+  glows on night-time seas and rivers, spores and wisp-lights hang over the swamps, gloam-mist creeps through dark
+  forests, ash blows across the badlands, and motes rise from lumenite in the caves.
+- **Soundscape:** birdsong by day, and crickets, owls and frogs by night, all synthesized for the mod; wind on the
+  heights.
+- **The land remembers the Order:** carved waystones along forgotten roads, the broken floors and pillars of
+  Lanternguard outposts, glades lit by glimmer moss, moss-grown boulders, and clusters of glowing lumenite crystal on
+  cave walls.
+
+All of the ambient life is client-side. It follows your particle setting, and `ambientLife = false` turns it off.
+
 ### Materials, gear and relics
 
 - **Five metals:** tidebronze, runesilver, gravegold, duskiron and dawnsteel. Each has a full tool and armour set with
@@ -171,6 +188,7 @@ and mites drink your lantern's oil.
 | `gloamrot` | `true` | The Gloaming withers players who carry no lit lantern |
 | `lanternLight` | `true` | A held Warden's Lantern lights the area around you |
 | `skipExperimentalWarning` | `true` | Client: answer vanilla's "Experimental Settings" prompt automatically |
+| `ambientLife` | `true` | Client: fireflies, blossoms, plankton, spores, ash, cave motes, birdsong and night sounds |
 
 Structure spacing, biomes and spawns are ordinary data-pack files under `data/oathbound/`
 (`worldgen/structure_set`, the `has_structure/*` biome tags and `forge/biome_modifier`), so a modpack can retune

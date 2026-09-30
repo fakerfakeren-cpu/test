@@ -26,6 +26,7 @@ public final class ClientSetup {
         ViewportEvent.ComputeCameraAngles.BUS.addListener(Atmosphere::onCameraAngles);
         ViewportEvent.ComputeFogColor.BUS.addListener(Atmosphere::onFogColor);
         TickEvent.ClientTickEvent.Post.BUS.addListener(Atmosphere::onClientTick);
+        TickEvent.ClientTickEvent.Post.BUS.addListener(Ambience::onClientTick);
         ScreenEvent.Opening.BUS.addListener(PromptAnswerer::onScreenOpening);
         TickEvent.ClientTickEvent.Post.BUS.addListener(PromptAnswerer::onClientTick);
         if (Showcase.enabled()) {
@@ -68,7 +69,8 @@ public final class ClientSetup {
         e.registerSpriteSet(ModParticles.TIDE.get(), s -> GlimmerParticle.provider(s, new Recipe(0x9CF6E0, 0x1E6E7A, -0.004f, 22, 1.0f, 0.2f, 0.9f)));
         e.registerSpriteSet(ModParticles.PETAL.get(), s -> GlimmerParticle.provider(s, new Recipe(0xE4FFB0, 0x5FA83A, -0.006f, 50, 1.1f, 0.25f, 0.95f)));
         e.registerSpriteSet(ModParticles.SPORE.get(), s -> GlimmerParticle.provider(s, new Recipe(0xD8FF8A, 0x1E6B4A, 0.0015f, 40, 1.0f, 0.05f, 0.93f)));
-        e.registerSpriteSet(ModParticles.FIREFLY.get(), s -> GlimmerParticle.provider(s, new Recipe(0xFFFFA0, 0x9CD83A, 0.0f, 60, 0.7f, 0.0f, 0.96f)));
+        e.registerSpriteSet(ModParticles.FIREFLY.get(), s -> com.oathbound.client.particle.FireflyParticle.provider(s, new Recipe(0xF6FF9A, 0xB8F04A, 0.0f, 120, 0.6f, 0.0f, 0.97f)));
+        e.registerSpriteSet(ModParticles.BLOSSOM.get(), s -> GlimmerParticle.provider(s, new Recipe(0xFFD6EC, 0xF28CC0, -0.004f, 90, 1.0f, 0.3f, 0.97f)));
         e.registerSpriteSet(ModParticles.ASH.get(), s -> GlimmerParticle.provider(s, new Recipe(0xFFB060, 0x3A3430, -0.003f, 60, 0.9f, 0.2f, 0.96f)));
     }
 }

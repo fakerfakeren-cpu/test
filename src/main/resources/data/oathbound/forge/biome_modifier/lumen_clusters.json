@@ -1,0 +1,8 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#oathbound:has_landmark/lumen_clusters",
+  "features": [
+    "oathbound:lumen_clusters"
+  ],
+  "step": "underground_decoration"
+}

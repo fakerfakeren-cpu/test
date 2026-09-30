@@ -261,7 +261,7 @@ public final class Showcase {
                 still(level, t.get(), new Vec3(cx, y + (t == ModEntities.SHADE_WRAITH ? 0.6 : 0), z + 5.5), 180f);
                 cx += 3.8;
             }
-            p.teleportTo(level, x + 14, y + 3.4 - 1.62, z - 10, java.util.Set.of(), 0f, 14f, false);
+            p.teleportTo(level, x + 14, y + 3.0 - 1.62, z - 7, java.util.Set.of(), 0f, 14f, false);
         }));
         scene(130, "wilds_shot", mc -> shoot(mc, "the_wilds"));
         // the wild keepers, awake
@@ -281,9 +281,54 @@ public final class Showcase {
                 level.addFreshEntity(m);
                 cx += 10;
             }
-            p.teleportTo(level, x + 11.5, y + 3.5 - 1.62, z - 15, java.util.Set.of(), 0f, 8f, false);
+            p.teleportTo(level, x + 11.5, y + 3.2 - 1.62, z - 11, java.util.Set.of(), 0f, 8f, false);
         }));
         scene(140, "wild_keepers_shot", mc -> shoot(mc, "wild_keepers"));
+        // the land remembers the Order: a waystone, a ruined outpost, a mossy boulder and a glimmer glade on a meadow
+        scene(10, "landmarks", mc -> onServer(mc, p -> {
+            ServerLevel level = p.level().getServer().overworld();
+            int x = 80, z = 1180;
+            int y = stage(level, x - 6, z - 8, x + 30, z + 8, net.minecraft.world.level.block.Blocks.GRASS_BLOCK.defaultBlockState());
+            com.oathbound.SelfTest.placeFeature(level, "order_ruin", new BlockPos(x + 12, y, z + 1));
+            com.oathbound.SelfTest.placeFeature(level, "waystone", new BlockPos(x + 2, y, z - 2));
+            com.oathbound.SelfTest.placeFeature(level, "mossy_boulder", new BlockPos(x + 24, y, z - 3));
+            com.oathbound.SelfTest.placeFeature(level, "glimmer_glade", new BlockPos(x + 5, y, z + 3));
+            com.oathbound.SelfTest.placeFeature(level, "glimmer_glade", new BlockPos(x + 22, y, z + 4));
+            p.teleportTo(level, x + 12.5, y + 5 - 1.62, z - 16, java.util.Set.of(), 0f, 14f, false);
+        }));
+        scene(140, "landmarks_shot", mc -> shoot(mc, "landmarks"));
+        // a cave lit only by lumenite crystal
+        scene(10, "crystal_cave", mc -> onServer(mc, p -> {
+            ServerLevel level = p.level().getServer().overworld();
+            int x = 80, z = 1260;
+            level.getChunk(x >> 4, z >> 4);
+            int g = level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z);
+            BlockPos c = new BlockPos(x, g - 22, z);
+            var stone = net.minecraft.world.level.block.Blocks.STONE.defaultBlockState();
+            var deep = net.minecraft.world.level.block.Blocks.DEEPSLATE.defaultBlockState();
+            var air = net.minecraft.world.level.block.Blocks.AIR.defaultBlockState();
+            java.util.Random r = new java.util.Random(7);
+            for (int dx = -10; dx <= 10; dx++)
+                for (int dy = -6; dy <= 6; dy++)
+                    for (int dz = -10; dz <= 10; dz++) {
+                        double d = dx * dx / 90.0 + dy * dy / 26.0 + dz * dz / 90.0 + r.nextDouble() * 0.12;
+                        level.setBlock(c.offset(dx, dy, dz), d < 1.0 ? air : (dy < -2 ? deep : stone), 2);
+                    }
+            for (int i = 0; i < 16; i++) com.oathbound.SelfTest.placeFeature(level, "lumen_clusters", c.offset(r.nextInt(13) - 6, r.nextInt(7) - 3, r.nextInt(13) - 6));
+            p.teleportTo(level, x + 0.5, c.getY() - 1.62 + 0.8, z - 7.5, java.util.Set.of(), 0f, 6f, false);
+        }));
+        scene(140, "crystal_cave_shot", mc -> shoot(mc, "crystal_cave"));
+        // fireflies over the meadow on a summer night
+        scene(10, "fireflies", mc -> {
+            run(mc, "time set 18000");
+            onServer(mc, p -> {
+                ServerLevel level = p.level().getServer().overworld();
+                int x = 80, z = 1180;
+                p.teleportTo(level, x + 12.5, level.getHeight(Heightmap.Types.MOTION_BLOCKING, x + 12, z - 12) + 2.2 - 1.62, z - 12, java.util.Set.of(), 0f, 10f, false);
+            });
+        });
+        scene(160, "fireflies_shot", mc -> shoot(mc, "fireflies"));
+        scene(5, "day_again", mc -> run(mc, "time set 1000"));
         // the places off the Path (self-test sites 5 to 11), framed from each site's own origin
         wild(5, 0, 0, null, 1, "stags_ring", new double[]{13, 9, 19}, new double[]{1, 3, -1}, ModBlocks.GLYPHED_RUNESTONE, 1);
         wild(6, 0, 0, net.minecraft.world.level.block.Blocks.VERDANT_FROGLIGHT, 9, "bog_mothers_house", new double[]{12, 10, 20}, new double[]{0, 7, 0}, null, 0);

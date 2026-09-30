@@ -693,6 +693,8 @@ STREAMS = {
 }
 from .voices import VOICES as _VOICES
 SFX.update(_VOICES)
+from .ambience import AMBIENCE as _AMBIENCE
+SFX.update(_AMBIENCE)
 from .music import DISCS as _DISCS
 for _name, (_fn, _title, _) in _DISCS.items():
     STREAMS[_name] = (_fn, None)
