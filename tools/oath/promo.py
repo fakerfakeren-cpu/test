@@ -38,11 +38,35 @@ def icon(n=512):
     shadow = shadow.filter(ImageFilter.GaussianBlur(n * 0.02))
     im = Image.composite(Image.new('RGB', im.size, (10, 6, 4)), im, shadow.point(lambda v: int(v * 0.7)))
     d = ImageDraw.Draw(im)
-    d.polygon(crown, fill=(236, 190, 96), outline=(90, 50, 20))
-    d.polygon([(p[0], p[1] + w * 0.08) for p in crown[-1:] + crown[:1]] + [(cx - w, cy + w * 0.3), (cx + w, cy + w * 0.3)], fill=(200, 150, 70))
-    d.line([(cx + w * 0.05, cy - w * 0.02), (cx - w * 0.08, cy + w * 0.2), (cx + w * 0.06, cy + w * 0.44)], fill=(60, 30, 14), width=max(2, n // 90))
+    # shaded gold: a metallic ramp from top to bottom, lit from the left, a darker band and bright tips
+    cm = np.asarray(_flame_mask(im.size, crown)).astype(float) / 255
+    band = np.asarray(_flame_mask(im.size, [(cx - w, cy + w * 0.2), (cx + w, cy + w * 0.2), (cx + w, cy + w * 0.45),
+                                            (cx - w, cy + w * 0.45)])).astype(float) / 255 * cm
+    yy, xx = np.mgrid[0:n, 0:n].astype(float)
+    k = np.clip((yy - (cy - w * 0.42)) / (w * 0.87), 0, 1)
+    gold = np.stack([np.interp(k, [0, 0.35, 0.6, 1], [1.0, 0.96, 0.78, 0.6]),
+                     np.interp(k, [0, 0.35, 0.6, 1], [0.9, 0.76, 0.55, 0.38]),
+                     np.interp(k, [0, 0.35, 0.6, 1], [0.6, 0.38, 0.22, 0.14])], -1)
+    gold *= (1.08 - 0.25 * np.clip((xx - (cx - w)) / (2 * w), 0, 1))[..., None]
+    gold = gold * (1 - band[..., None] * 0.28)
+    edge = np.clip(cm - np.asarray(Image.fromarray((cm * 255).astype(np.uint8)).filter(ImageFilter.MinFilter(max(3, n // 128 * 2 + 1)))) / 255, 0, 1)
+    gold = gold * (1 - edge[..., None]) + edge[..., None] * hexrgb('#4a2408')
+    base = np.asarray(im).astype(float) / 255
+    im = Image.fromarray((np.clip(base * (1 - cm[..., None]) + np.clip(gold, 0, 1) * cm[..., None], 0, 1) * 255).astype(np.uint8), 'RGB')
+    d = ImageDraw.Draw(im)
+    for tx, ty in ((cx - w, cy - w * 0.15), (cx - w * 0.28, cy - w * 0.42), (cx + w * 0.28, cy - w * 0.42), (cx + w, cy - w * 0.15)):
+        rr = n * 0.012
+        d.ellipse([tx - rr, ty - rr, tx + rr, ty + rr], fill=(255, 244, 200))
+    d.line([(cx + w * 0.05, cy - w * 0.02), (cx - w * 0.08, cy + w * 0.2), (cx + w * 0.06, cy + w * 0.44)], fill=(50, 22, 8), width=max(2, n // 80))
+    gm = np.zeros((n, n))
     for gx in (-0.55, 0, 0.55):
-        d.ellipse([cx + gx * w - n * 0.018, cy + w * 0.26 - n * 0.018, cx + gx * w + n * 0.018, cy + w * 0.26 + n * 0.018], fill=(170, 90, 255))
+        gm += np.exp(-(((xx - (cx + gx * w)) ** 2 + (yy - (cy + w * 0.32)) ** 2) / (n * 0.03) ** 2))
+    im = Image.fromarray((np.clip(np.asarray(im).astype(float) / 255 + gm[..., None] * hexrgb('#a050ff') * 0.6, 0, 1) * 255).astype(np.uint8), 'RGB')
+    d = ImageDraw.Draw(im)
+    for gx in (-0.55, 0, 0.55):
+        gx0, gy0, rr = cx + gx * w, cy + w * 0.32, n * 0.02
+        d.ellipse([gx0 - rr, gy0 - rr, gx0 + rr, gy0 + rr], fill=(150, 70, 240), outline=(60, 20, 110))
+        d.ellipse([gx0 - rr * 0.55, gy0 - rr * 0.6, gx0 - rr * 0.05, gy0 - rr * 0.1], fill=(230, 200, 255))
     fl = [(cx, cy + w * 0.55), (cx + w * 0.16, cy + w * 0.85), (cx + w * 0.1, cy + w * 1.05), (cx, cy + w * 1.12), (cx - w * 0.1, cy + w * 1.05),
           (cx - w * 0.16, cy + w * 0.85)]
     m = np.asarray(_flame_mask(im.size, fl)).astype(float) / 255
