@@ -93,6 +93,10 @@ TABLE = [
     S('runestone_bricks', 'cube', 'runestone', paint=A.runestone_bricks, cut_from='runestone'),
     S('glyphed_runestone', 'cube', 'runestone', paint=A.glyphed_runestone, light=8, cut_from='runestone'),
     *stone_set('runestone', 'runestone_bricks', 'RUNESTONE_BRICKS'),
+    # -------------------------------------------------------------- the gear tiers' metals (see gear.py)
+    *[S(f'{t}_block', 'cube', 'metal', paint=(lambda t=t: A.metal_block(t)), light=4) for t in
+      ('tidebronze', 'runesilver', 'gravegold', 'duskiron', 'dawnsteel')],
+    S('duskiron_ore', 'ore', 'gloamstone', paint=A.duskiron_ore, light=3),
     # -------------------------------------------------------------- light, glass and metalwork
     S('lumenite_lamp', 'lamp', 'deco'),
     S('lanternglass', 'glass', 'deco', paint=lambda: A.tinted_glass(A.P['amber_glow'], 0.42), color='COLOR_ORANGE'),
@@ -118,13 +122,14 @@ BY_NAME = {b['name']: b for b in TABLE}
 
 FAMILY_PROPS = {
     'wardstone': 'wardstone()', 'gloamstone': 'gloamstone()', 'gloamwood': 'gloamwood()', 'tidestone': 'tidestone()',
-    'barrowstone': 'barrowstone()', 'runestone': 'runestone()',
+    'barrowstone': 'barrowstone()', 'runestone': 'runestone()', 'metal': 'metal()',
 }
 
 # names that do not follow from the id
 SPECIAL_NAMES = {
     'gloamwood': 'Gloamwood', 'stripped_gloamwood': 'Stripped Gloamwood', 'lanternglass': 'Lanternglass', 'gloamglass': 'Gloamglass',
-    'glimmer_moss': 'Glimmer Moss Carpet', 'potted_gloamwood_sapling': 'Potted Gloamwood Sapling', 'emberroot': 'Emberroot',
+    'glimmer_moss': 'Glimmer Moss Carpet', 'tidebronze_block': 'Block of Tidebronze', 'runesilver_block': 'Block of Runesilver',
+    'gravegold_block': 'Block of Gravegold', 'duskiron_block': 'Block of Duskiron', 'dawnsteel_block': 'Block of Dawnsteel', 'potted_gloamwood_sapling': 'Potted Gloamwood Sapling', 'emberroot': 'Emberroot',
 }
 
 
@@ -146,6 +151,8 @@ def java_line(b):
     lit = f'.lightLevel(s -> {light})' if light else ''
     if k == 'cube':
         return f'reg("{n}", Block::new, () -> {P}{lit})'
+    if k == 'ore':
+        return f'reg("{n}", p -> new DropExperienceBlock(UniformInt.of(1, 4), p), () -> {P}.strength(3.5f, 6.0f){lit})'
     if k == 'wood':
         return f'reg("{n}", p -> new StrippableLogBlock(() -> ModBlocks.{b["stripped"]}.get(), p), () -> {P})'
     if k == 'log':
@@ -312,7 +319,7 @@ def lantern_icon(cage, flame):
 def assets(b):
     n, k, tex = b['name'], b['kind'], b['tex']
     glow = paint(b)
-    if k == 'cube':
+    if k in ('cube', 'ore'):
         if glow:
             K.glow_cube(n, ref(tex), ref(tex + '_glow'), emission=12)
         else:
@@ -514,6 +521,8 @@ def loot(b):
         t = leaves_loot(n, 'gloamwood_sapling')
     elif k == 'glass':
         t = only_with(n, SILK)
+    elif k == 'ore':
+        t = D.silk_or(n, 'raw_duskiron', 1, 1)
     elif k == 'pot':
         t = pot_loot(n, b['plant'])
     elif k == 'flower' and b.get('fern'):
@@ -628,7 +637,7 @@ def _names(*kinds, fam=None):
     return [b['name'] for b in TABLE if b['kind'] in kinds and (fam is None or b['fam'] == fam)]
 
 
-STONE_FAMS = ('wardstone', 'gloamstone', 'tidestone', 'barrowstone', 'runestone')
+STONE_FAMS = ('wardstone', 'gloamstone', 'tidestone', 'barrowstone', 'runestone', 'metal')
 TAGS = {
     'block/mineable/pickaxe': [b['name'] for b in TABLE if b['fam'] in STONE_FAMS] + _names('lamp', 'bars', 'lantern'),
     'block/mineable/axe': [b['name'] for b in TABLE if b['fam'] == 'gloamwood' and b['kind'] not in ('leaves', 'sapling')],
@@ -653,6 +662,8 @@ TAGS = {
     'block/small_flowers': ['dusk_lily', 'emberroot', 'moonpetal'], 'item/small_flowers': ['dusk_lily', 'emberroot', 'moonpetal'],
     'block/flower_pots': _names('pot'),
     'block/impermeable': _names('glass'),
+    'block/needs_iron_tool': ['duskiron_ore'] + [f'{t}_block' for t in ('tidebronze', 'runesilver', 'gravegold')],
+    'block/needs_diamond_tool': ['duskiron_block', 'dawnsteel_block'],
 }
 
 

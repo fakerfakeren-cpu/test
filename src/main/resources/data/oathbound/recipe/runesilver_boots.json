@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "I I",
+    "I I"
+  ],
+  "key": {
+    "I": "oathbound:runesilver_ingot"
+  },
+  "result": {
+    "id": "oathbound:runesilver_boots",
+    "count": 1
+  }
+}

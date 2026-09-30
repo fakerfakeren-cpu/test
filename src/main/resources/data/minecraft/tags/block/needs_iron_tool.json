@@ -4,6 +4,10 @@
     "oathbound:lumenite_ore",
     "oathbound:deepslate_lumenite_ore",
     "oathbound:lumenite_block",
-    "oathbound:oathsteel_block"
+    "oathbound:oathsteel_block",
+    "oathbound:duskiron_ore",
+    "oathbound:tidebronze_block",
+    "oathbound:runesilver_block",
+    "oathbound:gravegold_block"
   ]
 }

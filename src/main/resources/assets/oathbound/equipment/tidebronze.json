@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "oathbound:tidebronze"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "oathbound:tidebronze"
+      }
+    ]
+  }
+}

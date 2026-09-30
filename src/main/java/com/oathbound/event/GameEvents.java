@@ -104,6 +104,7 @@ public final class GameEvents {
             }
             if (wearsCrown(player)) player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 320, 0, true, false, true));
             applyBoons(sp, level);
+            GearEvents.tick(sp, level);
         }
         // Arcanist: feather-fall while sneaking in the air.
         if (player.isShiftKeyDown() && !player.onGround() && player.getDeltaMovement().y < -0.1 && hasArcanistSet(player)) {
@@ -117,7 +118,8 @@ public final class GameEvents {
     }
 
     private static void tickGloamrot(ServerPlayer player, ServerLevel level) {
-        if (player.hasEffect(ModEffects.holder(ModEffects.RADIANCE)) || wearsCrown(player) || QuestLog.hasBoon(player, "veilwalker")) return;
+        if (player.hasEffect(ModEffects.holder(ModEffects.RADIANCE)) || wearsCrown(player) || QuestLog.hasBoon(player, "veilwalker")
+            || GearEvents.fullSet(player, GearEvents.Tier.DAWNSTEEL)) return;
         ItemStack lantern = ItemStack.EMPTY;
         var inv = player.getInventory();
         for (int i = 0; i < inv.getContainerSize(); i++) {
@@ -230,6 +232,7 @@ public final class GameEvents {
 
         Entity src = event.getSource().getEntity();
         if (src instanceof Player attacker && event.getSource().getDirectEntity() == attacker) {
+            amount = GearEvents.outgoing(level, attacker, victim, amount);
             ItemStack weapon = attacker.getMainHandItem();
             if (weapon.is(ModItems.OATHSTEEL_LONGSWORD.get())) {
                 float[] stored = RIPOSTE.remove(attacker.getUUID());
@@ -279,6 +282,7 @@ public final class GameEvents {
             }
         }
         if (victim instanceof Player player) {
+            amount = GearEvents.incoming(player, event.getSource(), amount);
             // Riposte: remember what was taken, to pay it back.
             if (player.getMainHandItem().is(ModItems.OATHSTEEL_LONGSWORD.get())) {
                 float[] prev = RIPOSTE.get(player.getUUID());

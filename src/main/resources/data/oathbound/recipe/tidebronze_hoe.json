@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "II",
+    " S",
+    " S"
+  ],
+  "key": {
+    "I": "oathbound:tidebronze_ingot",
+    "S": "minecraft:stick"
+  },
+  "result": {
+    "id": "oathbound:tidebronze_hoe",
+    "count": 1
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "  I",
+    " I ",
+    "G  "
+  ],
+  "key": {
+    "I": "oathbound:runesilver_ingot",
+    "G": "minecraft:gold_ingot"
+  },
+  "result": {
+    "id": "oathbound:runesilver_rapier",
+    "count": 1
+  }
+}

@@ -502,9 +502,14 @@ def subtitles():
 
 def build():
     from .building import NAMES as BUILDING
+    from . import gear
     names('item', ITEMS)
     names('block', BLOCKS)
     names('block', BUILDING)
+    names('item', gear.NAMES)
+    for item, lines in gear.DESC.items():
+        for i, l in enumerate(lines, 1):
+            put(f'item.oathbound.{item}.desc.{i}', l)
     names('entity', ENTITIES)
     for mob in ('lanternmoth', 'gloamling', 'forsworn_knight', 'barrow_wight', 'animated_tome', 'veilhound', 'spectral_housecarl',
                 'sir_caldris', 'archmage_veyl', 'hrodgar', 'morvane'):

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "II",
+    "IS",
+    " S"
+  ],
+  "key": {
+    "I": "oathbound:dawnsteel_ingot",
+    "S": "minecraft:stick"
+  },
+  "result": {
+    "id": "oathbound:dawnsteel_axe",
+    "count": 1
+  }
+}

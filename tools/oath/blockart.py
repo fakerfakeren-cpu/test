@@ -1246,3 +1246,64 @@ def glimmer_moss():
         im.put(x, y, P['teal_glow'].smooth(0.7))
         gl.put(x, y, P['teal_glow'].smooth(0.6))
     return im, gl
+
+
+# ------------------------------------------------------------------ metal storage blocks and duskiron ore
+METAL = {
+    'tidebronze': Ramp('#2a1a0c', '#5a3a18', '#8a5c2a', '#b8843e', '#d8b068', '#f0dca0'),
+    'runesilver': Ramp('#2a3350', '#46557a', '#6a7ca4', '#98abcc', '#c8d6ec', '#f2f6ff'),
+    'gravegold': Ramp('#1a140a', '#3a2a10', '#6a4c16', '#a07a24', '#d4a83c', '#f6dc84'),
+    'duskiron': Ramp('#1c1828', '#2e2840', '#443c5e', '#5e5480', '#8478a8', '#b4a8dc'),
+    'dawnsteel': Ramp('#7a4208', '#b8741c', '#e8a434', '#ffcc55', '#ffe89a', '#fff8e0'),
+}
+MOTIFS = {
+    'tidebronze': ("teal_glow", ["......", ".#..#.", "#.##.#", "......", ".#..#.", "#.##.#"]),
+    'runesilver': ("blue_glow", ["..##..", ".#..#.", "..##..", "..#...", ".###..", "..#..."]),
+    'gravegold': ("teal_glow", [".####.", "#.##.#", "######", ".#..#.", ".####.", "......"]),
+    'duskiron': ("violet_glow", ["..###.", ".##...", ".#....", ".#....", ".##...", "..###."]),
+    'dawnsteel': ("blue_glow", ["#.##.#", ".####.", "######", "######", ".####.", "#.##.#"]),
+}
+
+
+def metal_block(tier):
+    """A riveted plate of the tier's metal with its sigil inlaid in glowing enamel."""
+    ramp = METAL[tier]
+    glow_name, motif = MOTIFS[tier]
+    im, glow = img(), img()
+    f = field(900 + len(tier), 5, 2)
+    for y in range(N):
+        for x in range(N):
+            t = 0.55 + (f[y, x] - 0.5) * 0.16
+            if x in (0, N - 1) or y in (0, N - 1):
+                t = 0.22
+            elif x == 1 or y == 1:
+                t = 0.88
+            elif x == N - 2 or y == N - 2:
+                t = 0.35
+            im.px[y, x] = ramp.smooth(t)
+    for (x, y) in ((3, 3), (12, 3), (3, 12), (12, 12)):
+        im.put(x, y, ramp.smooth(0.95))
+        im.put(x + 1, y + 1, ramp.smooth(0.15))
+    g = P[glow_name]
+    for j, row in enumerate(motif):
+        for i, ch in enumerate(row):
+            if ch == '#':
+                c = g.smooth(0.95 if tier == 'dawnsteel' else 0.6)
+                im.put(5 + i, 5 + j, c)
+                glow.put(5 + i, 5 + j, c)
+    return im, glow
+
+
+def duskiron_ore():
+    """Gloamstone veined with dark iron nuggets that catch a violet glint."""
+    im, glow = gloamstone()
+    r = rng(930)
+    ore = METAL['duskiron']
+    for _ in range(6):
+        cx, cy = int(r.integers(2, 13)), int(r.integers(2, 13))
+        for dx, dy in ((0, 0), (1, 0), (0, 1), (1, 1), (-1, 0)):
+            if r.random() < 0.8:
+                im.put(cx + dx, cy + dy, ore.smooth(0.35 + 0.4 * (dy == 0) + 0.15 * (dx == 0)))
+        im.put(cx, cy, P['violet_glow'].smooth(0.75))
+        glow.put(cx, cy, P['violet_glow'].smooth(0.7))
+    return im, glow

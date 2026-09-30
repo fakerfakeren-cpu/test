@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "oathbound:dawnsteel"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "oathbound:dawnsteel"
+      }
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "ingredient": "oathbound:tidebronze_blend",
+  "result": {
+    "id": "oathbound:tidebronze_ingot"
+  },
+  "experience": 0.8,
+  "cookingtime": 200
+}

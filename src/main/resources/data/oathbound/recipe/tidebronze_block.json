@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "III",
+    "III",
+    "III"
+  ],
+  "key": {
+    "I": "oathbound:tidebronze_ingot"
+  },
+  "result": {
+    "id": "oathbound:tidebronze_block",
+    "count": 1
+  }
+}

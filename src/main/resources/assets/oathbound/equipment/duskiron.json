@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "oathbound:duskiron"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "oathbound:duskiron"
+      }
+    ]
+  }
+}

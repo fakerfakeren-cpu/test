@@ -170,6 +170,12 @@ public final class ModBlocks {
     public static final RegistryObject<Block> RUNESTONE_BRICK_STAIRS = reg("runestone_brick_stairs", p -> new StairBlock(ModBlocks.RUNESTONE_BRICKS.get().defaultBlockState(), p), () -> runestone());
     public static final RegistryObject<Block> RUNESTONE_BRICK_SLAB = reg("runestone_brick_slab", SlabBlock::new, () -> runestone());
     public static final RegistryObject<Block> RUNESTONE_BRICK_WALL = reg("runestone_brick_wall", WallBlock::new, () -> runestone().forceSolidOn());
+    public static final RegistryObject<Block> TIDEBRONZE_BLOCK = reg("tidebronze_block", Block::new, () -> metal().lightLevel(s -> 4));
+    public static final RegistryObject<Block> RUNESILVER_BLOCK = reg("runesilver_block", Block::new, () -> metal().lightLevel(s -> 4));
+    public static final RegistryObject<Block> GRAVEGOLD_BLOCK = reg("gravegold_block", Block::new, () -> metal().lightLevel(s -> 4));
+    public static final RegistryObject<Block> DUSKIRON_BLOCK = reg("duskiron_block", Block::new, () -> metal().lightLevel(s -> 4));
+    public static final RegistryObject<Block> DAWNSTEEL_BLOCK = reg("dawnsteel_block", Block::new, () -> metal().lightLevel(s -> 4));
+    public static final RegistryObject<Block> DUSKIRON_ORE = reg("duskiron_ore", p -> new DropExperienceBlock(UniformInt.of(1, 4), p), () -> gloamstone().strength(3.5f, 6.0f).lightLevel(s -> 3));
     public static final RegistryObject<Block> LUMENITE_LAMP = reg("lumenite_lamp", RedstoneLampBlock::new, () -> BlockBehaviour.Properties.of().mapColor(MapColor.GOLD).strength(0.3f).sound(SoundType.GLASS).lightLevel(s -> s.getValue(RedstoneLampBlock.LIT) ? 15 : 0));
     public static final RegistryObject<Block> LANTERNGLASS = reg("lanternglass", TransparentBlock::new, () -> glass(MapColor.COLOR_ORANGE));
     public static final RegistryObject<Block> GLOAMGLASS = reg("gloamglass", TransparentBlock::new, () -> glass(MapColor.COLOR_PURPLE));
@@ -212,6 +218,10 @@ public final class ModBlocks {
 
     private static BlockBehaviour.Properties runestone() {
         return props(MapColor.COLOR_BLUE, 2.5f, 8.0f, SoundType.DEEPSLATE_TILES).requiresCorrectToolForDrops();
+    }
+
+    private static BlockBehaviour.Properties metal() {
+        return props(MapColor.METAL, 5.0f, 6.0f, SoundType.METAL).requiresCorrectToolForDrops();
     }
 
     private static BlockBehaviour.Properties leaves() {

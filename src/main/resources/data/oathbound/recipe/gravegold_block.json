@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "III",
+    "III",
+    "III"
+  ],
+  "key": {
+    "I": "oathbound:gravegold_ingot"
+  },
+  "result": {
+    "id": "oathbound:gravegold_block",
+    "count": 1
+  }
+}

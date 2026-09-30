@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:iron_ingot",
+    "minecraft:lapis_lazuli",
+    "minecraft:lapis_lazuli",
+    "oathbound:luminous_dust"
+  ],
+  "result": {
+    "id": "oathbound:runesilver_blend",
+    "count": 1
+  }
+}

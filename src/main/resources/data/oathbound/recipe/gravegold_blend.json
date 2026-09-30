@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:gold_ingot",
+    "minecraft:bone",
+    "oathbound:gloam_essence"
+  ],
+  "result": {
+    "id": "oathbound:gravegold_blend",
+    "count": 1
+  }
+}

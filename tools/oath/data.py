@@ -227,7 +227,7 @@ def loot_tables():
                           pool([item('minecraft:book', funcs=[ENCHANT_LEVELS])])],
         'hrodgar': [pool([item('seal_of_sacrifice')]), pool([item('housecarl_warhorn')]), pool([item('minecraft:gold_block', 1, 2)]),
                     pool([item('lanternguard_insignia')])],
-        'morvane': [pool([item('everflame_ember', 1, 2)]), pool([item('dawnbreaker')]), pool([item('hollow_crown')]),
+        'morvane': [pool([item('everflame_ember', 4, 5)]), pool([item('dawnbreaker')]), pool([item('hollow_crown')]),
                     pool([item('minecraft:nether_star')])],
     }
     for name, pools in E.items():
@@ -473,7 +473,7 @@ def gloaming():
                                                    {'particle': {'type': 'oathbound:lumen_mote'}, 'probability': 0.0015}],
         },
         'carvers': [], 'downfall': 0.0, 'effects': {'water_color': '#3a2a5a', 'grass_color': '#5a3a7a', 'foliage_color': '#4a2f66'},
-        'features': [[], [], [], [], [], [], [], [], [], [], features],
+        'features': [[], [], [], [], [], [], ['oathbound:ore_duskiron'], [], [], [], features],
         'has_precipitation': False, 'spawn_costs': {},
         'spawners': {'ambient': [], 'axolotls': [], 'creature': [], 'misc': [], 'underground_water_creature': [], 'water_ambient': [],
                      'water_creature': [],
@@ -568,9 +568,10 @@ def recipes():
 
 
 def generate():
-    from . import building
+    from . import building, gear
     recipes()
     building.recipes()
+    gear.recipes()
     advancements()
     loot_tables()
     for b in building.TABLE:
@@ -578,8 +579,10 @@ def generate():
     tags()
     for path, values in building.TAGS.items():
         tag(path, values, 'minecraft')
+    gear.tags()
     worldgen()
     building.worldgen()
+    gear.worldgen()
     flush_tags()
     print('data written')
 

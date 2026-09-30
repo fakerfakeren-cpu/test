@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "oathbound:tidebronze_block"
+  ],
+  "result": {
+    "id": "oathbound:tidebronze_ingot",
+    "count": 9
+  }
+}

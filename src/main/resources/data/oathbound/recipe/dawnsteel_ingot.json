@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "III",
+    "IEI",
+    "III"
+  ],
+  "key": {
+    "I": "oathbound:oathsteel_ingot",
+    "E": "oathbound:everflame_ember"
+  },
+  "result": {
+    "id": "oathbound:dawnsteel_ingot",
+    "count": 8
+  }
+}
