@@ -689,6 +689,9 @@ STREAMS = {
     'music_gloaming': (music_gloaming, None),
     'gloaming_ambient': (gloaming_ambient, 'The Gloaming hums'),
 }
+from .music import DISCS as _DISCS
+for _name, (_fn, _title, _) in _DISCS.items():
+    STREAMS[_name] = (_fn, None)
 
 
 def write_ogg(path, x, quality=0.4):

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "food",
+  "ingredients": [
+    "minecraft:cooked_beef",
+    "minecraft:bread",
+    "minecraft:apple",
+    "minecraft:paper"
+  ],
+  "result": {
+    "id": "oathbound:trail_rations",
+    "count": 3
+  }
+}

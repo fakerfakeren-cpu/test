@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "food",
+  "ingredients": [
+    "minecraft:bowl",
+    "oathbound:emberroot",
+    "minecraft:baked_potato",
+    "minecraft:carrot"
+  ],
+  "result": {
+    "id": "oathbound:emberroot_stew",
+    "count": 1
+  }
+}

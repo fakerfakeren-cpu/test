@@ -79,6 +79,30 @@
           ]
         }
       ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "oathbound:lanternguard_signet",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "oathbound:elixir_of_valor",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "oathbound:lore_page_lord_commander",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 12
+        }
+      ]
     }
   ],
   "random_sequence": "oathbound:chests/citadel_armory"

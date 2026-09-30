@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "food",
+  "ingredients": [
+    "minecraft:glass_bottle",
+    "minecraft:pufferfish",
+    "minecraft:prismarine_crystals",
+    "oathbound:luminous_dust"
+  ],
+  "result": {
+    "id": "oathbound:elixir_of_tides",
+    "count": 1
+  }
+}

@@ -69,6 +69,30 @@
           ]
         }
       ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "oathbound:veyls_mirror",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "oathbound:lore_page_four_riddles",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "oathbound:elixir_of_wards",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 14
+        }
+      ]
     }
   ],
   "random_sequence": "oathbound:chests/spire_sanctum"

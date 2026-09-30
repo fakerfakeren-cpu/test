@@ -74,6 +74,35 @@
           ]
         }
       ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "oathbound:hearth_pie",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "oathbound:honeycake",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "oathbound:spiced_cider",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "oathbound:music_disc_lanternguard_hymn",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 22
+        }
+      ]
     }
   ],
   "random_sequence": "oathbound:chests/citadel_barracks"

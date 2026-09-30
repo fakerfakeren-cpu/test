@@ -1,0 +1,8 @@
+{
+  "sound_event": "oathbound:disc_crown_of_ash",
+  "description": {
+    "translate": "jukebox_song.oathbound.crown_of_ash"
+  },
+  "length_in_seconds": 128.6,
+  "comparator_output": 13
+}

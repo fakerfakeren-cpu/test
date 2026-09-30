@@ -670,5 +670,37 @@
       }
     ],
     "subtitle": "subtitles.oathbound.gloaming_ambient"
+  },
+  "disc_lanternguard_hymn": {
+    "sounds": [
+      {
+        "name": "oathbound:disc_lanternguard_hymn",
+        "stream": true
+      }
+    ]
+  },
+  "disc_wayshrine_nocturne": {
+    "sounds": [
+      {
+        "name": "oathbound:disc_wayshrine_nocturne",
+        "stream": true
+      }
+    ]
+  },
+  "disc_chapel_tides": {
+    "sounds": [
+      {
+        "name": "oathbound:disc_chapel_tides",
+        "stream": true
+      }
+    ]
+  },
+  "disc_crown_of_ash": {
+    "sounds": [
+      {
+        "name": "oathbound:disc_crown_of_ash",
+        "stream": true
+      }
+    ]
   }
 }

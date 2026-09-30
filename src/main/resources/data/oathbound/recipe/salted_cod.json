@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "food",
+  "ingredients": [
+    "minecraft:cooked_cod",
+    "minecraft:dried_kelp"
+  ],
+  "result": {
+    "id": "oathbound:salted_cod",
+    "count": 1
+  }
+}

@@ -94,6 +94,40 @@
           ]
         }
       ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "oathbound:huntsmans_horn",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "oathbound:apple_tart",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "oathbound:trail_rations",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "oathbound:lore_page_last_squire",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "oathbound:music_disc_wayshrine_nocturne",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 23
+        }
+      ]
     }
   ],
   "random_sequence": "oathbound:chests/wayshrine_cache"

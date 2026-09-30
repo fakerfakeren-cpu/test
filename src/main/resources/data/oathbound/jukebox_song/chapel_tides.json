@@ -1,0 +1,8 @@
+{
+  "sound_event": "oathbound:disc_chapel_tides",
+  "description": {
+    "translate": "jukebox_song.oathbound.chapel_tides"
+  },
+  "length_in_seconds": 132.5,
+  "comparator_output": 9
+}

@@ -94,6 +94,30 @@
           ]
         }
       ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "oathbound:salted_cod",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "oathbound:lore_page_first_lantern",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "oathbound:music_disc_chapel_tides",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 15
+        }
+      ]
     }
   ],
   "random_sequence": "oathbound:chests/chapel_nave"

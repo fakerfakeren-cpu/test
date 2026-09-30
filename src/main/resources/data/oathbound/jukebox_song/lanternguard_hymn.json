@@ -1,0 +1,8 @@
+{
+  "sound_event": "oathbound:disc_lanternguard_hymn",
+  "description": {
+    "translate": "jukebox_song.oathbound.lanternguard_hymn"
+  },
+  "length_in_seconds": 151.4,
+  "comparator_output": 3
+}

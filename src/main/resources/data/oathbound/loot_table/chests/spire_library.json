@@ -89,6 +89,35 @@
           ]
         }
       ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "oathbound:lore_page_oath_of_ember",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "oathbound:lore_page_three_seals",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "oathbound:lore_page_everflame",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "oathbound:moonpetal_tea",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 17
+        }
+      ]
     }
   ],
   "random_sequence": "oathbound:chests/spire_library"

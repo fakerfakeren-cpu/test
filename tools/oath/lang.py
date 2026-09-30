@@ -507,6 +507,12 @@ def build():
     names('block', BLOCKS)
     names('block', BUILDING)
     names('item', gear.NAMES)
+    from . import wares
+    names('item', wares.NAMES)
+    for item, lines in wares.DESC.items():
+        for i, l in enumerate(lines, 1):
+            put(f'item.oathbound.{item}.desc.{i}', l)
+    L.update(wares.LORE)
     for item, lines in gear.DESC.items():
         for i, l in enumerate(lines, 1):
             put(f'item.oathbound.{item}.desc.{i}', l)

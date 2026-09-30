@@ -84,6 +84,25 @@
           ]
         }
       ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "oathbound:trail_rations",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "oathbound:lore_page_sundering",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 11
+        }
+      ]
     }
   ],
   "random_sequence": "oathbound:chests/barrow_tomb"

@@ -79,6 +79,35 @@
           "weight": 2
         }
       ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "oathbound:bell_of_the_drowned",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "oathbound:lore_page_tide_knight",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "oathbound:elixir_of_tides",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "oathbound:salted_cod",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 22
+        }
+      ]
     }
   ],
   "random_sequence": "oathbound:chests/chapel_reliquary"

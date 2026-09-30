@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "food",
+  "ingredients": [
+    "minecraft:glass_bottle",
+    "minecraft:blaze_powder",
+    "oathbound:emberroot",
+    "oathbound:luminous_dust"
+  ],
+  "result": {
+    "id": "oathbound:elixir_of_valor",
+    "count": 1
+  }
+}

@@ -265,6 +265,9 @@ def loot_tables():
                                    item('minecraft:torch', 6, 16, 12), item('minecraft:arrow', 6, 14, 10)], rolls=(3, 6))],
         'citadel_secret': [pool([item('lanternguard_insignia')]), pool([item('elixir_of_dawn', 1, 2)])],
     }
+    from . import wares
+    for name, extra in wares.loot_pools().items():
+        C[name] = C[name] + [extra]
     for name, pools in C.items():
         write(f'loot_table/chests/{name}.json', table('chest', pools, f'chests/{name}'))
 
@@ -568,10 +571,12 @@ def recipes():
 
 
 def generate():
-    from . import building, gear
+    from . import building, gear, wares
     recipes()
     building.recipes()
     gear.recipes()
+    wares.recipes()
+    wares.jukebox()
     advancements()
     loot_tables()
     for b in building.TABLE:
@@ -580,6 +585,7 @@ def generate():
     for path, values in building.TAGS.items():
         tag(path, values, 'minecraft')
     gear.tags()
+    wares.tags()
     worldgen()
     building.worldgen()
     gear.worldgen()

@@ -189,7 +189,7 @@ public final class SelfTest {
     private static void script() {
         at(1, s -> {
             ServerLevel level = s.overworld();
-            check("items_registered", ModItems.ITEMS.getEntries().size() >= 212, ModItems.ITEMS.getEntries().size());
+            check("items_registered", ModItems.ITEMS.getEntries().size() >= 249, ModItems.ITEMS.getEntries().size());
             check("blocks_registered", ModBlocks.BLOCKS.getEntries().size() >= 112, ModBlocks.BLOCKS.getEntries().size());
             check("assets_complete", assetsComplete(), "");
             check("entities_registered", ModEntities.ENTITIES.getEntries().size() >= 18, ModEntities.ENTITIES.getEntries().size());

@@ -1,0 +1,8 @@
+{
+  "sound_event": "oathbound:disc_wayshrine_nocturne",
+  "description": {
+    "translate": "jukebox_song.oathbound.wayshrine_nocturne"
+  },
+  "length_in_seconds": 119.6,
+  "comparator_output": 6
+}

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "food",
+  "ingredients": [
+    "minecraft:glass_bottle",
+    "oathbound:dusk_lily",
+    "oathbound:dusk_lily",
+    "minecraft:sugar"
+  ],
+  "result": {
+    "id": "oathbound:duskwine",
+    "count": 1
+  }
+}

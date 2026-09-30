@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "food",
+  "ingredients": [
+    "minecraft:glass_bottle",
+    "oathbound:gloam_essence",
+    "minecraft:fermented_spider_eye",
+    "oathbound:dusk_lily"
+  ],
+  "result": {
+    "id": "oathbound:elixir_of_shrouds",
+    "count": 1
+  }
+}

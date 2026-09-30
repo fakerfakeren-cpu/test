@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "food",
+  "ingredients": [
+    "minecraft:glass_bottle",
+    "minecraft:apple",
+    "minecraft:sugar",
+    "oathbound:emberroot"
+  ],
+  "result": {
+    "id": "oathbound:spiced_cider",
+    "count": 1
+  }
+}
