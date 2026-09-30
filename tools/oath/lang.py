@@ -578,6 +578,8 @@ def build():
     L.update(wilds.TEXT)
     from . import paintings
     L.update(paintings.TEXT)
+    from . import enchantments
+    L.update(enchantments.TEXT)
     for q, (title, desc, hint) in {**QUESTS, **wilds.QUESTS}.items():
         put(f'quest.oathbound.{q}.title', title)
         put(f'quest.oathbound.{q}.description', desc)

@@ -49,6 +49,7 @@ public final class ModelDefs {
         sink.accept(Renderers.layer("bog_mother"), ModelDefs::bog_mother);
         sink.accept(Renderers.layer("cinder_colossus"), ModelDefs::cinder_colossus);
         sink.accept(Renderers.layer("lanternguard_pilgrim"), ModelDefs::lanternguard_pilgrim);
+        sink.accept(Renderers.layer("glimmerstag"), ModelDefs::glimmerstag);
     }
 
     /** The chain of child names from the model root to {@code part}, or null if there is none. */
@@ -285,6 +286,16 @@ public final class ModelDefs {
         p("lanternguard_pilgrim/left_arm", "hull", "body", "left_arm");
         p("lanternguard_pilgrim/right_arm", "hull", "body", "right_arm");
         p("lanternguard_pilgrim/robe", "hull", "body", "robe");
+        p("glimmerstag/body", "hull", "body");
+        p("glimmerstag/head", "hull", "body", "head");
+        p("glimmerstag/ear_l", "hull", "body", "head", "ear_l");
+        p("glimmerstag/ear_r", "hull", "body", "head", "ear_r");
+        p("glimmerstag/saddle", "hull", "body", "saddle");
+        p("glimmerstag/leg_fl", "hull", "body", "leg_fl");
+        p("glimmerstag/leg_fr", "hull", "body", "leg_fr");
+        p("glimmerstag/leg_bl", "hull", "body", "leg_bl");
+        p("glimmerstag/leg_br", "hull", "body", "leg_br");
+        p("glimmerstag/tail", "hull", "body", "tail");
     }
 
     private static LayerDefinition lanternmoth() {
@@ -725,6 +736,23 @@ public final class ModelDefs {
         PartDefinition p_left_arm = p_body.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(32, 41).addBox(-1.0F, -2.0F, -2.0F, 3.0F, 12.0F, 4.0F), PartPose.offsetAndRotation(5.0F, 2.0F, 0.0F, 0.0F, 0.0F, 0.0F));
         PartDefinition p_right_arm = p_body.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(46, 41).addBox(-2.0F, -2.0F, -2.0F, 3.0F, 12.0F, 4.0F).texOffs(0, 0).addBox(-1.0F, -10.0F, -3.0F, 1.0F, 24.0F, 1.0F).texOffs(48, 57).addBox(-2.5F, -13.0F, -4.5F, 4.0F, 4.0F, 4.0F), PartPose.offsetAndRotation(-5.0F, 2.0F, 0.0F, 0.0F, 0.0F, 0.0F));
         PartDefinition p_robe = p_body.addOrReplaceChild("robe", CubeListBuilder.create().texOffs(4, 0).addBox(-4.5F, 0.0F, -3.0F, 9.0F, 11.0F, 6.0F), PartPose.offsetAndRotation(0.0F, 12.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+        return LayerDefinition.create(mesh, 64, 128);
+    }
+
+    private static LayerDefinition glimmerstag() {
+        MeshDefinition mesh = new MeshDefinition();
+        PartDefinition root = mesh.getRoot();
+        PartDefinition p_hull = root.addOrReplaceChild("hull", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, 24.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+        PartDefinition p_body = p_hull.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-3.5F, -3.5F, -8.0F, 7.0F, 7.0F, 15.0F).texOffs(0, 36).addBox(-3.0F, 3.0F, -7.0F, 6.0F, 1.0F, 12.0F), PartPose.offsetAndRotation(0.0F, -15.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+        PartDefinition p_head = p_body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(44, 0).addBox(-2.0F, -9.0F, -2.5F, 4.0F, 10.0F, 4.0F).texOffs(32, 49).addBox(-2.5F, -12.0F, -5.0F, 5.0F, 4.0F, 6.0F).texOffs(22, 59).addBox(-1.5F, -10.5F, -8.0F, 3.0F, 2.0F, 3.0F).texOffs(6, 59).addBox(1.0F, -18.0F, -2.0F, 1.0F, 7.0F, 1.0F).texOffs(52, 67).addBox(2.0F, -19.0F, -2.0F, 3.0F, 1.0F, 1.0F).texOffs(14, 59).addBox(4.0F, -23.0F, -2.0F, 1.0F, 5.0F, 1.0F).texOffs(8, 70).addBox(4.0F, -24.0F, -2.0F, 1.0F, 1.0F, 1.0F).texOffs(44, 59).addBox(6.0F, -22.0F, -2.0F, 1.0F, 3.0F, 1.0F).texOffs(12, 70).addBox(6.0F, -23.0F, -2.0F, 1.0F, 1.0F, 1.0F).texOffs(48, 59).addBox(3.0F, -26.0F, -2.0F, 1.0F, 3.0F, 1.0F).texOffs(16, 70).addBox(3.0F, -27.0F, -2.0F, 1.0F, 1.0F, 1.0F).texOffs(10, 59).addBox(-2.0F, -18.0F, -2.0F, 1.0F, 7.0F, 1.0F).texOffs(0, 70).addBox(-5.0F, -19.0F, -2.0F, 3.0F, 1.0F, 1.0F).texOffs(18, 59).addBox(-5.0F, -23.0F, -2.0F, 1.0F, 5.0F, 1.0F).texOffs(20, 70).addBox(-5.0F, -24.0F, -2.0F, 1.0F, 1.0F, 1.0F).texOffs(52, 59).addBox(-7.0F, -22.0F, -2.0F, 1.0F, 3.0F, 1.0F).texOffs(24, 70).addBox(-7.0F, -23.0F, -2.0F, 1.0F, 1.0F, 1.0F).texOffs(56, 59).addBox(-4.0F, -26.0F, -2.0F, 1.0F, 3.0F, 1.0F).texOffs(28, 70).addBox(-4.0F, -27.0F, -2.0F, 1.0F, 1.0F, 1.0F), PartPose.offsetAndRotation(0.0F, -2.5F, -7.0F, -0.2F, 0.0F, 0.0F));
+        PartDefinition p_ear_l = p_head.addOrReplaceChild("ear_l", CubeListBuilder.create().texOffs(0, 67).addBox(0.0F, -1.0F, -0.5F, 3.0F, 2.0F, 1.0F), PartPose.offsetAndRotation(2.5F, -11.0F, -1.0F, 0.0F, 0.0F, 0.0F));
+        PartDefinition p_ear_r = p_head.addOrReplaceChild("ear_r", CubeListBuilder.create().texOffs(8, 67).addBox(-3.0F, -1.0F, -0.5F, 3.0F, 2.0F, 1.0F), PartPose.offsetAndRotation(-2.5F, -11.0F, -1.0F, 0.0F, 0.0F, 0.0F));
+        PartDefinition p_saddle = p_body.addOrReplaceChild("saddle", CubeListBuilder.create().texOffs(0, 49).addBox(-4.0F, -1.0F, -4.0F, 8.0F, 2.0F, 8.0F).texOffs(16, 67).addBox(-4.2F, -1.5F, -4.2F, 8.0F, 1.0F, 1.0F).texOffs(34, 67).addBox(-4.2F, -1.5F, 3.2F, 8.0F, 1.0F, 1.0F).texOffs(54, 49).addBox(-4.6F, 0.0F, -1.0F, 1.0F, 6.0F, 2.0F).texOffs(0, 59).addBox(3.6F, 0.0F, -1.0F, 1.0F, 6.0F, 2.0F), PartPose.offsetAndRotation(0.0F, -3.5F, 0.0F, 0.0F, 0.0F, 0.0F));
+        PartDefinition p_leg_fl = p_body.addOrReplaceChild("leg_fl", CubeListBuilder.create().texOffs(0, 22).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 12.0F, 2.0F), PartPose.offsetAndRotation(2.5F, 3.0F, -6.0F, 0.0F, 0.0F, 0.0F));
+        PartDefinition p_leg_fr = p_body.addOrReplaceChild("leg_fr", CubeListBuilder.create().texOffs(8, 22).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 12.0F, 2.0F), PartPose.offsetAndRotation(-2.5F, 3.0F, -6.0F, 0.0F, 0.0F, 0.0F));
+        PartDefinition p_leg_bl = p_body.addOrReplaceChild("leg_bl", CubeListBuilder.create().texOffs(16, 22).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 12.0F, 2.0F), PartPose.offsetAndRotation(2.5F, 3.0F, 5.5F, 0.0F, 0.0F, 0.0F));
+        PartDefinition p_leg_br = p_body.addOrReplaceChild("leg_br", CubeListBuilder.create().texOffs(24, 22).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 12.0F, 2.0F), PartPose.offsetAndRotation(-2.5F, 3.0F, 5.5F, 0.0F, 0.0F, 0.0F));
+        PartDefinition p_tail = p_body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(34, 59).addBox(-1.0F, -1.0F, 0.0F, 2.0F, 2.0F, 3.0F), PartPose.offsetAndRotation(0.0F, -3.0F, 7.0F, 0.0F, 0.0F, 0.0F));
         return LayerDefinition.create(mesh, 64, 128);
     }
 }

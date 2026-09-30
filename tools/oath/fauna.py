@@ -60,6 +60,7 @@ R = {
     'pilgrim_robe': Ramp('#1a2230', '#2a3446', '#3e4a60', '#56647c', '#727f96'),
     'pilgrim_mantle': Ramp('#3a0e0e', '#5a1a16', '#7e2a20', '#a03e2c', '#bc5a3e'),
     'pilgrim_leather': Ramp('#2a1a0e', '#46301c', '#654a2c', '#86683e', '#a88852'),
+    'stag': Ramp('#3a2416', '#5a3a22', '#7e5430', '#a2703e', '#c69256'),
 }
 
 
@@ -171,6 +172,10 @@ SKINS = {
     'hag_hair': Hide(R['hag_hair'], grain=1, contrast=1.4),
     'hag_staff': Skin(S.R['wood_twist'], contrast=1.2),
     'hag_lantern': Emissive(R['hag_glow']),
+    # glimmerstag
+    'stag_hide': Hide(R['stag'], grain=2),
+    'saddle_leather': Hide(R['pilgrim_leather'], grain=1),
+    'saddle_trim': Skin(S.R['crown_gold'], contrast=0.6),
     # lanternguard pilgrim
     'pilgrim_robe': Cloth(R['pilgrim_robe'], trim=S.R['crown_gold'].smooth(0.5)),
     'pilgrim_mantle': Cloth(R['pilgrim_mantle']),
@@ -573,6 +578,40 @@ def cinder_colossus():
                      body_extra=[C(-2, 3, -2.5, 4, 5, 1, 'colossus_core'), C(-5, -1, -3, 10, 3, 6, 'colossus_plate')])
 
 
+def glimmerstag():
+    """A grown stag of the glimmer herds, strong enough to carry a knight: a crown of moonlit antlers, and a saddle
+    once someone has earned the right to put one on it."""
+    tines = []
+    for side in (1, -1):
+        x = 1 if side > 0 else -2
+        tines += [C(x, -18, -2, 1, 7, 1, 'antler'), C(x + (1 if side > 0 else -3), -19, -2, 3, 1, 1, 'antler')]
+        for dx, dy, h in ((3, -23, 5), (5, -22, 3), (2, -26, 3)):
+            xx = x + dx if side > 0 else x - dx
+            tines += [C(xx, dy, -2, 1, h, 1, 'antler'), C(xx, dy - 1, -2, 1, 1, 1, 'antler_glow')]
+    return Model('glimmerstag', 64, [
+        P('body', (0, -15, 0),
+          C(-3.5, -3.5, -8, 7, 7, 15, 'stag_hide'),
+          C(-3, 3, -7, 6, 1, 12, 'fawn_muzzle'),
+          kids=[
+              P('head', (0, -2.5, -7),
+                C(-2, -9, -2.5, 4, 10, 4, 'stag_hide'),
+                C(-2.5, -12, -5, 5, 4, 6, 'stag_hide', 'fawn_face'),
+                C(-1.5, -10.5, -8, 3, 2, 3, 'fawn_muzzle'),
+                *tines,
+                kids=[P('ear_l', (2.5, -11, -1), C(0, -1, -0.5, 3, 2, 1, 'stag_hide')),
+                      P('ear_r', (-2.5, -11, -1), C(-3, -1, -0.5, 3, 2, 1, 'stag_hide'))],
+                rot=(-0.2, 0, 0)),
+              P('saddle', (0, -3.5, 0),
+                C(-4, -1, -4, 8, 2, 8, 'saddle_leather'), C(-4.2, -1.5, -4.2, 8.4, 1, 1, 'saddle_trim'),
+                C(-4.2, -1.5, 3.2, 8.4, 1, 1, 'saddle_trim'), C(-4.6, 0, -1, 1, 6, 2, 'saddle_leather'),
+                C(3.6, 0, -1, 1, 6, 2, 'saddle_leather')),
+              quad_leg('leg_fl', 2.5, 3, -6, 2, 12, 'fawn_leg'), quad_leg('leg_fr', -2.5, 3, -6, 2, 12, 'fawn_leg'),
+              quad_leg('leg_bl', 2.5, 3, 5.5, 2, 12, 'fawn_leg'), quad_leg('leg_br', -2.5, 3, 5.5, 2, 12, 'fawn_leg'),
+              P('tail', (0, -3, 7), C(-1, -1, 0, 2, 2, 3, 'fawn_tail')),
+          ]),
+    ])
+
+
 def lanternguard_pilgrim():
     """A pilgrim of the fallen Order, walking the old roads from wayshrine to wayshrine with a pack of its goods."""
     return _humanoid('lanternguard_pilgrim', 64, 'pilgrim_robe',
@@ -586,4 +625,4 @@ def lanternguard_pilgrim():
 MINIBOSSES = [elderhorn, bog_mother, cinder_colossus]
 
 FAUNA = [glimmerfawn, duskhare, mossback_tortoise, lumen_beetle, tidewader, thornback_boar, stonewarden, runewisp,
-         drowned_choirmonk, mire_hag, grave_crawler, gloam_stalker, shade_wraith, lumenite_mite, ashen_revenant] + MINIBOSSES + [lanternguard_pilgrim]
+         drowned_choirmonk, mire_hag, grave_crawler, gloam_stalker, shade_wraith, lumenite_mite, ashen_revenant] + MINIBOSSES + [lanternguard_pilgrim, glimmerstag]

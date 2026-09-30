@@ -636,6 +636,8 @@ def generate():
     landmarks.tags()
     from . import paintings
     paintings.data()
+    from . import enchantments
+    enchantments.data()
     flush_tags()
     print('data written')
 

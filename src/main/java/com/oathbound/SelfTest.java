@@ -289,6 +289,13 @@ public final class SelfTest {
                 else log("empty biome tag " + t);
             }
             check("worldgen_biome_tags", tagged == biomeTags.size(), tagged + "/" + biomeTags.size());
+            var enchantments = s.registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
+            int ench = 0;
+            for (String e : List.of("gloambane", "dawnfire", "warding", "wayfarer")) {
+                if (enchantments.get(ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Oathbound.MODID, e))).isPresent()) ench++;
+                else log("missing enchantment " + e);
+            }
+            check("enchantments_loaded", ench == 4, ench + "/4");
             // puzzle logic
             BlockPos probe = new BlockPos(123, 64, -456);
             int[] hymn = HymnStoneBlock.hymn(probe);
