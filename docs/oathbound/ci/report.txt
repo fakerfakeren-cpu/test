@@ -1,237 +1,88 @@
-commit a4c69f32bd8f3d1c2d3dff3fe15f6c17e096e374
+commit 1db82bd29fef3a54278224545127e2fd5f66c3ae
 ===== SELFTEST =====
-[19:16:29] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] Oathbound self-test on 26.2
-[19:16:29] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS items_registered (290)
-[19:16:29] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS blocks_registered (113)
-[19:16:29] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS assets_complete
-[19:16:29] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS entities_registered (39)
-[19:16:29] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS sounds_registered (101)
-[19:16:29] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS gloaming_dimension_loaded
-[19:16:29] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS quest_advancements_loaded (missing=0)
-[19:16:29] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS loot_tables_loaded (54/54)
-[19:16:29] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS wild_structures_registered (7/7)
-[19:16:29] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS worldgen_biome_tags (8/8)
-[19:16:29] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS enchantments_loaded (4/4)
-[19:16:29] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS hymn_is_fair ([3, 0, 3, 0, 1])
-[19:16:29] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS cipher_answers_distinct ([1, 0, 2, 4])
-[19:16:50] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS wayshrine_brazier (BlockPos{x=80, y=63, z=200})
-[19:16:50] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS chapel_bells
-[19:16:50] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS chapel_hymn_stone
-[19:16:50] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS spire_dials
-[19:16:50] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS spire_ward
-[19:16:50] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS barrow_tombs
-[19:16:50] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS citadel_keystone
-[19:16:51] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS cipher_accepts_answer
-[19:16:51] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS epitaph_puzzle_unique (consistent readings=1)
-[19:16:52] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS grove_king_sleeps
-[19:16:52] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS bog_mother_at_home
-[19:16:52] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS colossus_in_sanctum
-[19:16:52] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS watchtower_warden
-[19:16:52] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS grotto_shrine
-[19:16:52] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS mine_shaft_and_vein
-[19:16:52] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS observatory_telescope
-[19:16:55] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS landmarks_place (4/4)
-[19:16:55] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS lumen_clusters_grow (clusters=30)
-[19:16:56] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS hymn_lifts_grate
-[19:16:56] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS cipher_dissolves_ward
-[19:16:56] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS honest_king_opens_barrow
-[19:16:56] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS gate_opens (veil=35)
-[19:17:01] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS pilgrim_trades (offers=12)
-[19:17:01] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS forsworn_collapses_not_dies (alive=true fallen=true)
-[19:17:01] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS fire_lays_forsworn_to_rest (hp=0.0)
-[19:17:03] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS caldris_sealed_until_solved
-[19:17:03] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] FAIL caldris_unsealed_by_puzzle
-[19:17:03] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS caldris_awake
-[19:17:04] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS caldris_drops_seal (drops=3)
-[19:17:05] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS veyl_sealed_until_solved
-[19:17:05] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] FAIL veyl_unsealed_by_puzzle
-[19:17:05] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS veyl_awake
-[19:17:06] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS veyl_drops_seal (drops=4)
-[19:17:07] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS hrodgar_sealed_until_solved
-[19:17:07] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] FAIL hrodgar_unsealed_by_puzzle
-[19:17:07] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS hrodgar_awake
-[19:17:10] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS hrodgar_drops_seal (drops=4)
-[19:17:13] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS gloaming_biomes (2/2)
-[19:17:13] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS throne_built
-[19:17:13] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS ward_lanterns
-[19:17:13] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS return_veil
-[19:17:13] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS morvane_waits (count=1)
-[19:17:14] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS grove_shrine_keeper_wakes
-[19:17:17] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS grove_shrine_keeper_leaves_relic
-[19:17:17] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS morvane_risen (move=3)
-[19:17:17] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS arena_sealed
-[19:17:18] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS bog_hut_keeper_wakes
-[19:17:22] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS bog_hut_keeper_leaves_relic
-[19:17:23] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS cinder_sanctum_keeper_wakes
-[19:17:24] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS morvane_phase2 (phase=2)
-[19:17:28] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS cinder_sanctum_keeper_leaves_relic
-[19:17:30] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS morvane_hollow (phase=3 hollow=true)
-[19:17:30] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS hollow_is_untouchable
-[19:17:30] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS lanterns_unveil_morvane (move=10)
-[19:17:31] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS morvane_dies (hp=0.0)
-[19:17:38] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS morvane_removed
-[19:17:38] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS morvane_rewards (crown=true dawnbreaker=true)
-[19:17:38] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS arena_unsealed
-[19:17:39] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] creatures alive at end: 22/29
-[19:17:39] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] 71 checks, 3 failures
-[19:17:39] [Server thread/ERROR] [co.oa.Oathbound/]: [SELFTEST] RESULT: FAIL [caldris_unsealed_by_puzzle, veyl_unsealed_by_puzzle, hrodgar_unsealed_by_puzzle]
+[19:26:20] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] Oathbound self-test on 26.2
+[19:26:20] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS items_registered (290)
+[19:26:20] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS blocks_registered (113)
+[19:26:20] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS assets_complete
+[19:26:20] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS entities_registered (39)
+[19:26:20] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS sounds_registered (101)
+[19:26:20] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS gloaming_dimension_loaded
+[19:26:20] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS quest_advancements_loaded (missing=0)
+[19:26:20] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS loot_tables_loaded (54/54)
+[19:26:20] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS wild_structures_registered (7/7)
+[19:26:20] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS worldgen_biome_tags (8/8)
+[19:26:20] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS enchantments_loaded (4/4)
+[19:26:20] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS hymn_is_fair ([3, 0, 3, 0, 1])
+[19:26:20] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS cipher_answers_distinct ([1, 0, 2, 4])
+[19:26:53] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS wayshrine_brazier (BlockPos{x=80, y=63, z=200})
+[19:26:53] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS chapel_bells
+[19:26:53] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS chapel_hymn_stone
+[19:26:53] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS spire_dials
+[19:26:53] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS spire_ward
+[19:26:53] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS barrow_tombs
+[19:26:53] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS citadel_keystone
+[19:26:55] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS cipher_accepts_answer
+[19:26:55] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS epitaph_puzzle_unique (consistent readings=1)
+[19:26:56] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS grove_king_sleeps
+[19:26:56] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS bog_mother_at_home
+[19:26:56] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS colossus_in_sanctum
+[19:26:56] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS watchtower_warden
+[19:26:56] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS grotto_shrine
+[19:26:56] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS mine_shaft_and_vein
+[19:26:56] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS observatory_telescope
+[19:27:02] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS landmarks_place (4/4)
+[19:27:02] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS lumen_clusters_grow (clusters=30)
+[19:27:03] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS hymn_lifts_grate
+[19:27:03] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS cipher_dissolves_ward
+[19:27:03] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS honest_king_opens_barrow
+[19:27:03] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS gate_opens (veil=35)
+[19:27:10] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS pilgrim_trades (offers=12)
+[19:27:10] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS forsworn_collapses_not_dies (alive=true fallen=true)
+[19:27:10] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS fire_lays_forsworn_to_rest (hp=0.0)
+[19:27:14] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS caldris_sealed_until_solved
+[19:27:14] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS caldris_awake
+[19:27:14] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS caldris_unsealed_by_puzzle (found=true)
+[19:27:16] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS caldris_drops_seal (drops=3)
+[19:27:17] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS veyl_sealed_until_solved
+[19:27:17] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS veyl_awake
+[19:27:17] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS veyl_unsealed_by_puzzle (found=true)
+[19:27:18] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS veyl_drops_seal (drops=4)
+[19:27:20] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS hrodgar_sealed_until_solved
+[19:27:20] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS hrodgar_awake
+[19:27:20] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS hrodgar_unsealed_by_puzzle (found=true)
+[19:27:23] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS hrodgar_drops_seal (drops=4)
+[19:27:27] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS gloaming_biomes (2/2)
+[19:27:27] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS throne_built
+[19:27:27] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS ward_lanterns
+[19:27:27] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS return_veil
+[19:27:27] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS morvane_waits (count=1)
+[19:27:27] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS grove_shrine_keeper_wakes
+[19:27:30] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS grove_shrine_keeper_leaves_relic
+[19:27:31] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS morvane_risen (move=3)
+[19:27:31] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS arena_sealed
+[19:27:31] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS bog_hut_keeper_wakes
+[19:27:36] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS bog_hut_keeper_leaves_relic
+[19:27:37] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS cinder_sanctum_keeper_wakes
+[19:27:38] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS morvane_phase2 (phase=2)
+[19:27:41] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS cinder_sanctum_keeper_leaves_relic
+[19:27:44] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS morvane_hollow (phase=3 hollow=true)
+[19:27:44] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS hollow_is_untouchable
+[19:27:44] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS lanterns_unveil_morvane (move=10)
+[19:27:45] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS morvane_dies (hp=0.0)
+[19:27:52] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS morvane_removed
+[19:27:52] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS morvane_rewards (crown=true dawnbreaker=true)
+[19:27:52] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] PASS arena_unsealed
+[19:27:53] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] creatures alive at end: 21/29
+[19:27:53] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] 71 checks, 0 failures
+[19:27:53] [Server thread/INFO] [co.oa.Oathbound/]: [SELFTEST] RESULT: PASS
 ===== CLIENTTEST =====
-[19:19:12] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] waiting for world
-[19:19:16] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] world joined, 92 scenes
-[19:19:23] [oathbound-showcase-watchdog/INFO] [co.oa.Oathbound/]: [CLIENTTEST] watchdog 30s joined=true scene=0/92
-[19:19:26] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene setup
-[19:19:29] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene wayshrine
-[19:19:35] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene wayshrine_shot
-[19:19:35] [IO-Worker-7/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot wayshrine: Saved screenshot as oathbound_wayshrine.png
-[19:19:36] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene chapel
-[19:19:43] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene chapel_shot
-[19:19:43] [IO-Worker-8/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot drowned_chapel: Saved screenshot as oathbound_drowned_chapel.png
-[19:19:43] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene chapel_nave
-[19:19:48] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene chapel_nave_shot
-[19:19:48] [IO-Worker-1/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot chapel_bells: Saved screenshot as oathbound_chapel_bells.png
-[19:19:49] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene spire
-[19:19:53] [oathbound-showcase-watchdog/INFO] [co.oa.Oathbound/]: [CLIENTTEST] watchdog 60s joined=true scene=8/92
-[19:19:56] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene spire_shot
-[19:19:56] [IO-Worker-7/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot arcanist_spire: Saved screenshot as oathbound_arcanist_spire.png
-[19:19:56] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene dials
-[19:20:01] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene dials_shot
-[19:20:01] [IO-Worker-9/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot rune_dials: Saved screenshot as oathbound_rune_dials.png
-[19:20:02] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene barrow
-[19:20:09] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene barrow_shot
-[19:20:09] [IO-Worker-6/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot barrow_of_kings: Saved screenshot as oathbound_barrow_of_kings.png
-[19:20:09] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene tombs
-[19:20:14] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene tombs_shot
-[19:20:15] [IO-Worker-7/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot hall_of_kings: Saved screenshot as oathbound_hall_of_kings.png
-[19:20:15] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene citadel
-[19:20:22] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene citadel_shot
-[19:20:22] [IO-Worker-1/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot sundered_gate: Saved screenshot as oathbound_sundered_gate.png
-[19:20:22] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene bestiary
-[19:20:23] [oathbound-showcase-watchdog/INFO] [co.oa.Oathbound/]: [CLIENTTEST] watchdog 90s joined=true scene=18/92
-[19:20:28] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene bestiary_shot
-[19:20:28] [IO-Worker-3/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot bestiary: Saved screenshot as oathbound_bestiary.png
-[19:20:29] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene wilds
-[19:20:35] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene wilds_shot
-[19:20:35] [IO-Worker-3/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot the_wilds: Saved screenshot as oathbound_the_wilds.png
-[19:20:36] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene wild_keepers
-[19:20:43] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene wild_keepers_shot
-[19:20:43] [IO-Worker-7/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot wild_keepers: Saved screenshot as oathbound_wild_keepers.png
-[19:20:43] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene landmarks
-[19:20:43] [Server thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] temperate stage at 176, 1180
-[19:20:50] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene landmarks_shot
-[19:20:50] [IO-Worker-7/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot landmarks: Saved screenshot as oathbound_landmarks.png
-[19:20:51] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene crystal_cave
-[19:20:53] [oathbound-showcase-watchdog/INFO] [co.oa.Oathbound/]: [CLIENTTEST] watchdog 120s joined=true scene=26/92
-[19:20:58] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene crystal_cave_shot
-[19:20:58] [IO-Worker-8/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot crystal_cave: Saved screenshot as oathbound_crystal_cave.png
-[19:20:58] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene fireflies
-[19:21:06] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene fireflies_shot
-[19:21:06] [IO-Worker-6/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot fireflies: Saved screenshot as oathbound_fireflies.png
-[19:21:06] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene day_again
-[19:21:07] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene stags_ring
-[19:21:13] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene stags_ring_shot
-[19:21:14] [IO-Worker-11/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot stags_ring: Saved screenshot as oathbound_stags_ring.png
-[19:21:14] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene bog_mothers_house
-[19:21:20] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene bog_mothers_house_shot
-[19:21:21] [IO-Worker-6/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot bog_mothers_house: Saved screenshot as oathbound_bog_mothers_house.png
-[19:21:21] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene cinder_sanctum
-[19:21:23] [oathbound-showcase-watchdog/INFO] [co.oa.Oathbound/]: [CLIENTTEST] watchdog 150s joined=true scene=35/92
-[19:21:27] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene cinder_sanctum_shot
-[19:21:28] [IO-Worker-6/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot cinder_sanctum: Saved screenshot as oathbound_cinder_sanctum.png
-[19:21:28] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene sanctum_hall
-[19:21:34] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene sanctum_hall_shot
-[19:21:35] [IO-Worker-2/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot sanctum_hall: Saved screenshot as oathbound_sanctum_hall.png
-[19:21:35] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene last_watch
-[19:21:41] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene last_watch_shot
-[19:21:42] [IO-Worker-6/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot last_watch: Saved screenshot as oathbound_last_watch.png
-[19:21:42] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene tideglass_grotto
-[19:21:48] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene tideglass_grotto_shot
-[19:21:49] [IO-Worker-10/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot tideglass_grotto: Saved screenshot as oathbound_tideglass_grotto.png
-[19:21:49] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene lumenite_headframe
-[19:21:53] [oathbound-showcase-watchdog/INFO] [co.oa.Oathbound/]: [CLIENTTEST] watchdog 180s joined=true scene=43/92
-[19:21:55] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene lumenite_headframe_shot
-[19:21:56] [IO-Worker-8/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot lumenite_headframe: Saved screenshot as oathbound_lumenite_headframe.png
-[19:21:56] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene lumenite_delve
-[19:22:02] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene lumenite_delve_shot
-[19:22:03] [IO-Worker-4/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot lumenite_delve: Saved screenshot as oathbound_lumenite_delve.png
-[19:22:03] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene shattered_observatory
-[19:22:09] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene shattered_observatory_shot
-[19:22:10] [IO-Worker-6/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot shattered_observatory: Saved screenshot as oathbound_shattered_observatory.png
-[19:22:10] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene dusk_again
-[19:22:10] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene keepers
-[19:22:17] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene keepers_shot
-[19:22:17] [IO-Worker-2/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot seal_keepers: Saved screenshot as oathbound_seal_keepers.png
-[19:22:18] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene spells
-[19:22:23] [oathbound-showcase-watchdog/INFO] [co.oa.Oathbound/]: [CLIENTTEST] watchdog 210s joined=true scene=52/92
-[19:22:24] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene spells_shot
-[19:22:24] [IO-Worker-8/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot spellcraft: Saved screenshot as oathbound_spellcraft.png
-[19:22:24] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene masonry
-[19:22:31] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene masonry_shot
-[19:22:31] [IO-Worker-2/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot masonry: Saved screenshot as oathbound_masonry.png
-[19:22:32] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene veilwood
-[19:22:39] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene veilwood_shot
-[19:22:39] [IO-Worker-2/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot gloaming_veilwood: Saved screenshot as oathbound_gloaming_veilwood.png
-[19:22:40] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene ashen_reach
-[19:22:47] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene ashen_reach_shot
-[19:22:47] [IO-Worker-4/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot gloaming_ashen_reach: Saved screenshot as oathbound_gloaming_ashen_reach.png
-[19:22:48] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene gloaming
-[19:22:50] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene throne
-[19:22:53] [oathbound-showcase-watchdog/INFO] [co.oa.Oathbound/]: [CLIENTTEST] watchdog 240s joined=true scene=61/92
-[19:22:58] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene throne_shot
-[19:22:58] [IO-Worker-10/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot hollow_throne: Saved screenshot as oathbound_hollow_throne.png
-[19:22:58] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene king
-[19:23:03] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene king_shot
-[19:23:03] [IO-Worker-8/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot morvane: Saved screenshot as oathbound_morvane.png
-[19:23:04] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene island
-[19:23:12] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene island_shot
-[19:23:12] [IO-Worker-10/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot the_gloaming: Saved screenshot as oathbound_the_gloaming.png
-[19:23:12] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene portrait_caldris
-[19:23:16] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene portrait_caldris_shot
-[19:23:16] [IO-Worker-2/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot portrait_caldris: Saved screenshot as oathbound_portrait_caldris.png
-[19:23:16] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene portrait_veyl
-[19:23:20] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene portrait_veyl_shot
-[19:23:20] [IO-Worker-8/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot portrait_veyl: Saved screenshot as oathbound_portrait_veyl.png
-[19:23:20] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene portrait_hrodgar
-[19:23:23] [oathbound-showcase-watchdog/INFO] [co.oa.Oathbound/]: [CLIENTTEST] watchdog 270s joined=true scene=71/92
-[19:23:24] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene portrait_hrodgar_shot
-[19:23:24] [IO-Worker-6/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot portrait_hrodgar: Saved screenshot as oathbound_portrait_hrodgar.png
-[19:23:24] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene portrait_veilhound
-[19:23:28] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene portrait_veilhound_shot
-[19:23:28] [IO-Worker-11/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot portrait_veilhound: Saved screenshot as oathbound_portrait_veilhound.png
-[19:23:28] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene portrait_gloamling
-[19:23:32] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene portrait_gloamling_shot
-[19:23:32] [IO-Worker-10/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot portrait_gloamling: Saved screenshot as oathbound_portrait_gloamling.png
-[19:23:32] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene portrait_lanternmoth
-[19:23:36] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene portrait_lanternmoth_shot
-[19:23:36] [IO-Worker-9/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot portrait_lanternmoth: Saved screenshot as oathbound_portrait_lanternmoth.png
-[19:23:36] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene portrait_forsworn
-[19:23:40] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene portrait_forsworn_shot
-[19:23:40] [IO-Worker-2/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot portrait_forsworn: Saved screenshot as oathbound_portrait_forsworn.png
-[19:23:40] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene book_setup
-[19:23:44] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene book_path
-[19:23:46] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene book_path_shot
-[19:23:46] [IO-Worker-9/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot chronicle_path: Saved screenshot as oathbound_chronicle_path.png
-[19:23:47] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene book_story
-[19:23:49] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene book_story_shot
-[19:23:49] [IO-Worker-2/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot chronicle_story: Saved screenshot as oathbound_chronicle_story.png
-[19:23:49] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene book_tithes
-[19:23:51] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene book_tithes_shot
-[19:23:51] [IO-Worker-9/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot chronicle_tithes: Saved screenshot as oathbound_chronicle_tithes.png
-[19:23:52] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene book_bestiary
-[19:23:53] [oathbound-showcase-watchdog/INFO] [co.oa.Oathbound/]: [CLIENTTEST] watchdog 300s joined=true scene=88/92
-[19:23:54] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene book_bestiary_shot
-[19:23:54] [IO-Worker-11/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot chronicle_bestiary: Saved screenshot as oathbound_chronicle_bestiary.png
-[19:23:54] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene book_armory
-[19:23:56] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene book_armory_shot
-[19:23:56] [IO-Worker-6/INFO] [co.oa.Oathbound/]: [CLIENTTEST] shot chronicle_armory: Saved screenshot as oathbound_chronicle_armory.png
-[19:23:57] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] scene finish
-[19:23:57] [Render thread/INFO] [co.oa.Oathbound/]: [CLIENTTEST] RESULT: PASS
+
 ===== SERVER PROBLEMS =====
-[19:16:23] [main/WARN] [ne.mi.co.ForgeConfigSpec/CORE]: Configuration file /home/runner/work/test/test/run/config/oathbound-common.toml is not correct. Correcting
-2026-09-30T19:16:26.134278169Z Server thread ERROR An exception occurred processing Appender DebugFile
+[19:26:11] [main/WARN] [ne.mi.co.ForgeConfigSpec/CORE]: Configuration file /home/runner/work/test/test/run/config/oathbound-common.toml is not correct. Correcting
+2026-09-30T19:26:14.876541947Z Server thread ERROR An exception occurred processing Appender DebugFile
 org.apache.logging.log4j.core.appender.AppenderLoggingException: java.lang.NoClassDefFoundError: Could not initialize class io.netty.channel.kqueue.Native
 Caused by: java.lang.NoClassDefFoundError: Could not initialize class io.netty.channel.kqueue.Native
 Caused by: java.lang.ExceptionInInitializerError: Exception java.lang.IllegalStateException: Only supported on OSX/BSD [in thread "Server thread"]
-[19:17:39] [Server thread/ERROR] [co.oa.Oathbound/]: [SELFTEST] RESULT: FAIL [caldris_unsealed_by_puzzle, veyl_unsealed_by_puzzle, hrodgar_unsealed_by_puzzle]
 ===== CLIENT PROBLEMS =====
   Downloading missing asset: icons/icon_128x128.png
   Downloading missing asset: icons/icon_16x16.png
