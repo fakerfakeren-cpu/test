@@ -138,6 +138,13 @@ ROSTER = [
       [D.pool([D.item('cinder_heart')]), D.pool([D.item('ember_core', 2, 4)]), D.pool([D.item('gravegold_ingot', 3, 5)]),
        D.pool([D.item('minecraft:experience_bottle', 5, 9)]), D.pool([D.item('minecraft:gold_block', 1, 2)])],
       scale=2.2, shadow=1.5, boss=True, extra='.fireImmune()'),
+    # ------------------------------------------------------------------ people of the roads
+    M('lanternguard_pilgrim', 'LanternguardPilgrimEntity', 'Lanternguard Pilgrim', 'CREATURE', (0.6, 1.95),
+      'Biped(r, "lanternguard_pilgrim", 0.7f, 0.1f)', None, ('#7e2a20', '#ffcb58'), 0,
+      ('A pilgrim of the fallen Order, walking the old roads from wayshrine to wayshrine with a pack of its goods. It sells the '
+       'Order\'s metals, elixirs and torn pages, sometimes a relic or a record, and it buys what the wilds give up.',
+       'Kindle a wayshrine and one may come. It moves on after a day.'),
+      [], shadow=0.5),
 ]
 
 PLACEMENT = {
@@ -188,6 +195,7 @@ def java():
 
 import com.oathbound.entity.boss.*;
 import com.oathbound.entity.mob.*;
+import com.oathbound.entity.npc.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntitySpawnReason;

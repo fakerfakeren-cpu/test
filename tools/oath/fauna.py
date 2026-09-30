@@ -57,6 +57,9 @@ R = {
     'elder_mane': Ramp('#dcd8e8', '#eeeaf6', '#f8f6fc', '#ffffff'),
     'bog_moss': Ramp('#1c2a12', '#2a3e1a', '#3a5424', '#4e6c30', '#66883e'),
     'molten': Ramp('#8a2a04', '#e05a10', '#ffa030', '#ffe080', '#ffffff'),
+    'pilgrim_robe': Ramp('#1a2230', '#2a3446', '#3e4a60', '#56647c', '#727f96'),
+    'pilgrim_mantle': Ramp('#3a0e0e', '#5a1a16', '#7e2a20', '#a03e2c', '#bc5a3e'),
+    'pilgrim_leather': Ramp('#2a1a0e', '#46301c', '#654a2c', '#86683e', '#a88852'),
 }
 
 
@@ -168,6 +171,13 @@ SKINS = {
     'hag_hair': Hide(R['hag_hair'], grain=1, contrast=1.4),
     'hag_staff': Skin(S.R['wood_twist'], contrast=1.2),
     'hag_lantern': Emissive(R['hag_glow']),
+    # lanternguard pilgrim
+    'pilgrim_robe': Cloth(R['pilgrim_robe'], trim=S.R['crown_gold'].smooth(0.5)),
+    'pilgrim_mantle': Cloth(R['pilgrim_mantle']),
+    'pilgrim_hood': Cloth(R['pilgrim_mantle']),
+    'pilgrim_pack': Hide(R['pilgrim_leather'], grain=2),
+    'pilgrim_staff': Skin(S.R['wood_twist'], contrast=1.1),
+    'pilgrim_lantern': Emissive(R['lumen']),
     # grave crawler
     'crawler_bone': Bone(R['bone_old'], grain=2),
     # gloam stalker
@@ -563,7 +573,17 @@ def cinder_colossus():
                      body_extra=[C(-2, 3, -2.5, 4, 5, 1, 'colossus_core'), C(-5, -1, -3, 10, 3, 6, 'colossus_plate')])
 
 
+def lanternguard_pilgrim():
+    """A pilgrim of the fallen Order, walking the old roads from wayshrine to wayshrine with a pack of its goods."""
+    return _humanoid('lanternguard_pilgrim', 64, 'pilgrim_robe',
+                     [C(-4, -8, -4, 8, 8, 8, 'pilgrim_hood', 'hooded_face'), C(-2, -10, -2, 4, 2, 4, 'pilgrim_hood')],
+                     'pilgrim_robe', 'pilgrim_robe', 'pilgrim_robe',
+                     right_extra=[C(-1, -10, -3, 1, 24, 1, 'pilgrim_staff'), C(-2.5, -13, -4.5, 4, 4, 4, 'pilgrim_lantern')],
+                     body_extra=[C(-4.5, -0.5, -2.5, 9, 4, 5, 'pilgrim_mantle'), C(-3.5, 1, 2, 7, 8, 3, 'pilgrim_pack'),
+                                 C(-4, 0, 5, 8, 2, 2, 'pilgrim_pack')])
+
+
 MINIBOSSES = [elderhorn, bog_mother, cinder_colossus]
 
 FAUNA = [glimmerfawn, duskhare, mossback_tortoise, lumen_beetle, tidewader, thornback_boar, stonewarden, runewisp,
-         drowned_choirmonk, mire_hag, grave_crawler, gloam_stalker, shade_wraith, lumenite_mite, ashen_revenant] + MINIBOSSES
+         drowned_choirmonk, mire_hag, grave_crawler, gloam_stalker, shade_wraith, lumenite_mite, ashen_revenant] + MINIBOSSES + [lanternguard_pilgrim]

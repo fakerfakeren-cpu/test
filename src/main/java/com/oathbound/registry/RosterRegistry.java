@@ -2,6 +2,7 @@ package com.oathbound.registry;
 
 import com.oathbound.entity.boss.*;
 import com.oathbound.entity.mob.*;
+import com.oathbound.entity.npc.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntitySpawnReason;
@@ -36,6 +37,7 @@ public final class RosterRegistry {
         event.put(ModEntities.ELDERHORN.get(), ElderhornEntity.createAttributes().build());
         event.put(ModEntities.BOG_MOTHER.get(), BogMotherEntity.createAttributes().build());
         event.put(ModEntities.CINDER_COLOSSUS.get(), CinderColossusEntity.createAttributes().build());
+        event.put(ModEntities.LANTERNGUARD_PILGRIM.get(), LanternguardPilgrimEntity.createAttributes().build());
     }
 
     public static void spawnPlacements(SpawnPlacementRegisterEvent event) {

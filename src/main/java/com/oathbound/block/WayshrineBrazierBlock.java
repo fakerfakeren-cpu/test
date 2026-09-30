@@ -94,6 +94,7 @@ public class WayshrineBrazierBlock extends Block {
             player.sendOverlayMessage(Component.translatable("message.oathbound.wayshrine.blessing").withStyle(ChatFormatting.YELLOW));
             QuestLog.grant(sp, "wayshrine", "kindle");
             QuestLog.payTithes(sp, pos);
+            com.oathbound.entity.npc.PilgrimVisits.atWayshrine(server, pos, sp);
         }
         return InteractionResult.SUCCESS;
     }

@@ -78,6 +78,7 @@ public final class GameEvents {
     // ------------------------------------------------------------------ ticks
     public static void levelTick(ServerLevel level) {
         Scheduler.tick(level);
+        com.oathbound.entity.npc.PilgrimVisits.tick(level);
     }
 
     public static void onPlayerTick(Player player) {

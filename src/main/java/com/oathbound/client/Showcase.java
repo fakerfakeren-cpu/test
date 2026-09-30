@@ -144,6 +144,28 @@ public final class Showcase {
         return y;
     }
 
+    private static BlockPos meadowSpot;
+    private static int meadowY = 80;
+
+    /** A patch of temperate country (forest, jungle, plains or meadow) where fireflies fly; found once per run. */
+    private static BlockPos temperate(ServerLevel level) {
+        if (meadowSpot != null) return meadowSpot;
+        for (int i = 0; i < 80; i++) {
+            int x = 80 + (i % 20) * 96, z = 1180 + (i / 20) * 256;
+            var b = level.getBiome(new BlockPos(x, 70, z));
+            if (b.is(net.minecraft.tags.BiomeTags.IS_FOREST) || b.is(net.minecraft.tags.BiomeTags.IS_JUNGLE)
+                || b.is(net.minecraft.world.level.biome.Biomes.PLAINS) || b.is(net.minecraft.world.level.biome.Biomes.MEADOW)
+                || b.is(net.minecraft.world.level.biome.Biomes.SWAMP)) {
+                if (b.is(net.minecraft.tags.BiomeTags.SPAWNS_COLD_VARIANT_FROGS)) continue;
+                meadowSpot = new BlockPos(x, 0, z);
+                log("temperate stage at " + x + ", " + z);
+                return meadowSpot;
+            }
+        }
+        meadowSpot = new BlockPos(80, 0, 1180);
+        return meadowSpot;
+    }
+
     /**
      * One shot of a self-test site. Its origin is found from a marker block placed at a known local height in a known
      * column ({@code dx}, {@code dz}), so the frame does not depend on how tall the site is over its centre.
@@ -287,14 +309,17 @@ public final class Showcase {
         // the land remembers the Order: a waystone, a ruined outpost, a mossy boulder and a glimmer glade on a meadow
         scene(10, "landmarks", mc -> onServer(mc, p -> {
             ServerLevel level = p.level().getServer().overworld();
-            int x = 80, z = 1180;
+            BlockPos meadow = temperate(level);
+            int x = meadow.getX(), z = meadow.getZ();
             int y = stage(level, x - 6, z - 8, x + 30, z + 8, net.minecraft.world.level.block.Blocks.GRASS_BLOCK.defaultBlockState());
             com.oathbound.SelfTest.placeFeature(level, "order_ruin", new BlockPos(x + 12, y, z + 1));
             com.oathbound.SelfTest.placeFeature(level, "waystone", new BlockPos(x + 2, y, z - 2));
             com.oathbound.SelfTest.placeFeature(level, "mossy_boulder", new BlockPos(x + 24, y, z - 3));
             com.oathbound.SelfTest.placeFeature(level, "glimmer_glade", new BlockPos(x + 5, y, z + 3));
             com.oathbound.SelfTest.placeFeature(level, "glimmer_glade", new BlockPos(x + 22, y, z + 4));
-            p.teleportTo(level, x + 12.5, y + 5 - 1.62, z - 16, java.util.Set.of(), 0f, 14f, false);
+            meadowY = y;
+            still(level, ModEntities.LANTERNGUARD_PILGRIM.get(), new Vec3(x + 9.5, y, z - 3.5), 200f);
+            p.teleportTo(level, x + 12.5, y + 4 - 1.62, z - 11, java.util.Set.of(), 0f, 16f, false);
         }));
         scene(140, "landmarks_shot", mc -> shoot(mc, "landmarks"));
         // a cave lit only by lumenite crystal
@@ -323,8 +348,8 @@ public final class Showcase {
             run(mc, "time set 18000");
             onServer(mc, p -> {
                 ServerLevel level = p.level().getServer().overworld();
-                int x = 80, z = 1180;
-                p.teleportTo(level, x + 12.5, level.getHeight(Heightmap.Types.MOTION_BLOCKING, x + 12, z - 12) + 2.2 - 1.62, z - 12, java.util.Set.of(), 0f, 10f, false);
+                BlockPos meadow = temperate(level);
+                p.teleportTo(level, meadow.getX() + 12.5, meadowY + 1.8 - 1.62, meadow.getZ() - 4, java.util.Set.of(), 0f, 8f, false);
             });
         });
         scene(160, "fireflies_shot", mc -> shoot(mc, "fireflies"));

@@ -234,10 +234,10 @@ public final class SelfTest {
     private static void script() {
         at(1, s -> {
             ServerLevel level = s.overworld();
-            check("items_registered", ModItems.ITEMS.getEntries().size() >= 278, ModItems.ITEMS.getEntries().size());
+            check("items_registered", ModItems.ITEMS.getEntries().size() >= 289, ModItems.ITEMS.getEntries().size());
             check("blocks_registered", ModBlocks.BLOCKS.getEntries().size() >= 112, ModBlocks.BLOCKS.getEntries().size());
             check("assets_complete", assetsComplete(), "");
-            check("entities_registered", ModEntities.ENTITIES.getEntries().size() >= 37, ModEntities.ENTITIES.getEntries().size());
+            check("entities_registered", ModEntities.ENTITIES.getEntries().size() >= 38, ModEntities.ENTITIES.getEntries().size());
             check("sounds_registered", ModSounds.SOUNDS.getEntries().size() == ModSounds.NAMES.size(), ModSounds.NAMES.size());
             check("gloaming_dimension_loaded", s.getLevel(ModWorldgen.GLOAMING) != null, "");
             int missing = 0;
@@ -471,6 +471,9 @@ public final class SelfTest {
                 base = base.offset(6, 0, 0);
                 base = base.atY(ground(level, base.getX(), base.getZ()) + 1);
             }
+            var pilgrim = spawn(level, ModEntities.LANTERNGUARD_PILGRIM.get(), base.offset(4, 0, 4));
+            int trades = pilgrim.getOffers().size();
+            check("pilgrim_trades", trades >= 10, "offers=" + trades);
             ForswornKnightEntity k = spawn(level, ModEntities.FORSWORN_KNIGHT.get(), base.offset(10, 0, 0));
             k.setNoAi(true);
             k.hurtServer(level, level.damageSources().generic(), 500f);

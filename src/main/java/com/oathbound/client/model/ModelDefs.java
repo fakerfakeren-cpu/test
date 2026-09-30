@@ -48,6 +48,7 @@ public final class ModelDefs {
         sink.accept(Renderers.layer("elderhorn"), ModelDefs::elderhorn);
         sink.accept(Renderers.layer("bog_mother"), ModelDefs::bog_mother);
         sink.accept(Renderers.layer("cinder_colossus"), ModelDefs::cinder_colossus);
+        sink.accept(Renderers.layer("lanternguard_pilgrim"), ModelDefs::lanternguard_pilgrim);
     }
 
     /** The chain of child names from the model root to {@code part}, or null if there is none. */
@@ -277,6 +278,13 @@ public final class ModelDefs {
         p("cinder_colossus/head", "hull", "body", "head");
         p("cinder_colossus/left_arm", "hull", "body", "left_arm");
         p("cinder_colossus/right_arm", "hull", "body", "right_arm");
+        p("lanternguard_pilgrim/left_leg", "hull", "left_leg");
+        p("lanternguard_pilgrim/right_leg", "hull", "right_leg");
+        p("lanternguard_pilgrim/body", "hull", "body");
+        p("lanternguard_pilgrim/head", "hull", "body", "head");
+        p("lanternguard_pilgrim/left_arm", "hull", "body", "left_arm");
+        p("lanternguard_pilgrim/right_arm", "hull", "body", "right_arm");
+        p("lanternguard_pilgrim/robe", "hull", "body", "robe");
     }
 
     private static LayerDefinition lanternmoth() {
@@ -704,5 +712,19 @@ public final class ModelDefs {
         PartDefinition p_left_arm = p_body.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(0, 21).addBox(-1.0F, -2.0F, -2.0F, 3.0F, 12.0F, 4.0F).texOffs(44, 21).addBox(-0.5F, -3.0F, -3.0F, 4.0F, 4.0F, 6.0F), PartPose.offsetAndRotation(5.0F, 2.0F, 0.0F, 0.0F, 0.0F, 0.0F));
         PartDefinition p_right_arm = p_body.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(14, 21).addBox(-2.0F, -2.0F, -2.0F, 3.0F, 12.0F, 4.0F).texOffs(0, 0).addBox(-1.5F, 9.0F, -16.0F, 2.0F, 3.0F, 18.0F).texOffs(0, 37).addBox(-3.5F, 8.5F, -1.5F, 6.0F, 4.0F, 1.0F), PartPose.offsetAndRotation(-5.0F, 2.0F, 0.0F, 0.0F, 0.0F, 0.0F));
         return LayerDefinition.create(mesh, 128, 64);
+    }
+
+    private static LayerDefinition lanternguard_pilgrim() {
+        MeshDefinition mesh = new MeshDefinition();
+        PartDefinition root = mesh.getRoot();
+        PartDefinition p_hull = root.addOrReplaceChild("hull", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, 24.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+        PartDefinition p_left_leg = p_hull.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 41).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F), PartPose.offsetAndRotation(1.9F, -12.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+        PartDefinition p_right_leg = p_hull.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(16, 41).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F), PartPose.offsetAndRotation(-1.9F, -12.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+        PartDefinition p_body = p_hull.addOrReplaceChild("body", CubeListBuilder.create().texOffs(32, 25).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F).texOffs(20, 57).addBox(-4.5F, -0.5F, -2.5F, 9.0F, 4.0F, 5.0F).texOffs(0, 57).addBox(-3.5F, 1.0F, 2.0F, 7.0F, 8.0F, 3.0F).texOffs(16, 68).addBox(-4.0F, 0.0F, 5.0F, 8.0F, 2.0F, 2.0F), PartPose.offsetAndRotation(0.0F, -24.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+        PartDefinition p_head = p_body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 25).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F).texOffs(0, 68).addBox(-2.0F, -10.0F, -2.0F, 4.0F, 2.0F, 4.0F), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+        PartDefinition p_left_arm = p_body.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(32, 41).addBox(-1.0F, -2.0F, -2.0F, 3.0F, 12.0F, 4.0F), PartPose.offsetAndRotation(5.0F, 2.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+        PartDefinition p_right_arm = p_body.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(46, 41).addBox(-2.0F, -2.0F, -2.0F, 3.0F, 12.0F, 4.0F).texOffs(0, 0).addBox(-1.0F, -10.0F, -3.0F, 1.0F, 24.0F, 1.0F).texOffs(48, 57).addBox(-2.5F, -13.0F, -4.5F, 4.0F, 4.0F, 4.0F), PartPose.offsetAndRotation(-5.0F, 2.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+        PartDefinition p_robe = p_body.addOrReplaceChild("robe", CubeListBuilder.create().texOffs(4, 0).addBox(-4.5F, 0.0F, -3.0F, 9.0F, 11.0F, 6.0F), PartPose.offsetAndRotation(0.0F, 12.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+        return LayerDefinition.create(mesh, 64, 128);
     }
 }

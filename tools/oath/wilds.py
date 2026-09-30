@@ -162,6 +162,7 @@ PARENTS = {q: 'root' for q in QUEST_TABLE}
 QUESTS = {q: (t[3], t[4], t[5]) for q, t in QUEST_TABLE.items()}
 
 TEXT = {
+    'message.oathbound.pilgrim.coming': 'A lantern bobs on the road: a pilgrim of the Order is coming.',
     'message.oathbound.elderhorn.bloom': 'The Grove King kneels to drink from the grove. Strike hard to break the trance!',
     'message.oathbound.bog_mother.brood': 'Her bone-children shield the Bog Mother. Kill the brood!',
     'message.oathbound.cinder_colossus.molten': 'The Colossus runs molten. Its every step scorches.',

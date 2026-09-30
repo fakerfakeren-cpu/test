@@ -309,6 +309,7 @@ public final class ModItems {
     public static final RegistryObject<Item> ELDERHORN_SPAWN_EGG = egg("elderhorn_spawn_egg", () -> ModEntities.ELDERHORN.get());
     public static final RegistryObject<Item> BOG_MOTHER_SPAWN_EGG = egg("bog_mother_spawn_egg", () -> ModEntities.BOG_MOTHER.get());
     public static final RegistryObject<Item> CINDER_COLOSSUS_SPAWN_EGG = egg("cinder_colossus_spawn_egg", () -> ModEntities.CINDER_COLOSSUS.get());
+    public static final RegistryObject<Item> LANTERNGUARD_PILGRIM_SPAWN_EGG = egg("lanternguard_pilgrim_spawn_egg", () -> ModEntities.LANTERNGUARD_PILGRIM.get());
     // ------------------------------------------------------------------ end of the wider roster
     // ------------------------------------------------------------------ block items
     static {
