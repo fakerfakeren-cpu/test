@@ -311,13 +311,28 @@ def sprite_frames(kind, frames=4, n=16):
         elif kind == 'tide':
             v = np.exp(-((R - 0.5) / 0.1) ** 2) * 0.8 + np.exp(-((X + 0.2) ** 2 + (Y + 0.2) ** 2) / 0.02) * 0.7
             v *= (1 - 0.3 * k)
+        elif kind == 'petal':
+            # a single leaf-petal, turning edge-on and back as it tumbles
+            squash = 0.35 + 0.65 * abs(math.cos(i * math.pi / frames))
+            Xr, Yr = (X * math.cos(0.6) - Y * math.sin(0.6)) / squash, X * math.sin(0.6) + Y * math.cos(0.6)
+            shape = 1 - (Xr / 0.45) ** 2 - (Yr / 0.85) ** 2 * (1 + 0.5 * Yr)
+            v = np.clip(shape * 3, 0, 1) * (0.75 + 0.25 * np.exp(-(Xr / 0.06) ** 2))
+            v = v * 0.85 + np.exp(-(R / 0.25) ** 2) * 0.15
+        elif kind == 'spore':
+            fuzz = 0.3 + 0.06 * np.sin(A * 7 + i * 2.1)
+            v = np.exp(-(R / (0.16 + 0.04 * k)) ** 2) + 0.45 * np.exp(-((R - fuzz) / 0.08) ** 2) + 0.2 * np.exp(-(R / 0.6) ** 2)
+        elif kind == 'firefly':
+            v = np.exp(-(R / 0.12) ** 2) + 0.55 * np.exp(-(R / (0.45 - 0.15 * k)) ** 2)
+        elif kind == 'ash':
+            flake = 0.4 + 0.15 * np.sin(A * 4 + i * 1.3) + 0.08 * np.sin(A * 9 - i)
+            v = np.clip(1 - R / flake, 0, 1) ** 0.6 * (0.7 + 0.3 * np.cos(X * 9 + i))
         else:
             v = np.exp(-(R / 0.5) ** 2)
         out.append(np.clip(v, 0, 1) * (R < 1.05))
     return out
 
 
-PARTICLES = ['ember', 'lumen_mote', 'gloam_wisp', 'arcane_glyph', 'spirit', 'sunburst', 'tide']
+PARTICLES = ['ember', 'lumen_mote', 'gloam_wisp', 'arcane_glyph', 'spirit', 'sunburst', 'tide', 'petal', 'spore', 'firefly', 'ash']
 
 
 def generate():

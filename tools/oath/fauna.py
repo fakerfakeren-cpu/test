@@ -53,6 +53,10 @@ R = {
     'mite': Ramp('#14100c', '#2a2016', '#403220', '#5a482e'),
     'ash': Ramp('#100c0a', '#1e1814', '#302620', '#443830', '#5c4c40'),
     'ember': Ramp('#6a1a04', '#b83a0c', '#f06a1c', '#ffb040', '#fff0a0'),
+    'elder_hide': Ramp('#2e2438', '#4a3c5a', '#6a5a7e', '#8e80a0', '#b4a8c4'),
+    'elder_mane': Ramp('#dcd8e8', '#eeeaf6', '#f8f6fc', '#ffffff'),
+    'bog_moss': Ramp('#1c2a12', '#2a3e1a', '#3a5424', '#4e6c30', '#66883e'),
+    'molten': Ramp('#8a2a04', '#e05a10', '#ffa030', '#ffe080', '#ffffff'),
 }
 
 
@@ -103,6 +107,14 @@ class Rune(Skin):
 
 
 SKINS = {
+    # minibosses
+    'elder_hide': Spotted(R['elder_hide'], R['moon'].smooth(0.9), R['moon'].smooth(0.7), grain=3),
+    'elder_mane': Hide(R['elder_mane'], grain=2, contrast=0.6),
+    'elder_rune': Rune(R['elder_hide'], R['moon']),
+    'bog_cloak': Mossy(R['hag_robe'], R['bog_moss'], hexrgb('#5ae05a')),
+    'bog_skin': Hide(R['hag_skin'], grain=2),
+    'colossus_plate': Plate(R['ash'], seam=3, veins=R['molten'].smooth(0.8)),
+    'colossus_core': Emissive(R['molten']),
     # glimmerfawn
     'fawn_hide': Spotted(R['fawn'], R['moon'].smooth(0.8), R['moon'].smooth(0.6), grain=3),
     'fawn_head': Hide(R['fawn'], grain=3),
@@ -498,5 +510,60 @@ def ashen_revenant():
                      right_extra=[C(-1, 9, -11, 1, 2, 13, 'ember_blade'), C(-2.5, 8.5, -1.5, 4, 3, 1, 'ash_plate')])
 
 
+def elderhorn():
+    """Elderhorn, the Grove King: a stag the size of a cart, crowned with antlers of moonlight and runes on its flanks."""
+    tines = []
+    for side in (1, -1):
+        x = 1.5 if side > 0 else -2.5
+        tines += [C(x, -19, -2, 1, 8, 1, 'antler'), C(x + side * 1, -20, -2, 3 * side if side > 0 else 3, 1, 1, 'antler')]
+        for k, (dx, dy, h) in enumerate(((2, -23, 4), (4, -22, 3), (6, -24, 5), (3, -26, 3))):
+            xx = x + side * dx if side > 0 else x - dx
+            tines.append(C(xx, dy, -2, 1, h, 1, 'antler'))
+            tines.append(C(xx, dy - 1, -2, 1, 1, 1, 'antler_glow'))
+    return Model('elderhorn', 128, [
+        P('body', (0, -13, 0),
+          C(-3.5, -3.5, -8, 7, 7, 15, 'elder_hide'),
+          C(-3, -5, -8, 6, 3, 6, 'elder_mane'),
+          C(-3.6, -2, -3, 0.1, 3, 8, 'elder_rune'), C(3.5, -2, -3, 0.1, 3, 8, 'elder_rune'),
+          kids=[
+              P('head', (0, -3, -7),
+                C(-2, -9, -2.5, 4, 10, 4, 'elder_mane'),
+                C(-2.5, -12, -5, 5, 4, 6, 'elder_hide', 'fawn_face'),
+                C(-1.5, -10.5, -8, 3, 2, 3, 'fawn_muzzle'),
+                *tines,
+                kids=[P('ear_l', (2.5, -11, -1), C(0, -1, -0.5, 3, 2, 1, 'elder_hide')),
+                      P('ear_r', (-2.5, -11, -1), C(-3, -1, -0.5, 3, 2, 1, 'elder_hide'))],
+                rot=(-0.2, 0, 0)),
+              quad_leg('leg_fl', 2.5, 3, -6, 2, 10, 'fawn_leg'), quad_leg('leg_fr', -2.5, 3, -6, 2, 10, 'fawn_leg'),
+              quad_leg('leg_bl', 2.5, 3, 5, 2, 10, 'fawn_leg'), quad_leg('leg_br', -2.5, 3, 5, 2, 10, 'fawn_leg'),
+              P('tail', (0, -3, 7), C(-1, -1, 0, 2, 2, 3, 'elder_mane')),
+          ]),
+    ])
+
+
+def bog_mother():
+    """The Bog Mother: the eldest hag, grown huge on bog-magic, draped in living moss, a lantern in each hand."""
+    return _humanoid('bog_mother', 64, 'bog_cloak',
+                     [C(-4, -8, -4, 8, 8, 8, 'bog_skin', 'hag_face'), C(-4.5, -9, -3.5, 9, 7, 8.5, 'hag_hair'),
+                      C(-1, -5, -7, 2, 4, 3, 'bog_skin'), C(-3, -11, -2, 1, 3, 1, 'hag_staff'), C(2, -11, -2, 1, 3, 1, 'hag_staff')],
+                     'bog_cloak', 'bog_cloak', 'bog_cloak',
+                     right_extra=[C(-1, -8, -3, 1, 22, 1, 'hag_staff'), C(-2.5, -11.5, -4.5, 4, 4, 4, 'hag_lantern')],
+                     left_extra=[C(-0.5, 10, -1.5, 3, 3, 3, 'hag_lantern')],
+                     body_extra=[C(-4.5, -1, -2.5, 9, 6, 5.5, 'bog_cloak')])
+
+
+def cinder_colossus():
+    """The Cinder Colossus: the Order's great war-effigy, filled with the Sundering's fire and left to walk the sands."""
+    return _humanoid('cinder_colossus', 128, 'colossus_plate',
+                     [C(-4, -8, -4, 8, 8, 8, 'ash_helm', 'ash_visor'), C(-5, -10, -1, 2, 5, 2, 'colossus_plate'), C(3, -10, -1, 2, 5, 2, 'colossus_plate'),
+                      C(-0.5, -14, -3, 1, 6, 7, 'ember_plume')],
+                     'colossus_plate', 'colossus_plate', 'colossus_plate', robe=False,
+                     right_extra=[C(-1.5, 9, -16, 2, 3, 18, 'ember_blade'), C(-3.5, 8.5, -1.5, 6, 4, 1, 'colossus_plate')],
+                     left_extra=[C(-0.5, -3, -3, 4, 4, 6, 'colossus_plate')],
+                     body_extra=[C(-2, 3, -2.5, 4, 5, 1, 'colossus_core'), C(-5, -1, -3, 10, 3, 6, 'colossus_plate')])
+
+
+MINIBOSSES = [elderhorn, bog_mother, cinder_colossus]
+
 FAUNA = [glimmerfawn, duskhare, mossback_tortoise, lumen_beetle, tidewader, thornback_boar, stonewarden, runewisp,
-         drowned_choirmonk, mire_hag, grave_crawler, gloam_stalker, shade_wraith, lumenite_mite, ashen_revenant]
+         drowned_choirmonk, mire_hag, grave_crawler, gloam_stalker, shade_wraith, lumenite_mite, ashen_revenant] + MINIBOSSES

@@ -1,0 +1,8 @@
+{
+  "type": "oathbound:sketch",
+  "biomes": "#oathbound:has_structure/tideglass_grotto",
+  "spawn_overrides": {},
+  "step": "surface_structures",
+  "terrain_adaptation": "none",
+  "sketch": "tideglass_grotto"
+}

@@ -510,7 +510,7 @@ def build():
     from . import wares, roster
     names('entity', roster.NAMES)
     for mob, en in roster.NAMES.items():
-        put(f'item.oathbound.{mob}_spawn_egg', f'{en} Spawn Egg')
+        put(f'item.oathbound.{mob}_spawn_egg', f'{en.split(",")[0]} Spawn Egg')
     for k, (name, text, note) in roster.BESTIARY.items():
         put(f'bestiary.oathbound.{k}.name', name)
         put(f'bestiary.oathbound.{k}.text', text)
@@ -535,7 +535,9 @@ def build():
         put(f'chronicle.oathbound.lore.{i}', LORE[i])
     put('chronicle.oathbound.chapter.epilogue', EPILOGUE_TITLE)
     put('chronicle.oathbound.lore.epilogue', EPILOGUE)
-    for q, (title, desc, hint) in QUESTS.items():
+    from . import wilds
+    L.update(wilds.TEXT)
+    for q, (title, desc, hint) in {**QUESTS, **wilds.QUESTS}.items():
         put(f'quest.oathbound.{q}.title', title)
         put(f'quest.oathbound.{q}.description', desc)
         put(f'quest.oathbound.{q}.hint', hint)

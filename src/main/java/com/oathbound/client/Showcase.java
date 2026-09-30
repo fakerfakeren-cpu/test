@@ -117,6 +117,50 @@ public final class Showcase {
         level.addFreshEntity(m);
     }
 
+    /**
+     * Levels a stage above the terrain: finds the highest ground under the rectangle, lays a floor two blocks above
+     * it and clears the air over it, so a lineup never ends up inside a hillside or a cave.
+     */
+    private static int stage(ServerLevel level, int x0, int z0, int x1, int z1, net.minecraft.world.level.block.state.BlockState floor) {
+        int y = 0;
+        for (int x = x0; x <= x1; x += 2)
+            for (int z = z0; z <= z1; z += 2) y = Math.max(y, level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z));
+        y += 2;
+        var air = net.minecraft.world.level.block.Blocks.AIR.defaultBlockState();
+        for (int x = x0 - 2; x <= x1 + 2; x++)
+            for (int z = z0 - 14; z <= z1 + 2; z++) {
+                boolean inside = x >= x0 && x <= x1 && z >= z0 && z <= z1;
+                if (inside) level.setBlock(new BlockPos(x, y - 1, z), floor, 2);
+                for (int dy = 0; dy < 12; dy++) level.setBlock(new BlockPos(x, y + dy, z), air, 2);
+            }
+        return y;
+    }
+
+    /**
+     * One shot of a self-test site. Its origin is found from a marker block placed at a known local height in a known
+     * column ({@code dx}, {@code dz}), so the frame does not depend on how tall the site is over its centre.
+     */
+    private static void wild(int site, int dx, int dz, net.minecraft.world.level.block.Block marker, int localY, String shot, double[] eye, double[] look,
+                             net.minecraftforge.registries.RegistryObject<net.minecraft.world.level.block.Block> modMarker, int modLocalY) {
+        scene(10, shot, mc -> onServer(mc, p -> {
+            ServerLevel level = p.level().getServer().overworld();
+            var m = modMarker != null ? modMarker.get() : marker;
+            int ly = modMarker != null ? modLocalY : localY;
+            int x = 80 + site * 90, z = 200;
+            int top = level.getHeight(Heightmap.Types.MOTION_BLOCKING, x + dx, z + dz);
+            int oy = top;
+            for (int y = top; y > top - 90; y--) {
+                if (level.getBlockState(new BlockPos(x + dx, y, z + dz)).is(m)) {
+                    oy = y - ly;
+                    break;
+                }
+            }
+            Vec3 o = new Vec3(x + 0.5, oy, z + 0.5);
+            frame(mc, OW, o.add(eye[0], eye[1], eye[2]), o.add(look[0], look[1], look[2]));
+        }));
+        scene(130, shot + "_shot", mc -> shoot(mc, shot));
+    }
+
     // ------------------------------------------------------------------ the tour
     private static final String OW = "minecraft:overworld", GL = "oathbound:gloaming";
 
@@ -195,9 +239,9 @@ public final class Showcase {
         scene(10, "wilds", mc -> onServer(mc, p -> {
             ServerLevel level = p.level().getServer().overworld();
             int x = 80, z = 820;
-            int y = level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z) + 12;
-            for (int dx = -3; dx <= 30; dx++)
-                for (int dz = -4; dz <= 8; dz++) level.setBlock(new BlockPos(x + dx, y - 1, z + dz), ModBlocks.GLOAM_MOSS.get().defaultBlockState(), 2);
+            run(mc, "time set 1000");
+            int y = stage(level, x - 3, z - 4, x + 30, z + 8, net.minecraft.world.level.block.Blocks.GRASS_BLOCK.defaultBlockState());
+            for (int dx = -3; dx <= 30; dx += 3) level.setBlock(new BlockPos(x + dx, y, z + 8), ModBlocks.MOONPETAL.get().defaultBlockState(), 2);
             double cx = x + 0.5;
             for (var t : List.of(ModEntities.GLIMMERFAWN, ModEntities.DUSKHARE, ModEntities.MOSSBACK_TORTOISE, ModEntities.LUMEN_BEETLE,
                 ModEntities.TIDEWADER, ModEntities.THORNBACK_BOAR, ModEntities.STONEWARDEN, ModEntities.RUNEWISP)) {
@@ -213,6 +257,37 @@ public final class Showcase {
             p.teleportTo(level, x + 14, y + 3.4 - 1.62, z - 10, java.util.Set.of(), 0f, 14f, false);
         }));
         scene(130, "wilds_shot", mc -> shoot(mc, "the_wilds"));
+        // the wild keepers, awake
+        scene(10, "wild_keepers", mc -> onServer(mc, p -> {
+            ServerLevel level = p.level().getServer().overworld();
+            int x = 80, z = 1000;
+            int y = stage(level, x - 5, z - 5, x + 26, z + 5, ModBlocks.RUNESTONE_BRICKS.get().defaultBlockState());
+            double cx = x + 1.5;
+            for (var t : List.of(ModEntities.ELDERHORN, ModEntities.BOG_MOTHER, ModEntities.CINDER_COLOSSUS)) {
+                Mob m = t.get().create(level, EntitySpawnReason.COMMAND);
+                if (m == null) continue;
+                m.snapTo(cx, y, z + 0.5, 160f, 0);
+                m.setNoAi(true);
+                m.setYHeadRot(160f);
+                m.yBodyRot = 160f;
+                if (m instanceof com.oathbound.entity.boss.KeeperEntity k) k.wake(level, null);
+                level.addFreshEntity(m);
+                cx += 10;
+            }
+            p.teleportTo(level, x + 11.5, y + 3.5 - 1.62, z - 15, java.util.Set.of(), 0f, 8f, false);
+        }));
+        scene(140, "wild_keepers_shot", mc -> shoot(mc, "wild_keepers"));
+        // the places off the Path (self-test sites 5 to 11), framed from each site's own origin
+        wild(5, 0, 0, null, 1, "stags_ring", new double[]{13, 9, 19}, new double[]{1, 3, -1}, ModBlocks.GLYPHED_RUNESTONE, 1);
+        wild(6, 0, 0, net.minecraft.world.level.block.Blocks.VERDANT_FROGLIGHT, 9, "bog_mothers_house", new double[]{12, 10, 20}, new double[]{0, 7, 0}, null, 0);
+        wild(7, 0, -4, net.minecraft.world.level.block.Blocks.GOLD_BLOCK, 7, "cinder_sanctum", new double[]{20, 14, 28}, new double[]{0, 4, -4}, null, 0);
+        wild(7, 0, -4, net.minecraft.world.level.block.Blocks.GOLD_BLOCK, 7, "sanctum_hall", new double[]{0, -8.4, 3}, new double[]{0, -9.5, -12}, null, 0);
+        wild(8, 0, 0, net.minecraft.world.level.block.Blocks.CAMPFIRE, 21, "last_watch", new double[]{16, 12, 20}, new double[]{0, 10, 0}, null, 0);
+        wild(9, -1, -2, net.minecraft.world.level.block.Blocks.SEA_LANTERN, -1, "tideglass_grotto", new double[]{0, 3.2, 7}, new double[]{0, 2, -7}, null, 0);
+        wild(10, 0, 0, net.minecraft.world.level.block.Blocks.SPRUCE_TRAPDOOR, 37, "lumenite_headframe", new double[]{10, 36, 12}, new double[]{0, 33, 0}, null, 0);
+        wild(10, 0, 0, net.minecraft.world.level.block.Blocks.SPRUCE_TRAPDOOR, 37, "lumenite_delve", new double[]{-1, 2.6, 0}, new double[]{20, 1.8, 0}, null, 0);
+        wild(11, 0, 0, null, 2, "shattered_observatory", new double[]{15, 17, 17}, new double[]{0, 10, 0}, ModBlocks.DUSKIRON_BLOCK, 2);
+        scene(5, "dusk_again", mc -> run(mc, "time set 12600"));
         scene(10, "keepers", mc -> onServer(mc, p -> {
             ServerLevel level = p.level().getServer().overworld();
             int x = 80, z = 700;

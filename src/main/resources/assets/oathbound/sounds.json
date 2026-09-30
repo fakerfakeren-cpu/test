@@ -636,6 +636,28 @@
     ],
     "subtitle": "subtitles.oathbound.gloaming_mood"
   },
+  "elderhorn_bellow": {
+    "sounds": [
+      {
+        "name": "oathbound:elderhorn_bellow_1"
+      },
+      {
+        "name": "oathbound:elderhorn_bellow_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.elderhorn_bellow"
+  },
+  "colossus_roar": {
+    "sounds": [
+      {
+        "name": "oathbound:colossus_roar_1"
+      },
+      {
+        "name": "oathbound:colossus_roar_2"
+      }
+    ],
+    "subtitle": "subtitles.oathbound.colossus_roar"
+  },
   "fawn_call": {
     "sounds": [
       {
@@ -872,6 +894,15 @@
       }
     ],
     "subtitle": "subtitles.oathbound.theme_morvane"
+  },
+  "theme_wilds": {
+    "sounds": [
+      {
+        "name": "oathbound:theme_wilds",
+        "stream": true
+      }
+    ],
+    "subtitle": "subtitles.oathbound.theme_wilds"
   },
   "music_gloaming": {
     "sounds": [

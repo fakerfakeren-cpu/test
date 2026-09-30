@@ -2,7 +2,7 @@ package com.oathbound;
 
 import com.oathbound.block.*;
 import com.oathbound.entity.boss.*;
-import com.oathbound.entity.mob.ForswornKnightEntity;
+import com.oathbound.entity.mob.*;
 import com.oathbound.event.GateRite;
 import com.oathbound.event.GloamingTravel;
 import com.oathbound.quest.QuestLog;
@@ -69,7 +69,7 @@ public final class SelfTest {
     }
 
     private static void at(int t, Consumer<MinecraftServer> step) {
-        SCRIPT.put(t, step);
+        SCRIPT.merge(t, step, Consumer::andThen);
     }
 
     public static void onServerStarted(ServerStartedEvent event) {
@@ -182,6 +182,14 @@ public final class SelfTest {
         return server.reloadableRegistries().getLootTable(key) != LootTable.EMPTY;
     }
 
+    /** The creature a built site placed as its resident, if it is still there. */
+    private static <T extends Entity> T resident(ServerLevel level, Sketches.Type site, Class<T> cls, int radius) {
+        BlockPos at = built.get(site);
+        if (at == null) return null;
+        List<T> found = level.getEntitiesOfClass(cls, new AABB(at).inflate(radius, 24, radius), Entity::isAlive);
+        return found.isEmpty() ? null : found.get(0);
+    }
+
     private static List<ItemEntity> drops(ServerLevel level, BlockPos near) {
         return level.getEntitiesOfClass(ItemEntity.class, new AABB(near).inflate(24, 48, 24));
     }
@@ -189,10 +197,10 @@ public final class SelfTest {
     private static void script() {
         at(1, s -> {
             ServerLevel level = s.overworld();
-            check("items_registered", ModItems.ITEMS.getEntries().size() >= 272, ModItems.ITEMS.getEntries().size());
+            check("items_registered", ModItems.ITEMS.getEntries().size() >= 278, ModItems.ITEMS.getEntries().size());
             check("blocks_registered", ModBlocks.BLOCKS.getEntries().size() >= 112, ModBlocks.BLOCKS.getEntries().size());
             check("assets_complete", assetsComplete(), "");
-            check("entities_registered", ModEntities.ENTITIES.getEntries().size() >= 34, ModEntities.ENTITIES.getEntries().size());
+            check("entities_registered", ModEntities.ENTITIES.getEntries().size() >= 37, ModEntities.ENTITIES.getEntries().size());
             check("sounds_registered", ModSounds.SOUNDS.getEntries().size() == ModSounds.NAMES.size(), ModSounds.NAMES.size());
             check("gloaming_dimension_loaded", s.getLevel(ModWorldgen.GLOAMING) != null, "");
             int missing = 0;
@@ -215,13 +223,23 @@ public final class SelfTest {
                 "entities/glimmerfawn", "entities/duskhare", "entities/mossback_tortoise", "entities/lumen_beetle", "entities/tidewader",
                 "entities/thornback_boar", "entities/stonewarden", "entities/runewisp", "entities/drowned_choirmonk", "entities/mire_hag",
                 "entities/grave_crawler", "entities/gloam_stalker", "entities/shade_wraith", "entities/lumenite_mite", "entities/ashen_revenant",
-                "blocks/duskiron_ore", "blocks/gloamwood_leaves", "blocks/gloamwood_door", "chests/citadel_barracks"};
+                "blocks/duskiron_ore", "blocks/gloamwood_leaves", "blocks/gloamwood_door", "chests/citadel_barracks",
+                "entities/elderhorn", "entities/bog_mother", "entities/cinder_colossus", "chests/grove_offering", "chests/bog_hut_larder",
+                "chests/cinder_sanctum_vault", "chests/cinder_sanctum_offerings", "chests/watchtower_armory", "chests/watchtower_lookout",
+                "chests/tideglass_hoard", "chests/grotto_wreck", "chests/mine_cache", "chests/mine_foreman", "chests/observatory_charts"};
             int ok = 0;
             for (String l : loot) {
                 if (lootExists(s, l)) ok++;
                 else log("missing loot table " + l);
             }
             check("loot_tables_loaded", ok == loot.length, ok + "/" + loot.length);
+            var structures = s.registryAccess().lookupOrThrow(Registries.STRUCTURE);
+            int sites = 0;
+            for (String id : List.of("grove_shrine", "bog_hut", "cinder_sanctum", "watchtower", "tideglass_grotto", "lumenite_mine", "shattered_observatory")) {
+                if (structures.get(ResourceKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath(Oathbound.MODID, id))).isPresent()) sites++;
+                else log("missing structure " + id);
+            }
+            check("wild_structures_registered", sites == 7, sites + "/7");
             // puzzle logic
             BlockPos probe = new BlockPos(123, 64, -456);
             int[] hymn = HymnStoneBlock.hymn(probe);
@@ -239,7 +257,7 @@ public final class SelfTest {
                 if (t == Sketches.Type.THRONE) continue;
                 int x = spawn.getX() + 80 + i * 90, z = spawn.getZ() + 200;
                 keepLoaded(level, new BlockPos(x, 0, z), 40);
-                BlockPos at = new BlockPos(x, ground(level, x, z), z);
+                BlockPos at = new BlockPos(x, ground(level, x, z) - (t == Sketches.Type.LUMENITE_MINE ? 30 : 0), z);
                 SketchPlacer.placeNow(level, Sketches.draw(t, 1234L + i), at);
                 built.put(t, at);
                 i++;
@@ -291,6 +309,60 @@ public final class SelfTest {
                 if (level.getBlockState(t).getValue(SarcophagusBlock.KING) == roles[0]) SarcophagusBlock.open(level, t, null);
             }
         });
+        at(30, s -> {
+            ServerLevel level = s.overworld();
+            check("grove_king_sleeps", resident(level, Sketches.Type.GROVE_SHRINE, ElderhornEntity.class, 6) instanceof ElderhornEntity e && e.isSleeping(), "");
+            check("bog_mother_at_home", resident(level, Sketches.Type.BOG_HUT, BogMotherEntity.class, 12) != null, "");
+            check("colossus_in_sanctum", resident(level, Sketches.Type.CINDER_SANCTUM, CinderColossusEntity.class, 20) != null, "");
+            check("watchtower_warden", resident(level, Sketches.Type.WATCHTOWER, StonewardenEntity.class, 12) != null, "");
+            BlockPos grotto = built.get(Sketches.Type.TIDEGLASS_GROTTO);
+            check("grotto_shrine", level.getBlockState(grotto.offset(4, 1, -4)).is(Blocks.SPAWNER)
+                && level.getBlockState(grotto.offset(0, 1, -7)).is(ModBlocks.CHISELED_TIDESTONE.get()), "");
+            BlockPos mine = built.get(Sketches.Type.LUMENITE_MINE);
+            check("mine_shaft_and_vein", level.getBlockState(mine.offset(-1, 15, -1)).is(Blocks.LADDER)
+                && level.getBlockState(mine.offset(0, 1, -20)).is(Blocks.SPAWNER), "");
+            BlockPos obs = built.get(Sketches.Type.SHATTERED_OBSERVATORY);
+            check("observatory_telescope", level.getBlockState(obs.offset(0, 2, 0)).is(ModBlocks.DUSKIRON_BLOCK.get())
+                && level.getBlockState(obs.offset(4, 7, 2)).is(Blocks.SPAWNER), "");
+        });
+        // the wild keepers: each must wake, fall and leave its relic
+        int w0 = 460;
+        for (var wild : List.of(Sketches.Type.GROVE_SHRINE, Sketches.Type.BOG_HUT, Sketches.Type.CINDER_SANCTUM)) {
+            final int base = w0;
+            Class<? extends KeeperEntity> cls = switch (wild) {
+                case GROVE_SHRINE -> ElderhornEntity.class;
+                case BOG_HUT -> BogMotherEntity.class;
+                default -> CinderColossusEntity.class;
+            };
+            var relic = switch (wild) {
+                case GROVE_SHRINE -> ModItems.GROVE_KINGS_CROWN;
+                case BOG_HUT -> ModItems.BOG_MOTHERS_LANTERN;
+                default -> ModItems.CINDER_HEART;
+            };
+            String name = wild.id();
+            at(base, s -> {
+                ServerLevel level = s.overworld();
+                if (resident(level, wild, cls, 20) instanceof KeeperEntity k) {
+                    k.wake(level, null);
+                    check(name + "_keeper_wakes", !k.isSleeping(), "");
+                } else check(name + "_keeper_wakes", false, "not found");
+            });
+            at(base + 60, s -> {
+                ServerLevel level = s.overworld();
+                if (resident(level, wild, cls, 30) instanceof KeeperEntity k) {
+                    k.setHealth(1f);
+                    k.invulnerableTime = 0;
+                    k.hurtServer(level, level.damageSources().generic(), 10f);
+                }
+            });
+            at(base + 90, s -> {
+                ServerLevel level = s.overworld();
+                BlockPos site = built.get(wild);
+                boolean dropped = level.getEntitiesOfClass(ItemEntity.class, new AABB(site).inflate(32, 40, 32)).stream().anyMatch(i -> i.getItem().is(relic.get()));
+                check(name + "_keeper_leaves_relic", dropped, "");
+            });
+            w0 += 110;
+        }
         at(80, s -> {
             ServerLevel level = s.overworld();
             BlockPos chapel = built.get(Sketches.Type.DROWNED_CHAPEL);

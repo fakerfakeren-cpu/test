@@ -13,9 +13,10 @@ JAVA = os.path.join(ROOT, 'src/main/java/com/oathbound')
 
 
 def M(id, cls, en, category, size, rig, spawn, egg, chapter, bestiary, loot, biomes=None, weight=0, group=(1, 1), scale=1.0,
-      shadow=0.5, extra='', gloaming=False):
+      shadow=0.5, extra='', gloaming=False, boss=False):
     return dict(id=id, cls=cls, en=en, category=category, size=size, rig=rig, spawn=spawn, egg=egg, chapter=chapter, bestiary=bestiary,
-                loot=loot, biomes=biomes or [], weight=weight, group=group, scale=scale, shadow=shadow, extra=extra, gloaming=gloaming)
+                loot=loot, biomes=biomes or [], weight=weight, group=group, scale=scale, shadow=shadow, extra=extra, gloaming=gloaming,
+                boss=boss)
 
 
 L = D.LOOTING
@@ -109,6 +110,34 @@ ROSTER = [
        D.pool([D.item('ember_core'), {**D.EMPTY, 'weight': 5}], conds=D.BY_PLAYER)],
       ['minecraft:desert', 'minecraft:badlands', 'minecraft:eroded_badlands', 'minecraft:wooded_badlands', 'minecraft:savanna_plateau'], 15, (1, 1),
       extra='.fireImmune()'),
+    # ------------------------------------------------------------------ the wild keepers (minibosses; no natural spawns)
+    M('elderhorn', 'ElderhornEntity', 'Elderhorn, the Grove King', 'MONSTER', (1.8, 3.4), 'Quadruped(r, "elderhorn", 0.8f, false, 0.75f)', None,
+      ('#6a4a2c', '#b6f06a'), 1,
+      ('The stag-king of the old groves, crowned with antlers that have grown runes. He sleeps in a ring of standing stones and wakes '
+       'for anyone who draws steel there. He gores in a straight line, calls roots up out of the ground and bellows a storm of leaves; '
+       'wounded, he kneels to drink from the grove and must be struck hard to break the trance.',
+       'Sidestep the charge: if he runs into stone he staggers. Hit him hard while he kneels.'),
+      [D.pool([D.item('grove_kings_crown')]), D.pool([D.item('glimmer_antler', 2, 4)]), D.pool([D.item('raw_venison', 3, 6)]),
+       D.pool([D.item('minecraft:experience_bottle', 4, 8)]), D.pool([D.item('minecraft:emerald', 3, 7)])],
+      scale=1.8, shadow=1.4, boss=True),
+    M('bog_mother', 'BogMotherEntity', 'The Bog Mother', 'MONSTER', (0.9, 2.9), 'Biped(r, "bog_mother", 0.6f, 0.4f)', None,
+      ('#2e3a24', '#5ae08a'), 2,
+      ('The first and oldest of the mire hags, grown vast in her stilt-house over the black water. She fights at a distance with '
+       'witch-fire and sucking bog, steps away through her own lanterns when a blade comes near, and calls her bone-children up out '
+       'of the mud. While they live, her lanterns shield her.',
+       'Kill the brood first. Break line of sight from her volleys. Leaves her *lantern* and *hag\'s eyes*.'),
+      [D.pool([D.item('bog_mothers_lantern')]), D.pool([D.item('hag_eye', 2, 3)]), D.pool([D.item('gloam_essence', 2, 4)]),
+       D.pool([D.item('elixir_of_shrouds')]), D.pool([D.item('minecraft:experience_bottle', 4, 8)])],
+      scale=1.5, shadow=0.9, boss=True),
+    M('cinder_colossus', 'CinderColossusEntity', 'The Cinder Colossus', 'MONSTER', (1.6, 4.3), 'Biped(r, "cinder_colossus", 0.55f, 0.0f)', None,
+      ('#3a2a22', '#ff8a2e'), 3,
+      ('A war-effigy of the old sun-cult with a furnace for a heart, still stoking itself in its sunken sanctum under the sands. Its '
+       'blade cuts lines of fire into the ground and it can make the earth erupt beneath your feet. It opens its chest to vent, and '
+       'that is when its heart can be struck.',
+       'Bring water or wait for rain: wet, it cracks. Strike the open core. Leaves the *Cinder Heart*, *ember cores* and *gravegold*.'),
+      [D.pool([D.item('cinder_heart')]), D.pool([D.item('ember_core', 2, 4)]), D.pool([D.item('gravegold_ingot', 3, 5)]),
+       D.pool([D.item('minecraft:experience_bottle', 5, 9)]), D.pool([D.item('minecraft:gold_block', 1, 2)])],
+      scale=2.2, shadow=1.5, boss=True, extra='.fireImmune()'),
 ]
 
 PLACEMENT = {
@@ -142,7 +171,7 @@ def java():
     for m in ROSTER:
         w, h = m['size']
         lines.append(f'    public static final RegistryObject<EntityType<{m["cls"]}>> {m["id"].upper()} = reg("{m["id"]}", {m["cls"]}::new, MobCategory.{m["category"]},\n'
-                     f'        b -> b.sized({w}f, {h}f).clientTrackingRange(10){m["extra"]});\n')
+                     f'        b -> b.sized({w}f, {h}f).clientTrackingRange({12 if m["boss"] else 10}){m["extra"]});\n')
     _region(os.path.join(JAVA, 'registry/ModEntities.java'), B, E, ''.join(lines) + '\n',
             '    // ------------------------------------------------------------------ spell effects\n')
     # spawn eggs
@@ -153,10 +182,11 @@ def java():
     # attributes and spawn rules
     attrs = ''.join(f'        event.put(ModEntities.{m["id"].upper()}.get(), {m["cls"]}.createAttributes().build());\n' for m in ROSTER)
     spawns = ''.join(f'        event.register(ModEntities.{m["id"].upper()}.get(), {PLACEMENT[m["spawn"]][0]}, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,\n'
-                     f'            {PLACEMENT[m["spawn"]][1]}, SpawnPlacementRegisterEvent.Operation.REPLACE);\n' for m in ROSTER)
+                     f'            {PLACEMENT[m["spawn"]][1]}, SpawnPlacementRegisterEvent.Operation.REPLACE);\n' for m in ROSTER if m['spawn'])
     with open(os.path.join(JAVA, 'registry/RosterRegistry.java'), 'w') as f:
         f.write(f'''package com.oathbound.registry;
 
+import com.oathbound.entity.boss.*;
 import com.oathbound.entity.mob.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -250,6 +280,7 @@ def tags():
 NAMES = {m['id']: m['en'] for m in ROSTER}
 BESTIARY = {m['id']: (m['en'], m['bestiary'][0], m['bestiary'][1]) for m in ROSTER}
 EGGS = {m['id']: m['egg'] for m in ROSTER}
+BOSSES = [m['id'] for m in ROSTER if m['boss']]
 
 
 def generate():

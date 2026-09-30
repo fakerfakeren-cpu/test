@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "oathbound:grove_shrine",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 44,
+    "separation": 16,
+    "salt": 81311401
+  }
+}

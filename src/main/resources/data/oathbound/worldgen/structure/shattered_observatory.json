@@ -1,0 +1,8 @@
+{
+  "type": "oathbound:sketch",
+  "biomes": "#oathbound:has_structure/shattered_observatory",
+  "spawn_overrides": {},
+  "step": "surface_structures",
+  "terrain_adaptation": "none",
+  "sketch": "shattered_observatory"
+}

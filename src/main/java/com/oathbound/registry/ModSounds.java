@@ -106,6 +106,9 @@ public final class ModSounds {
     public static final RegistryObject<SoundEvent> WRAITH_WAIL = reg("wraith_wail");
     public static final RegistryObject<SoundEvent> MITE_CHITTER = reg("mite_chitter");
     public static final RegistryObject<SoundEvent> REVENANT_ROAR = reg("revenant_roar");
+    public static final RegistryObject<SoundEvent> ELDERHORN_BELLOW = reg("elderhorn_bellow");
+    public static final RegistryObject<SoundEvent> COLOSSUS_ROAR = reg("colossus_roar");
+    public static final RegistryObject<SoundEvent> THEME_WILDS = reg("theme_wilds");
     public static final RegistryObject<SoundEvent> DISC_LANTERNGUARD_HYMN = reg("disc_lanternguard_hymn");
     public static final RegistryObject<SoundEvent> DISC_WAYSHRINE_NOCTURNE = reg("disc_wayshrine_nocturne");
     public static final RegistryObject<SoundEvent> DISC_CHAPEL_TIDES = reg("disc_chapel_tides");

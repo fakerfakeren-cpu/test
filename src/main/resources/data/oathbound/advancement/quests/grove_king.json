@@ -1,0 +1,43 @@
+{
+  "display": {
+    "icon": {
+      "id": "oathbound:grove_kings_crown"
+    },
+    "title": {
+      "translate": "quest.oathbound.grove_king.title"
+    },
+    "description": {
+      "translate": "quest.oathbound.grove_king.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "slain": {
+      "trigger": "minecraft:impossible"
+    },
+    "killed": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "minecraft:entity_type": "oathbound:elderhorn"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "slain",
+      "killed"
+    ]
+  ],
+  "parent": "oathbound:quests/root"
+}

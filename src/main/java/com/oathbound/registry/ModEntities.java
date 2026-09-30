@@ -73,6 +73,12 @@ public final class ModEntities {
         b -> b.sized(0.5f, 0.35f).clientTrackingRange(10));
     public static final RegistryObject<EntityType<AshenRevenantEntity>> ASHEN_REVENANT = reg("ashen_revenant", AshenRevenantEntity::new, MobCategory.MONSTER,
         b -> b.sized(0.65f, 1.95f).clientTrackingRange(10).fireImmune());
+    public static final RegistryObject<EntityType<ElderhornEntity>> ELDERHORN = reg("elderhorn", ElderhornEntity::new, MobCategory.MONSTER,
+        b -> b.sized(1.8f, 3.4f).clientTrackingRange(12));
+    public static final RegistryObject<EntityType<BogMotherEntity>> BOG_MOTHER = reg("bog_mother", BogMotherEntity::new, MobCategory.MONSTER,
+        b -> b.sized(0.9f, 2.9f).clientTrackingRange(12));
+    public static final RegistryObject<EntityType<CinderColossusEntity>> CINDER_COLOSSUS = reg("cinder_colossus", CinderColossusEntity::new, MobCategory.MONSTER,
+        b -> b.sized(1.6f, 4.3f).clientTrackingRange(12).fireImmune());
 
     // ------------------------------------------------------------------ end of the wider roster
     // ------------------------------------------------------------------ spell effects

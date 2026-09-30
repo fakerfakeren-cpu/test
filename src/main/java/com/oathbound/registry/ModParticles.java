@@ -24,6 +24,14 @@ public final class ModParticles {
     public static final RegistryObject<SimpleParticleType> SUNBURST = reg("sunburst");
     /** Sea-green drowned glimmer (Caldris, the chapel). */
     public static final RegistryObject<SimpleParticleType> TIDE = reg("tide");
+    /** A tumbling spring-green petal (the Elderhorn, groves). */
+    public static final RegistryObject<SimpleParticleType> PETAL = reg("petal");
+    /** A drifting marsh-light spore (the Bog Mother, swamps). */
+    public static final RegistryObject<SimpleParticleType> SPORE = reg("spore");
+    /** A blinking firefly of warm summer nights. */
+    public static final RegistryObject<SimpleParticleType> FIREFLY = reg("firefly");
+    /** A grey-orange flake of falling ash (the Cinder Colossus, burnt lands). */
+    public static final RegistryObject<SimpleParticleType> ASH = reg("ash");
 
     private static RegistryObject<SimpleParticleType> reg(String name) {
         return PARTICLES.register(name, () -> new SimpleParticleType(true));

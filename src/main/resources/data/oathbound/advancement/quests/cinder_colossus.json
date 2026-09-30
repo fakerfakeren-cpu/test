@@ -1,0 +1,43 @@
+{
+  "display": {
+    "icon": {
+      "id": "oathbound:cinder_heart"
+    },
+    "title": {
+      "translate": "quest.oathbound.cinder_colossus.title"
+    },
+    "description": {
+      "translate": "quest.oathbound.cinder_colossus.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "slain": {
+      "trigger": "minecraft:impossible"
+    },
+    "killed": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "minecraft:entity_type": "oathbound:cinder_colossus"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "slain",
+      "killed"
+    ]
+  ],
+  "parent": "oathbound:quests/root"
+}

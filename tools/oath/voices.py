@@ -148,7 +148,31 @@ def revenant_roar(i):
     return A.reverb(A.drive(A.mix(growl, fire) * 1.4, 2.2), 1.8, 0.7, 0.3)
 
 
+def elderhorn_bellow(i):
+    """A rutting stag the size of a cart: a long rising-and-falling bellow over a chest rumble."""
+    d = 2.4
+    f = A._freq(np.concatenate([A.glide(95 + 8 * i, 150 + 10 * i, 0.9), A.glide(150 + 10 * i, 70, 1.5)]), int(d * A.SR))
+    f = f * (1 + 0.02 * np.sin(2 * np.pi * 6 * A.t(d)))
+    voice = A.formant(A.saw(f, d, 40), 'o', 0.8) * A.env_swell(d, 0.35, 1.2)
+    rough = A.bandpass(A.noise(d, 'pink', seed=400 + i), 700, 1.5) * A.env_swell(d, 0.4, 1.0) * 0.35
+    chest = A.rumble(d, 90) * A.env_swell(d, 0.4, 1.0) * 0.6
+    leaves = A.highpass(A.noise(d, 'white', seed=401 + i), 5000) * A.env_swell(d, 0.6, 1.0) * 0.08
+    return A.reverb(A.drive(A.mix(voice, rough, chest, leaves) * 1.3, 1.8), 2.6, 1.2, 0.4)
+
+
+def colossus_roar(i):
+    """A furnace given a throat: a grinding growl, a roaring draught and the ring of hot iron."""
+    d = 2.2
+    growl = A.formant(A.saw(A.glide(70 + 6 * i, 48, d), d, 40), 'a', 0.7) * A.env_swell(d, 0.3, 1.0)
+    draught = A.lowpass(A.noise(d, 'brown', seed=410 + i), 600) * A.env_swell(d, 0.5, 1.0) * 0.9
+    fire = A.crackle(d, 160, 411 + i) * 0.35
+    iron = A.mix(A.at(A.clink(310 + 20 * i, 1.4) * 0.3, 0.15), A.at(A.clink(465, 1.2) * 0.2, 0.2))
+    return A.reverb(A.drive(A.mix(growl, draught, fire, iron) * 1.4, 2.4), 2.2, 0.9, 0.35)
+
+
 VOICES = {
+    'elderhorn_bellow': (elderhorn_bellow, 2, 'Elderhorn bellows'),
+    'colossus_roar': (colossus_roar, 2, 'Cinder Colossus roars'),
     'fawn_call': (fawn_call, 3, 'Glimmerfawn calls'),
     'fawn_hurt': (fawn_hurt, 2, 'Glimmerfawn cries'),
     'hare_squeak': (hare_squeak, 2, 'Duskhare squeaks'),

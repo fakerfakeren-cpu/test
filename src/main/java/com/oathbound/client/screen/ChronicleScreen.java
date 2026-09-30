@@ -81,7 +81,10 @@ public class ChronicleScreen extends Screen {
         new Entry("gloam_stalker", 5, ModItems.GLOAM_STALKER_SPAWN_EGG),
         new Entry("shade_wraith", 5, ModItems.SHADE_WRAITH_SPAWN_EGG),
         new Entry("lumenite_mite", 0, ModItems.LUMENITE_MITE_SPAWN_EGG),
-        new Entry("ashen_revenant", 4, ModItems.ASHEN_REVENANT_SPAWN_EGG));
+        new Entry("ashen_revenant", 4, ModItems.ASHEN_REVENANT_SPAWN_EGG),
+        new Entry("elderhorn", 1, ModItems.ELDERHORN_SPAWN_EGG),
+        new Entry("bog_mother", 2, ModItems.BOG_MOTHER_SPAWN_EGG),
+        new Entry("cinder_colossus", 3, ModItems.CINDER_COLOSSUS_SPAWN_EGG));
 
     private static final List<Entry> RELICS = List.of(
         new Entry("wardens_lantern", 0, ModItems.WARDENS_LANTERN), new Entry("oathsteel_longsword", 0, ModItems.OATHSTEEL_LONGSWORD),
@@ -494,8 +497,9 @@ public class ChronicleScreen extends Screen {
             int sx = spineX + 44 + (sideRow % 3) * 40;
             int sy = p != null ? p[1] + (sideRow % 2) * 10 : y + (sideRow / 3) * 28;
             if (pathChapter == QuestLog.CHAPTERS - 1) {
-                sx = x + 8 + (sideRow % 4) * 40;
-                sy = y + (sideRow / 4) * 34;
+                // the Tales: no spine, just a grid of seals
+                sx = x + 4 + (sideRow % 5) * 33;
+                sy = y + (sideRow / 5) * 28;
             }
             at.put(q.id(), new int[]{sx, sy});
             sideRow++;

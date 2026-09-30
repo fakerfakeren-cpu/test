@@ -1,0 +1,8 @@
+{
+  "type": "oathbound:sketch",
+  "biomes": "#oathbound:has_structure/grove_shrine",
+  "spawn_overrides": {},
+  "step": "surface_structures",
+  "terrain_adaptation": "none",
+  "sketch": "grove_shrine"
+}

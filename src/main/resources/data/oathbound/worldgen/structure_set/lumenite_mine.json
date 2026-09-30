@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "oathbound:lumenite_mine",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 30,
+    "separation": 10,
+    "salt": 81311411
+  }
+}

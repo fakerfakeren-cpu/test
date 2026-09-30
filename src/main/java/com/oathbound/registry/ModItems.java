@@ -225,6 +225,9 @@ public final class ModItems {
     public static final RegistryObject<Item> HEART_OF_THE_GLOAM = reg("heart_of_the_gloam", p -> new RelicItem(p, RelicItem.Kind.HEART), () -> new Item.Properties().stacksTo(1).rarity(Rarity.EPIC));
     public static final RegistryObject<Item> SUNSHARD_TALISMAN = reg("sunshard_talisman", p -> new RelicItem(p, RelicItem.Kind.SUNSHARD), () -> new Item.Properties().stacksTo(1).rarity(Rarity.EPIC));
     public static final RegistryObject<Item> HUNTSMANS_HORN = reg("huntsmans_horn", p -> new RelicItem(p, RelicItem.Kind.HORN), () -> new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON));
+    public static final RegistryObject<Item> GROVE_KINGS_CROWN = reg("grove_kings_crown", p -> new RelicItem(p, RelicItem.Kind.GROVE), () -> new Item.Properties().stacksTo(1).rarity(Rarity.EPIC));
+    public static final RegistryObject<Item> BOG_MOTHERS_LANTERN = reg("bog_mothers_lantern", p -> new RelicItem(p, RelicItem.Kind.MIRE), () -> new Item.Properties().stacksTo(1).rarity(Rarity.EPIC));
+    public static final RegistryObject<Item> CINDER_HEART = reg("cinder_heart", p -> new RelicItem(p, RelicItem.Kind.CINDER), () -> new Item.Properties().stacksTo(1).rarity(Rarity.EPIC));
     public static final RegistryObject<Item> HEARTH_PIE = reg("hearth_pie", p -> new InscribedItem(p, 1, false), () -> new Item.Properties().stacksTo(16).food(new FoodProperties(10, 0.8f, false), Consumables.defaultFood().build()));
     public static final RegistryObject<Item> HONEYCAKE = reg("honeycake", p -> new InscribedItem(p, 1, false), () -> new Item.Properties().stacksTo(16).food(new FoodProperties(6, 0.6f, false), Consumables.defaultFood().onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.ABSORPTION, 600, 0))).build()));
     public static final RegistryObject<Item> SALTED_COD = reg("salted_cod", p -> new InscribedItem(p, 1, false), () -> new Item.Properties().stacksTo(64).food(new FoodProperties(6, 0.7f, false), Consumables.defaultFood().build()));
@@ -259,6 +262,13 @@ public final class ModItems {
     public static final RegistryObject<Item> LORE_PAGE_THREE_SEALS = reg("lore_page_three_seals", p -> new LorePageItem(p, "three_seals", 2), () -> new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON));
     public static final RegistryObject<Item> LORE_PAGE_EVERFLAME = reg("lore_page_everflame", p -> new LorePageItem(p, "everflame", 2), () -> new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON));
     public static final RegistryObject<Item> LORE_PAGE_LAST_SQUIRE = reg("lore_page_last_squire", p -> new LorePageItem(p, "last_squire", 2), () -> new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON));
+    public static final RegistryObject<Item> LORE_PAGE_GROVE_KING = reg("lore_page_grove_king", p -> new LorePageItem(p, "grove_king", 2), () -> new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON));
+    public static final RegistryObject<Item> LORE_PAGE_BOG_MOTHER = reg("lore_page_bog_mother", p -> new LorePageItem(p, "bog_mother", 2), () -> new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON));
+    public static final RegistryObject<Item> LORE_PAGE_SUN_CULT = reg("lore_page_sun_cult", p -> new LorePageItem(p, "sun_cult", 2), () -> new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON));
+    public static final RegistryObject<Item> LORE_PAGE_LAST_WATCH = reg("lore_page_last_watch", p -> new LorePageItem(p, "last_watch", 2), () -> new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON));
+    public static final RegistryObject<Item> LORE_PAGE_DROWNED_CHOIR = reg("lore_page_drowned_choir", p -> new LorePageItem(p, "drowned_choir", 2), () -> new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON));
+    public static final RegistryObject<Item> LORE_PAGE_LUMENITE_RUSH = reg("lore_page_lumenite_rush", p -> new LorePageItem(p, "lumenite_rush", 2), () -> new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON));
+    public static final RegistryObject<Item> LORE_PAGE_STAR_READERS = reg("lore_page_star_readers", p -> new LorePageItem(p, "star_readers", 2), () -> new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON));
     public static final RegistryObject<Item> MUSIC_DISC_LANTERNGUARD_HYMN = reg("music_disc_lanternguard_hymn", Item::new, () -> new Item.Properties().stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(ResourceKey.create(net.minecraft.core.registries.Registries.JUKEBOX_SONG, Identifier.fromNamespaceAndPath(Oathbound.MODID, "lanternguard_hymn"))));
     public static final RegistryObject<Item> MUSIC_DISC_WAYSHRINE_NOCTURNE = reg("music_disc_wayshrine_nocturne", Item::new, () -> new Item.Properties().stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(ResourceKey.create(net.minecraft.core.registries.Registries.JUKEBOX_SONG, Identifier.fromNamespaceAndPath(Oathbound.MODID, "wayshrine_nocturne"))));
     public static final RegistryObject<Item> MUSIC_DISC_CHAPEL_TIDES = reg("music_disc_chapel_tides", Item::new, () -> new Item.Properties().stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(ResourceKey.create(net.minecraft.core.registries.Registries.JUKEBOX_SONG, Identifier.fromNamespaceAndPath(Oathbound.MODID, "chapel_tides"))));
@@ -294,6 +304,9 @@ public final class ModItems {
     public static final RegistryObject<Item> SHADE_WRAITH_SPAWN_EGG = egg("shade_wraith_spawn_egg", () -> ModEntities.SHADE_WRAITH.get());
     public static final RegistryObject<Item> LUMENITE_MITE_SPAWN_EGG = egg("lumenite_mite_spawn_egg", () -> ModEntities.LUMENITE_MITE.get());
     public static final RegistryObject<Item> ASHEN_REVENANT_SPAWN_EGG = egg("ashen_revenant_spawn_egg", () -> ModEntities.ASHEN_REVENANT.get());
+    public static final RegistryObject<Item> ELDERHORN_SPAWN_EGG = egg("elderhorn_spawn_egg", () -> ModEntities.ELDERHORN.get());
+    public static final RegistryObject<Item> BOG_MOTHER_SPAWN_EGG = egg("bog_mother_spawn_egg", () -> ModEntities.BOG_MOTHER.get());
+    public static final RegistryObject<Item> CINDER_COLOSSUS_SPAWN_EGG = egg("cinder_colossus_spawn_egg", () -> ModEntities.CINDER_COLOSSUS.get());
     // ------------------------------------------------------------------ end of the wider roster
     // ------------------------------------------------------------------ block items
     static {

@@ -1,0 +1,43 @@
+{
+  "display": {
+    "icon": {
+      "id": "oathbound:bog_mothers_lantern"
+    },
+    "title": {
+      "translate": "quest.oathbound.bog_mother.title"
+    },
+    "description": {
+      "translate": "quest.oathbound.bog_mother.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "slain": {
+      "trigger": "minecraft:impossible"
+    },
+    "killed": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "minecraft:entity_type": "oathbound:bog_mother"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "slain",
+      "killed"
+    ]
+  ],
+  "parent": "oathbound:quests/root"
+}

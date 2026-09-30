@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "oathbound:cinder_sanctum",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 48,
+    "separation": 16,
+    "salt": 81311405
+  }
+}

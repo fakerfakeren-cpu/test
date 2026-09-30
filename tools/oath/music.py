@@ -208,6 +208,46 @@ def crown_of_ash():
     return _finish(L, 2.6, 1.1, 0.28)
 
 
+# ====================================================================== The Wild Hunt (minibosses)
+def theme_wilds():
+    """Battle theme for the wild keepers: E dorian in a driving 6/8, frame drums, a fiddle ostinato, a drone and a
+    flute that turns into horns. Loops every 29 bars."""
+    e8 = 60 / 300           # one eighth note
+    bars = 29
+    L = np.zeros(int(bars * 6 * e8 * A.SR) + A.SR * 3)
+    prog = [['E3', 'B3'], ['E3', 'B3'], ['D3', 'A3'], ['E3', 'B3'], ['C3', 'G3'], ['D3', 'A3'], ['E3', 'B3'], ['B2', 'F#3']]
+    fiddle = lambda f, d: A.strings(f, d, 0.02, 0.08, 3600, 6.0)
+    for b in range(bars):
+        t0 = b * 6 * e8
+        ch = prog[b % 8]
+        # drone
+        for nme in ch:
+            _place(L, A.pad(A.note(nme), 6 * e8 * 1.05, 2, 0.004, 900, 0.05, 0.2) * 0.07, t0)
+        # frame drum: DUM . tek DUM tek tek
+        for off, kind in ((0, 'D'), (2, 't'), (3, 'D'), (4, 't'), (5, 't')):
+            if kind == 'D':
+                _place(L, A.drum(70, 0.5, 0.5, 2.0) * 0.7, t0 + off * e8)
+            else:
+                _place(L, A.highpass(A.noise(0.08, 'white'), 2500) * A.env_exp(0.08, 0.03) * 0.25, t0 + off * e8)
+        if b >= 2:
+            # fiddle ostinato: root-fifth-octave rocking in eighths
+            root = A.note(ch[0]) * 2
+            for k, mul in enumerate((1, 1.5, 2, 1.5, 1, 1.5)):
+                _place(L, fiddle(root * mul, e8 * 0.9) * 0.08, t0 + k * e8)
+        if b % 8 == 7:
+            _place(L, A.cymbal(1.6) * 0.25, t0 + 5 * e8)
+        if b >= 20:
+            _place(L, timpani(1.2, 41) * 0.5, t0)
+    tune = [('E5', 3), ('D5', 1), ('B4', 2), ('A4', 3), ('B4', 3), ('D5', 3), ('E5', 2), ('F#5', 1), ('G5', 3), ('F#5', 3),
+            ('E5', 2), ('D5', 1), ('B4', 3), ('A4', 2), ('G4', 1), ('A4', 3), ('B4', 6), (None, 6)]
+    _line(L, tune, e8, 4 * 6 * e8, lambda f, d: flute(f, d, 0.03, 0.12, 5.6), 0.2)
+    _line(L, tune, e8, 12 * 6 * e8, lambda f, d: flute(f, d, 0.03, 0.12, 5.6), 0.22)
+    horn = lambda f, d: A.horn(f, d, 0.05, 0.2, 2400)
+    _line(L, [(n and n[:-1] + str(int(n[-1]) - 1), ln) for n, ln in tune], e8, 20 * 6 * e8, horn, 0.2)
+    _line(L, tune, e8, 20 * 6 * e8, lambda f, d: A.strings(f, d, 0.04, 0.2, 3400, 6.0), 0.12)
+    return _finish(L, 2.0, 0.8, 0.24)
+
+
 DISCS = {
     # sound event: (composer, English title, comparator output)
     'disc_lanternguard_hymn': (lanternguard_hymn, "The Lanternguard's Hymn", 3),

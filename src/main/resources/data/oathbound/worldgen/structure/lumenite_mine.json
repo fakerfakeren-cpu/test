@@ -1,0 +1,8 @@
+{
+  "type": "oathbound:sketch",
+  "biomes": "#oathbound:has_structure/lumenite_mine",
+  "spawn_overrides": {},
+  "step": "underground_structures",
+  "terrain_adaptation": "none",
+  "sketch": "lumenite_mine"
+}

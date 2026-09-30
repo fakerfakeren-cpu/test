@@ -91,6 +91,8 @@ def quest_criteria():
     any_of('insignia', 'task', 'lanternguard_insignia', insignia=has_item('lanternguard_insignia'))
     all_of('loremaster', 'challenge', 'lore_tablet', **{f'tablet_{i}': impossible() for i in range(10)})
     any_of('everflame', 'challenge', 'everflame_lantern', lantern=has_item('everflame_lantern'))
+    from . import wilds
+    wilds.quests(any_of)
     return Q
 
 
@@ -112,6 +114,8 @@ BOONS = ['squires_vigor', 'lamplighters_thrift', 'pilgrims_stride', 'tidebound',
 
 def advancements():
     Q = quest_criteria()
+    from . import wilds
+    PARENTS.update(wilds.PARENTS)
     assert set(Q) == set(PARENTS), set(Q) ^ set(PARENTS)
     for qid, (crit, req, frame, icon) in Q.items():
         display = {
@@ -265,7 +269,8 @@ def loot_tables():
                                    item('minecraft:torch', 6, 16, 12), item('minecraft:arrow', 6, 14, 10)], rolls=(3, 6))],
         'citadel_secret': [pool([item('lanternguard_insignia')]), pool([item('elixir_of_dawn', 1, 2)])],
     }
-    from . import wares
+    from . import wares, wilds
+    C.update(wilds.chests())
     for name, extra in wares.loot_pools().items():
         C[name] = C[name] + [extra]
     for name, pools in C.items():
@@ -410,6 +415,8 @@ def worldgen():
     write('forge/biome_modifier/gloamling_spawns.json', {'type': 'forge:add_spawns', 'biomes': '#oathbound:has_gloamlings',
                                                           'spawners': [{'type': 'oathbound:gloamling', 'weight': 14, 'minCount': 1, 'maxCount': 3}]})
     gloaming()
+    from . import wilds
+    wilds.structures()
 
 
 def gloaming():

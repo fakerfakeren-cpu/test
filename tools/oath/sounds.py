@@ -687,6 +687,7 @@ SFX = {
 STREAMS = {
     'theme_keeper': (theme_keeper, 'Keeper battle theme'),
     'theme_morvane': (theme_morvane, 'The Hollow King'),
+    'theme_wilds': (lambda: __import__('tools.oath.music', fromlist=['x']).theme_wilds(), 'The wild keepers\' battle theme'),
     'music_gloaming': (music_gloaming, None),
     'gloaming_ambient': (gloaming_ambient, 'The Gloaming hums'),
 }

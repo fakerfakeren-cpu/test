@@ -32,7 +32,7 @@ import java.util.Map;
  * the frame layout documented on {@link com.oathbound.event.GateRite}.
  */
 public final class Sketches {
-    public enum Siting { SURFACE, SHORE }
+    public enum Siting { SURFACE, SHORE, UNDERGROUND }
 
     public enum Type {
         WAYSHRINE(6, 4, Siting.SURFACE),
@@ -40,7 +40,14 @@ public final class Sketches {
         ARCANIST_SPIRE(7, 5, Siting.SURFACE),
         BARROW_OF_KINGS(10, 6, Siting.SURFACE),
         SUNDERED_CITADEL(18, 7, Siting.SURFACE),
-        THRONE(16, 99, Siting.SURFACE);
+        THRONE(16, 99, Siting.SURFACE),
+        GROVE_SHRINE(12, 5, Siting.SURFACE),
+        BOG_HUT(8, 8, Siting.SHORE),
+        CINDER_SANCTUM(12, 6, Siting.SURFACE),
+        WATCHTOWER(6, 6, Siting.SURFACE),
+        TIDEGLASS_GROTTO(9, 8, Siting.SHORE),
+        LUMENITE_MINE(5, 6, Siting.UNDERGROUND),
+        SHATTERED_OBSERVATORY(8, 6, Siting.SURFACE);
 
         public final int footprint;
         public final int tolerance;
@@ -87,6 +94,13 @@ public final class Sketches {
             case BARROW_OF_KINGS -> barrow(s);
             case SUNDERED_CITADEL -> citadel(s);
             case THRONE -> throne(s);
+            case GROVE_SHRINE -> WildSketches.groveShrine(s);
+            case BOG_HUT -> WildSketches.bogHut(s);
+            case CINDER_SANCTUM -> WildSketches.cinderSanctum(s);
+            case WATCHTOWER -> WildSketches.watchtower(s);
+            case TIDEGLASS_GROTTO -> WildSketches.tideglassGrotto(s);
+            case LUMENITE_MINE -> WildSketches.lumeniteMine(s);
+            case SHATTERED_OBSERVATORY -> WildSketches.observatory(s);
         }
         return s;
     }

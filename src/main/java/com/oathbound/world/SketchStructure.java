@@ -48,6 +48,12 @@ public class SketchStructure extends Structure {
                 if (lo > sea + 4 || hi - lo > 8) return Optional.empty();
                 y = sea - 1;
             }
+            case UNDERGROUND -> {
+                // The Lumenite Delve: galleries thirty blocks down, a headframe on the surface above the shaft.
+                if (hi - lo > type.tolerance || lo <= sea) return Optional.empty();
+                y = lo - 30;
+                if (y < ctx.heightAccessor().getMinY() + 8) return Optional.empty();
+            }
             default -> {
                 if (hi - lo > type.tolerance || lo <= sea) return Optional.empty();
                 y = lo;

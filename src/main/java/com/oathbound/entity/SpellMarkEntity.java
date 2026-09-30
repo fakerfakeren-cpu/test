@@ -23,7 +23,7 @@ public class SpellMarkEntity extends Entity {
 
     /** Effect colours, as RGB. */
     public enum Hue {
-        DAWN(0xFFD36B), GLOAM(0xA35CFF), ARCANE(0x6FA8FF), SPIRIT(0x6FF5E0), TIDE(0x3FE0C0), EMBER(0xFF7A2E), BLOOD(0xFF3048);
+        DAWN(0xFFD36B), GLOAM(0xA35CFF), ARCANE(0x6FA8FF), SPIRIT(0x6FF5E0), TIDE(0x3FE0C0), EMBER(0xFF7A2E), BLOOD(0xFF3048), GROVE(0x9BF06A), MIRE(0x5CE08A);
 
         public final int rgb;
 

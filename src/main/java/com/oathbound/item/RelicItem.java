@@ -41,7 +41,13 @@ public class RelicItem extends InscribedItem {
         /** Sunshard Talisman: a flash of the first dawn that burns the Gloam and the dead. */
         SUNSHARD(800),
         /** Huntsman's Horn: every hostile thing within thirty-two blocks is outlined in light. */
-        HORN(600);
+        HORN(600),
+        /** Grove King's Crown: roots burst up under nearby foes and hold them, and the grove mends its bearer. */
+        GROVE(700),
+        /** Bog Mother's Lantern: snuff it to step ten blocks ahead, leaving blinding marsh-gas behind. */
+        MIRE(360),
+        /** Cinder Heart: the ground erupts under every foe around; fire cannot touch its bearer for a while. */
+        CINDER(900);
 
         final int cooldown;
 
@@ -166,6 +172,81 @@ public class RelicItem extends InscribedItem {
                 SpellMarkEntity.ring(level, at, 14f, SpellMarkEntity.Hue.SPIRIT, 26);
                 sound(level, p, ModSounds.WARHORN.get(), 2.5f, 1.5f);
                 p.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("message.oathbound.horn", n));
+            }
+            case GROVE -> {
+                for (LivingEntity e : level.getEntitiesOfClass(LivingEntity.class, new AABB(p.blockPosition()).inflate(8), e -> e != p && hostile(e))) {
+                    e.hurtServer(level, level.damageSources().thorns(p), 5f);
+                    e.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 100, 5));
+                    e.setDeltaMovement(0, 0.35, 0);
+                    e.hurtMarked = true;
+                    SpellMarkEntity.sigil(level, e.position(), 1.1f, SpellMarkEntity.Hue.GROVE, 30);
+                    SpellMarkEntity.pillar(level, e.position(), 0.6f, SpellMarkEntity.Hue.GROVE, 14);
+                    Vfx.burst(level, new net.minecraft.core.particles.BlockParticleOption(net.minecraft.core.particles.ParticleTypes.BLOCK,
+                        net.minecraft.world.level.block.Blocks.ROOTED_DIRT.defaultBlockState()), e.position().add(0, 0.4, 0), 24, 0.4, 0.2);
+                }
+                for (Player q : level.getEntitiesOfClass(Player.class, new AABB(p.blockPosition()).inflate(8))) {
+                    q.heal(4f);
+                    q.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 120, 0));
+                }
+                SpellMarkEntity.sigil(level, at, 3.5f, SpellMarkEntity.Hue.GROVE, 40);
+                SpellMarkEntity.ring(level, at, 9f, SpellMarkEntity.Hue.GROVE, 22);
+                Vfx.ring(level, ModParticles.PETAL.get(), at.add(0, 0.4, 0), 4, 60, 0.1);
+                sound(level, p, ModSounds.ELDERHORN_BELLOW.get(), 1.0f, 1.6f);
+                sound(level, p, net.minecraft.sounds.SoundEvents.ROOTED_DIRT_BREAK, 2.0f, 0.6f);
+            }
+            case MIRE -> {
+                Vec3 look = p.getLookAngle().multiply(1, 0, 1);
+                if (look.lengthSqr() < 1e-4) return false;
+                look = look.normalize();
+                Vec3 dest = null;
+                for (double d = 10; d >= 2; d -= 0.5) {
+                    Vec3 c = at.add(look.scale(d));
+                    if (level.noCollision(p, p.getBoundingBox().move(c.subtract(at)))) {
+                        dest = c;
+                        break;
+                    }
+                }
+                if (dest == null) {
+                    p.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("message.oathbound.relic.no_room"));
+                    return false;
+                }
+                var cloud = new net.minecraft.world.entity.AreaEffectCloud(level, at.x, at.y, at.z);
+                cloud.setOwner(p);
+                cloud.setRadius(3.0f);
+                cloud.setDuration(100);
+                cloud.setRadiusPerTick(-0.01f);
+                cloud.addEffect(new MobEffectInstance(MobEffects.POISON, 80, 1));
+                cloud.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 60, 0));
+                level.addFreshEntity(cloud);
+                for (Mob m : level.getEntitiesOfClass(Mob.class, new AABB(p.blockPosition()).inflate(16), m -> m.getTarget() == p)) {
+                    m.setTarget(null);
+                }
+                Vfx.burst(level, ModParticles.SPORE.get(), at.add(0, 1, 0), 40, 0.6, 0.06);
+                SpellMarkEntity.beam(level, at.add(0, 1.0, 0), dest.add(0, 1.0, 0), 0.25f, SpellMarkEntity.Hue.MIRE, 10);
+                p.teleportTo(dest.x, dest.y, dest.z);
+                p.resetFallDistance();
+                Vfx.burst(level, ModParticles.SPORE.get(), dest.add(0, 1, 0), 24, 0.4, 0.06);
+                SpellMarkEntity.sigil(level, dest, 1.3f, SpellMarkEntity.Hue.MIRE, 20);
+                sound(level, p, ModSounds.HAG_CACKLE.get(), 0.8f, 1.5f);
+                sound(level, p, ModSounds.LANTERN_SNUFF.get(), 1.0f, 1.2f);
+            }
+            case CINDER -> {
+                p.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 600, 0));
+                p.clearFire();
+                for (LivingEntity e : level.getEntitiesOfClass(LivingEntity.class, new AABB(p.blockPosition()).inflate(10), e -> e != p && hostile(e))) {
+                    e.hurtServer(level, level.damageSources().indirectMagic(p, p), 8f);
+                    e.igniteForSeconds(6);
+                    e.setDeltaMovement(e.getDeltaMovement().x, 0.8, e.getDeltaMovement().z);
+                    e.hurtMarked = true;
+                    SpellMarkEntity.pillar(level, e.position(), 0.9f, SpellMarkEntity.Hue.EMBER, 16);
+                    Vfx.column(level, net.minecraft.core.particles.ParticleTypes.FLAME, e.position(), 4, 30);
+                }
+                SpellMarkEntity.sigil(level, at, 3.0f, SpellMarkEntity.Hue.EMBER, 40);
+                SpellMarkEntity.ring(level, at, 11f, SpellMarkEntity.Hue.EMBER, 22);
+                SpellMarkEntity.halo(level, at.add(0, 1.2, 0), 0.9f, SpellMarkEntity.Hue.EMBER, 40);
+                Vfx.ring(level, ModParticles.EMBER.get(), at.add(0, 0.3, 0), 3.5, 60, 0.12);
+                sound(level, p, ModSounds.COLOSSUS_ROAR.get(), 0.9f, 1.4f);
+                sound(level, p, net.minecraft.sounds.SoundEvents.BLAZE_SHOOT, 1.5f, 0.7f);
             }
         }
         return true;

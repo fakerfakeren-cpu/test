@@ -1,0 +1,8 @@
+{
+  "type": "oathbound:sketch",
+  "biomes": "#oathbound:has_structure/cinder_sanctum",
+  "spawn_overrides": {},
+  "step": "surface_structures",
+  "terrain_adaptation": "none",
+  "sketch": "cinder_sanctum"
+}

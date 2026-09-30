@@ -112,6 +112,14 @@ public final class QuestLog {
         q("insignia", 6, "root", ModItems.LANTERNGUARD_INSIGNIA, 60, false, r(() -> Items.EMERALD, 8));
         q("loremaster", 6, "root", ModBlocks.LORE_TABLET, 150, false, r(() -> Items.ENCHANTED_BOOK, 1), r(() -> Items.EXPERIENCE_BOTTLE, 12));
         q("everflame", 6, "morvane", ModItems.EVERFLAME_LANTERN, 200, false, r(() -> Items.NETHER_STAR, 1));
+        // the places off the Path
+        q("grove_king", 6, "root", ModItems.GROVE_KINGS_CROWN, 150, false, r(() -> Items.GOLDEN_APPLE, 2), r(ModItems.ELIXIR_OF_THE_WAYFARER, 2));
+        q("bog_mother", 6, "root", ModItems.BOG_MOTHERS_LANTERN, 150, false, r(() -> Items.GOLDEN_APPLE, 2), r(ModItems.ELIXIR_OF_SHROUDS, 2));
+        q("cinder_colossus", 6, "root", ModItems.CINDER_HEART, 200, false, r(() -> Items.DIAMOND, 3), r(ModItems.ELIXIR_OF_VALOR, 2));
+        q("last_watch", 6, "root", ModBlocks.OATHSTEEL_LANTERN, 40, false, r(ModItems.TRAIL_RATIONS, 4));
+        q("tideglass", 6, "root", ModBlocks.BARNACLED_TIDESTONE_BRICKS, 40, false, r(ModItems.ELIXIR_OF_TIDES, 2));
+        q("delve", 6, "root", ModBlocks.LUMENITE_ORE, 40, false, r(ModItems.LUMENITE_SHARD, 8));
+        q("star_readers", 6, "root", ModBlocks.GLOAMGLASS, 60, false, r(ModItems.SPELLSILK, 3));
     }
 
     private static Reward r(Supplier<? extends ItemLike> item, int count) {

@@ -35,6 +35,12 @@ RELICS = [
      ['A splinter of the first dawn, freed when the Hollow Crown broke.', 'Use: a flash of dawn burns the Gloam and the dead.']),
     ('huntsmans_horn', "Huntsman's Horn", 'HORN', 'UNCOMMON',
      ['The wayshrine wardens\' horn, for calling out what hides.', 'Use: every foe within 32 blocks is outlined in light.']),
+    ('grove_kings_crown', "Grove King's Crown", 'GROVE', 'EPIC',
+     ['A tine of the Elderhorn\'s antlers, still putting out leaves.', 'Use: roots burst up under every foe near you, and the grove mends you.']),
+    ('bog_mothers_lantern', "Bog Mother's Lantern", 'MIRE', 'EPIC',
+     ['Its green flame burns without oil and without warmth.', 'Use: snuff it to step ten blocks ahead, leaving a cloud of marsh-gas behind.']),
+    ('cinder_heart', 'Cinder Heart', 'CINDER', 'EPIC',
+     ['The furnace that walked the sands, small enough to hold.', 'Use: the ground erupts under every foe around you. Fire cannot touch you for a while.']),
 ]
 
 E = 'MobEffects.'
@@ -555,6 +561,60 @@ CORE = [
     "................",
     "................",
 ]
+CROWN_OF_TINES = [
+    "................",
+    ".g..........g...",
+    ".K4...g....K4...",
+    "..K4.K4...K4.g..",
+    "..K4K4..g.K4K4..",
+    "...K4..K4K4K4...",
+    "...K44K4.K44....",
+    "....K444K44K....",
+    ".....K4444K.....",
+    ".....K43w3K.....",
+    "....KaaaaaaK....",
+    "...Kab5b5baK....",
+    "...KaaaaaaaK....",
+    "....KKKKKKK.....",
+    "................",
+    "................",
+]
+HAG_LANTERN = [
+    "................",
+    "......KKKK......",
+    ".....K5..5K.....",
+    ".....KK..KK.....",
+    "....KaaaaaaK....",
+    "....K4aaaa3K....",
+    "....Kb.gg.bK....",
+    "....KbgwwgbK....",
+    "....KbgwwgbK....",
+    "....Kb.gg.bK....",
+    "....Kb....bK....",
+    "....KaaaaaaK....",
+    "....K433322K....",
+    ".....KKKKKK.....",
+    "................",
+    "................",
+]
+CINDER_HEART = [
+    "................",
+    "......b..b......",
+    ".....KbKKbK.....",
+    "....K55K555K....",
+    "...K5b55b554K...",
+    "...K55w5544bK...",
+    "...Kb5ww54b4K...",
+    "...K5544444bK...",
+    "....K4b44b3K....",
+    ".....K4433K.....",
+    "......Kb3K......",
+    ".......KK.......",
+    "................",
+    "................",
+    "................",
+    "................",
+]
 DISC_LABELS = {'disc_lanternguard_hymn': 'gold', 'disc_wayshrine_nocturne': 'ember', 'disc_chapel_tides': 'tide',
                'disc_crown_of_ash': 'blood'}
 
@@ -569,6 +629,9 @@ def icons():
     out['heart_of_the_gloam'] = I.sprite(HEART, G['violet'], None, {'w': (G['white'], 5)})
     out['sunshard_talisman'] = I.sprite(SUNSHARD, G['dawn'], G['leather'], {'w': (G['white'], 5)})
     out['huntsmans_horn'] = I.sprite(I.HORN, G['wood'], G['gold'])
+    out['grove_kings_crown'] = I.sprite(CROWN_OF_TINES, G['bone'], G['moss'], {'g': (G['moss'], 5), 'w': (G['white'], 5)})
+    out['bog_mothers_lantern'] = I.sprite(HAG_LANTERN, G['rust'], G['moss'], {'g': (G['moss'], 5), 'w': (G['white'], 5)})
+    out['cinder_heart'] = I.sprite(CINDER_HEART, G['ember'], G['iron'], {'w': (G['white'], 5)})
     out['hearth_pie'] = I.sprite(PIE, G['bread'], G['stew'], {'y': (G['blood'], 3)})
     out['honeycake'] = I.sprite(CAKE, G['bread'], G['honey'], {'y': (G['honey'], 5)})
     out['salted_cod'] = I.sprite(FISH, Ramp('#4a3a2a', '#7a6248', '#a88c6a', '#c8b08e', '#e4d6bc', '#fbf4e6'), None, {'w': (G['white'], 5)})
@@ -610,6 +673,9 @@ def assets():
         write_json(f'items/{name}.json', {'model': {'type': 'minecraft:model', 'model': f'oathbound:item/{name}'}})
 
 
+from . import wilds as _wilds
+PAGES += _wilds.PAGES
+
 # ====================================================================== text (for lang.py)
 NAMES = {}
 DESC = {}
@@ -636,6 +702,7 @@ for _sid, (_, _title, _) in DISCS.items():
     LORE[f'jukebox_song.oathbound.{_sid[5:]}'] = f'Oathbound - {_title}'
 LORE['item.oathbound.lore_page.hint'] = 'Use to read.'
 LORE['message.oathbound.horn'] = '%s foes answer the horn'
+LORE['message.oathbound.relic.no_room'] = 'There is no room to step there'
 
 
 # ====================================================================== data (called by data.py)
@@ -683,6 +750,10 @@ LOOT = {
     'wayshrine_cache': [('huntsmans_horn', 2), ('apple_tart', 8), ('trail_rations', 8), ('lore_page_last_squire', 3),
                         ('music_disc_wayshrine_nocturne', 2)],
 }
+
+
+for _t, _entries in _wilds.LOOT.items():
+    LOOT.setdefault(_t, []).extend(_entries)
 
 
 def loot_pools():
