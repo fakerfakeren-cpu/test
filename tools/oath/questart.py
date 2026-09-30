@@ -1,7 +1,7 @@
 """Pictures for the Chronicle's quest pages, cut from the CI client test's real screenshots of each place.
 
-Quests about a place show where you are going; quests about a creature render it live (ChronicleScreen), and the
-rest show their item large.  Run after a CI report has refreshed docs/oathbound/ci:  python3 -m tools.oath.questart
+Quests about a place show where you are going, quests about a creature show it close up, and the rest show their
+item large (ChronicleScreen).  Run after a CI report has refreshed docs/oathbound/ci:  python3 -m tools.oath.questart
 """
 import os
 
@@ -22,6 +22,10 @@ PLACES = {
 }
 
 
+# quest id -> close-up portrait the client test takes of the creature (Showcase "portrait_*" scenes)
+CREATURES = {q: 'portrait_' + q for q in ('caldris', 'veyl', 'hrodgar', 'veilhound', 'gloamling', 'lanternmoth', 'forsworn')}
+
+
 def picture(shot):
     im = Image.open(os.path.join(SHOTS, shot + '.jpg')).convert('RGB')
     w, h = im.size
@@ -36,7 +40,7 @@ def picture(shot):
 def generate():
     os.makedirs(OUT, exist_ok=True)
     n = 0
-    for quest, shot in PLACES.items():
+    for quest, shot in {**PLACES, **CREATURES}.items():
         if os.path.exists(os.path.join(SHOTS, shot + '.jpg')):
             picture(shot).save(os.path.join(OUT, quest + '.png'), optimize=True)
             n += 1

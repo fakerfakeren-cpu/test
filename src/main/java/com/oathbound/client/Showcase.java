@@ -106,15 +106,16 @@ public final class Showcase {
         SCENES.add(new Scene(wait, name, action));
     }
 
-    private static void still(ServerLevel level, EntityType<? extends Mob> type, Vec3 at, float yaw) {
+    private static Mob still(ServerLevel level, EntityType<? extends Mob> type, Vec3 at, float yaw) {
         Mob m = type.create(level, EntitySpawnReason.COMMAND);
-        if (m == null) return;
+        if (m == null) return null;
         m.snapTo(at.x, at.y, at.z, yaw, 0);
         m.setNoAi(true);
         m.setPersistenceRequired();
         m.setYHeadRot(yaw);
         m.yBodyRot = yaw;
         level.addFreshEntity(m);
+        return m;
     }
 
     /**
@@ -450,6 +451,28 @@ public final class Showcase {
         scene(100, "king_shot", mc -> shoot(mc, "morvane"));
         scene(10, "island", mc -> frame(mc, GL, new Vec3(40, 110, 90), new Vec3(0, 70, 0)));
         scene(160, "island_shot", mc -> shoot(mc, "the_gloaming"));
+        // portraits for the Chronicle's quest pages: each quarry close up, at dusk, on the Order's stone
+        String[] sitterQuests = {"caldris", "veyl", "hrodgar", "veilhound", "gloamling", "lanternmoth", "forsworn"};
+        List<java.util.function.Supplier<? extends EntityType<? extends Mob>>> sitters = List.of(ModEntities.SIR_CALDRIS, ModEntities.ARCHMAGE_VEYL,
+            ModEntities.HRODGAR, ModEntities.VEILHOUND, ModEntities.GLOAMLING, ModEntities.LANTERNMOTH, ModEntities.FORSWORN_KNIGHT);
+        for (int i = 0; i < sitters.size(); i++) {
+            final int n = i;
+            final String quest = sitterQuests[i];
+            final var type = sitters.get(i);
+            scene(10, "portrait_" + quest, mc -> onServer(mc, p -> {
+                ServerLevel level = p.level().getServer().overworld();
+                if (n == 0) run(mc, "time set 12600");
+                int x = 80 + n * 48, z = 1000;
+                int y = stage(level, x - 4, z - 6, x + 4, z + 4, ModBlocks.WARDSTONE_BRICKS.get().defaultBlockState());
+                double feet = y + ("lanternmoth".equals(quest) ? 1.2 : 0);
+                Mob m = still(level, type.get(), new Vec3(x + 0.5, feet, z + 0.5), 180f);
+                float h = m == null ? 2f : m.getBbHeight(), w = m == null ? 1f : m.getBbWidth();
+                double dist = 2.2 + Math.max(h, w) * 1.35;
+                double eye = feet + h * 0.62;
+                p.teleportTo(level, x + 0.5, eye - 1.62, z + 0.5 - dist, java.util.Set.of(), 0f, 4f, false);
+            }));
+            scene(70, "portrait_" + quest + "_shot", mc -> shoot(mc, "portrait_" + quest));
+        }
         scene(10, "book_setup", mc -> {
             run(mc, "execute in minecraft:overworld run tp @s 80 120 640");
             run(mc, "gamemode creative");
@@ -495,6 +518,12 @@ public final class Showcase {
             s.action().accept(mc);
         } catch (Throwable t) {
             Oathbound.LOGGER.error("[CLIENTTEST] scene {} failed", s.name(), t);
+            // the report keeps [CLIENTTEST] lines, so spell the trace out there too
+            for (Throwable c = t; c != null; c = c.getCause()) {
+                log("  " + (c == t ? "" : "caused by ") + c);
+                StackTraceElement[] st = c.getStackTrace();
+                for (int i = 0; i < Math.min(12, st.length); i++) log("    at " + st[i]);
+            }
         }
         countdown = cursor < SCENES.size() ? SCENES.get(cursor).delay() : 0;
     }

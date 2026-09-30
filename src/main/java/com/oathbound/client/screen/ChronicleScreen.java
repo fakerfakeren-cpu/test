@@ -4,13 +4,11 @@ import com.oathbound.quest.Codex;
 import com.oathbound.quest.QuestLog;
 import com.oathbound.quest.QuestLog.Boon;
 import com.oathbound.quest.QuestLog.Quest;
-import com.oathbound.registry.ModEntities;
 import com.oathbound.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -24,9 +22,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 
@@ -37,7 +32,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Supplier;
 
 /**
  * The Lantern Chronicle: an open, leather-bound book with five silk ribbons.
@@ -66,14 +60,9 @@ public class ChronicleScreen extends Screen {
 
     private static final List<Codex.Entry> BEASTS = Codex.BEASTS, RELICS = Codex.RELICS;
 
-    /** Quests about a creature show it, alive; quests about a place show a picture of it (textures/gui/quest/<id>.png). */
-    private static final Map<String, Supplier<? extends EntityType<? extends LivingEntity>>> CREATURES = Map.of(
-        "caldris", ModEntities.SIR_CALDRIS, "veyl", ModEntities.ARCHMAGE_VEYL, "hrodgar", ModEntities.HRODGAR,
-        "veilhound", ModEntities.VEILHOUND, "gloamling", ModEntities.GLOAMLING, "lanternmoth", ModEntities.LANTERNMOTH,
-        "forsworn", ModEntities.FORSWORN_KNIGHT);
+    /** Quests about a place or a creature show a picture of it (textures/gui/quest/<id>.png, cut from real in-game shots). */
     private static final int PIC_W = 304, PIC_H = 128;
     private final Map<String, Boolean> hasPicture = new HashMap<>();
-    private final Map<String, LivingEntity> models = new HashMap<>();
 
     private final InteractionHand hand;
     private int tab = TAB_PATH;
@@ -649,42 +638,26 @@ public class ChronicleScreen extends Screen {
     }
 
     /**
-     * The quest's picture: the place itself, the creature (turning to follow the cursor), or the item, large; with
-     * the quest's title on a dark band along the bottom, like a captioned plate.
+     * The quest's picture: the place or creature itself, or else the item, large; with the quest's title on a dark
+     * band along the bottom, like a captioned plate.
      */
     private void plate(GuiGraphicsExtractor g, int mx, int my, Quest q, int x, int y, int w, int h) {
         g.fill(x - 1, y - 1, x + w + 1, y + h + 1, GOLD_DIM);
         Identifier pic = Identifier.fromNamespaceAndPath("oathbound", "textures/gui/quest/" + q.id() + ".png");
         boolean picture = hasPicture.computeIfAbsent(q.id(), k -> Minecraft.getInstance().getResourceManager().getResource(pic).isPresent());
-        LivingEntity model = picture ? null : model(q.id());
         if (picture) {
             g.blit(RenderPipelines.GUI_TEXTURED, pic, x, y, 0f, 0f, w, h, PIC_W, PIC_H, PIC_W, PIC_H);
         } else {
             g.fillGradient(x, y, x + w, y + h, 0xFF2A1C2E, 0xFF120C14);
-            if (model != null) {
-                float size = Math.max(model.getBbHeight(), model.getBbWidth() * 1.2f);
-                int scale = (int) Mth.clamp(40 / Math.max(0.4f, size), 10, 48);
-                InventoryScreen.extractEntityInInventoryFollowsMouse(g, x + w / 2 - 40, y + 2, x + w / 2 + 40, y + h - 10, scale, 0.0625f, mx, my, model);
-            } else {
-                g.pose().pushMatrix();
-                g.pose().translate(x + w / 2f - 24, y + 4);
-                g.pose().scale(3f, 3f);
-                g.item(q.iconStack(), 0, 0);
-                g.pose().popMatrix();
-            }
+            g.pose().pushMatrix();
+            g.pose().translate(x + w / 2f - 24, y + 4);
+            g.pose().scale(3f, 3f);
+            g.item(q.iconStack(), 0, 0);
+            g.pose().popMatrix();
         }
         g.fill(x, y + h - 12, x + w, y + h, 0xB0100A06);
         Component title = fit(Component.translatable("quest.oathbound." + q.id() + ".title").withStyle(ChatFormatting.BOLD), w - 6);
         g.centeredText(font, title, x + w / 2, y + h - 10, GOLD_BRIGHT);
-    }
-
-    private LivingEntity model(String quest) {
-        var type = CREATURES.get(quest);
-        if (type == null) return null;
-        return models.computeIfAbsent(quest, k -> {
-            Minecraft mc = Minecraft.getInstance();
-            return mc.level == null ? null : type.get().create(mc.level, EntitySpawnReason.LOAD);
-        });
     }
 
     // ------------------------------------------------------------------ Tithes & Boons
