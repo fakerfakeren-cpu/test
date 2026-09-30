@@ -104,11 +104,26 @@ public class SpellMarkRenderer extends EntityRenderer<SpellMarkEntity, SpellMark
             pose.mulPose(com.mojang.math.Axis.XP.rotationDegrees(90f));
         }
         int col = tint(s.rgb, fade);
-        int soft = tint(s.rgb, fade * 0.45f);
+        int soft = tint(s.rgb, fade * 0.7f);
         int inner = tint(lighten(s.rgb, 0.45f), fade * 0.9f);
-        c.submitCustomGeometry(pose, RenderTypes.eyes(GLOW), (p, vc) -> flatQuad(vc, p, r * 1.25f, 0f, 0.01f, soft));
-        c.submitCustomGeometry(pose, RenderTypes.eyes(SIGILS[s.glyph & 3]), (p, vc) -> flatQuad(vc, p, r, spin, 0.02f, col));
+        // a flash of light as the circle is drawn
+        float flash = Mth.clamp(1f - s.age / 6f, 0f, 1f);
+        c.submitCustomGeometry(pose, RenderTypes.eyes(GLOW), (p, vc) -> {
+            flatQuad(vc, p, r * 1.7f, 0f, 0.01f, soft);
+            if (flash > 0f) flatQuad(vc, p, r * (1.2f + (1f - flash) * 1.4f), 0f, 0.015f, tint(lighten(s.rgb, 0.7f), flash * fade));
+        });
+        c.submitCustomGeometry(pose, RenderTypes.eyes(SIGILS[s.glyph & 3]), (p, vc) -> {
+            flatQuad(vc, p, r, spin, 0.02f, col);
+            // drawn twice, slightly offset in time: the additive overlap burns the strokes in
+            flatQuad(vc, p, r * 1.01f, spin - 0.02f, 0.021f, tint(s.rgb, fade * 0.5f));
+        });
         c.submitCustomGeometry(pose, RenderTypes.eyes(SIGILS[(s.glyph + 1) & 3]), (p, vc) -> flatQuad(vc, p, r * 0.58f, -spin * 1.7f, 0.03f, inner));
+        if (!upright) {
+            // a curtain of light standing on the rim, so the circle reads from the side and from far off
+            float h = Math.min(2.2f, 0.35f + r * 0.3f);
+            int curtain = tint(s.rgb, fade * 0.42f * (0.8f + 0.2f * Mth.sin(s.age * 0.3f)));
+            c.submitCustomGeometry(pose, RenderTypes.eyes(PILLAR), (p, vc) -> tube(vc, p, r * 0.97f, r * 0.94f, 0f, h, 40, curtain, 0f, 1f));
+        }
         pose.popPose();
     }
 
@@ -131,20 +146,28 @@ public class SpellMarkRenderer extends EntityRenderer<SpellMarkEntity, SpellMark
                 tube(vc, p, r * (1.3f - k * 0.5f), r * (1.3f - k * 0.5f), y, y + 0.35f, 16, band, 0f, 1f);
             }
         });
-        c.submitCustomGeometry(pose, RenderTypes.eyes(GLOW), (p, vc) -> flatQuad(vc, p, r * 2.4f, 0f, 0.02f, tint(s.rgb, fade * 0.6f)));
+        c.submitCustomGeometry(pose, RenderTypes.eyes(GLOW), (p, vc) -> {
+            flatQuad(vc, p, r * 3.2f, 0f, 0.02f, tint(s.rgb, fade * 0.75f));
+            flatQuad(vc, p, r * 1.6f, 0f, h, tint(lighten(s.rgb, 0.4f), fade * 0.5f));
+        });
     }
 
     /** A shockwave: a flat ring that races outward and a short wall of light standing on its edge. */
     private static void ring(State s, PoseStack pose, SubmitNodeCollector c, float fade) {
         float t = s.age / s.life;
         float r = Math.max(0.6f, s.size * t);
-        float band = 0.35f + s.size * 0.08f;
+        float band = 0.5f + s.size * 0.1f;
         float f = fade * (1f - t * 0.6f);
         int col = tint(s.rgb, f);
-        int wall = tint(lighten(s.rgb, 0.3f), f * 0.7f);
+        int wall = tint(lighten(s.rgb, 0.3f), f * 0.8f);
+        int echo = tint(s.rgb, f * 0.45f);
+        float r2 = Math.max(0.4f, r * 0.82f);
         c.submitCustomGeometry(pose, RenderTypes.eyes(RING), (p, vc) -> {
-            annulus(vc, p, Math.max(0f, r - band), r + band * 0.4f, 0.02f, 48, col);
-            tube(vc, p, r, r * 1.02f, 0f, 0.3f + (1f - t) * 1.1f, 48, wall, 0f, 1f);
+            annulus(vc, p, Math.max(0f, r - band), r + band * 0.4f, 0.02f, 64, col);
+            tube(vc, p, r, r * 1.03f, 0f, 0.5f + (1f - t) * 2.0f, 64, wall, 0f, 1f);
+            // a fainter echo following behind
+            annulus(vc, p, Math.max(0f, r2 - band * 0.6f), r2 + band * 0.2f, 0.015f, 64, echo);
+            tube(vc, p, r2, r2 * 1.02f, 0f, 0.3f + (1f - t) * 1.0f, 64, echo, 0f, 1f);
         });
     }
 
@@ -191,6 +214,7 @@ public class SpellMarkRenderer extends EntityRenderer<SpellMarkEntity, SpellMark
             tube(vc, p, r * 0.9f, r * 0.7f, 0f, r * 1.4f, 24, haze, 0f, 1f);
         });
         c.submitCustomGeometry(pose, RenderTypes.eyes(SIGILS[s.glyph & 3]), (p, vc) -> flatQuad(vc, p, r * 0.9f, spin, 0.01f, tint(s.rgb, fade * 0.5f)));
+        c.submitCustomGeometry(pose, RenderTypes.eyes(GLOW), (p, vc) -> flatQuad(vc, p, r * 1.8f, 0f, 0.005f, tint(s.rgb, fade * 0.5f)));
     }
 
     // ------------------------------------------------------------------ glowing projectiles

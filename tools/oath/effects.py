@@ -126,13 +126,20 @@ def star(points, radius, step, rot=0.0):
 
 
 # ------------------------------------------------------------------ the four sigils
+THICK = 1.7   # stroke weight: thin lines vanish at a distance, so the circles are drawn bold and bloomed hard
+
+
+def glowify(v, n):
+    """Two extra blooms over the drawn lines: a tight one that fattens every stroke and a wide one that halos it."""
+    return np.clip(v * 1.1 + blur(v, n * 0.008) * 0.9 + blur(v, n * 0.03) * 0.55, 0, 1)
+
 def sigil_oath(n):
     """The Lanternguard's oath-circle: a double ring of runes around a hexagram and a lantern-flame at the heart."""
     f = Field(n)
-    lw = 2.2 * f.px
+    lw = 2.2 * THICK * f.px
     f.ring(0.96, lw * 1.4)
     f.ring(0.9, lw * 0.8)
-    rune_band(f, 0.8, 0.13, 14, 7, lw * 0.85)
+    rune_band(f, 0.8, 0.13, 14, 7, lw * 0.45)
     f.ring(0.69, lw)
     for a, b in star(6, 0.66, 2, rot=math.pi / 2):
         f.segment(a[0], a[1], b[0], b[1], lw)
@@ -150,7 +157,7 @@ def sigil_oath(n):
 def sigil_dawn(n):
     """A sunwheel: sixteen rays, a ring of beads and a watching eye."""
     f = Field(n)
-    lw = 2.2 * f.px
+    lw = 2.2 * THICK * f.px
     f.ring(0.95, lw)
     for i in range(16):
         a = i * 2 * math.pi / 16
@@ -180,10 +187,10 @@ def sigil_dawn(n):
 def sigil_arcane(n):
     """The Spire's lattice: three rings, two interlaced squares, orbiting nodes and a spiral of runes."""
     f = Field(n)
-    lw = 2.0 * f.px
+    lw = 2.0 * THICK * f.px
     f.ring(0.97, lw)
     f.ring(0.93, lw * 0.6, gaps=(48, 0.5, 0.0))
-    rune_band(f, 0.84, 0.1, 18, 21, lw * 0.75)
+    rune_band(f, 0.84, 0.1, 18, 21, lw * 0.4)
     f.ring(0.75, lw)
     for rot in (0.0, math.pi / 4):
         pts = [(math.cos(rot + i * math.pi / 2) * 0.74, math.sin(rot + i * math.pi / 2) * 0.74) for i in range(4)]
@@ -204,7 +211,7 @@ def sigil_arcane(n):
 def sigil_veil(n):
     """The Gloaming's mark: a broken ring, three hooked arms spiralling in, and a scatter of motes."""
     f = Field(n)
-    lw = 2.4 * f.px
+    lw = 2.4 * THICK * f.px
     f.ring(0.94, lw * 1.2, gaps=(7, 0.18, 0.4))
     f.ring(0.86, lw * 0.6, gaps=(13, 0.35, 0.0))
     for k in range(3):
@@ -339,7 +346,7 @@ def generate():
     fx = os.path.join(ASSETS, 'textures/effect')
     N = 256
     for i, fn in enumerate((sigil_oath, sigil_dawn, sigil_arcane, sigil_veil)):
-        save_intensity(fn(N), os.path.join(fx, f'sigil_{i}.png'))
+        save_intensity(glowify(fn(N), N), os.path.join(fx, f'sigil_{i}.png'))
     save_intensity(ring_strip(256, 64), os.path.join(fx, 'ring.png'))
     save_intensity(pillar_strip(64, 256), os.path.join(fx, 'pillar.png'))
     save_intensity(beam_strip(256, 32), os.path.join(fx, 'beam.png'))

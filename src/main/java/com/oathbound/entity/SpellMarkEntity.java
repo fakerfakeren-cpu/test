@@ -1,6 +1,7 @@
 package com.oathbound.entity;
 
 import com.oathbound.registry.ModEntities;
+import com.oathbound.registry.ModParticles;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -147,6 +148,64 @@ public class SpellMarkEntity extends Entity {
     public void tick() {
         super.tick();
         if (tickCount > life() && !level().isClientSide()) discard();
+        if (level().isClientSide() && tickCount < life() - 4) shed();
+    }
+
+    /** The particle each hue sheds as it burns. */
+    private static net.minecraft.core.particles.ParticleOptions mote(Hue hue) {
+        return switch (hue) {
+            case DAWN -> ModParticles.SUNBURST.get();
+            case GLOAM -> ModParticles.GLOAM_WISP.get();
+            case ARCANE -> ModParticles.ARCANE_GLYPH.get();
+            case SPIRIT -> ModParticles.SPIRIT.get();
+            case TIDE -> ModParticles.TIDE.get();
+            case EMBER, BLOOD -> ModParticles.EMBER.get();
+            case GROVE -> ModParticles.PETAL.get();
+            case MIRE -> ModParticles.SPORE.get();
+        };
+    }
+
+    /** Client-side: motes rise from rims, climb pillars, ride shockwaves and drift down from halos. */
+    private void shed() {
+        var r = random;
+        var p = mote(hue());
+        float size = size();
+        double x = getX(), y = getY(), z = getZ();
+        switch (kind()) {
+            case SIGIL -> {
+                int n = Math.min(4, 1 + (int) (size * 0.6f));
+                for (int i = 0; i < n; i++) {
+                    if (r.nextInt(2) != 0) continue;
+                    double a = r.nextDouble() * Math.PI * 2, d = size * (0.85 + r.nextDouble() * 0.15);
+                    level().addParticle(p, x + Math.cos(a) * d, y + 0.05, z + Math.sin(a) * d, 0, 0.03 + r.nextDouble() * 0.04, 0);
+                }
+            }
+            case PILLAR -> {
+                for (int i = 0; i < 2; i++) {
+                    double a = tickCount * 0.5 + i * Math.PI, d = size * 0.9;
+                    level().addParticle(p, x + Math.cos(a) * d, y + r.nextDouble() * size * 6, z + Math.sin(a) * d, 0, 0.12, 0);
+                }
+            }
+            case RING -> {
+                double rad = Math.max(0.6, size * tickCount / (double) Math.max(1, life()));
+                for (int i = 0; i < 4; i++) {
+                    double a = r.nextDouble() * Math.PI * 2;
+                    level().addParticle(p, x + Math.cos(a) * rad, y + 0.1, z + Math.sin(a) * rad, Math.cos(a) * 0.05, 0.04, Math.sin(a) * 0.05);
+                }
+            }
+            case HALO -> {
+                if (r.nextInt(2) == 0) {
+                    double a = r.nextDouble() * Math.PI * 2;
+                    level().addParticle(p, x + Math.cos(a) * size, y, z + Math.sin(a) * size, 0, -0.02, 0);
+                }
+            }
+            case BEAM -> {
+                Vec3 e = end();
+                double k = r.nextDouble();
+                level().addParticle(p, x + e.x * k, y + e.y * k, z + e.z * k, (r.nextDouble() - 0.5) * 0.04, 0.02, (r.nextDouble() - 0.5) * 0.04);
+            }
+            default -> {}
+        }
     }
 
     @Override

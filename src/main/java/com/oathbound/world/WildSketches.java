@@ -672,8 +672,8 @@ final class WildSketches {
         s.put(0, 2, 0, st(ModBlocks.DUSKIRON_BLOCK));
         for (int k = 0; k <= 9; k++) {
             int x = (int) Math.round(k * 0.55), y = 3 + k, z = -(int) Math.round(k * 0.55);
-            s.put(x, y, z, st(Blocks.COPPER_BLOCK));
-            if (k > 4) s.put(x + 1, y, z, st(Blocks.COPPER_BLOCK));
+            s.put(x, y, z, st(ModBlocks.TIDEBRONZE_BLOCK));
+            if (k > 4) s.put(x + 1, y, z, st(ModBlocks.TIDEBRONZE_BLOCK));
         }
         s.put(6, 13, -5, st(ModBlocks.LANTERNGLASS));
         s.put(0, 3, 1, st(Blocks.END_ROD));
