@@ -29,6 +29,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 import java.util.UUID;
@@ -49,6 +50,18 @@ public abstract class KeeperEntity extends Monster {
     protected int cooldown = 40;
     private int themeTimer;
     private boolean scaled;
+    /** Where it keeps its vigil, so a failed challenge can put it back. */
+    private Vec3 rest;
+    private float restYaw;
+    /** Ticks with no challenger left standing nearby, and the most challengers it has faced this fight. */
+    private int alone;
+    private int challengersSeen = 1;
+    private boolean challenged;
+    private static final net.minecraft.resources.Identifier PARTY_DAMAGE = net.minecraft.resources.Identifier.fromNamespaceAndPath("oathbound", "party_damage");
+    /** Each extra challenger adds this much health (x base) and damage (x base). */
+    private static final double PARTY_HEALTH = 0.6, PARTY_DAMAGE_PER = 0.15;
+    /** How long the arena must stand empty (or every challenger lie dead) before the keeper resets. */
+    private static final int RESET_AFTER = 100;
 
     protected KeeperEntity(EntityType<? extends KeeperEntity> type, Level level, BossEvent.BossBarColor color) {
         super(type, level);
@@ -168,6 +181,9 @@ public abstract class KeeperEntity extends Monster {
         entityData.set(SLEEPING, false);
         bar.setVisible(true);
         themeTimer = 0;
+        alone = 0;
+        challenged = false;
+        scaleFor(level, Math.max(1, challengers(level, 32).size()));
         if (by != null) setTarget(by);
         onWake(level, by);
         if (flaresOnWake()) {
@@ -190,6 +206,21 @@ public abstract class KeeperEntity extends Monster {
         super.customServerAiStep(level);
         applyScaling();
         bar.setProgress(getHealth() / getMaxHealth());
+        if (rest == null) {
+            rest = position();
+            restYaw = getYRot();
+        }
+        if (!isSleeping() && tickCount % 20 == 0) {
+            int n = challengers(level, 40).size();
+            if (n > challengersSeen) scaleFor(level, n);
+            if (n > 0) challenged = true;
+            alone = n == 0 ? alone + 20 : 0;
+            // only a fight someone actually started can be lost (woken by a command or a test, it fights on)
+            if (challenged && alone >= RESET_AFTER) {
+                reset(level);
+                return;
+            }
+        }
         if (isSleeping()) {
             setDeltaMovement(getDeltaMovement().multiply(0, 1, 0));
             if (tickCount % 10 == 0) {
@@ -216,6 +247,59 @@ public abstract class KeeperEntity extends Monster {
         if (move() != IDLE) entityData.set(MOVE_TICKS, moveTicks() + 1);
         think(level, target);
     }
+
+    /**
+     * Toughens the keeper for a party: health grows with each challenger (keeping the share it has left) and so
+     * does its damage. Only ever grows during a fight; a reset brings it back to a single challenger's measure.
+     */
+    private void scaleFor(ServerLevel level, int n) {
+        challengersSeen = n;
+        applyScaling();
+        var hp = getAttribute(Attributes.MAX_HEALTH);
+        if (hp != null) {
+            float share = getHealth() / getMaxHealth();
+            hp.setBaseValue(baseHealth() * healthMultiplier() * (1 + PARTY_HEALTH * (n - 1)));
+            setHealth(Math.max(1f, share * getMaxHealth()));
+        }
+        var dmg = getAttribute(Attributes.ATTACK_DAMAGE);
+        if (dmg != null) {
+            dmg.removeModifier(PARTY_DAMAGE);
+            if (n > 1) dmg.addTransientModifier(new net.minecraft.world.entity.ai.attributes.AttributeModifier(PARTY_DAMAGE, PARTY_DAMAGE_PER * (n - 1),
+                net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
+        }
+    }
+
+    /**
+     * The challenge failed (every challenger fell or fled): the keeper returns to its vigil whole, and the fight
+     * must be won again from the start. The puzzle that guarded it stays solved.
+     */
+    public void reset(ServerLevel level) {
+        for (ServerPlayer p : level.getEntitiesOfClass(ServerPlayer.class, new AABB(blockPosition()).inflate(64))) {
+            p.connection.send(new ClientboundStopSoundPacket(theme().location(), SoundSource.RECORDS));
+            p.sendSystemMessage(Component.translatable("message.oathbound.keeper.reset", getDisplayName()).withStyle(net.minecraft.ChatFormatting.GRAY, net.minecraft.ChatFormatting.ITALIC));
+        }
+        setTarget(null);
+        endMove(40);
+        entityData.set(SLEEPING, true);
+        bar.setVisible(false);
+        removeAllEffects();
+        clearFire();
+        alone = 0;
+        challenged = false;
+        scaleFor(level, 1);
+        setHealth(getMaxHealth());
+        if (rest != null) {
+            teleportTo(rest.x, rest.y, rest.z);
+            setYRot(restYaw);
+            setYHeadRot(restYaw);
+            yBodyRot = restYaw;
+        }
+        setDeltaMovement(Vec3.ZERO);
+        onReset(level);
+    }
+
+    /** Subclasses put their own fight state back (phases, summons, arena seals). */
+    protected void onReset(ServerLevel level) {}
 
     protected boolean isChallenger(Player p) {
         return p.isAlive() && !p.isCreative() && !p.isSpectator();
@@ -308,6 +392,7 @@ public abstract class KeeperEntity extends Monster {
         super.addAdditionalSaveData(out);
         out.putBoolean("Sleeping", isSleeping());
         out.putBoolean("Sealed", sealed);
+        if (rest != null) out.putIntArray("Rest", new int[]{(int) Math.round(rest.x * 16), (int) Math.round(rest.y * 16), (int) Math.round(rest.z * 16), Math.round(restYaw)});
     }
 
     @Override
@@ -315,6 +400,12 @@ public abstract class KeeperEntity extends Monster {
         super.readAdditionalSaveData(in);
         entityData.set(SLEEPING, in.getBooleanOr("Sleeping", true));
         sealed = in.getBooleanOr("Sealed", false);
+        in.getIntArray("Rest").ifPresent(a -> {
+            if (a.length == 4) {
+                rest = new Vec3(a[0] / 16.0, a[1] / 16.0, a[2] / 16.0);
+                restYaw = a[3];
+            }
+        });
         bar.setVisible(!isSleeping());
         scaled = true;
     }

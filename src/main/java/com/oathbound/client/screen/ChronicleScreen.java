@@ -64,6 +64,50 @@ public class ChronicleScreen extends Screen {
     private static final int PIC_W = 304, PIC_H = 128;
     private final Map<String, Boolean> hasPicture = new HashMap<>();
 
+    /** Recipes for quests that ask you to make something (assets/oathbound/chronicle/recipes.json, generated from the mod's own recipes). */
+    private record Recipe(boolean smelt, List<ItemStack> grid, ItemStack result) {}
+    private static Map<String, List<Recipe>> recipes;
+    private int recipePick;
+    private String preselect;
+
+    /** Opens on a given quest's page (the client test uses it to show a recipe). */
+    public ChronicleScreen select(String quest) {
+        this.preselect = quest;
+        return this;
+    }
+    private String recipeQuest = "";
+
+    private static Map<String, List<Recipe>> recipes() {
+        if (recipes != null) return recipes;
+        recipes = new HashMap<>();
+        try {
+            var res = Minecraft.getInstance().getResourceManager().getResource(Identifier.fromNamespaceAndPath("oathbound", "chronicle/recipes.json"));
+            if (res.isEmpty()) return recipes;
+            try (var reader = res.get().openAsReader()) {
+                var root = com.google.gson.JsonParser.parseReader(reader).getAsJsonObject();
+                for (var e : root.entrySet()) {
+                    List<Recipe> list = new ArrayList<>();
+                    for (var el : e.getValue().getAsJsonArray()) {
+                        var o = el.getAsJsonObject();
+                        List<ItemStack> grid = new ArrayList<>();
+                        for (var g : o.getAsJsonArray("grid")) grid.add(stackOf(g.getAsString(), 1));
+                        list.add(new Recipe("smelt".equals(o.get("kind").getAsString()), grid, stackOf(o.get("result").getAsString(), o.get("count").getAsInt())));
+                    }
+                    recipes.put(e.getKey(), list);
+                }
+            }
+        } catch (Exception ex) {
+            com.oathbound.Oathbound.LOGGER.warn("Chronicle recipes unreadable", ex);
+        }
+        return recipes;
+    }
+
+    private static ItemStack stackOf(String id, int count) {
+        if (id == null || id.isEmpty()) return ItemStack.EMPTY;
+        var item = net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(Identifier.parse(id));
+        return item == null ? ItemStack.EMPTY : new ItemStack(item, count);
+    }
+
     private final InteractionHand hand;
     private int tab = TAB_PATH;
     private int left, top;
@@ -171,6 +215,11 @@ public class ChronicleScreen extends Screen {
             storyChapter = next.chapter();
         } else {
             selected = "root";
+        }
+        Quest pre = preselect == null ? null : QuestLog.QUESTS.get(preselect);
+        if (pre != null) {
+            selected = pre.id();
+            pathChapter = pre.chapter();
         }
     }
 
@@ -537,6 +586,14 @@ public class ChronicleScreen extends Screen {
                 sx = x + 4 + (sideRow % 5) * 33;
                 sy = y + (sideRow / 5) * 28;
             }
+            // never stack one seal on another: step down (then across) until the spot is clear
+            for (int tries = 0; tries < 12 && collides(at, sx, sy); tries++) {
+                sy += 24;
+                if (sy > top + PAGE_H - 14) {
+                    sy = y;
+                    sx += 22;
+                }
+            }
             at.put(q.id(), new int[]{sx, sy});
             sideRow++;
         }
@@ -582,6 +639,11 @@ public class ChronicleScreen extends Screen {
         drawQuestPage(g, mx, my);
     }
 
+    private static boolean collides(Map<String, int[]> at, int x, int y) {
+        for (int[] p : at.values()) if (Math.abs(p[0] - x) < 22 && Math.abs(p[1] - y) < 22) return true;
+        return false;
+    }
+
     private void drawQuestPage(GuiGraphicsExtractor g, int mx, int my) {
         int x = rx(), y = py();
         Quest next = nextMain();
@@ -613,6 +675,12 @@ public class ChronicleScreen extends Screen {
         int ty = top + PAGE_H - 44;
         List<Line> body = new ArrayList<>();
         addLines(body, Component.translatable("quest.oathbound." + q.id() + ".description"), PAGE_W - 14, INK);
+        String prep = "quest.oathbound." + q.id() + ".prepare";
+        if (net.minecraft.client.resources.language.I18n.exists(prep) && s != Status.PAID) {
+            body.add(new Line(FormattedCharSequence.EMPTY, INK));
+            addLines(body, Component.translatable("chronicle.oathbound.prepare").withStyle(ChatFormatting.BOLD)
+                .append(Component.translatable(prep).withStyle(Style.EMPTY.withBold(false))), PAGE_W - 14, 0xFF2F5A2A);
+        }
         if (s == Status.ACTIVE) {
             body.add(new Line(FormattedCharSequence.EMPTY, INK));
             addLines(body, Component.literal("❧ ").append(Component.translatable("quest.oathbound." + q.id() + ".hint")).withStyle(ChatFormatting.ITALIC),
@@ -643,6 +711,11 @@ public class ChronicleScreen extends Screen {
      */
     private void plate(GuiGraphicsExtractor g, int mx, int my, Quest q, int x, int y, int w, int h) {
         g.fill(x - 1, y - 1, x + w + 1, y + h + 1, GOLD_DIM);
+        List<Recipe> recs = recipes().get(q.id());
+        if (recs != null && !recs.isEmpty()) {
+            drawRecipe(g, mx, my, q, recs, x, y, w, h);
+            return;
+        }
         Identifier pic = Identifier.fromNamespaceAndPath("oathbound", "textures/gui/quest/" + q.id() + ".png");
         boolean picture = hasPicture.computeIfAbsent(q.id(), k -> Minecraft.getInstance().getResourceManager().getResource(pic).isPresent());
         if (picture) {
@@ -658,6 +731,43 @@ public class ChronicleScreen extends Screen {
         g.fill(x, y + h - 12, x + w, y + h, 0xB0100A06);
         Component title = fit(Component.translatable("quest.oathbound." + q.id() + ".title").withStyle(ChatFormatting.BOLD), w - 6);
         g.centeredText(font, title, x + w / 2, y + h - 10, GOLD_BRIGHT);
+    }
+
+    /** A crafting grid (or a furnace) for the quest's item; several recipes take turns, and a click turns to the next. */
+    private void drawRecipe(GuiGraphicsExtractor g, int mx, int my, Quest q, List<Recipe> recs, int x, int y, int w, int h) {
+        if (!recipeQuest.equals(q.id())) {
+            recipeQuest = q.id();
+            recipePick = 0;
+        }
+        int auto = (int) ((System.currentTimeMillis() / 2500) % recs.size());
+        Recipe r = recs.get((recipePick + auto) % recs.size());
+        g.fillGradient(x, y, x + w, y + h, 0xFFE9D8B0, 0xFFD6BF8C);
+        int gx = x + 10, gy = y + 1;
+        if (r.smelt()) {
+            slot(g, mx, my, r.grid().get(0), gx + 18, gy + 6);
+            g.item(new ItemStack(net.minecraft.world.item.Items.FURNACE), gx + 19, gy + 24);
+            g.text(font, Component.translatable("chronicle.oathbound.smelt"), gx + 38, gy + 28, INK_SOFT, false);
+        } else {
+            for (int i = 0; i < 9; i++) slot(g, mx, my, i < r.grid().size() ? r.grid().get(i) : ItemStack.EMPTY, gx + (i % 3) * 17, gy + (i / 3) * 17);
+        }
+        g.text(font, "\u2192", gx + 62, gy + 21, INK, false);
+        slot(g, mx, my, r.result(), gx + 76, gy + 17);
+        if (recs.size() > 1) g.text(font, ((recipePick + auto) % recs.size() + 1) + "/" + recs.size(), x + w - 22, y + 3, INK_SOFT, false);
+        hits.add(new Hit(x, y, w, h - 12, () -> {
+            recipePick++;
+            sound(false);
+        }));
+        g.fill(x, y + h - 12, x + w, y + h, 0xB0100A06);
+        g.centeredText(font, fit(Component.translatable("chronicle.oathbound.recipe", r.result().getHoverName()), w - 6), x + w / 2, y + h - 10, GOLD_BRIGHT);
+    }
+
+    private void slot(GuiGraphicsExtractor g, int mx, int my, ItemStack st, int x, int y) {
+        g.fill(x, y, x + 17, y + 17, 0xFF8B7350);
+        g.fill(x + 1, y + 1, x + 17, y + 17, 0xFFC9B48A);
+        if (st.isEmpty()) return;
+        g.item(st, x + 1, y + 1);
+        g.itemDecorations(font, st, x + 1, y + 1);
+        if (mx >= x && mx < x + 17 && my >= y && my < y + 17) g.setTooltipForNextFrame(font, st, mx, my);
     }
 
     // ------------------------------------------------------------------ Tithes & Boons

@@ -112,10 +112,14 @@ public final class QuestLog {
         q("insignia", 6, "root", ModItems.LANTERNGUARD_INSIGNIA, 60, false, r(() -> Items.EMERALD, 8));
         q("loremaster", 6, "root", ModBlocks.LORE_TABLET, 150, false, r(() -> Items.ENCHANTED_BOOK, 1), r(() -> Items.EXPERIENCE_BOTTLE, 12));
         q("everflame", 6, "morvane", ModItems.EVERFLAME_LANTERN, 200, false, r(() -> Items.NETHER_STAR, 1));
+        // optional quests along the story, granted from Codex.discover
+        q("alchemist", 1, "chapel", ModItems.ELIXIR_OF_VALOR, 60, false, r(ModItems.LUMEN_FLASK, 3), r(() -> Items.GOLDEN_APPLE, 1));
+        q("enchanter", 2, "spire", () -> Items.ENCHANTED_BOOK, 80, false, r(() -> Items.EXPERIENCE_BOTTLE, 10), r(() -> Items.LAPIS_LAZULI, 16));
+        q("relic_hunter", 3, "barrow", ModItems.LANTERNGUARD_SIGNET, 150, false, r(() -> Items.DIAMOND, 4));
         // the places off the Path
-        q("grove_king", 6, "root", ModItems.GROVE_KINGS_CROWN, 150, false, r(() -> Items.GOLDEN_APPLE, 2), r(ModItems.ELIXIR_OF_THE_WAYFARER, 2));
-        q("bog_mother", 6, "root", ModItems.BOG_MOTHERS_LANTERN, 150, false, r(() -> Items.GOLDEN_APPLE, 2), r(ModItems.ELIXIR_OF_SHROUDS, 2));
-        q("cinder_colossus", 6, "root", ModItems.CINDER_HEART, 200, false, r(() -> Items.DIAMOND, 3), r(ModItems.ELIXIR_OF_VALOR, 2));
+        q("grove_king", 1, "wayshrine", ModItems.GROVE_KINGS_CROWN, 150, false, r(() -> Items.GOLDEN_APPLE, 2), r(ModItems.ELIXIR_OF_THE_WAYFARER, 2));
+        q("bog_mother", 2, "caldris", ModItems.BOG_MOTHERS_LANTERN, 150, false, r(() -> Items.GOLDEN_APPLE, 2), r(ModItems.ELIXIR_OF_SHROUDS, 2));
+        q("cinder_colossus", 3, "veyl", ModItems.CINDER_HEART, 200, false, r(() -> Items.DIAMOND, 3), r(ModItems.ELIXIR_OF_VALOR, 2));
         q("last_watch", 6, "root", ModBlocks.OATHSTEEL_LANTERN, 40, false, r(ModItems.TRAIL_RATIONS, 4));
         q("tideglass", 6, "root", ModBlocks.BARNACLED_TIDESTONE_BRICKS, 40, false, r(ModItems.ELIXIR_OF_TIDES, 2));
         q("delve", 6, "root", ModBlocks.LUMENITE_ORE, 40, false, r(ModItems.LUMENITE_SHARD, 8));
@@ -196,6 +200,16 @@ public final class QuestLog {
         CompoundTag current = book.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
         if (d.equals(current.getStringOr("done", "-")) && c.equals(current.getStringOr("paid", "-")) && bo.equals(current.getStringOr("boons", "-"))
             && seen.equals(current.getStringOr("seen", "-"))) return;
+        // newly finished quests: say plainly where their tithe can be collected
+        String before = current.getStringOr("done", "-");
+        if (!before.equals("-")) {
+            java.util.Set<String> old = new java.util.HashSet<>(java.util.Arrays.asList(before.split(",")));
+            for (String id : done) {
+                if (old.contains(id) || claimed.contains(id) || QUESTS.get(id).rewards().isEmpty()) continue;
+                player.sendSystemMessage(Component.translatable("chronicle.oathbound.tithe.earned",
+                    Component.translatable("quest.oathbound." + id + ".title").withStyle(ChatFormatting.GOLD)).withStyle(ChatFormatting.YELLOW));
+            }
+        }
         CustomData.update(DataComponents.CUSTOM_DATA, book, tag -> {
             tag.putString("done", d);
             tag.putString("paid", c);

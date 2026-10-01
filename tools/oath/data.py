@@ -90,6 +90,9 @@ def quest_criteria():
     any_of('forsworn', 'task', 'oathsteel_helmet', killed=killed('forsworn_knight'))
     any_of('insignia', 'task', 'lanternguard_insignia', insignia=has_item('lanternguard_insignia'))
     all_of('loremaster', 'challenge', 'lore_tablet', **{f'tablet_{i}': impossible() for i in range(10)})
+    any_of('alchemist', 'task', 'elixir_of_valor', done=impossible())
+    any_of('enchanter', 'task', 'oathsteel_ingot', done=impossible())
+    any_of('relic_hunter', 'challenge', 'lanternguard_signet', done=impossible())
     any_of('everflame', 'challenge', 'everflame_lantern', lantern=has_item('everflame_lantern'))
     from . import wilds
     wilds.quests(any_of)
@@ -105,6 +108,7 @@ PARENTS = {
     'sickle': 'gloaming', 'veilhound': 'gloaming', 'throne': 'gloaming', 'morvane': 'throne', 'dawnbreaker': 'morvane',
     'crown': 'morvane', 'gloamling': 'root', 'lanternmoth': 'root', 'elixir': 'lanternmoth', 'flask': 'lanternmoth',
     'forsworn': 'root', 'insignia': 'root', 'loremaster': 'root', 'everflame': 'morvane',
+    'alchemist': 'chapel', 'enchanter': 'spire', 'relic_hunter': 'barrow',
 }
 
 BOONS = ['squires_vigor', 'lamplighters_thrift', 'pilgrims_stride', 'tidebound', 'knights_guard', 'long_reach',

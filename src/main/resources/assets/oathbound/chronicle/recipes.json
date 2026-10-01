@@ -1,0 +1,452 @@
+{
+ "oathsteel": [
+  {
+   "kind": "craft",
+   "grid": [
+    "minecraft:iron_ingot",
+    "oathbound:lumenite_shard",
+    "oathbound:lumenite_shard",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "result": "oathbound:oathsteel_blend",
+   "count": 1
+  },
+  {
+   "kind": "smelt",
+   "grid": [
+    "oathbound:oathsteel_blend"
+   ],
+   "result": "oathbound:oathsteel_ingot",
+   "count": 1
+  }
+ ],
+ "lantern": [
+  {
+   "kind": "craft",
+   "grid": [
+    "",
+    "oathbound:oathsteel_nugget",
+    "",
+    "oathbound:oathsteel_nugget",
+    "oathbound:lumenite_shard",
+    "oathbound:oathsteel_nugget",
+    "",
+    "oathbound:oathsteel_ingot",
+    ""
+   ],
+   "result": "oathbound:wardens_lantern",
+   "count": 1
+  },
+  {
+   "kind": "craft",
+   "grid": [
+    "oathbound:oathsteel_ingot",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "result": "oathbound:oathsteel_nugget",
+   "count": 9
+  }
+ ],
+ "wayshrine": [
+  {
+   "kind": "craft",
+   "grid": [
+    "minecraft:gold_ingot",
+    "oathbound:lumenite_shard",
+    "minecraft:gold_ingot",
+    "",
+    "oathbound:wardstone_bricks",
+    "",
+    "oathbound:wardstone_bricks",
+    "oathbound:wardstone_bricks",
+    "oathbound:wardstone_bricks"
+   ],
+   "result": "oathbound:wayshrine_brazier",
+   "count": 1
+  }
+ ],
+ "oathsteel_arms": [
+  {
+   "kind": "craft",
+   "grid": [
+    "",
+    "oathbound:oathsteel_ingot",
+    "",
+    "",
+    "oathbound:oathsteel_ingot",
+    "",
+    "",
+    "minecraft:stick",
+    ""
+   ],
+   "result": "oathbound:oathsteel_longsword",
+   "count": 1
+  },
+  {
+   "kind": "craft",
+   "grid": [
+    "",
+    "oathbound:oathsteel_ingot",
+    "oathbound:oathsteel_ingot",
+    "",
+    "minecraft:stick",
+    "oathbound:oathsteel_ingot",
+    "minecraft:stick",
+    "",
+    ""
+   ],
+   "result": "oathbound:wardens_halberd",
+   "count": 1
+  }
+ ],
+ "oathsteel_armor": [
+  {
+   "kind": "craft",
+   "grid": [
+    "oathbound:oathsteel_ingot",
+    "oathbound:oathsteel_ingot",
+    "oathbound:oathsteel_ingot",
+    "oathbound:oathsteel_ingot",
+    "",
+    "oathbound:oathsteel_ingot",
+    "",
+    "",
+    ""
+   ],
+   "result": "oathbound:oathsteel_helmet",
+   "count": 1
+  },
+  {
+   "kind": "craft",
+   "grid": [
+    "oathbound:oathsteel_ingot",
+    "",
+    "oathbound:oathsteel_ingot",
+    "oathbound:oathsteel_ingot",
+    "oathbound:oathsteel_ingot",
+    "oathbound:oathsteel_ingot",
+    "oathbound:oathsteel_ingot",
+    "oathbound:oathsteel_ingot",
+    "oathbound:oathsteel_ingot"
+   ],
+   "result": "oathbound:oathsteel_chestplate",
+   "count": 1
+  },
+  {
+   "kind": "craft",
+   "grid": [
+    "oathbound:oathsteel_ingot",
+    "oathbound:oathsteel_ingot",
+    "oathbound:oathsteel_ingot",
+    "oathbound:oathsteel_ingot",
+    "",
+    "oathbound:oathsteel_ingot",
+    "oathbound:oathsteel_ingot",
+    "",
+    "oathbound:oathsteel_ingot"
+   ],
+   "result": "oathbound:oathsteel_leggings",
+   "count": 1
+  },
+  {
+   "kind": "craft",
+   "grid": [
+    "oathbound:oathsteel_ingot",
+    "",
+    "oathbound:oathsteel_ingot",
+    "oathbound:oathsteel_ingot",
+    "",
+    "oathbound:oathsteel_ingot",
+    "",
+    "",
+    ""
+   ],
+   "result": "oathbound:oathsteel_boots",
+   "count": 1
+  }
+ ],
+ "arcanist": [
+  {
+   "kind": "craft",
+   "grid": [
+    "oathbound:spellsilk",
+    "oathbound:spellsilk",
+    "oathbound:spellsilk",
+    "oathbound:spellsilk",
+    "",
+    "oathbound:spellsilk",
+    "",
+    "",
+    ""
+   ],
+   "result": "oathbound:arcanist_hood",
+   "count": 1
+  },
+  {
+   "kind": "craft",
+   "grid": [
+    "oathbound:spellsilk",
+    "",
+    "oathbound:spellsilk",
+    "oathbound:spellsilk",
+    "oathbound:spellsilk",
+    "oathbound:spellsilk",
+    "oathbound:spellsilk",
+    "oathbound:spellsilk",
+    "oathbound:spellsilk"
+   ],
+   "result": "oathbound:arcanist_robe",
+   "count": 1
+  },
+  {
+   "kind": "craft",
+   "grid": [
+    "oathbound:spellsilk",
+    "oathbound:spellsilk",
+    "oathbound:spellsilk",
+    "oathbound:spellsilk",
+    "",
+    "oathbound:spellsilk",
+    "oathbound:spellsilk",
+    "",
+    "oathbound:spellsilk"
+   ],
+   "result": "oathbound:arcanist_leggings",
+   "count": 1
+  },
+  {
+   "kind": "craft",
+   "grid": [
+    "oathbound:spellsilk",
+    "",
+    "oathbound:spellsilk",
+    "oathbound:spellsilk",
+    "",
+    "oathbound:spellsilk",
+    "",
+    "",
+    ""
+   ],
+   "result": "oathbound:arcanist_boots",
+   "count": 1
+  }
+ ],
+ "dawnstring": [
+  {
+   "kind": "craft",
+   "grid": [
+    "",
+    "oathbound:spellsilk",
+    "oathbound:lumenite_shard",
+    "oathbound:spellsilk",
+    "",
+    "oathbound:lumenite_shard",
+    "",
+    "oathbound:spellsilk",
+    "oathbound:lumenite_shard"
+   ],
+   "result": "oathbound:dawnstring_longbow",
+   "count": 1
+  }
+ ],
+ "oathkey": [
+  {
+   "kind": "craft",
+   "grid": [
+    "",
+    "oathbound:seal_of_valor",
+    "",
+    "oathbound:seal_of_wisdom",
+    "oathbound:oathsteel_ingot",
+    "oathbound:seal_of_sacrifice",
+    "",
+    "minecraft:gold_ingot",
+    ""
+   ],
+   "result": "oathbound:oathkey",
+   "count": 1
+  }
+ ],
+ "sickle": [
+  {
+   "kind": "craft",
+   "grid": [
+    "",
+    "oathbound:oathsteel_ingot",
+    "oathbound:oathsteel_ingot",
+    "",
+    "",
+    "oathbound:gloam_essence",
+    "",
+    "minecraft:stick",
+    ""
+   ],
+   "result": "oathbound:shadowreap_sickle",
+   "count": 1
+  }
+ ],
+ "elixir": [
+  {
+   "kind": "craft",
+   "grid": [
+    "minecraft:glass_bottle",
+    "oathbound:luminous_dust",
+    "oathbound:gloam_essence",
+    "minecraft:golden_carrot",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "result": "oathbound:elixir_of_dawn",
+   "count": 1
+  }
+ ],
+ "flask": [
+  {
+   "kind": "craft",
+   "grid": [
+    "",
+    "minecraft:glass",
+    "",
+    "minecraft:glass",
+    "oathbound:luminous_dust",
+    "minecraft:glass",
+    "",
+    "minecraft:glass",
+    ""
+   ],
+   "result": "oathbound:lumen_flask",
+   "count": 3
+  }
+ ],
+ "everflame": [
+  {
+   "kind": "craft",
+   "grid": [
+    "oathbound:lanternguard_insignia",
+    "oathbound:everflame_ember",
+    "oathbound:lanternguard_insignia",
+    "oathbound:lanternguard_insignia",
+    "oathbound:wardens_lantern",
+    "oathbound:lanternguard_insignia",
+    "oathbound:lanternguard_insignia",
+    "oathbound:everflame_ember",
+    "oathbound:lanternguard_insignia"
+   ],
+   "result": "oathbound:everflame_lantern",
+   "count": 1
+  }
+ ],
+ "alchemist": [
+  {
+   "kind": "craft",
+   "grid": [
+    "minecraft:glass_bottle",
+    "minecraft:rabbit_foot",
+    "minecraft:sugar",
+    "oathbound:luminous_dust",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "result": "oathbound:elixir_of_the_wayfarer",
+   "count": 1
+  },
+  {
+   "kind": "craft",
+   "grid": [
+    "minecraft:glass_bottle",
+    "oathbound:gloam_essence",
+    "minecraft:fermented_spider_eye",
+    "oathbound:dusk_lily",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "result": "oathbound:elixir_of_shrouds",
+   "count": 1
+  },
+  {
+   "kind": "craft",
+   "grid": [
+    "minecraft:glass_bottle",
+    "minecraft:blaze_powder",
+    "oathbound:emberroot",
+    "oathbound:luminous_dust",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "result": "oathbound:elixir_of_valor",
+   "count": 1
+  },
+  {
+   "kind": "craft",
+   "grid": [
+    "minecraft:glass_bottle",
+    "minecraft:pufferfish",
+    "minecraft:prismarine_crystals",
+    "oathbound:luminous_dust",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "result": "oathbound:elixir_of_tides",
+   "count": 1
+  },
+  {
+   "kind": "craft",
+   "grid": [
+    "minecraft:glass_bottle",
+    "oathbound:spellsilk",
+    "minecraft:golden_carrot",
+    "oathbound:luminous_dust",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "result": "oathbound:elixir_of_wards",
+   "count": 1
+  },
+  {
+   "kind": "craft",
+   "grid": [
+    "minecraft:glass_bottle",
+    "oathbound:luminous_dust",
+    "oathbound:gloam_essence",
+    "minecraft:golden_carrot",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "result": "oathbound:elixir_of_dawn",
+   "count": 1
+  }
+ ]
+}

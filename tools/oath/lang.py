@@ -84,7 +84,7 @@ DESC = {
     'seal_of_valor': ['Given up by Sir Caldris of the Drowned Chapel.', 'One of the three seals of the Oathkey.'],
     'seal_of_wisdom': ['Given up by Archmage Veyl of the Hollow Spire.', 'One of the three seals of the Oathkey.'],
     'seal_of_sacrifice': ['Given up by Hrodgar, the Barrow-King.', 'One of the three seals of the Oathkey.'],
-    'oathkey': ['Three oaths bound into one key.', 'Use on the Sundered Keystone to open the Gate.'],
+    'oathkey': ['Three oaths bound into one key.', 'Use on the Sundered Keystone to open the Gate.', 'Once the Gate is open, use it anywhere to cross to the Gloaming and back.'],
     'everflame_ember': ['A coal of the first dawn, won back from the Hollow King.', 'Warm enough to kindle the Everflame Lantern.'],
     'wardens_lantern': ['The Lanternguard never walked in the dark.',
                         'Held: a wisplight follows you; lights Hymn Stones and Ward Lanterns.',
@@ -226,7 +226,25 @@ QUESTS = {
     'insignia': ('A Knight\'s Badge', 'Find a Lanternguard Insignia.', 'Every stronghold hides one behind cracked brickwork.'),
     'loremaster': ('Keeper of the Chronicle', 'Read all ten Lanternguard Tablets.', 'They stand in the Order\'s ruins, one or two in each.'),
     'everflame': ('The Everflame Rekindled', 'Remake the Order\'s own lantern.', 'Four insignia around a Warden\'s Lantern, with Everflame Embers.'),
+    'alchemist': ('The Alchemist\'s Shelf', 'Optional. Hold three different Oathbound elixirs.',
+                  'The recipes are on this page. Elixirs of the Wayfarer, Shrouds, Valor, Tides, Wards and Dawn: hag\'s eyes, ember cores and scutes make some of them.'),
+    'enchanter': ('Old Words on New Steel', 'Optional. Own a weapon, armour or book bearing one of the Order\'s enchantments.',
+                  'Gloambane, Warding and Wayfarer come from an enchanting table like any other; Dawnfire only from loot, in the Order\'s ruins and keeper vaults.'),
+    'relic_hunter': ('Relics of the Order', 'Optional. Hold five different relics from the Armory.',
+                     'Keepers, minibosses and their vaults leave them. The Armory tab lists every relic you have found.'),
 }
+
+# what to bring to each boss: shown under the quest's text in the Chronicle
+PREPARE = {
+    'caldris': 'Iron or Oathsteel armour, an axe (it breaks his guard) or an Oathsteel sword, a shield, food and 2 Lumen Flasks.',
+    'veyl': 'Full Oathsteel armour, a shield to bat his orbs back, a bow for when he blinks away, Elixirs of Wards and plenty of food.',
+    'hrodgar': 'Full Oathsteel armour or diamond, a strong weapon for his housecarls\' tethers, Elixirs of Valor, golden apples and a bucket of water.',
+    'morvane': 'Your best armour (Arcanist regalia or diamond+), Dawnbreaker-tier blade or enchanted diamond, Elixirs of Dawn and Valor, golden apples. Keep a lantern lit for the dark phase.',
+    'grove_king': 'Iron armour or better, a sword or axe, food. Fight in the open so you can sidestep his charge.',
+    'bog_mother': 'Iron or Oathsteel armour, a sweeping sword for her bone-children, milk or an Elixir of Shrouds against her curses.',
+    'cinder_colossus': 'Oathsteel armour with fire protection, Fire Resistance potions, water buckets to crack its shell, and a ranged weapon.',
+}
+
 
 BOONS = {
     'squires_vigor': ("Squire's Vigor", '+2 hearts of maximum health.'),
@@ -425,6 +443,13 @@ MESSAGES = {
     'message.oathbound.cipher.title': '~ The Archmage\'s Cipher ~',
     'message.oathbound.cipher.instructions': 'Set each numbered Rune Dial to the glyph its riddle names. Right-click a dial to turn it; sneak to turn it back.',
     'message.oathbound.cipher.glyphs': 'The six glyphs: %s',
+    'message.oathbound.keeper.reset': '%s returns to its vigil, whole. The challenge failed; it must be fought again from the start.',
+    'message.oathbound.oathkey.unopened': 'The Oathkey stirs, but it has not yet opened the Sundered Gate for you.',
+    'message.oathbound.oathkey.elsewhere': 'The Oathkey only opens the way between the Overworld and the Gloaming.',
+    'chronicle.oathbound.tithe.earned': 'Quest complete: %s. Its tithe is waiting: press Collect in your Chronicle, or warm your hands at any lit Wayshrine.',
+    'chronicle.oathbound.prepare': 'Prepare: ',
+    'chronicle.oathbound.recipe': 'Recipe: %s',
+    'chronicle.oathbound.smelt': 'Smelt',
     'message.oathbound.keeper.sealed': 'It sleeps behind its seal and cannot be woken or harmed. Solve the puzzle that guards this place first.',
     'message.oathbound.sealed_stone': 'The stones of this place are bound by the keeper\'s seal.',
     'message.oathbound.cipher.dark': 'The pages are blank. The cipher reveals itself only to one who holds the Seal of Valor.',
@@ -596,6 +621,8 @@ def build():
         put(f'quest.oathbound.{q}.title', title)
         put(f'quest.oathbound.{q}.description', desc)
         put(f'quest.oathbound.{q}.hint', hint)
+    for q, text in PREPARE.items():
+        put(f'quest.oathbound.{q}.prepare', text)
     for b, (title, desc) in BOONS.items():
         put(f'boon.oathbound.{b}.title', title)
         put(f'boon.oathbound.{b}.description', desc)

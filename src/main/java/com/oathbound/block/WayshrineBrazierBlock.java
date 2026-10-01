@@ -115,6 +115,18 @@ public class WayshrineBrazierBlock extends Block {
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         double x = pos.getX() + 0.5, y = pos.getY() + 0.8, z = pos.getZ() + 0.5;
+        if (state.getValue(LIT) && com.oathbound.client.ClientHooks.owesTithes()) {
+            // tithes waiting: a tall stream of light to find it by, and a bobbing arrow pointing down at the fire
+            // (display ticks reach a given block only now and then, so each one lights the whole column)
+            for (int i = 0; i < 14; i++) {
+                level.addParticle(ModParticles.LUMEN_MOTE.get(), x + (random.nextDouble() - 0.5) * 0.3, y + 0.5 + i * 0.75, z + (random.nextDouble() - 0.5) * 0.3, 0, 0.05, 0);
+            }
+            double bob = Math.sin(level.getGameTime() * 0.15) * 0.25;
+            for (int k = -3; k <= 3; k++) {
+                double ax = x + k * 0.12, ay = y + 2.6 + Math.abs(k) * 0.14 + bob;
+                level.addParticle(ModParticles.SUNBURST.get(), ax, ay, z, 0, 0, 0);
+            }
+        }
         if (state.getValue(LIT)) {
             for (int i = 0; i < 2; i++) {
                 level.addParticle(ParticleTypes.FLAME, x + (random.nextDouble() - 0.5) * 0.6, y, z + (random.nextDouble() - 0.5) * 0.6, 0, 0.03, 0);

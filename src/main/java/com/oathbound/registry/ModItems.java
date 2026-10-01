@@ -80,7 +80,7 @@ public final class ModItems {
     public static final RegistryObject<Item> SEAL_OF_VALOR = reg("seal_of_valor", p -> new InscribedItem(p, 2, true), () -> new Item.Properties().rarity(Rarity.RARE).stacksTo(1).fireResistant());
     public static final RegistryObject<Item> SEAL_OF_WISDOM = reg("seal_of_wisdom", p -> new InscribedItem(p, 2, true), () -> new Item.Properties().rarity(Rarity.RARE).stacksTo(1).fireResistant());
     public static final RegistryObject<Item> SEAL_OF_SACRIFICE = reg("seal_of_sacrifice", p -> new InscribedItem(p, 2, true), () -> new Item.Properties().rarity(Rarity.RARE).stacksTo(1).fireResistant());
-    public static final RegistryObject<Item> OATHKEY = reg("oathkey", p -> new InscribedItem(p, 2, true), () -> new Item.Properties().rarity(Rarity.EPIC).stacksTo(1).fireResistant());
+    public static final RegistryObject<Item> OATHKEY = reg("oathkey", com.oathbound.item.OathkeyItem::new, () -> new Item.Properties().rarity(Rarity.EPIC).stacksTo(1).fireResistant());
     public static final RegistryObject<Item> EVERFLAME_EMBER = reg("everflame_ember", p -> new InscribedItem(p, 2, true), () -> new Item.Properties().rarity(Rarity.EPIC).fireResistant());
 
     // ------------------------------------------------------------------ lanterns

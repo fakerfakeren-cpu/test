@@ -129,14 +129,14 @@ LOOT = {
 # quest id: (frame, icon, criteria, English title, description, hint)
 QUEST_TABLE = {
     'grove_king': ('challenge', 'grove_kings_crown', {'slain': D.impossible(), 'killed': D.killed('elderhorn')},
-                   'The Grove King', 'Wake the Elderhorn in his ring of stones, and fell him.',
-                   'A ring of runestones in the flowering woods. Sidestep his charge; strike hard while he kneels.'),
+                   'The Grove King', 'Optional. Find the Stag\'s Ring, a circle of mossy runestones around a great stag sleeping in a glade, and fell the Elderhorn.',
+                   'Look in flower forests, birch and oak forests and cherry groves. Sidestep his charge (he telegraphs it by pawing the ground); strike hard while he kneels.'),
     'bog_mother': ('challenge', 'bog_mothers_lantern', {'slain': D.impossible(), 'killed': D.killed('bog_mother')},
-                   'The Mother of Hags', 'Find the stilt-house in the swamp and put out the Bog Mother\'s lanterns.',
-                   'Swamps. Kill her bone-children first: while they live, her lanterns shield her.'),
+                   'The Mother of Hags', 'Optional. Find the Bog Mother\'s stilt-house, a crooked hut on legs with green lanterns, and end her.',
+                   'Only in swamps and mangrove swamps. Kill her bone-children first: while they live, her lanterns shield her.'),
     'cinder_colossus': ('challenge', 'cinder_heart', {'slain': D.impossible(), 'killed': D.killed('cinder_colossus')},
-                        'The Walking Furnace', 'Go down into the sun-cult\'s sanctum and quench the Cinder Colossus.',
-                        'A stepped pyramid in the desert or the badlands. Water cracks it; its open core takes double harm.'),
+                        'The Walking Furnace', 'Optional. Find the Cinder Sanctum, a stepped sandstone pyramid, go down inside and quench the Cinder Colossus.',
+                        'Only in deserts and badlands. Water (a bucket, or rain) cracks its shell; its open core takes double harm.'),
     'last_watch': ('task', 'oathsteel_lantern', {'found': D.entered('watchtower')},
                    'The Last Watch', 'Climb a Lanternguard watchtower.',
                    'They stand on windy heights: hills, meadows and plains. A stonewarden keeps the door.'),
@@ -159,6 +159,8 @@ def quests(any_of):
 
 
 PARENTS = {q: 'root' for q in QUEST_TABLE}
+# the three wild keepers sit in the story's chapters as optional quests, unlocking as the story reaches them
+PARENTS.update({'grove_king': 'wayshrine', 'bog_mother': 'caldris', 'cinder_colossus': 'veyl'})
 QUESTS = {q: (t[3], t[4], t[5]) for q, t in QUEST_TABLE.items()}
 
 TEXT = {

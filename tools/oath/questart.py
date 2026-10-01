@@ -47,6 +47,65 @@ def picture(shot):
     return im
 
 
+# quest id -> the items whose recipes its page shows (cycled in the picture plate)
+RECIPES = {
+    'oathsteel': ['oathsteel_blend', 'oathsteel_ingot'], 'lantern': ['wardens_lantern', 'oathsteel_nugget'],
+    'wayshrine': ['wayshrine_brazier'], 'oathsteel_arms': ['oathsteel_longsword', 'wardens_halberd'],
+    'oathsteel_armor': ['oathsteel_helmet', 'oathsteel_chestplate', 'oathsteel_leggings', 'oathsteel_boots'],
+    'arcanist': ['arcanist_hood', 'arcanist_robe', 'arcanist_leggings', 'arcanist_boots'], 'dawnstring': ['dawnstring_longbow'],
+    'oathkey': ['oathkey'], 'sickle': ['shadowreap_sickle'], 'elixir': ['elixir_of_dawn'], 'flask': ['lumen_flask'],
+    'everflame': ['everflame_lantern'],
+    'alchemist': ['elixir_of_the_wayfarer', 'elixir_of_shrouds', 'elixir_of_valor', 'elixir_of_tides', 'elixir_of_wards', 'elixir_of_dawn'],
+}
+RECIPE_DIR = os.path.join(ROOT, 'src/main/resources/data/oathbound/recipe')
+CRAFT, COOK = ('minecraft:crafting_shaped', 'minecraft:crafting_shapeless'), ('minecraft:smelting', 'minecraft:blasting')
+
+
+def find_recipe(item):
+    """The recipe that makes oathbound:<item>, as a 3x3 grid (crafting) or a single input (smelting)."""
+    import json
+    best = None
+    for f in sorted(os.listdir(RECIPE_DIR)):
+        d = json.load(open(os.path.join(RECIPE_DIR, f)))
+        res = d.get('result', {})
+        rid = res.get('id') if isinstance(res, dict) else res
+        if rid != f'oathbound:{item}' or d['type'] not in CRAFT + COOK:
+            continue
+        if d['type'] == 'minecraft:crafting_shaped':
+            grid = [''] * 9
+            for r, row in enumerate(d['pattern']):
+                for c, ch in enumerate(row):
+                    if ch != ' ':
+                        grid[r * 3 + c] = d['key'][ch]
+            rec = {'kind': 'craft', 'grid': grid}
+        elif d['type'] == 'minecraft:crafting_shapeless':
+            ings = list(d['ingredients'])
+            rec = {'kind': 'craft', 'grid': ings + [''] * (9 - len(ings))}
+        else:
+            ing = d['ingredient']
+            rec = {'kind': 'smelt', 'grid': [ing if isinstance(ing, str) else ing[0]]}
+        rec['result'] = rid
+        rec['count'] = res.get('count', 1) if isinstance(res, dict) else 1
+        if best is None or (best['kind'] == 'smelt' and rec['kind'] == 'craft' and item != 'oathsteel_ingot'):
+            best = rec
+    return best
+
+
+def recipes():
+    import json
+    out = {}
+    for quest, items in RECIPES.items():
+        recs = [r for r in (find_recipe(i) for i in items) if r]
+        missing = [i for i in items if not find_recipe(i)]
+        assert not missing, (quest, missing)
+        out[quest] = recs
+    path = os.path.join(ROOT, 'src/main/resources/assets/oathbound/chronicle/recipes.json')
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, 'w') as f:
+        json.dump(out, f, indent=1)
+    print('chronicle recipes:', sum(len(v) for v in out.values()))
+
+
 def generate():
     os.makedirs(OUT, exist_ok=True)
     n = 0
@@ -59,3 +118,4 @@ def generate():
 
 if __name__ == '__main__':
     generate()
+    recipes()

@@ -72,6 +72,9 @@ public final class Codex {
         new Entry("heart_of_the_gloam", 5, ModItems.HEART_OF_THE_GLOAM), new Entry("sunshard_talisman", 5, ModItems.SUNSHARD_TALISMAN));
 
     private static final String KEY = "oathbound_codex";
+    private static final Set<String> ELIXIRS = Set.of("elixir_of_the_wayfarer", "elixir_of_shrouds", "elixir_of_valor", "elixir_of_tides",
+        "elixir_of_wards", "elixir_of_dawn");
+    private static final List<String> ENCHANTMENTS = List.of("gloambane", "warding", "wayfarer", "dawnfire");
     private static final double SIGHT = 20;
 
     private Codex() {}
@@ -96,13 +99,23 @@ public final class Codex {
             if (id == null || !Oathbound.MODID.equals(id.getNamespace()) || known.contains(id.getPath())) continue;
             if (isBeast(id.getPath()) && player.hasLineOfSight(e)) known.add(id.getPath());
         }
-        // relics in the pack
+        // relics and elixirs in the pack, and the Order's enchantments on anything carried
         var inv = player.getInventory();
         for (int i = 0; i < inv.getContainerSize(); i++) {
             ItemStack s = inv.getItem(i);
             if (s.isEmpty()) continue;
             Identifier id = ForgeRegistries.ITEMS.getKey(s.getItem());
-            if (id != null && Oathbound.MODID.equals(id.getNamespace()) && isRelic(id.getPath())) known.add(id.getPath());
+            if (id != null && Oathbound.MODID.equals(id.getNamespace())) {
+                if (isRelic(id.getPath())) known.add(id.getPath());
+                if (ELIXIRS.contains(id.getPath())) known.add("x:" + id.getPath());
+            }
+            for (var comp : List.of(net.minecraft.core.component.DataComponents.ENCHANTMENTS, net.minecraft.core.component.DataComponents.STORED_ENCHANTMENTS)) {
+                var ench = s.get(comp);
+                if (ench == null) continue;
+                for (var h : ench.keySet()) {
+                    for (String e : ENCHANTMENTS) if (h.is(Identifier.fromNamespaceAndPath(Oathbound.MODID, e))) known.add("e:" + e);
+                }
+            }
         }
         // and anything the player's own records already prove (kills, crafts, pickups)
         var stats = player.getStats();
@@ -116,6 +129,12 @@ public final class Codex {
             Item item = r.icon().get();
             if (stats.getValue(Stats.ITEM_CRAFTED.get(item)) > 0 || stats.getValue(Stats.ITEM_PICKED_UP.get(item)) > 0) known.add(r.id());
         }
+        // the optional collecting quests
+        long relics = RELICS.stream().filter(r -> known.contains(r.id())).count();
+        long elixirs = known.stream().filter(k -> k.startsWith("x:")).count();
+        if (relics >= 5) QuestLog.grant(player, "relic_hunter", "done");
+        if (elixirs >= 3) QuestLog.grant(player, "alchemist", "done");
+        if (known.stream().anyMatch(k -> k.startsWith("e:"))) QuestLog.grant(player, "enchanter", "done");
         if (known.size() == before) return;
         CompoundTag root = player.getPersistentData();
         CompoundTag persisted = root.getCompoundOrEmpty("PlayerPersisted");

@@ -1,0 +1,28 @@
+{
+  "display": {
+    "icon": {
+      "id": "oathbound:lanternguard_signet"
+    },
+    "title": {
+      "translate": "quest.oathbound.relic_hunter.title"
+    },
+    "description": {
+      "translate": "quest.oathbound.relic_hunter.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "done"
+    ]
+  ],
+  "parent": "oathbound:quests/barrow"
+}

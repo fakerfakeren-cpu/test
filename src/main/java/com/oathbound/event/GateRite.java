@@ -36,10 +36,12 @@ public final class GateRite {
     public static final int DURATION = 110;
 
     private static final class Rite {
+        final net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level> dimension;
         final BlockPos pos;
         int t;
 
-        Rite(BlockPos pos) {
+        Rite(net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level> dimension, BlockPos pos) {
+            this.dimension = dimension;
             this.pos = pos;
         }
     }
@@ -49,20 +51,22 @@ public final class GateRite {
     private GateRite() {}
 
     public static boolean isRunning(ServerLevel level, BlockPos pos) {
-        for (Rite r : RITES) if (r.pos.equals(pos)) return true;
+        for (Rite r : RITES) if (r.dimension == level.dimension() && r.pos.equals(pos)) return true;
         return false;
     }
 
     public static void begin(ServerLevel level, BlockPos keystone, net.minecraft.world.entity.player.Player player) {
-        RITES.add(new Rite(keystone.immutable()));
+        RITES.add(new Rite(level.dimension(), keystone.immutable()));
         level.playSound(null, keystone, ModSounds.GATE_HUM.get(), SoundSource.BLOCKS, 3.0f, 0.6f);
-        player.sendSystemMessage(Component.translatable("message.oathbound.gate.begin").withStyle(ChatFormatting.LIGHT_PURPLE, ChatFormatting.ITALIC));
+        if (player != null) player.sendSystemMessage(Component.translatable("message.oathbound.gate.begin").withStyle(ChatFormatting.LIGHT_PURPLE, ChatFormatting.ITALIC));
     }
 
     public static void tick(ServerLevel level) {
         Iterator<Rite> it = RITES.iterator();
         while (it.hasNext()) {
             Rite r = it.next();
+            // every dimension ticks this list: only the rite's own world may advance (or cancel) it
+            if (r.dimension != level.dimension() || !level.isLoaded(r.pos)) continue;
             if (!level.getBlockState(r.pos).is(ModBlocks.SUNDERED_KEYSTONE.get())) {
                 it.remove();
                 continue;
@@ -128,7 +132,8 @@ public final class GateRite {
             for (int dy = 1; dy <= 7; dy++) {
                 BlockPos p = k.offset(dx, dy, 0);
                 BlockState s = level.getBlockState(p);
-                if (s.isAir() || s.canBeReplaced()) {
+                // the opening is inside the frame by blueprint, so anything in it is rubble, plants or snow
+                if (!s.is(ModBlocks.GLOAM_VEIL.get()) && s.getDestroySpeed(level, p) >= 0) {
                     level.setBlock(p, ModBlocks.GLOAM_VEIL.get().defaultBlockState(), 2);
                     n++;
                 }

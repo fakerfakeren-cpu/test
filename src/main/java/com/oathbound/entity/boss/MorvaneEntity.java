@@ -3,6 +3,7 @@ package com.oathbound.entity.boss;
 import com.oathbound.entity.SpellMarkEntity;
 import com.oathbound.Config;
 import com.oathbound.block.WardLanternBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import com.oathbound.entity.mob.ForswornKnightEntity;
 import com.oathbound.entity.projectile.CrownBladeEntity;
 import com.oathbound.entity.projectile.GloamBoltEntity;
@@ -177,6 +178,25 @@ public class MorvaneEntity extends KeeperEntity {
             }
         }
         super.customServerAiStep(level);
+    }
+
+    /** A failed challenge: back to the first phase, the knights he called gone, the lanterns dark, the arena open. */
+    @Override
+    protected void onReset(ServerLevel level) {
+        entityData.set(PHASE, 1);
+        entityData.set(HOLLOW, false);
+        pillars.clear();
+        for (UUID id : knights) {
+            var e = level.getEntity(id);
+            if (e != null) e.discard();
+        }
+        knights.clear();
+        countered = false;
+        for (BlockPos p : lanterns(level)) {
+            BlockState s = level.getBlockState(p);
+            if (s.getValue(WardLanternBlock.LIT)) level.setBlock(p, s.setValue(WardLanternBlock.LIT, false), 3);
+        }
+        sealArena(level, false);
     }
 
     @Override

@@ -460,9 +460,15 @@ public final class SelfTest {
             check("cipher_dissolves_ward", Puzzles.find(level, spire.above(28), 8, ModBlocks.ARCANE_WARD.get()).isEmpty(), "");
             BlockPos barrow = built.get(Sketches.Type.BARROW_OF_KINGS);
             check("honest_king_opens_barrow", Puzzles.find(level, barrow.offset(0, -10, -12), 8, ModBlocks.BARROW_SEAL.get()).isEmpty(), "");
+            // the real rite, ticked by every dimension as in play (it used to be cancelled by the other worlds)
+            GateRite.begin(level, built.get(Sketches.Type.SUNDERED_CITADEL).offset(0, 0, -10), null);
+        });
+        at(80 + GateRite.DURATION + 10, s -> {
+            ServerLevel level = s.overworld();
             BlockPos keystone = built.get(Sketches.Type.SUNDERED_CITADEL).offset(0, 0, -10);
-            int veil = GateRite.openNow(level, keystone);
-            check("gate_opens", veil == 35, "veil=" + veil);
+            int veil = Puzzles.find(level, keystone.above(4), 5, ModBlocks.GLOAM_VEIL.get()).size();
+            boolean active = level.getBlockState(keystone).getValue(com.oathbound.block.SunderedKeystoneBlock.ACTIVE);
+            check("gate_opens", active && veil == 35, "active=" + active + " veil=" + veil);
         });
         at(90, s -> {
             ServerLevel level = s.overworld();

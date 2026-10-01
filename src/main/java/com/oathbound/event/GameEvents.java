@@ -332,14 +332,32 @@ public final class GameEvents {
     }
 
     // ------------------------------------------------------------------ sealed keeps
-    /** The story keeps and the keeper whose defeat lifts their seal: until then their stones cannot be broken or blasted. */
-    private static final List<java.util.Map.Entry<net.minecraft.tags.TagKey<net.minecraft.world.level.levelgen.structure.Structure>, String>> SEALED = List.of(
-        java.util.Map.entry(ModTags.DROWNED_CHAPEL, "caldris"), java.util.Map.entry(ModTags.ARCANIST_SPIRE, "veyl"),
-        java.util.Map.entry(ModTags.BARROW, "hrodgar"));
+    /**
+     * Every boss's lair and the boss whose defeat lifts its seal: until then its stones cannot be broken or
+     * blasted, so nobody digs round a ward or into an arena.
+     */
+    private static final Map<net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure>, String> SEALED = Map.of(
+        lair("drowned_chapel"), "caldris", lair("arcanist_spire"), "veyl", lair("barrow_of_kings"), "hrodgar",
+        lair("grove_shrine"), "grove_king", lair("bog_hut"), "bog_mother", lair("cinder_sanctum"), "cinder_colossus");
+    /** The Hollow Throne is raised in the Gloaming by hand, not as a structure: its arena is this radius around the throne. */
+    private static final double THRONE_RADIUS = 36;
 
-    /** The keeper quest that guards this position, or null outside the story keeps. */
+    private static net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.structure.Structure> lair(String id) {
+        return net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.STRUCTURE,
+            net.minecraft.resources.Identifier.fromNamespaceAndPath(com.oathbound.Oathbound.MODID, id));
+    }
+
+    /** The boss quest that guards this position, or null outside every lair. */
     public static String sealedBy(ServerLevel level, BlockPos pos) {
-        for (var e : SEALED) if (level.structureManager().getStructureWithPieceAt(pos, e.getKey()).isValid()) return e.getValue();
+        if (level.dimension() == ModWorldgen.GLOAMING) {
+            double dx = pos.getX() - GloamingTravel.THRONE.getX(), dz = pos.getZ() - GloamingTravel.THRONE.getZ();
+            return dx * dx + dz * dz < THRONE_RADIUS * THRONE_RADIUS ? "morvane" : null;
+        }
+        if (level.dimension() != net.minecraft.world.level.Level.OVERWORLD) return null;
+        for (var e : SEALED.entrySet()) {
+            var key = e.getKey();
+            if (level.structureManager().getStructureWithPieceAt(pos, h -> h.is(key)).isValid()) return e.getValue();
+        }
         return null;
     }
 

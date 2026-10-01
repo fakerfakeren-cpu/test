@@ -82,7 +82,7 @@ public final class ModBlocks {
     public static final RegistryObject<Block> LORE_TABLET = reg("lore_tablet", LoreTabletBlock::new,
         () -> props(MapColor.SAND, -1.0f, 3600000.0f, SoundType.STONE).noLootTable().lightLevel(s -> 3));
     public static final RegistryObject<Block> WAYSHRINE_BRAZIER = reg("wayshrine_brazier", WayshrineBrazierBlock::new,
-        () -> props(MapColor.GOLD, 3.5f, 1200.0f, SoundType.METAL).noOcclusion().lightLevel(s -> s.getValue(WayshrineBrazierBlock.LIT) ? 15 : 2).requiresCorrectToolForDrops());
+        () -> props(MapColor.GOLD, 1.5f, 1200.0f, SoundType.METAL).noOcclusion().lightLevel(s -> s.getValue(WayshrineBrazierBlock.LIT) ? 15 : 2));
     public static final RegistryObject<Block> CHAPEL_BELL = reg("chapel_bell", ChapelBellBlock::new,
         () -> props(MapColor.GOLD, -1.0f, 3600000.0f, SoundType.ANVIL).noOcclusion().noLootTable());
     public static final RegistryObject<Block> HYMN_STONE = reg("hymn_stone", HymnStoneBlock::new,

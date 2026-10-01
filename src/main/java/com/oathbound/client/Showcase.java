@@ -487,6 +487,8 @@ public final class Showcase {
             scene(i == 0 ? 80 : 10, "book_" + name, mc -> mc.setScreenAndShow(new ChronicleScreen(net.minecraft.world.InteractionHand.MAIN_HAND, tab)));
             scene(40, "book_" + name + "_shot", mc -> shoot(mc, "chronicle_" + name));
         }
+        scene(10, "book_recipe", mc -> mc.setScreenAndShow(new ChronicleScreen(net.minecraft.world.InteractionHand.MAIN_HAND, ChronicleScreen.TAB_PATH).select("oathsteel_armor")));
+        scene(40, "book_recipe_shot", mc -> shoot(mc, "chronicle_recipe"));
         scene(20, "finish", mc -> {
             mc.setScreenAndShow(null);
             log("RESULT: PASS");
