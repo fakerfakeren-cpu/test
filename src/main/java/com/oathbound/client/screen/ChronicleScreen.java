@@ -62,6 +62,8 @@ public class ChronicleScreen extends Screen {
 
     /** Quests about a place or a creature show a picture of it (textures/gui/quest/<id>.png, cut from real in-game shots). */
     private static final int PIC_W = 304, PIC_H = 128;
+    /** Boss quests carry a "Prepare" line (quest.oathbound.<id>.prepare): what to bring to the fight. */
+    private static final Set<String> BOSS_QUESTS = Set.of("caldris", "veyl", "hrodgar", "morvane", "grove_king", "bog_mother", "cinder_colossus");
     private final Map<String, Boolean> hasPicture = new HashMap<>();
 
     /** Recipes for quests that ask you to make something (assets/oathbound/chronicle/recipes.json, generated from the mod's own recipes). */
@@ -676,7 +678,7 @@ public class ChronicleScreen extends Screen {
         List<Line> body = new ArrayList<>();
         addLines(body, Component.translatable("quest.oathbound." + q.id() + ".description"), PAGE_W - 14, INK);
         String prep = "quest.oathbound." + q.id() + ".prepare";
-        if (net.minecraft.client.resources.language.I18n.exists(prep) && s != Status.PAID) {
+        if (BOSS_QUESTS.contains(q.id()) && s != Status.PAID) {
             body.add(new Line(FormattedCharSequence.EMPTY, INK));
             addLines(body, Component.translatable("chronicle.oathbound.prepare").withStyle(ChatFormatting.BOLD)
                 .append(Component.translatable(prep).withStyle(Style.EMPTY.withBold(false))), PAGE_W - 14, 0xFF2F5A2A);
