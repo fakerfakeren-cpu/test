@@ -352,7 +352,7 @@ def crown(im, n):
 
 
 # ====================================================================== banner and cover
-def title_card(w, h, shot, title_scale=1.0):
+def title_card(w, h, shot, title_scale=1.0, title_y=0.46, subtitle_line=True, title_width=0.84):
     src = os.path.join(SHOTS, shot + '.jpg')
     a = to_arr(Image.open(src).convert('RGB').resize((w, h), Image.LANCZOS))
     a = grade(a, 1.0) * 0.55
@@ -360,7 +360,7 @@ def title_card(w, h, shot, title_scale=1.0):
     a = bloom(a, w, 0.7)
     a = haze(a, 0.25)
     # the oath-circle, faint behind the title
-    s = int(h * 0.92)
+    s = int(min(w, h) * 0.92)
     sig = np.clip(sigil_oath(s), 0, 1)
     full = np.zeros((h, w))
     oy, ox = (h - s) // 2, (w - s) // 2
@@ -368,26 +368,55 @@ def title_card(w, h, shot, title_scale=1.0):
     a += (full * 0.16 + gaussian_filter(full, h * 0.01) * 0.22)[..., None] * GOLD_LIGHT
     a = motes(a, int(w * 0.16), seed=31, light=(w * 0.5, h * 0.45), scale=w / 1920 * 1.0 + 0.4)
     a = vignette(a, 0.6)
-    ft = font('Gloock-Regular.ttf', int(h * 0.2 * title_scale))
-    fs = font('ArsenalSC-Regular.ttf', int(h * 0.055 * title_scale))
+    size = int(h * 0.2 * title_scale)
+    probe = ImageDraw.Draw(Image.new('L', (1, 1)))
+    while probe.textlength('OATHBOUND', font=font('Gloock-Regular.ttf', size)) > w * title_width:
+        size -= 2
+    ft = font('Gloock-Regular.ttf', size)
+    fs = font('ArsenalSC-Regular.ttf', max(10, int(size * 0.275)))
     sub = spaced('THE HOLLOW CROWN', 1)
 
     def title(d):
-        d.text((w / 2, h * 0.46), 'OATHBOUND', font=ft, fill=255, anchor='mm')
+        d.text((w / 2, h * title_y), 'OATHBOUND', font=ft, fill=255, anchor='mm')
     a = engrave(a, text_layer((w, h), title), hexrgb('#fff0c8'), hexrgb('#d68a3a'), glow=1.0, glow_colour=EMBER)
 
     def subtitle(d):
         tw = d.textlength(sub, font=fs)
-        y0 = h * 0.64
+        y0 = h * title_y + size * 0.9
         d.text((w / 2, y0), sub, font=fs, fill=255, anchor='mm')
         for side in (-1, 1):
-            x0, x1 = w / 2 + side * (tw / 2 + h * 0.04), w / 2 + side * (tw / 2 + h * 0.22)
+            x0, x1 = w / 2 + side * (tw / 2 + size * 0.2), w / 2 + side * (tw / 2 + min(size * 1.1, w * 0.46 - tw / 2))
             d.line([(x0, y0), (x1, y0)], fill=170, width=max(1, h // 400))
-            d.polygon([(x1 + side * h * 0.012, y0), (x1, y0 - h * 0.008), (x1 - side * h * 0.012, y0), (x1, y0 + h * 0.008)], fill=200)
-    sl = text_layer((w, h), subtitle)
-    a = engrave(a, sl, np.array(IVORY) / 255, glow=0.3, glow_colour=GOLD_LIGHT)
+            dd = size * 0.06
+            d.polygon([(x1 + side * dd * 1.5, y0), (x1, y0 - dd), (x1 - side * dd * 1.5, y0), (x1, y0 + dd)], fill=200)
+    if subtitle_line:
+        sl = text_layer((w, h), subtitle)
+        a = engrave(a, sl, np.array(IVORY) / 255, glow=0.3, glow_colour=GOLD_LIGHT)
     a = grain(a, 0.01, seed=3)
     return to_img(a)
+
+
+def wordmark(w=1600, h=520):
+    """The title alone on transparent ground, for overlays: gold letters with their glow, the line beneath."""
+    a = np.zeros((h, w, 3))
+    size = int(h * 0.5)
+    probe = ImageDraw.Draw(Image.new('L', (1, 1)))
+    while probe.textlength('OATHBOUND', font=font('Gloock-Regular.ttf', size)) > w * 0.9:
+        size -= 2
+    ft, fs = font('Gloock-Regular.ttf', size), font('ArsenalSC-Regular.ttf', int(size * 0.275))
+    sub = spaced('THE HOLLOW CROWN', 1)
+    t = text_layer((w, h), lambda d: d.text((w / 2, h * 0.42), 'OATHBOUND', font=ft, fill=255, anchor='mm'))
+    st = text_layer((w, h), lambda d: d.text((w / 2, h * 0.42 + size * 0.9), sub, font=fs, fill=255, anchor='mm'))
+    glow = np.clip(gblur(t, w * 0.004) * 0.9 + gblur(t, w * 0.014) * 0.6, 0, 1)
+    ys = np.nonzero(t.max(1) > 0.1)[0]
+    k = np.clip((np.arange(h) - ys[0]) / max(1, ys[-1] - ys[0]), 0, 1)[:, None, None]
+    fill = hexrgb('#fff0c8') * (1 - k) + hexrgb('#d68a3a') * k
+    a = glow[..., None] * EMBER
+    a = a * (1 - t[..., None]) + fill * t[..., None]
+    a = a * (1 - st[..., None]) + np.array(IVORY) / 255 * st[..., None]
+    alpha = np.clip(np.maximum(np.maximum(t, st), glow * 0.85), 0, 1)
+    rgba = np.dstack([np.clip(a / np.maximum(alpha[..., None], 1e-3), 0, 1), alpha])
+    return Image.fromarray((rgba * 255).astype(np.uint8), 'RGBA')
 
 
 def generate():
