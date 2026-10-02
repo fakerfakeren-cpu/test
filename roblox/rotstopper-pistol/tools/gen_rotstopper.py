@@ -1,296 +1,518 @@
-"""Rotstopper pistol: single source of truth for the geometry.
+"""Rotstopper pistol, voxel edition (Pixel Gun 3D / Minecraft-style).
 
-Generates, next to this folder:
-  build_rotstopper.lua   paste into the Roblox Studio command bar; builds a rigged Tool
-  rotstopper.obj/.mtl    one object per animatable component, for Blender
-  preview.png            renders: 3/4 view, side view, exploded view, reload pose
+The gun is drawn as pixel art in side view, one canvas per moving component. Each pixel is
+extruded into voxels across the gun's width, edges are stair-step bevelled, every visible voxel
+face gets one texel of shaded pixel-art colour, and faces are greedy-merged into large quads
+UV-mapped onto one shared texture atlas.
 
-Units are Roblox studs. Handle space: +X right, +Y up, -Z forward (barrel points along the
-Handle's LookVector, which is what the default Tool.Grip expects). The origin is the centre of
-the grip, where the hand holds it.
+Outputs (next to this folder):
+  rotstopper.obj / .mtl   one object per component (Frame, Grip, Slide, Barrel, Magazine,
+                          Trigger, Hammer, SlideStop); import with Studio's 3D Importer
+  rotstopper_texture.png  1024x512 atlas (nearest-neighbour upscaled so it stays crisp in Roblox)
+  rig_rotstopper.lua      select the imported model, paste into the command bar: makes a rigged Tool
+  preview.png             renders
 
-Run:  python3 tools/gen_rotstopper.py
+Units: Roblox studs. +X right, +Y up, -Z forward (barrel), origin = centre of the grip.
+Run:   python3 tools/gen_rotstopper.py
 """
 import math
 import os
+import random
 
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
-OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
+HERE = os.path.dirname(os.path.abspath(__file__))
+OUT = os.path.normpath(os.path.join(HERE, ".."))
+VOX = 0.04  # studs per voxel; the gun is ~53 voxels long = ~2.1 studs, chunky like PG3D
 
 # ---------------------------------------------------------------- palette
-# Chunky, saturated, flat colours. Charcoal frame, steel slide, olive grips, hazard-orange accents,
-# lime neon front sight (zombie-game readability).
-C = {
-    "frame":  "3B4048",
-    "slide":  "A9B4C2",
-    "sdark":  "5C6673",
-    "barrel": "8A939F",
-    "black":  "16181C",
-    "panel":  "6B7A3A",
-    "pdark":  "4A5528",
-    "accent": "FF8C1A",
-    "brass":  "D9A934",
-    "neon":   "7CFF3A",
+# 5-step ramps: 0 deepest shadow .. 4 highlight. Pixel shading picks a step per texel.
+RAMPS = {
+    "steel":  ["1C2330", "3A4658", "6A7B92", "A4B4C9", "E2EBF5"],
+    "gun":    ["121419", "23272F", "363B46", "4E5563", "707A8B"],
+    "black":  ["07080A", "111317", "1B1E24", "2A2E37", "3E444F"],
+    "orange": ["5A2805", "A64C0B", "E8781A", "FFA244", "FFD48E"],
+    "olive":  ["1E230F", "38411F", "55622E", "75853F", "9AAB5B"],
+    "brass":  ["4A3208", "8A6214", "C9962A", "EAC45C", "FFEBA4"],
+    "neon":   ["2C6A10", "4CBC20", "7CFF3A", "B6FF80", "E8FFD4"],
 }
+NOISE = {"olive": 0.32, "steel": 0.06, "gun": 0.10, "orange": 0.08}
+
+# ---------------------------------------------------------------- pixel-art spec
+# char -> (ramp, base level, width in voxels, inner hole width, bevel-exempt)
+SPEC = {
+    # slide
+    "S": ("steel", 2, 10, 0, False),   # slide body
+    "H": ("steel", 3, 10, 0, False),   # polished streak
+    "D": ("steel", 1, 10, 0, False),   # lower shadow band
+    "X": ("steel", 0, 10, 0, False),   # rear serrations
+    "O": ("orange", 2, 10, 0, False),  # hazard stripe
+    "r": ("black", 2, 8, 2, True),     # rear sight (notched)
+    "n": ("neon", 3, 2, 0, True),      # front sight
+    # barrel
+    "b": ("steel", 1, 6, 0, False),
+    "o": ("steel", 1, 6, 2, True),     # muzzle with a bore hole
+    # frame
+    "F": ("gun", 2, 8, 0, False),
+    "g": ("gun", 1, 6, 0, True),       # rail lugs
+    "k": ("black", 2, 10, 0, True),    # takedown pin heads
+    "G": ("gun", 2, 4, 0, False),      # trigger guard
+    # grip
+    "f": ("gun", 2, 8, 0, False),      # grip frame
+    "d": ("gun", 1, 8, 0, False),      # grip butt
+    "q": ("gun", 1, 8, 0, False),      # front-strap grooves
+    "p": ("olive", 2, 10, 0, False),   # grip panel (stands proud of the frame)
+    "e": ("orange", 2, 10, 0, False),  # diamond emblem on the panel
+    # magazine
+    "m": ("gun", 1, 6, 0, False),
+    "B": ("orange", 2, 10, 0, False),  # base plate
+    "c": ("brass", 2, 4, 0, False),    # top round
+    # small parts
+    "T": ("black", 3, 2, 0, True),     # trigger
+    "h": ("black", 2, 4, 0, False),    # hammer
+    "s": ("black", 3, 1, 0, True),     # slide stop (x range set per component)
+}
+# Overlays paint texels on one side only (they don't change shape). side: +1 = right (+X).
+OVERLAY_SPEC = {"P": ("black", 0)}  # ejection port
+
+COMPONENTS = ["Frame", "Grip", "Slide", "Barrel", "Magazine", "Trigger", "Hammer", "SlideStop"]
+BEVEL = {"Slide": 2, "Barrel": 1, "Frame": 1, "Grip": 1, "Magazine": 1, "Hammer": 1, "Trigger": 0, "SlideStop": 0}
+X_RANGE = {"SlideStop": (-5, -4)}  # explicit x span instead of the centred char width
+
+canvas = {c: {} for c in COMPONENTS}       # comp -> {(row, col): char}; row 0 = top, col grows forward
+overlay = {c: {1: {}, -1: {}} for c in COMPONENTS}
 
 
-# ---------------------------------------------------------------- math
-def rx(deg):
-    a = math.radians(deg)
+def rect(comp, r0, r1, c0, c1, ch):
+    for r in range(r0, r1 + 1):
+        for c in range(c0, c1 + 1):
+            canvas[comp][(r, c)] = ch
+
+
+def rake(r):
+    """Grip rake: one column back for every three rows down."""
+    return max(0, (r - 23) // 3)
+
+
+# Slide: tall, chunky, stepped nose
+rect("Slide", 5, 16, 6, 46, "S")
+rect("Slide", 7, 16, 47, 48, "S")
+rect("Slide", 7, 15, 49, 50, "S")
+rect("Slide", 7, 7, 16, 48, "H")
+for c in (8, 10, 12, 14):
+    rect("Slide", 7, 14, c, c, "X")
+rect("Slide", 13, 14, 22, 46, "O")
+rect("Slide", 16, 16, 6, 48, "D")
+rect("Slide", 3, 4, 7, 10, "r")
+rect("Slide", 3, 4, 44, 45, "n")
+for r in range(7, 11):
+    for c in range(18, 28):
+        overlay["Slide"][1][(r, c)] = "P"
+
+# Barrel: mostly hidden in the slide, bore pokes out the front
+rect("Barrel", 9, 12, 33, 52, "b")
+rect("Barrel", 10, 11, 51, 52, "o")
+
+# Frame: dust cover with rail, beavertail, trigger guard
+rect("Frame", 17, 22, 6, 47, "F")
+rect("Frame", 17, 19, 1, 5, "F")
+rect("Frame", 20, 22, 4, 8, "F")
+for c in (36, 40, 44):
+    rect("Frame", 23, 23, c, c + 1, "g")
+canvas["Frame"][(19, 35)] = "k"
+rect("Frame", 23, 29, 32, 34, "G")
+rect("Frame", 28, 29, 21, 34, "G")
+
+# Grip: raked, olive panel with emblem, grooved front strap
+for r in range(23, 37):
+    front, back = 22 - rake(r), 8 - rake(r)
+    rect("Grip", r, r, back, front, "d" if r == 36 else "f")
+    if 24 <= r <= 35:
+        rect("Grip", r, r, back + 1, front - 1, "p")
+        if r % 2 == 0:
+            canvas["Grip"][(r, front)] = "q"
+er, ec = 29, (8 - rake(29) + 22 - rake(29)) // 2
+for r in range(er - 2, er + 3):
+    for c in range(ec - 2, ec + 3):
+        if abs(r - er) + abs(c - ec) <= 2:
+            canvas["Grip"][(r, c)] = "e"
+
+# Magazine: body hidden in the grip, orange base plate below it, brass round on top
+for r in range(23, 37):
+    rect("Magazine", r, r, 8 - rake(r) + 3, 22 - rake(r) - 3, "m")
+rect("Magazine", 37, 38, 8 - rake(36), 22 - rake(36) + 1, "B")
+rect("Magazine", 21, 22, 12, 17, "c")
+
+# Trigger (curved blade), hammer (with spur), slide stop (left side only)
+rect("Trigger", 22, 23, 27, 28, "T")
+rect("Trigger", 24, 25, 26, 27, "T")
+rect("Trigger", 26, 27, 25, 26, "T")
+rect("Hammer", 12, 18, 3, 5, "h")
+rect("Hammer", 10, 11, 1, 4, "h")
+rect("SlideStop", 17, 18, 24, 31, "s")
+
+# Grid -> handle space. Voxel (x, row, col) occupies [x, x+1] * VOX on X, etc.
+GRIP_CENTER = np.array([0.0, -29.5, -14.0])  # (x, -row, -col) of the hand position, in voxels
+
+
+def to_studs(i, j, k):
+    return (np.array([i, j, k], float) - GRIP_CENTER) * VOX
+
+
+# Animated components: pivot position (voxel coords: x, row, col) and an X-axis tilt (degrees)
+PIVOTS = {
+    "Slide":     ((0, 11, 27), 0),           # translate +Z ~8 voxels to rack
+    "Barrel":    ((0, 10.5, 33), 0),         # breech: tilt the muzzle up on lock-back
+    "Magazine":  ((0, 30, 13), -math.degrees(math.atan(1 / 3))),  # axes follow the grip rake
+    "Trigger":   ((0, 22, 27.5), 0),         # top of the blade
+    "Hammer":    ((0, 18, 4), 0),            # hinge
+    "SlideStop": ((-4.5, 17.5, 24), 0),      # rear of the lever
+}
+STATIC = {"Frame", "Grip"}
+ATTACHMENTS = [("Barrel", "Muzzle", (0, 10.5, 53)), ("Slide", "ShellEject", (5.5, 8.5, 22.5))]
+HANDLE_SIZE = (0.32, 0.56, 0.44)
+
+
+def pivot_point(rc):
+    x, row, col = rc
+    return to_studs(x, -row, -col)
+
+
+# ---------------------------------------------------------------- voxelise
+def voxelise(comp):
+    vox = {}
+    for (r, c), ch in canvas[comp].items():
+        _, _, w, hole, _ = SPEC[ch]
+        x0, x1 = X_RANGE.get(comp, (-w // 2, w // 2))
+        for x in range(x0, x1):
+            if hole and -hole // 2 <= x < hole // 2:
+                continue
+            vox[(x, -r, -c)] = ch
+    # stair-step bevel: remove voxels exposed on X and also on Y or Z
+    for _ in range(BEVEL[comp]):
+        kill = []
+        for (i, j, k), ch in vox.items():
+            if SPEC[ch][4]:
+                continue
+            ex = (i - 1, j, k) not in vox or (i + 1, j, k) not in vox
+            eo = any(n not in vox for n in ((i, j - 1, k), (i, j + 1, k), (i, j, k - 1), (i, j, k + 1)))
+            if ex and eo:
+                kill.append((i, j, k))
+        for p in kill:
+            del vox[p]
+    return vox
+
+
+VOXELS = {c: voxelise(c) for c in COMPONENTS}
+
+# ---------------------------------------------------------------- texel shading
+DIRS = [(1, 0, 0), (-1, 0, 0), (0, 1, 0), (0, -1, 0), (0, 0, 1), (0, 0, -1)]
+
+
+def hexrgb(h):
+    return tuple(int(h[i:i + 2], 16) for i in (0, 2, 4))
+
+
+def texel(comp, p, d):
+    vox = VOXELS[comp]
+    ch = vox[p]
+    ramp, lvl, *_ = SPEC[ch]
+    i, j, k = p
+    empty = lambda q: q not in vox
+    if d[0] != 0:  # side faces carry the pixel art; edge rows get rim light / shadow
+        ov = overlay[comp].get(d[0], {}).get((-j, -k))
+        if ov:
+            ramp, lvl = OVERLAY_SPEC[ov]
+        else:
+            if empty((i, j + 1, k)):
+                lvl += 1
+            if empty((i, j - 1, k)):
+                lvl -= 1
+            if empty((i, j, k + 1)) or empty((i, j, k - 1)):
+                lvl -= 1
+    elif d[1] == 1:  # tops are lit, with a bright rim
+        lvl += 1
+        if empty((i + 1, j, k)) or empty((i - 1, j, k)):
+            lvl += 1
+    elif d[1] == -1:  # undersides in shadow
+        lvl -= 1
+        if empty((i + 1, j, k)) or empty((i - 1, j, k)):
+            lvl -= 1
+    else:  # front/back ends
+        if any(empty(q) for q in ((i + 1, j, k), (i - 1, j, k), (i, j + 1, k), (i, j - 1, k))):
+            lvl -= 1
+    rng = random.Random(f"{comp}{p}{d}")
+    if rng.random() < NOISE.get(ramp, 0):
+        lvl += rng.choice((-1, 1))
+    return hexrgb(RAMPS[ramp][max(0, min(4, lvl))])
+
+
+# ---------------------------------------------------------------- greedy meshing
+def greedy(comp):
+    """Merge coplanar visible faces into rectangles. Each quad keeps its own texel grid."""
+    vox = VOXELS[comp]
+    quads = []
+    for d in DIRS:
+        ax = [n for n in range(3) if d[n] != 0][0]
+        a_ax, b_ax = [n for n in range(3) if n != ax]
+        slices = {}
+        for p in vox:
+            q = tuple(p[n] + d[n] for n in range(3))
+            if q in vox:
+                continue
+            slices.setdefault(p[ax], {})[(p[a_ax], p[b_ax])] = p
+        for s in sorted(slices):
+            cells = slices[s]
+            used = set()
+            for (a, b) in sorted(cells, key=lambda t: (t[1], t[0])):
+                if (a, b) in used:
+                    continue
+                a1 = a
+                while (a1 + 1, b) in cells and (a1 + 1, b) not in used:
+                    a1 += 1
+                b1 = b
+                while all((x, b1 + 1) in cells and (x, b1 + 1) not in used for x in range(a, a1 + 1)):
+                    b1 += 1
+                grid = []
+                for y in range(b, b1 + 1):
+                    row = []
+                    for x in range(a, a1 + 1):
+                        used.add((x, y))
+                        row.append(texel(comp, cells[(x, y)], d))
+                    grid.append(row)
+                plane = s + (1 if d[ax] > 0 else 0)
+                quads.append((d, ax, a_ax, b_ax, plane, (a, a1 + 1), (b, b1 + 1), grid))
+    return quads
+
+
+QUADS = {c: greedy(c) for c in COMPONENTS}
+
+
+# ---------------------------------------------------------------- atlas
+def pack():
+    items = [(c, n, len(q[7][0]) + 2, len(q[7]) + 2) for c in COMPONENTS for n, q in enumerate(QUADS[c])]
+    items.sort(key=lambda t: (-t[3], -t[2]))
+    for size in (64, 128, 256, 512):
+        x = y = shelf = 0
+        place = {}
+        ok = True
+        for c, n, w, h in items:
+            if x + w > size:
+                x, y, shelf = 0, y + shelf, 0
+            if y + h > size:
+                ok = False
+                break
+            place[(c, n)] = (x, y)
+            x += w
+            shelf = max(shelf, h)
+        if ok:
+            used = y + shelf
+            height = 1 << max(0, (used - 1).bit_length())  # non-square power of two is fine in Roblox
+            return size, height, place
+    raise RuntimeError("atlas too large")
+
+
+ATLAS_N, ATLAS_H, PLACE = pack()
+SCALE = 1024 // ATLAS_N
+atlas = np.zeros((ATLAS_H, ATLAS_N, 3), np.uint8)
+for _c in COMPONENTS:
+    for _n, _q in enumerate(QUADS[_c]):
+        _x0, _y0 = PLACE[(_c, _n)]
+        _g = np.pad(np.array(_q[7], np.uint8), ((1, 1), (1, 1), (0, 0)), mode="edge")  # bleed guard
+        atlas[_y0:_y0 + _g.shape[0], _x0:_x0 + _g.shape[1]] = _g
+
+
+def quad_geometry(c, n):
+    """Corners (studs, CCW seen from outside), atlas UVs (texel units, top-left origin), normal."""
+    d, ax, a_ax, b_ax, plane, (a0, a1), (b0, b1), _ = QUADS[c][n]
+    x0, y0 = PLACE[(c, n)]
+    corners, uvs = [], []
+    for (a, b) in ((a0, b0), (a1, b0), (a1, b1), (a0, b1)):
+        p = [0, 0, 0]
+        p[ax], p[a_ax], p[b_ax] = plane, a, b
+        corners.append(to_studs(*p))
+        uvs.append((x0 + 1 + (a - a0), y0 + 1 + (b - b0)))
+    nrm = np.cross(corners[1] - corners[0], corners[3] - corners[0])
+    if np.dot(nrm, d) < 0:
+        corners.reverse()
+        uvs.reverse()
+    return corners, uvs, np.array(d, float)
+
+
+def bbox(c):
+    pts = np.array([p for n in range(len(QUADS[c])) for p in quad_geometry(c, n)[0]])
+    lo, hi = pts.min(0), pts.max(0)
+    return (lo + hi) / 2, hi - lo
+
+
+# ---------------------------------------------------------------- OBJ
+def gen_obj():
+    out = ["# Rotstopper voxel pistol. One object per component. Units: studs. -Z forward, +Y up.",
+           "mtllib rotstopper.mtl"]
+    vi = 0
+    for c in COMPONENTS:
+        out.append(f"o {c}")
+        out.append("usemtl rotstopper")
+        for n in range(len(QUADS[c])):
+            corners, uvs, _ = quad_geometry(c, n)
+            for p in corners:
+                out.append(f"v {p[0]:.5f} {p[1]:.5f} {p[2]:.5f}")
+            for u, v in uvs:
+                out.append(f"vt {u / ATLAS_N:.6f} {1 - v / ATLAS_H:.6f}")
+            out.append("f " + " ".join(f"{vi + m + 1}/{vi + m + 1}" for m in range(4)))
+            vi += 4
+    mtl = "newmtl rotstopper\nKa 1 1 1\nKd 1 1 1\nKs 0 0 0\nd 1\nillum 1\nmap_Kd rotstopper_texture.png\n"
+    return "\n".join(out) + "\n", mtl
+
+
+# ---------------------------------------------------------------- Luau rig script
+def fnum(x):
+    s = f"{x:.6f}".rstrip("0").rstrip(".")
+    return "0" if s in ("", "-0") else s
+
+
+def lv(v):
+    return "Vector3.new(" + ", ".join(fnum(x) for x in v) + ")"
+
+
+def lcf(pos, tilt_deg=0.0):
+    a = math.radians(tilt_deg)
     c, s = math.cos(a), math.sin(a)
-    return np.array([[1, 0, 0], [0, c, -s], [0, s, c]], float)
+    m = [1, 0, 0, 0, c, -s, 0, s, c]
+    return "CFrame.new(" + ", ".join(fnum(v) for v in list(pos) + m) + ")"
 
 
-class CF:
-    """Rigid transform: world = R @ local + p (same convention as a Roblox CFrame)."""
-
-    def __init__(self, p=(0, 0, 0), R=None):
-        self.p = np.array(p, float)
-        self.R = np.eye(3) if R is None else np.array(R, float)
-
-    def __mul__(self, o):
-        return CF(self.R @ o.p + self.p, self.R @ o.R)
-
-    def point(self, v):
-        return self.R @ np.array(v, float) + self.p
-
-    def components(self):
-        r = self.R
-        return [self.p[0], self.p[1], self.p[2],
-                r[0, 0], r[0, 1], r[0, 2], r[1, 0], r[1, 1], r[1, 2], r[2, 0], r[2, 1], r[2, 2]]
-
-
-def T(x, y, z):
-    return CF((x, y, z))
-
-
-def R(m):
-    return CF((0, 0, 0), m)
-
-
-# ---------------------------------------------------------------- model
-# Grip and magazine share a frame raked 14 degrees (bottom swept back).
-GRIP = T(0, -0.03, 0.06) * R(rx(-14))
-
-# Components. "Handle" is the invisible Tool handle. animated=True gets a Motor6D from the Handle,
-# pivoted at `pivot`; the others are welded. Detail parts are welded to their component's main part.
-COMPONENTS = [
-    # name        animated  pivot (handle space)                        why the pivot is there
-    ("Frame",     False,    CF()),
-    ("Grip",      False,    CF()),
-    ("Slide",     True,     T(0, 0.65, -0.36)),                       # translate +Z to rack
-    ("Barrel",    True,     T(0, 0.66, -0.80)),                       # breech end, for tilt-up
-    ("Magazine",  True,     GRIP * T(0, -0.08, 0.02)),                # axes follow the grip rake
-    ("Trigger",   True,     T(0, 0.28, -0.42)),                       # top of the blade
-    ("Hammer",    True,     T(0, 0.51, 0.42)),                        # hammer hinge
-    ("SlideStop", True,     T(-0.155, 0.47, -0.12)),                  # rear of the lever
-]
-
-PARTS = []  # (component, name, size, CF, colour key, material)
-
-
-def part(comp, name, size, cf, col, mat="SmoothPlastic"):
-    PARTS.append((comp, name, tuple(size), cf, col, mat))
-
-
-# Frame (lower receiver), static
-part("Frame", "Frame",        (0.28, 0.22, 1.30), T(0, 0.39, -0.33), "frame")
-part("Frame", "Beavertail",   (0.26, 0.12, 0.20), T(0, 0.44, 0.42), "frame")
-for i, z in enumerate((-0.70, -0.82, -0.94)):
-    part("Frame", f"RailLug{i + 1}", (0.20, 0.05, 0.08), T(0, 0.255, z), "sdark")
-part("Frame", "GuardFront",   (0.10, 0.26, 0.07), T(0, 0.15, -0.60), "frame")
-part("Frame", "GuardBottom",  (0.10, 0.07, 0.44), T(0, 0.055, -0.39), "frame")
-part("Frame", "TakedownPin",  (0.02, 0.06, 0.06), T(0.145, 0.40, -0.55), "sdark")
-
-# Grip, static
-part("Grip", "Grip",          (0.30, 0.78, 0.40), GRIP, "frame")
-for side, sx in (("L", -1), ("R", 1)):
-    part("Grip", f"Panel{side}",   (0.025, 0.52, 0.30), GRIP * T(sx * 0.16, -0.04, 0), "panel")
-    part("Grip", f"Emblem{side}",  (0.012, 0.10, 0.10), GRIP * T(sx * 0.178, 0.07, 0) * R(rx(45)), "accent")
-    for i, y in enumerate((-0.10, -0.18, -0.26)):
-        part("Grip", f"Groove{side}{i + 1}", (0.012, 0.03, 0.26), GRIP * T(sx * 0.178, y, 0), "pdark")
-for i, y in enumerate((-0.04, -0.14, -0.24)):
-    part("Grip", f"FrontStrap{i + 1}", (0.26, 0.03, 0.02), GRIP * T(0, y, -0.205), "pdark")
-
-# Slide
-part("Slide", "Slide",        (0.32, 0.30, 1.44), T(0, 0.65, -0.36), "slide")
-part("Slide", "Nose",         (0.28, 0.24, 0.10), T(0, 0.64, -1.13), "slide")
-part("Slide", "Rib",          (0.14, 0.04, 1.20), T(0, 0.82, -0.42), "sdark")
-for i, z in enumerate((0.28, 0.20, 0.12, 0.04)):
-    part("Slide", f"Serration{i + 1}", (0.34, 0.20, 0.035), T(0, 0.65, z), "sdark")
-part("Slide", "Stripe",       (0.34, 0.05, 0.62), T(0, 0.58, -0.62), "accent")
-part("Slide", "EjectionPort", (0.02, 0.12, 0.30), T(0.165, 0.71, -0.12), "black")
-part("Slide", "RearSightL",   (0.08, 0.09, 0.07), T(-0.09, 0.845, 0.30), "black")
-part("Slide", "RearSightR",   (0.08, 0.09, 0.07), T(0.09, 0.845, 0.30), "black")
-part("Slide", "FrontSight",   (0.06, 0.09, 0.06), T(0, 0.885, -0.95), "neon", "Neon")
-
-# Barrel
-part("Barrel", "Barrel",      (0.17, 0.17, 0.46), T(0, 0.66, -1.01), "barrel")
-part("Barrel", "Bore",        (0.09, 0.09, 0.02), T(0, 0.66, -1.245), "black")
-
-# Magazine (sits inside the grip; base plate and top round show when it drops)
-part("Magazine", "Magazine",  (0.22, 0.70, 0.30), GRIP * T(0, -0.08, 0.02), "sdark")
-part("Magazine", "BasePlate", (0.30, 0.07, 0.42), GRIP * T(0, -0.46, 0.02), "accent")
-part("Magazine", "TopRound",  (0.10, 0.06, 0.20), GRIP * T(0, 0.30, -0.02), "brass")
-
-# Trigger
-part("Trigger", "Trigger",    (0.07, 0.20, 0.07), T(0, 0.19, -0.42), "sdark")
-part("Trigger", "TriggerShoe", (0.07, 0.06, 0.09), T(0, 0.12, -0.45), "sdark")
-
-# Hammer
-part("Hammer", "Hammer",      (0.10, 0.18, 0.08), T(0, 0.58, 0.42), "black")
-part("Hammer", "HammerSpur",  (0.12, 0.05, 0.10), T(0, 0.665, 0.46), "black")
-
-# Slide stop lever (left side)
-part("SlideStop", "SlideStop", (0.03, 0.06, 0.22), T(-0.155, 0.47, -0.23), "black")
-
-# Attachments for VFX/sounds: (component main part, name, handle-space CF)
-ATTACHMENTS = [
-    ("Barrel", "Muzzle", T(0, 0.66, -1.26)),
-    ("Slide", "ShellEject", T(0.18, 0.71, -0.12)),
-]
-
-HANDLE_SIZE = (0.28, 0.50, 0.36)
-
-for comp, *_ in COMPONENTS:
-    assert any(p[0] == comp and p[1] == comp for p in PARTS), f"{comp} needs a main part named {comp}"
-assert len({p[1] for p in PARTS}) == len(PARTS), "part names must be unique"
-
-
-# ---------------------------------------------------------------- Luau builder
-def fmt(v):
-    s = f"{v:.6f}".rstrip("0").rstrip(".")
-    return "0" if s in ("-0", "") else s
-
-
-def gen_lua():
+def gen_rig_lua():
     L = []
     w = L.append
-    w("--[[ Rotstopper pistol: PG3D-inspired blocky sidearm, built from Parts and rigged for animation.")
-    w("     Generated by tools/gen_rotstopper.py. Paste the whole file into the Studio command bar")
-    w("     (View > Command Bar) and press Enter. A Tool named \"Rotstopper\" appears in PARENT.")
-    w("")
-    w("     Rig: every animatable component has a Motor6D in the Handle named after the component")
-    w("     (Slide, Barrel, Magazine, Trigger, Hammer, SlideStop). Frame and Grip are welded to the")
-    w("     Handle; small detail parts are welded to their component, so they follow it.")
+    w("--[[ Rotstopper rig. Run AFTER importing rotstopper.obj with the 3D Importer.")
+    w("     1. Select the imported model in the Explorer.")
+    w("     2. Paste this whole file into View > Command Bar and press Enter.")
+    w("     It builds Tool \"Rotstopper\" in PARENT: an invisible Handle, Motor6Ds for the moving")
+    w("     pieces (Slide, Barrel, Magazine, Trigger, Hammer, SlideStop), welds for Frame and Grip.")
+    w("     Generated by tools/gen_rotstopper.py.")
     w("]]")
     w("")
+    w('local TEXTURE_ID = "" -- e.g. "rbxassetid://123456"; leave empty if the importer kept the texture')
     w('local PARENT = game:GetService("StarterPack")')
-    w("local ADD_HAND_RIG_SCRIPT = true -- adds a Script that swaps RightGrip for a Motor6D on equip")
+    w("local ADD_HAND_RIG_SCRIPT = true -- swaps RightGrip for a Motor6D on equip so animations reach the gun")
     w("")
-    w("-- name, component, size, CFrame (relative to Handle), colour, material")
-    w("local PARTS = {")
-    for comp, name, size, cf, col, mat in PARTS:
-        w(f'\t{{"{name}", "{comp}", Vector3.new({", ".join(fmt(v) for v in size)}), '
-          f'CFrame.new({", ".join(fmt(v) for v in cf.components())}), "#{C[col]}", "{mat}"}},')
+    w("-- mesh bounding-box centres and sizes, in the file's coordinates (studs)")
+    w("local MESHES = {")
+    for c in COMPONENTS:
+        ctr, size = bbox(c)
+        w(f"\t{c} = {{ center = {lv(ctr)}, size = {lv(size)} }},")
     w("}")
-    w("")
-    w("-- animated component -> pivot CFrame (relative to Handle)")
+    w(f"local HANDLE_SIZE = {lv(HANDLE_SIZE)} -- the Handle sits at the file origin (grip centre)")
     w("local PIVOTS = {")
-    for name, animated, pivot in COMPONENTS:
-        if animated:
-            w(f'\t{name} = CFrame.new({", ".join(fmt(v) for v in pivot.components())}),')
+    for c, (rc, tilt) in PIVOTS.items():
+        w(f"\t{c} = {lcf(pivot_point(rc), tilt)},")
     w("}")
-    w("")
-    w("-- component main part, attachment name, CFrame (relative to Handle)")
     w("local ATTACHMENTS = {")
-    for comp, name, cf in ATTACHMENTS:
-        w(f'\t{{"{comp}", "{name}", CFrame.new({", ".join(fmt(v) for v in cf.components())})}},')
+    for c, name, rc in ATTACHMENTS:
+        w(f'\t{{ "{c}", "{name}", {lv(pivot_point(rc))} }},')
     w("}")
-    w("")
-    w('''local old = PARENT:FindFirstChild("Rotstopper")
-if old then old:Destroy() end
+    w('''
+local model = game:GetService("Selection"):Get()[1]
+assert(model, "Select the imported Rotstopper model in the Explorer first")
 
+-- find each component by name (case-insensitive, tolerant of importer prefixes/suffixes)
+local found = {}
+for _, d in ipairs(model:GetDescendants()) do
+	if d:IsA("MeshPart") then
+		local lname = d.Name:lower()
+		for comp in pairs(MESHES) do
+			local lc = comp:lower()
+			-- "Slide" must not match "SlideStop"
+			local hit = lname:find(lc, 1, true) and not (lc == "slide" and lname:find("slidestop", 1, true))
+			if hit and (not found[comp] or #d.Name < #found[comp].Name) then
+				found[comp] = d
+			end
+		end
+	end
+end
+local missing = {}
+for comp in pairs(MESHES) do
+	if not found[comp] then table.insert(missing, comp) end
+end
+assert(#missing == 0, "Could not find MeshParts named: " .. table.concat(missing, ", ") .. ". Rename them and run again.")
+
+-- file -> world transform, measured from the imported pieces (handles importer scale and placement)
+local frame, slide = found.Frame, found.Slide
+local scale = (slide.Position - frame.Position).Magnitude / (MESHES.Slide.center - MESHES.Frame.center).Magnitude
+local fileToWorld = frame.CFrame * CFrame.new(-MESHES.Frame.center * scale)
+local function place(cf) -- file-space CFrame -> world, applying scale to the position
+	return fileToWorld * (CFrame.new(cf.Position * scale) * cf.Rotation)
+end
+
+-- sanity check: every mesh should be where the file says it is
+local worst = 0
+for comp, info in pairs(MESHES) do
+	local expected = fileToWorld * (info.center * scale)
+	worst = math.max(worst, (found[comp].Position - expected).Magnitude / scale)
+end
+if worst > 0.02 then
+	warn(("Rotstopper rig: imported pieces are up to %.3f studs off their expected layout. "
+		.. "The importer may have rotated or re-centred them; check the result."):format(worst))
+end
+
+local old = PARENT:FindFirstChild("Rotstopper")
+if old then old:Destroy() end
 local tool = Instance.new("Tool")
 tool.Name = "Rotstopper"
 tool.RequiresHandle = true
 tool.CanBeDropped = false
 tool.Grip = CFrame.new()
 
-local function newPart(name, size, cf)
-	local p = Instance.new("Part")
-	p.Name = name
-	p.Size = size
-	p.CFrame = cf
-	p.Anchored = false
-	p.CanCollide = false
-	p.CanTouch = false
-	p.CanQuery = false
-	p.Massless = true
-	p.CastShadow = true
-	p.TopSurface = Enum.SurfaceType.Smooth
-	p.BottomSurface = Enum.SurfaceType.Smooth
-	return p
-end
-
-local handle = newPart("Handle", Vector3.new(''' + ", ".join(fmt(v) for v in HANDLE_SIZE) + '''), CFrame.new())
+local handle = Instance.new("Part")
+handle.Name = "Handle"
+handle.Size = HANDLE_SIZE * scale
+handle.CFrame = place(CFrame.new())
 handle.Transparency = 1
-handle.Massless = false
+handle.CanCollide = false
+handle.CanQuery = false
+handle.CanTouch = false
 handle.Parent = tool
 
-local mains = {}
-for _, d in ipairs(PARTS) do
-	local name, comp = d[1], d[2]
-	local p = newPart(name, d[3], d[4])
-	p.Color = Color3.fromHex(d[5])
-	p.Material = Enum.Material[d[6]]
-	if name == comp then
-		mains[comp] = p
-		p.Parent = tool
-	end
-end
-
-for _, d in ipairs(PARTS) do
-	local name, comp = d[1], d[2]
-	local main = mains[comp]
-	local p = (name == comp) and main or nil
-	if not p then
-		p = newPart(name, d[3], d[4])
-		p.Color = Color3.fromHex(d[5])
-		p.Material = Enum.Material[d[6]]
-		p.Parent = main
-		local weld = Instance.new("Weld")
-		weld.Name = name
-		weld.Part0 = main
-		weld.Part1 = p
-		weld.C0 = main.CFrame:Inverse() * p.CFrame
-		weld.Parent = p
-	end
-end
-
-for comp, main in pairs(mains) do
+for comp, part in pairs(found) do
+	part.Name = comp
+	part.Anchored = false
+	part.CanCollide = false
+	part.CanQuery = false
+	part.CanTouch = false
+	part.Massless = true
+	if TEXTURE_ID ~= "" then part.TextureID = TEXTURE_ID end
 	local pivot = PIVOTS[comp]
 	if pivot then
+		local p = place(pivot)
 		local m = Instance.new("Motor6D")
 		m.Name = comp
 		m.Part0 = handle
-		m.Part1 = main
-		m.C0 = handle.CFrame:Inverse() * pivot
-		m.C1 = main.CFrame:Inverse() * pivot
+		m.Part1 = part
+		m.C0 = handle.CFrame:Inverse() * p
+		m.C1 = part.CFrame:Inverse() * p
 		m.Parent = handle
 	else
-		local weld = Instance.new("Weld")
-		weld.Name = comp
-		weld.Part0 = handle
-		weld.Part1 = main
-		weld.C0 = handle.CFrame:Inverse() * main.CFrame
-		weld.Parent = handle
+		local wld = Instance.new("Weld")
+		wld.Name = comp
+		wld.Part0 = handle
+		wld.Part1 = part
+		wld.C0 = handle.CFrame:Inverse() * part.CFrame
+		wld.Parent = handle
 	end
+	part.Parent = tool
 end
 
 for _, a in ipairs(ATTACHMENTS) do
-	local main = mains[a[1]]
+	local part = found[a[1]]
 	local att = Instance.new("Attachment")
 	att.Name = a[2]
-	att.CFrame = main.CFrame:Inverse() * a[3]
-	att.Parent = main
+	att.CFrame = part.CFrame:Inverse() * place(CFrame.new(a[3]))
+	att.Parent = part
 end
 
 if ADD_HAND_RIG_SCRIPT then
-	-- Animations only drive tool parts if the tool is joined to the character by a Motor6D.
-	-- This swaps the default RightGrip weld for a Motor6D named "Handle" while equipped.
 	local s = Instance.new("Script")
 	s.Name = "HandRig"
 	s.Source = [==[
@@ -324,101 +546,66 @@ end)
 end
 
 tool.Parent = PARENT
+if #model:GetChildren() == 0 then model:Destroy() end
 pcall(function() game:GetService("Selection"):Set({ tool }) end)
-print(("Rotstopper built in %s: %d parts"):format(PARENT:GetFullName(), #PARTS + 1))
+print(("Rotstopper rigged in %s (scale %.3f, layout error %.4f studs)"):format(PARENT:GetFullName(), scale, worst))
 ''')
     return "\n".join(L)
 
 
-# ---------------------------------------------------------------- mesh helpers
-CUBE_V = np.array([[x, y, z] for x in (-.5, .5) for y in (-.5, .5) for z in (-.5, .5)])
-# quads, CCW seen from outside; index = x*4 + y*2 + z
-CUBE_F = [(0, 1, 3, 2), (4, 6, 7, 5), (0, 4, 5, 1), (2, 3, 7, 6), (0, 2, 6, 4), (1, 5, 7, 3)]
+# ---------------------------------------------------------------- preview renderer
+def rx(deg):
+    a = math.radians(deg)
+    c, s = math.cos(a), math.sin(a)
+    return np.array([[1, 0, 0], [0, c, -s], [0, s, c]])
 
 
-def box_verts(size, cf):
-    return np.array([cf.point(v * np.array(size)) for v in CUBE_V])
-
-
-def gen_obj():
-    mtl = []
-    for k, hexv in C.items():
-        r, g, b = (int(hexv[i:i + 2], 16) / 255 for i in (0, 2, 4))
-        mtl += [f"newmtl {k}", f"Kd {r:.4f} {g:.4f} {b:.4f}", "Ka 0 0 0", "Ks 0.05 0.05 0.05", "d 1", "illum 1", ""]
-    obj = ["# Rotstopper pistol, one object per component, studs, -Z forward, origin = grip centre",
-           "mtllib rotstopper.mtl"]
-    n = 0
-    for comp, *_ in COMPONENTS:
-        obj.append(f"o {comp}")
-        for c2, name, size, cf, col, _ in PARTS:
-            if c2 != comp:
-                continue
-            obj.append(f"g {comp}_{name}")
-            obj.append(f"usemtl {col}")
-            for v in box_verts(size, cf):
-                obj.append(f"v {v[0]:.5f} {v[1]:.5f} {v[2]:.5f}")
-            for f in CUBE_F:
-                obj.append("f " + " ".join(str(n + i + 1) for i in f))
-            n += 8
-    return "\n".join(obj) + "\n", "\n".join(mtl)
-
-
-# ---------------------------------------------------------------- renderer
-def hex_rgb(h):
-    return np.array([int(h[i:i + 2], 16) for i in (0, 2, 4)], float) / 255
+def pose_about(comp, local_R=np.eye(3), local_t=(0, 0, 0)):
+    """(R, t) moving a component by local_R / local_t expressed in its pivot frame."""
+    rc, tilt = PIVOTS[comp]
+    P = pivot_point(rc)
+    Rp = rx(tilt)
+    Rw = Rp @ local_R @ Rp.T
+    t = P + Rp @ np.array(local_t, float) - Rw @ P
+    return Rw, t
 
 
 def render(pose, yaw, pitch, W, H, scale, center, bg):
-    """Orthographic z-buffer render with flat shading and face outlines. Returns PIL image."""
     ss = 2
     W2, H2 = W * ss, H * ss
     cy, sy = math.cos(math.radians(yaw)), math.sin(math.radians(yaw))
     cp, sp = math.cos(math.radians(pitch)), math.sin(math.radians(pitch))
-    Ry = np.array([[cy, 0, sy], [0, 1, 0], [-sy, 0, cy]])
-    Rp = np.array([[1, 0, 0], [0, cp, -sp], [0, sp, cp]])
-    V = Rp @ Ry  # world -> view; view looks down -Z, +Y up
-    light = np.array([-0.45, 0.75, 0.5])
+    V = np.array([[1, 0, 0], [0, cp, -sp], [0, sp, cp]]) @ np.array([[cy, 0, sy], [0, 1, 0], [-sy, 0, cy]])
+    light = np.array([-0.4, 0.8, 0.45])
     light /= np.linalg.norm(light)
-
     zbuf = np.full((H2, W2), -1e9)
     img = np.zeros((H2, W2, 3))
     img[:] = bg
-    fid = np.full((H2, W2), -1, int)
-    face_id = 0
-    for comp, name, size, cf, col, mat in PARTS:
-        cf2 = pose.get(comp, CF()) * cf
-        verts = box_verts(size, cf2)
-        vv = (V @ (verts - center).T).T
-        base = hex_rgb(C[col])
-        for f in CUBE_F:
-            a, b, c, d = (verts[i] for i in f)
-            nrm = np.cross(b - a, d - a)
-            nrm /= np.linalg.norm(nrm)
-            nv = V @ nrm
-            face_id += 1
-            if nv[2] <= 1e-6:
+    tex = atlas.astype(float) / 255
+    for c in COMPONENTS:
+        Rw, t = pose.get(c, (np.eye(3), np.zeros(3)))
+        for n in range(len(QUADS[c])):
+            corners, uvs, nrm = quad_geometry(c, n)
+            pts = np.array([Rw @ p + t for p in corners])
+            nw = Rw @ nrm
+            if (V @ nw)[2] <= 1e-6:
                 continue
-            if mat == "Neon":
-                shade = np.minimum(base * 1.15, 1)
-            else:
-                k = 0.42 + 0.58 * max(0.0, float(nrm @ light))
-                shade = base * k
-            q = vv[list(f)]
-            px = q[:, 0] * scale * ss + W2 / 2
-            py = -q[:, 1] * scale * ss + H2 / 2
-            pz = q[:, 2]
+            k = 0.78 + 0.22 * max(0.0, float(nw @ light))
+            vv = (V @ (pts - center).T).T
+            px = vv[:, 0] * scale * ss + W2 / 2
+            py = -vv[:, 1] * scale * ss + H2 / 2
+            pz = vv[:, 2]
+            uv = np.array(uvs, float)
             for tri in ((0, 1, 2), (0, 2, 3)):
-                x = px[list(tri)]
-                y = py[list(tri)]
-                z = pz[list(tri)]
+                x, y, z, u = px[list(tri)], py[list(tri)], pz[list(tri)], uv[list(tri)]
                 x0, x1 = int(max(0, math.floor(x.min()))), int(min(W2 - 1, math.ceil(x.max())))
                 y0, y1 = int(max(0, math.floor(y.min()))), int(min(H2 - 1, math.ceil(y.max())))
                 if x0 > x1 or y0 > y1:
                     continue
-                gx, gy = np.meshgrid(np.arange(x0, x1 + 1) + 0.5, np.arange(y0, y1 + 1) + 0.5)
                 den = (y[1] - y[2]) * (x[0] - x[2]) + (x[2] - x[1]) * (y[0] - y[2])
                 if abs(den) < 1e-12:
                     continue
+                gx, gy = np.meshgrid(np.arange(x0, x1 + 1) + 0.5, np.arange(y0, y1 + 1) + 0.5)
                 l0 = ((y[1] - y[2]) * (gx - x[2]) + (x[2] - x[1]) * (gy - y[2])) / den
                 l1 = ((y[2] - y[0]) * (gx - x[2]) + (x[0] - x[2]) * (gy - y[2])) / den
                 l2 = 1 - l0 - l1
@@ -426,77 +613,70 @@ def render(pose, yaw, pitch, W, H, scale, center, bg):
                 zz = l0 * z[0] + l1 * z[1] + l2 * z[2]
                 sub = zbuf[y0:y1 + 1, x0:x1 + 1]
                 upd = inside & (zz > sub)
+                if not upd.any():
+                    continue
+                uu = l0 * u[0, 0] + l1 * u[1, 0] + l2 * u[2, 0]
+                vv2 = l0 * u[0, 1] + l1 * u[1, 1] + l2 * u[2, 1]
+                ti = np.clip(np.floor(uu).astype(int), 0, ATLAS_N - 1)
+                tj = np.clip(np.floor(vv2).astype(int), 0, ATLAS_H - 1)
                 sub[upd] = zz[upd]
-                img[y0:y1 + 1, x0:x1 + 1][upd] = shade
-                fid[y0:y1 + 1, x0:x1 + 1][upd] = face_id
-    # outlines where the visible face changes
-    edge = np.zeros_like(fid, bool)
-    for dy, dx in ((0, 1), (1, 0), (1, 1), (0, ss), (ss, 0)):
-        a = fid[: H2 - dy, : W2 - dx]
-        b = fid[dy:, dx:]
-        diff = a != b
-        edge[: H2 - dy, : W2 - dx] |= diff
-        edge[dy:, dx:] |= diff
-    img[edge & (fid >= 0)] *= 0.35
-    edge_bg = edge & (fid < 0)
-    img[edge_bg] = img[edge_bg] * 0.35
+                img[y0:y1 + 1, x0:x1 + 1][upd] = tex[tj[upd], ti[upd]] * k
     out = Image.fromarray((np.clip(img, 0, 1) * 255).astype(np.uint8))
     return out.resize((W, H), Image.LANCZOS)
 
 
-def pivot_of(name):
-    return next(p for n, _, p in COMPONENTS if n == name)
-
-
-def about(pivot, local):
-    """Pose for a component: transform `local` applied in its pivot's frame."""
-    inv = CF(-pivot.R.T @ pivot.p, pivot.R.T)
-    return pivot * local * inv
-
-
 def gen_preview():
     W, H = 900, 560
-    bg = hex_rgb("23262D")
-    center = np.array([0, 0.25, -0.35])
-    rest = {}
-    exploded = {
-        "Slide": T(0, 0.55, 0), "Barrel": T(0, 0.30, -0.55), "Magazine": T(0, -0.75, 0.20),
-        "Trigger": T(0, -0.35, -0.35), "Hammer": T(0, 0.25, 0.45), "SlideStop": T(-0.6, 0.35, 0),
-    }
-    reload_pose = {
-        "Slide": T(0, 0, 0.32),
-        "Barrel": about(pivot_of("Barrel"), R(rx(5))),
-        "Magazine": about(pivot_of("Magazine"), T(0, -0.70, 0)),
-        "Hammer": about(pivot_of("Hammer"), R(rx(40))),
-        "Trigger": about(pivot_of("Trigger"), R(rx(-12))),
-        "SlideStop": about(pivot_of("SlideStop"), T(0, 0.02, 0)),
-    }
+    bg = np.array(hexrgb("23262D")) / 255
+    center = np.array([0, 0.40, -0.30])
+    T = lambda *v: (np.eye(3), np.array(v, float) * VOX)
+    exploded = {"Slide": T(0, 10, 0), "Barrel": T(0, 5, -10), "Magazine": T(0, -16, 3),
+                "Trigger": T(0, -7, -6), "Hammer": T(0, 5, 8), "SlideStop": T(-14, 5, 0)}
+    test = {"Slide": pose_about("Slide", local_t=(0, 0, 8 * VOX)),
+            "Barrel": pose_about("Barrel", rx(4)),
+            "Magazine": pose_about("Magazine", local_t=(0, -14 * VOX, 0)),
+            "Hammer": pose_about("Hammer", rx(40)),
+            "Trigger": pose_about("Trigger", rx(-12)),
+            "SlideStop": pose_about("SlideStop", local_t=(0, 0.5 * VOX, 0))}
     shots = [
-        ("Left 3/4", render(rest, 35, 18, W, H, 300, center, bg)),
-        ("Right side (ejection port side)", render(rest, -90, 0, W, H, 330, center, bg)),
-        ("Exploded: every separate piece", render(exploded, 40, 14, W, H, 190, center + [0, -0.12, 0], bg)),
-        ("Test pose: slide back, hammer cocked, mag out", render(reload_pose, -50, 16, W, H, 215, center + [0, -0.35, 0.1], bg)),
+        ("Left 3/4", render({}, 32, 16, W, H, 255, center, bg)),
+        ("Right side (ejection port side)", render({}, -90, 0, W, H, 290, center + [0, -0.06, 0], bg)),
+        ("Exploded: each separate mesh", render(exploded, 40, 14, W, H, 180, center + [0, -0.22, 0], bg)),
+        ("Test pose: slide back, hammer cocked, mag out", render(test, -48, 16, W, H, 190, center + [0, -0.40, 0.1], bg)),
     ]
-    sheet = Image.new("RGB", (W * 2, H * 2), tuple((bg * 255).astype(int)))
+    sheet = Image.new("RGB", (W * 2, H * 2), hexrgb("23262D"))
     try:
         font = ImageFont.truetype("DejaVuSans-Bold.ttf", 22)
     except OSError:
         font = ImageFont.load_default()
+    d = ImageDraw.Draw(sheet)
     for i, (label, im) in enumerate(shots):
         x, y = (i % 2) * W, (i // 2) * H
         sheet.paste(im, (x, y))
-        d = ImageDraw.Draw(sheet)
         d.text((x + 18, y + 14), label, fill=(235, 238, 242), font=font)
     return sheet
 
 
+def ascii_dump():
+    rows = [["."] * 56 for _ in range(40)]
+    for c in ["Barrel", "Magazine", "Grip", "Frame", "Trigger", "Hammer", "SlideStop", "Slide"]:
+        for (r, col), ch in canvas[c].items():
+            rows[r][col] = ch
+    return "\n".join("".join(r) for r in rows)
+
+
 if __name__ == "__main__":
-    with open(os.path.join(OUT, "build_rotstopper.lua"), "w") as fh:
-        fh.write(gen_lua())
     obj, mtl = gen_obj()
     with open(os.path.join(OUT, "rotstopper.obj"), "w") as fh:
         fh.write(obj)
     with open(os.path.join(OUT, "rotstopper.mtl"), "w") as fh:
         fh.write(mtl)
+    Image.fromarray(atlas).resize((ATLAS_N * SCALE, ATLAS_H * SCALE), Image.NEAREST).save(
+        os.path.join(OUT, "rotstopper_texture.png"))
+    with open(os.path.join(OUT, "rig_rotstopper.lua"), "w") as fh:
+        fh.write(gen_rig_lua())
     gen_preview().save(os.path.join(OUT, "preview.png"))
-    print(f"{len(PARTS)} parts, {sum(1 for c in COMPONENTS if c[1])} animated components")
+    tris = {c: 2 * len(QUADS[c]) for c in COMPONENTS}
+    print(f"atlas {ATLAS_N}x{ATLAS_H} texels, x{SCALE}; voxels {sum(len(v) for v in VOXELS.values())}; triangles {tris}")
+    if os.environ.get("ASCII"):
+        print(ascii_dump())
