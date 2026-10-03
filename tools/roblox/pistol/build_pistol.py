@@ -1,4 +1,4 @@
-"""Builds the "Tidecaller" box-style pistol for Roblox.
+"""Builds the "Tidecaller" box-style classic handgun for Roblox.
 
 Everything (geometry, pixel-art texture, GLB, OBJ/MTL, Blockbench .bbmodel)
 is generated from the box list below, deterministically.
@@ -46,9 +46,10 @@ BLACK = (0, 0, 0)
 # ---------------------------------------------------------------- layout
 # Side-view design numbers use f = distance forward from the gun's rear (px)
 # and y = height above the lowest point (px). Z = -f.
-GRIP_ANGLE = 15.0                 # grip rake, degrees (bottom swept back)
-GRIP_PIVOT = (0.0, 10.7, -7.0)    # where the grip box hinges into the frame
-SLIDE_TRAVEL = 5                  # px the slide moves back when firing
+GRIP_ANGLE = 20.0                 # grip rake, degrees (bottom swept back)
+GRIP_PIVOT = (0.0, 11.2, -7.5)    # where the grip box hinges into the frame
+ORIGIN_V = -5.5                   # hand centre, grip-local (along the grip axis)
+SLIDE_TRAVEL = 6                  # px the slide moves back when firing
 
 
 class Box:
@@ -83,67 +84,61 @@ def grip_box(name, part, mat, x, v, u, paint=None):
 # box's rear / bottom / left edge, so details land in the same place on
 # both sides of the gun.
 
+PORT = (12, 19)    # ejection port, slide-local fl range (right side only)
+
+
 def p_slide(c):
-    if c.side and c.fk in ('east', 'west') and 1 <= c.j <= 5:
-        if 1 <= c.fl <= 6:                       # rear cocking serrations
-            return ('teal', S) if c.fl % 2 == 1 else ('teal', B)
-        for k in range(3):                        # 3 vents per side
-            a = 12 + 4 * k
-            if a <= c.fl <= a + 2:
-                if c.j in (2, 3):
-                    return ('teal', D)
-                if c.j == 4:
-                    return ('teal', H)            # lit lower lip of the vent
-    if c.fk == 'south' and c.xl == 3 and c.yl == 3:
-        return ('teal', D)                        # striker hole
-    return None
-
-
-def p_rib(c):
-    if c.fk == 'up':
-        return ('teal', H) if c.fl % 2 else ('teal', B)   # anti-glare grooves
+    if c.fk in ('east', 'west') and 1 <= c.j <= 5 and 1 <= c.fl <= 6:
+        return ('teal', S) if c.fl % 2 == 1 else ('teal', B)   # rear serrations
+    if c.fk in ('east', 'west') and 1 <= c.j <= 5 and 25 <= c.fl <= 30:
+        return ('teal', S) if c.fl % 2 == 0 else ('teal', B)   # front serrations
+    a, z = PORT
+    if c.fk == 'east' and a <= c.fl <= z and c.j <= 2:         # ejection port
+        if c.fl in (a, z) or c.j == 2:
+            return ('teal', D)
+        return ('steel', H) if c.j == 0 else ('steel', B)       # barrel hood
+    if c.fk == 'up' and a <= c.fl <= z and c.xl >= 5:
+        if c.fl in (a, z) or c.xl == 5:
+            return ('teal', D)
+        return ('steel', H)
+    if c.fk == 'north':                                         # muzzle face
+        if 2 <= c.xl <= 4 and 3 <= c.yl <= 5:
+            return ('steel', D) if (c.xl, c.yl) == (3, 4) else ('steel', S)
+        if 1 <= c.xl <= 5 and 2 <= c.yl <= 6:
+            return ('teal', S)
+    if c.fk == 'south' and c.xl == 3 and c.yl == 4:
+        return ('teal', D)                                      # striker hole
     return None
 
 
 def p_rear_sight(c):
     if c.fk in ('up', 'south', 'north') and c.xl == 2:
-        return ('char', D)                        # sight notch
-    return None
-
-
-def p_front_sight(c):
-    if c.fk == 'south' and c.j == 0:
-        return ('orange', H)
-    return None
-
-
-def p_comp(c):
-    if c.fk in ('east', 'west') and c.fl in (2, 4) and 2 <= c.j <= 6:
-        return ('char', D)
-    if c.fk in ('east', 'west') and c.fl in (2, 4) and c.j == 7:
+        return ('char', D)                                      # sight notch
+    if c.fk == 'south' and c.xl in (1, 3):
         return ('char', H)
-    if c.fk == 'up' and c.fl in (2, 4) and 2 <= c.xl <= 5:
-        return ('char', D)
-    if c.fk == 'north':                           # muzzle face: bore
-        if 3 <= c.xl <= 4 and 4 <= c.yl <= 5:
-            return ('char', D)
-        if 2 <= c.xl <= 5 and 3 <= c.yl <= 6:
-            return ('char', S)
     return None
 
 
 def p_frame(c):
     if c.fk in ('east', 'west') and c.j == 1:
-        if c.fl == 11:
-            return ('char', D)                    # takedown pin
-        if c.fl == 12:
+        if c.fl in (11, 18):
+            return ('char', D)                                  # pins
+        if c.fl in (12, 19):
             return ('char', H)
+    if c.fk == 'north' and 2 <= c.xl <= 3 and c.yl == 1:
+        return ('char', D)                                      # recoil spring hole
     return None
 
 
 def p_rail(c):
     if c.fk in ('east', 'west', 'down') and c.fl % 2 == 1:
-        return ('char', D)                        # rail slots
+        return ('char', D)                                      # rail slots
+    return None
+
+
+def p_barrel(c):
+    if c.fk == 'north' and c.xl == 1 and c.yl == 1:
+        return ('steel', D)
     return None
 
 
@@ -154,54 +149,51 @@ def hatch(i, j):
     if a or b:
         return S
     if (i + j) % 4 == 3 and (i - j) % 4 == 3:
-        return H                                  # raised diamond centre
+        return H                                                # raised diamond centre
     return None
 
 
 def p_grip(c):
-    if c.fk in ('east', 'west', 'south') and 0 < c.i < c.w - 1 and 0 < c.j < c.h - 1:
-        s = hatch(c.i, c.j)                       # cross-hatch
+    if c.fk in ('east', 'west', 'south') and 0 < c.i < c.w - 1 and 2 < c.j < c.h - 1:
+        s = hatch(c.i, c.j)                                     # cross-hatch panel
         return ('char', s) if s is not None else ('char', B)
-    if c.fk == 'north' and 0 < c.j < c.h - 1:     # front strap serrations
-        return ('char', S) if c.j % 2 else ('char', B)
+    if c.fk == 'north' and 1 < c.j < c.h - 1:                   # finger grooves
+        return [('char', H), ('char', B), ('char', S)][c.j % 3]
     return None
 
 
 def p_trigger(c):
-    if c.fk == 'north' and c.j in (2,):
-        return ('orange', S)
+    if c.fk == 'north' and c.xl == 1 and c.j >= 1:
+        return ('orange', H)                                    # safety blade
     return None
 
 
 def p_mag(c):
     if c.fk in ('east', 'west') and c.i == 1 and c.j in (2, 4, 6):
-        return ('steel', D)                       # witness holes
+        return ('steel', D)                                     # witness holes
     return None
 
 
 # ---------------------------------------------------------------- boxes
-X7, X6, X5, X3, X2 = (-3.5, 3.5), (-3, 3), (-2.5, 2.5), (-1.5, 1.5), (-1, 1)
+X8, X7, X6, X5, X3, X2 = (-4, 4), (-3.5, 3.5), (-3, 3), (-2.5, 2.5), (-1.5, 1.5), (-1, 1)
 BOXES = [
-    # Slide (teal, moves back)
-    side_box('slide', 'Slide', 'teal', X7, (13, 20), (2, 27), p_slide),
-    side_box('rib', 'Slide', 'teal', X3, (20, 21), (6, 24), p_rib),
-    side_box('rear_sight', 'Slide', 'char', X5, (20, 22), (3, 6), p_rear_sight),
-    side_box('front_sight', 'Slide', 'orange', X2, (20, 22), (24, 26), p_front_sight),
-    # Body: frame, barrel, compensator, rail, guard, tang, grip, magwell
-    side_box('frame', 'Body', 'char', X6, (10, 13), (2, 27), p_frame),
-    side_box('barrel', 'Body', 'steel', X3, (14.5, 17.5), (8, 28)),
-    side_box('compensator', 'Body', 'char', (-4, 4), (11, 21), (27, 34), p_comp),
-    side_box('rail', 'Body', 'char', X5, (8, 10), (19, 26), p_rail),
-    side_box('guard_front', 'Body', 'char', X3, (6, 10), (16, 18)),
-    side_box('guard_bottom', 'Body', 'char', X3, (4, 6), (8, 18)),
-    side_box('tang', 'Body', 'char', X5, (10, 12), (0, 2)),
-    grip_box('grip', 'Body', 'char', X7, (-8.5, 0.5), (-4, 4), p_grip),
-    grip_box('magwell', 'Body', 'char', (-4, 4), (-9, -7), (-4.5, 4.5)),
+    # Slide (teal, moves back) - full length, flat top
+    side_box('slide', 'Slide', 'teal', X7, (14, 21), (2, 34), p_slide),
+    side_box('rear_sight', 'Slide', 'char', X5, (21, 22), (4, 7), p_rear_sight),
+    side_box('front_sight', 'Slide', 'orange', X2, (21, 22), (30, 32)),
+    # Body: frame/dust cover, barrel, rail, guard, tang, grip
+    side_box('frame', 'Body', 'char', X6, (10, 14), (2, 32), p_frame),
+    side_box('barrel', 'Body', 'steel', X3, (16, 19), (6, 33), p_barrel),
+    side_box('rail', 'Body', 'char', X5, (8, 10), (23, 31), p_rail),
+    side_box('guard_front', 'Body', 'char', X3, (6, 10), (21, 23)),
+    side_box('guard_bottom', 'Body', 'char', X3, (4, 6), (8, 23)),
+    side_box('tang', 'Body', 'char', X5, (11, 13), (0, 2)),
+    grip_box('grip', 'Body', 'char', X7, (-10.5, 0.5), (-4.5, 4.5), p_grip),
     # Magazine (drops along the grip axis)
-    grip_box('mag_body', 'Magazine', 'steel', (-2, 2), (-9, -1), (-2, 2), p_mag),
-    grip_box('mag_base', 'Magazine', 'orange', X6, (-11, -9), (-3.5, 3.5)),
+    grip_box('mag_body', 'Magazine', 'steel', (-2, 2), (-10.5, -1.5), (-2, 2), p_mag),
+    grip_box('mag_base', 'Magazine', 'orange', X8, (-12.5, -10.5), (-5, 5)),
     # Trigger
-    side_box('trigger', 'Trigger', 'orange', X2, (7, 11), (12.5, 14.5), p_trigger),
+    side_box('trigger', 'Trigger', 'orange', X2, (7, 11), (14, 16), p_trigger),
 ]
 
 
@@ -264,7 +256,7 @@ def paint_face(box, fk):
         for i in range(w):
             if kind == 'top':
                 s = H
-                if big and rng.random() < 0.06:
+                if big and rng.random() < 0.03:
                     s = B
             elif kind == 'bottom':
                 s = S
@@ -552,7 +544,7 @@ def main():
     atlas, rects, black_uv, used = build_atlas()
     # origin: centre of the grip where the hand sits (grip-local v=-4, u=0)
     origin = to_world(BOXES[[b.name for b in BOXES].index('grip')],
-                      [np.array(GRIP_PIVOT) + (0, -4, 0)])[0]
+                      [np.array(GRIP_PIVOT) + (0, ORIGIN_V, 0)])[0]
     parts = build_parts(rects, black_uv, origin)
     check_winding(parts)
     check_texel_density(parts)
@@ -573,8 +565,9 @@ def main():
         solid.append(to_world(b, [face_corners(fk, b.frm, b.to)[k] for fk in FACE_KEYS for k in range(4)]) - origin)
     solid = np.concatenate(solid)
     size = solid.max(0) - solid.min(0)
-    comp = BOXES[[b.name for b in BOXES].index('compensator')]
-    muzzle = np.array([0.0, (comp.frm[1] + comp.to[1]) / 2, comp.frm[2]]) - origin
+    barrel = BOXES[[b.name for b in BOXES].index('barrel')]
+    slide = BOXES[[b.name for b in BOXES].index('slide')]
+    muzzle = np.array([0.0, (barrel.frm[1] + barrel.to[1]) / 2, slide.frm[2]]) - origin
     info = {
         'origin_in_build_space_px': origin.round(4).tolist(),
         'solid_size_px_xyz': size.round(3).tolist(),

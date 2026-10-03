@@ -1,4 +1,4 @@
-# Tidecaller pistol (Roblox, box-style)
+# Tidecaller pistol (Roblox, box-style classic handgun)
 
 `python3 build_pistol.py && python3 render_previews.py` (needs numpy + pillow) regenerates everything in `out/`.
 
@@ -15,7 +15,8 @@
 Axes: Y up, barrel along -Z, +X is the gun's right side; origin = centre of the grip. 16 px = 1 stud.
 
 Key numbers (studs, relative to the origin):
-- Muzzle tip (centre of compensator face): (0, 0.5727, -1.7522)
-- Slide recoil: 0.3125 (5 px) along +Z
-- Magazine drop direction: (0, -0.9659, 0.2588)
+- Muzzle tip (bore centre on the slide's front face): (0, 0.7168, -1.7738)
+- Slide recoil: 0.375 (6 px) along +Z
+- Magazine drop direction: (0, -0.9397, 0.3420)
+- Tool.Grip position (Body is recentred on its bounding box by Roblox): (0, -0.2059, 0.6657)
 - Trigger pull: 0.0625 (1 px) along +Z
