@@ -1,0 +1,70 @@
+{
+ "Body": {
+  "tris": 4264,
+  "open_edges": 0,
+  "nonmanifold_directed": 0,
+  "degenerate_tris": 0,
+  "signed_volume": 0.998,
+  "size_studs": [
+   0.3718,
+   1.5403,
+   4.249
+  ],
+  "centre": [
+   0.0,
+   0.8232,
+   -2.1245
+  ]
+ },
+ "Magazine": {
+  "tris": 388,
+  "open_edges": 0,
+  "nonmanifold_directed": 0,
+  "degenerate_tris": 0,
+  "signed_volume": 0.09664,
+  "size_studs": [
+   0.2656,
+   0.6905,
+   0.6374
+  ],
+  "centre": [
+   0.0,
+   0.3983,
+   -2.4432
+  ]
+ },
+ "Slide": {
+  "tris": 48,
+  "open_edges": 0,
+  "nonmanifold_directed": 0,
+  "degenerate_tris": 0,
+  "signed_volume": 0.0027,
+  "size_studs": [
+   0.1062,
+   0.1593,
+   0.1593
+  ],
+  "centre": [
+   -0.239,
+   1.195,
+   -2.6822
+  ]
+ },
+ "Trigger": {
+  "tris": 106,
+  "open_edges": 0,
+  "nonmanifold_directed": 0,
+  "degenerate_tris": 0,
+  "signed_volume": 0.0027,
+  "size_studs": [
+   0.0531,
+   0.2656,
+   0.2125
+  ],
+  "centre": [
+   0.0,
+   0.6108,
+   -1.9652
+  ]
+ }
+}
