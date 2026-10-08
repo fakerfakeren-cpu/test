@@ -13,10 +13,17 @@ add = mod.add
 ORDER = ['Body', 'Magazine', 'Slide', 'Trigger']
 DP = {'Y': 'Yp', 'M': 'Mp', 'W': 'Wp', 'D': 'Dd'}
 
-assembled = paint_faces(set(V))
 groups = {g: {v for v in V if group_of(V[v]['part']) == g} for g in ORDER}
+ORDER = [g for g in ORDER if groups[g]]                      # e.g. v3 has no separate Trigger
+if hasattr(mod, 'group_faces'):
+    GF = {g: mod.group_faces(groups[g]) for g in ORDER}
+    assembled = {}
+else:
+    GF = None
+    assembled = paint_faces(set(V))
 
 def face_colour(v, dn, g):
+    if GF is not None: return GF[g][(v, dn)]
     if (v, dn) in assembled: return assembled[(v, dn)]
     part = V[v]['part']                                 # interface face, hidden when assembled
     if g == 'Body': return DP[MAT[part]]
