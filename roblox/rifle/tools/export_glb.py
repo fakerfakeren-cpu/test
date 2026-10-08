@@ -7,6 +7,7 @@ from PIL import Image
 PX = 0.0531125069
 mod = importlib.import_module(sys.argv[1] if len(sys.argv) > 1 else 'model3d')
 OUT = sys.argv[2] if len(sys.argv) > 2 else 'Rifle'
+ROOT = sys.argv[3] if len(sys.argv) > 3 else 'Rifle'
 V, PAL, MAT, group_of, paint_faces, DIRS = mod.V, mod.PAL, mod.MAT, mod.group_of, mod.paint_faces, mod.DIRS
 add = mod.add
 ORDER = ['Body', 'Magazine', 'Slide', 'Trigger']
@@ -162,12 +163,12 @@ imgview = push(np.frombuffer(png, np.uint8))
 gltf = {
     'asset': {'version': '2.0', 'generator': 'rifle voxel exporter'},
     'scene': 0, 'scenes': [{'nodes': [len(nodes)]}],
-    'nodes': nodes + [{'name': OUT, 'children': list(range(len(nodes)))}],
+    'nodes': nodes + [{'name': ROOT, 'children': list(range(len(nodes)))}],
     'meshes': gm,
-    'materials': [{'name': f'{OUT}_palette', 'pbrMetallicRoughness': {'baseColorTexture': {'index': 0}, 'metallicFactor': 0.0, 'roughnessFactor': 1.0}}],
+    'materials': [{'name': f'{ROOT}_palette', 'pbrMetallicRoughness': {'baseColorTexture': {'index': 0}, 'metallicFactor': 0.0, 'roughnessFactor': 1.0}}],
     'textures': [{'sampler': 0, 'source': 0}],
     'samplers': [{'magFilter': 9728, 'minFilter': 9728, 'wrapS': 33071, 'wrapT': 33071}],
-    'images': [{'name': f'{OUT}_palette', 'mimeType': 'image/png', 'bufferView': imgview}],
+    'images': [{'name': f'{ROOT}_palette', 'mimeType': 'image/png', 'bufferView': imgview}],
     'buffers': [{'byteLength': 0}], 'bufferViews': views, 'accessors': accs,
 }
 while len(bin_) % 4: bin_.append(0)
