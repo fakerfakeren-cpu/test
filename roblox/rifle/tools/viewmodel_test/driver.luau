@@ -72,7 +72,8 @@ for _, seq in ipairs(seqs) do
 			end
 		end
 		for p, c in pairs(W) do
-			if p.Name == "Body" or p.Name == "Magazine" or p.Name == "Slide" or p.Name == "RightArm" or p.Name == "LeftArm" then
+			if p.Name == "Body" or p.Name == "Magazine" or p.Name == "Slide" or p.Name == "RightArm" or p.Name == "LeftArm"
+				or p.Name == "RightHand" or p.Name == "LeftHand" then
 				print("F " .. seq.Name .. " " .. string.format("%.4f", kf.Time) .. " " .. p.Name .. " " .. fmt(c))
 			end
 		end
@@ -83,11 +84,22 @@ for _, seq in ipairs(seqs) do
 		local sz = S.body.Size.Z / 4.249
 		local grip = gunW * Vector3.new(0, -0.2655 * sy, -SIG * 0.5417 * sz)
 		local fore = gunW * Vector3.new(0, 0.1 * sy, SIG * 0.95 * sz)
-		local rh = W[S.armR] * Vector3.new(0, 0, -S.armR.Size.Z / 2)
-		local lh = W[S.armL] * Vector3.new(0, 0, -S.armL.Size.Z / 2)
+		local handR = vm:FindFirstChild("RightHand", true)
+		local handL = vm:FindFirstChild("LeftHand", true)
+		local rh = W[handR].Position
+		local lh = W[handL].Position
+		local fore2 = gunW * Vector3.new(0, -0.07 * sy, SIG * 0.95 * sz)
 		gripErrMax = math.max(gripErrMax, (rh - grip).Magnitude)
 		local onFore = seq.Name ~= "Scar_Reload" or kf.Time < 0.08 or kf.Time > 2.335
-		if onFore then forErrMax = math.max(forErrMax, (lh - fore).Magnitude) end
+		if onFore then forErrMax = math.max(forErrMax, (lh - fore2).Magnitude) end
+		-- forearm front ends must sit inside their hands
+		for _, pair in ipairs({ { S.armR, handR }, { S.armL, handL } }) do
+			local arm, hand = pair[1], pair[2]
+			local tipA = W[arm] * Vector3.new(0, 0, -arm.Size.Z / 2)
+			local tipB = W[arm] * Vector3.new(0, 0, arm.Size.Z / 2)
+			local d = math.min((tipA - W[hand].Position).Magnitude, (tipB - W[hand].Position).Magnitude)
+			WRIST_MAX = math.max(WRIST_MAX or 0, d)
+		end
 		-- smoothness of the gun (studs/s, studs/s^2)
 		local pos = gunW.Position
 		if prevPos then
@@ -101,9 +113,26 @@ for _, seq in ipairs(seqs) do
 	end
 	print(string.format("SMOOTH %s max gun speed %.2f studs/s", seq.Name, maxSpeed))
 end
+print(string.format("CHECK forearm tip to hand centre: max %.2e studs", WRIST_MAX or -1))
+for _, seq in ipairs(seqs) do
+	local list = {}
+	for _, kf in ipairs(seq:GetChildren()) do
+		for _, mk in ipairs(kf:GetChildren()) do
+			if mk.ClassName == "KeyframeMarker" then table.insert(list, string.format("%s@%.3f", mk.Name, kf.Time)) end
+		end
+	end
+	table.sort(list)
+	print("MARKERS", seq.Name, table.concat(list, " "))
+end
+do
+	local names = {}
+	for _, c in ipairs(S.body:GetChildren()) do if c.ClassName == "Sound" then table.insert(names, c.Name) end end
+	local sc = vm:FindFirstChild("ScarSounds")
+	print("SOUNDS", table.concat(names, ","), "| script:", sc and sc.ClassName or "none", sc and sc.RunContext.Name or "", sc and #sc.Source or 0)
+end
 print(string.format("CHECK right hand on grip: max error %.2e studs", gripErrMax))
 print(string.format("CHECK left hand on forend (when it should be): max error %.2e studs", forErrMax))
-for _, p in ipairs({ S.body, S.mag, S.slide, S.armR, S.armL }) do
+for _, p in ipairs({ S.body, S.mag, S.slide, S.armR, S.armL, vm:FindFirstChild("RightHand", true), vm:FindFirstChild("LeftHand", true) }) do
 	print("SIZE " .. p.Name .. string.format(" %.6f %.6f %.6f", p.Size.X, p.Size.Y, p.Size.Z))
 end
 print("ROOT " .. fmt(S.root.CFrame))

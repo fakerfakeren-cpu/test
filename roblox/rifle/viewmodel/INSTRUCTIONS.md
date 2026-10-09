@@ -4,11 +4,16 @@
 A ready-made copy of your viewmodel with the blaster removed, the Scar rigged and the four animations inside
 (`AutoBlaster.AnimSaves`). Drag it into Studio (or right-click a service > Insert from File).
 
-- It was rebuilt from `ScarView.gltf`: same arm and gun positions, your own Scar mesh IDs
+- It was rebuilt from `ScarView.gltf`: same gun position, your own Scar mesh IDs
   (Body `131917924785503`, Magazine `80480420910453`, Slide `82150188184524`) and palette `96279669712196`.
 - The export did not contain the root part, the joints or the AnimationController, so the file adds them:
   an invisible anchored `HumanoidRootPart` at the model pivot (the PrimaryPart), Motor6Ds `RightShoulder`,
   `LeftShoulder` and `Scar` on it, and `Magazine`/`Slide` Motor6Ds on `Scar.Body`.
+- Arms: slimmer, shorter forearms (0.42 x 0.42 x 2.6 studs) that rise from below the screen, each with a hand
+  part (`RightHand`, `LeftHand`, dark gloves) on its own wrist Motor6D (`RightWrist`, `LeftWrist`).
+  All four (forearms and hands) are animated in every clip.
+- Sounds: 7 Sounds in `Scar.Body` (Equip, Fire, MagOut, MagIn, Tap, RackBack, RackRelease) with empty SoundIds,
+  markers with the same names in the animations, and a client Script `ScarSounds` that plays them. See Sounds.
 - Anything else your original viewmodel had that the export could not include (scripts, attributes, values,
   a differently named root part) is not in this file. If your template code expects those, either copy them over
   or run the setup script below on your original viewmodel instead.
@@ -30,12 +35,22 @@ things the animations depend on. The script finds them in Studio instead.
 
 Undo: Ctrl+Z straight away, or use the full copy it saves to `ServerStorage.<name>_Backup`.
 
+## Script settings (top of `ScarViewmodelSetup.lua`)
+- `ResizeArms`, `ArmThickness`, `ArmLength`: slimmer, shorter forearms (set `ResizeArms = false` to keep yours).
+- `AddHands`, `HandSize`, `HandColor`: the hand blocks on wrist joints (existing RightHand/LeftHand parts are used).
+- `RightArmPivot`, `LeftArmPivot`: where the forearms come from, relative to where each hand rests.
+- `Sounds`: sound IDs to put into the Sound objects.
+
 ## What it changes (nothing is deleted)
 - **Backup:** a full clone of the viewmodel goes to `ServerStorage.<name>_Backup`.
 - **Blaster:** its visible parts move to `ServerStorage.<name>_BlasterParts`. The `Blaster` model itself stays,
   with its folders, config, attributes and `Body_attachments`. Attachments on the blaster parts (with their particle
   emitters and lights), sounds, scripts and values move onto `Scar.Body`. Any attachment with "Muzzle" in its
   name is placed at the Scar's muzzle.
+- **Arms and hands:** arms are unanchored, any weld holding them is removed (that is what stops animations from
+  moving them), each is driven by one Motor6D from the rig root, and a hand part hangs off each arm on a wrist
+  Motor6D.
+- **Sounds:** the 7 Sounds, the markers inside the animations, and the `ScarSounds` client script.
 - **Joints:** the blaster's Motor6D now drives `Scar.Body`. It keeps the same name, parent, Part0 and C0, and C1 is
   solved so the Scar stays exactly where you placed it. `Body` gets Motor6Ds named `Magazine` and `Slide`
   so the magazine and charging handle can move.
@@ -46,6 +61,27 @@ Undo: Ctrl+Z straight away, or use the full copy it saves to `ServerStorage.<nam
 - **Rig root:** if the blaster itself was the rig root or PrimaryPart, an invisible anchored `ScarRoot` replaces it
   at the same pivot, so the template's camera code keeps working.
 - **Animations:** four KeyframeSequences in `<viewmodel>.AnimSaves`.
+
+## Sounds
+`sounds/` holds 7 original sound effects made for this gun (synthesized, `.ogg` and `.wav`):
+
+| Sound | Plays at | |
+|---|---|---|
+| `Equip` | Equip 0.03 s | cloth rustle, grip settles |
+| `Fire` | Shoot 0.02 s | the shot |
+| `MagOut` | Reload 0.57 s | mag catch + mag sliding out |
+| `MagIn` | Reload 1.47 s | new mag seats with a clack |
+| `Tap` | Reload 1.68 s | palm slap on the mag |
+| `RackBack` | Reload 1.97 s | charging handle pulled back |
+| `RackRelease` | Reload 2.10 s | bolt slams home |
+
+1. Upload them: Creator Dashboard > Creations > Development Items > Audio > Upload (or Studio's Asset Manager >
+   Import). Use the `.ogg` files (the `.wav` files are the same sounds, if you prefer those).
+2. Paste each ID into the matching Sound's `SoundId` in `Scar.Body` (for the script route you can instead fill
+   `CONFIG.Sounds` at the top of the script before running it).
+3. That's it: `ScarSounds` (a client Script inside the viewmodel) plays a Sound whenever an animation played on
+   this viewmodel's Animator reaches a marker with the same name. Sounds without an ID are skipped, so leave
+   `Fire` empty if your blaster code already plays a shot sound.
 
 ## Publish the animations and hook them up
 1. Avatar tab > **Animation Editor**, click the viewmodel.

@@ -65,6 +65,9 @@ figcaption { font-size: 13px; color: var(--muted); }
 .track input { position: absolute; inset: 0; width: 100%; margin: 0; accent-color: var(--accent); }
 .ticks { position: relative; height: 10px; }
 .tick { position: absolute; top: 0; width: 2px; height: 10px; background: var(--wood); transform: translateX(-1px); }
+.snd { position: absolute; top: -2px; transform: translateX(-50%); font-family: var(--font-mono); font-size: 10px; color: var(--muted); white-space: nowrap; }
+.sounds-row { position: relative; height: 14px; }
+.phase .s { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
 .phases { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 6px 14px; }
 .phase { display: grid; grid-template-columns: 4.2em minmax(0, 1fr); gap: 6px; align-items: baseline; padding: 4px 6px; border-radius: 4px; cursor: pointer; border: 0; background: none; color: inherit; font: inherit; text-align: left; width: 100%; }
 .phase .t { font-family: var(--font-mono); font-size: 13px; color: var(--wood); font-variant-numeric: tabular-nums; }
@@ -78,7 +81,7 @@ figcaption { font-size: 13px; color: var(--muted); }
 <div class="wrap">
   <header>
     <h1>Scar viewmodel animations</h1>
-    <p class="lede">Rendered from the exact keyframes the setup script builds. Pick a clip, slow it down, or drag the timeline to step through it.</p>
+    <p class="lede">Rendered from the exact keyframes the setup script builds, with the new slimmer forearms, gloved hands on wrist joints, and the sounds firing at their markers. Pick a clip, slow it down, or drag the timeline to step through it.</p>
   </header>
   <div class="tabs" role="tablist" aria-label="Animations" id="tabs"></div>
   <p class="desc" id="desc"></p>
@@ -102,25 +105,36 @@ figcaption { font-size: 13px; color: var(--muted); }
       <button class="btn" type="button" data-speed="1" aria-pressed="true">1&times;</button>
     </div>
     <label class="check"><input type="checkbox" id="repeat" checked> Repeat</label>
+    <label class="check"><input type="checkbox" id="sound" checked> Sound</label>
     <span class="clock" id="clock">0.000 s / 0.000 s</span>
   </div>
   <div class="timeline">
     <div class="track"><input type="range" id="scrub" min="0" max="1" step="0.001" value="0" aria-label="Animation time"></div>
     <div class="ticks" id="ticks" aria-hidden="true"></div>
+    <div class="sounds-row" id="sndrow" aria-hidden="true"></div>
   </div>
   <ul class="phases" id="phases"></ul>
   <section class="about">
     <h2>How these were made</h2>
-    <p>The setup script was run with the real Luau interpreter against a mock of your viewmodel rebuilt from ScarView.gltf, and these frames come from the KeyframeSequences it produced. Each Pose was applied to its Motor6D the way Roblox's Animator does. The gun and magazine are your exported meshes; the arms are the template's 0.6 &times; 0.6 &times; 4 stud blocks.</p>
+    <p>The setup script was run with the real Luau interpreter against a mock of your viewmodel rebuilt from ScarView.gltf, and these frames come from the KeyframeSequences it produced. Each Pose was applied to its Motor6D the way Roblox's Animator does. The gun and magazine are your exported meshes; the forearms are 0.42 &times; 0.42 &times; 2.6 studs and each hand is its own part on a wrist joint.</p>
+    <p>Sounds play when the playhead crosses a marker, the same way the ScarSounds script plays them in game. Your browser only allows sound after you click something on the page.</p>
     <p>Keyboard: space plays or pauses, the arrow keys step one frame, 1 to 4 switch clips.</p>
   </section>
 </div>
 <script>
-const CLIPS = [{"name":"Scar_Idle","key":"idle","label":"Idle","fps":15,"loop":true,"priority":"Idle","length":3.2,"frames":49,"times":[0.0,0.0667,0.1333,0.2,0.2667,0.3333,0.4,0.4667,0.5333,0.6,0.6667,0.7333,0.8,0.8667,0.9333,1.0,1.0667,1.1333,1.2,1.2667,1.3333,1.4,1.4667,1.5333,1.6,1.6667,1.7333,1.8,1.8667,1.9333,2.0,2.0667,2.1333,2.2,2.2667,2.3333,2.4,2.4667,2.5333,2.6,2.6667,2.7333,2.8,2.8667,2.9333,3.0,3.0667,3.1333,3.2],"phases":[[0.0,"Breathing loop starts"],[1.6,"Half breath"],[3.2,"Loops back seamlessly"]],"desc":"Slow breathing sway: a little bob, tilt and roll. Both hands stay planted."},{"name":"Scar_Equip","key":"equip","label":"Equip","fps":60,"loop":false,"priority":"Action","length":0.6,"frames":37,"times":[0.0,0.0167,0.0333,0.05,0.0667,0.0833,0.1,0.1167,0.1333,0.15,0.1667,0.1833,0.2,0.2167,0.2333,0.25,0.2667,0.2833,0.3,0.3167,0.3333,0.35,0.3667,0.3833,0.4,0.4167,0.4333,0.45,0.4667,0.4833,0.5,0.5167,0.5333,0.55,0.5667,0.5833,0.6],"phases":[[0.0,"Low right, muzzle down, canted"],[0.26,"Swinging up"],[0.36,"Small overshoot"],[0.6,"Settled in the hold"]],"desc":"Swings up from low right with a small overshoot, then settles into the hold."},{"name":"Scar_Shoot","key":"shoot","label":"Shoot","fps":60,"loop":false,"priority":"Action","length":0.14,"frames":10,"times":[0.0,0.0156,0.0311,0.0467,0.0622,0.0778,0.0933,0.1089,0.1244,0.14],"phases":[[0.0,"Shot"],[0.022,"Maximum kick"],[0.03,"Charging handle all the way back"],[0.065,"Handle home"],[0.14,"Recovered"]],"desc":"Sharp kick back and up while the charging handle cycles, then a fast recovery. Short enough to replay on every shot in full auto."},{"name":"Scar_Reload","key":"reload","label":"Reload","fps":30,"loop":false,"priority":"Action2","length":2.35,"frames":72,"times":[0.0,0.0333,0.0667,0.1,0.1333,0.1667,0.2,0.2333,0.2667,0.3,0.3333,0.3667,0.4,0.4333,0.4667,0.5,0.5333,0.5667,0.6,0.6333,0.6667,0.7,0.7333,0.7667,0.8,0.8333,0.8667,0.9,0.9333,0.9667,1.0,1.0333,1.0667,1.1,1.1333,1.1667,1.2,1.2333,1.2667,1.3,1.3333,1.3667,1.4,1.4333,1.4667,1.5,1.5333,1.5667,1.6,1.6333,1.6667,1.7,1.7333,1.7667,1.8,1.8333,1.8667,1.9,1.9333,1.9667,2.0,2.0333,2.0667,2.1,2.1333,2.1667,2.2,2.2333,2.2667,2.3,2.3333,2.35],"phases":[[0.0,"Cant the gun"],[0.3,"Left hand to the mag"],[0.55,"Mag unseats"],[0.8,"Mag out"],[1.02,"Swap below the screen"],[1.31,"New mag comes up"],[1.5,"Seated, gun bumps"],[1.7,"Palm tap"],[1.95,"Rack the charging handle"],[2.1,"Release"],[2.35,"Back on the forend"]],"desc":"Cant, mag out and away below the screen, new mag in with a seat bump, palm tap, rack the charging handle, back to the forend."}];
+const CLIPS = [{"name":"Scar_Idle","key":"idle","label":"Idle","fps":15,"loop":true,"priority":"Idle","length":3.2,"frames":49,"times":[0.0,0.0667,0.1333,0.2,0.2667,0.3333,0.4,0.4667,0.5333,0.6,0.6667,0.7333,0.8,0.8667,0.9333,1.0,1.0667,1.1333,1.2,1.2667,1.3333,1.4,1.4667,1.5333,1.6,1.6667,1.7333,1.8,1.8667,1.9333,2.0,2.0667,2.1333,2.2,2.2667,2.3333,2.4,2.4667,2.5333,2.6,2.6667,2.7333,2.8,2.8667,2.9333,3.0,3.0667,3.1333,3.2],"phases":[[0.0,"Breathing loop starts"],[1.6,"Half breath"],[3.2,"Loops back seamlessly"]],"desc":"Slow breathing sway: a little bob, tilt and roll. Both hands stay planted.","sounds":[]},{"name":"Scar_Equip","key":"equip","label":"Equip","fps":60,"loop":false,"priority":"Action","length":0.6,"frames":37,"times":[0.0,0.0167,0.0333,0.05,0.0667,0.0833,0.1,0.1167,0.1333,0.15,0.1667,0.1833,0.2,0.2167,0.2333,0.25,0.2667,0.2833,0.3,0.3167,0.3333,0.35,0.3667,0.3833,0.4,0.4167,0.4333,0.45,0.4667,0.4833,0.5,0.5167,0.5333,0.55,0.5667,0.5833,0.6],"phases":[[0.0,"Low right, muzzle down, canted"],[0.26,"Swinging up"],[0.36,"Small overshoot"],[0.6,"Settled in the hold"]],"desc":"Swings up from low right with a small overshoot, then settles into the hold.","sounds":[["Equip",0.033]]},{"name":"Scar_Shoot","key":"shoot","label":"Shoot","fps":60,"loop":false,"priority":"Action","length":0.14,"frames":10,"times":[0.0,0.0156,0.0311,0.0467,0.0622,0.0778,0.0933,0.1089,0.1244,0.14],"phases":[[0.0,"Shot"],[0.022,"Maximum kick"],[0.03,"Charging handle all the way back"],[0.065,"Handle home"],[0.14,"Recovered"]],"desc":"Sharp kick back and up while the charging handle cycles, then a fast recovery. Short enough to replay on every shot in full auto.","sounds":[["Fire",0.017]]},{"name":"Scar_Reload","key":"reload","label":"Reload","fps":30,"loop":false,"priority":"Action2","length":2.35,"frames":72,"times":[0.0,0.0333,0.0667,0.1,0.1333,0.1667,0.2,0.2333,0.2667,0.3,0.3333,0.3667,0.4,0.4333,0.4667,0.5,0.5333,0.5667,0.6,0.6333,0.6667,0.7,0.7333,0.7667,0.8,0.8333,0.8667,0.9,0.9333,0.9667,1.0,1.0333,1.0667,1.1,1.1333,1.1667,1.2,1.2333,1.2667,1.3,1.3333,1.3667,1.4,1.4333,1.4667,1.5,1.5333,1.5667,1.6,1.6333,1.6667,1.7,1.7333,1.7667,1.8,1.8333,1.8667,1.9,1.9333,1.9667,2.0,2.0333,2.0667,2.1,2.1333,2.1667,2.2,2.2333,2.2667,2.3,2.3333,2.35],"phases":[[0.0,"Cant the gun"],[0.3,"Left hand to the mag"],[0.55,"Mag unseats"],[0.8,"Mag out"],[1.02,"Swap below the screen"],[1.31,"New mag comes up"],[1.5,"Seated, gun bumps"],[1.7,"Palm tap"],[1.95,"Rack the charging handle"],[2.1,"Release"],[2.35,"Back on the forend"]],"desc":"Cant, mag out and away below the screen, new mag in with a seat bump, palm tap, rack the charging handle, back to the forend.","sounds":[["MagOut",0.567],["MagIn",1.467],["Tap",1.683],["RackBack",1.967],["RackRelease",2.1]]}];
 const $ = (id) => document.getElementById(id);
 const tabs = $("tabs"), imgA = $("imgA"), imgB = $("imgB"), scrub = $("scrub"), clock = $("clock");
 let clip = CLIPS[0], t = 0, playing = !window.matchMedia("(prefers-reduced-motion: reduce)").matches, speed = 1, hold = 0, last = null;
 const cache = {};
+const AUDIO = {};
+["Equip", "Fire", "MagOut", "MagIn", "Tap", "RackBack", "RackRelease"].forEach((n) => {
+  const a = new Audio(`sounds/Scar_${n}.wav`); a.preload = "auto"; AUDIO[n] = a;
+});
+function playSound(name) {
+  if (!$("sound").checked || !AUDIO[name]) return;
+  try { const a = AUDIO[name].cloneNode(); a.volume = name === "Fire" ? 0.8 : 0.9; const p = a.play(); if (p && p.catch) p.catch(() => {}); } catch (e) {}
+}
 function src(c, i) { return `frames/${c.key}_${String(i).padStart(3, "0")}.png`; }
 function preload(c) {
   if (cache[c.key]) return;
@@ -148,6 +162,8 @@ function select(c, keepPlaying = true) {
   scrub.max = c.length;
   const ticks = $("ticks"); ticks.innerHTML = "";
   c.phases.forEach((p) => { const d = document.createElement("span"); d.className = "tick"; d.style.left = `${(p[0] / c.length) * 100}%`; ticks.appendChild(d); });
+  const row = $("sndrow"); row.innerHTML = "";
+  (c.sounds || []).forEach((m) => { const d = document.createElement("span"); d.className = "snd"; d.style.left = `${(m[1] / c.length) * 100}%`; d.textContent = "\u266A " + m[0]; row.appendChild(d); });
   const list = $("phases"); list.innerHTML = "";
   c.phases.forEach((p) => {
     const li = document.createElement("li"), b = document.createElement("button");
@@ -173,7 +189,9 @@ function tick(now) {
       const dt = Math.min((now - last) / 1000, 0.1) * speed;
       if (hold > 0) { hold -= dt; if (hold <= 0) t = 0; }
       else {
+        const before = t;
         t += dt;
+        (clip.sounds || []).forEach((m) => { if (before < m[1] && t >= m[1]) playSound(m[0]); });
         if (t >= clip.length) {
           if (clip.loop) t = t % clip.length;
           else if ($("repeat").checked) { t = clip.length; hold = 0.7; }

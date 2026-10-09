@@ -14,10 +14,15 @@
 	    attachments (with their effects) are kept; attachments/effects are moved onto the Scar.
 	  - Rigs the Scar exactly like the blaster was rigged: the blaster's Motor6D (same name, same parent,
 	    same Part0) now drives Scar.Body, and Body drives Magazine and Slide with their own Motor6Ds.
+	  - Arms: slimmer, shorter forearms that come up from below the screen, each with a hand block on its
+	    own wrist Motor6D (RightWrist / LeftWrist). Welds or anchoring that would lock the arms are removed.
+	  - Sounds: Sound objects in Scar.Body (Equip, Fire, MagOut, MagIn, Tap, RackBack, RackRelease), markers
+	    with the same names inside the animations, and a client Script "ScarSounds" that plays each sound
+	    when its marker is reached. Paste your sound IDs into CONFIG.Sounds below (or into the Sounds later).
 	  - Builds 4 animations as KeyframeSequences in <viewmodel>.AnimSaves:
 	      Scar_Idle (loops), Scar_Equip, Scar_Shoot, Scar_Reload
 	    Open them in the Animation Editor (select the viewmodel, ... > Load) and Publish to Roblox,
-	    or right-click a KeyframeSequence > Save to Roblox, then use the IDs in your blaster config.
+	    then use the IDs in your blaster config.
 	Undo: Ctrl+Z right after running, or restore "<name>_Backup" from ServerStorage.
 ]]
 
@@ -32,8 +37,25 @@ local CONFIG = {
 	OriginalBodySize = Vector3.new(0.37185, 1.54026, 4.24900),
 	Points = {
 		Muzzle = Vector3.new(0, 0.3187, -2.1245),
-		Grip   = Vector3.new(0, -0.2655, 0.5417),   -- right hand
-		Forend = Vector3.new(0, 0.1000, -0.9500),   -- left hand, under the wooden forend
+		Grip   = Vector3.new(0, -0.2655, 0.5417),   -- right hand (centre of the hand on the pistol grip)
+		GripTop = Vector3.new(0, -0.1327, 0.4780),
+		GripBottom = Vector3.new(0, -0.6639, 0.7435),
+		Forend = Vector3.new(0, -0.0700, -0.9500),  -- left hand, cupping the wooden forend from below
+	},
+	-- arms and hands
+	ResizeArms = true,                       -- slimmer, shorter forearms (the template's are 0.6 x 0.6 x 4)
+	ArmThickness = 0.42,
+	ArmLength = 2.6,
+	AddHands = true,                         -- a hand block on a wrist Motor6D at the end of each arm
+	HandSize = Vector3.new(0.5, 0.5, 0.54),
+	HandColor = Color3.fromRGB(58, 64, 70),  -- dark gloves
+	-- where each forearm comes from, measured from where its hand rests, in camera terms
+	-- (x right, y up, z back): the arms rise from below the screen instead of reaching across it
+	RightArmPivot = Vector3.new(0.35, -1.45, 1.45),
+	LeftArmPivot = Vector3.new(-0.55, -2.30, 1.10),
+	-- sound IDs (e.g. "rbxassetid://123"); empty ones can be filled in later on the Sound objects
+	Sounds = {
+		Equip = "", Fire = "", MagOut = "", MagIn = "", Tap = "", RackBack = "", RackRelease = "",
 	},
 	Fps = 60,
 	IdleFps = 30,
@@ -264,19 +286,18 @@ local function motorsNow()
 	end
 	return list
 end
-local function findArm(side)
+local function partNamed(side, what)
 	local exact, loose
 	for _, d in ipairs(vm:GetDescendants()) do
 		if d:IsA("BasePart") and not isIn(d, scar) and not isIn(d, blaster) then
-			local n = string.lower(string.gsub(d.Name, "[%s_]", ""))
-			if n == side .. "arm" or n == side .. "hand" then exact = exact or d
-			elseif string.find(n, side, 1, true) and (string.find(n, "arm", 1, true) or string.find(n, "hand", 1, true)) then
-				loose = loose or d
-			end
+			local n = string.lower((string.gsub(d.Name, "[%s_]", "")))
+			if n == side .. what then exact = exact or d
+			elseif string.find(n, side, 1, true) and string.find(n, what, 1, true) then loose = loose or d end
 		end
 	end
 	return exact or loose
 end
+local function findArm(side) return partNamed(side, "arm") or partNamed(side, "hand") end
 local armR, armL = findArm("right"), findArm("left")
 if not armR then note("No RightArm found: the right arm will not be animated.") end
 if not armL then note("No LeftArm found: the left arm will not be animated.") end
@@ -333,20 +354,99 @@ if not bodyJoint then
 	say("Joint: created", bodyJoint:GetFullName(), "(the blaster had no Motor6D to copy)")
 end
 
--- arms must be animatable
-for _, arm in ipairs({ armR, armL }) do
-	if arm then
-		local driven = false
-		for _, m in ipairs(motorsNow()) do if m.Part1 == arm then driven = true end end
-		if not driven and root and arm ~= root then
-			local m = Instance.new("Motor6D")
-			m.Name = arm.Name
-			m.Part0 = root
-			m.Part1 = arm
-			m.C0 = root.CFrame:Inverse() * arm.CFrame
-			m.Parent = root
-			say("Joint: created", m:GetFullName(), "(the arm had no Motor6D)")
+-- arms and hands: every one driven by exactly one Motor6D, nothing welding or anchoring them in place
+local fwd0 = body.CFrame:VectorToWorldSpace(Vector3.new(0, 0, sigma)).Unit   -- firing direction
+local function longAxis(sz)
+	if sz.X >= sz.Y and sz.X >= sz.Z then return Vector3.new(1, 0, 0), sz.X end
+	if sz.Y >= sz.Z then return Vector3.new(0, 1, 0), sz.Y end
+	return Vector3.new(0, 0, 1), sz.Z
+end
+local function frontEnd(part)   -- local offset of the end of a long part that points toward the muzzle
+	local axis, len = longAxis(part.Size)
+	local tip = axis * (len / 2)
+	if part.CFrame:VectorToWorldSpace(tip):Dot(fwd0) < 0 then tip = -tip end
+	return tip
+end
+local function reachable(from, target)
+	local seen, queue, head = { [from] = true }, { from }, 1
+	while queue[head] do
+		local p = queue[head]
+		head += 1
+		if p == target then return true end
+		for _, m in ipairs(motorsNow()) do
+			if m.Part0 == p and not seen[m.Part1] then seen[m.Part1] = true; table.insert(queue, m.Part1) end
 		end
+	end
+	return false
+end
+local function freePart(p)
+	p.Anchored = false
+	for _, d in ipairs(vm:GetDescendants()) do
+		if (d:IsA("WeldConstraint") or (d:IsA("JointInstance") and not d:IsA("Motor6D"))) and (d.Part0 == p or d.Part1 == p) then
+			say("Removed weld", d:GetFullName(), "(it locked", p.Name, "so animations could not move it)")
+			toBackup(d)
+		end
+	end
+end
+local function driveWith(part, parentPart, jointName)
+	local drivers = {}
+	for _, m in ipairs(motorsNow()) do if m.Part1 == part then table.insert(drivers, m) end end
+	for i = 2, #drivers do
+		say("Removed extra joint", drivers[i]:GetFullName(), "(only one joint may drive", part.Name .. ")")
+		toBackup(drivers[i])
+	end
+	local m = drivers[1]
+	if m and (m.Part0 == parentPart or reachable(parentPart, m.Part0)) then return m end
+	if m then
+		-- driven from outside the rig: re-attach it to the rig, keeping its name and current placement
+		m.C0 = parentPart.CFrame:Inverse() * part.CFrame * m.C1
+		m.Part0 = parentPart
+		say("Joint:", m:GetFullName(), "now hangs off", parentPart.Name)
+		return m
+	end
+	m = Instance.new("Motor6D")
+	m.Name = jointName
+	m.Part0 = parentPart
+	m.Part1 = part
+	m.C0 = parentPart.CFrame:Inverse() * part.CFrame
+	m.C1 = CFrame.new()
+	m.Parent = parentPart
+	say("Joint: created", m:GetFullName())
+	return m
+end
+local handR, handL
+for _, side in ipairs({ "Right", "Left" }) do
+	local arm = (side == "Right") and armR or armL
+	if arm and root and arm ~= root then
+		freePart(arm)
+		driveWith(arm, root, side .. "Shoulder")
+		if CONFIG.ResizeArms then
+			local axis = longAxis(arm.Size)
+			local t, L = CONFIG.ArmThickness, CONFIG.ArmLength
+			arm.Size = Vector3.new(axis.X > 0 and L or t, axis.Y > 0 and L or t, axis.Z > 0 and L or t)
+		end
+		local hand = partNamed(string.lower(side), "hand")
+		if hand == arm then hand = nil end
+		if not hand and CONFIG.AddHands then
+			hand = Instance.new("Part")
+			hand.Name = side .. "Hand"
+			hand.Size = CONFIG.HandSize
+			hand.Color = CONFIG.HandColor
+			hand.Material = Enum.Material.SmoothPlastic
+			hand.CanCollide = false
+			hand.CanTouch = false
+			hand.CanQuery = false
+			hand.Massless = true
+			hand.CastShadow = arm.CastShadow
+			hand.CFrame = arm.CFrame * CFrame.new(frontEnd(arm))
+			hand.Parent = arm.Parent
+			say("Created", hand:GetFullName())
+		end
+		if hand then
+			freePart(hand)
+			driveWith(hand, arm, side .. "Wrist")
+		end
+		if side == "Right" then handR = hand else handL = hand end
 	end
 end
 
@@ -408,6 +508,62 @@ for _, p in ipairs(keptParts) do
 	say("Kept", p:GetFullName(), "and moved it to the Scar's muzzle (welded to Body)")
 end
 
+-- sounds: one Sound per animation event, played by a small client script when the marker is reached
+local SOUND_VOLUME = { Equip = 0.4, Fire = 0.6, MagOut = 0.55, MagIn = 0.6, Tap = 0.5, RackBack = 0.55, RackRelease = 0.6 }
+local SOUND_ORDER = { "Equip", "Fire", "MagOut", "MagIn", "Tap", "RackBack", "RackRelease" }
+local missingIds = {}
+for _, name in ipairs(SOUND_ORDER) do
+	local snd = body:FindFirstChild(name)
+	if not (snd and snd:IsA("Sound")) then
+		snd = Instance.new("Sound")
+		snd.Name = name
+		snd.Volume = SOUND_VOLUME[name]
+		snd.Parent = body
+	end
+	local id = CONFIG.Sounds[name]
+	if id and id ~= "" then snd.SoundId = id end
+	if snd.SoundId == "" then table.insert(missingIds, name) end
+end
+local PLAYER_SOURCE = [==[
+-- Plays the Scar's sounds in time with its animations: every KeyframeMarker in an animation played on this
+-- viewmodel plays the Sound with the same name in Scar.Body (Equip, Fire, MagOut, MagIn, Tap, RackBack,
+-- RackRelease). Sounds without a SoundId are skipped, so leave Fire empty if your blaster code already
+-- plays a shot sound.
+local viewmodel = script.Parent
+local animator = viewmodel:FindFirstChildWhichIsA("Animator", true)
+local scar = viewmodel:FindFirstChild("Scar")
+local soundHome = scar and scar:FindFirstChild("Body")
+if not (animator and soundHome) then return end
+local NAMES = { "Equip", "Fire", "MagOut", "MagIn", "Tap", "RackBack", "RackRelease" }
+local hooked = setmetatable({}, { __mode = "k" })
+animator.AnimationPlayed:Connect(function(track)
+	if hooked[track] then return end
+	hooked[track] = true
+	for _, name in ipairs(NAMES) do
+		track:GetMarkerReachedSignal(name):Connect(function()
+			local sound = soundHome:FindFirstChild(name)
+			if sound and sound:IsA("Sound") and sound.SoundId ~= "" then
+				sound.TimePosition = 0
+				sound:Play()
+			end
+		end)
+	end
+end)
+]==]
+do
+	local old = vm:FindFirstChild("ScarSounds")
+	if old then old:Destroy() end
+	local player = Instance.new("Script")
+	player.Name = "ScarSounds"
+	player.RunContext = Enum.RunContext.Client
+	player.Source = PLAYER_SOURCE
+	player.Parent = vm
+end
+say("Sounds:", table.concat(SOUND_ORDER, ", "), "in", body:GetFullName(), "+ Script", vm.Name .. ".ScarSounds")
+if #missingIds > 0 then
+	note("No SoundId yet for:", table.concat(missingIds, ", "), "- paste IDs into those Sounds (or CONFIG.Sounds) to hear them.")
+end
+
 ---------------------------------------------------------------------------------------------------
 -- 4. Animation math (everything in world space, converted to Motor6D transforms at the end)
 ---------------------------------------------------------------------------------------------------
@@ -456,6 +612,10 @@ local function viewVec(x, y, z) return VIEW:VectorToWorldSpace(Vector3.new(x, y,
 local gripLocal = gunPoint(CONFIG.Points.Grip)
 local forendLocal = gunPoint(CONFIG.Points.Forend)
 local pivot = B0 * gripLocal          -- the gun turns around the right hand
+-- the right hand follows the slant of the pistol grip; the left hand is square to the gun
+local gripUp = (gunPoint(CONFIG.Points.GripTop) - gunPoint(CONFIG.Points.GripBottom)).Unit
+local gripHandLocal = CFrame.fromMatrix(gripLocal, Vector3.new(1, 0, 0), gripUp)
+local forendHandLocal = CFrame.new(forendLocal)
 local magRest = mag and body.CFrame:ToObjectSpace(mag.CFrame)
 local slideRest = slide and body.CFrame:ToObjectSpace(slide.CFrame)
 local leftLocal = Vector3.new(sigma, 0, 0)   -- the gun's left side in Body space (the knob sticks out there)
@@ -467,22 +627,23 @@ local function frameFromDir(pos, dir)
 	local u = r:Cross(dir).Unit
 	return CFrame.fromMatrix(pos, r, u, -dir)
 end
-local function armInfo(arm)
+local function armInfo(arm, holdWorld, pivotOffset)
 	if not (arm and rest[arm]) then return nil end
-	local cf, s = rest[arm], arm.Size
-	local axis, len
-	if s.X >= s.Y and s.X >= s.Z then axis, len = Vector3.new(1, 0, 0), s.X
-	elseif s.Y >= s.Z then axis, len = Vector3.new(0, 1, 0), s.Y
-	else axis, len = Vector3.new(0, 0, 1), s.Z end
+	local cf = rest[arm]
+	local axis, len = longAxis(arm.Size)
 	local e1, e2 = cf * (axis * (len / 2)), cf * (-axis * (len / 2))
-	local hand, shoulder = e1, e2
-	if (e2 - e1):Dot(fwd) > 0 then hand, shoulder = e2, e1 end
-	local look = frameFromDir(cf.Position, (hand - shoulder).Unit)
-	local thick = math.min(s.X, s.Y, s.Z)
+	local tip, tail = e1, e2
+	if (e2 - e1):Dot(fwd) > 0 then tip, tail = e2, e1 end
+	local look = frameFromDir(cf.Position, (tip - tail).Unit)
+	local thick = math.min(arm.Size.X, arm.Size.Y, arm.Size.Z)
+	-- the forearm swings around a point below and behind where its hand rests
+	local shoulder = holdWorld + viewVec(pivotOffset.X, pivotOffset.Y, pivotOffset.Z)
 	return { part = arm, len = len, thick = thick, shoulder = shoulder, corr = look:Inverse() * cf }
 end
-local R_INFO, L_INFO = armInfo(armR), armInfo(armL)
+local R_INFO = armInfo(armR, B0 * gripLocal, CONFIG.RightArmPivot)
+local L_INFO = armInfo(armL, B0 * forendLocal, CONFIG.LeftArmPivot)
 local function armCF(info, handPos)
+	-- forearm from its pivot to the hand; its front end sits inside the hand block
 	local d = handPos - info.shoulder
 	d = (d.Magnitude > 1e-4) and d.Unit or fwd
 	return frameFromDir(handPos - d * (info.len / 2), d) * info.corr
@@ -539,13 +700,17 @@ local function slideCF(gun, back)
 	return gun * CFrame.new(0, 0, -sigma * back) * slideRest
 end
 
-local TARGETS = {
-	forend = function(s) return s.gun * forendLocal end,
-	magGrip = function(s) return s.mag and s.mag * Vector3.new(0, -mag.Size.Y * 0.18, 0) or s.gun * forendLocal end,
-	magBottom = function(s) return s.mag and s.mag * Vector3.new(0, -mag.Size.Y * 0.5 - 0.04, 0) or s.gun * forendLocal end,
+local HAND = CONFIG.HandSize
+local TARGETS = {   -- where the left hand is (position and orientation) for each thing it holds
+	forend = function(s) return s.gun * forendHandLocal end,
+	magGrip = function(s) return s.mag and s.mag * CFrame.new(0, -mag.Size.Y * 0.18, 0) or s.gun * forendHandLocal end,
+	magBottom = function(s)
+		return s.mag and s.mag * CFrame.new(0, -(mag.Size.Y / 2 + HAND.Y / 2 - 0.06), 0) or s.gun * forendHandLocal
+	end,
 	knob = function(s)
 		local cf = s.gun * CFrame.new(0, 0, -sigma * s.pull) * (slideRest or CFrame.new(gripLocal))
-		return cf * (leftLocal * (0.09 + (L_INFO and L_INFO.thick or 0.3) / 2))   -- arm's side rests on the knob
+		local side = (slide and slide.Size.X / 2 or 0.05) + HAND.X / 2 - 0.04
+		return cf * CFrame.new(leftLocal * side)   -- the palm against the charging handle
 	end,
 }
 local function smoother(a) return a * a * a * (a * (a * 6 - 15) + 10) end
@@ -587,10 +752,12 @@ local function frame(c, prog, t, gunOverride)
 		desired[mag] = state.mag
 	end
 	if slide then desired[slide] = slideCF(gun, c.slide(t)) end
-	if R_INFO then desired[armR] = armCF(R_INFO, gun * gripLocal) end
-	if L_INFO then
-		desired[armL] = armCF(L_INFO, leftHand(prog, t, state) + viewVec(0, c.tapY(t), 0))
-	end
+	local rh = gun * gripHandLocal
+	local lh = leftHand(prog, t, state) + viewVec(0, c.tapY(t), 0)
+	if R_INFO then desired[armR] = armCF(R_INFO, rh.Position) end
+	if L_INFO then desired[armL] = armCF(L_INFO, lh.Position) end
+	if handR and rest[handR] then desired[handR] = rh end
+	if handL and rest[handL] then desired[handL] = lh end
 	for p in pairs(desired) do animatedParts[p] = true end
 	return solve(desired)
 end
@@ -608,7 +775,7 @@ local function includedJoints()
 	return inc
 end
 
-local function buildSequence(name, duration, fps, loop, priority, sampler)
+local function buildSequence(name, duration, fps, loop, priority, sampler, markers)
 	local seq = Instance.new("KeyframeSequence")
 	seq.Name = name
 	seq.Loop = loop
@@ -645,6 +812,19 @@ local function buildSequence(name, duration, fps, loop, priority, sampler)
 			end
 		end
 		kf.Parent = seq
+	end
+	-- sound markers on the keyframe nearest to each event
+	local kfs = seq:GetChildren()
+	for _, mk in ipairs(markers or {}) do
+		local best, bestDist
+		for _, kf in ipairs(kfs) do
+			local dist = math.abs(kf.Time - mk[2])
+			if not best or dist < bestDist then best, bestDist = kf, dist end
+		end
+		local marker = Instance.new("KeyframeMarker")
+		marker.Name = mk[1]
+		marker.Value = ""
+		best:AddMarker(marker)
 	end
 	return seq
 end
@@ -747,14 +927,19 @@ local function reloadSampler(t) return frame(RELOAD_C, RELOAD_HAND, t) end
 reloadSampler(1.0)
 
 publish(buildSequence("Scar_Idle", IDLE_LEN, CONFIG.IdleFps, true, Enum.AnimationPriority.Idle, idleSampler))
-publish(buildSequence("Scar_Equip", EQUIP_LEN, CONFIG.Fps, false, Enum.AnimationPriority.Action, equipSampler))
-publish(buildSequence("Scar_Shoot", SHOOT_LEN, CONFIG.Fps, false, Enum.AnimationPriority.Action, shootSampler))
-publish(buildSequence("Scar_Reload", RELOAD_LEN, CONFIG.Fps, false, Enum.AnimationPriority.Action2, reloadSampler))
+publish(buildSequence("Scar_Equip", EQUIP_LEN, CONFIG.Fps, false, Enum.AnimationPriority.Action, equipSampler,
+	{ { "Equip", 0.03 } }))
+publish(buildSequence("Scar_Shoot", SHOOT_LEN, CONFIG.Fps, false, Enum.AnimationPriority.Action, shootSampler,
+	{ { "Fire", 1 / 60 } }))
+publish(buildSequence("Scar_Reload", RELOAD_LEN, CONFIG.Fps, false, Enum.AnimationPriority.Action2, reloadSampler,
+	{ { "MagOut", 0.56 }, { "MagIn", 1.47 }, { "Tap", 1.68 }, { "RackBack", 1.97 }, { "RackRelease", 2.10 } }))
 
 vm:SetAttribute("ScarRigVersion", 1)
 ChangeHistoryService:SetWaypoint("Scar viewmodel setup")
 
-say("Rig root:", (roots[1] and roots[1]:GetFullName()) or "?", "| arms:", armR and armR.Name or "-", armL and armL.Name or "-")
+say("Rig root:", (roots[1] and roots[1]:GetFullName()) or "?", "| arms:", armR and armR.Name or "-", armL and armL.Name or "-",
+	"| hands:", handR and handR.Name or "-", handL and handL.Name or "-")
+for _, m in ipairs(order) do say("  joint", m.Name, ":", m.Part0.Name, "->", m.Part1.Name) end
 say("Animations saved in", saves:GetFullName() .. ":", table.concat(made, ", "))
 say("Next: Animation Editor > select this viewmodel > ... > Load > pick one > Publish to Roblox (or right-click the")
 say("KeyframeSequence > Save to Roblox). Put the 4 IDs where your blaster's Idle/Equip/Shoot/Reload animations were.")

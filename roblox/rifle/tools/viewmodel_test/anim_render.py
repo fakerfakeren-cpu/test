@@ -37,6 +37,8 @@ class Scene:
         self.mesh = load(gltf)
         self.arm = box_tris(sizes['RightArm'])
         self.armcol = shade(self.arm, (163, 162, 165))
+        self.hand = box_tris(sizes['RightHand']) if 'RightHand' in sizes else None
+        self.handcol = shade(self.hand, (58, 64, 70)) if self.hand is not None else None
         # arm edges darker so the block reads in flat light
     def tris(self, pose):
         Ts, Cs = [], []
@@ -45,6 +47,10 @@ class Scene:
         for name in ('RightArm', 'LeftArm'):
             M = pose[name]; Ts.append(self.arm @ M[:3, :3].T + M[:3, 3])
             Cs.append(self.armcol)
+        if self.hand is not None:
+            for name in ('RightHand', 'LeftHand'):
+                if name in pose:
+                    M = pose[name]; Ts.append(self.hand @ M[:3, :3].T + M[:3, 3]); Cs.append(self.handcol)
         return np.concatenate(Ts), np.concatenate(Cs)
 
 def raster(Tc, C, W, H, f, ortho=False, bg=(118, 128, 140), near=0.05):

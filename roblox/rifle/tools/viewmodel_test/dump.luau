@@ -17,11 +17,13 @@ local function emit(inst, parentId)
 		P(i, "CFrame", "CoordinateFrame", cfs(inst.CFrame)); P(i, "size", "Vector3", v3s(inst.Size))
 		for _, k in ipairs({ "Anchored", "CanCollide", "CanTouch", "CanQuery", "Massless", "CastShadow" }) do P(i, k, "bool", tostring(inst[k])) end
 		P(i, "Transparency", "float", string.format("%.9g", inst.Transparency))
-		if pr.XColor then
-			local c = pr.XColor
-			P(i, "Color3uint8", "Color3uint8", tostring(0xFF000000 + c[1] * 65536 + c[2] * 256 + c[3]))
+		local c = pr.XColor
+		if not c and type(pr.Color) == "table" and pr.Color.IsColor3 then
+			c = { math.floor(pr.Color.R * 255 + 0.5), math.floor(pr.Color.G * 255 + 0.5), math.floor(pr.Color.B * 255 + 0.5) }
 		end
-		if pr.XMaterial then P(i, "Material", "token", tostring(pr.XMaterial)) end
+		if c then P(i, "Color3uint8", "Color3uint8", tostring(0xFF000000 + c[1] * 65536 + c[2] * 256 + c[3])) end
+		local mat = pr.XMaterial or (type(pr.Material) == "table" and pr.Material.Value)
+		if mat then P(i, "Material", "token", tostring(mat)) end
 		if pr.XShape then P(i, "shape", "token", tostring(pr.XShape)) end
 		if cls == "Part" then P(i, "TopSurface", "token", "0"); P(i, "BottomSurface", "token", "0") end
 		if pr.XMeshId then
@@ -45,6 +47,13 @@ local function emit(inst, parentId)
 		P(i, "Loop", "bool", tostring(inst.Loop)); P(i, "Priority", "token", tostring(inst.Priority.Value))
 	elseif inst.ClassName == "Keyframe" then
 		P(i, "Time", "float", string.format("%.9g", inst.Time))
+	elseif inst.ClassName == "Sound" then
+		P(i, "SoundId", "Content", inst.SoundId); P(i, "Volume", "float", string.format("%.9g", inst.Volume))
+	elseif inst.ClassName == "Script" then
+		P(i, "RunContext", "token", tostring(inst.RunContext.Value))
+		P(i, "Source", "ProtectedStringHex", (string.gsub(inst.Source, ".", function(ch) return string.format("%02x", string.byte(ch)) end)))
+	elseif inst.ClassName == "KeyframeMarker" then
+		P(i, "Value", "string", inst.Value)
 	elseif inst.ClassName == "Pose" then
 		P(i, "CFrame", "CoordinateFrame", cfs(inst.CFrame)); P(i, "Weight", "float", string.format("%.9g", inst.Weight))
 		P(i, "EasingStyle", "token", tostring(inst.EasingStyle.Value)); P(i, "EasingDirection", "token", tostring(inst.EasingDirection.Value))

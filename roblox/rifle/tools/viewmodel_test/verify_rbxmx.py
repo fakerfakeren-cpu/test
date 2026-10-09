@@ -14,7 +14,7 @@ def walk(e, par):
             n = p.get('name')
             if p.tag == 'CoordinateFrame': d['props'][n] = cf(p)
             elif p.tag == 'Vector3': d['props'][n] = np.array([float(p.find(k).text) for k in 'XYZ'])
-            elif p.tag == 'Content': d['props'][n] = p.find('url').text
+            elif p.tag == 'Content': d['props'][n] = p.find('url').text if p.find('url') is not None else ''
             else: d['props'][n] = p.text
         items[d['ref']] = d; parent[d['ref']] = par
         if par: items[par]['kids'].append(d['ref'])
@@ -59,4 +59,9 @@ for seq in [d for d in items.values() if d['cls'] == 'KeyframeSequence']:
             k = (seq['props']['Name'], round(t, 4), name(p1))
             if k in ref_frames:
                 worst = max(worst, np.abs(M - ref_frames[k]).max()); checked += 1
+markers = Counter(f"{items[parent[k]]['props']['Name'] if False else ''}{d['props']['Name']}" for k, d in items.items() if d['cls'] == 'KeyframeMarker')
+print('markers:', dict(markers))
+print('sounds:', sorted(d['props']['Name'] for d in items.values() if d['cls'] == 'Sound'))
+scripts = [d for d in items.values() if d['cls'] == 'Script']
+print('scripts:', [(d['props']['Name'], 'RunContext=' + d['props'].get('RunContext', '?'), len(d['props'].get('Source', ''))) for d in scripts])
 print(f'keyframes replayed from the file: {nframes}; part poses compared with the Luau run: {checked}; max difference: {worst:.2e}')

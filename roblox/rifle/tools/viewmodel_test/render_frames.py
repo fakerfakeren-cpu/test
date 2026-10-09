@@ -2,7 +2,7 @@
 import json, os, sys, numpy as np
 from PIL import Image
 from anim_render import parse, Scene, first_person, outside
-F, sizes, root = parse('out_1.txt'); sc = Scene('../../in_view/ScarView.gltf', sizes)
+F, sizes, root = parse(sys.argv[2] if len(sys.argv) > 2 else 'out_1.txt'); sc = Scene('../../in_view/ScarView.gltf', sizes)
 OUT = sys.argv[1]; os.makedirs(f'{OUT}/frames', exist_ok=True)
 META = {
     'Scar_Idle':   dict(key='idle',   label='Idle',   fps=15, loop=True,  priority='Idle'),

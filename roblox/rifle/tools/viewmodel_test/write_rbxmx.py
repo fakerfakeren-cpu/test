@@ -7,7 +7,9 @@ for line in open(dump):
     if line.startswith('I\t'):
         _, i, p, cls = line.rstrip('\n').split('\t'); insts[i] = dict(cls=cls, parent=p, props=[], kids=[]); order.append(i)
     elif line.startswith('P\t'):
-        _, i, name, typ, val = line.rstrip('\n').split('\t', 4); insts[i]['props'].append((name, typ, val))
+        parts = line.rstrip('\n').split('\t', 4)
+        if len(parts) == 4: parts.append('')          # empty value (e.g. an empty SoundId)
+        _, i, name, typ, val = parts; insts[i]['props'].append((name, typ, val))
 for i in order:
     p = insts[i]['parent']
     if p != '0': insts[p]['kids'].append(i)
@@ -22,7 +24,12 @@ def prop_xml(name, typ, val, ind):
     if typ == 'Ref':
         return f'{t}<Ref name="{name}">{ref.get(val, "null")}</Ref>'
     if typ == 'Content':
+        if val == '': return f'{t}<Content name="{name}"><null></null></Content>'
         return f'{t}<Content name="{name}"><url>{escape(val)}</url></Content>'
+    if typ == 'ProtectedStringHex':
+        src = bytes.fromhex(val).decode('utf-8')
+        assert ']]>' not in src
+        return f'{t}<ProtectedString name="{name}"><![CDATA[{src}]]></ProtectedString>'
     return f'{t}<{typ} name="{name}">{escape(val)}</{typ}>'
 lines = ['<roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
          'xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">',

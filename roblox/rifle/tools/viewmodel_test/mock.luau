@@ -68,6 +68,49 @@ function CF.Inverse(a)
 	local p = -rotvec(rt, a.p)
 	return cf(p.X, p.Y, p.Z, rt)
 end
+local function toQuat(r)
+	local m00, m01, m02, m10, m11, m12, m20, m21, m22 = r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9]
+	local tr = m00 + m11 + m22
+	local w, x, y, z
+	if tr > 0 then
+		local s = math.sqrt(tr + 1) * 2
+		w = 0.25 * s; x = (m21 - m12) / s; y = (m02 - m20) / s; z = (m10 - m01) / s
+	elseif m00 > m11 and m00 > m22 then
+		local s = math.sqrt(1 + m00 - m11 - m22) * 2
+		w = (m21 - m12) / s; x = 0.25 * s; y = (m01 + m10) / s; z = (m02 + m20) / s
+	elseif m11 > m22 then
+		local s = math.sqrt(1 + m11 - m00 - m22) * 2
+		w = (m02 - m20) / s; x = (m01 + m10) / s; y = 0.25 * s; z = (m12 + m21) / s
+	else
+		local s = math.sqrt(1 + m22 - m00 - m11) * 2
+		w = (m10 - m01) / s; x = (m02 + m20) / s; y = (m12 + m21) / s; z = 0.25 * s
+	end
+	return w, x, y, z
+end
+local function fromQuat(w, x, y, z)
+	return {
+		1 - 2 * (y * y + z * z), 2 * (x * y - z * w), 2 * (x * z + y * w),
+		2 * (x * y + z * w), 1 - 2 * (x * x + z * z), 2 * (y * z - x * w),
+		2 * (x * z - y * w), 2 * (y * z + x * w), 1 - 2 * (x * x + y * y),
+	}
+end
+function CF.Lerp(a, b, t)
+	local aw, ax, ay, az = toQuat(a.r)
+	local bw, bx, by, bz = toQuat(b.r)
+	local dot = aw * bw + ax * bx + ay * by + az * bz
+	if dot < 0 then bw, bx, by, bz, dot = -bw, -bx, -by, -bz, -dot end
+	local w, x, y, z
+	if dot > 0.9995 then
+		w, x, y, z = aw + (bw - aw) * t, ax + (bx - ax) * t, ay + (by - ay) * t, az + (bz - az) * t
+	else
+		local th = math.acos(dot); local s = math.sin(th)
+		local ka, kb = math.sin((1 - t) * th) / s, math.sin(t * th) / s
+		w, x, y, z = ka * aw + kb * bw, ka * ax + kb * bx, ka * ay + kb * by, ka * az + kb * bz
+	end
+	local n = math.sqrt(w * w + x * x + y * y + z * z)
+	local p = a.p + (b.p - a.p) * t
+	return cf(p.X, p.Y, p.Z, fromQuat(w / n, x / n, y / n, z / n))
+end
 function CF.ToObjectSpace(a, b) return a:Inverse() * b end
 function CF.ToWorldSpace(a, b) return a * b end
 function CF.PointToObjectSpace(a, v) return rotvec(transpose(a.r), v - a.p) end
@@ -104,6 +147,8 @@ CFrame = {
 }
 CFrame.fromEulerAnglesXYZ = CFrame.Angles
 IS_CFRAME = function(x) return getmetatable(x) == CF end
+Color3 = { fromRGB = function(r, g, b) return { R = r / 255, G = g / 255, B = b / 255, IsColor3 = true } end,
+	new = function(r, g, b) return { R = r, G = g, B = b, IsColor3 = true } end }
 QUAT_CF = function(px, py, pz, qx, qy, qz, qw)   -- glTF (x,y,z,w) quaternion helper for scene building
 	local r = {
 		1 - 2 * (qy * qy + qz * qz), 2 * (qx * qy - qz * qw), 2 * (qx * qz + qy * qw),
@@ -123,6 +168,8 @@ Enum = {
 	PoseEasingStyle = enumItems({ "Linear", "Constant", "Elastic", "Cubic", "Bounce", "CubicV2" }),
 	PoseEasingDirection = enumItems({ "In", "Out", "InOut" }),
 	AnimationPriority = enumItems({ "Idle", "Movement", "Action", "Action2", "Action3", "Action4", "Core" }),
+	Material = { Plastic = { Name = "Plastic", Value = 256 }, SmoothPlastic = { Name = "SmoothPlastic", Value = 272 } },
+	RunContext = enumItems({ "Legacy", "Server", "Client", "Plugin" }),
 }
 
 -- Instances
@@ -139,10 +186,14 @@ local DEFAULTS = {
 		CanCollide = true, CanTouch = true, CanQuery = true, Massless = false, CastShadow = true, Transparency = 0 },
 	JointInstance = { C0 = function() return CFrame.new() end, C1 = function() return CFrame.new() end, Enabled = true },
 	Attachment = { CFrame = function() return CFrame.new() end },
-	Pose = { CFrame = function() return CFrame.new() end, Weight = 1 },
+	Pose = { CFrame = function() return CFrame.new() end, Weight = 1,
+		EasingStyle = function() return Enum.PoseEasingStyle.Linear end, EasingDirection = function() return Enum.PoseEasingDirection.In end },
 	Keyframe = { Time = 0 },
 	KeyframeSequence = { Loop = true },
 	Animation = { AnimationId = "" },
+	Sound = { SoundId = "", Volume = 0.5, TimePosition = 0 },
+	KeyframeMarker = { Value = "" },
+	Script = { Source = "" },
 }
 local Inst = {}
 local allInstances = {}
@@ -248,6 +299,7 @@ function Inst.GetPivot(self)
 	if pp and pp:IsDescendantOf(self) then return pp.CFrame * pp.PivotOffset end
 	return rawget(self, "_props").WorldPivot or CFrame.new()
 end
+function Inst.AddMarker(self, marker) marker.Parent = self end
 function Inst.SetAttribute(self, k, v) rawget(self, "_attrs")[k] = v end
 function Inst.GetAttribute(self, k) return rawget(self, "_attrs")[k] end
 function Inst.Clone(self)
