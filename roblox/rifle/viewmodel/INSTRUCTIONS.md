@@ -1,122 +1,89 @@
-# Scar viewmodel: setup script + 4 animations
+# Scar viewmodel for the AutoBlaster tool
 
-## Drop-in model: `ScarViewmodel.rbxmx`
-A ready-made copy of your viewmodel with the blaster removed, the Scar rigged and the four animations inside
-(`AutoBlaster.AnimSaves`). Drag it into Studio (or right-click a service > Insert from File).
+`ScarViewmodel.rbxmx` replaces `ReplicatedStorage.Blaster.ViewModels.AutoBlaster` in your place.
+It was built from your uploaded place file (`game.rbxl`), not from a guess.
 
-- It was rebuilt from `ScarView.gltf`: same gun position, your own Scar mesh IDs
-  (Body `131917924785503`, Magazine `80480420910453`, Slide `82150188184524`) and palette `96279669712196`.
-- The export did not contain the root part, the joints or the AnimationController, so the file adds them:
-  an invisible anchored `HumanoidRootPart` at the model pivot (the PrimaryPart), Motor6Ds `RightShoulder`,
-  `LeftShoulder` and `Scar` on it, and `Magazine`/`Slide` Motor6Ds on `Scar.Body`.
-- Arms: slimmer, shorter forearms (0.42 x 0.42 x 2.6 studs) that rise from below the screen, each with a hand
-  part (`RightHand`, `LeftHand`, dark gloves) on its own wrist Motor6D (`RightWrist`, `LeftWrist`).
-  All four (forearms and hands) are animated in every clip.
-- Sounds: 7 Sounds in `Scar.Body` (Equip, Fire, MagOut, MagIn, Tap, RackBack, RackRelease) with empty SoundIds,
-  markers with the same names in the animations, and a client Script `ScarSounds` that plays them. See Sounds.
-- Anything else your original viewmodel had that the export could not include (scripts, attributes, values,
-  a differently named root part) is not in this file. If your template code expects those, either copy them over
-  or run the setup script below on your original viewmodel instead.
-- After inserting: publish the four KeyframeSequences from `AnimSaves` in the Animation Editor, as described below.
+## What is in it
+- **Only the Scar.** There are no Blaster parts, no extra hand parts, no scripts and no Sound objects.
+- **Your normal arms.** `RightArm` and `LeftArm` are 0.6 x 0.6 x 4, the same as now. Your ViewModelController still hides them and adds the sleeves.
+- **Your parts, unchanged.**
+  - The Scar meshes and texture.
+  - `MuzzleAttachment` with `FlashEmitter` and `CircleEmitter`. All 35 properties of each emitter are copied from your place.
+- **Joints like the template and your Glock viewmodel:**
+  ```
+  HumanoidRootPart --BodyJoint--> Body
+  Body --RightArmJoint--> RightArm
+  Body --MagazineJoint--> Magazine --LeftArmJoint--> LeftArm
+  Body --SlideJoint--> Slide            (charging handle)
+  ```
+  The hands hang off the gun. When you move the gun in the Animation Editor, the hands come with it. The left hand rides the magazine.
+- **The gun has not moved.** Body, Magazine and Slide sit exactly where they are now, relative to `HumanoidRootPart`, so your `adsOffset` (0.9, -0.2, 0) still lines up the sights.
+- **`AnimSaves`** holds four animations: `Scar_Idle`, `Scar_Equip`, `Scar_Shoot` and `Scar_Reload`.
 
-`ScarViewmodelSetup.lua` is a one-time Studio command-bar script. It removes the template blaster from your
-viewmodel, rigs the Scar with the blaster's own joint, and builds four animations
-(Equip, Shoot, Reload, Idle) against **your actual rig**.
+## Sounds: nothing to add
+Your template plays viewmodel sounds from animation events, in `ReplicatedStorage.Blaster.Utility.bindSoundsToAnimationEvents`:
+- An event named `Sound` plays the AudioPlayer of that name from the tool's `Sounds` folder.
+- An event named `RandomSound` plays a random child of the folder of that name.
 
-It is a script rather than a ready-made model because Roblox's glTF export drops Motor6Ds,
-the AnimationController, invisible parts and Roblox-owned meshes (the template blaster). Those are exactly the
-things the animations depend on. The script finds them in Studio instead.
+The new animations carry exactly those events:
 
-## Run it
-1. Open the place. In the Explorer, select the viewmodel Model (`AutoBlaster`, the one with the
-   AnimationController, RightArm/LeftArm, `Blaster` and your `Scar`).
-2. View > **Command Bar**, paste the whole script, press Enter.
-3. Read the Output window. It lists every change: backup made, parts moved, joints re-pointed, animations made.
+| Animation | Time | Event | Plays from `StarterPack.AutoBlaster.Sounds` |
+|---|---|---|---|
+| Equip | 0.000 s | `Sound` = `Equip` | Equip |
+| Shoot | 0.000 s | `RandomSound` = `Shoot` | Shoot1, Shoot2 or Shoot3 |
+| Reload | 0.283 s | `Sound` = `MagOut` | MagOut |
+| Reload | 0.867 s | `Sound` = `MagIn` | MagIn |
+| Reload | 1.033 s | `Sound` = `Charger` | Charger |
 
-Undo: Ctrl+Z straight away, or use the full copy it saves to `ServerStorage.<name>_Backup`.
+AimIn and AimOut are played by your ViewModelController when you aim, not by animations.
 
-## Script settings (top of `ScarViewmodelSetup.lua`)
-- `ResizeArms`, `ArmThickness`, `ArmLength`: slimmer, shorter forearms (set `ResizeArms = false` to keep yours).
-- `AddHands`, `HandSize`, `HandColor`: the hand blocks on wrist joints (existing RightHand/LeftHand parts are used).
-- `RightArmPivot`, `LeftArmPivot`: where the forearms come from, relative to where each hand rests.
-- `Sounds`: sound IDs to put into the Sound objects.
+**Why the gun was silent before:** the old animations had no events, or events named `MagIn`, `Fire` and so on. The template only listens for `Sound` and `RandomSound`.
 
-## What it changes (nothing is deleted)
-- **Backup:** a full clone of the viewmodel goes to `ServerStorage.<name>_Backup`.
-- **Blaster:** its visible parts move to `ServerStorage.<name>_BlasterParts`. The `Blaster` model itself stays,
-  with its folders, config, attributes and `Body_attachments`. Attachments on the blaster parts (with their particle
-  emitters and lights), sounds, scripts and values move onto `Scar.Body`. Any attachment with "Muzzle" in its
-  name is placed at the Scar's muzzle.
-- **Arms and hands:** arms are unanchored, any weld holding them is removed (that is what stops animations from
-  moving them), each is driven by one Motor6D from the rig root, and a hand part hangs off each arm on a wrist
-  Motor6D.
-- **Sounds:** the 7 Sounds, the markers inside the animations, and the `ScarSounds` client script.
-- **Joints:** the blaster's Motor6D now drives `Scar.Body`. It keeps the same name, parent, Part0 and C0, and C1 is
-  solved so the Scar stays exactly where you placed it. `Body` gets Motor6Ds named `Magazine` and `Slide`
-  so the magazine and charging handle can move.
-- **Scar parts:** unanchored, CanCollide/CanTouch/CanQuery off, Massless, CastShadow copied from the blaster.
-- **Muzzle:** a `Muzzle` Attachment on `Scar.Body` at the muzzle, LookVector = firing direction.
-  `Blaster.Body_attachments.Muzzle_Att` stays where it is in the Explorer, but is moved to the Scar's muzzle and
-  welded to `Body`, so it follows recoil and reloads.
-- **Rig root:** if the blaster itself was the rig root or PrimaryPart, an invisible anchored `ScarRoot` replaces it
-  at the same pivot, so the template's camera code keeps working.
-- **Animations:** four KeyframeSequences in `<viewmodel>.AnimSaves`.
+## Install
+1. **Insert.** Drag `ScarViewmodel.rbxmx` into Studio. It appears in Workspace as `AutoBlaster`.
+2. **Publish the animations.** Open the Avatar tab, then the Animation Editor, and click the model. For each of `Scar_Idle`, `Scar_Equip`, `Scar_Shoot` and `Scar_Reload`:
+   - Use **...** > **Load** to open it.
+   - Use **...** > **Publish to Roblox**.
+   - Copy the ID.
 
-## Sounds
-`sounds/` holds 7 original sound effects made for this gun (synthesized, `.ogg` and `.wav`):
+   The events are already in each animation, so they publish with it.
+3. **Paste the IDs.** Put the four IDs into `AutoBlaster.Animations` > `Idle`, `Equip`, `Shoot` and `Reload` > `AnimationId`, written as `rbxassetid://<id>`.
+4. **Move it into place.** Delete the old `ReplicatedStorage.Blaster.ViewModels.AutoBlaster` and move this model there. Keep the name `AutoBlaster`, because the tool's `viewModel` attribute points at it.
 
-| Sound | Plays at | |
-|---|---|---|
-| `Equip` | Equip 0.03 s | cloth rustle, grip settles |
-| `Fire` | Shoot 0.02 s | the shot |
-| `MagOut` | Reload 0.57 s | mag catch + mag sliding out |
-| `MagIn` | Reload 1.47 s | new mag seats with a clack |
-| `Tap` | Reload 1.68 s | palm slap on the mag |
-| `RackBack` | Reload 1.97 s | charging handle pulled back |
-| `RackRelease` | Reload 2.10 s | bolt slams home |
+Until step 3 is done, the `Animations` folder still holds the IDs you have now. Those are the old animations: they have no sound events and they don't match the new arm joints.
 
-1. Upload them: Creator Dashboard > Creations > Development Items > Audio > Upload (or Studio's Asset Manager >
-   Import). Use the `.ogg` files (the `.wav` files are the same sounds, if you prefer those).
-2. Paste each ID into the matching Sound's `SoundId` in `Scar.Body` (for the script route you can instead fill
-   `CONFIG.Sounds` at the top of the script before running it).
-3. That's it: `ScarSounds` (a client Script inside the viewmodel) plays a Sound whenever an animation played on
-   this viewmodel's Animator reaches a marker with the same name. Sounds without an ID are skipped, so leave
-   `Fire` empty if your blaster code already plays a shot sound.
+**Check your Glock too:** your current AutoBlaster `Reload` ID (`129834366601529`) is the same as the Reload ID in your Glock viewmodel (`ViewModels.Blaster`). Step 3 replaces it for the Scar. Make sure the Glock still has the reload you meant.
 
-## Publish the animations and hook them up
-1. Avatar tab > **Animation Editor**, click the viewmodel.
-2. `...` > **Load** > `Scar_Idle` (and so on). Press play to preview. You can still edit them here.
-3. `...` > **Publish to Roblox**, then copy the asset ID.
-4. Put the four IDs where the AutoBlaster's animations were. The Output prints every `Animation` object it found
-   in the viewmodel with its current ID, to help you find them.
+## Timing against your tool settings
+- **Reload is 1.5 s**, the same as the AutoBlaster's `reloadTime`. The template stretches the reload to `reloadTime`, so this one plays at normal speed. The old 2.35 s reload was being played 1.57 times too fast.
+- **Shoot** kicks to its peak at 0.033 s and has nearly settled by 0.1 s. At `rateOfFire` 600 that is one shot every 0.1 s, so full auto stays readable. The charging handle cycles back and forward on every shot. Shoot only moves the gun and the charging handle; the arms ride along on their joints.
+- **Priorities:** Idle = Idle, Equip = Action, Shoot = Action2, Reload = Action3. Firing during the equip, and reloading at any time, override cleanly instead of blending.
+- **Equip hands off to Idle without a pop.** Your controller starts Equip and Idle together, and Equip ends exactly on the Idle pose for that moment.
 
-| Animation | Length | Loop | Priority | What happens |
-|---|---|---|---|---|
-| `Scar_Idle` | 3.2 s | yes | Idle | slow breathing sway (bob, small tilt and roll), seamless loop |
-| `Scar_Equip` | 0.6 s | no | Action | swings up from low right with a small overshoot, settles into the hold |
-| `Scar_Shoot` | 0.14 s | no | Action | sharp kick back and up, charging handle cycles, fast recovery (short enough for full auto) |
-| `Scar_Reload` | 2.35 s | no | Action2 | cant right, left hand pulls the mag, swaps it below the screen, seats it with a bump, palm tap, racks the charging handle, back to the forend |
+## What the animations do
+- **Idle (4 s loop):** a very small breathing sway, under 0.01 studs and about a third of a degree. Your controller already adds walk bob, look sway and jump kick on top.
+- **Equip (0.7 s):** the gun swings up from below the screen with a small overshoot. The left hand lands on the handguard a beat later.
+- **Shoot (0.25 s):** sharp kick back and up with a slight roll, then a fast recovery. The charging handle kicks back.
+- **Reload (1.5 s):**
+  1. The gun tilts up toward the middle of the screen.
+  2. The left hand pulls the magazine down and out of view.
+  3. A fresh magazine comes up and seats with a jolt and a palm tap.
+  4. The left hand racks the charging handle.
+  5. The hand returns to the handguard and the gun settles.
 
-The animations are baked at 60 fps (idle at 30) from smooth monotone curves, so there are no keyframe pops.
-The right hand stays on the grip and the left hand on the forend, magazine or charging handle in every frame:
-the arms are re-aimed every frame so the hands track the gun.
+## Previews
+- `previews/*.gif` and `player/` show each animation from two views:
+  - **Left:** your game's real camera framing: `VIEW_MODEL_OFFSET` (0.9, -1.3, -1.3) and FOV 70.
+  - **Right:** an outside view, similar to what the Animation Editor shows.
+- The arms are drawn as their 0.6 x 0.6 x 4 parts. In game your controller hides those parts and shows a sleeve mesh (`rbxassetid://488154609`) in the same place. I could not download that mesh, so the in-game arms will look different from the boxes.
 
-## How it was tested
-I don't have Roblox Studio here. The script was run with the real Luau interpreter against a mock Roblox API, on
-your viewmodel rebuilt from `ScarView.gltf` with five different guesses at the template's hidden rig:
-- arms and blaster on a root part;
-- unusual joint frames;
-- blaster carried by the right arm;
-- blaster as the rig root and PrimaryPart;
-- blaster as PrimaryPart under a root;
+## What was checked, and what wasn't
+- The file was checked offline with `tools/viewmodel_v3/verify.py`:
+  - It re-parses the `.rbxmx`.
+  - It replays every keyframe through the joints the way Roblox's Animator does and compares the result with the intended motion.
+  - It checks that every sound event names something in your AutoBlaster's `Sounds` folder.
+  - It compares both emitters with your place, property by property.
+- I cannot run Studio or your game here. Nothing has been tested in Roblox itself.
 
-plus running the script twice. Results in every case:
-- The Scar moved 0 studs and the model pivot moved 0 studs.
-- Every Pose matched a joint.
-- The hands stayed on their targets to within 1e-14 studs.
-- The idle loop seam is exact.
-
-`previews/*.gif` are rendered from those tested keyframes. The left half is a first-person view from a
-**guessed** camera position (your export does not contain the camera setup); the right half is an outside view.
-
-To re-run the tests: `python3 tools/viewmodel_test/run.py 1` (needs the `luau` CLI next to it).
+## Regenerating
+`roblox/rifle/tools/viewmodel_v3/README.md` explains how to rebuild the file from a place file.

@@ -3,7 +3,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: one column; a tab rail of the four clips, a two-view stage, transport + phase timeline, notes. */
+/* Layout: one column; a tab rail of the four clips, a two-view stage, transport + event timeline, notes. */
 :root {
   --bg: #eceff2;          /* cool slate ground, picks up the render background */
   --surface: #ffffff;
@@ -35,7 +35,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-body); 
 .wrap { max-width: 1000px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 48px; display: grid; gap: 22px; }
 header { display: grid; gap: 6px; }
 h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(22px, 4vw, 32px); letter-spacing: 0.02em; margin: 0; text-wrap: balance; }
-.lede { margin: 0; color: var(--muted); max-width: 65ch; }
+.lede { margin: 0; color: var(--muted); max-width: 68ch; }
 .tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
 @media (max-width: 640px) { .tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .tab { appearance: none; border: 2px solid var(--ink); background: var(--surface); color: var(--ink); border-radius: 4px; padding: 10px 12px; text-align: left; cursor: pointer; display: grid; gap: 2px; font: inherit; }
@@ -65,9 +65,13 @@ figcaption { font-size: 13px; color: var(--muted); }
 .track input { position: absolute; inset: 0; width: 100%; margin: 0; accent-color: var(--accent); }
 .ticks { position: relative; height: 10px; }
 .tick { position: absolute; top: 0; width: 2px; height: 10px; background: var(--wood); transform: translateX(-1px); }
-.snd { position: absolute; top: -2px; transform: translateX(-50%); font-family: var(--font-mono); font-size: 10px; color: var(--muted); white-space: nowrap; }
-.sounds-row { position: relative; height: 14px; }
-.phase .s { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+.events { position: relative; height: 24px; }
+.snd { position: absolute; top: 0; transform: translateX(-50%); font-family: var(--font-mono); font-size: 11px; color: var(--muted); white-space: nowrap; border: 1px solid var(--line); border-radius: 3px; padding: 1px 5px; background: var(--surface); transition: background-color 0.25s, color 0.25s, border-color 0.25s; }
+.snd.edge-l { transform: none; }
+.snd.edge-r { transform: translateX(-100%); }
+.snd.hit { background: var(--accent); color: var(--accent-ink); border-color: var(--ink); transition: none; }
+.legend { margin: 0; font-size: 13px; color: var(--muted); }
+.legend code { font-family: var(--font-mono); font-size: 12px; }
 .phases { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 6px 14px; }
 .phase { display: grid; grid-template-columns: 4.2em minmax(0, 1fr); gap: 6px; align-items: baseline; padding: 4px 6px; border-radius: 4px; cursor: pointer; border: 0; background: none; color: inherit; font: inherit; text-align: left; width: 100%; }
 .phase .t { font-family: var(--font-mono); font-size: 13px; color: var(--wood); font-variant-numeric: tabular-nums; }
@@ -75,24 +79,25 @@ figcaption { font-size: 13px; color: var(--muted); }
 .about { display: grid; gap: 10px; border-top: 2px solid var(--line); padding-top: 16px; }
 .about h2 { font-family: var(--font-display); font-size: 16px; letter-spacing: 0.04em; margin: 0; }
 .about p { margin: 0; color: var(--muted); max-width: 72ch; }
+.about code { font-family: var(--font-mono); font-size: 13px; }
 .desc { margin: 0; max-width: 72ch; }
-@media (prefers-reduced-motion: reduce) { .tab, .btn { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .tab, .btn, .snd { transition: none; } }
 </style>
 <div class="wrap">
   <header>
     <h1>Scar viewmodel animations</h1>
-    <p class="lede">Rendered from the exact keyframes the setup script builds, with the new slimmer forearms, gloved hands on wrist joints, and the sounds firing at their markers. Pick a clip, slow it down, or drag the timeline to step through it.</p>
+    <p class="lede">Every frame is a keyframe from <code>ScarViewmodel.rbxmx</code>, framed the way your game frames it. The &#9834; tags on the timeline are the sound events your template listens for; they light up when the playhead passes them.</p>
   </header>
   <div class="tabs" role="tablist" aria-label="Animations" id="tabs"></div>
   <p class="desc" id="desc"></p>
   <div class="stage">
     <figure>
-      <div class="view fp"><img id="imgA" alt="First-person view of the current frame"></div>
-      <figcaption>First person. The camera position is a guess: your export does not include the template's camera setup.</figcaption>
+      <div class="view fp"><img id="imgA" alt="In-game view of the current frame"></div>
+      <figcaption>In game: your view model offset (0.9, -1.3, -1.3) and a 70&deg; field of view.</figcaption>
     </figure>
     <figure>
       <div class="view out"><img id="imgB" alt="Outside view of the current frame"></div>
-      <figcaption>Outside view from the front left, close on the gun and hands.</figcaption>
+      <figcaption>Outside, from the front left, close to what the Animation Editor shows.</figcaption>
     </figure>
   </div>
   <div class="transport">
@@ -105,36 +110,30 @@ figcaption { font-size: 13px; color: var(--muted); }
       <button class="btn" type="button" data-speed="1" aria-pressed="true">1&times;</button>
     </div>
     <label class="check"><input type="checkbox" id="repeat" checked> Repeat</label>
-    <label class="check"><input type="checkbox" id="sound" checked> Sound</label>
     <span class="clock" id="clock">0.000 s / 0.000 s</span>
   </div>
   <div class="timeline">
     <div class="track"><input type="range" id="scrub" min="0" max="1" step="0.001" value="0" aria-label="Animation time"></div>
     <div class="ticks" id="ticks" aria-hidden="true"></div>
-    <div class="sounds-row" id="sndrow" aria-hidden="true"></div>
+    <div class="events" id="events" aria-hidden="true"></div>
   </div>
+  <p class="legend" id="legend"></p>
   <ul class="phases" id="phases"></ul>
   <section class="about">
     <h2>How these were made</h2>
-    <p>The setup script was run with the real Luau interpreter against a mock of your viewmodel rebuilt from ScarView.gltf, and these frames come from the KeyframeSequences it produced. Each Pose was applied to its Motor6D the way Roblox's Animator does. The gun and magazine are your exported meshes; the forearms are 0.42 &times; 0.42 &times; 2.6 studs and each hand is its own part on a wrist joint.</p>
-    <p>Sounds play when the playhead crosses a marker, the same way the ScarSounds script plays them in game. Your browser only allows sound after you click something on the page.</p>
+    <p>Built from your place file: your AutoBlaster viewmodel's parts, your camera offset, and your tool's settings (<code>reloadTime</code> 1.5 s, <code>rateOfFire</code> 600). Each keyframe was replayed through the model's joints the way Roblox's Animator does, then drawn from two cameras.</p>
+    <p>Your template plays sounds from animation events. An event named <code>Sound</code> plays the AudioPlayer of that name from the tool's <code>Sounds</code> folder, and <code>RandomSound</code> plays a random one from the named folder. This page marks those events but can't play your audio, which lives on Roblox.</p>
+    <p>The arms are drawn as their 0.6 &times; 0.6 &times; 4 parts. In game your view model controller hides those parts and shows its sleeve mesh in the same place, so the arms will look different from these boxes.</p>
     <p>Keyboard: space plays or pauses, the arrow keys step one frame, 1 to 4 switch clips.</p>
   </section>
 </div>
 <script>
-const CLIPS = [{"name":"Scar_Idle","key":"idle","label":"Idle","fps":15,"loop":true,"priority":"Idle","length":3.2,"frames":49,"times":[0.0,0.0667,0.1333,0.2,0.2667,0.3333,0.4,0.4667,0.5333,0.6,0.6667,0.7333,0.8,0.8667,0.9333,1.0,1.0667,1.1333,1.2,1.2667,1.3333,1.4,1.4667,1.5333,1.6,1.6667,1.7333,1.8,1.8667,1.9333,2.0,2.0667,2.1333,2.2,2.2667,2.3333,2.4,2.4667,2.5333,2.6,2.6667,2.7333,2.8,2.8667,2.9333,3.0,3.0667,3.1333,3.2],"phases":[[0.0,"Breathing loop starts"],[1.6,"Half breath"],[3.2,"Loops back seamlessly"]],"desc":"Slow breathing sway: a little bob, tilt and roll. Both hands stay planted.","sounds":[]},{"name":"Scar_Equip","key":"equip","label":"Equip","fps":60,"loop":false,"priority":"Action","length":0.6,"frames":37,"times":[0.0,0.0167,0.0333,0.05,0.0667,0.0833,0.1,0.1167,0.1333,0.15,0.1667,0.1833,0.2,0.2167,0.2333,0.25,0.2667,0.2833,0.3,0.3167,0.3333,0.35,0.3667,0.3833,0.4,0.4167,0.4333,0.45,0.4667,0.4833,0.5,0.5167,0.5333,0.55,0.5667,0.5833,0.6],"phases":[[0.0,"Low right, muzzle down, canted"],[0.26,"Swinging up"],[0.36,"Small overshoot"],[0.6,"Settled in the hold"]],"desc":"Swings up from low right with a small overshoot, then settles into the hold.","sounds":[["Equip",0.033]]},{"name":"Scar_Shoot","key":"shoot","label":"Shoot","fps":60,"loop":false,"priority":"Action","length":0.14,"frames":10,"times":[0.0,0.0156,0.0311,0.0467,0.0622,0.0778,0.0933,0.1089,0.1244,0.14],"phases":[[0.0,"Shot"],[0.022,"Maximum kick"],[0.03,"Charging handle all the way back"],[0.065,"Handle home"],[0.14,"Recovered"]],"desc":"Sharp kick back and up while the charging handle cycles, then a fast recovery. Short enough to replay on every shot in full auto.","sounds":[["Fire",0.017]]},{"name":"Scar_Reload","key":"reload","label":"Reload","fps":30,"loop":false,"priority":"Action2","length":2.35,"frames":72,"times":[0.0,0.0333,0.0667,0.1,0.1333,0.1667,0.2,0.2333,0.2667,0.3,0.3333,0.3667,0.4,0.4333,0.4667,0.5,0.5333,0.5667,0.6,0.6333,0.6667,0.7,0.7333,0.7667,0.8,0.8333,0.8667,0.9,0.9333,0.9667,1.0,1.0333,1.0667,1.1,1.1333,1.1667,1.2,1.2333,1.2667,1.3,1.3333,1.3667,1.4,1.4333,1.4667,1.5,1.5333,1.5667,1.6,1.6333,1.6667,1.7,1.7333,1.7667,1.8,1.8333,1.8667,1.9,1.9333,1.9667,2.0,2.0333,2.0667,2.1,2.1333,2.1667,2.2,2.2333,2.2667,2.3,2.3333,2.35],"phases":[[0.0,"Cant the gun"],[0.3,"Left hand to the mag"],[0.55,"Mag unseats"],[0.8,"Mag out"],[1.02,"Swap below the screen"],[1.31,"New mag comes up"],[1.5,"Seated, gun bumps"],[1.7,"Palm tap"],[1.95,"Rack the charging handle"],[2.1,"Release"],[2.35,"Back on the forend"]],"desc":"Cant, mag out and away below the screen, new mag in with a seat bump, palm tap, rack the charging handle, back to the forend.","sounds":[["MagOut",0.567],["MagIn",1.467],["Tap",1.683],["RackBack",1.967],["RackRelease",2.1]]}];
+const CLIPS = [{"name":"Scar_Idle","key":"idle","label":"Idle","fps":15,"loop":true,"priority":"Idle","length":4.0,"frames":61,"times":[0.0,0.0667,0.1333,0.2,0.2667,0.3333,0.4,0.4667,0.5333,0.6,0.6667,0.7333,0.8,0.8667,0.9333,1.0,1.0667,1.1333,1.2,1.2667,1.3333,1.4,1.4667,1.5333,1.6,1.6667,1.7333,1.8,1.8667,1.9333,2.0,2.0667,2.1333,2.2,2.2667,2.3333,2.4,2.4667,2.5333,2.6,2.6667,2.7333,2.8,2.8667,2.9333,3.0,3.0667,3.1333,3.2,3.2667,3.3333,3.4,3.4667,3.5333,3.6,3.6667,3.7333,3.8,3.8667,3.9333,4.0],"markers":[],"desc":"A very small breathing sway, under 0.01 studs and about a third of a degree. Your controller already adds walk bob, look sway and jump kick on top, so the idle stays quiet.","phases":[[0.0,"Breathing loop starts"],[2.0,"Half breath"],[4.0,"Back to the start without a seam"]]},{"name":"Scar_Equip","key":"equip","label":"Equip","fps":60,"loop":false,"priority":"Action","length":0.7,"frames":43,"times":[0.0,0.0167,0.0333,0.05,0.0667,0.0833,0.1,0.1167,0.1333,0.15,0.1667,0.1833,0.2,0.2167,0.2333,0.25,0.2667,0.2833,0.3,0.3167,0.3333,0.35,0.3667,0.3833,0.4,0.4167,0.4333,0.45,0.4667,0.4833,0.5,0.5167,0.5333,0.55,0.5667,0.5833,0.6,0.6167,0.6333,0.65,0.6667,0.6833,0.7],"markers":[[0.0,"Sound","Equip"]],"desc":"The gun swings up from below the screen with a small overshoot, and the left hand lands on the handguard a beat later. Your controller starts Equip and Idle together; Equip ends exactly on Idle's pose, so there is no pop.","phases":[[0.0,"Below the screen, muzzle down"],[0.2,"Swinging up"],[0.34,"Small overshoot"],[0.38,"Left hand lands on the handguard"],[0.6,"Settled in the hold"],[0.7,"Hands over to Idle"]]},{"name":"Scar_Shoot","key":"shoot","label":"Shoot","fps":60,"loop":false,"priority":"Action2","length":0.25,"frames":16,"times":[0.0,0.0167,0.0333,0.05,0.0667,0.0833,0.1,0.1167,0.1333,0.15,0.1667,0.1833,0.2,0.2167,0.2333,0.25],"markers":[[0.0,"RandomSound","Shoot"]],"desc":"Sharp kick back and up with a little roll, then a fast recovery, nearly settled by the next shot at 600 rounds a minute. The charging handle cycles on every shot. Only the gun and the handle are keyed; the arms ride along on their joints.","phases":[[0.0,"Shot"],[0.033,"Peak kick, handle back"],[0.067,"Handle home"],[0.1,"Next shot at 600 rpm"],[0.25,"Settled"]]},{"name":"Scar_Reload","key":"reload","label":"Reload","fps":30,"loop":false,"priority":"Action3","length":1.5,"frames":46,"times":[0.0,0.0333,0.0667,0.1,0.1333,0.1667,0.2,0.2333,0.2667,0.3,0.3333,0.3667,0.4,0.4333,0.4667,0.5,0.5333,0.5667,0.6,0.6333,0.6667,0.7,0.7333,0.7667,0.8,0.8333,0.8667,0.9,0.9333,0.9667,1.0,1.0333,1.0667,1.1,1.1333,1.1667,1.2,1.2333,1.2667,1.3,1.3333,1.3667,1.4,1.4333,1.4667,1.5],"markers":[[0.2833,"Sound","MagOut"],[0.8667,"Sound","MagIn"],[1.0333,"Sound","Charger"]],"desc":"1.5 seconds, the same as your tool's reloadTime, so the template plays it at normal speed. The mag goes out and off the screen, a fresh one seats with a jolt and a palm tap, the left hand racks the charging handle, and the gun settles back into the hold.","phases":[[0.0,"Hold"],[0.12,"Tilt up, hand to the mag"],[0.283,"Mag out"],[0.5,"Mag off the screen"],[0.62,"Fresh mag comes up"],[0.867,"Seated"],[0.9,"Palm tap"],[1.033,"Rack the charging handle"],[1.1,"Release"],[1.32,"Hand back on the handguard"],[1.5,"Back in the hold"]]}];
 const $ = (id) => document.getElementById(id);
 const tabs = $("tabs"), imgA = $("imgA"), imgB = $("imgB"), scrub = $("scrub"), clock = $("clock");
 let clip = CLIPS[0], t = 0, playing = !window.matchMedia("(prefers-reduced-motion: reduce)").matches, speed = 1, hold = 0, last = null;
 const cache = {};
-const AUDIO = {};
-["Equip", "Fire", "MagOut", "MagIn", "Tap", "RackBack", "RackRelease"].forEach((n) => {
-  const a = new Audio(`sounds/Scar_${n}.wav`); a.preload = "auto"; AUDIO[n] = a;
-});
-function playSound(name) {
-  if (!$("sound").checked || !AUDIO[name]) return;
-  try { const a = AUDIO[name].cloneNode(); a.volume = name === "Fire" ? 0.8 : 0.9; const p = a.play(); if (p && p.catch) p.catch(() => {}); } catch (e) {}
-}
+const hitUntil = {};
 function src(c, i) { return `frames/${c.key}_${String(i).padStart(3, "0")}.png`; }
 function preload(c) {
   if (cache[c.key]) return;
@@ -145,6 +144,8 @@ function frameAt(c, time) {
   while (lo < hi) { const mid = (lo + hi + 1) >> 1; if (c.times[mid] <= time + 1e-6) lo = mid; else hi = mid - 1; }
   return lo;
 }
+function label(m) { return m[1] === "RandomSound" ? `♪ ${m[2]} (random)` : `♪ ${m[2]}`; }
+function flash(k) { hitUntil[k] = performance.now() + 350; }
 function render() {
   const i = frameAt(clip, t), s = src(clip, i);
   if (imgA.getAttribute("src") !== s) { imgA.src = s; imgB.src = s; }
@@ -153,17 +154,31 @@ function render() {
   let on = 0;
   clip.phases.forEach((p, k) => { if (t + 1e-6 >= p[0]) on = k; });
   document.querySelectorAll(".phase").forEach((el, k) => el.classList.toggle("on", k === on));
+  const now = performance.now();
+  document.querySelectorAll(".snd").forEach((el, k) => {
+    const m = clip.markers[k];
+    const atFrame = !playing && Math.abs(t - m[0]) < 0.5 / clip.fps;
+    el.classList.toggle("hit", atFrame || (hitUntil[k] || 0) > now);
+  });
 }
 function setPlaying(p) { playing = p; $("play").textContent = p ? "Pause" : "Play"; last = null; }
 function select(c, keepPlaying = true) {
   clip = c; t = 0; hold = 0; preload(c);
+  Object.keys(hitUntil).forEach((k) => delete hitUntil[k]);
   document.querySelectorAll(".tab").forEach((el) => el.setAttribute("aria-selected", el.dataset.key === c.key ? "true" : "false"));
   $("desc").textContent = c.desc;
   scrub.max = c.length;
   const ticks = $("ticks"); ticks.innerHTML = "";
   c.phases.forEach((p) => { const d = document.createElement("span"); d.className = "tick"; d.style.left = `${(p[0] / c.length) * 100}%`; ticks.appendChild(d); });
-  const row = $("sndrow"); row.innerHTML = "";
-  (c.sounds || []).forEach((m) => { const d = document.createElement("span"); d.className = "snd"; d.style.left = `${(m[1] / c.length) * 100}%`; d.textContent = "\u266A " + m[0]; row.appendChild(d); });
+  const row = $("events"); row.innerHTML = "";
+  c.markers.forEach((m) => {
+    const d = document.createElement("span"); const f = m[0] / c.length;
+    d.className = "snd" + (f < 0.08 ? " edge-l" : f > 0.92 ? " edge-r" : "");
+    d.style.left = `${f * 100}%`; d.textContent = label(m); row.appendChild(d);
+  });
+  $("legend").innerHTML = c.markers.length
+    ? c.markers.map((m) => `<code>${m[1]} = ${m[2]}</code> at ${m[0].toFixed(3)} s`).join(" &middot; ")
+    : "No sound events: the idle loop is silent, like the template's.";
   const list = $("phases"); list.innerHTML = "";
   c.phases.forEach((p) => {
     const li = document.createElement("li"), b = document.createElement("button");
@@ -176,7 +191,7 @@ function select(c, keepPlaying = true) {
   if (!keepPlaying) setPlaying(false);
   render();
 }
-CLIPS.forEach((c, n) => {
+CLIPS.forEach((c) => {
   const b = document.createElement("button");
   b.type = "button"; b.className = "tab"; b.setAttribute("role", "tab"); b.dataset.key = c.key;
   b.innerHTML = `<span class="name">${c.label}</span><span class="meta">${c.length.toFixed(2)} s &middot; ${c.loop ? "loop" : "once"} &middot; ${c.priority}</span>`;
@@ -191,17 +206,17 @@ function tick(now) {
       else {
         const before = t;
         t += dt;
-        (clip.sounds || []).forEach((m) => { if (before < m[1] && t >= m[1]) playSound(m[0]); });
+        clip.markers.forEach((m, k) => { if ((before < m[0] || (before === 0 && m[0] === 0)) && t >= m[0]) flash(k); });
         if (t >= clip.length) {
           if (clip.loop) t = t % clip.length;
           else if ($("repeat").checked) { t = clip.length; hold = 0.7; }
           else { t = clip.length; setPlaying(false); }
         }
       }
-      render();
     }
     last = now;
   }
+  render();
   requestAnimationFrame(tick);
 }
 $("play").addEventListener("click", () => { if (!playing && t >= clip.length && !clip.loop) t = 0; setPlaying(!playing); });
