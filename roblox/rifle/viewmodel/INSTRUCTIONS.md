@@ -1,5 +1,19 @@
 # Scar viewmodel: setup script + 4 animations
 
+## Drop-in model: `ScarViewmodel.rbxmx`
+A ready-made copy of your viewmodel with the blaster removed, the Scar rigged and the four animations inside
+(`AutoBlaster.AnimSaves`). Drag it into Studio (or right-click a service > Insert from File).
+
+- It was rebuilt from `ScarView.gltf`: same arm and gun positions, your own Scar mesh IDs
+  (Body `131917924785503`, Magazine `80480420910453`, Slide `82150188184524`) and palette `96279669712196`.
+- The export did not contain the root part, the joints or the AnimationController, so the file adds them:
+  an invisible anchored `HumanoidRootPart` at the model pivot (the PrimaryPart), Motor6Ds `RightShoulder`,
+  `LeftShoulder` and `Scar` on it, and `Magazine`/`Slide` Motor6Ds on `Scar.Body`.
+- Anything else your original viewmodel had that the export could not include (scripts, attributes, values,
+  a differently named root part) is not in this file. If your template code expects those, either copy them over
+  or run the setup script below on your original viewmodel instead.
+- After inserting: publish the four KeyframeSequences from `AnimSaves` in the Animation Editor, as described below.
+
 `ScarViewmodelSetup.lua` is a one-time Studio command-bar script. It removes the template blaster from your
 viewmodel, rigs the Scar with the blaster's own joint, and builds four animations
 (Equip, Shoot, Reload, Idle) against **your actual rig**.
