@@ -64,16 +64,22 @@ Until step 3 is done, the `Animations` folder still holds the IDs you have now. 
 - **Equip hands off to Idle without a pop.** Your controller starts Equip and Idle together, and Equip ends exactly on the Idle pose for that moment.
 
 ## What the animations do
-The arms move the way they do in your Glock viewmodel. They take about 30% of the gun's turn and travel (75% while equipping). The hands stay on the gun and the left hand works on its own. The arms never twist about their own length, and no arm joint turns more than 45 degrees, so Roblox has nothing to interpolate the long way round.
+The motion is springy rather than stiff:
+- **Overshoot:** the gun swings into each pose, overshoots a little and settles.
+- **Arm drag:** the arms lag a beat behind the gun and catch up.
+- **Anticipation:** the big moves start with a small counter-move.
+- **Bouncy hits:** impacts (mag in, palm slap, bolt home) bounce instead of stopping dead.
 
-- **Idle (4 s loop):** a very small breathing sway, under 0.01 studs and about a third of a degree. Your controller already adds walk bob, look sway and jump kick on top.
-- **Equip (0.7 s):** the gun swings up from below the screen with a small overshoot. Both arms come up with it, and the left hand takes the magazine a beat later.
-- **Shoot (0.25 s):** sharp kick back and up with a slight roll, then a fast recovery. The charging handle kicks back.
+The arms otherwise move like your Glock's: they take about 30% of the gun's turn (75% while equipping) and never twist about their own length. No arm joint goes past 45 degrees, so Roblox has nothing to interpolate the long way round.
+
+- **Idle (4 s loop):** a slow breathing sway with the arms swaying a beat behind. Your controller adds walk bob, look sway and jump kick on top.
+- **Equip (0.7 s):** the gun swings up from below, pops about 0.16 studs past the hold and springs back. The arms drag behind and the left hand slaps onto the magazine. It ends exactly on the Idle pose.
+- **Shoot (0.25 s):** a springy kick that peaks at 0.037 s and swings back through the hold right at the next shot (600 rpm). It rebounds forward slightly and settles. The charging handle cycles on every shot.
 - **Reload (1.5 s):**
-  1. The gun tilts up toward the middle of the screen.
-  2. The left hand yanks the magazine out and flicks it away. It flies down and to the left, spinning, and is off the screen by 0.55 s. The elbow swings out a little on the throw.
-  3. The hand drops out of view and brings a fresh magazine up from below. It slams in with a jolt, then gets a palm slap.
-  4. The hand racks the charging handle.
+  1. A quick dip, then the gun swings into the tilt and settles.
+  2. The left hand yanks the magazine out and flings it away. It flies down and to the left, spinning, and is off the screen by 0.53 s.
+  3. The hand drops out of view and brings a fresh magazine up. It slams home with a bounce, then gets a palm slap.
+  4. The hand racks the charging handle, which snaps forward with a bounce.
   5. The hand returns to the magazine and the gun settles.
 
   Roblox has only one Magazine part, so the same part plays both magazines. It jumps from the thrown position into the hand at 0.55 to 0.57 s. Both of those positions, and the path between them, are off the screen; this is checked against your camera framing.

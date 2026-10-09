@@ -244,16 +244,19 @@ class Rig:
             return G @ self.mag_rel
         return G @ self.mag_rel @ T(*MAG_PIVOT_MAG) @ off @ T(*(-MAG_PIVOT_MAG))
 
-    def pose(self, D, mag=None, slide_back=0.0, left_hand=None, sh_R=(0, 0, 0), sh_L=(0, 0, 0), follow=FOLLOW):
+    def pose(self, D, mag=None, slide_back=0.0, left_hand=None, sh_R=(0, 0, 0), sh_L=(0, 0, 0), follow=FOLLOW,
+             D_follow=None):
         """mag: Magazine CFrame (HRP frame) or None for seated. sh_*: extra shoulder offsets (HRP frame).
-        follow: fraction of the gun's travel and turn the arms take on (the rest comes from the hands moving)."""
+        follow: fraction of the gun's travel and turn the arms take on (the rest comes from the hands moving).
+        D_follow: a lagging copy of the gun motion for the arms to follow, so they drag behind and catch up."""
         G = self.gun(D)
         Mg = self.mag_in_gun(G) if mag is None else mag
         Sl = G @ self.slide_rel @ T(0, 0, -slide_back)
         lh = pt(Mg, MAG_HOLD_MAG) if left_hand is None else left_hand
-        turn = rot_frac(G[:3, :3] @ self.G0[:3, :3].T, follow)     # part of the gun's rotation since rest
-        sR = (1 - follow) * self.shoulder_R + follow * pt(G, self.shoulder_R_body) + np.asarray(sh_R, float)
-        sL = (1 - follow) * self.shoulder_L + follow * pt(G, self.shoulder_L_body) + np.asarray(sh_L, float)
+        Gf = G if D_follow is None else self.gun(D_follow)
+        turn = rot_frac(Gf[:3, :3] @ self.G0[:3, :3].T, follow)    # part of the gun's rotation since rest
+        sR = (1 - follow) * self.shoulder_R + follow * pt(Gf, self.shoulder_R_body) + np.asarray(sh_R, float)
+        sL = (1 - follow) * self.shoulder_L + follow * pt(Gf, self.shoulder_L_body) + np.asarray(sh_L, float)
         return {'HumanoidRootPart': np.eye(4), 'Body': G, 'Magazine': Mg, 'Slide': Sl,
                 'RightArm': arm_cf(pt(G, RIGHT_HAND_BODY), sR, turn @ self.R_rest_R),
                 'LeftArm': arm_cf(lh, sL, turn @ self.R_rest_L)}
@@ -291,6 +294,49 @@ def gun_D(c, t):
     return D_of({k: c[k](t) for k in ('x', 'y', 'z', 'pitch', 'yaw', 'roll')})
 
 
+KEYS6 = ('x', 'y', 'z', 'pitch', 'yaw', 'roll')
+ARM_LAG = 0.18          # idle: the arms sway this many seconds behind the gun
+
+
+def vec_of(p):
+    return np.array([p[k] for k in KEYS6], float)
+
+
+def p_of(v):
+    return dict(zip(KEYS6, (float(a) for a in v)))
+
+
+class Spring:
+    """A damped spring chasing a target signal (overshoot and settle), solved once on a fine grid."""
+
+    def __init__(self, target, t_end, omega, zeta, dt=1 / 1200):
+        self.dt = dt
+        n = int(round(t_end / dt)) + 1
+        tg = np.array([target(i * dt) for i in range(n)], float)
+        x, v = tg[0].copy(), np.zeros_like(tg[0])
+        self.out = np.empty_like(tg)
+        for i in range(n):
+            self.out[i] = x
+            v = v + (omega * omega * (tg[i] - x) - 2 * zeta * omega * v) * dt
+            x = x + v * dt
+
+    def __call__(self, t):
+        f = min(max(t / self.dt, 0.0), len(self.out) - 1.000001)
+        i = int(f); f -= i
+        return self.out[i] * (1 - f) + self.out[i + 1] * f
+
+
+def bounce(t, t0, omega=32.0, zeta=0.35):
+    """Springy response to a hit at t0: jumps, peaks at 1, swings back past zero and settles."""
+    if t <= t0:
+        return 0.0
+    wd = omega * math.sqrt(1 - zeta * zeta)
+    tp = math.atan2(wd, zeta * omega) / wd
+    peak = math.exp(-zeta * omega * tp) * math.sin(wd * tp)
+    u = t - t0
+    return math.exp(-zeta * omega * u) * math.sin(wd * u) / peak
+
+
 def kick(t, t0, tau):
     """Impact response: 0 before t0, peaks (1.0) at t0 + tau, then dies away."""
     if t <= t0:
@@ -304,12 +350,12 @@ IDLE_LEN = 4.0
 
 def idle_params(t):
     w = 2 * math.pi / IDLE_LEN
-    return dict(x=0.004 * math.sin(w * t + 1.3),
-                y=0.007 * math.sin(w * t) + 0.002 * math.sin(2 * w * t + 0.7),
-                z=0.003 * math.sin(2 * w * t),
-                pitch=0.30 * math.sin(w * t + 0.4),
-                yaw=0.20 * math.sin(w * t + 2.0),
-                roll=0.35 * math.sin(w * t + 1.0))
+    return dict(x=0.0055 * math.sin(w * t + 1.3),
+                y=0.0095 * math.sin(w * t) + 0.003 * math.sin(2 * w * t + 0.7),
+                z=0.004 * math.sin(2 * w * t),
+                pitch=0.42 * math.sin(w * t + 0.4),
+                yaw=0.28 * math.sin(w * t + 2.0),
+                roll=0.48 * math.sin(w * t + 1.0))
 
 
 def idle_D(t):
@@ -325,46 +371,62 @@ def anim_idle(rig, t):
     p = idle_params(t)
     D = D_of(p)
     lh = pt(rig.mag_in_gun(rig.gun(D)), MAG_HOLD_MAG + idle_left_offset(t))
-    return rig.pose(D, left_hand=lh)
+    return rig.pose(D, left_hand=lh, D_follow=idle_D(t - ARM_LAG))
 
 
 EQUIP_LEN = 0.70
-EQUIP = curves({
-    'x':     [(0, 0.28), (0.20, 0.05), (0.34, -0.010), (0.48, 0.002), (0.60, 0.0)],
-    'y':     [(0, -0.95), (0.20, -0.10), (0.34, 0.022), (0.48, -0.004), (0.60, 0.0)],
-    'z':     [(0, 0.40), (0.20, 0.07), (0.34, -0.012), (0.48, 0.002), (0.60, 0.0)],
-    'pitch': [(0, -34.0), (0.20, -5.0), (0.34, 2.6), (0.48, -0.5), (0.60, 0.0)],
-    'yaw':   [(0, -14.0), (0.20, -2.0), (0.34, 0.8), (0.48, -0.15), (0.60, 0.0)],
-    'roll':  [(0, -26.0), (0.20, -5.0), (0.34, 2.2), (0.48, -0.4), (0.60, 0.0)],
-})
+EQUIP_START = np.array([0.30, -1.00, 0.40, -38.0, -16.0, -30.0])   # x y z pitch yaw roll, below the screen
+
+
+def _equip_target(t):
+    e = 1 - (1 - min(max(t / 0.26, 0.0), 1.0)) ** 3          # fast, decelerating swing up
+    return EQUIP_START * (1 - e)
+
+
+_SPRINGS = {}
+
+
+def _spring(name, make):
+    if name not in _SPRINGS:
+        _SPRINGS[name] = make()
+    return _SPRINGS[name]
+
+
+def equip_offsets(t):
+    gun = _spring('equip_gun', lambda: Spring(_equip_target, EQUIP_LEN, omega=17.0, zeta=0.40))
+    arm = _spring('equip_arm', lambda: Spring(gun, EQUIP_LEN, omega=11.0, zeta=0.60))
+    fade = 1 - window(t, 0.52, 0.70)                         # settled exactly on the idle pose at the end
+    return gun(t) * fade, arm(t) * fade
 
 
 def anim_equip(rig, t):
-    D = idle_D(t) @ gun_D(EQUIP, t)          # converges to the idle pose at the same clock time
+    off, off_arm = equip_offsets(t)
+    D = idle_D(t) @ D_of(p_of(off))                          # converges to the idle pose at the same clock time
+    Df = idle_D(t - ARM_LAG) @ D_of(p_of(off_arm))           # arms drag behind the gun, then catch up
     G = rig.gun(D)
-    # left hand comes up from below and takes the magazine a beat after the gun arrives
-    k = window(t, 0.10, 0.38)
-    off = (1 - k) * np.array([-0.06, -0.40, 0.18]) + math.sin(math.pi * k) * np.array([-0.04, 0.05, 0.0])
-    grab = window(t, 0.36, 0.42) * (1 - window(t, 0.42, 0.52)) * 0.018   # small squeeze as it lands
-    lh = pt(rig.mag_in_gun(G), MAG_HOLD_MAG + idle_left_offset(t) + np.array([0, grab, 0])) + off
+    # left hand comes up from below and slaps onto the magazine a beat after the gun arrives
+    k = window(t, 0.08, 0.34)
+    off_h = (1 - k) * np.array([-0.06, -0.40, 0.18]) + math.sin(math.pi * k) * np.array([-0.05, 0.07, 0.0])
+    grab = 0.022 * bounce(t, 0.34, omega=30.0, zeta=0.40) * (1 - window(t, 0.55, 0.70))
+    lh = pt(rig.mag_in_gun(G), MAG_HOLD_MAG + idle_left_offset(t) + np.array([0, grab, 0])) + off_h
     follow = 0.75 - (0.75 - FOLLOW) * window(t, 0.30, 0.60)   # arms come up with the gun, then settle
-    return rig.pose(D, left_hand=lh, follow=follow)
+    return rig.pose(D, left_hand=lh, follow=follow, D_follow=Df)
 
 
 SHOOT_LEN = 0.25
-SHOOT = curves({
-    'x':     [(0, 0.0), (0.017, 0.004), (0.033, 0.005), (0.067, 0.002), (0.10, 0.0005), (0.25, 0.0)],
-    'y':     [(0, 0.0), (0.017, 0.011), (0.033, 0.018), (0.067, 0.009), (0.10, 0.002), (0.15, -0.001), (0.25, 0.0)],
-    'z':     [(0, 0.0), (0.017, 0.068), (0.033, 0.082), (0.067, 0.034), (0.10, 0.009), (0.15, -0.004), (0.25, 0.0)],
-    'pitch': [(0, 0.0), (0.017, 1.7), (0.033, 2.4), (0.067, 1.1), (0.10, 0.32), (0.15, -0.12), (0.25, 0.0)],
-    'yaw':   [(0, 0.0), (0.017, 0.12), (0.033, 0.15), (0.067, 0.06), (0.25, 0.0)],
-    'roll':  [(0, 0.0), (0.017, -0.35), (0.033, -0.45), (0.067, -0.20), (0.10, -0.05), (0.25, 0.0)],
-})
+SHOOT_KICK = np.array([0.005, 0.018, 0.085, 2.6, 0.15, -0.45])  # x y z pitch yaw roll at the peak of the kick
+
+
+def shoot_params(t):
+    # peaks at 0.037 s, crosses zero right at the next shot (600 rpm), rebounds forward ~20 %, settles
+    return p_of(SHOOT_KICK * bounce(t, 0.0, omega=34.0, zeta=0.42) * (1 - window(t, 0.20, 0.25)))
+
+
 SHOOT_SLIDE = Curve([(0, 0.0), (0.017, 0.15), (0.033, 0.18), (0.05, 0.08), (0.067, 0.0), (0.25, 0.0)])
 
 
 def anim_shoot(rig, t):
-    return rig.pose(gun_D(SHOOT, t), slide_back=SHOOT_SLIDE(t))
+    return rig.pose(D_of(shoot_params(t)), slide_back=SHOOT_SLIDE(t))
 
 
 # ---- reload: 1.5 s (= the tool's reloadTime). Mag out, flicked away spinning, fresh mag from below, seat, tap,
@@ -380,25 +442,50 @@ THROW_LIFT = np.array([-1.5, -3.5, 1.2])                     # fling it down and
 THROW_SPIN = np.radians(np.array([-200.0, 0.0, 450.0]))      # deg/s about the magazine's own X and Z
 
 
-def reload_params(t):
-    a, b, c = window(t, 0.0, 0.22), window(t, 0.92, 1.04), window(t, 1.16, 1.44)
-    p = {k: POSE_TILT[k] * a + (POSE_CHARGE[k] - POSE_TILT[k]) * b - POSE_CHARGE[k] * c for k in POSE_TILT}
-    s = math.sin(math.pi * window(t, 1.36, 1.50))          # small settle as it lands back in the hold
-    p['pitch'] -= 0.8 * s; p['roll'] += 1.5 * s; p['y'] -= 0.006 * s
-    fade = 1 - window(t, 1.40, 1.50)
-    k = kick(t, T_MAGOUT, 0.05) * fade                     # mag yanked down: gun dips
-    p['y'] -= 0.02 * k; p['pitch'] -= 1.2 * k
-    k = kick(t, T_THROW - 0.04, 0.06) * fade               # throw: gun counter-rotates
-    p['roll'] += 2.5 * k; p['x'] += 0.015 * k
-    k = kick(t, T_MAGIN, 0.045) * fade                     # mag seated: gun pushed up
-    p['y'] += 0.04 * k; p['pitch'] -= 2.2 * k
-    k = kick(t, T_MAGIN + 0.06, 0.04) * fade               # palm slap
-    p['y'] += 0.018 * k; p['pitch'] -= 0.8 * k
+TILT_V = vec_of(POSE_TILT)
+CHARGE_V = vec_of(POSE_CHARGE)
+
+
+def _reload_target(t):
+    a, b, c = window(t, 0.02, 0.20), window(t, 0.90, 1.02), window(t, 1.14, 1.34)
+    v = TILT_V * a + (CHARGE_V - TILT_V) * b - CHARGE_V * c
+    # anticipation: a quick dip and counter-roll before tipping into the tilt
+    v = v + math.sin(math.pi * window(t, 0.0, 0.07)) * np.array([0.0, -0.025, 0.0, -2.5, 0.0, 4.0])
+    return v
+
+
+def _reload_vec(t):
+    target = _reload_target(t)
+    sp = _spring('reload_gun', lambda: Spring(_reload_target, RELOAD_LEN, omega=20.0, zeta=0.42))
+    end = 1 - window(t, 1.38, 1.50)                          # springs come to rest exactly at the end
+    v = target + (sp(t) - target) * end
+    hit = np.zeros(6)
+    k = bounce(t, T_MAGOUT, 30.0, 0.40)                      # mag yanked down: gun dips
+    hit += k * np.array([0.0, -0.022, 0.0, -1.4, 0.0, 0.0])
+    k = bounce(t, T_THROW - 0.03, 24.0, 0.45)                # throw: gun counter-rotates
+    hit += k * np.array([0.018, 0.0, 0.0, 0.0, 0.0, 3.0])
+    k = bounce(t, T_MAGIN, 32.0, 0.32)                       # mag slammed home: gun bounces up
+    hit += k * np.array([0.0, 0.05, 0.0, -2.8, 0.0, 0.0])
+    k = bounce(t, T_MAGIN + 0.06, 36.0, 0.40)                # palm slap
+    hit += k * np.array([0.0, 0.02, 0.0, -1.0, 0.0, 0.0])
     k = window(t, T_CHARGER, T_CHARGER + 0.05) * (1 - window(t, 1.13, 1.16))   # hauling on the handle
-    p['z'] += 0.03 * k; p['roll'] -= 1.5 * k
-    k = kick(t, 1.13, 0.04) * fade                         # bolt slams home
-    p['z'] -= 0.02 * k; p['pitch'] += 0.8 * k
-    return p
+    hit += k * np.array([0.0, 0.0, 0.03, 0.0, 0.0, -1.5])
+    k = math.sin(math.pi * window(t, T_CHARGER - 0.06, T_CHARGER))             # little push before the pull
+    hit += k * np.array([0.0, 0.0, -0.012, 0.0, 0.0, 0.0])
+    k = bounce(t, 1.13, 34.0, 0.38)                          # bolt slams home
+    hit += k * np.array([0.0, 0.0, -0.022, 1.0, 0.0, 0.0])
+    return v + hit * (1 - window(t, 1.40, 1.50))
+
+
+def reload_params(t):
+    return p_of(_reload_vec(t))
+
+
+def reload_arm_params(t):
+    """The gun motion as the arms feel it: the same moves, a beat late, with a softer overshoot."""
+    arm = _spring('reload_arm', lambda: Spring(_reload_vec, RELOAD_LEN, omega=12.0, zeta=0.60))
+    g = _reload_vec(t)
+    return p_of(g + (arm(t) - g) * (1 - window(t, 1.38, 1.50)))
 
 
 def mag_pull(t):
@@ -495,7 +582,7 @@ def anim_reload(rig, t):
     low = math.sin(math.pi * window(t, 0.42, 0.72))
     ch = window(t, 0.92, 1.03) * (1 - window(t, 1.17, 1.36))
     sh_L = throw * np.array([-0.30, 0.10, 0.0]) + low * np.array([0.0, -0.25, 0.08]) + ch * np.array([-0.20, 0.25, 0.0])
-    return rig.pose(D, mag=Mg, slide_back=sb, left_hand=lh, sh_L=sh_L)
+    return rig.pose(D, mag=Mg, slide_back=sb, left_hand=lh, sh_L=sh_L, D_follow=D_of(reload_arm_params(t)))
 
 
 ANIMS = {
