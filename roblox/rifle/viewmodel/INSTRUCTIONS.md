@@ -16,7 +16,8 @@ It was built from your uploaded place file (`game.rbxl`), not from a guess.
   Body --MagazineJoint--> Magazine --LeftArmJoint--> LeftArm
   Body --SlideJoint--> Slide            (charging handle)
   ```
-  The hands hang off the gun. When you move the gun in the Animation Editor, the hands come with it. The left hand rides the magazine.
+  The hands hang off the gun. When you move the gun in the Animation Editor, the hands come with it.
+- **The left hand holds the magazine, low,** in every pose, so it no longer clips up into the gun. Because it is jointed to the magazine, it rides along when the mag moves.
 - **The gun has not moved.** Body, Magazine and Slide sit exactly where they are now, relative to `HumanoidRootPart`, so your `adsOffset` (0.9, -0.2, 0) still lines up the sights.
 - **`AnimSaves`** holds four animations: `Scar_Idle`, `Scar_Equip`, `Scar_Shoot` and `Scar_Reload`.
 
@@ -31,9 +32,9 @@ The new animations carry exactly those events:
 |---|---|---|---|
 | Equip | 0.000 s | `Sound` = `Equip` | Equip |
 | Shoot | 0.000 s | `RandomSound` = `Shoot` | Shoot1, Shoot2 or Shoot3 |
-| Reload | 0.283 s | `Sound` = `MagOut` | MagOut |
-| Reload | 0.867 s | `Sound` = `MagIn` | MagIn |
-| Reload | 1.033 s | `Sound` = `Charger` | Charger |
+| Reload | 0.233 s | `Sound` = `MagOut` | MagOut |
+| Reload | 0.833 s | `Sound` = `MagIn` | MagIn |
+| Reload | 1.067 s | `Sound` = `Charger` | Charger |
 
 AimIn and AimOut are played by your ViewModelController when you aim, not by animations.
 
@@ -62,14 +63,16 @@ Until step 3 is done, the `Animations` folder still holds the IDs you have now. 
 
 ## What the animations do
 - **Idle (4 s loop):** a very small breathing sway, under 0.01 studs and about a third of a degree. Your controller already adds walk bob, look sway and jump kick on top.
-- **Equip (0.7 s):** the gun swings up from below the screen with a small overshoot. The left hand lands on the handguard a beat later.
+- **Equip (0.7 s):** the gun swings up from below the screen with a small overshoot. Both arms rise with it, their forearms twisting with the gun's tilt, and the left hand takes the magazine a beat later.
 - **Shoot (0.25 s):** sharp kick back and up with a slight roll, then a fast recovery. The charging handle kicks back.
 - **Reload (1.5 s):**
   1. The gun tilts up toward the middle of the screen.
-  2. The left hand pulls the magazine down and out of view.
-  3. A fresh magazine comes up and seats with a jolt and a palm tap.
-  4. The left hand racks the charging handle.
-  5. The hand returns to the handguard and the gun settles.
+  2. The left hand yanks the magazine out and flicks it away. It flies down and to the left, spinning, and is off the screen by 0.55 s. The elbow swings out on the throw.
+  3. The hand drops out of view and brings a fresh magazine up from below. It slams in with a jolt, then gets a palm slap.
+  4. The elbow lifts and the hand racks the charging handle.
+  5. The hand returns to the magazine and the gun settles.
+
+  Roblox has only one Magazine part, so the same part plays both magazines. It jumps from the thrown position into the hand at 0.55 to 0.57 s. Both of those positions, and the path between them, are off the screen; this is checked against your camera framing.
 
 ## Previews
 - `previews/*.gif` and `player/` show each animation from two views:

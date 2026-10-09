@@ -149,8 +149,7 @@ def load_scene(game_json):
 # Body local: +Z = muzzle, +X = player's LEFT (the Body is turned 180 deg in the viewmodel), +Y up.
 PIVOT_BODY = np.array([0.0, -0.10, -0.45])     # top of the pistol grip: the gun turns about the right hand
 RIGHT_HAND_BODY = np.array([-0.20, -0.30, -0.575])  # right-arm front end, wrapped on the pistol grip
-LEFT_HAND_BODY = np.array([0.06, -0.08, 0.70])  # left-arm front end, under the handguard just ahead of the magwell
-MAG_GRAB_MAG = np.array([0.12, -0.12, 0.0])     # left hand on the magazine (player's side, lower half)
+MAG_HOLD_MAG = np.array([0.10, -0.14, 0.02])    # left-arm front end holding the magazine: lower half, player's side
 MAG_PIVOT_MAG = np.array([0.0, 0.28, 0.0])      # magazine joint at the top of the magazine (where it seats)
 CHARGER_GRAB_SLIDE = np.array([0.26, -0.08, -0.04])  # left hand pinching the charging handle (outboard side)
 
@@ -160,21 +159,23 @@ LEFT_DIR = np.array([-0.22, -0.78, 0.58])
 ARM_HALF = 2.0                                  # arms are 0.6 x 0.6 x 4, hand at local z = -2
 
 
+def unit(v):
+    v = np.asarray(v, float); return v / np.linalg.norm(v)
+
+
 class Rig:
     def __init__(self, S):
         self.S = S
         G0 = S['Body']
         self.G0 = G0
         # Gun pivot frame: at the grip top, axes aligned with the HRP (so Transform = gun motion as seen by the player)
-        p = pt(G0, PIVOT_BODY)
-        self.F0 = T(*p)
+        self.F0 = T(*pt(G0, PIVOT_BODY))
         self.mag_rel = inv(G0) @ S['Magazine']        # seated magazine in Body space (pure translation)
         self.slide_rel = inv(G0) @ S['Slide']
-        rh = pt(G0, RIGHT_HAND_BODY); lh = pt(G0, LEFT_HAND_BODY)
-        self.shoulder_R = rh + 4.0 * RIGHT_DIR / np.linalg.norm(RIGHT_DIR)
-        self.shoulder_L = lh + 4.0 * LEFT_DIR / np.linalg.norm(LEFT_DIR)
-        # Rest poses = hip holding pose
-        self.rest = self.pose(np.eye(4), np.eye(4), 0.0, rh, lh)
+        self.shoulder_R = pt(G0, RIGHT_HAND_BODY) + 4.0 * unit(RIGHT_DIR)
+        self.shoulder_L = pt(S['Magazine'], MAG_HOLD_MAG) + 4.0 * unit(LEFT_DIR)
+        # Rest poses = hip holding pose (left hand on the magazine)
+        self.rest = self.pose(np.eye(4))
         R = self.rest
         # Joints: (name, Part0, Part1, C0, C1) with rest Transform = identity
         C1_body = inv(G0) @ self.F0                      # pivot at the grip top, HRP-aligned axes
@@ -188,11 +189,15 @@ class Rig:
             ('SlideJoint', 'Body', 'Slide', inv(R['Body']) @ R['Slide'], np.eye(4)),
         ]
 
-    def arm(self, hand, shoulder):
-        d = shoulder - hand; d /= np.linalg.norm(d)
+    def arm(self, hand, shoulder, roll=0.0):
+        """Arm part with its hand end on `hand`, pointing back at `shoulder`, twisted `roll` degrees about its length."""
+        d = unit(shoulder - hand)
         up = np.array([0.0, 1.0, 0.0])
-        y = up - d * (up @ d); y /= np.linalg.norm(y)
+        y = unit(up - d * (up @ d))
         x = np.cross(y, d)
+        if roll:
+            c, s = math.cos(math.radians(roll)), math.sin(math.radians(roll))
+            x, y = c * x + s * y, -s * x + c * y
         M = np.eye(4); M[:3, :3] = np.stack([x, y, d], 1); M[:3, 3] = hand + ARM_HALF * d
         return M
 
@@ -200,14 +205,21 @@ class Rig:
         """D: gun motion in the pivot frame -> Body CFrame (HRP frame)."""
         return self.F0 @ D @ inv(self.F0) @ self.G0
 
-    def pose(self, D, mag_off, slide_back, right_hand=None, left_hand=None):
+    def mag_in_gun(self, G, off=None):
+        """Magazine CFrame for an offset (Body frame, about the top of the magazine); None = seated."""
+        if off is None:
+            return G @ self.mag_rel
+        return G @ self.mag_rel @ T(*MAG_PIVOT_MAG) @ off @ T(*(-MAG_PIVOT_MAG))
+
+    def pose(self, D, mag=None, slide_back=0.0, left_hand=None, sh_R=(0, 0, 0), sh_L=(0, 0, 0), roll_R=0.0, roll_L=0.0):
+        """mag: Magazine CFrame (HRP frame) or None for seated. sh_*: shoulder offsets, roll_*: forearm twist (deg)."""
         G = self.gun(D)
-        Mg = G @ self.mag_rel @ T(*MAG_PIVOT_MAG) @ mag_off @ T(*(-MAG_PIVOT_MAG))
+        Mg = self.mag_in_gun(G) if mag is None else mag
         Sl = G @ self.slide_rel @ T(0, 0, -slide_back)
-        rh = pt(G, RIGHT_HAND_BODY) if right_hand is None else right_hand
-        lh = pt(G, LEFT_HAND_BODY) if left_hand is None else left_hand
+        lh = pt(Mg, MAG_HOLD_MAG) if left_hand is None else left_hand
         return {'HumanoidRootPart': np.eye(4), 'Body': G, 'Magazine': Mg, 'Slide': Sl,
-                'RightArm': self.arm(rh, self.shoulder_R), 'LeftArm': self.arm(lh, self.shoulder_L)}
+                'RightArm': self.arm(pt(G, RIGHT_HAND_BODY), self.shoulder_R + np.asarray(sh_R, float), roll_R),
+                'LeftArm': self.arm(lh, self.shoulder_L + np.asarray(sh_L, float), roll_L)}
 
     def solve(self, W):
         """World poses (HRP frame) -> Transform per joint name."""
@@ -232,24 +244,40 @@ class Rig:
         return W
 
 # ---------------------------------------------------------------- animations
+# Forearms twist with the gun's cant (right 60 %, left 40 %), like wrists that can only turn so far.
+
+
+def D_of(p):
+    return T(p['x'], p['y'], p['z']) @ rot_xyz(p['pitch'], p['yaw'], p['roll'])
 
 
 def gun_D(c, t):
-    return T(c['x'](t), c['y'](t), c['z'](t)) @ rot_xyz(c['pitch'](t), c['yaw'](t), c['roll'](t))
+    return D_of({k: c[k](t) for k in ('x', 'y', 'z', 'pitch', 'yaw', 'roll')})
+
+
+def kick(t, t0, tau):
+    """Impact response: 0 before t0, peaks (1.0) at t0 + tau, then dies away."""
+    if t <= t0:
+        return 0.0
+    u = (t - t0) / tau
+    return u * math.exp(1 - u)
 
 
 IDLE_LEN = 4.0
 
 
-def idle_D(t):
+def idle_params(t):
     w = 2 * math.pi / IDLE_LEN
-    x = 0.004 * math.sin(w * t + 1.3)
-    y = 0.007 * math.sin(w * t) + 0.002 * math.sin(2 * w * t + 0.7)
-    z = 0.003 * math.sin(2 * w * t)
-    pitch = 0.30 * math.sin(w * t + 0.4)
-    yaw = 0.20 * math.sin(w * t + 2.0)
-    roll = 0.35 * math.sin(w * t + 1.0)
-    return T(x, y, z) @ rot_xyz(pitch, yaw, roll)
+    return dict(x=0.004 * math.sin(w * t + 1.3),
+                y=0.007 * math.sin(w * t) + 0.002 * math.sin(2 * w * t + 0.7),
+                z=0.003 * math.sin(2 * w * t),
+                pitch=0.30 * math.sin(w * t + 0.4),
+                yaw=0.20 * math.sin(w * t + 2.0),
+                roll=0.35 * math.sin(w * t + 1.0))
+
+
+def idle_D(t):
+    return D_of(idle_params(t))
 
 
 def idle_left_offset(t):
@@ -258,10 +286,10 @@ def idle_left_offset(t):
 
 
 def anim_idle(rig, t):
-    D = idle_D(t)
-    G = rig.gun(D)
-    lh = pt(G, LEFT_HAND_BODY + idle_left_offset(t))
-    return rig.pose(D, np.eye(4), 0.0, None, lh)
+    p = idle_params(t)
+    D = D_of(p)
+    lh = pt(rig.mag_in_gun(rig.gun(D)), MAG_HOLD_MAG + idle_left_offset(t))
+    return rig.pose(D, left_hand=lh, roll_R=0.6 * p['roll'], roll_L=0.4 * p['roll'])
 
 
 EQUIP_LEN = 0.70
@@ -276,15 +304,21 @@ EQUIP = curves({
 
 
 def anim_equip(rig, t):
+    pi = idle_params(t)
     D = idle_D(t) @ gun_D(EQUIP, t)          # converges to the idle pose at the same clock time
+    roll = pi['roll'] + EQUIP['roll'](t)
     G = rig.gun(D)
-    # left hand reaches the handguard a beat after the gun arrives
+    # left hand comes up from below and takes the magazine a beat after the gun arrives
     k = window(t, 0.10, 0.38)
     off = (1 - k) * np.array([-0.06, -0.40, 0.18]) + math.sin(math.pi * k) * np.array([-0.04, 0.05, 0.0])
     grab = window(t, 0.36, 0.42) * (1 - window(t, 0.42, 0.52)) * 0.018   # small squeeze as it lands
-    lh_body = LEFT_HAND_BODY + idle_left_offset(t) + np.array([0, grab, 0])
-    lh = pt(G, lh_body) + (rig.F0[:3, :3] @ off)
-    return rig.pose(D, np.eye(4), 0.0, None, lh)
+    lh = pt(rig.mag_in_gun(G), MAG_HOLD_MAG + idle_left_offset(t) + np.array([0, grab, 0])) + off
+    # both arms swing up from below with the gun (elbows start low)
+    rise_R = 1 - window(t, 0.0, 0.40)
+    rise_L = 1 - window(t, 0.05, 0.45)
+    return rig.pose(D, left_hand=lh,
+                    sh_R=np.array([0.15, -0.55, 0.25]) * rise_R, sh_L=np.array([-0.10, -0.60, 0.25]) * rise_L,
+                    roll_R=0.6 * roll, roll_L=0.4 * roll)
 
 
 SHOOT_LEN = 0.25
@@ -300,67 +334,138 @@ SHOOT_SLIDE = Curve([(0, 0.0), (0.017, 0.15), (0.033, 0.18), (0.05, 0.08), (0.06
 
 
 def anim_shoot(rig, t):
-    return rig.pose(gun_D(SHOOT, t), np.eye(4), SHOOT_SLIDE(t))
+    return rig.pose(gun_D(SHOOT, t), slide_back=SHOOT_SLIDE(t))
 
 
+# ---- reload: 1.5 s (= the tool's reloadTime). Mag out, flicked away spinning, fresh mag from below, seat, tap,
+#      rack the charging handle, back to the hold. Sound events are frame-aligned.
 RELOAD_LEN = 1.50
-# gun: tilt to bring the magwell to the left hand, jolt on mag out / mag in, turn for the charging handle, settle
-RELOAD = curves({
-    'x':     [(0, 0), (0.20, -0.20), (0.30, -0.21), (0.62, -0.21), (0.86, -0.20), (1.00, -0.10), (1.12, -0.10), (1.36, 0.005), (1.50, 0)],
-    'y':     [(0, 0), (0.20, 0.18), (0.28, 0.18), (0.32, 0.21), (0.40, 0.19), (0.62, 0.18), (0.84, 0.19), (0.875, 0.23), (0.93, 0.18),
-              (1.02, 0.05), (1.06, 0.045), (1.11, 0.055), (1.36, -0.008), (1.50, 0)],
-    'z':     [(0, 0), (0.20, -0.12), (0.98, -0.12), (1.03, -0.10), (1.08, -0.07), (1.12, -0.11), (1.36, 0.004), (1.50, 0)],
-    'pitch': [(0, 0), (0.20, 12.0), (0.28, 12.5), (0.31, 14.5), (0.40, 12.6), (0.62, 12.2), (0.84, 12.0), (0.875, 9.5), (0.93, 12.2),
-              (1.02, 5.0), (1.08, 4.0), (1.12, 5.2), (1.36, -1.0), (1.50, 0)],
-    'yaw':   [(0, 0), (0.20, 14.0), (0.62, 15.0), (0.86, 14.5), (1.02, 8.0), (1.12, 8.0), (1.36, -0.8), (1.50, 0)],
-    'roll':  [(0, 0), (0.20, -28.0), (0.28, -29.0), (0.31, -31.0), (0.40, -29.5), (0.62, -29.0), (0.86, -28.5), (0.89, -26.0),
-              (0.95, -30.0), (1.02, -40.0), (1.12, -40.0), (1.36, 2.0), (1.50, 0)],
-})
-# magazine offset, Body-local (+X = player's left, +Z = muzzle), about the top of the magazine
-MAG = curves({
-    'x':     [(0, 0), (17 / 60, 0), (0.33, 0.01), (0.40, 0.15), (0.50, 0.55), (0.58, 0.55), (0.66, 0.25), (0.75, 0.06), (0.81, 0.015), (52 / 60, 0)],
-    'y':     [(0, 0), (17 / 60, 0), (0.33, -0.12), (0.40, -0.55), (0.50, -2.00), (0.58, -2.00), (0.66, -0.90), (0.75, -0.30), (0.81, -0.08),
-              (52 / 60, 0)],
-    'z':     [(0, 0), (17 / 60, 0), (0.40, -0.04), (0.50, -0.15), (0.58, -0.12), (0.66, -0.02), (0.75, 0.02), (52 / 60, 0)],
-    'rx':    [(0, 0), (17 / 60, 0), (0.40, -10.0), (0.50, -30.0), (0.58, 25.0), (0.66, 15.0), (0.75, 5.0), (0.81, 1.5), (52 / 60, 0)],
-    'rz':    [(0, 0), (17 / 60, 0), (0.40, 6.0), (0.50, 18.0), (0.58, 14.0), (0.66, 8.0), (0.75, 2.0), (52 / 60, 0)],
-})
-RELOAD_SLIDE = Curve([(0, 0), (1.033, 0), (1.083, 0.47), (1.10, 0.47), (1.125, 0.0), (1.50, 0)])
+T_MAGOUT, T_MAGIN, T_CHARGER = 14 / 60, 50 / 60, 64 / 60
+T_THROW = 0.38            # magazine leaves the hand
+T_SWAP = 0.56             # fresh magazine is in the hand (hand and old mag both off-screen)
+POSE_TILT = dict(x=-0.18, y=0.16, z=-0.10, pitch=11.0, yaw=13.0, roll=-27.0)
+POSE_CHARGE = dict(x=-0.09, y=0.05, z=-0.10, pitch=5.0, yaw=8.0, roll=-40.0)
+GRAVITY = np.array([0.0, -22.0, 0.0])
+THROW_LIFT = np.array([-1.5, -3.5, 1.2])                     # fling it down and out to the left, past the camera
+THROW_SPIN = np.radians(np.array([-260.0, 0.0, 820.0]))      # deg/s about the magazine's own X and Z
 
 
-def mag_off(t):
-    c = MAG
-    return T(c['x'](t), c['y'](t), c['z'](t)) @ Rx(math.radians(c['rx'](t))) @ Rz(math.radians(c['rz'](t)))
+def reload_params(t):
+    a, b, c = window(t, 0.0, 0.22), window(t, 0.92, 1.04), window(t, 1.16, 1.44)
+    p = {k: POSE_TILT[k] * a + (POSE_CHARGE[k] - POSE_TILT[k]) * b - POSE_CHARGE[k] * c for k in POSE_TILT}
+    s = math.sin(math.pi * window(t, 1.36, 1.50))          # small settle as it lands back in the hold
+    p['pitch'] -= 0.8 * s; p['roll'] += 1.5 * s; p['y'] -= 0.006 * s
+    fade = 1 - window(t, 1.40, 1.50)
+    k = kick(t, T_MAGOUT, 0.05) * fade                     # mag yanked down: gun dips
+    p['y'] -= 0.02 * k; p['pitch'] -= 1.2 * k
+    k = kick(t, T_THROW - 0.04, 0.06) * fade               # throw: gun counter-rotates
+    p['roll'] += 2.5 * k; p['x'] += 0.015 * k
+    k = kick(t, T_MAGIN, 0.045) * fade                     # mag seated: gun pushed up
+    p['y'] += 0.04 * k; p['pitch'] -= 2.2 * k
+    k = kick(t, T_MAGIN + 0.06, 0.04) * fade               # palm slap
+    p['y'] += 0.018 * k; p['pitch'] -= 0.8 * k
+    k = window(t, T_CHARGER, T_CHARGER + 0.05) * (1 - window(t, 1.13, 1.16))   # hauling on the handle
+    p['z'] += 0.03 * k; p['roll'] -= 1.5 * k
+    k = kick(t, 1.13, 0.04) * fade                         # bolt slams home
+    p['z'] -= 0.02 * k; p['pitch'] += 0.8 * k
+    return p
+
+
+def mag_pull(t):
+    """Magazine offset while the hand still has it: straight out, then a flick that accelerates into the release."""
+    u = window(t, T_MAGOUT, 0.31)
+    v = min(max((t - 0.31) / (T_THROW - 0.31), 0.0), 1.0) ** 2
+    return T(0.05 * v, -0.34 * u - 0.22 * v, 0.0) @ Rx(math.radians(-6.0 * u - 10.0 * v)) @ Rz(math.radians(28.0 * v))
+
+
+NEW_MAG = curves({   # fresh magazine, Body frame, from below the screen up to just under the magwell
+    'x':  [(T_SWAP, 0.45), (0.66, 0.20), (0.75, 0.03)],
+    'y':  [(T_SWAP, -2.10), (0.66, -0.90), (0.75, -0.16)],
+    'z':  [(T_SWAP, -0.10), (0.66, -0.03), (0.75, 0.02)],
+    'rx': [(T_SWAP, 22.0), (0.66, 14.0), (0.75, 5.0)],
+    'rz': [(T_SWAP, 14.0), (0.66, 7.0), (0.75, 1.0)],
+})
+
+
+def mag_new(t):
+    if t <= 0.75:
+        c = {k: v(t) for k, v in NEW_MAG.items()}
+    else:            # last push accelerates into the magwell so it seats with a hit, not a glide
+        f = 1 - min((t - 0.75) / (T_MAGIN - 0.75), 1.0) ** 2
+        c = {k: v(0.75) * f for k, v in NEW_MAG.items()}
+    return T(c['x'], c['y'], c['z']) @ Rx(math.radians(c['rx'])) @ Rz(math.radians(c['rz']))
+
+
+def _held_mag(rig, t):
+    return rig.mag_in_gun(rig.gun(D_of(reload_params(t))), mag_pull(t))
+
+
+def _release(rig):
+    """Magazine pose, velocity and hand velocity at the moment it leaves the hand."""
+    if not hasattr(rig, '_rel'):
+        e = 1e-4
+        M0, Mm = _held_mag(rig, T_THROW), _held_mag(rig, T_THROW - e)
+        v = (M0[:3, 3] - Mm[:3, 3]) / e
+        hv = (pt(M0, MAG_HOLD_MAG) - pt(Mm, MAG_HOLD_MAG)) / e
+        rig._rel = (M0, v, hv)
+    return rig._rel
+
+
+def thrown_mag(rig, t):
+    M0, v, _ = _release(rig)
+    dt = t - T_THROW
+    M = np.eye(4)
+    M[:3, 3] = M0[:3, 3] + (v + THROW_LIFT) * dt + 0.5 * GRAVITY * dt * dt
+    w = THROW_SPIN * dt
+    M[:3, :3] = (M0 @ Rx(w[0]) @ Rz(w[2]))[:3, :3]
+    return M
+
+
+RELOAD_SLIDE = Curve([(0, 0), (T_CHARGER, 0), (1.117, 0.47), (1.13, 0.47), (1.155, 0.0), (1.50, 0)])
 
 
 def anim_reload(rig, t):
-    D = gun_D(RELOAD, t)
+    p = reload_params(t)
+    D = D_of(p)
     G = rig.gun(D)
-    mo = mag_off(t)
+    Rg = G[:3, :3]
+    if t < T_THROW:
+        Mg = rig.mag_in_gun(G, mag_pull(t))
+    elif t < T_SWAP:
+        Mg = thrown_mag(rig, t)
+    elif t < T_MAGIN:
+        Mg = rig.mag_in_gun(G, mag_new(t))
+    else:
+        Mg = rig.mag_in_gun(G)
     sb = RELOAD_SLIDE(t)
-    P = rig.pose(D, mo, sb)
-    Mg, Sl = P['Magazine'], P['Slide']
-    guard = pt(G, LEFT_HAND_BODY)
-    on_mag = pt(Mg, MAG_GRAB_MAG)
-    # hand pushes the new magazine home, then a short upward tap
-    tap = window(t, 52 / 60, 0.89) * (1 - window(t, 0.90, 0.95)) * 0.035
-    on_mag = on_mag + G[:3, :3] @ np.array([0, tap, 0])
-    # the hand rides the handle back, then lets go: the handle snaps forward, the hand stays back and opens
-    held = min(sb, 0.47) if t < 1.10 else 0.47
-    on_charger = pt(G @ rig.slide_rel @ T(0, 0, -held), CHARGER_GRAB_SLIDE)
-    released = window(t, 1.10, 1.15)
-    on_charger = on_charger + G[:3, :3] @ (np.array([0.08, 0.04, 0.0]) * released)
-    w_mag = window(t, 0.08, 0.24) * (1 - window(t, 0.90, 1.02))
-    w_ch = window(t, 0.90, 1.02) * (1 - window(t, 1.12, 1.32))
-    w_guard = 1 - w_mag - w_ch
-    lh = w_guard * guard + w_mag * on_mag + w_ch * on_charger
-    # arcs: hand lifts away from the gun while travelling between holds (no clipping through the receiver)
-    lift = (math.sin(math.pi * window(t, 0.08, 0.24)) * np.array([0.10, -0.06, 0.04])
-            + math.sin(math.pi * window(t, 0.90, 1.02)) * np.array([0.14, 0.04, 0.02])
-            + math.sin(math.pi * window(t, 1.12, 1.32)) * np.array([0.12, -0.10, 0.0]))
-    lh = lh + G[:3, :3] @ lift
-    P['LeftArm'] = rig.arm(lh, rig.shoulder_L)
-    return P
+    if t < T_THROW:
+        lh = pt(Mg, MAG_HOLD_MAG)
+    elif t < T_SWAP:
+        # follow through after the flick, then drop out of view to take a fresh magazine
+        M0, _, hv = _release(rig)
+        tau = 0.05
+        a = pt(M0, MAG_HOLD_MAG) + hv * tau * (1 - math.exp(-(t - T_THROW) / tau))
+        Gs = rig.gun(D_of(reload_params(T_SWAP)))
+        b = pt(rig.mag_in_gun(Gs, mag_new(T_SWAP)), MAG_HOLD_MAG)
+        u = window(t, T_THROW, T_SWAP)
+        lh = (1 - u) * a + u * b
+    else:
+        dip = math.sin(math.pi * window(t, T_MAGIN + 0.01, T_MAGIN + 0.07))   # hand drops a touch and slaps up
+        on_mag = pt(Mg, MAG_HOLD_MAG) + Rg @ np.array([0.0, -0.06 * dip, 0.0])
+        held = min(sb, 0.47) if t < 1.13 else 0.47        # hand rides the handle back, stays back when it lets go
+        on_ch = pt(G @ rig.slide_rel @ T(0, 0, -held), CHARGER_GRAB_SLIDE)
+        on_ch = on_ch + Rg @ (np.array([0.08, 0.04, 0.0]) * window(t, 1.13, 1.17))
+        w = window(t, 0.92, 1.03) * (1 - window(t, 1.17, 1.36))
+        lh = (1 - w) * on_mag + w * on_ch
+        lh = lh + Rg @ (math.sin(math.pi * window(t, 0.92, 1.03)) * np.array([0.14, 0.06, 0.02])
+                        + math.sin(math.pi * window(t, 1.17, 1.36)) * np.array([0.12, -0.10, 0.0]))
+    # elbow and forearm: swing out on the throw, drop low for the fresh mag, lift for the handle
+    throw = math.sin(math.pi * window(t, 0.28, 0.52))
+    low = math.sin(math.pi * window(t, 0.42, 0.72))
+    ch = window(t, 0.92, 1.03) * (1 - window(t, 1.17, 1.36))
+    sh_L = throw * np.array([-0.45, 0.15, -0.05]) + low * np.array([0.0, -0.35, 0.10]) + ch * np.array([-0.30, 0.35, 0.0])
+    roll_L = 0.4 * p['roll'] + 40.0 * throw - 18.0 * math.sin(math.pi * window(t, 0.55, 0.86)) + 28.0 * ch
+    return rig.pose(D, mag=Mg, slide_back=sb, left_hand=lh, sh_L=sh_L, roll_R=0.6 * p['roll'], roll_L=roll_L)
 
 
 ANIMS = {
@@ -369,7 +474,7 @@ ANIMS = {
     'Equip':  (EQUIP_LEN, 60, False, 2, anim_equip, [(0.0, 'Sound', 'Equip')], None),
     'Shoot':  (SHOOT_LEN, 60, False, 3, anim_shoot, [(0.0, 'RandomSound', 'Shoot')], ('BodyJoint', 'SlideJoint')),
     'Reload': (RELOAD_LEN, 60, False, 4, anim_reload,
-               [(17 / 60, 'Sound', 'MagOut'), (52 / 60, 'Sound', 'MagIn'), (62 / 60, 'Sound', 'Charger')], None),
+               [(T_MAGOUT, 'Sound', 'MagOut'), (T_MAGIN, 'Sound', 'MagIn'), (T_CHARGER, 'Sound', 'Charger')], None),
 }
 # Roblox Enum.AnimationPriority: Idle = 0, Movement = 1, Action = 2, Action2 = 3, Action3 = 4, Action4 = 5, Core = 1000
 
