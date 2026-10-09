@@ -13,12 +13,13 @@ It was built from your uploaded place file (`game.rbxl`), not from a guess.
   ```
   HumanoidRootPart --BodyJoint--> Body
   Body --RightArmJoint--> RightArm
-  Body --MagazineJoint--> Magazine --LeftArmJoint--> LeftArm
+  Body --LeftArmJoint--> LeftArm
+  Body --MagazineJoint--> Magazine
   Body --SlideJoint--> Slide            (charging handle)
   ```
   The hands hang off the gun. When you move the gun in the Animation Editor, the hands come with it.
   Each arm joint sits at the shoulder end of the arm, like your Glock viewmodel, so rotating an arm in the editor swings it from the shoulder.
-- **The left hand holds the magazine, low,** in every pose, so it no longer clips up into the gun. Because it is jointed to the magazine, it rides along when the mag moves.
+- **The left hand holds the magazine, low,** in every pose, so it no longer clips up into the gun. LeftArm hangs off Body, not the magazine: the magazine is thrown and swapped in the reload, and an arm attached to it had to turn more than 180 degrees between frames, which Roblox can play as a full spin.
 - **The gun has not moved.** Body, Magazine and Slide sit exactly where they are now, relative to `HumanoidRootPart`, so your `adsOffset` (0.9, -0.2, 0) still lines up the sights.
 - **`AnimSaves`** holds four animations: `Scar_Idle`, `Scar_Equip`, `Scar_Shoot` and `Scar_Reload`.
 
@@ -63,7 +64,7 @@ Until step 3 is done, the `Animations` folder still holds the IDs you have now. 
 - **Equip hands off to Idle without a pop.** Your controller starts Equip and Idle together, and Equip ends exactly on the Idle pose for that moment.
 
 ## What the animations do
-The arms ride with the gun: their shoulder ends move with it, with a little give, the way the template's arms do. They do not twist.
+The arms move the way they do in your Glock viewmodel. They take about 30% of the gun's turn and travel (75% while equipping). The hands stay on the gun and the left hand works on its own. The arms never twist about their own length, and no arm joint turns more than 45 degrees, so Roblox has nothing to interpolate the long way round.
 
 - **Idle (4 s loop):** a very small breathing sway, under 0.01 studs and about a third of a degree. Your controller already adds walk bob, look sway and jump kick on top.
 - **Equip (0.7 s):** the gun swings up from below the screen with a small overshoot. Both arms come up with it, and the left hand takes the magazine a beat later.

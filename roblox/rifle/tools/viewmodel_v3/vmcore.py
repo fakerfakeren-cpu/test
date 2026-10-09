@@ -3,8 +3,11 @@
 Everything is computed in the HumanoidRootPart frame (HRP = identity), x right, y up, -z forward.
 Rig follows the template / the user's Glock viewmodel:
     HumanoidRootPart -> Body (BodyJoint) -> RightArm (RightArmJoint)
-                                         -> Magazine (MagazineJoint) -> LeftArm (LeftArmJoint)
+                                         -> LeftArm (LeftArmJoint)
+                                         -> Magazine (MagazineJoint)
                                          -> Slide (SlideJoint)
+LeftArm hangs off Body, not the Magazine: the magazine is thrown, spins and swaps in the reload, and an arm parented
+to it would need >180 degree joint rotations that Roblox can interpolate the long way round (the arm spins).
 Rest pose (all Transforms identity) = the hip holding pose, gun exactly where the user has it now.
 Roblox joint rule: Part1 = Part0 * C0 * Transform * C1^-1.
 """
@@ -157,11 +160,46 @@ CHARGER_GRAB_SLIDE = np.array([0.26, -0.08, -0.04])  # left hand pinching the ch
 RIGHT_DIR = np.array([0.30, -0.55, 0.78])
 LEFT_DIR = np.array([-0.22, -0.78, 0.58])
 ARM_HALF = 2.0                                  # arms are 0.6 x 0.6 x 4, hand at local z = -2
-SHOULDER_STAY = 0.3   # how much each shoulder stays put in the camera frame (0 = rides fully with the gun)
+FOLLOW = 0.3   # how much the arms travel and turn with the gun (your Glock reload: right arm turns ~13 deg for ~44)
 
 
 def unit(v):
     v = np.asarray(v, float); return v / np.linalg.norm(v)
+
+
+def rodrigues(axis, ang):
+    x, y, z = unit(axis)
+    K = np.array([[0, -z, y], [z, 0, -x], [-y, x, 0]])
+    return np.eye(3) + math.sin(ang) * K + (1 - math.cos(ang)) * (K @ K)
+
+
+def rot_frac(R, k):
+    """The same rotation as R about the same axis, scaled to fraction k of its angle."""
+    ang = math.acos(max(-1.0, min(1.0, (np.trace(R) - 1) / 2)))
+    if ang < 1e-9 or k == 0:
+        return np.eye(3)
+    axis = np.array([R[2, 1] - R[1, 2], R[0, 2] - R[2, 0], R[1, 0] - R[0, 1]])
+    return rodrigues(axis, k * ang)
+
+
+def upright(d):
+    """Arm frame whose +Z points along d (hand -> shoulder), with its Y as close to world up as possible."""
+    d = unit(d)
+    up = np.array([0.0, 1.0, 0.0])
+    y = unit(up - d * (up @ d))
+    return np.stack([np.cross(y, d), y, d], 1)
+
+
+def arm_cf(hand, shoulder, base):
+    """Arm part: hand end on `hand`, pointing back at `shoulder`. Its frame is `base` swung by the smallest rotation
+    that lines it up, so the arm never twists about its own length."""
+    d = unit(shoulder - hand)
+    z = base[:, 2]
+    axis = np.cross(z, d)
+    s, c = np.linalg.norm(axis), float(z @ d)
+    R = base if s < 1e-12 else rodrigues(axis, math.atan2(s, c)) @ base
+    M = np.eye(4); M[:3, :3] = R; M[:3, 3] = hand + ARM_HALF * d
+    return M
 
 
 class Rig:
@@ -173,10 +211,14 @@ class Rig:
         self.F0 = T(*pt(G0, PIVOT_BODY))
         self.mag_rel = inv(G0) @ S['Magazine']        # seated magazine in Body space (pure translation)
         self.slide_rel = inv(G0) @ S['Slide']
-        self.shoulder_R = pt(G0, RIGHT_HAND_BODY) + 4.0 * unit(RIGHT_DIR)
-        self.shoulder_L = pt(S['Magazine'], MAG_HOLD_MAG) + 4.0 * unit(LEFT_DIR)
+        rh = pt(G0, RIGHT_HAND_BODY)
+        lh = pt(S['Magazine'], MAG_HOLD_MAG)
+        self.shoulder_R = rh + 4.0 * unit(RIGHT_DIR)
+        self.shoulder_L = lh + 4.0 * unit(LEFT_DIR)
         self.shoulder_R_body = pt(inv(G0), self.shoulder_R)   # the same shoulders, carried in the gun's frame
         self.shoulder_L_body = pt(inv(G0), self.shoulder_L)
+        self.R_rest_R = upright(self.shoulder_R - rh)        # rest orientation of each arm (no twist)
+        self.R_rest_L = upright(self.shoulder_L - lh)
         # Rest poses = hip holding pose (left hand on the magazine)
         self.rest = self.pose(np.eye(4))
         R = self.rest
@@ -187,22 +229,10 @@ class Rig:
         self.joints = [
             ('BodyJoint', 'HumanoidRootPart', 'Body', np.eye(4) @ R['Body'] @ C1_body, C1_body),
             ('RightArmJoint', 'Body', 'RightArm', inv(R['Body']) @ R['RightArm'] @ C1_arm, C1_arm),
+            ('LeftArmJoint', 'Body', 'LeftArm', inv(R['Body']) @ R['LeftArm'] @ C1_arm, C1_arm),
             ('MagazineJoint', 'Body', 'Magazine', inv(R['Body']) @ R['Magazine'] @ C1_mag, C1_mag),
-            ('LeftArmJoint', 'Magazine', 'LeftArm', inv(R['Magazine']) @ R['LeftArm'] @ C1_arm, C1_arm),
             ('SlideJoint', 'Body', 'Slide', inv(R['Body']) @ R['Slide'], np.eye(4)),
         ]
-
-    def arm(self, hand, shoulder, roll=0.0):
-        """Arm part with its hand end on `hand`, pointing back at `shoulder`, twisted `roll` degrees about its length."""
-        d = unit(shoulder - hand)
-        up = np.array([0.0, 1.0, 0.0])
-        y = unit(up - d * (up @ d))
-        x = np.cross(y, d)
-        if roll:
-            c, s = math.cos(math.radians(roll)), math.sin(math.radians(roll))
-            x, y = c * x + s * y, -s * x + c * y
-        M = np.eye(4); M[:3, :3] = np.stack([x, y, d], 1); M[:3, 3] = hand + ARM_HALF * d
-        return M
 
     def gun(self, D):
         """D: gun motion in the pivot frame -> Body CFrame (HRP frame)."""
@@ -214,19 +244,19 @@ class Rig:
             return G @ self.mag_rel
         return G @ self.mag_rel @ T(*MAG_PIVOT_MAG) @ off @ T(*(-MAG_PIVOT_MAG))
 
-    def pose(self, D, mag=None, slide_back=0.0, left_hand=None, sh_R=(0, 0, 0), sh_L=(0, 0, 0), roll_R=0.0, roll_L=0.0):
-        """mag: Magazine CFrame (HRP frame) or None for seated. sh_*: shoulder offsets, roll_*: forearm twist (deg)."""
+    def pose(self, D, mag=None, slide_back=0.0, left_hand=None, sh_R=(0, 0, 0), sh_L=(0, 0, 0), follow=FOLLOW):
+        """mag: Magazine CFrame (HRP frame) or None for seated. sh_*: extra shoulder offsets (HRP frame).
+        follow: fraction of the gun's travel and turn the arms take on (the rest comes from the hands moving)."""
         G = self.gun(D)
         Mg = self.mag_in_gun(G) if mag is None else mag
         Sl = G @ self.slide_rel @ T(0, 0, -slide_back)
         lh = pt(Mg, MAG_HOLD_MAG) if left_hand is None else left_hand
-        # shoulders mostly ride with the gun (the arms move with it, like the template), a little stays with the camera
-        k = SHOULDER_STAY
-        sR = (1 - k) * pt(G, self.shoulder_R_body) + k * self.shoulder_R
-        sL = (1 - k) * pt(G, self.shoulder_L_body) + k * self.shoulder_L
+        turn = rot_frac(G[:3, :3] @ self.G0[:3, :3].T, follow)     # part of the gun's rotation since rest
+        sR = (1 - follow) * self.shoulder_R + follow * pt(G, self.shoulder_R_body) + np.asarray(sh_R, float)
+        sL = (1 - follow) * self.shoulder_L + follow * pt(G, self.shoulder_L_body) + np.asarray(sh_L, float)
         return {'HumanoidRootPart': np.eye(4), 'Body': G, 'Magazine': Mg, 'Slide': Sl,
-                'RightArm': self.arm(pt(G, RIGHT_HAND_BODY), sR + np.asarray(sh_R, float), roll_R),
-                'LeftArm': self.arm(lh, sL + np.asarray(sh_L, float), roll_L)}
+                'RightArm': arm_cf(pt(G, RIGHT_HAND_BODY), sR, turn @ self.R_rest_R),
+                'LeftArm': arm_cf(lh, sL, turn @ self.R_rest_L)}
 
     def solve(self, W):
         """World poses (HRP frame) -> Transform per joint name."""
@@ -317,7 +347,8 @@ def anim_equip(rig, t):
     off = (1 - k) * np.array([-0.06, -0.40, 0.18]) + math.sin(math.pi * k) * np.array([-0.04, 0.05, 0.0])
     grab = window(t, 0.36, 0.42) * (1 - window(t, 0.42, 0.52)) * 0.018   # small squeeze as it lands
     lh = pt(rig.mag_in_gun(G), MAG_HOLD_MAG + idle_left_offset(t) + np.array([0, grab, 0])) + off
-    return rig.pose(D, left_hand=lh)       # the arms come up with the gun: their shoulders ride with it
+    follow = 0.75 - (0.75 - FOLLOW) * window(t, 0.30, 0.60)   # arms come up with the gun, then settle
+    return rig.pose(D, left_hand=lh, follow=follow)
 
 
 SHOOT_LEN = 0.25
@@ -346,7 +377,7 @@ POSE_TILT = dict(x=-0.18, y=0.16, z=-0.10, pitch=11.0, yaw=13.0, roll=-27.0)
 POSE_CHARGE = dict(x=-0.09, y=0.05, z=-0.10, pitch=5.0, yaw=8.0, roll=-40.0)
 GRAVITY = np.array([0.0, -22.0, 0.0])
 THROW_LIFT = np.array([-1.5, -3.5, 1.2])                     # fling it down and out to the left, past the camera
-THROW_SPIN = np.radians(np.array([-260.0, 0.0, 820.0]))      # deg/s about the magazine's own X and Z
+THROW_SPIN = np.radians(np.array([-200.0, 0.0, 450.0]))      # deg/s about the magazine's own X and Z
 
 
 def reload_params(t):
@@ -459,8 +490,11 @@ def anim_reload(rig, t):
         lh = lh + Rg @ (math.sin(math.pi * window(t, 0.92, 1.03)) * np.array([0.14, 0.06, 0.02])
                         + math.sin(math.pi * window(t, 1.17, 1.36)) * np.array([0.12, -0.10, 0.0]))
     # elbow swings out a little on the throw (shoulder offset in the gun's frame); no forearm twist
+    # elbow: out on the throw, down for the fresh mag, up for the charging handle (no forearm twist)
     throw = math.sin(math.pi * window(t, 0.28, 0.52))
-    sh_L = Rg @ (throw * np.array([0.25, 0.08, 0.0]))
+    low = math.sin(math.pi * window(t, 0.42, 0.72))
+    ch = window(t, 0.92, 1.03) * (1 - window(t, 1.17, 1.36))
+    sh_L = throw * np.array([-0.30, 0.10, 0.0]) + low * np.array([0.0, -0.25, 0.08]) + ch * np.array([-0.20, 0.25, 0.0])
     return rig.pose(D, mag=Mg, slide_back=sb, left_hand=lh, sh_L=sh_L)
 
 

@@ -179,7 +179,9 @@ for name, p0, p1, C0, C1 in rig.joints:          # Motor6D parented to Part0, li
                                               ('C0', 'CFrame', C0), ('C1', 'CFrame', C1)))
 
 # ---- animations
-TREE = {'HumanoidRootPart': ['Body'], 'Body': ['RightArm', 'Magazine', 'Slide'], 'Magazine': ['LeftArm']}
+TREE = {}
+for _n, _p0, _p1, _c0, _c1 in rig.joints:
+    TREE.setdefault(_p0, []).append(_p1)
 JOINT_OF = {p1: name for name, p0, p1, C0, C1 in rig.joints}
 frames_out = {}
 for anim, (length, fps, loop, prio, fn, markers, keyed) in V.ANIMS.items():
