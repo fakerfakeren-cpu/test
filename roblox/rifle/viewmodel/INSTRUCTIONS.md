@@ -33,6 +33,7 @@ The new animations carry exactly those events:
 | Animation | Time | Event | Plays from `StarterPack.AutoBlaster.Sounds` |
 |---|---|---|---|
 | Equip | 0.000 s | `Sound` = `Equip` | Equip |
+| Equip | 0.500 s | `Sound` = `Charger` | Charger (racking the handle on the draw) |
 | Shoot | 0.000 s | `RandomSound` = `Shoot` | Shoot1, Shoot2 or Shoot3 |
 | Reload | 0.233 s | `Sound` = `MagOut` | MagOut |
 | Reload | 0.833 s | `Sound` = `MagIn` | MagIn |
@@ -59,30 +60,28 @@ Until step 3 is done, the `Animations` folder still holds the IDs you have now. 
 
 ## Timing against your tool settings
 - **Reload is 1.5 s**, the same as the AutoBlaster's `reloadTime`. The template stretches the reload to `reloadTime`, so this one plays at normal speed. The old 2.35 s reload was being played 1.57 times too fast.
-- **Shoot** kicks to its peak at 0.033 s and has nearly settled by 0.1 s. At `rateOfFire` 600 that is one shot every 0.1 s, so full auto stays readable. The charging handle cycles back and forward on every shot. Shoot only moves the gun and the charging handle; the arms ride along on their joints.
+- **Shoot** kicks to its peak at 0.037 s and swings back through the hold at 0.1 s. At `rateOfFire` 600 that is one shot every 0.1 s, so full auto stays readable. The charging handle cycles back and forward on every shot. Shoot only moves the gun and the charging handle; the arms ride along on their joints.
 - **Priorities:** Idle = Idle, Equip = Action, Shoot = Action2, Reload = Action3. Firing during the equip, and reloading at any time, override cleanly instead of blending.
 - **Equip hands off to Idle without a pop.** Your controller starts Equip and Idle together, and Equip ends exactly on the Idle pose for that moment.
 
 ## What the animations do
-The motion is springy rather than stiff:
-- **Overshoot:** the gun swings into each pose, overshoots a little and settles.
-- **Arm drag:** the arms lag a beat behind the gun and catch up.
-- **Anticipation:** the big moves start with a small counter-move.
-- **Bouncy hits:** impacts (mag in, palm slap, bolt home) bounce instead of stopping dead.
+The style is big and cartoony: fast pose-to-pose moves with a clear overshoot and a quick settle. The arms drag a beat behind the gun, and impacts bounce instead of stopping dead. The arms come in from the bottom corners at the same angles as your Glock viewmodel's arms. They take about 35% of the gun's turn (85% while it swings up on the equip) and never twist about their own length. No arm joint goes past about 75 degrees, well short of the 180 where Roblox could take the long way round.
 
-The arms otherwise move like your Glock's: they take about 30% of the gun's turn (75% while equipping) and never twist about their own length. No arm joint goes past 45 degrees, so Roblox has nothing to interpolate the long way round.
-
-- **Idle (4 s loop):** a slow breathing sway with the arms swaying a beat behind. Your controller adds walk bob, look sway and jump kick on top.
-- **Equip (0.7 s):** the gun swings up from below, pops about 0.16 studs past the hold and springs back. The arms drag behind and the left hand slaps onto the magazine. It ends exactly on the Idle pose.
-- **Shoot (0.25 s):** a springy kick that peaks at 0.037 s and swings back through the hold right at the next shot (600 rpm). It rebounds forward slightly and settles. The charging handle cycles on every shot.
+- **Idle (4 s loop):** breathing sway, with the arms swaying a beat behind. Your controller adds walk bob, look sway and jump kick on top.
+- **Equip (1.0 s):**
+  1. The gun swings up from below and pops past the hold.
+  2. It tips to show its left side while the left hand slaps onto the magazine.
+  3. The hand racks the charging handle (`Charger` at 0.5 s), and the bolt slams home with a jolt.
+  4. Everything springs back into the hold, ending exactly on the Idle pose.
+- **Shoot (0.25 s):** a big springy kick that peaks at 0.037 s and swings back through the hold right at the next shot (600 rpm). It rebounds forward and settles. The charging handle cycles on every shot.
 - **Reload (1.5 s):**
-  1. A quick dip, then the gun swings into the tilt and settles.
-  2. The left hand yanks the magazine out and flings it away. It flies down and to the left, spinning, and is off the screen by 0.53 s.
-  3. The hand drops out of view and brings a fresh magazine up. It slams home with a bounce, then gets a palm slap.
-  4. The hand racks the charging handle, which snaps forward with a bounce.
-  5. The hand returns to the magazine and the gun settles.
+  1. A quick dip, then the gun swings into a deep tilt.
+  2. The left hand yanks the magazine out and flings it hard down and to the left, spinning. It is visible for about 9 frames and off the screen by 0.53 s.
+  3. A fresh magazine flips up from below and slams home with a big bounce, then gets a palm slap.
+  4. The gun tips further and the hand racks the charging handle. The bolt slams home.
+  5. The gun swings back into the hold with a cartoony overshoot and settles.
 
-  Roblox has only one Magazine part, so the same part plays both magazines. It jumps from the thrown position into the hand at 0.55 to 0.57 s. Both of those positions, and the path between them, are off the screen; this is checked against your camera framing.
+  The gun itself never spins. Roblox has only one Magazine part, so the same part plays both magazines. It jumps from the thrown position into the hand at 0.55 to 0.57 s. Both of those positions, and the path between them, are off the screen; this is checked against your camera framing.
 
 ## Previews
 - `previews/*.gif` and `player/` show each animation from two views:

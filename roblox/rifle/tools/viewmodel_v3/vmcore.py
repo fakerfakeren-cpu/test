@@ -157,10 +157,10 @@ MAG_PIVOT_MAG = np.array([0.0, 0.28, 0.0])      # magazine joint at the top of t
 CHARGER_GRAB_SLIDE = np.array([0.26, -0.08, -0.04])  # left hand pinching the charging handle (outboard side)
 
 # Arm directions in the rest pose (unit vectors from the hand back to the shoulder, HRP frame)
-RIGHT_DIR = np.array([0.30, -0.55, 0.78])
-LEFT_DIR = np.array([-0.22, -0.78, 0.58])
+RIGHT_DIR = np.array([0.43, -0.36, 0.83])     # same angles as the Glock viewmodel's arms
+LEFT_DIR = np.array([-0.52, -0.35, 0.78])
 ARM_HALF = 2.0                                  # arms are 0.6 x 0.6 x 4, hand at local z = -2
-FOLLOW = 0.3   # how much the arms travel and turn with the gun (your Glock reload: right arm turns ~13 deg for ~44)
+FOLLOW = 0.35  # how much the arms travel and turn with the gun (the Glock reload: right arm turns ~13 deg for ~44)
 
 
 def unit(v):
@@ -295,7 +295,7 @@ def gun_D(c, t):
 
 
 KEYS6 = ('x', 'y', 'z', 'pitch', 'yaw', 'roll')
-ARM_LAG = 0.18          # idle: the arms sway this many seconds behind the gun
+ARM_LAG = 0.20          # idle: the arms sway this many seconds behind the gun
 
 
 def vec_of(p):
@@ -347,40 +347,7 @@ def kick(t, t0, tau):
 
 IDLE_LEN = 4.0
 
-
-def idle_params(t):
-    w = 2 * math.pi / IDLE_LEN
-    return dict(x=0.0055 * math.sin(w * t + 1.3),
-                y=0.0095 * math.sin(w * t) + 0.003 * math.sin(2 * w * t + 0.7),
-                z=0.004 * math.sin(2 * w * t),
-                pitch=0.42 * math.sin(w * t + 0.4),
-                yaw=0.28 * math.sin(w * t + 2.0),
-                roll=0.48 * math.sin(w * t + 1.0))
-
-
-def idle_D(t):
-    return D_of(idle_params(t))
-
-
-def idle_left_offset(t):
-    w = 2 * math.pi / IDLE_LEN
-    return np.array([0.004 * math.sin(w * t + 2.2), 0.005 * math.sin(2 * w * t + 0.3), 0.0])
-
-
-def anim_idle(rig, t):
-    p = idle_params(t)
-    D = D_of(p)
-    lh = pt(rig.mag_in_gun(rig.gun(D)), MAG_HOLD_MAG + idle_left_offset(t))
-    return rig.pose(D, left_hand=lh, D_follow=idle_D(t - ARM_LAG))
-
-
-EQUIP_LEN = 0.70
-EQUIP_START = np.array([0.30, -1.00, 0.40, -38.0, -16.0, -30.0])   # x y z pitch yaw roll, below the screen
-
-
-def _equip_target(t):
-    e = 1 - (1 - min(max(t / 0.26, 0.0), 1.0)) ** 3          # fast, decelerating swing up
-    return EQUIP_START * (1 - e)
+# ---- shared helpers for pose-to-pose motion
 
 
 _SPRINGS = {}
@@ -392,115 +359,201 @@ def _spring(name, make):
     return _SPRINGS[name]
 
 
+def pose_track(start, moves):
+    """Key poses: hold `start`, then for each (t0, duration, pose) move to `pose` over [t0, t0 + duration]."""
+    start = np.asarray(start, float)
+    moves = [(t0, d, np.asarray(p, float)) for t0, d, p in moves]
+
+    def f(t):
+        v, prev = start.copy(), start
+        for t0, d, p in moves:
+            v = v + (p - prev) * window(t, t0, t0 + d)
+            prev = p
+        return v
+    return f
+
+
+def springy(name, track, length, omega, zeta, settle_from):
+    """Snap from key pose to key pose through a spring (overshoot, quick settle); lands exactly on the track at the end."""
+    sp = _spring(name, lambda: Spring(track, length, omega, zeta))
+
+    def f(t):
+        g = track(t)
+        return g + (sp(t) - g) * (1 - window(t, settle_from, length))
+    return f
+
+
+def lagged(name, motion, length, settle_from, omega=11.0, zeta=0.55):
+    """The same motion a beat late with a softer overshoot: what the arms follow (drag, overlapping action)."""
+    sp = _spring(name, lambda: Spring(motion, length, omega, zeta))
+
+    def f(t):
+        g = motion(t)
+        return g + (sp(t) - g) * (1 - window(t, settle_from, length))
+    return f
+
+
+def charger_hand(rig, G, sb, t_release, t):
+    """Left hand pinching the charging handle: rides it back, stays back and opens when it lets go."""
+    held = min(sb, 0.47) if t < t_release else 0.47
+    p = pt(G @ rig.slide_rel @ T(0, 0, -held), CHARGER_GRAB_SLIDE)
+    return p + G[:3, :3] @ (np.array([0.08, 0.04, 0.0]) * window(t, t_release, t_release + 0.04))
+
+
+ZERO6 = [0.0] * 6
+
+# ---- idle: breathing sway, arms a beat behind
+
+
+def idle_params(t):
+    w = 2 * math.pi / IDLE_LEN
+    return dict(x=0.008 * math.sin(w * t + 1.3),
+                y=0.014 * math.sin(w * t) + 0.004 * math.sin(2 * w * t + 0.7),
+                z=0.006 * math.sin(2 * w * t),
+                pitch=0.60 * math.sin(w * t + 0.4),
+                yaw=0.40 * math.sin(w * t + 2.0),
+                roll=0.80 * math.sin(w * t + 1.0))
+
+
+def idle_D(t):
+    return D_of(idle_params(t))
+
+
+def idle_left_offset(t):
+    w = 2 * math.pi / IDLE_LEN
+    return np.array([0.006 * math.sin(w * t + 2.2), 0.007 * math.sin(2 * w * t + 0.3), 0.0])
+
+
+def anim_idle(rig, t):
+    D = idle_D(t)
+    lh = pt(rig.mag_in_gun(rig.gun(D)), MAG_HOLD_MAG + idle_left_offset(t))
+    return rig.pose(D, left_hand=lh, D_follow=idle_D(t - ARM_LAG))
+
+
+# ---- equip: swing up, tip it, rack the charging handle, spring back into the hold (1.0 s)
+EQUIP_LEN = 1.0
+T_EQ_RACK = 30 / 60          # Charger sound: start of the pull
+T_EQ_RELEASE = 0.60
+EQ_START = [0.35, -1.10, 0.45, -45.0, -20.0, -40.0]     # below the screen, muzzle down, canted
+EQ_RACK = [-0.12, 0.10, -0.06, 9.0, 12.0, -38.0]        # tipped to show the charging handle
+_eq_track = pose_track(EQ_START, [(0.0, 0.20, ZERO6), (0.28, 0.12, EQ_RACK), (0.66, 0.14, ZERO6)])
+_eq_gun = springy('eq_gun', _eq_track, EQUIP_LEN, 24.0, 0.36, 0.80)
+
+
+def _eq_hits(t):
+    h = window(t, T_EQ_RACK, T_EQ_RACK + 0.04) * (1 - window(t, T_EQ_RELEASE, T_EQ_RELEASE + 0.03)) \
+        * np.array([0.0, 0.0, 0.04, 0.0, 0.0, -2.0])                                      # hauling on the handle
+    h = h + math.sin(math.pi * window(t, T_EQ_RACK - 0.06, T_EQ_RACK)) * np.array([0.0, 0.0, -0.015, 0.0, 0.0, 0.0])
+    h = h + bounce(t, T_EQ_RELEASE, 34.0, 0.36) * np.array([0.0, 0.01, -0.035, 2.2, 0.0, 0.0])   # bolt slams home
+    return h * (1 - window(t, 0.86, EQUIP_LEN))
+
+
+def _eq_vec(t):
+    return _eq_gun(t) + _eq_hits(t)
+
+
+_eq_arm = lagged('eq_arm', _eq_vec, EQUIP_LEN, 0.80)
+EQUIP_SLIDE = Curve([(0, 0), (T_EQ_RACK, 0), (0.555, 0.47), (T_EQ_RELEASE, 0.47), (0.625, 0.0), (EQUIP_LEN, 0)])
+
+
 def equip_offsets(t):
-    gun = _spring('equip_gun', lambda: Spring(_equip_target, EQUIP_LEN, omega=17.0, zeta=0.40))
-    arm = _spring('equip_arm', lambda: Spring(gun, EQUIP_LEN, omega=11.0, zeta=0.60))
-    fade = 1 - window(t, 0.52, 0.70)                         # settled exactly on the idle pose at the end
-    return gun(t) * fade, arm(t) * fade
+    return _eq_vec(t), _eq_arm(t)
 
 
 def anim_equip(rig, t):
-    off, off_arm = equip_offsets(t)
-    D = idle_D(t) @ D_of(p_of(off))                          # converges to the idle pose at the same clock time
-    Df = idle_D(t - ARM_LAG) @ D_of(p_of(off_arm))           # arms drag behind the gun, then catch up
+    D = idle_D(t) @ D_of(p_of(_eq_vec(t)))                  # ends exactly on the idle pose at the same clock time
+    Df = idle_D(t - ARM_LAG) @ D_of(p_of(_eq_arm(t)))
     G = rig.gun(D)
-    # left hand comes up from below and slaps onto the magazine a beat after the gun arrives
-    k = window(t, 0.08, 0.34)
-    off_h = (1 - k) * np.array([-0.06, -0.40, 0.18]) + math.sin(math.pi * k) * np.array([-0.05, 0.07, 0.0])
-    grab = 0.022 * bounce(t, 0.34, omega=30.0, zeta=0.40) * (1 - window(t, 0.55, 0.70))
-    lh = pt(rig.mag_in_gun(G), MAG_HOLD_MAG + idle_left_offset(t) + np.array([0, grab, 0])) + off_h
-    follow = 0.75 - (0.75 - FOLLOW) * window(t, 0.30, 0.60)   # arms come up with the gun, then settle
-    return rig.pose(D, left_hand=lh, follow=follow, D_follow=Df)
+    Rg = G[:3, :3]
+    sb = EQUIP_SLIDE(t)
+    # left hand comes up from below, slaps onto the magazine, racks the handle, back to the magazine
+    k = window(t, 0.10, 0.26)
+    below = (1 - k) * np.array([-0.10, -0.55, 0.20]) + math.sin(math.pi * k) * np.array([-0.06, 0.08, 0.0])
+    slap = 0.025 * bounce(t, 0.26, 30.0, 0.40) * (1 - window(t, 0.30, 0.40))
+    on_mag = pt(rig.mag_in_gun(G), MAG_HOLD_MAG + idle_left_offset(t)) + below + Rg @ np.array([0.0, slap, 0.0])
+    on_ch = charger_hand(rig, G, sb, T_EQ_RELEASE, t)
+    w = window(t, 0.32, 0.44) * (1 - window(t, 0.62, 0.80))
+    lh = (1 - w) * on_mag + w * on_ch
+    lh = lh + Rg @ (math.sin(math.pi * window(t, 0.32, 0.44)) * np.array([0.14, 0.06, 0.02])
+                    + math.sin(math.pi * window(t, 0.62, 0.80)) * np.array([0.12, -0.10, 0.0]))
+    sh_L = w * np.array([-0.20, 0.25, 0.0])                  # elbow lifts for the handle
+    follow = 0.85 - (0.85 - FOLLOW) * window(t, 0.18, 0.34)  # arms come up with the gun, then settle
+    return rig.pose(D, slide_back=sb, left_hand=lh, sh_L=sh_L, follow=follow, D_follow=Df)
 
 
+# ---- shoot: big springy kick, back through the hold right at the next shot (600 rpm)
 SHOOT_LEN = 0.25
-SHOOT_KICK = np.array([0.005, 0.018, 0.085, 2.6, 0.15, -0.45])  # x y z pitch yaw roll at the peak of the kick
+SHOOT_KICK = np.array([0.008, 0.030, 0.110, 3.6, 0.40, -1.0])    # x y z pitch yaw roll at the peak
+SHOOT_SLIDE = Curve([(0, 0.0), (0.017, 0.18), (0.033, 0.22), (0.05, 0.10), (0.067, 0.0), (0.25, 0.0)])
 
 
 def shoot_params(t):
-    # peaks at 0.037 s, crosses zero right at the next shot (600 rpm), rebounds forward ~20 %, settles
-    return p_of(SHOOT_KICK * bounce(t, 0.0, omega=34.0, zeta=0.42) * (1 - window(t, 0.20, 0.25)))
-
-
-SHOOT_SLIDE = Curve([(0, 0.0), (0.017, 0.15), (0.033, 0.18), (0.05, 0.08), (0.067, 0.0), (0.25, 0.0)])
+    return p_of(SHOOT_KICK * bounce(t, 0.0, omega=34.0, zeta=0.40) * (1 - window(t, 0.20, 0.25)))
 
 
 def anim_shoot(rig, t):
     return rig.pose(D_of(shoot_params(t)), slide_back=SHOOT_SLIDE(t))
 
 
-# ---- reload: 1.5 s (= the tool's reloadTime). Mag out, flicked away spinning, fresh mag from below, seat, tap,
-#      rack the charging handle, back to the hold. Sound events are frame-aligned.
+# ---- reload: 1.5 s (= the tool's reloadTime). Dip, big tilt, yank and fling the mag, fresh mag flips up and slams
+#      home, slap, rack with a hard bolt slam, cartoony settle. The gun never spins. Sound events are frame-aligned.
 RELOAD_LEN = 1.50
 T_MAGOUT, T_MAGIN, T_CHARGER = 14 / 60, 50 / 60, 64 / 60
 T_THROW = 0.38            # magazine leaves the hand
 T_SWAP = 0.56             # fresh magazine is in the hand (hand and old mag both off-screen)
-POSE_TILT = dict(x=-0.18, y=0.16, z=-0.10, pitch=11.0, yaw=13.0, roll=-27.0)
-POSE_CHARGE = dict(x=-0.09, y=0.05, z=-0.10, pitch=5.0, yaw=8.0, roll=-40.0)
-GRAVITY = np.array([0.0, -22.0, 0.0])
-THROW_LIFT = np.array([-1.5, -3.5, 1.2])                     # fling it down and out to the left, past the camera
-THROW_SPIN = np.radians(np.array([-200.0, 0.0, 450.0]))      # deg/s about the magazine's own X and Z
+T_RL_RELEASE = 1.13
+RL_TILT = [-0.24, 0.22, -0.10, 15.0, 18.0, -48.0]
+RL_CHARGE = [-0.12, 0.08, -0.10, 7.0, 10.0, -55.0]
+_rl_track = pose_track(ZERO6, [(0.0, 0.06, [0.0, -0.03, 0.02, -3.0, -2.0, 6.0]),     # anticipation: dip, counter-roll
+                               (0.06, 0.12, RL_TILT), (0.90, 0.10, RL_CHARGE), (1.16, 0.16, ZERO6)])
+_rl_gun = springy('rl_gun', _rl_track, RELOAD_LEN, 26.0, 0.37, 1.36)
 
 
-TILT_V = vec_of(POSE_TILT)
-CHARGE_V = vec_of(POSE_CHARGE)
+def _rl_hits(t):
+    h = bounce(t, T_MAGOUT, 30.0, 0.38) * np.array([0.0, -0.04, 0.0, -3.0, 0.0, 0.0])          # mag yanked
+    h = h + bounce(t, T_THROW - 0.02, 24.0, 0.42) * np.array([0.03, 0.0, 0.0, 0.0, 0.0, 6.0])  # throw
+    h = h + bounce(t, T_MAGIN, 32.0, 0.30) * np.array([0.0, 0.08, 0.0, -5.0, 0.0, 0.0])        # slammed home
+    h = h + bounce(t, T_MAGIN + 0.06, 36.0, 0.38) * np.array([0.0, 0.03, 0.0, -1.6, 0.0, 0.0])  # palm slap
+    h = h + window(t, T_CHARGER, T_CHARGER + 0.04) * (1 - window(t, T_RL_RELEASE, T_RL_RELEASE + 0.03)) \
+        * np.array([0.0, 0.0, 0.04, 0.0, 0.0, -2.5])                                            # hauling on the handle
+    h = h + math.sin(math.pi * window(t, T_CHARGER - 0.06, T_CHARGER)) * np.array([0.0, 0.0, -0.015, 0.0, 0.0, 0.0])
+    h = h + bounce(t, T_RL_RELEASE, 34.0, 0.36) * np.array([0.0, 0.01, -0.035, 2.0, 0.0, 0.0])  # bolt slams home
+    return h * (1 - window(t, 1.40, RELOAD_LEN))
 
 
-def _reload_target(t):
-    a, b, c = window(t, 0.02, 0.20), window(t, 0.90, 1.02), window(t, 1.14, 1.34)
-    v = TILT_V * a + (CHARGE_V - TILT_V) * b - CHARGE_V * c
-    # anticipation: a quick dip and counter-roll before tipping into the tilt
-    v = v + math.sin(math.pi * window(t, 0.0, 0.07)) * np.array([0.0, -0.025, 0.0, -2.5, 0.0, 4.0])
-    return v
+def _rl_vec(t):
+    return _rl_gun(t) + _rl_hits(t)
 
 
-def _reload_vec(t):
-    target = _reload_target(t)
-    sp = _spring('reload_gun', lambda: Spring(_reload_target, RELOAD_LEN, omega=20.0, zeta=0.42))
-    end = 1 - window(t, 1.38, 1.50)                          # springs come to rest exactly at the end
-    v = target + (sp(t) - target) * end
-    hit = np.zeros(6)
-    k = bounce(t, T_MAGOUT, 30.0, 0.40)                      # mag yanked down: gun dips
-    hit += k * np.array([0.0, -0.022, 0.0, -1.4, 0.0, 0.0])
-    k = bounce(t, T_THROW - 0.03, 24.0, 0.45)                # throw: gun counter-rotates
-    hit += k * np.array([0.018, 0.0, 0.0, 0.0, 0.0, 3.0])
-    k = bounce(t, T_MAGIN, 32.0, 0.32)                       # mag slammed home: gun bounces up
-    hit += k * np.array([0.0, 0.05, 0.0, -2.8, 0.0, 0.0])
-    k = bounce(t, T_MAGIN + 0.06, 36.0, 0.40)                # palm slap
-    hit += k * np.array([0.0, 0.02, 0.0, -1.0, 0.0, 0.0])
-    k = window(t, T_CHARGER, T_CHARGER + 0.05) * (1 - window(t, 1.13, 1.16))   # hauling on the handle
-    hit += k * np.array([0.0, 0.0, 0.03, 0.0, 0.0, -1.5])
-    k = math.sin(math.pi * window(t, T_CHARGER - 0.06, T_CHARGER))             # little push before the pull
-    hit += k * np.array([0.0, 0.0, -0.012, 0.0, 0.0, 0.0])
-    k = bounce(t, 1.13, 34.0, 0.38)                          # bolt slams home
-    hit += k * np.array([0.0, 0.0, -0.022, 1.0, 0.0, 0.0])
-    return v + hit * (1 - window(t, 1.40, 1.50))
+_rl_arm = lagged('rl_arm', _rl_vec, RELOAD_LEN, 1.36)
 
 
 def reload_params(t):
-    return p_of(_reload_vec(t))
+    return p_of(_rl_vec(t))
 
 
 def reload_arm_params(t):
-    """The gun motion as the arms feel it: the same moves, a beat late, with a softer overshoot."""
-    arm = _spring('reload_arm', lambda: Spring(_reload_vec, RELOAD_LEN, omega=12.0, zeta=0.60))
-    g = _reload_vec(t)
-    return p_of(g + (arm(t) - g) * (1 - window(t, 1.38, 1.50)))
+    return p_of(_rl_arm(t))
+
+
+GRAVITY = np.array([0.0, -22.0, 0.0])
+THROW_LIFT = np.array([-1.5, -6.5, 1.2])                     # fling it hard down and out to the left, past the camera
+THROW_SPIN = np.radians(np.array([-220.0, 0.0, 600.0]))      # deg/s about the magazine's own X and Z
 
 
 def mag_pull(t):
-    """Magazine offset while the hand still has it: straight out, then a flick that accelerates into the release."""
-    u = window(t, T_MAGOUT, 0.31)
-    v = min(max((t - 0.31) / (T_THROW - 0.31), 0.0), 1.0) ** 2
-    return T(0.05 * v, -0.34 * u - 0.22 * v, 0.0) @ Rx(math.radians(-6.0 * u - 10.0 * v)) @ Rz(math.radians(28.0 * v))
+    """Magazine offset while the hand still has it: yanked straight out, then a flick that accelerates into the release."""
+    u = window(t, T_MAGOUT, 0.30)
+    v = min(max((t - 0.30) / (T_THROW - 0.30), 0.0), 1.0) ** 2
+    return T(0.06 * v, -0.36 * u - 0.24 * v, 0.0) @ Rx(math.radians(-6.0 * u - 12.0 * v)) @ Rz(math.radians(32.0 * v))
 
 
-NEW_MAG = curves({   # fresh magazine, Body frame, from below the screen up to just under the magwell
-    'x':  [(T_SWAP, 0.45), (0.66, 0.20), (0.75, 0.03)],
-    'y':  [(T_SWAP, -2.10), (0.66, -0.90), (0.75, -0.16)],
+NEW_MAG = curves({   # fresh magazine, Body frame: comes up from below the screen flipping into line under the magwell
+    'x':  [(T_SWAP, 0.15), (0.66, 0.20), (0.75, 0.03)],
+    'y':  [(T_SWAP, -2.80), (0.66, -0.90), (0.75, -0.16)],
     'z':  [(T_SWAP, -0.10), (0.66, -0.03), (0.75, 0.02)],
-    'rx': [(T_SWAP, 22.0), (0.66, 14.0), (0.75, 5.0)],
-    'rz': [(T_SWAP, 14.0), (0.66, 7.0), (0.75, 1.0)],
+    'rx': [(T_SWAP, 40.0), (0.66, 25.0), (0.75, 6.0)],
+    'rz': [(T_SWAP, 18.0), (0.66, 9.0), (0.75, 1.0)],
 })
 
 
@@ -538,12 +591,11 @@ def thrown_mag(rig, t):
     return M
 
 
-RELOAD_SLIDE = Curve([(0, 0), (T_CHARGER, 0), (1.117, 0.47), (1.13, 0.47), (1.155, 0.0), (1.50, 0)])
+RELOAD_SLIDE = Curve([(0, 0), (T_CHARGER, 0), (1.10, 0.47), (T_RL_RELEASE, 0.47), (1.155, 0.0), (1.50, 0)])
 
 
 def anim_reload(rig, t):
-    p = reload_params(t)
-    D = D_of(p)
+    D = D_of(reload_params(t))
     G = rig.gun(D)
     Rg = G[:3, :3]
     if t < T_THROW:
@@ -568,27 +620,26 @@ def anim_reload(rig, t):
         lh = (1 - u) * a + u * b
     else:
         dip = math.sin(math.pi * window(t, T_MAGIN + 0.01, T_MAGIN + 0.07))   # hand drops a touch and slaps up
-        on_mag = pt(Mg, MAG_HOLD_MAG) + Rg @ np.array([0.0, -0.06 * dip, 0.0])
-        held = min(sb, 0.47) if t < 1.13 else 0.47        # hand rides the handle back, stays back when it lets go
-        on_ch = pt(G @ rig.slide_rel @ T(0, 0, -held), CHARGER_GRAB_SLIDE)
-        on_ch = on_ch + Rg @ (np.array([0.08, 0.04, 0.0]) * window(t, 1.13, 1.17))
-        w = window(t, 0.92, 1.03) * (1 - window(t, 1.17, 1.36))
+        on_mag = pt(Mg, MAG_HOLD_MAG) + Rg @ np.array([0.0, -0.07 * dip, 0.0])
+        on_ch = charger_hand(rig, G, sb, T_RL_RELEASE, t)
+        w = window(t, 0.90, 1.02) * (1 - window(t, 1.17, 1.36))
         lh = (1 - w) * on_mag + w * on_ch
-        lh = lh + Rg @ (math.sin(math.pi * window(t, 0.92, 1.03)) * np.array([0.14, 0.06, 0.02])
+        lh = lh + Rg @ (math.sin(math.pi * window(t, 0.90, 1.02)) * np.array([0.14, 0.06, 0.02])
                         + math.sin(math.pi * window(t, 1.17, 1.36)) * np.array([0.12, -0.10, 0.0]))
-    # elbow swings out a little on the throw (shoulder offset in the gun's frame); no forearm twist
-    # elbow: out on the throw, down for the fresh mag, up for the charging handle (no forearm twist)
+    # elbow: out on the throw, dropping with the hand for the fresh mag, up for the charging handle
     throw = math.sin(math.pi * window(t, 0.28, 0.52))
-    low = math.sin(math.pi * window(t, 0.42, 0.72))
-    ch = window(t, 0.92, 1.03) * (1 - window(t, 1.17, 1.36))
-    sh_L = throw * np.array([-0.30, 0.10, 0.0]) + low * np.array([0.0, -0.25, 0.08]) + ch * np.array([-0.20, 0.25, 0.0])
+    low = math.sin(math.pi * window(t, 0.40, 0.74))
+    ch = window(t, 0.90, 1.02) * (1 - window(t, 1.17, 1.36))
+    sh_L = throw * np.array([-0.30, 0.10, 0.0]) + low * np.array([0.0, -LOW_ELBOW, 0.25]) + ch * np.array([-0.20, 0.25, 0.0])
     return rig.pose(D, mag=Mg, slide_back=sb, left_hand=lh, sh_L=sh_L, D_follow=D_of(reload_arm_params(t)))
 
+
+LOW_ELBOW = 1.2   # how far the left shoulder point drops while the hand fetches the fresh mag (keeps the arm sane)
 
 ANIMS = {
     # name: (length, fps, loop, priority enum value, sampler, markers [(time, name, value)], keyed joints)
     'Idle':   (IDLE_LEN, 30, True, 0, anim_idle, [], None),
-    'Equip':  (EQUIP_LEN, 60, False, 2, anim_equip, [(0.0, 'Sound', 'Equip')], None),
+    'Equip':  (EQUIP_LEN, 60, False, 2, anim_equip, [(0.0, 'Sound', 'Equip'), (T_EQ_RACK, 'Sound', 'Charger')], None),
     'Shoot':  (SHOOT_LEN, 60, False, 3, anim_shoot, [(0.0, 'RandomSound', 'Shoot')], ('BodyJoint', 'SlideJoint')),
     'Reload': (RELOAD_LEN, 60, False, 4, anim_reload,
                [(T_MAGOUT, 'Sound', 'MagOut'), (T_MAGIN, 'Sound', 'MagIn'), (T_CHARGER, 'Sound', 'Charger')], None),
