@@ -3,7 +3,7 @@ name: Build & Self-Test
 on:
   push:
     branches: [ '**' ]
-    paths-ignore: [ '**.md', 'docs/**', 'tools/**' ]
+    paths-ignore: [ '**.md', 'docs/**', 'tools/**', 'mimas/**', '.github/workflows/mimas.yml' ]
   workflow_dispatch:
 
 concurrency:
