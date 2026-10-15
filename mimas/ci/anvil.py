@@ -79,6 +79,9 @@ _seen_formats = set()
 def state_str(p):
     """Palette entry -> 'minecraft:id[k=v,...]'. 26.3 changed the encoding, so accept the classic
     {Name, Properties} compound, lower-case keys, or a plain state string."""
+    if isinstance(p, dict) and set(p) == {""}:
+        # 26.x heterogeneous NBT lists wrap non-compound elements as {"": value}
+        return state_str(p[""])
     if isinstance(p, (bytes, str)):
         s = p.decode() if isinstance(p, bytes) else p
         if ":" not in s.split("[")[0]:
