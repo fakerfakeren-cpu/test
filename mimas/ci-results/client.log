@@ -1,12 +1,12 @@
-[18:37:26] [Datafixer Bootstrap #0/INFO]: 307 Datafixer optimizations took 565 milliseconds
-[18:37:31] [Render thread/INFO]: Environment: Environment[discoveryUrl=https://discovery.minecraftservices.com/minecraft/client, name=PROD]
-[18:37:31] [Render thread/INFO]: Setting user: Mimas
-[18:37:31] [Render thread/INFO]: Backend library: LWJGL version 3.4.3+4
-[18:37:31] [Render thread/INFO]: SDL [SYSTEM]: App name: Minecraft
-[18:37:31] [Render thread/INFO]: SDL [SYSTEM]: App version: 26.3
-[18:37:31] [Render thread/INFO]: SDL [SYSTEM]: App ID: com.mojang.minecraft
-[18:37:31] [Render thread/INFO]: SDL [SYSTEM]: SDL revision: SDL-3.4.14--128-NOTFOUND
-[18:37:31] [Download-2/ERROR]: Failed to fetch user properties
+[18:46:48] [Datafixer Bootstrap #0/INFO]: 307 Datafixer optimizations took 510 milliseconds
+[18:46:52] [Render thread/INFO]: Environment: Environment[discoveryUrl=https://discovery.minecraftservices.com/minecraft/client, name=PROD]
+[18:46:52] [Render thread/INFO]: Setting user: Mimas
+[18:46:53] [Render thread/INFO]: Backend library: LWJGL version 3.4.3+4
+[18:46:53] [Render thread/INFO]: SDL [SYSTEM]: App name: Minecraft
+[18:46:53] [Render thread/INFO]: SDL [SYSTEM]: App version: 26.3
+[18:46:53] [Render thread/INFO]: SDL [SYSTEM]: App ID: com.mojang.minecraft
+[18:46:53] [Render thread/INFO]: SDL [SYSTEM]: SDL revision: SDL-3.4.14--128-NOTFOUND
+[18:46:53] [Download-2/ERROR]: Failed to fetch user properties
 com.mojang.authlib.exceptions.InvalidCredentialsException: Status: 401
 	at com.mojang.authlib.exceptions.MinecraftClientHttpException.toAuthenticationException(MinecraftClientHttpException.java:70)
 	at com.mojang.authlib.services.MinecraftServicesUserApiService.fetchProperties(MinecraftServicesUserApiService.java:168)
@@ -22,23 +22,23 @@ Caused by: MinecraftClientHttpException[type=HTTP_ERROR, status=401, response=Er
 	at com.mojang.authlib.minecraft.client.MinecraftClient.get(MinecraftClient.java:65)
 	at com.mojang.authlib.services.MinecraftServicesUserApiService.fetchProperties(MinecraftServicesUserApiService.java:118)
 	... 5 more
-[18:37:33] [Render thread/ERROR]: Failed to create backend OpenGL
+[18:46:56] [Render thread/ERROR]: Failed to create backend OpenGL
 com.mojang.renderpearl.api.device.BackendCreationException: Failed to create window for OpenGL context: Couldn't find matching GLX visual
 	at com.mojang.renderpearl.backend.opengl.GlDevice.<init>(GlDevice.java:83)
 	at com.mojang.renderpearl.backend.opengl.GlBackend.createDevice(GlBackend.java:68)
 	at net.minecraft.client.Minecraft.<init>(Minecraft.java:533)
 	at net.minecraft.client.main.Main.main(Main.java:278)
-[18:37:33] [Render thread/INFO]: Enabling optional FeatureSet [Wireframe]
-[18:37:33] [Render thread/INFO]: Enabling optional FeatureSet [EXT MultiDraw]
-[18:37:33] [Render thread/INFO]: Enabling optional FeatureSet [Calibrated Timestamps]
-[18:37:33] [Render thread/INFO]: Optional FeatureSet [AMD Buffer Marker] not supported
-[18:37:33] [Render thread/INFO]: Optional FeatureSet [NV Diagnostic Checkpoint] not supported
-[18:37:33] [Render thread/INFO]: Using graphics backend Vulkan, using drivers: 1.4.318 llvmpipe Mesa 25.2.8-0ubuntu0.24.04.4 (LLVM 20.1.2)
-[18:37:33] [Render thread/INFO]: Using graphics device: llvmpipe (LLVM 20.1.2, 256 bits) (0x10005)
-[18:37:33] [Render thread/INFO]: Using graphics device extensions: VK_EXT_calibrated_timestamps (D), VK_KHR_synchronization2 (D), VK_EXT_multi_draw (D), VK_EXT_vertex_attribute_divisor (D), VK_KHR_swapchain (D), VK_KHR_surface (I), VK_KHR_push_descriptor (D), VK_KHR_xlib_surface (I), VK_EXT_debug_utils (I), VK_KHR_dynamic_rendering (D)
-[18:37:33] [Render thread/INFO]: Created window using SDL video driver: x11
-[18:37:33] [Download-1/INFO]: Could not authorize you against Realms server: java.lang.RuntimeException: Failed to parse into SignedJWT: 0
-[18:37:33] [Download-1/ERROR]: Failed to fetch Realms feature flags
+[18:46:57] [Render thread/INFO]: Optional FeatureSet [NV Diagnostic Checkpoint] not supported
+[18:46:57] [Render thread/INFO]: Enabling optional FeatureSet [EXT MultiDraw]
+[18:46:57] [Render thread/INFO]: Enabling optional FeatureSet [Wireframe]
+[18:46:57] [Render thread/INFO]: Enabling optional FeatureSet [Calibrated Timestamps]
+[18:46:57] [Render thread/INFO]: Optional FeatureSet [AMD Buffer Marker] not supported
+[18:46:57] [Render thread/INFO]: Using graphics backend Vulkan, using drivers: 1.4.318 llvmpipe Mesa 25.2.8-0ubuntu0.24.04.4 (LLVM 20.1.2)
+[18:46:57] [Render thread/INFO]: Using graphics device: llvmpipe (LLVM 20.1.2, 256 bits) (0x10005)
+[18:46:57] [Render thread/INFO]: Using graphics device extensions: VK_EXT_calibrated_timestamps (D), VK_KHR_synchronization2 (D), VK_EXT_multi_draw (D), VK_EXT_vertex_attribute_divisor (D), VK_KHR_swapchain (D), VK_KHR_surface (I), VK_KHR_push_descriptor (D), VK_KHR_xlib_surface (I), VK_EXT_debug_utils (I), VK_KHR_dynamic_rendering (D)
+[18:46:57] [Render thread/INFO]: Created window using SDL video driver: x11
+[18:46:57] [Download-1/INFO]: Could not authorize you against Realms server: java.lang.RuntimeException: Failed to parse into SignedJWT: 0
+[18:46:57] [Download-1/ERROR]: Failed to fetch Realms feature flags
 com.mojang.realmsclient.exception.RealmsServiceException: Realms authentication error with message 'java.lang.RuntimeException: Failed to parse into SignedJWT: 0'
 	at com.mojang.realmsclient.client.RealmsClient.execute(RealmsClient.java:625)
 	at com.mojang.realmsclient.client.RealmsClient.fetchFeatureFlags(RealmsClient.java:204)
@@ -46,7 +46,7 @@ com.mojang.realmsclient.exception.RealmsServiceException: Realms authentication 
 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
 	at java.base/java.lang.Thread.run(Thread.java:1474)
-[18:37:33] [Render thread/ERROR]: Error while loading the narrator
+[18:46:57] [Render thread/ERROR]: Error while loading the narrator
 com.mojang.text2speech.Narrator$InitializeException: Failed to load library flite
 	at com.mojang.text2speech.NarratorLinux$FliteLibrary.loadNative(NarratorLinux.java:82)
 	at com.mojang.text2speech.NarratorLinux.<init>(NarratorLinux.java:19)
@@ -75,10 +75,10 @@ Native library (linux-x86-64/libflite.so) not found in resource path (/home/runn
 		at com.sun.jna.Native.extractFromResourcePath(Native.java:1141)
 		at com.sun.jna.NativeLibrary.loadLibrary(NativeLibrary.java:297)
 		... 8 more
-[18:37:33] [Render thread/INFO]: Reloading ResourceManager: vanilla, vanilla
-[18:37:34] [Worker-Main-1/INFO]: Found unifont_all_no_pua-17.0.01.hex, loading
-[18:37:34] [Worker-Main-2/INFO]: Found unifont_pua-17.0.01.hex, loading
-[18:37:34] [Worker-Main-1/INFO]: Found unifont_jp_patch-17.0.01.hex, loading
+[18:46:57] [Render thread/INFO]: Reloading ResourceManager: vanilla, vanilla
+[18:46:58] [Worker-Main-3/INFO]: Found unifont_all_no_pua-17.0.01.hex, loading
+[18:46:58] [Worker-Main-2/INFO]: Found unifont_pua-17.0.01.hex, loading
+[18:46:58] [Worker-Main-3/INFO]: Found unifont_jp_patch-17.0.01.hex, loading
 ALSA lib confmisc.c:855:(parse_card) cannot find card '0'
 ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_card_inum returned error: No such file or directory
 ALSA lib confmisc.c:422:(snd_func_concat) error evaluating strings
@@ -95,7 +95,7 @@ ALSA lib confmisc.c:1342:(snd_func_refer) error evaluating name
 ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_refer returned error: No such file or directory
 ALSA lib conf.c:5731:(snd_config_expand) Evaluate error: No such file or directory
 ALSA lib pcm.c:2721:(snd_pcm_open_noupdate) Unknown PCM default
-[18:37:37] [Render thread/ERROR]: Error starting SoundSystem. Turning off sounds & music
+[18:47:01] [Render thread/ERROR]: Error starting SoundSystem. Turning off sounds & music
 java.lang.IllegalStateException: Failed to open OpenAL device
 	at com.mojang.blaze3d.audio.Library.openDeviceOrFallback(Library.java:274)
 	at com.mojang.blaze3d.audio.Library.init(Library.java:149)
@@ -114,76 +114,75 @@ java.lang.IllegalStateException: Failed to open OpenAL device
 	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1240)
 	at net.minecraft.client.Minecraft.run(Minecraft.java:967)
 	at net.minecraft.client.main.Main.main(Main.java:292)
-[18:37:37] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
-[18:37:37] [Render thread/INFO]: Created: 256x128x0 minecraft:textures/atlas/celestials.png-atlas
-[18:37:37] [Render thread/INFO]: Created: 128x128x0 minecraft:textures/atlas/decorated_pot.png-atlas
-[18:37:37] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/paintings.png-atlas
-[18:37:37] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/shield_patterns.png-atlas
-[18:37:37] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/banner_patterns.png-atlas
-[18:37:37] [Render thread/INFO]: Created: 2048x2048x4 minecraft:textures/atlas/blocks.png-atlas
-[18:37:37] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/items.png-atlas
-[18:37:37] [Render thread/INFO]: Created: 1024x1024x0 minecraft:textures/atlas/gui.png-atlas
-[18:37:37] [Render thread/INFO]: Created: 128x64x0 minecraft:textures/atlas/map_decorations.png-atlas
-[18:37:37] [Render thread/INFO]: Created: 512x512x0 minecraft:textures/atlas/chest.png-atlas
-[18:37:37] [Render thread/INFO]: Created: 512x512x0 minecraft:textures/atlas/shulker_boxes.png-atlas
-[18:37:39] [Worker-Main-3/INFO]: Loaded 1866 advancements
-[18:37:40] [Server thread/INFO]: Starting integrated minecraft server version 26.3
-[18:37:40] [Server thread/INFO]: Generating keypair
-[18:37:40] [Server thread/INFO]: Loading 121 persistent chunks...
-[18:37:40] [Server thread/INFO]: Preparing spawn area: 5%
-[18:37:41] [Server thread/INFO]: Preparing spawn area: 5%
-[18:37:41] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:overworld
-[18:37:41] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_end
-[18:37:41] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_nether
-[18:37:42] [Server thread/INFO]: Loading 0 chunks for player spawn...
-[18:37:42] [Server thread/INFO]: Preparing spawn area: 72%
-[18:37:42] [Server thread/INFO]: Time elapsed: 1544 ms
-[18:37:42] [Server thread/INFO]: Mimas[local:E:88f8479a] logged in with entity id 2 at (-5.5, -60.0, -0.5)
-[18:37:42] [Server thread/INFO]: System chat: Mimas joined the game
-[18:37:43] [Render thread/INFO]: Loaded 2 advancements
-[18:37:43] [Server thread/INFO]: Changing view distance to 8, from 10
-[18:37:43] [Server thread/INFO]: Changing simulation distance to 5, from 0
-[18:37:43] [Render thread/WARN]: Requested post effect does not exist: minecraft:end_of_frame
-[18:37:43] [Render thread/INFO]: Resizing Dynamic Transforms UBO, capacity limit of 2 reached during a single frame. New capacity will be 4.
-[18:37:44] [Render thread/INFO]: Resizing Dynamic Transforms UBO, capacity limit of 4 reached during a single frame. New capacity will be 8.
-[18:37:45] [Render thread/INFO]: Resizing Chunk Sections Command Buffer, capacity limit of 2 reached during a single frame. New capacity will be 4.
-[18:37:45] [Render thread/INFO]: Resizing Chunk Sections Instanced, capacity limit of 2 reached during a single frame. New capacity will be 4.
-[18:37:46] [Render thread/INFO]: Resizing Chunk Sections Command Buffer, capacity limit of 4 reached during a single frame. New capacity will be 16.
-[18:37:46] [Render thread/INFO]: Resizing Chunk Sections Instanced, capacity limit of 4 reached during a single frame. New capacity will be 8.
-[18:37:46] [Render thread/INFO]: Resizing Chunk Sections Command Buffer, capacity limit of 16 reached during a single frame. New capacity will be 32.
-[18:37:46] [Render thread/INFO]: Resizing Chunk Sections Instanced, capacity limit of 8 reached during a single frame. New capacity will be 16.
-[18:37:47] [Render thread/INFO]: Resizing Chunk Sections Instanced, capacity limit of 16 reached during a single frame. New capacity will be 32.
-[18:37:47] [Render thread/INFO]: Resizing Chunk Sections Command Buffer, capacity limit of 32 reached during a single frame. New capacity will be 64.
-[18:37:47] [Render thread/INFO]: Resizing Chunk Sections Instanced, capacity limit of 32 reached during a single frame. New capacity will be 64.
-[18:37:48] [Render thread/INFO]: Resizing Chunk Sections Command Buffer, capacity limit of 64 reached during a single frame. New capacity will be 128.
-[18:37:48] [Render thread/INFO]: Resizing Chunk Sections Instanced, capacity limit of 64 reached during a single frame. New capacity will be 128.
-[18:37:52] [Render thread/INFO]: [System] [CHAT] Your game mode has been updated to Spectator Mode
-[18:37:52] [Render thread/INFO]: [System] [CHAT] [CAM] ready
-[18:38:02] [Render thread/INFO]: [System] [CHAT] [CAM] shot 01_front_day
-[18:38:15] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.38.15.png
-[18:38:24] [Render thread/INFO]: [System] [CHAT] [CAM] shot 02_iso_day
-[18:38:25] [Render thread/INFO]: Resizing Chunk Sections Command Buffer, capacity limit of 128 reached during a single frame. New capacity will be 256.
-[18:38:37] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.38.37.png
-[18:38:46] [Render thread/INFO]: [System] [CHAT] [CAM] shot 03_top_day
-[18:39:00] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.38.59.png
-[18:39:08] [Render thread/INFO]: [System] [CHAT] [CAM] shot 04_street_day
-[18:39:22] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.39.21.png
-[18:39:30] [Render thread/INFO]: [System] [CHAT] [CAM] shot 05_takeaway_window
-[18:39:43] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.39.43.png
-[18:39:52] [Render thread/INFO]: [System] [CHAT] [CAM] shot 06_inside_counter
-[18:40:05] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.40.05.png
-[18:40:14] [Render thread/INFO]: [System] [CHAT] [CAM] shot 07_menu_closeup
-[18:40:27] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.40.27.png
-[18:40:36] [Render thread/INFO]: [System] [CHAT] [CAM] shot 08_grill_line
-[18:40:50] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.40.49.png
-[18:40:58] [Render thread/INFO]: [System] [CHAT] [CAM] shot 09_back_kitchen
-[18:41:11] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.41.11.png
-[18:41:20] [Render thread/INFO]: [System] [CHAT] [CAM] shot 10_staff_side
-[18:41:32] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.41.32.png
-[18:41:42] [Render thread/INFO]: [System] [CHAT] [CAM] shot 11_front_night
-[18:41:54] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.41.54.png
-[18:42:04] [Render thread/INFO]: [System] [CHAT] [CAM] shot 12_street_night
-[18:42:17] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.42.16.png
-[18:42:26] [Render thread/INFO]: [System] [CHAT] [CAM] shot 13_iso_night
-[18:42:39] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.42.38.png
-[18:42:48] [Render thread/INFO]: [System] [CHAT] [CAM] done
+[18:47:01] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
+[18:47:01] [Render thread/INFO]: Created: 256x128x0 minecraft:textures/atlas/celestials.png-atlas
+[18:47:01] [Render thread/INFO]: Created: 128x128x0 minecraft:textures/atlas/decorated_pot.png-atlas
+[18:47:01] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/paintings.png-atlas
+[18:47:01] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/shield_patterns.png-atlas
+[18:47:01] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/banner_patterns.png-atlas
+[18:47:01] [Render thread/INFO]: Created: 2048x2048x4 minecraft:textures/atlas/blocks.png-atlas
+[18:47:01] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/items.png-atlas
+[18:47:01] [Render thread/INFO]: Created: 1024x1024x0 minecraft:textures/atlas/gui.png-atlas
+[18:47:01] [Render thread/INFO]: Created: 128x64x0 minecraft:textures/atlas/map_decorations.png-atlas
+[18:47:01] [Render thread/INFO]: Created: 512x512x0 minecraft:textures/atlas/chest.png-atlas
+[18:47:01] [Render thread/INFO]: Created: 512x512x0 minecraft:textures/atlas/shulker_boxes.png-atlas
+[18:47:03] [Worker-Main-2/INFO]: Loaded 1866 advancements
+[18:47:04] [Server thread/INFO]: Starting integrated minecraft server version 26.3
+[18:47:04] [Server thread/INFO]: Generating keypair
+[18:47:04] [Server thread/INFO]: Loading 121 persistent chunks...
+[18:47:04] [Server thread/INFO]: Preparing spawn area: 5%
+[18:47:05] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:overworld
+[18:47:05] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_end
+[18:47:05] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_nether
+[18:47:06] [Server thread/INFO]: Loading 0 chunks for player spawn...
+[18:47:06] [Server thread/INFO]: Preparing spawn area: 72%
+[18:47:06] [Server thread/INFO]: Time elapsed: 1326 ms
+[18:47:06] [Server thread/INFO]: Mimas[local:E:99f8152f] logged in with entity id 2 at (3.5, -60.0, 5.5)
+[18:47:06] [Server thread/INFO]: System chat: Mimas joined the game
+[18:47:06] [Server thread/INFO]: Changing view distance to 8, from 10
+[18:47:06] [Server thread/INFO]: Changing simulation distance to 5, from 0
+[18:47:06] [Render thread/INFO]: Loaded 2 advancements
+[18:47:06] [Render thread/WARN]: Requested post effect does not exist: minecraft:end_of_frame
+[18:47:07] [Render thread/INFO]: Resizing Dynamic Transforms UBO, capacity limit of 2 reached during a single frame. New capacity will be 4.
+[18:47:07] [Render thread/INFO]: Resizing Dynamic Transforms UBO, capacity limit of 4 reached during a single frame. New capacity will be 8.
+[18:47:09] [Render thread/INFO]: Resizing Chunk Sections Command Buffer, capacity limit of 2 reached during a single frame. New capacity will be 8.
+[18:47:09] [Render thread/INFO]: Resizing Chunk Sections Instanced, capacity limit of 2 reached during a single frame. New capacity will be 4.
+[18:47:09] [Render thread/INFO]: Resizing Chunk Sections Command Buffer, capacity limit of 8 reached during a single frame. New capacity will be 16.
+[18:47:09] [Render thread/INFO]: Resizing Chunk Sections Instanced, capacity limit of 4 reached during a single frame. New capacity will be 8.
+[18:47:10] [Render thread/INFO]: Resizing Chunk Sections Command Buffer, capacity limit of 16 reached during a single frame. New capacity will be 32.
+[18:47:10] [Render thread/INFO]: Resizing Chunk Sections Instanced, capacity limit of 8 reached during a single frame. New capacity will be 16.
+[18:47:10] [Render thread/INFO]: Resizing Chunk Sections Instanced, capacity limit of 16 reached during a single frame. New capacity will be 32.
+[18:47:10] [Render thread/INFO]: Resizing Chunk Sections Command Buffer, capacity limit of 32 reached during a single frame. New capacity will be 64.
+[18:47:10] [Render thread/INFO]: Resizing Chunk Sections Instanced, capacity limit of 32 reached during a single frame. New capacity will be 64.
+[18:47:11] [Render thread/INFO]: Resizing Chunk Sections Command Buffer, capacity limit of 64 reached during a single frame. New capacity will be 128.
+[18:47:11] [Render thread/INFO]: Resizing Chunk Sections Instanced, capacity limit of 64 reached during a single frame. New capacity will be 128.
+[18:47:16] [Render thread/INFO]: [System] [CHAT] Your game mode has been updated to Spectator Mode
+[18:47:16] [Render thread/INFO]: [System] [CHAT] [CAM] ready
+[18:47:26] [Render thread/INFO]: [System] [CHAT] [CAM] shot 01_front_day
+[18:47:39] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.47.39.png
+[18:47:48] [Render thread/INFO]: [System] [CHAT] [CAM] shot 02_iso_day
+[18:47:48] [Render thread/INFO]: Resizing Chunk Sections Command Buffer, capacity limit of 128 reached during a single frame. New capacity will be 256.
+[18:48:01] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.48.01.png
+[18:48:10] [Render thread/INFO]: [System] [CHAT] [CAM] shot 03_top_day
+[18:48:23] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.48.23.png
+[18:48:32] [Render thread/INFO]: [System] [CHAT] [CAM] shot 04_street_day
+[18:48:45] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.48.45.png
+[18:48:54] [Render thread/INFO]: [System] [CHAT] [CAM] shot 05_takeaway_window
+[18:49:07] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.49.07.png
+[18:49:16] [Render thread/INFO]: [System] [CHAT] [CAM] shot 06_inside_counter
+[18:49:29] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.49.29.png
+[18:49:38] [Render thread/INFO]: [System] [CHAT] [CAM] shot 07_menu_closeup
+[18:49:51] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.49.51.png
+[18:50:00] [Render thread/INFO]: [System] [CHAT] [CAM] shot 08_grill_line
+[18:50:13] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.50.13.png
+[18:50:22] [Render thread/INFO]: [System] [CHAT] [CAM] shot 09_back_kitchen
+[18:50:35] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.50.35.png
+[18:50:44] [Render thread/INFO]: [System] [CHAT] [CAM] shot 10_staff_side
+[18:50:57] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.50.57.png
+[18:51:06] [Render thread/INFO]: [System] [CHAT] [CAM] shot 11_front_night
+[18:51:19] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.51.19.png
+[18:51:28] [Render thread/INFO]: [System] [CHAT] [CAM] shot 12_street_night
+[18:51:41] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.51.41.png
+[18:51:50] [Render thread/INFO]: [System] [CHAT] [CAM] shot 13_iso_night
+[18:52:03] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.52.03.png
+[18:52:12] [Render thread/INFO]: [System] [CHAT] [CAM] done
