@@ -1,6 +1,5 @@
 ANVIL: section keys ['BlockLight', 'SkyLight', 'Y', 'biomes', 'block_states'] block_states keys ['data', 'palette'] palette type list
 ANVIL: palette entry format string e.g. 'minecraft:bedrock'
 ANVIL: palette entry format compound:id,properties e.g. {'id': 'minecraft:barrel', 'properties': {'facing': 'up', 'open': 'false'}}
-SAME: 1 differences over 24336 positions
-SAME-DIFF: ((-4, -59, -7), 'minecraft:daylight_detector[inverted=false,power=4]', 'minecraft:daylight_detector[inverted=false,power=5]')
-SAME-RESULT: FAIL (1)
+SAME: 0 differences over 24336 positions
+SAME-RESULT: PASS

@@ -1,4 +1,4 @@
-# Mimas CI verification (2026-10-15T18:44Z)
+# Mimas CI verification (2026-10-15T19:35Z)
 
 ```
 {
@@ -30,29 +30,29 @@ STATES-RESULT: PASS
 
 ## Server
 function load / runtime problems in session 1: 0 lines (see server_problems.txt)
-[18:45:21] [ServerMain/INFO]: Found new data pack file/mimas, loading it automatically
-[18:45:21] [ServerMain/INFO]: Found new data pack file/mimascam, loading it automatically
-[18:45:22] [Worker-Main-3/INFO]: Loaded 1866 advancements
-[18:45:28] [Server thread/INFO]: System chat: There are 3 data pack(s) enabled: [vanilla (built-in)], [file/mimas (world)], [file/mimascam (world)]
-[18:45:28] [Server thread/INFO]: System chat: There are no more data packs available
-[18:45:32] [Server thread/INFO]: System chat: Running function mimas:build
-[18:45:41] [Server thread/INFO]: [Not Secure] [Server] NO-ITEM-DROPS
-[18:45:42] [Server thread/INFO]: System chat: -4, -56, -7 has the following block data: {back_text: {has_glowing_text: 1b, color: "yellow", messages: ["", "", "", ""]}, components: {}, is_waxed: 1b, x: -4, y: -56, z: -7, id: "minecraft:hanging_sign", front_text: {has_glowing_text: 1b, color: "yellow", messages: ["ПИЛЕШКИ", "ДЮНЕР", "среден", "5,50 €"]}}
-[18:45:43] [Server thread/INFO]: [Not Secure] [Server] MARKER-OK
-[18:45:46] [Server thread/INFO]: System chat: Running function mimas:build
-[18:45:56] [Server thread/INFO]: System chat: Running function mimas:clear
-[18:46:02] [Server thread/INFO]: System chat: #restored has 1 [mimas]
-[18:46:03] [Server thread/INFO]: [Not Secure] [Server] MARKER-REMOVED
-[18:46:06] [Server thread/INFO]: System chat: Running function mimas:build
+[19:35:29] [ServerMain/INFO]: Found new data pack file/mimas, loading it automatically
+[19:35:29] [ServerMain/INFO]: Found new data pack file/mimascam, loading it automatically
+[19:35:31] [Worker-Main-2/INFO]: Loaded 1866 advancements
+[19:35:36] [Server thread/INFO]: System chat: There are 3 data pack(s) enabled: [vanilla (built-in)], [file/mimas (world)], [file/mimascam (world)]
+[19:35:36] [Server thread/INFO]: System chat: There are no more data packs available
+[19:35:40] [Server thread/INFO]: System chat: Running function mimas:build
+[19:35:49] [Server thread/INFO]: [Not Secure] [Server] NO-ITEM-DROPS
+[19:35:50] [Server thread/INFO]: System chat: -4, -56, -7 has the following block data: {back_text: {has_glowing_text: 1b, color: "yellow", messages: ["", "", "", ""]}, components: {}, is_waxed: 1b, x: -4, y: -56, z: -7, id: "minecraft:hanging_sign", front_text: {has_glowing_text: 1b, color: "yellow", messages: ["ПИЛЕШКИ", "ДЮНЕР", "среден", "5,50 €"]}}
+[19:35:51] [Server thread/INFO]: [Not Secure] [Server] MARKER-OK
+[19:35:54] [Server thread/INFO]: System chat: Running function mimas:build
+[19:36:04] [Server thread/INFO]: System chat: Running function mimas:clear
+[19:36:10] [Server thread/INFO]: System chat: #restored has 1 [mimas]
+[19:36:11] [Server thread/INFO]: [Not Secure] [Server] MARKER-REMOVED
+[19:36:14] [Server thread/INFO]: System chat: Running function mimas:build
 session 2 (after restart):
-[18:46:36] [Server thread/INFO]: System chat: #restored has 0 [mimas]
+[19:36:46] [Server thread/INFO]: System chat: #restored has 0 [mimas]
 
 ## World diffs (actual world vs generator model)
-BUILT: compared 24336 positions, 6290 expected non-air, 369 mismatches
-BUILT-RESULT: FAIL (369)
+BUILT: compared 24336 positions, 6290 expected non-air, 0 mismatches
+BUILT-RESULT: PASS
 rebuild over an existing build == first build:
-SAME: 1 differences over 24336 positions
-SAME-RESULT: FAIL (1)
+SAME: 0 differences over 24336 positions
+SAME-RESULT: PASS
 mimas:clear restores the original terrain exactly:
 SAME: 0 differences over 24336 positions
 SAME-RESULT: PASS
