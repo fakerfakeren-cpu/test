@@ -91,14 +91,11 @@ def street(m):
     # tram rails
     for z in (18, 20):
         m.fill(x0, 1, z, x1, 1, z, "rail", shape="east_west")
-    # catenary poles with a street lamp on top (near + far side), placed in the gap between И and М
-    # of the sign so they don't hide the lettering from the street
+    # two street lamps (near + far sidewalk), placed in the gap between И and М of the sign so they
+    # don't hide the lettering from across the street
     for zp in (14, 24):
         m.fill(11, 1, zp, 11, 6, zp, "polished_blackstone_wall")
         m.set(11, 7, zp, "lantern", hanging=False)
-    m.fill(11, 6, 15, 11, 6, 23, "iron_chain", axis="z")      # cross-span wire
-    for z in (18, 20):
-        m.fill(x0, 5, z, x1, 5, z, "iron_chain", axis="x")    # contact wires over the tracks
     # bollards ("колчета") along the curb
     for x in (1, 4, 10, 13, 19, 22, 25):
         m.set(x, 1, 14, "polished_blackstone_wall")
@@ -165,10 +162,11 @@ def shop_front(m):
         m.set(x, 1, z, FRAME)
         m.fill(x, 3, z, x, 4, z, "glass_pane")
         m.set(x, 1, 11, "smooth_quartz_slab", type="top")        # outside ledge
-    # striped awning over the takeaway window
+    # striped, sloped awning over the takeaway window (wool stairs + slabs, new in 26.3)
     for x in range(14, 20):
-        for zz in (11, 12):
-            m.set(x, 4, zz, "red_wool" if x % 2 == 0 else "white_wool")
+        c = "red" if x % 2 == 0 else "white"
+        m.set(x, 4, 11, f"{c}_wool_stairs", facing="north", half="bottom")
+        m.set(x, 4, 12, f"{c}_wool_slab", type="bottom")
 
 
 def interior(m):
@@ -214,7 +212,7 @@ def interior(m):
         m.set(7 + i, 1, 6, b)                                                # red cabbage, corn, carrot
         m.set(7 + i, 2, 6, "glass_pane")
     m.set(13, 1, 6, SIGN_BG)
-    m.set(13, 2, 6, "smooth_stone_slab", type="bottom")                     # tray stack
+    m.set(13, 2, 6, "red_concrete_slab", type="bottom")                      # tray stack
     m.set(14, 1, 6, SIGN_BG)
     # drinks fridges (customer side) with a gate between them into the staff area
     for z, cols in ((7, ("light_blue_stained_glass", "orange_stained_glass", "red_stained_glass")),
@@ -252,22 +250,28 @@ def interior(m):
     m.set(1, 1, 9, "potted_bamboo")
 
     # --- back kitchen (z=1..2) ---
-    k = {1: ("barrel", 2), 2: ("barrel", 1), 4: ("white_concrete", 2), 5: ("white_concrete", 2),
-         8: ("iron_block", 1), 9: ("iron_block", 1), 10: ("iron_block", 1), 13: ("white_concrete", 1),
-         14: ("white_concrete", 1), 17: ("barrel", 2), 18: ("barrel", 2)}
-    for x, (b, h) in k.items():
-        for y in range(1, h + 1):
-            if b == "barrel":
-                m.set(x, y, 1, b, facing="up", open=False)
-            else:
-                m.set(x, y, 1, b)
-    m.set(3, 1, 1, "chest", facing="south", type="single", waterlogged=False)
-    for x in (6, 7):
-        m.set(x, 1, 1, "water_cauldron", level=3)                          # sinks
-    m.set(9, 2, 1, "oak_pressure_plate", powered=False)
+    # x 1..9: units against the partition (tall ones cover the back of the grill panels), walkway along the
+    # back wall; x 11..19: units against the back wall, walkway along the partition; x=10 joins the two.
+    for y in (1, 2):
+        m.set(1, y, 2, "barrel", facing="up", open=False)
+    m.set(2, 1, 2, "barrel", facing="up", open=False)
+    m.set(3, 1, 2, "chest", facing="north", type="single", waterlogged=False)
+    for x in (4, 5):
+        m.set(x, 1, 2, "water_cauldron", level=3)                          # sinks
+    m.set(6, 1, 2, "iron_block")
+    m.set(6, 2, 2, "oak_pressure_plate", powered=False)                    # cutting board
+    m.fill(7, 1, 2, 7, 3, 2, "white_concrete")                             # tall fridge
+    m.set(8, 1, 2, "furnace", facing="north", lit=False)
+    for y in (1, 2, 3):
+        m.set(9, y, 2, "barrel", facing="north", open=False)               # dry store
     m.set(11, 1, 1, "smoker", facing="south", lit=False)
-    m.set(12, 1, 1, "furnace", facing="south", lit=False)
+    m.set(12, 1, 1, "iron_block")
+    m.set(12, 2, 1, "white_candle", candles=3, lit=False)
+    m.fill(13, 1, 1, 14, 1, 1, "white_concrete")                           # chest freezer
     m.set(15, 1, 1, "composter", level=0)
+    for x in (17, 18):
+        for y in (1, 2):
+            m.set(x, y, 1, "barrel", facing="up", open=False)
     m.set(19, 1, 1, "cauldron")
 
 

@@ -40,6 +40,18 @@ ALPHA = {"glass_pane": 0.35, "light_blue_stained_glass": 0.6, "orange_stained_gl
          "red_stained_glass": 0.6, "lime_stained_glass": 0.6, "yellow_stained_glass": 0.6, "oak_leaves": 0.92}
 
 
+def color_of(i):
+    if i in C:
+        return C[i]
+    for suf in ("_stairs", "_slab", "_wall"):
+        if i.endswith(suf):
+            base = i[: -len(suf)]
+            for cand in (base, base + "s", base + "_block", base.replace("_wool", "_wool")):
+                if cand in C:
+                    return C[cand]
+    return (255, 0, 255)
+
+
 def px(a):
     return a / 16.0
 
@@ -166,7 +178,7 @@ def render(m, view, scale=16, clip=None, title=None, flip_x=False):
     for p, b in m.blocks.items():
         if clip and not clip(*p):
             continue
-        col = C.get(b.id, (255, 0, 255))
+        col = color_of(b.id)
         if col is None:
             continue
         a = ALPHA.get(b.id, 1.0)

@@ -159,6 +159,23 @@ DIRS = {"north": (0, 0, -1), "south": (0, 0, 1), "east": (1, 0, 0), "west": (-1,
 CLOCKWISE_AXIS = {"north": "x", "south": "x", "east": "z", "west": "z"}
 
 
+OPP = {"north": "south", "south": "north", "east": "west", "west": "east"}
+
+
+def sturdy_side(b, face):
+    """Is the given horizontal face of block b a full (sturdy) face?"""
+    if b is None:
+        return False
+    i = b.id
+    if is_full(i):
+        return True
+    if i.endswith("_stairs"):
+        return b.states.get("facing") == face        # the stair's back
+    if i.endswith("_slab"):
+        return b.states.get("type") == "double"
+    return False
+
+
 def _gate_connects(nb, d):
     # vanilla: FenceGateBlock.connectsToDirection -> gate facing axis == direction.getClockWise().getAxis()
     f = nb.states.get("facing", "north")
@@ -175,14 +192,14 @@ def resolve_shapes(m):
                 nb = m.get(x + dx, y, z + dz)
                 ni = nb.id if nb else "air"
                 if is_pane(i):
-                    c = is_pane(ni) or is_wall(ni) or (is_full(ni) and not connect_exception(ni))
+                    c = is_pane(ni) or is_wall(ni) or (sturdy_side(nb, OPP[d]) and not connect_exception(ni))
                 elif is_fence(i):
                     c = (is_fence(ni) and (("nether" in ni) == ("nether" in i))) \
                         or (ni.endswith("_fence_gate") and _gate_connects(nb, d)) \
-                        or (is_full(ni) and not connect_exception(ni))
+                        or (sturdy_side(nb, OPP[d]) and not connect_exception(ni))
                 else:
                     c = is_wall(ni) or is_pane(ni) or (ni.endswith("_fence_gate") and _gate_connects(nb, d)) \
-                        or (is_full(ni) and not connect_exception(ni))
+                        or (sturdy_side(nb, OPP[d]) and not connect_exception(ni))
                 conns[d] = c
             if is_wall(i):
                 # vanilla WallBlock: side = TALL if the block above covers that side, LOW if connected, else NONE;

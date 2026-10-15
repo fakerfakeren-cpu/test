@@ -39,7 +39,7 @@ def main():
     targets = {
         "shop door (inside)": (4, 1, 9), "counter front": (9, 1, 7), "window-bar stool side": (11, 1, 8),
         "seating nook": (4, 1, 5), "staff gate": (14, 1, 8), "takeaway counter (staff)": (16, 1, 8),
-        "spit line (staff)": (8, 1, 5), "back kitchen": (16, 1, 2), "takeaway window (outside)": (16, 1, 12),
+        "spit line (staff)": (8, 1, 5), "back kitchen": (16, 1, 2), "back kitchen far end": (1, 1, 1), "takeaway window (outside)": (16, 1, 12),
         "residential vestibule": (22, 1, 8), "far sidewalk": (12, 1, 24),
     }
     for name, t in targets.items():

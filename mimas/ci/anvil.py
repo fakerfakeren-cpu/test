@@ -73,11 +73,35 @@ def read_chunk(region_dir, cx, cz):
     return read_nbt(raw)
 
 
+_seen_formats = set()
+
+
 def state_str(p):
-    s = p["Name"]
-    props = p.get("Properties")
-    if props:
-        s += "[" + ",".join(f"{k}={v}" for k, v in sorted(props.items())) + "]"
+    """Palette entry -> 'minecraft:id[k=v,...]'. 26.3 changed the encoding, so accept the classic
+    {Name, Properties} compound, lower-case keys, or a plain state string."""
+    if isinstance(p, (bytes, str)):
+        s = p.decode() if isinstance(p, bytes) else p
+        if ":" not in s.split("[")[0]:
+            s = "minecraft:" + s
+        name, _, rest = s.partition("[")
+        if rest:
+            props = dict(kv.split("=", 1) for kv in rest.rstrip("]").split(",") if kv)
+            s = name + "[" + ",".join(f"{k}={v}" for k, v in sorted(props.items())) + "]"
+        kind = "string"
+    else:
+        name = p.get("Name") or p.get("name") or p.get("id") or p.get("block")
+        props = p.get("Properties") or p.get("properties") or p.get("state") or {}
+        if name is None:
+            raise ValueError(f"unknown palette entry format: {p!r}")
+        if ":" not in name:
+            name = "minecraft:" + name
+        s = name
+        if isinstance(props, dict) and props:
+            s += "[" + ",".join(f"{k}={v}" for k, v in sorted(props.items())) + "]"
+        kind = "compound:" + ",".join(sorted(p))
+    if kind not in _seen_formats:
+        _seen_formats.add(kind)
+        print(f"ANVIL: palette entry format {kind} e.g. {p!r:.120}")
     return s
 
 
@@ -94,6 +118,9 @@ def read_box(region_dir, x0, y0, z0, x1, y1, z1):
                 bs = sec.get("block_states")
                 if not bs:
                     continue
+                if not _seen_formats:
+                    print("ANVIL: section keys", sorted(sec), "block_states keys", sorted(bs),
+                          "palette type", type(bs.get("palette")).__name__)
                 pal = [state_str(p) for p in bs["palette"]]
                 if sy * 16 > y1 or sy * 16 + 15 < y0:
                     continue
