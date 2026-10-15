@@ -2,5 +2,3 @@ datapack/
 tools/expected_blocks.json
 tools/__pycache__/
 ci/__pycache__/
-# pack format not confirmed yet - committed once CI reports it
-mimas-datapack.zip
