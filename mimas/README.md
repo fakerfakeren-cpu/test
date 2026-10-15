@@ -60,9 +60,11 @@ on vanilla **26.3** (data pack format 121.0, DataVersion 5023):
   26.3 server itself generates. Result: PASS.
 - **Functions:** load with zero errors on a dedicated 26.3 server.
 - **Build:** drops no items. The sign NBT reads back with the Cyrillic text and € prices.
-- **World diff:** block-by-block comparison of the built world against the model: pending (CI run 3 in progress).
+- **World diff:** the world built on the server, read back from its region files, matches the model block for
+  block. 0 mismatches over 24,336 positions (6,290 blocks), including every connection state.
 - **Rebuild:** running `mimas:build` again over an existing build gives an identical result.
-- **Undo:** `mimas:clear` restores the original terrain with 0 differences over 24,336 positions.
+- **Undo:** `mimas:clear` restores the original terrain with 0 differences over 24,336 positions. The
+  after-restart test also passes, but only because the grass fallback happens to match a superflat test world.
 - **Model checks:** no floating blocks. Every area is walkable with 2-block headroom: shop, counter, nook,
   staff side, back kitchen, outside hatch, flats' entrance, far sidewalk.
 - **Screenshots:** taken by the real 26.3 client. It fell back from OpenGL to its Vulkan backend on a
