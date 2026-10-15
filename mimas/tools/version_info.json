@@ -1,0 +1,22 @@
+{
+  "version": "26.3",
+  "data_pack_format": [
+    121,
+    0
+  ],
+  "resource_pack_format": [
+    97,
+    1
+  ],
+  "java": {
+    "component": "java-runtime-epsilon",
+    "majorVersion": 25
+  },
+  "world_version": 5023,
+  "raw_pack_version": {
+    "resource_major": 97,
+    "resource_minor": 1,
+    "data_major": 121,
+    "data_minor": 0
+  }
+}

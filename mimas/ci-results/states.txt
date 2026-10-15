@@ -1,0 +1,2 @@
+STATES: 108 distinct block states, 84 block IDs checked against blocks.json
+STATES-RESULT: PASS

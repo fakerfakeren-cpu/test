@@ -1,0 +1,186 @@
+[18:26:30] [Datafixer Bootstrap #0/INFO]: 307 Datafixer optimizations took 534 milliseconds
+[18:26:34] [Render thread/INFO]: Environment: Environment[discoveryUrl=https://discovery.minecraftservices.com/minecraft/client, name=PROD]
+[18:26:34] [Render thread/INFO]: Setting user: Mimas
+[18:26:34] [Render thread/INFO]: Backend library: LWJGL version 3.4.3+4
+[18:26:34] [Render thread/INFO]: SDL [SYSTEM]: App name: Minecraft
+[18:26:34] [Render thread/INFO]: SDL [SYSTEM]: App version: 26.3
+[18:26:34] [Render thread/INFO]: SDL [SYSTEM]: App ID: com.mojang.minecraft
+[18:26:34] [Render thread/INFO]: SDL [SYSTEM]: SDL revision: SDL-3.4.14--128-NOTFOUND
+[18:26:35] [Download-2/ERROR]: Failed to fetch user properties
+com.mojang.authlib.exceptions.InvalidCredentialsException: Status: 401
+	at com.mojang.authlib.exceptions.MinecraftClientHttpException.toAuthenticationException(MinecraftClientHttpException.java:70)
+	at com.mojang.authlib.services.MinecraftServicesUserApiService.fetchProperties(MinecraftServicesUserApiService.java:168)
+	at net.minecraft.client.Minecraft.lambda$new$1(Minecraft.java:451)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1789)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+Caused by: MinecraftClientHttpException[type=HTTP_ERROR, status=401, response=ErrorResponse[path=/player/attributes, error=null, errorMessage=null, details=null]]
+	at com.mojang.authlib.minecraft.client.MinecraftClient.buildHttpException(MinecraftClient.java:170)
+	at com.mojang.authlib.minecraft.client.MinecraftClient.readServiceResponse(MinecraftClient.java:147)
+	at com.mojang.authlib.minecraft.client.MinecraftClient.getWithEtag(MinecraftClient.java:81)
+	at com.mojang.authlib.minecraft.client.MinecraftClient.get(MinecraftClient.java:65)
+	at com.mojang.authlib.services.MinecraftServicesUserApiService.fetchProperties(MinecraftServicesUserApiService.java:118)
+	... 5 more
+[18:26:36] [Render thread/ERROR]: Failed to create backend OpenGL
+com.mojang.renderpearl.api.device.BackendCreationException: Failed to create window for OpenGL context: Couldn't find matching GLX visual
+	at com.mojang.renderpearl.backend.opengl.GlDevice.<init>(GlDevice.java:83)
+	at com.mojang.renderpearl.backend.opengl.GlBackend.createDevice(GlBackend.java:68)
+	at net.minecraft.client.Minecraft.<init>(Minecraft.java:533)
+	at net.minecraft.client.main.Main.main(Main.java:278)
+[18:26:36] [Render thread/INFO]: Enabling optional FeatureSet [EXT MultiDraw]
+[18:26:36] [Render thread/INFO]: Optional FeatureSet [AMD Buffer Marker] not supported
+[18:26:36] [Render thread/INFO]: Enabling optional FeatureSet [Calibrated Timestamps]
+[18:26:36] [Render thread/INFO]: Optional FeatureSet [NV Diagnostic Checkpoint] not supported
+[18:26:36] [Render thread/INFO]: Enabling optional FeatureSet [Wireframe]
+[18:26:36] [Render thread/INFO]: Using graphics backend Vulkan, using drivers: 1.4.318 llvmpipe Mesa 25.2.8-0ubuntu0.24.04.4 (LLVM 20.1.2)
+[18:26:36] [Render thread/INFO]: Using graphics device: llvmpipe (LLVM 20.1.2, 256 bits) (0x10005)
+[18:26:36] [Render thread/INFO]: Using graphics device extensions: VK_EXT_calibrated_timestamps (D), VK_KHR_synchronization2 (D), VK_EXT_multi_draw (D), VK_EXT_vertex_attribute_divisor (D), VK_KHR_swapchain (D), VK_KHR_surface (I), VK_KHR_push_descriptor (D), VK_KHR_xlib_surface (I), VK_EXT_debug_utils (I), VK_KHR_dynamic_rendering (D)
+[18:26:36] [Render thread/INFO]: Created window using SDL video driver: x11
+[18:26:37] [Download-2/INFO]: Could not authorize you against Realms server: java.lang.RuntimeException: Failed to parse into SignedJWT: 0
+[18:26:37] [Download-2/ERROR]: Failed to fetch Realms feature flags
+com.mojang.realmsclient.exception.RealmsServiceException: Realms authentication error with message 'java.lang.RuntimeException: Failed to parse into SignedJWT: 0'
+	at com.mojang.realmsclient.client.RealmsClient.execute(RealmsClient.java:625)
+	at com.mojang.realmsclient.client.RealmsClient.fetchFeatureFlags(RealmsClient.java:204)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1789)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+[18:26:37] [Render thread/ERROR]: Error while loading the narrator
+com.mojang.text2speech.Narrator$InitializeException: Failed to load library flite
+	at com.mojang.text2speech.NarratorLinux$FliteLibrary.loadNative(NarratorLinux.java:82)
+	at com.mojang.text2speech.NarratorLinux.<init>(NarratorLinux.java:19)
+	at com.mojang.text2speech.Narrator.getNarrator(Narrator.java:41)
+	at net.minecraft.client.GameNarrator.<init>(GameNarrator.java:20)
+	at net.minecraft.client.Minecraft.<init>(Minecraft.java:740)
+	at net.minecraft.client.main.Main.main(Main.java:278)
+Caused by: java.lang.UnsatisfiedLinkError: Unable to load library 'flite':
+libflite.so: cannot open shared object file: No such file or directory
+libflite.so: cannot open shared object file: No such file or directory
+Native library (linux-x86-64/libflite.so) not found in resource path (/home/runner/work/test/test/ci_work/mc/libraries/at/yawk/lz4/lz4-java/1.10.1/lz4-java-1.10.1.jar:/home/runner/work/test/test/ci_work/mc/libraries/com/azure/azure-json/1.4.0/azure-json-1.4.0.jar:/home/runner/work/test/test/ci_work/mc/libraries/com/github/oshi/oshi-core/6.9.0/oshi-core-6.9.0.jar:/home/runner/work/test/test/ci_work/mc/libraries/com/google/code/gson/gson/2.14.0/gson-2.14.0.jar:/home/runner/work/test/test/ci_work/mc/libraries/com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar:/home/runner/work/test/test/ci_work/mc/libraries/com/google/guava/guava/33.6.0-jre/guava-33.6.0-jre.jar:/home/runner/work/test/test/ci_work/mc/libraries/com/ibm/icu/icu4j/78.3/icu4j-78.3.jar:/home/runner/work/test/test/ci_work/mc/libraries/com/microsoft/azure/msal4j/1.24.1/msal4j-1.24.1.jar:/home/runner/work/test/test/ci_work/mc/libraries/com/mojang/authlib/10.0.77/authlib-10.0.77.jar:/home/runner/work/test/test/ci_work/mc/libraries/com/mojang/blocklist/1.0.10/blocklist-1.0.10.jar:/home/runner/work/test/test/ci_work/mc/libraries/com/mojang/brigadier/1.3.11/brigadier-1.3.11.jar:/home/runner/work/test/test/ci_work/mc/libraries/com/mojang/datafixerupper/10.0.21/datafixerupper-10.0.21.jar:/home/runner/work/test/test/ci_work/mc/libraries/com/mojang/jtracy/1.14.38/jtracy-1.14.38.jar:/home/runner/work/test/test/ci_work/mc/libraries/com/mojang/jtracy/1.14.38/jtracy-1.14.38-natives-linux.jar:/home/runner/work/test/test/ci_work/mc/libraries/com/mojang/logging/1.7.12/logging-1.7.12.jar:/home/runner/work/test/test/ci_work/mc/libraries/com/mojang/patchy/2.2.10/patchy-2.2.10.jar:/home/runner/work/test/test/ci_work/mc/libraries/com/mojang/text2speech/1.19.12/text2speech-1.19.12.jar:/home/runner/work/test/test/ci_work/mc/libraries/commons-codec/commons-codec/1.22.0/commons-codec-1.22.0.jar:/home/runner/work/test/test/ci_work/mc/libraries/commons-io/commons-io/2.20.0/commons-io-2.20.0.jar:/home/runner/work/test/test/ci_work/mc/libraries/io/netty/netty-buffer/4.2.16.Final/netty-buffer-4.2.16.Final.jar:/home/runner/work/test/test/ci_work/mc/libraries/io/netty/netty-codec-base/4.2.16.Final/netty-codec-base-4.2.16.Final.jar:/home/runner/work/test/test/ci_work/mc/libraries/io/netty/netty-codec-compression/4.2.16.Final/netty-codec-compression-4.2.16.Final.jar:/home/runner/work/test/test/ci_work/mc/libraries/io/netty/netty-codec-http/4.2.16.Final/netty-codec-http-4.2.16.Final.jar:/home/runner/work/test/test/ci_work/mc/libraries/io/netty/netty-common/4.2.16.Final/netty-common-4.2.16.Final.jar:/home/runner/work/test/test/ci_work/mc/libraries/io/netty/netty-handler/4.2.16.Final/netty-handler-4.2.16.Final.jar:/home/runner/work/test/test/ci_work/mc/libraries/io/netty/netty-resolver/4.2.16.Final/netty-resolver-4.2.16.Final.jar:/home/runner/work/test/test/ci_work/mc/libraries/io/netty/netty-transport-classes-epoll/4.2.16.Final/netty-transport-classes-epoll-4.2.16.Final.jar:/home/runner/work/test/test/ci_work/mc/libraries/io/netty/netty-transport-classes-kqueue/4.2.16.Final/netty-transport-classes-kqueue-4.2.16.Final.jar:/home/runner/work/test/test/ci_work/mc/libraries/io/netty/netty-transport-native-epoll/4.2.16.Final/netty-transport-native-epoll-4.2.16.Final-linux-aarch_64.jar:/home/runner/work/test/test/ci_work/mc/libraries/io/netty/netty-transport-native-epoll/4.2.16.Final/netty-transport-native-epoll-4.2.16.Final-linux-x86_64.jar:/home/runner/work/test/test/ci_work/mc/libraries/io/netty/netty-transport-native-unix-common/4.2.16.Final/netty-transport-native-unix-common-4.2.16.Final.jar:/home/runner/work/test/test/ci_work/mc/libraries/io/netty/netty-transport/4.2.16.Final/netty-transport-4.2.16.Final.jar:/home/runner/work/test/test/ci_work/mc/libraries/it/unimi/dsi/fastutil/8.5.18/fastutil-8.5.18.jar:/home/runner/work/test/test/ci_work/mc/libraries/net/java/dev/jna/jna-platform/5.17.0/jna-platform-5.17.0.jar:/home/runner/work/test/test/ci_work/mc/libraries/net/java/dev/jna/jna/5.17.0/jna-5.17.0.jar:/home/runner/work/test/test/ci_work/mc/libraries/net/sf/jopt-simple/jopt-simple/5.0.4/jopt-simple-5.0.4.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/apache/commons/commons-compress/1.28.0/commons-compress-1.28.0.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/apache/commons/commons-lang3/3.20.0/commons-lang3-3.20.0.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/apache/logging/log4j/log4j-api/2.26.0/log4j-api-2.26.0.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/apache/logging/log4j/log4j-core/2.26.0/log4j-core-2.26.0.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/apache/logging/log4j/log4j-slf4j2-impl/2.26.0/log4j-slf4j2-impl-2.26.0.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/jcraft/jorbis/0.0.17/jorbis-0.0.17.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/joml/joml/1.10.9/joml-1.10.9.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-freetype/3.4.3/lwjgl-freetype-3.4.3.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-freetype/3.4.3/lwjgl-freetype-3.4.3-natives-linux.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-jemalloc/3.4.3/lwjgl-jemalloc-3.4.3.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-jemalloc/3.4.3/lwjgl-jemalloc-3.4.3-natives-linux.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-openal/3.4.3/lwjgl-openal-3.4.3.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-openal/3.4.3/lwjgl-openal-3.4.3-natives-linux.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-opengl/3.4.3/lwjgl-opengl-3.4.3.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-opengl/3.4.3/lwjgl-opengl-3.4.3-natives-linux.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-sdl/3.4.3/lwjgl-sdl-3.4.3.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-sdl/3.4.3/lwjgl-sdl-3.4.3-natives-linux.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-shaderc/3.4.3/lwjgl-shaderc-3.4.3.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-shaderc/3.4.3/lwjgl-shaderc-3.4.3-natives-linux.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-spvc/3.4.3/lwjgl-spvc-3.4.3.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-spvc/3.4.3/lwjgl-spvc-3.4.3-natives-linux.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-stb/3.4.3/lwjgl-stb-3.4.3.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-stb/3.4.3/lwjgl-stb-3.4.3-natives-linux.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-vma/3.4.3/lwjgl-vma-3.4.3.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-vma/3.4.3/lwjgl-vma-3.4.3-natives-linux.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-vulkan/3.4.3/lwjgl-vulkan-3.4.3.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl/3.4.3/lwjgl-3.4.3.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl/3.4.3/lwjgl-3.4.3-natives-linux.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar:/home/runner/work/test/test/ci_work/mc/client.jar)
+	at com.sun.jna.NativeLibrary.loadLibrary(NativeLibrary.java:325)
+	at com.sun.jna.NativeLibrary.getInstance(NativeLibrary.java:481)
+	at com.sun.jna.NativeLibrary.getInstance(NativeLibrary.java:423)
+	at com.mojang.text2speech.NarratorLinux$FliteLibrary.loadNative(NarratorLinux.java:80)
+	... 5 more
+	Suppressed: java.lang.UnsatisfiedLinkError: libflite.so: cannot open shared object file: No such file or directory
+		at com.sun.jna.Native.open(Native Method)
+		at com.sun.jna.NativeLibrary.loadLibrary(NativeLibrary.java:213)
+		... 8 more
+	Suppressed: java.lang.UnsatisfiedLinkError: libflite.so: cannot open shared object file: No such file or directory
+		at com.sun.jna.Native.open(Native Method)
+		at com.sun.jna.NativeLibrary.loadLibrary(NativeLibrary.java:226)
+		... 8 more
+	Suppressed: java.io.IOException: Native library (linux-x86-64/libflite.so) not found in resource path (/home/runner/work/test/test/ci_work/mc/libraries/at/yawk/lz4/lz4-java/1.10.1/lz4-java-1.10.1.jar:/home/runner/work/test/test/ci_work/mc/libraries/com/azure/azure-json/1.4.0/azure-json-1.4.0.jar:/home/runner/work/test/test/ci_work/mc/libraries/com/github/oshi/oshi-core/6.9.0/oshi-core-6.9.0.jar:/home/runner/work/test/test/ci_work/mc/libraries/com/google/code/gson/gson/2.14.0/gson-2.14.0.jar:/home/runner/work/test/test/ci_work/mc/libraries/com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar:/home/runner/work/test/test/ci_work/mc/libraries/com/google/guava/guava/33.6.0-jre/guava-33.6.0-jre.jar:/home/runner/work/test/test/ci_work/mc/libraries/com/ibm/icu/icu4j/78.3/icu4j-78.3.jar:/home/runner/work/test/test/ci_work/mc/libraries/com/microsoft/azure/msal4j/1.24.1/msal4j-1.24.1.jar:/home/runner/work/test/test/ci_work/mc/libraries/com/mojang/authlib/10.0.77/authlib-10.0.77.jar:/home/runner/work/test/test/ci_work/mc/libraries/com/mojang/blocklist/1.0.10/blocklist-1.0.10.jar:/home/runner/work/test/test/ci_work/mc/libraries/com/mojang/brigadier/1.3.11/brigadier-1.3.11.jar:/home/runner/work/test/test/ci_work/mc/libraries/com/mojang/datafixerupper/10.0.21/datafixerupper-10.0.21.jar:/home/runner/work/test/test/ci_work/mc/libraries/com/mojang/jtracy/1.14.38/jtracy-1.14.38.jar:/home/runner/work/test/test/ci_work/mc/libraries/com/mojang/jtracy/1.14.38/jtracy-1.14.38-natives-linux.jar:/home/runner/work/test/test/ci_work/mc/libraries/com/mojang/logging/1.7.12/logging-1.7.12.jar:/home/runner/work/test/test/ci_work/mc/libraries/com/mojang/patchy/2.2.10/patchy-2.2.10.jar:/home/runner/work/test/test/ci_work/mc/libraries/com/mojang/text2speech/1.19.12/text2speech-1.19.12.jar:/home/runner/work/test/test/ci_work/mc/libraries/commons-codec/commons-codec/1.22.0/commons-codec-1.22.0.jar:/home/runner/work/test/test/ci_work/mc/libraries/commons-io/commons-io/2.20.0/commons-io-2.20.0.jar:/home/runner/work/test/test/ci_work/mc/libraries/io/netty/netty-buffer/4.2.16.Final/netty-buffer-4.2.16.Final.jar:/home/runner/work/test/test/ci_work/mc/libraries/io/netty/netty-codec-base/4.2.16.Final/netty-codec-base-4.2.16.Final.jar:/home/runner/work/test/test/ci_work/mc/libraries/io/netty/netty-codec-compression/4.2.16.Final/netty-codec-compression-4.2.16.Final.jar:/home/runner/work/test/test/ci_work/mc/libraries/io/netty/netty-codec-http/4.2.16.Final/netty-codec-http-4.2.16.Final.jar:/home/runner/work/test/test/ci_work/mc/libraries/io/netty/netty-common/4.2.16.Final/netty-common-4.2.16.Final.jar:/home/runner/work/test/test/ci_work/mc/libraries/io/netty/netty-handler/4.2.16.Final/netty-handler-4.2.16.Final.jar:/home/runner/work/test/test/ci_work/mc/libraries/io/netty/netty-resolver/4.2.16.Final/netty-resolver-4.2.16.Final.jar:/home/runner/work/test/test/ci_work/mc/libraries/io/netty/netty-transport-classes-epoll/4.2.16.Final/netty-transport-classes-epoll-4.2.16.Final.jar:/home/runner/work/test/test/ci_work/mc/libraries/io/netty/netty-transport-classes-kqueue/4.2.16.Final/netty-transport-classes-kqueue-4.2.16.Final.jar:/home/runner/work/test/test/ci_work/mc/libraries/io/netty/netty-transport-native-epoll/4.2.16.Final/netty-transport-native-epoll-4.2.16.Final-linux-aarch_64.jar:/home/runner/work/test/test/ci_work/mc/libraries/io/netty/netty-transport-native-epoll/4.2.16.Final/netty-transport-native-epoll-4.2.16.Final-linux-x86_64.jar:/home/runner/work/test/test/ci_work/mc/libraries/io/netty/netty-transport-native-unix-common/4.2.16.Final/netty-transport-native-unix-common-4.2.16.Final.jar:/home/runner/work/test/test/ci_work/mc/libraries/io/netty/netty-transport/4.2.16.Final/netty-transport-4.2.16.Final.jar:/home/runner/work/test/test/ci_work/mc/libraries/it/unimi/dsi/fastutil/8.5.18/fastutil-8.5.18.jar:/home/runner/work/test/test/ci_work/mc/libraries/net/java/dev/jna/jna-platform/5.17.0/jna-platform-5.17.0.jar:/home/runner/work/test/test/ci_work/mc/libraries/net/java/dev/jna/jna/5.17.0/jna-5.17.0.jar:/home/runner/work/test/test/ci_work/mc/libraries/net/sf/jopt-simple/jopt-simple/5.0.4/jopt-simple-5.0.4.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/apache/commons/commons-compress/1.28.0/commons-compress-1.28.0.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/apache/commons/commons-lang3/3.20.0/commons-lang3-3.20.0.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/apache/logging/log4j/log4j-api/2.26.0/log4j-api-2.26.0.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/apache/logging/log4j/log4j-core/2.26.0/log4j-core-2.26.0.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/apache/logging/log4j/log4j-slf4j2-impl/2.26.0/log4j-slf4j2-impl-2.26.0.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/jcraft/jorbis/0.0.17/jorbis-0.0.17.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/joml/joml/1.10.9/joml-1.10.9.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-freetype/3.4.3/lwjgl-freetype-3.4.3.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-freetype/3.4.3/lwjgl-freetype-3.4.3-natives-linux.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-jemalloc/3.4.3/lwjgl-jemalloc-3.4.3.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-jemalloc/3.4.3/lwjgl-jemalloc-3.4.3-natives-linux.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-openal/3.4.3/lwjgl-openal-3.4.3.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-openal/3.4.3/lwjgl-openal-3.4.3-natives-linux.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-opengl/3.4.3/lwjgl-opengl-3.4.3.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-opengl/3.4.3/lwjgl-opengl-3.4.3-natives-linux.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-sdl/3.4.3/lwjgl-sdl-3.4.3.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-sdl/3.4.3/lwjgl-sdl-3.4.3-natives-linux.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-shaderc/3.4.3/lwjgl-shaderc-3.4.3.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-shaderc/3.4.3/lwjgl-shaderc-3.4.3-natives-linux.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-spvc/3.4.3/lwjgl-spvc-3.4.3.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-spvc/3.4.3/lwjgl-spvc-3.4.3-natives-linux.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-stb/3.4.3/lwjgl-stb-3.4.3.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-stb/3.4.3/lwjgl-stb-3.4.3-natives-linux.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-vma/3.4.3/lwjgl-vma-3.4.3.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-vma/3.4.3/lwjgl-vma-3.4.3-natives-linux.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl-vulkan/3.4.3/lwjgl-vulkan-3.4.3.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl/3.4.3/lwjgl-3.4.3.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/lwjgl/lwjgl/3.4.3/lwjgl-3.4.3-natives-linux.jar:/home/runner/work/test/test/ci_work/mc/libraries/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar:/home/runner/work/test/test/ci_work/mc/client.jar)
+		at com.sun.jna.Native.extractFromResourcePath(Native.java:1141)
+		at com.sun.jna.NativeLibrary.loadLibrary(NativeLibrary.java:297)
+		... 8 more
+[18:26:37] [Render thread/INFO]: Reloading ResourceManager: vanilla, vanilla
+[18:26:37] [Worker-Main-3/INFO]: Found unifont_all_no_pua-17.0.01.hex, loading
+[18:26:37] [Worker-Main-2/INFO]: Found unifont_pua-17.0.01.hex, loading
+[18:26:38] [Worker-Main-3/INFO]: Found unifont_jp_patch-17.0.01.hex, loading
+ALSA lib confmisc.c:855:(parse_card) cannot find card '0'
+ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_card_inum returned error: No such file or directory
+ALSA lib confmisc.c:422:(snd_func_concat) error evaluating strings
+ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_concat returned error: No such file or directory
+ALSA lib confmisc.c:1342:(snd_func_refer) error evaluating name
+ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_refer returned error: No such file or directory
+ALSA lib conf.c:5731:(snd_config_expand) Evaluate error: No such file or directory
+ALSA lib pcm.c:2721:(snd_pcm_open_noupdate) Unknown PCM default
+ALSA lib confmisc.c:855:(parse_card) cannot find card '0'
+ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_card_inum returned error: No such file or directory
+ALSA lib confmisc.c:422:(snd_func_concat) error evaluating strings
+ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_concat returned error: No such file or directory
+ALSA lib confmisc.c:1342:(snd_func_refer) error evaluating name
+ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_refer returned error: No such file or directory
+ALSA lib conf.c:5731:(snd_config_expand) Evaluate error: No such file or directory
+ALSA lib pcm.c:2721:(snd_pcm_open_noupdate) Unknown PCM default
+[18:26:40] [Render thread/ERROR]: Error starting SoundSystem. Turning off sounds & music
+java.lang.IllegalStateException: Failed to open OpenAL device
+	at com.mojang.blaze3d.audio.Library.openDeviceOrFallback(Library.java:274)
+	at com.mojang.blaze3d.audio.Library.init(Library.java:149)
+	at net.minecraft.client.sounds.SoundEngine.loadLibrary(SoundEngine.java:121)
+	at net.minecraft.client.sounds.SoundEngine.reload(SoundEngine.java:110)
+	at net.minecraft.client.sounds.SoundManager.apply(SoundManager.java:122)
+	at net.minecraft.client.sounds.SoundManager.apply(SoundManager.java:41)
+	at net.minecraft.server.packs.resources.SimplePreparableReloadListener.lambda$reload$1(SimplePreparableReloadListener.java:15)
+	at java.base/java.util.concurrent.CompletableFuture$UniAccept.tryFire(CompletableFuture.java:739)
+	at java.base/java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:503)
+	at net.minecraft.server.packs.resources.SimpleReloadInstance.lambda$prepareTasks$3(SimpleReloadInstance.java:59)
+	at net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at net.minecraft.util.thread.BlockableEventLoop.pollTask(BlockableEventLoop.java:147)
+	at net.minecraft.util.thread.BlockableEventLoop.runAllTasks(BlockableEventLoop.java:127)
+	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1240)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:967)
+	at net.minecraft.client.main.Main.main(Main.java:292)
+[18:26:40] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
+[18:26:40] [Render thread/INFO]: Created: 256x128x0 minecraft:textures/atlas/celestials.png-atlas
+[18:26:40] [Render thread/INFO]: Created: 128x128x0 minecraft:textures/atlas/decorated_pot.png-atlas
+[18:26:40] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/paintings.png-atlas
+[18:26:40] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/shield_patterns.png-atlas
+[18:26:40] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/banner_patterns.png-atlas
+[18:26:40] [Render thread/INFO]: Created: 2048x2048x4 minecraft:textures/atlas/blocks.png-atlas
+[18:26:40] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/items.png-atlas
+[18:26:40] [Render thread/INFO]: Created: 1024x1024x0 minecraft:textures/atlas/gui.png-atlas
+[18:26:40] [Render thread/INFO]: Created: 128x64x0 minecraft:textures/atlas/map_decorations.png-atlas
+[18:26:40] [Render thread/INFO]: Created: 512x512x0 minecraft:textures/atlas/chest.png-atlas
+[18:26:40] [Render thread/INFO]: Created: 512x512x0 minecraft:textures/atlas/shulker_boxes.png-atlas
+[18:26:43] [Worker-Main-3/INFO]: Loaded 1866 advancements
+[18:26:43] [Server thread/INFO]: Starting integrated minecraft server version 26.3
+[18:26:43] [Server thread/INFO]: Generating keypair
+[18:26:44] [Server thread/INFO]: Loading 121 persistent chunks...
+[18:26:44] [Server thread/INFO]: Preparing spawn area: 5%
+[18:26:44] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:overworld
+[18:26:45] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_end
+[18:26:45] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_nether
+[18:26:45] [Server thread/INFO]: Loading 0 chunks for player spawn...
+[18:26:45] [Server thread/INFO]: Preparing spawn area: 72%
+[18:26:45] [Server thread/INFO]: Time elapsed: 1299 ms
+[18:26:45] [Server thread/INFO]: Mimas[local:E:4225fb6f] logged in with entity id 2 at (-9.5, -60.0, 5.5)
+[18:26:46] [Server thread/INFO]: System chat: Mimas joined the game
+[18:26:46] [Server thread/INFO]: Changing view distance to 8, from 10
+[18:26:46] [Server thread/INFO]: Changing simulation distance to 5, from 0
+[18:26:46] [Render thread/WARN]: Requested post effect does not exist: minecraft:end_of_frame
+[18:26:46] [Render thread/INFO]: Resizing Dynamic Transforms UBO, capacity limit of 2 reached during a single frame. New capacity will be 4.
+[18:26:46] [Render thread/INFO]: Loaded 2 advancements
+[18:26:47] [Render thread/INFO]: Resizing Dynamic Transforms UBO, capacity limit of 4 reached during a single frame. New capacity will be 8.
+[18:26:49] [Render thread/INFO]: Resizing Chunk Sections Command Buffer, capacity limit of 2 reached during a single frame. New capacity will be 8.
+[18:26:49] [Render thread/INFO]: Resizing Chunk Sections Instanced, capacity limit of 2 reached during a single frame. New capacity will be 4.
+[18:26:49] [Render thread/INFO]: Resizing Chunk Sections Command Buffer, capacity limit of 8 reached during a single frame. New capacity will be 16.
+[18:26:49] [Render thread/INFO]: Resizing Chunk Sections Instanced, capacity limit of 4 reached during a single frame. New capacity will be 8.
+[18:26:49] [Render thread/INFO]: Resizing Chunk Sections Command Buffer, capacity limit of 16 reached during a single frame. New capacity will be 32.
+[18:26:49] [Render thread/INFO]: Resizing Chunk Sections Instanced, capacity limit of 8 reached during a single frame. New capacity will be 16.
+[18:26:50] [Render thread/INFO]: Resizing Chunk Sections Instanced, capacity limit of 16 reached during a single frame. New capacity will be 32.
+[18:26:50] [Render thread/INFO]: Resizing Chunk Sections Command Buffer, capacity limit of 32 reached during a single frame. New capacity will be 64.
+[18:26:50] [Render thread/INFO]: Resizing Chunk Sections Instanced, capacity limit of 32 reached during a single frame. New capacity will be 64.
+[18:26:50] [Render thread/INFO]: Resizing Chunk Sections Command Buffer, capacity limit of 64 reached during a single frame. New capacity will be 128.
+[18:26:51] [Render thread/INFO]: Resizing Chunk Sections Instanced, capacity limit of 64 reached during a single frame. New capacity will be 128.
+[18:26:55] [Render thread/INFO]: [System] [CHAT] Your game mode has been updated to Spectator Mode
+[18:26:55] [Render thread/INFO]: [System] [CHAT] [CAM] ready
+[18:27:05] [Render thread/INFO]: [System] [CHAT] [CAM] shot 01_front_day
+[18:27:19] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.27.18.png
+[18:27:27] [Render thread/INFO]: [System] [CHAT] [CAM] shot 02_iso_day
+[18:27:41] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.27.40.png
+[18:27:49] [Render thread/INFO]: [System] [CHAT] [CAM] shot 03_top_day
+[18:28:03] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.28.02.png
+[18:28:11] [Render thread/INFO]: [System] [CHAT] [CAM] shot 04_street_day
+[18:28:25] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.28.24.png
+[18:28:33] [Render thread/INFO]: [System] [CHAT] [CAM] shot 05_takeaway_window
+[18:28:47] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.28.46.png
+[18:28:55] [Render thread/INFO]: [System] [CHAT] [CAM] shot 06_inside_counter
+[18:29:09] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.29.08.png
+[18:29:17] [Render thread/INFO]: [System] [CHAT] [CAM] shot 07_menu_closeup
+[18:29:31] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.29.30.png
+[18:29:39] [Render thread/INFO]: [System] [CHAT] [CAM] shot 08_back_kitchen
+[18:29:53] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.29.52.png
+[18:30:01] [Render thread/INFO]: [System] [CHAT] [CAM] shot 09_staff_side
+[18:30:15] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.30.14.png
+[18:30:23] [Render thread/INFO]: [System] [CHAT] [CAM] shot 10_front_night
+[18:30:36] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.30.35.png
+[18:30:45] [Render thread/INFO]: [System] [CHAT] [CAM] shot 11_street_night
+[18:30:58] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.30.57.png
+[18:31:07] [Render thread/INFO]: [System] [CHAT] [CAM] shot 12_iso_night
+[18:31:07] [Render thread/INFO]: Resizing Chunk Sections Command Buffer, capacity limit of 128 reached during a single frame. New capacity will be 256.
+[18:31:20] [Render thread/INFO]: [System] [CHAT] Saved screenshot as 2026-10-15_18.31.20.png
+[18:31:29] [Render thread/INFO]: [System] [CHAT] [CAM] done

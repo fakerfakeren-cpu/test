@@ -1,0 +1,134 @@
+INTEREST: minecraft:acacia_shelf {"facing": ["north", "south", "west", "east"], "powered": ["true", "false"], "side_chain": ["unconnected", "right", "center", "left"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:bamboo_shelf {"facing": ["north", "south", "west", "east"], "powered": ["true", "false"], "side_chain": ["unconnected", "right", "center", "left"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:birch_shelf {"facing": ["north", "south", "west", "east"], "powered": ["true", "false"], "side_chain": ["unconnected", "right", "center", "left"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:black_concrete_slab {"type": ["top", "bottom", "double"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:black_concrete_stairs {"facing": ["north", "south", "west", "east"], "half": ["top", "bottom"], "shape": ["straight", "inner_left", "inner_right", "outer_left", "outer_right"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:black_wool_slab {"type": ["top", "bottom", "double"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:black_wool_stairs {"facing": ["north", "south", "west", "east"], "half": ["top", "bottom"], "shape": ["straight", "inner_left", "inner_right", "outer_left", "outer_right"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:blue_concrete_slab {"type": ["top", "bottom", "double"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:blue_concrete_stairs {"facing": ["north", "south", "west", "east"], "half": ["top", "bottom"], "shape": ["straight", "inner_left", "inner_right", "outer_left", "outer_right"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:blue_wool_slab {"type": ["top", "bottom", "double"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:blue_wool_stairs {"facing": ["north", "south", "west", "east"], "half": ["top", "bottom"], "shape": ["straight", "inner_left", "inner_right", "outer_left", "outer_right"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:bookshelf {}
+INTEREST: minecraft:brown_concrete_slab {"type": ["top", "bottom", "double"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:brown_concrete_stairs {"facing": ["north", "south", "west", "east"], "half": ["top", "bottom"], "shape": ["straight", "inner_left", "inner_right", "outer_left", "outer_right"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:brown_wool_slab {"type": ["top", "bottom", "double"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:brown_wool_stairs {"facing": ["north", "south", "west", "east"], "half": ["top", "bottom"], "shape": ["straight", "inner_left", "inner_right", "outer_left", "outer_right"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:chain_command_block {"conditional": ["true", "false"], "facing": ["north", "east", "south", "west", "up", "down"]}
+INTEREST: minecraft:cherry_shelf {"facing": ["north", "south", "west", "east"], "powered": ["true", "false"], "side_chain": ["unconnected", "right", "center", "left"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:chiseled_bookshelf {"facing": ["north", "south", "west", "east"], "slot_0_occupied": ["true", "false"], "slot_1_occupied": ["true", "false"], "slot_2_occupied": ["true", "false"], "slot_3_occupied": ["true", "false"], "slot_4_occupied": ["true", "false"], "slot_5_occupied": ["true", "false"]}
+INTEREST: minecraft:copper_bars {"east": ["true", "false"], "north": ["true", "false"], "south": ["true", "false"], "waterlogged": ["true", "false"], "west": ["true", "false"]}
+INTEREST: minecraft:copper_chain {"axis": ["x", "y", "z"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:copper_lantern {"hanging": ["true", "false"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:crimson_shelf {"facing": ["north", "south", "west", "east"], "powered": ["true", "false"], "side_chain": ["unconnected", "right", "center", "left"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:cyan_concrete_slab {"type": ["top", "bottom", "double"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:cyan_concrete_stairs {"facing": ["north", "south", "west", "east"], "half": ["top", "bottom"], "shape": ["straight", "inner_left", "inner_right", "outer_left", "outer_right"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:cyan_wool_slab {"type": ["top", "bottom", "double"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:cyan_wool_stairs {"facing": ["north", "south", "west", "east"], "half": ["top", "bottom"], "shape": ["straight", "inner_left", "inner_right", "outer_left", "outer_right"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:dark_oak_shelf {"facing": ["north", "south", "west", "east"], "powered": ["true", "false"], "side_chain": ["unconnected", "right", "center", "left"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:exposed_copper_bars {"east": ["true", "false"], "north": ["true", "false"], "south": ["true", "false"], "waterlogged": ["true", "false"], "west": ["true", "false"]}
+INTEREST: minecraft:exposed_copper_chain {"axis": ["x", "y", "z"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:exposed_copper_lantern {"hanging": ["true", "false"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:gray_concrete_slab {"type": ["top", "bottom", "double"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:gray_concrete_stairs {"facing": ["north", "south", "west", "east"], "half": ["top", "bottom"], "shape": ["straight", "inner_left", "inner_right", "outer_left", "outer_right"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:gray_wool_slab {"type": ["top", "bottom", "double"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:gray_wool_stairs {"facing": ["north", "south", "west", "east"], "half": ["top", "bottom"], "shape": ["straight", "inner_left", "inner_right", "outer_left", "outer_right"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:green_concrete_slab {"type": ["top", "bottom", "double"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:green_concrete_stairs {"facing": ["north", "south", "west", "east"], "half": ["top", "bottom"], "shape": ["straight", "inner_left", "inner_right", "outer_left", "outer_right"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:green_wool_slab {"type": ["top", "bottom", "double"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:green_wool_stairs {"facing": ["north", "south", "west", "east"], "half": ["top", "bottom"], "shape": ["straight", "inner_left", "inner_right", "outer_left", "outer_right"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:iron_bars {"east": ["true", "false"], "north": ["true", "false"], "south": ["true", "false"], "waterlogged": ["true", "false"], "west": ["true", "false"]}
+INTEREST: minecraft:iron_chain {"axis": ["x", "y", "z"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:jack_o_lantern {"facing": ["north", "south", "west", "east"]}
+INTEREST: minecraft:jungle_shelf {"facing": ["north", "south", "west", "east"], "powered": ["true", "false"], "side_chain": ["unconnected", "right", "center", "left"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:lantern {"hanging": ["true", "false"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:light_blue_concrete_slab {"type": ["top", "bottom", "double"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:light_blue_concrete_stairs {"facing": ["north", "south", "west", "east"], "half": ["top", "bottom"], "shape": ["straight", "inner_left", "inner_right", "outer_left", "outer_right"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:light_blue_wool_slab {"type": ["top", "bottom", "double"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:light_blue_wool_stairs {"facing": ["north", "south", "west", "east"], "half": ["top", "bottom"], "shape": ["straight", "inner_left", "inner_right", "outer_left", "outer_right"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:light_gray_concrete_slab {"type": ["top", "bottom", "double"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:light_gray_concrete_stairs {"facing": ["north", "south", "west", "east"], "half": ["top", "bottom"], "shape": ["straight", "inner_left", "inner_right", "outer_left", "outer_right"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:light_gray_wool_slab {"type": ["top", "bottom", "double"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:light_gray_wool_stairs {"facing": ["north", "south", "west", "east"], "half": ["top", "bottom"], "shape": ["straight", "inner_left", "inner_right", "outer_left", "outer_right"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:lime_concrete_slab {"type": ["top", "bottom", "double"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:lime_concrete_stairs {"facing": ["north", "south", "west", "east"], "half": ["top", "bottom"], "shape": ["straight", "inner_left", "inner_right", "outer_left", "outer_right"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:lime_wool_slab {"type": ["top", "bottom", "double"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:lime_wool_stairs {"facing": ["north", "south", "west", "east"], "half": ["top", "bottom"], "shape": ["straight", "inner_left", "inner_right", "outer_left", "outer_right"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:magenta_concrete_slab {"type": ["top", "bottom", "double"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:magenta_concrete_stairs {"facing": ["north", "south", "west", "east"], "half": ["top", "bottom"], "shape": ["straight", "inner_left", "inner_right", "outer_left", "outer_right"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:magenta_wool_slab {"type": ["top", "bottom", "double"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:magenta_wool_stairs {"facing": ["north", "south", "west", "east"], "half": ["top", "bottom"], "shape": ["straight", "inner_left", "inner_right", "outer_left", "outer_right"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:mangrove_shelf {"facing": ["north", "south", "west", "east"], "powered": ["true", "false"], "side_chain": ["unconnected", "right", "center", "left"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:oak_shelf {"facing": ["north", "south", "west", "east"], "powered": ["true", "false"], "side_chain": ["unconnected", "right", "center", "left"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:orange_concrete_slab {"type": ["top", "bottom", "double"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:orange_concrete_stairs {"facing": ["north", "south", "west", "east"], "half": ["top", "bottom"], "shape": ["straight", "inner_left", "inner_right", "outer_left", "outer_right"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:orange_poplar_leaves {"distance": ["1", "2", "3", "4", "5", "6", "7"], "persistent": ["true", "false"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:orange_wool_slab {"type": ["top", "bottom", "double"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:orange_wool_stairs {"facing": ["north", "south", "west", "east"], "half": ["top", "bottom"], "shape": ["straight", "inner_left", "inner_right", "outer_left", "outer_right"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:oxidized_copper_bars {"east": ["true", "false"], "north": ["true", "false"], "south": ["true", "false"], "waterlogged": ["true", "false"], "west": ["true", "false"]}
+INTEREST: minecraft:oxidized_copper_chain {"axis": ["x", "y", "z"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:oxidized_copper_lantern {"hanging": ["true", "false"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:pale_oak_shelf {"facing": ["north", "south", "west", "east"], "powered": ["true", "false"], "side_chain": ["unconnected", "right", "center", "left"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:pink_concrete_slab {"type": ["top", "bottom", "double"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:pink_concrete_stairs {"facing": ["north", "south", "west", "east"], "half": ["top", "bottom"], "shape": ["straight", "inner_left", "inner_right", "outer_left", "outer_right"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:pink_wool_slab {"type": ["top", "bottom", "double"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:pink_wool_stairs {"facing": ["north", "south", "west", "east"], "half": ["top", "bottom"], "shape": ["straight", "inner_left", "inner_right", "outer_left", "outer_right"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:poplar_button {"face": ["floor", "wall", "ceiling"], "facing": ["north", "south", "west", "east"], "powered": ["true", "false"]}
+INTEREST: minecraft:poplar_door {"facing": ["north", "south", "west", "east"], "half": ["upper", "lower"], "hinge": ["left", "right"], "open": ["true", "false"], "powered": ["true", "false"]}
+INTEREST: minecraft:poplar_fence {"east": ["true", "false"], "north": ["true", "false"], "south": ["true", "false"], "waterlogged": ["true", "false"], "west": ["true", "false"]}
+INTEREST: minecraft:poplar_fence_gate {"facing": ["north", "south", "west", "east"], "in_wall": ["true", "false"], "open": ["true", "false"], "powered": ["true", "false"]}
+INTEREST: minecraft:poplar_hanging_sign {"attached": ["true", "false"], "rotation": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:poplar_log {"axis": ["x", "y", "z"]}
+INTEREST: minecraft:poplar_planks {}
+INTEREST: minecraft:poplar_pressure_plate {"powered": ["true", "false"]}
+INTEREST: minecraft:poplar_sapling {"stage": ["0", "1"]}
+INTEREST: minecraft:poplar_shelf {"facing": ["north", "south", "west", "east"], "powered": ["true", "false"], "side_chain": ["unconnected", "right", "center", "left"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:poplar_sign {"rotation": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:poplar_slab {"type": ["top", "bottom", "double"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:poplar_stairs {"facing": ["north", "south", "west", "east"], "half": ["top", "bottom"], "shape": ["straight", "inner_left", "inner_right", "outer_left", "outer_right"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:poplar_trapdoor {"facing": ["north", "south", "west", "east"], "half": ["top", "bottom"], "open": ["true", "false"], "powered": ["true", "false"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:poplar_wall_hanging_sign {"facing": ["north", "south", "west", "east"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:poplar_wall_sign {"facing": ["north", "south", "west", "east"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:poplar_wood {"axis": ["x", "y", "z"]}
+INTEREST: minecraft:potted_poplar_sapling {}
+INTEREST: minecraft:purple_concrete_slab {"type": ["top", "bottom", "double"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:purple_concrete_stairs {"facing": ["north", "south", "west", "east"], "half": ["top", "bottom"], "shape": ["straight", "inner_left", "inner_right", "outer_left", "outer_right"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:purple_wool_slab {"type": ["top", "bottom", "double"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:purple_wool_stairs {"facing": ["north", "south", "west", "east"], "half": ["top", "bottom"], "shape": ["straight", "inner_left", "inner_right", "outer_left", "outer_right"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:red_concrete_slab {"type": ["top", "bottom", "double"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:red_concrete_stairs {"facing": ["north", "south", "west", "east"], "half": ["top", "bottom"], "shape": ["straight", "inner_left", "inner_right", "outer_left", "outer_right"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:red_poplar_leaves {"distance": ["1", "2", "3", "4", "5", "6", "7"], "persistent": ["true", "false"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:red_wool_slab {"type": ["top", "bottom", "double"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:red_wool_stairs {"facing": ["north", "south", "west", "east"], "half": ["top", "bottom"], "shape": ["straight", "inner_left", "inner_right", "outer_left", "outer_right"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:sea_lantern {}
+INTEREST: minecraft:shelf_mushroom {"age": ["0", "1"], "facing": ["north", "south", "west", "east"]}
+INTEREST: minecraft:soul_lantern {"hanging": ["true", "false"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:spruce_shelf {"facing": ["north", "south", "west", "east"], "powered": ["true", "false"], "side_chain": ["unconnected", "right", "center", "left"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:straw_bed {"facing": ["north", "south", "west", "east"], "occupied": ["true", "false"], "part": ["head", "foot"]}
+INTEREST: minecraft:stripped_poplar_log {"axis": ["x", "y", "z"]}
+INTEREST: minecraft:stripped_poplar_wood {"axis": ["x", "y", "z"]}
+INTEREST: minecraft:warped_shelf {"facing": ["north", "south", "west", "east"], "powered": ["true", "false"], "side_chain": ["unconnected", "right", "center", "left"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:waxed_copper_bars {"east": ["true", "false"], "north": ["true", "false"], "south": ["true", "false"], "waterlogged": ["true", "false"], "west": ["true", "false"]}
+INTEREST: minecraft:waxed_copper_chain {"axis": ["x", "y", "z"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:waxed_copper_lantern {"hanging": ["true", "false"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:waxed_exposed_copper_bars {"east": ["true", "false"], "north": ["true", "false"], "south": ["true", "false"], "waterlogged": ["true", "false"], "west": ["true", "false"]}
+INTEREST: minecraft:waxed_exposed_copper_chain {"axis": ["x", "y", "z"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:waxed_exposed_copper_lantern {"hanging": ["true", "false"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:waxed_oxidized_copper_bars {"east": ["true", "false"], "north": ["true", "false"], "south": ["true", "false"], "waterlogged": ["true", "false"], "west": ["true", "false"]}
+INTEREST: minecraft:waxed_oxidized_copper_chain {"axis": ["x", "y", "z"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:waxed_oxidized_copper_lantern {"hanging": ["true", "false"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:waxed_weathered_copper_bars {"east": ["true", "false"], "north": ["true", "false"], "south": ["true", "false"], "waterlogged": ["true", "false"], "west": ["true", "false"]}
+INTEREST: minecraft:waxed_weathered_copper_chain {"axis": ["x", "y", "z"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:waxed_weathered_copper_lantern {"hanging": ["true", "false"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:weathered_copper_bars {"east": ["true", "false"], "north": ["true", "false"], "south": ["true", "false"], "waterlogged": ["true", "false"], "west": ["true", "false"]}
+INTEREST: minecraft:weathered_copper_chain {"axis": ["x", "y", "z"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:weathered_copper_lantern {"hanging": ["true", "false"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:white_concrete_slab {"type": ["top", "bottom", "double"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:white_concrete_stairs {"facing": ["north", "south", "west", "east"], "half": ["top", "bottom"], "shape": ["straight", "inner_left", "inner_right", "outer_left", "outer_right"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:white_wool_slab {"type": ["top", "bottom", "double"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:white_wool_stairs {"facing": ["north", "south", "west", "east"], "half": ["top", "bottom"], "shape": ["straight", "inner_left", "inner_right", "outer_left", "outer_right"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:yellow_concrete_slab {"type": ["top", "bottom", "double"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:yellow_concrete_stairs {"facing": ["north", "south", "west", "east"], "half": ["top", "bottom"], "shape": ["straight", "inner_left", "inner_right", "outer_left", "outer_right"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:yellow_poplar_leaves {"distance": ["1", "2", "3", "4", "5", "6", "7"], "persistent": ["true", "false"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:yellow_wool_slab {"type": ["top", "bottom", "double"], "waterlogged": ["true", "false"]}
+INTEREST: minecraft:yellow_wool_stairs {"facing": ["north", "south", "west", "east"], "half": ["top", "bottom"], "shape": ["straight", "inner_left", "inner_right", "outer_left", "outer_right"], "waterlogged": ["true", "false"]}
