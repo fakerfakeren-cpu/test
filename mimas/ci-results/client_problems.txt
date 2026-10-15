@@ -1,24 +1,25 @@
-9:[18:26:35] [Download-2/ERROR]: Failed to fetch user properties
+9:[18:37:31] [Download-2/ERROR]: Failed to fetch user properties
 10:com.mojang.authlib.exceptions.InvalidCredentialsException: Status: 401
 11:	at com.mojang.authlib.exceptions.MinecraftClientHttpException.toAuthenticationException(MinecraftClientHttpException.java:70)
 18:Caused by: MinecraftClientHttpException[type=HTTP_ERROR, status=401, response=ErrorResponse[path=/player/attributes, error=null, errorMessage=null, details=null]]
 19:	at com.mojang.authlib.minecraft.client.MinecraftClient.buildHttpException(MinecraftClient.java:170)
-25:[18:26:36] [Render thread/ERROR]: Failed to create backend OpenGL
+25:[18:37:33] [Render thread/ERROR]: Failed to create backend OpenGL
 26:com.mojang.renderpearl.api.device.BackendCreationException: Failed to create window for OpenGL context: Couldn't find matching GLX visual
 57:Caused by: java.lang.UnsatisfiedLinkError: Unable to load library 'flite':
 66:	Suppressed: java.lang.UnsatisfiedLinkError: libflite.so: cannot open shared object file: No such file or directory
 70:	Suppressed: java.lang.UnsatisfiedLinkError: libflite.so: cannot open shared object file: No such file or directory
-160:[18:26:55] [Render thread/INFO]: [System] [CHAT] [CAM] ready
-161:[18:27:05] [Render thread/INFO]: [System] [CHAT] [CAM] shot 01_front_day
-163:[18:27:27] [Render thread/INFO]: [System] [CHAT] [CAM] shot 02_iso_day
-165:[18:27:49] [Render thread/INFO]: [System] [CHAT] [CAM] shot 03_top_day
-167:[18:28:11] [Render thread/INFO]: [System] [CHAT] [CAM] shot 04_street_day
-169:[18:28:33] [Render thread/INFO]: [System] [CHAT] [CAM] shot 05_takeaway_window
-171:[18:28:55] [Render thread/INFO]: [System] [CHAT] [CAM] shot 06_inside_counter
-173:[18:29:17] [Render thread/INFO]: [System] [CHAT] [CAM] shot 07_menu_closeup
-175:[18:29:39] [Render thread/INFO]: [System] [CHAT] [CAM] shot 08_back_kitchen
-177:[18:30:01] [Render thread/INFO]: [System] [CHAT] [CAM] shot 09_staff_side
-179:[18:30:23] [Render thread/INFO]: [System] [CHAT] [CAM] shot 10_front_night
-181:[18:30:45] [Render thread/INFO]: [System] [CHAT] [CAM] shot 11_street_night
-183:[18:31:07] [Render thread/INFO]: [System] [CHAT] [CAM] shot 12_iso_night
-186:[18:31:29] [Render thread/INFO]: [System] [CHAT] [CAM] done
+161:[18:37:52] [Render thread/INFO]: [System] [CHAT] [CAM] ready
+162:[18:38:02] [Render thread/INFO]: [System] [CHAT] [CAM] shot 01_front_day
+164:[18:38:24] [Render thread/INFO]: [System] [CHAT] [CAM] shot 02_iso_day
+167:[18:38:46] [Render thread/INFO]: [System] [CHAT] [CAM] shot 03_top_day
+169:[18:39:08] [Render thread/INFO]: [System] [CHAT] [CAM] shot 04_street_day
+171:[18:39:30] [Render thread/INFO]: [System] [CHAT] [CAM] shot 05_takeaway_window
+173:[18:39:52] [Render thread/INFO]: [System] [CHAT] [CAM] shot 06_inside_counter
+175:[18:40:14] [Render thread/INFO]: [System] [CHAT] [CAM] shot 07_menu_closeup
+177:[18:40:36] [Render thread/INFO]: [System] [CHAT] [CAM] shot 08_grill_line
+179:[18:40:58] [Render thread/INFO]: [System] [CHAT] [CAM] shot 09_back_kitchen
+181:[18:41:20] [Render thread/INFO]: [System] [CHAT] [CAM] shot 10_staff_side
+183:[18:41:42] [Render thread/INFO]: [System] [CHAT] [CAM] shot 11_front_night
+185:[18:42:04] [Render thread/INFO]: [System] [CHAT] [CAM] shot 12_street_night
+187:[18:42:26] [Render thread/INFO]: [System] [CHAT] [CAM] shot 13_iso_night
+189:[18:42:48] [Render thread/INFO]: [System] [CHAT] [CAM] done

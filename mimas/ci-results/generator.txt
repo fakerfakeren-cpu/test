@@ -1,4 +1,4 @@
-blocks placed: 6343 non-air (79 block types); commands per phase: {1: 386, 2: 163, 3: 60}
+blocks placed: 6290 non-air (83 block types); commands per phase: {1: 388, 2: 194, 3: 61}
 floating blocks: 0 []
   walk OK  shop door (inside) (4, 1, 9)
   walk OK  counter front (9, 1, 7)
@@ -8,6 +8,7 @@ floating blocks: 0 []
   walk OK  takeaway counter (staff) (16, 1, 8)
   walk OK  spit line (staff) (8, 1, 5)
   walk OK  back kitchen (16, 1, 2)
+  walk OK  back kitchen far end (1, 1, 1)
   walk OK  takeaway window (outside) (16, 1, 12)
   walk OK  residential vestibule (22, 1, 8)
   walk OK  far sidewalk (12, 1, 24)

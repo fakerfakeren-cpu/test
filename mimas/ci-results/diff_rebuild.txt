@@ -1,0 +1,1 @@
+ANVIL: section keys ['BlockLight', 'SkyLight', 'Y', 'biomes', 'block_states'] block_states keys ['data', 'palette'] palette type list

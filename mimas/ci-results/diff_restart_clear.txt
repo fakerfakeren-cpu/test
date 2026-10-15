@@ -1,0 +1,4 @@
+ANVIL: section keys ['SkyLight', 'Y', 'biomes', 'block_states'] block_states keys ['data', 'palette'] palette type list
+ANVIL: palette entry format string e.g. 'minecraft:bedrock'
+SAME: 0 differences over 24336 positions
+SAME-RESULT: PASS
