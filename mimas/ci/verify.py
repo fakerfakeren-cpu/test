@@ -85,6 +85,27 @@ def load_expected(path, wx, wy, wz):
 
 
 AIRS = ("minecraft:air", "minecraft:cave_air", "minecraft:void_air")
+DEFAULTS = {}
+VOLATILE = {"minecraft:daylight_detector": ("power",)}   # sensor output follows the sun
+
+
+def load_defaults(report):
+    """26.3 stores a block whose state is entirely default as a bare id: fill those from blocks.json."""
+    for bid, info in json.load(open(report)).items():
+        for st in info.get("states", []):
+            if st.get("default"):
+                DEFAULTS[bid] = st.get("properties", {})
+
+
+def normalize(s):
+    if s is None or s in AIRS:
+        return s
+    bid, props = parse_state(s)
+    full = dict(DEFAULTS.get(bid, {}))
+    full.update(props)
+    for k in VOLATILE.get(bid, ()):
+        full.pop(k, None)
+    return bid + ("[" + ",".join(f"{k}={v}" for k, v in sorted(full.items())) + "]" if full else "")
 
 
 def cmd_built(region, expected, wx, wy, wz):
@@ -103,7 +124,9 @@ def cmd_built(region, expected, wx, wy, wz):
                         mism.append(((x, y, z), "air", a))
                     continue
                 eid, eprops = parse_state(e)
-                aid, aprops = parse_state(a) if a not in AIRS else (a, {})
+                for k in VOLATILE.get(eid, ()):
+                    eprops.pop(k, None)
+                aid, aprops = parse_state(normalize(a)) if a not in AIRS else (a, {})
                 if eid != aid or any(aprops.get(k) != v for k, v in eprops.items()):
                     mism.append(((x, y, z), e, a))
     placed = sum(1 for p in exp)
@@ -118,8 +141,8 @@ def cmd_built(region, expected, wx, wy, wz):
 
 def cmd_same(ra, rb, expected, wx, wy, wz):
     _, box = load_expected(expected, wx, wy, wz)
-    a = read_box(ra, *box)
-    b = read_box(rb, *box)
+    a = {p: normalize(v) for p, v in read_box(ra, *box).items()}
+    b = {p: normalize(v) for p, v in read_box(rb, *box).items()}
     diff = [(p, a.get(p), b.get(p)) for p in set(a) | set(b) if a.get(p) != b.get(p)]
     print(f"SAME: {len(diff)} differences over {len(a)} positions")
     for d in diff[:40]:
@@ -134,6 +157,10 @@ if __name__ == "__main__":
     elif c == "interest":
         cmd_interest(sys.argv[2])
     elif c == "built":
+        if len(sys.argv) > 7:
+            load_defaults(sys.argv[7])
         cmd_built(sys.argv[2], sys.argv[3], *map(int, sys.argv[4:7]))
     elif c == "same":
+        if len(sys.argv) > 8:
+            load_defaults(sys.argv[8])
         cmd_same(sys.argv[2], sys.argv[3], sys.argv[4], *map(int, sys.argv[5:8]))

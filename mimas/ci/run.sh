@@ -123,13 +123,13 @@ grep -E "Executed|#restored|Failed|rror" "$S2" | cut -c1-300 | tee -a "$SUM"
 
 note ""
 note "## World diffs (actual world vs generator model)"
-python3 mimas/ci/verify.py built "$WORK/snap_built" mimas/tools/expected_blocks.json 0 -60 0 2>&1 | tee "$RES/diff_built.txt" | grep -E "^BUILT(-RESULT|:| -MISMATCH-KIND)" | tee -a "$SUM"
+python3 mimas/ci/verify.py built "$WORK/snap_built" mimas/tools/expected_blocks.json 0 -60 0 "$BLOCKS" 2>&1 | tee "$RES/diff_built.txt" | grep -E "^BUILT(-RESULT|:| -MISMATCH-KIND)" | tee -a "$SUM"
 note "rebuild over an existing build == first build:"
-python3 mimas/ci/verify.py same "$WORK/snap_built" "$WORK/snap_rebuilt" mimas/tools/expected_blocks.json 0 -60 0 2>&1 | tee "$RES/diff_rebuild.txt" | grep -E "SAME(-RESULT)?:" | tee -a "$SUM"
+python3 mimas/ci/verify.py same "$WORK/snap_built" "$WORK/snap_rebuilt" mimas/tools/expected_blocks.json 0 -60 0 "$BLOCKS" 2>&1 | tee "$RES/diff_rebuild.txt" | grep -E "SAME(-RESULT)?:" | tee -a "$SUM"
 note "mimas:clear restores the original terrain exactly:"
-python3 mimas/ci/verify.py same "$WORK/snap_pre" "$WORK/snap_cleared" mimas/tools/expected_blocks.json 0 -60 0 2>&1 | tee "$RES/diff_clear.txt" | grep -E "SAME(-RESULT)?:" | tee -a "$SUM"
+python3 mimas/ci/verify.py same "$WORK/snap_pre" "$WORK/snap_cleared" mimas/tools/expected_blocks.json 0 -60 0 "$BLOCKS" 2>&1 | tee "$RES/diff_clear.txt" | grep -E "SAME(-RESULT)?:" | tee -a "$SUM"
 note "mimas:clear after a server restart vs original terrain:"
-python3 mimas/ci/verify.py same "$WORK/snap_pre" "$WORK/snap_after_restart_clear" mimas/tools/expected_blocks.json 0 -60 0 2>&1 | tee "$RES/diff_restart_clear.txt" | grep -E "SAME(-RESULT)?:" | tee -a "$SUM"
+python3 mimas/ci/verify.py same "$WORK/snap_pre" "$WORK/snap_after_restart_clear" mimas/tools/expected_blocks.json 0 -60 0 "$BLOCKS" 2>&1 | tee "$RES/diff_restart_clear.txt" | grep -E "SAME(-RESULT)?:" | tee -a "$SUM"
 
 # ---- real client screenshots ----------------------------------------------------------------
 note ""
