@@ -207,7 +207,7 @@ def interior(m):
 
     # --- service counter (z=6) with glass display ---
     m.set(6, 1, 6, SIGN_BG)                                                  # till
-    m.set(6, 2, 6, "daylight_detector", inverted=False, power=0)
+    m.set(6, 2, 6, "daylight_detector", inverted=False)
     display = ["red_concrete_powder", "lime_concrete_powder", "white_concrete_powder",
                "purple_concrete_powder", "yellow_concrete_powder", "orange_concrete_powder"]
     for i, b in enumerate(display):                                          # tomato, lettuce, cabbage,
@@ -226,7 +226,7 @@ def interior(m):
 
     # --- takeaway window counter + staff side storage ---
     m.fill(15, 1, 9, 18, 1, 9, "iron_block")
-    m.set(16, 2, 9, "daylight_detector", inverted=False, power=0)            # second till
+    m.set(16, 2, 9, "daylight_detector", inverted=False)            # second till
     m.set(19, 1, 9, "barrel", facing="up", open=False)
     m.fill(19, 1, 6, 19, 1, 8, "iron_block")
     m.set(19, 2, 7, "white_candle", candles=4, lit=False)
@@ -316,6 +316,9 @@ def upper_floors(m):
             m.set(x1, b + 1, 11, "iron_bars")
             m.set(x2, b + 1, 11, "iron_bars")
         m.set(7, b + 1, 11, "potted_red_tulip" if b % 2 else "potted_fern")
+    # outdoor AC units hung on the piers between windows (white glazed terracotta swirl = fan)
+    for x, b in ((4, 15), (12, 12), (21, 18), (13, 21), (24, 12), (9, 18)):
+        m.set(x, b + 1, 11, "white_glazed_terracotta", facing="south")
     m.set(6, 8, 5, "light", level=15, waterlogged=False)     # mezzanine behind the sign
     m.set(19, 8, 5, "light", level=15, waterlogged=False)
     # cornice

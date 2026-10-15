@@ -33,7 +33,7 @@ C = {
     "stone_button": (125, 125, 125), "light": None, "spruce_planks": (114, 84, 48),
     "potted_red_tulip": (200, 50, 40), "potted_fern": (70, 120, 50), "brick_stairs": (150, 90, 75),
     "bricks": (140, 85, 72), "rail": (110, 100, 90), "oak_log": (105, 82, 50), "oak_leaves": (70, 125, 45),
-    "grass_block": (95, 159, 53), "dirt": (134, 96, 67), "structure_block": (80, 70, 90),
+    "grass_block": (95, 159, 53), "white_glazed_terracotta": (226, 230, 225), "dirt": (134, 96, 67), "structure_block": (80, 70, 90),
 }
 EMISSIVE = {"ochre_froglight", "pearlescent_froglight", "magma_block", "sea_lantern", "lantern", "smoker"}
 ALPHA = {"glass_pane": 0.35, "light_blue_stained_glass": 0.6, "orange_stained_glass": 0.6,

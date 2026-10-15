@@ -210,6 +210,22 @@ def resolve_shapes(m):
         elif i.endswith("_slab") or i.endswith("_trapdoor") or i.endswith("_hanging_sign") or i.endswith("_wall_sign") \
                 or i in ("iron_chain", "lantern", "rail") or i.endswith("_leaves"):
             b.states.setdefault("waterlogged", "false")
+    # leaves: 'distance' = steps to the nearest log (the game recomputes it on placement)
+    frontier = [p for p, b in m.blocks.items() if b.id.endswith("_log") or b.id.endswith("_wood")]
+    dist = {p: 0 for p in frontier}
+    while frontier:
+        nxt = []
+        for (x, y, z) in frontier:
+            for dx, dy, dz in ((1, 0, 0), (-1, 0, 0), (0, 1, 0), (0, -1, 0), (0, 0, 1), (0, 0, -1)):
+                q = (x + dx, y + dy, z + dz)
+                b = m.blocks.get(q)
+                if b and b.id.endswith("_leaves") and q not in dist and dist[(x, y, z)] < 7:
+                    dist[q] = dist[(x, y, z)] + 1
+                    nxt.append(q)
+        frontier = nxt
+    for p, b in m.blocks.items():
+        if b.id.endswith("_leaves"):
+            b.states["distance"] = str(dist.get(p, 7))
     # walls: second pass for 'up' of stacked walls (top-down so the raised post propagates)
     for (x, y, z), b in sorted(m.blocks.items(), key=lambda kv: -kv[0][1]):
         if is_wall(b.id):
