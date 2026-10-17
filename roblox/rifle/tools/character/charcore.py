@@ -198,8 +198,7 @@ def track(keys, t):
 # ---------------------------------------------------------------- the hold
 # Body-local points on the user's Scar (Body +Z = muzzle, +Y = top, +X = the gun's left side)
 GRIP = np.array([0.0, -0.42, -0.68])         # pistol grip: right hand centre
-MAG = np.array([0.04, -0.40, 0.12])          # magazine (rear half), held low like the viewmodel: left hand centre
-MAG_BOTTOM = np.array([0.04, -0.95, 0.12])   # just under the magazine (insert / slap)
+MAG = np.array([0.04, -0.40, -0.15])         # back of the magazine / magwell, held low: left hand centre
 CHARGER = np.array([0.42, 0.30, 0.43])       # charging handle on the gun's left side
 BUTT = np.array([0.0, 0.09, -1.825])
 
@@ -265,10 +264,13 @@ def search_stance(rig, top=5):
     return rows[:top]
 
 
-# ---------------------------------------------------------------- base hold (from search_stance, gun on the right shoulder)
-BASE_YAW, BASE_LEAN = np.radians(-35), np.radians(10)
-BASE_GUN = np.array([0.70, 3.64, -1.40])           # Body centre: bore at y 3.90, butt tucked 0.18 into the shoulder
-HEAD_TILT = rz(np.radians(-6)) @ rx(np.radians(-3))  # cheek towards the stock
+# ---------------------------------------------------------------- base hold: near-square, gun straight ahead
+# A square torso keeps the gun in line with the body from every angle, and keeps LookReplication's arm pitch on the
+# character's own right axis. R15 arms are short for this gun, so it sits just right of centre (x 0.1) at chest
+# height, with enough slack in the left arm that recoil and the reload don't snap it straight.
+BASE_YAW, BASE_LEAN = np.radians(-15), np.radians(10)
+BASE_GUN = np.array([0.10, 3.39, -1.60])           # Body centre: bore at y 3.65, butt tucked 0.12 into the chest
+HEAD_TILT = np.eye(3)                              # head level and facing forward
 POUCH = np.array([-0.75, -0.85, -0.65])            # UpperTorso-local: front of the belt, left side
 ELBOW_OUT = {'Right': np.array([0.45, -0.55, 0.15]), 'Left': np.array([-0.30, -0.60, 0.05])}  # UpperTorso-local
 
@@ -296,7 +298,7 @@ def _kick(t):
 def shoot_channels(t):
     k, k2 = _kick(t), _kick(max(0.0, t - 0.012))
     torso = (0.0, -1.6 * k2, 0.0)
-    gun = (0, 0.03 * k, 0.16 * k, 0.0, 5.0 * k2, 0.6 * k2)
+    gun = (0, 0.03 * k, 0.10 * k, 0.0, 6.0 * k2, 0.6 * k2)
     return torso, gun, ('gun', MAG)
 
 
@@ -319,7 +321,7 @@ RELOAD_LEFT = [  # t, space, point (Body-local for 'gun', UpperTorso-local for '
     (0.20, 'gun', np.array([0.04, -0.62, 0.12])),     # grab the bottom of the magazine
     (0.30, 'gun', np.array([0.30, -1.25, 0.0])),      # yank it out, down and away
     (0.46, 'torso', POUCH), (0.56, 'torso', POUCH),   # fresh one from the belt
-    (0.72, 'gun', np.array([0.10, -1.10, 0.12])),     # up under the magwell
+    (0.72, 'gun', np.array([0.10, -1.00, 0.0])),      # up under the magwell
     (0.83, 'gun', MAG),                               # in
     (0.92, 'gun', np.array([0.60, -0.25, 0.30])),     # round the gun's left side, not through it
     (1.01, 'gun', CHARGER + np.array([0.22, -0.02, 0.06])),  # in from the side
@@ -426,6 +428,8 @@ class Poser:
         out = []
         for i in range(n + 1):
             t = i / fps
+            if anim != 'Reload':                   # small motions: solve every frame from the same start (exact loop)
+                self.reset()
             Tm, W, G, lp = self.pose(anim, t)
             out.append((t, Tm, W, G, lp))
         if loop:                                   # close the loop exactly (the IK warm start drifts by ~0.01 deg)

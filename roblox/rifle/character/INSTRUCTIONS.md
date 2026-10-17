@@ -17,12 +17,13 @@ Open View > Command Bar in Studio and run:
 
 ```lua
 local t = game.StarterPack.AutoBlaster
-print(t.Grip)  -- should print 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1 (the default)
-t.Grip = CFrame.new(-0.025422, -0.053325, -0.515358, 0.799368, 0.501627, 0.330728, -0.395550, 0.853683, -0.338769, -0.452273, 0.139982, 0.880826)
+print(t.Grip)  -- the default (0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1), or the value from my first version (-0.025422, -0.053325, ...)
+t.Grip = CFrame.new(-0.081722, -0.105072, -0.488714, 0.546268, 0.449282, 0.706921, -0.642160, 0.766517, 0.009067, -0.537793, -0.458909, 0.707235)
 ```
 
 - The value is absolute, so running it twice is harmless.
-- It assumes the Grip is still the default. Your `Export.gltf` shows that it is, and so did your earlier place file. If the print shows anything else, don't run the last line: send me the printed value.
+- It assumes the Grip is the default or my first version's value. Your `Export.gltf` showed the default, and so did your earlier place file. If the print shows anything else, don't run the last line: send me the printed value.
+- **If you already ran my first version's line, run this one too.** The straight hold sits differently in the hand. With the old value the gun would be twisted.
 - Without this step the animations still play, but the gun floats in the wrong place.
 
 ## 2. Publish the animations
@@ -43,22 +44,25 @@ In the Animation Editor the gun may still sit in its old spot. The editor shows 
 
   | Look | Muzzle | Side drift |
   |---|---|---|
-  | ±30° | ±27° | 1° |
-  | +60° | 54° | 6° |
+  | ±30° | about ±29.5° | under 1.5° |
+  | +60° | 58.5° | 4° |
+  | -50° | -49° | 3° |
 
-  It falls short at the extremes because the rifle stance turns the torso 35 degrees, and your script pitches the arms about the turned torso's axis.
-- **Optional:** setting `WaistShare = 0.7, ArmShare = 0.3` in your script's `CONFIG` brings +60° to 57° with 2° of drift. The trade-off is that the upper body bends further when looking up and down.
+  The small remainder comes from the torso's 15° turn: your script pitches the arms about the turned torso's axis.
+- **The gun tilts when the player looks up or down.** That is your script doing what you asked, not the hold. Looking up 25° makes the gun point 25° up, which from the side reads as a tilted gun.
 - `HumanoidRootPart` and `LowerTorso` are placeholders with Weight 0, the same as your existing R15 animations. Walking and running still drive the hips and legs.
 
 ## What the animations do
-- **The hold:**
-  - The torso turns 35° (left shoulder forward) and leans 10° in.
-  - The head turns back to face forward, with the cheek tilted 6° onto the stock.
-  - The gun sits at shoulder height, with the stock tucked into the right shoulder.
-  - The right hand is on the pistol grip, elbow out. The left hand holds the magazine low, the same as your first-person view.
+- **The hold is straight:**
+  - The gun is level and points exactly where the character faces.
+  - It sits in front of the chest, 0.1 studs right of centre, with the bore at chest height and the butt against the chest.
+  - The torso turns only 15° (left shoulder forward) and leans 10° in. The head stays level and faces forward.
+  - The right hand is on the pistol grip, elbow out. The left hand holds the back of the magazine, low. Both elbows are bent about 50°.
+
+  **Why not on the right shoulder:** the first version had the gun there with the torso turned 35°. That made the gun lie diagonally across the body from most angles, which is the tilt in your screenshot. R15 arms are too short for the left hand to reach a gun on the right shoulder with a square torso, so the gun moved to the centre instead.
 - **Idle (4 s loop):** slow breathing and a slight sway, kept small so that Shoot and Reload start and end on it without a pop.
 - **Shoot (0.2 s):**
-  - The gun kicks 0.16 studs back with a 5° muzzle rise, peaking at 33 ms, and the torso rocks back.
+  - The gun kicks 0.1 studs back with a 6° muzzle rise, peaking at 33 ms, and the torso rocks back.
   - It has mostly recovered by 0.1 s, the next shot at 600 rpm, and is back on the hold at 0.2 s. On full auto it reads as a steady shudder, not a stutter.
 - **Reload (1.5 s):**
 
@@ -76,7 +80,7 @@ In the Animation Editor the gun may still sit in its old spot. The editor shows 
 ## Limits
 - **Body shapes:** the hold is built for the standard blocky R15 proportions, the ones in your export. On other body shapes it still forms, because every pose is a pure rotation, but the left hand can sit off the magazine by however much those arms differ.
 - **Clipping:**
-  - The butt of the stock sinks about 0.18 studs into the shoulder on purpose, so it reads as shouldered.
+  - The butt of the stock sinks about 0.12 studs into the chest on purpose, so it reads as braced.
   - Blocky hands are 1x1 plates, wider than the grip, so they overlap the gun a little.
 - **Not tested in Roblox.** I can't run Studio here. `tools/character/verify_char.py` checks the file offline:
   - It re-parses the `.rbxmx` and replays every keyframe the way Roblox does, with your script's `C0` offsets on top.

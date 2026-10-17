@@ -19,10 +19,10 @@ python3 -I render_char.py Export.gltf out_dir check
 - **Rig:** joint positions, part centres and the exported gun are read from the glTF. `Rig.fk` applies `Part1 = Part0 * C0 * T * C1^-1`, plus the LookReplication offsets when given.
 - **Hold:** `search_stance` scored torso yaw and lean, and the gun position, for:
   - reach of both hands;
-  - butt in the shoulder;
+  - butt against the body;
   - receiver and barrel kept out of the torso and head.
 
-  `BASE_*` hold the chosen hold.
+  `BASE_*` hold the chosen hold: near-square (15° turn) with the gun level just right of centre. The user wanted the gun straight. A 35° rifle stance made it lie diagonally across the body.
 - **IK:** `ArmIK` is a shoulder (3 dof) plus elbow hinge solver, Levenberg-Marquardt with soft terms:
   - an elbow preference;
   - a small wrist bend;
