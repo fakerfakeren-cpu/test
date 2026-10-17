@@ -11,20 +11,24 @@
 There are no scripts, no parts and no sounds. The only thing in your game that changes besides the animation IDs is one property, `Tool.Grip`, in step 1.
 
 ## 1. Set the Grip once (required)
-Right now your tool puts the right hand under the stock, 1.2 studs behind the pistol grip, with the gun sticking straight out of the fist. That is how a default Roblox tool is held. In these animations the right hand is on the pistol grip and the stock is in the shoulder. That needs the gun to sit differently in the hand, and `Tool.Grip` is what sets that.
+Your tool holds the gun the default Roblox way: the fist is under the stock, with the gun sticking straight out of it. In these animations the right hand is on the pistol grip. `Tool.Grip` decides where the gun sits in the hand, so it has to change, or the gun stays wherever the `Handle` puts it and doesn't line up with the animated hands.
 
-Open View > Command Bar in Studio and run:
+Open View > Command Bar in Studio, in edit mode (not while playing), and run:
 
 ```lua
 local t = game.StarterPack.AutoBlaster
-print(t.Grip)  -- the default (0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1), or the value from my first version (-0.025422, -0.053325, ...)
-t.Grip = CFrame.new(-0.081722, -0.105072, -0.488714, 0.546268, 0.449282, 0.706921, -0.642160, 0.766517, 0.009067, -0.537793, -0.458909, 0.707235)
+local body = t:FindFirstChild("Body", true)   -- the Scar's main part
+-- where Body must sit relative to the hand's RightGripAttachment in the new hold:
+local hold = CFrame.new(0.096448, 0.634648, -0.327385, -0.546268, -0.642160, 0.537793, -0.449282, 0.766517, 0.458909, -0.706921, 0.009067, -0.707235)
+print("Body in Handle space:", t.Handle.CFrame:ToObjectSpace(body.CFrame))
+t.Grip = t.Handle.CFrame:ToObjectSpace(body.CFrame) * hold:Inverse()
+print("Grip now:", t.Grip)
 ```
 
-- The value is absolute, so running it twice is harmless.
-- It assumes the Grip is the default or my first version's value. Your `Export.gltf` showed the default, and so did your earlier place file. If the print shows anything else, don't run the last line: send me the printed value.
-- **If you already ran my first version's line, run this one too.** The straight hold sits differently in the hand. With the old value the gun would be twisted.
-- Without this step the animations still play, but the gun floats in the wrong place.
+- **It measures your real tool.** It reads how your gun actually sits on its `Handle` and works the Grip out from that, so it doesn't matter where your `Handle` is.
+- **Running it again is harmless.** It doesn't depend on the current Grip.
+- **What the printout means:** if the first line prints about `0.025, 0.316, -1.063, -1, 0, 0, 0, 1, 0, 0, 0, -1`, your tool matches the export and the result is the same as my earlier fixed value. If it prints something else, your `Handle` sits differently from the export, and the fixed value I gave earlier was putting the gun in the wrong place. This line fixes that.
+- **Check the Grip is still set afterwards.** It's saved on the tool in StarterPack. If something in your game gives players a different copy of the tool, set the Grip on that copy too.
 
 ## 2. Publish the animations
 1. Insert `ScarCharacterAnims.rbxmx` into Studio. It appears as `AnimSaves`.
@@ -35,7 +39,29 @@ t.Grip = CFrame.new(-0.081722, -0.105072, -0.488714, 0.546268, 0.449282, 0.70692
    - Copy the ID.
 4. Paste the IDs into `StarterPack.AutoBlaster.Animations` > `Idle`, `Shoot` and `Reload` > `AnimationId`, written as `rbxassetid://<id>`. Those are the template's IDs today: 17747384020, 17747381445 and 17747385966.
 
-In the Animation Editor the gun may still sit in its old spot. The editor shows whatever weld your rig has, not the tool's Grip. In game, step 1 decides where the gun goes.
+### Seeing the gun in the hands in the Animation Editor (optional)
+The editor doesn't use `Tool.Grip`. It shows whatever joint holds the gun on your rig, so the gun stays where it was put while the arms move. To make the editor hold the gun the way the game does, run this once in the Command Bar, in edit mode. It assumes your rig is `workspace.Rig` and the gun inside it is `AutoBlaster` with a `Handle`:
+
+```lua
+local rig = workspace.Rig
+local gun = rig.AutoBlaster
+for _, d in gun:GetDescendants() do
+	if d:IsA("BasePart") then d.Anchored = false end
+end
+for _, j in rig:GetDescendants() do   -- remove whatever currently ties the gun to the body
+	if (j:IsA("JointInstance") or j:IsA("WeldConstraint")) and j.Part0 and j.Part1
+		and j.Part0:IsDescendantOf(gun) ~= j.Part1:IsDescendantOf(gun) then
+		j:Destroy()
+	end
+end
+local w = Instance.new("Weld")         -- the same weld Roblox makes when a player equips the tool
+w.Name = "RightGrip"
+w.Part0, w.Part1 = rig.RightHand, gun.Handle
+w.C0, w.C1 = rig.RightHand.RightGripAttachment.CFrame, game.StarterPack.AutoBlaster.Grip
+w.Parent = rig.RightHand
+```
+
+This only changes your editing rig, not the game. Run step 1 first, because this copies its Grip.
 
 ## How it works with your LookReplication script
 - The animations only rotate the Waist, Neck, shoulders, elbows and wrists. Your script edits each joint's `C0` (or the AnimationConstraint attachment). Roblox applies `C0` first and the animation's Transform after it, so the two stack instead of fighting.
