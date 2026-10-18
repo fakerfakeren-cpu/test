@@ -15,7 +15,7 @@ Inside the body:
   rows 18..20    bottom bevel
   row 21         outline
 
-  python3 make_button.py         step-2 state sheet into preview/, final PNGs into export/
+  python3 make_button.py         step-2 state sheet into preview/, the 3 game PNGs into export/
   python3 make_button.py step1   re-renders the step-1 colour previews
 """
 import os
@@ -325,14 +325,6 @@ def button(p, text=True, icon=True, state='normal'):
     return canvas
 
 
-def icon_image(p):
-    """The triangle on its own: white, 2-px outline, 1-px shadow, cropped tight
-    (glyph + 2 px left/right/top, + 3 px below) -> 10 x 12 base px."""
-    patch, pad = outlined(bitmap(PLAY_ICON), WHITE, OUTLINE, p['text_shadow'])
-    ys, xs = np.nonzero(patch[..., 3])
-    return patch[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
-
-
 def upscale(a, k=SCALE):
     return np.repeat(np.repeat(a, k, axis=0), k, axis=1)
 
@@ -565,10 +557,10 @@ def step2(key='A'):
     os.makedirs(prev, exist_ok=True)
     os.makedirs(out, exist_ok=True)
     states_sheet(p, os.path.join(prev, 'step2_states.png'))
-    for st in STATES:
-        save(button(p, text=False, state=st), os.path.join(out, f'play_{st}.png'))
-        save(button(p, text=True, state=st), os.path.join(out, f'play_{st}_text.png'))
-    save(icon_image(p), os.path.join(out, 'play_icon.png'))
+    for f in os.listdir(out):
+        os.remove(os.path.join(out, f))
+    for st in STATES:   # the three images the game uses: PLAY + icon baked in
+        save(button(p, text=True, state=st), os.path.join(out, f'play_{st}.png'))
 
 
 if __name__ == '__main__':
