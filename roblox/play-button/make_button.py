@@ -428,12 +428,16 @@ def scene(p, seed=7):
     return a
 
 
-def phone(p, k):
-    """Scene in a phone frame. k = device pixels per point (1 for the overview,
-    3 for a true iPhone-resolution render)."""
+def screen(p, k):
+    """The menu scene at k device pixels per point, cropped to the screen."""
     art = Image.fromarray(upscale(scene(p), PT_PER_PX * k), 'RGBA')
-    sw, sh = PHONE_PT[0] * k, PHONE_PT[1] * k
-    art = art.crop((0, 0, sw, sh))
+    return art.crop((0, 0, PHONE_PT[0] * k, PHONE_PT[1] * k))
+
+
+def phone(p, k):
+    """Scene in a phone frame, k device pixels per point."""
+    art = screen(p, k)
+    sw, sh = art.size
     bez = 18 * k
     fw, fh = sw + 2 * bez, sh + 2 * bez
     ss = 2   # supersample only the frame shapes, never the art
@@ -477,7 +481,8 @@ def step1():
     overview(os.path.join(out, 'step1_phones_overview.png'))
     for key in 'ABC':
         p = palette(key)
-        phone(p, 3).convert('RGB').save(os.path.join(out, f'step1_phone_{key}_{p["name"]}_3x.png'), optimize=True)
+        # bare 2532 x 1170 screen: full-screen in landscape on an iPhone 13/14 = true size
+        screen(p, 3).convert('RGB').save(os.path.join(out, f'step1_phone_{key}_{p["name"]}_3x.png'), optimize=True)
         save(button(p), os.path.join(out, f'step1_{key}_{p["name"]}_512x192.png'))
 
 
