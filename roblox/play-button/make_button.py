@@ -15,10 +15,12 @@ Inside the body:
   rows 18..20    bottom bevel
   row 21         outline
 
-  python3 make_button.py        writes the step-1 previews into preview/
+  python3 make_button.py         step-2 state sheet into preview/, final PNGs into export/
+  python3 make_button.py step1   re-renders the step-1 colour previews
 """
 import os
 import random
+import sys
 
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
@@ -69,6 +71,28 @@ def palette(key):
 
 def to_hex(c):
     return '#%02X%02X%02X' % c[:3]
+
+
+STATES = ('normal', 'hover', 'pressed')
+PRESSED_DARKEN = 0.88
+
+
+def state_palette(p, state):
+    """Colours for one button state.
+
+    hover:   fill and highlight go one step up the set's own ramp (fill takes the
+             highlight colour, highlight takes the shine colour). The shine goes to
+             white, otherwise it would match the new highlight and vanish.
+    pressed: every face colour slightly darker (x0.88); outline, glint and the
+             white text stay as they are.
+    """
+    q = dict(p)
+    if state == 'hover':
+        q.update(fill=p['hi'], hi=p['shine'], shine=WHITE)
+    elif state == 'pressed':
+        for k in ('fill', 'hi', 'shine', 'bevel', 'crease', 'text_shadow'):
+            q[k] = tuple(round(v * PRESSED_DARKEN) for v in p[k][:3]) + (255,)
+    return q
 
 
 # --------------------------------------------------------------------------- masks
@@ -190,14 +214,14 @@ GLYPHS = {
     ' ': ['...'] * 7,
 }
 
-# Play triangle, same height as the letters, 1-px staircase like the corners.
-PLAY_ICON = ['#...',
-             '##..',
-             '###.',
-             '####',
-             '###.',
-             '##..',
-             '#...']
+# Play triangle, same height as the letters, 6 px wide (2-px steps, blunt tip).
+PLAY_ICON = ['#.....',
+             '###...',
+             '#####.',
+             '######',
+             '#####.',
+             '###...',
+             '#.....']
 
 GLYPH_H = 7
 TRACKING = 1           # empty columns between letters
@@ -280,8 +304,11 @@ def body(p):
     return img, m
 
 
-def button(p, text=True, icon=True, pressed=False):
-    """64 x 24 RGBA base-grid button."""
+def button(p, text=True, icon=True, state='normal'):
+    """64 x 24 RGBA base-grid button. Pressed drops the face 2 px into where
+    the shadow was, so the silhouette and canvas stay identical."""
+    p = state_palette(p, state)
+    pressed = state == 'pressed'
     canvas = np.zeros((H, W, 4), np.uint8)
     img, m = body(p)
     dy = SHADOW if pressed else 0
@@ -296,6 +323,14 @@ def button(p, text=True, icon=True, pressed=False):
         lw = patch.shape[1] - 2 * pad
         paste(canvas, patch, (W - lw) // 2 - pad, TEXT_TOP - pad + dy)
     return canvas
+
+
+def icon_image(p):
+    """The triangle on its own: white, 2-px outline, 1-px shadow, cropped tight
+    (glyph + 2 px left/right/top, + 3 px below) -> 10 x 12 base px."""
+    patch, pad = outlined(bitmap(PLAY_ICON), WHITE, OUTLINE, p['text_shadow'])
+    ys, xs = np.nonzero(patch[..., 3])
+    return patch[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
 
 
 def upscale(a, k=SCALE):
@@ -486,5 +521,58 @@ def step1():
         save(button(p), os.path.join(out, f'step1_{key}_{p["name"]}_512x192.png'))
 
 
+def states_sheet(p, path):
+    """Normal / hover / pressed side by side: with text and without at export
+    size, then at phone size (4 pt per pixel) over a dark and a light backdrop."""
+    margin, gap, row_label = 56, 40, 36
+    bw, bh = W * SCALE, H * SCALE
+    small = PT_PER_PX * 2          # 2x device pixels per pt, so 8 px per art pixel too
+    cw = margin * 2 + bw * 3 + gap * 2
+    rows = [('with text', bh), ('no text (for Roblox 9-slice)', bh), ('phone size, dark backdrop', 0), ('phone size, light backdrop', 0)]
+    strip_h = H * small + 32
+    ch = margin + 80 + 2 * (row_label + bh + gap) + 2 * (row_label + strip_h + gap) + margin - gap
+    sheet = Image.new('RGBA', (cw, ch), (246, 247, 250, 255))
+    d = ImageDraw.Draw(sheet)
+    d.text((margin, margin), f'A  {p["name"]}  -  states', font=font(34), fill=(27, 31, 42, 255))
+    y = margin + 80
+    for j, (label, _) in enumerate(rows):
+        d.text((margin, y), label, font=font(20), fill=(90, 96, 112, 255))
+        for i, st in enumerate(STATES):
+            x = margin + i * (bw + gap)
+            if j == 0:
+                q = state_palette(p, st)
+                d.text((x + bw - 300, y), f'{st}: {to_hex(q["fill"])} / {to_hex(q["hi"])} / {to_hex(q["shine"])}',
+                       font=font(15), fill=(90, 96, 112, 255))
+            if j < 2:
+                bg = Image.fromarray(checker(bw, bh), 'RGBA')
+                art = Image.fromarray(upscale(button(p, text=(j == 0), state=st)), 'RGBA')
+                bg.alpha_composite(art)
+                sheet.paste(bg, (x, y + row_label))
+            else:
+                back = (16, 23, 43, 255) if j == 2 else (140, 196, 236, 255)
+                bg = Image.new('RGBA', (bw, strip_h), back)
+                art = Image.fromarray(upscale(button(p, state=st), small // 2), 'RGBA')
+                bg.alpha_composite(art, ((bw - art.width) // 2, (strip_h - art.height) // 2))
+                sheet.paste(bg, (x, y + row_label))
+        y += row_label + (bh if j < 2 else strip_h) + gap
+    sheet.convert('RGB').save(path, optimize=True)
+
+
+def step2(key='A'):
+    p = palette(key)
+    prev = os.path.join(HERE, 'preview')
+    out = os.path.join(HERE, 'export')
+    os.makedirs(prev, exist_ok=True)
+    os.makedirs(out, exist_ok=True)
+    states_sheet(p, os.path.join(prev, 'step2_states.png'))
+    for st in STATES:
+        save(button(p, text=False, state=st), os.path.join(out, f'play_{st}.png'))
+        save(button(p, text=True, state=st), os.path.join(out, f'play_{st}_text.png'))
+    save(icon_image(p), os.path.join(out, 'play_icon.png'))
+
+
 if __name__ == '__main__':
-    step1()
+    if 'step1' in sys.argv[1:]:
+        step1()
+    else:
+        step2()
