@@ -23,3 +23,5 @@ run
 run-data
 __pycache__/
 *.pyc
+hoi4-bulgaria/tools/out/
+__pycache__/
