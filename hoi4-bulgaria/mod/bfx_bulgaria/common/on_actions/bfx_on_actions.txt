@@ -1,0 +1,10 @@
+on_actions = {
+	on_startup = {
+		effect = {
+			if = { limit = { country_exists = BUL } BUL = { bfx_startup = yes } }
+		}
+	}
+	on_monthly_BUL = {
+		effect = { bfx_monthly = yes }
+	}
+}

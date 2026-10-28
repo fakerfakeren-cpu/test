@@ -1,0 +1,10 @@
+bfx_covert_rearmament = {
+	icon = GFX_idea_bfx_covert_rearmament
+	enable = { always = yes }
+	remove_trigger = { has_country_flag = bfx_neuilly_ended }
+	conscription_factor = bfx_dm_cons
+	army_org_factor = bfx_dm_org
+	training_time_army_factor = bfx_dm_train
+	air_accidents_factor = bfx_dm_air
+	production_speed_dockyard_factor = bfx_dm_dock
+}

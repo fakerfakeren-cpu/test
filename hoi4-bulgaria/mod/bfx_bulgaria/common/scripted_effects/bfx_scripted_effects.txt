@@ -1,0 +1,150 @@
+# Recompute the Covert Rearmament dynamic modifier from bfx_rearm (0-100) and check Suspicion thresholds.
+# At 100 rearmament every Neuilly penalty is exactly cancelled.
+bfx_neuilly_recalc = {
+	clamp_variable = { var = bfx_rearm min = 0 max = 100 }
+	clamp_variable = { var = bfx_suspicion min = 0 max = 100 }
+	set_variable = { bfx_dm_cons = bfx_rearm }
+	multiply_variable = { bfx_dm_cons = 0.003 }
+	set_variable = { bfx_dm_org = bfx_rearm }
+	multiply_variable = { bfx_dm_org = 0.001 }
+	set_variable = { bfx_dm_train = bfx_rearm }
+	multiply_variable = { bfx_dm_train = -0.0025 }
+	set_variable = { bfx_dm_air = bfx_rearm }
+	multiply_variable = { bfx_dm_air = -0.005 }
+	set_variable = { bfx_dm_dock = bfx_rearm }
+	multiply_variable = { bfx_dm_dock = 0.0025 }
+	force_update_dynamic_modifier = yes
+	if = {
+		limit = { NOT = { has_country_flag = bfx_neuilly_ended } }
+if = { limit = { check_variable = { bfx_suspicion > 24.99 } NOT = { has_country_flag = bfx_susp_25 } } set_country_flag = bfx_susp_25 country_event = { id = bfx_neuilly.10 days = 1 } }
+	if = { limit = { check_variable = { bfx_suspicion > 49.99 } NOT = { has_country_flag = bfx_susp_50 } } set_country_flag = bfx_susp_50 country_event = { id = bfx_neuilly.11 days = 1 } }
+	if = { limit = { check_variable = { bfx_suspicion > 74.99 } NOT = { has_country_flag = bfx_susp_75 } } set_country_flag = bfx_susp_75 country_event = { id = bfx_neuilly.12 days = 1 } }
+	if = { limit = { check_variable = { bfx_suspicion > 99.99 } NOT = { has_country_flag = bfx_susp_100 } } set_country_flag = bfx_susp_100 country_event = { id = bfx_neuilly.13 days = 1 } }
+	}
+}
+
+bfx_end_neuilly_common = {
+	set_country_flag = bfx_neuilly_ended
+	if = { limit = { has_idea = bfx_neuilly_shackles } remove_ideas = bfx_neuilly_shackles }
+	if = { limit = { has_dynamic_modifier = { modifier = bfx_covert_rearmament } } remove_dynamic_modifier = { modifier = bfx_covert_rearmament } }
+	add_ideas = bfx_salonika_freedom
+	set_variable = { bfx_suspicion = 0 }
+}
+
+# Tsardom / opening: negotiated at Salonika
+bfx_end_neuilly_negotiated = {
+	if = {
+		limit = { NOT = { has_country_flag = bfx_neuilly_ended } }
+		custom_effect_tooltip = bfx_tt_end_negotiated
+		if = { limit = { check_variable = { bfx_rearm > 74 } } army_experience = 30 }
+		else_if = { limit = { check_variable = { bfx_rearm > 39 } } army_experience = 20 }
+		else = { army_experience = 10 }
+		every_country = {
+			limit = { OR = { tag = GRE tag = YUG tag = TUR tag = ROM } }
+			add_opinion_modifier = { target = ROOT modifier = bfx_om_neuilly_honoured }
+			country_event = { id = bfx_neuilly.20 days = 1 }
+		}
+		set_country_flag = bfx_neuilly_negotiated
+		bfx_end_neuilly_common = yes
+	}
+}
+
+# Opening "Tear Up Neuilly" and the Coburg restoration: torn up loudly
+bfx_end_neuilly_torn = {
+	if = {
+		limit = { NOT = { has_country_flag = bfx_neuilly_ended } }
+		custom_effect_tooltip = bfx_tt_end_torn
+		add_war_support = 0.10
+		army_experience = 25
+		add_named_threat = { threat = 3 name = bfx_threat_neuilly_torn }
+		every_country = {
+			limit = { OR = { tag = GRE tag = YUG tag = TUR tag = ROM } }
+			add_opinion_modifier = { target = ROOT modifier = bfx_om_neuilly_torn }
+			country_event = { id = bfx_neuilly.21 days = 1 }
+		}
+		add_timed_idea = { idea = bfx_balkan_embargo days = 180 }
+		set_country_flag = bfx_neuilly_torn
+		bfx_end_neuilly_common = yes
+		country_event = { id = bfx_neuilly.13 days = 3 }
+	}
+}
+
+# Communists: denounced as an imperialist diktat
+bfx_end_neuilly_denounced = {
+	if = {
+		limit = { NOT = { has_country_flag = bfx_neuilly_ended } }
+		custom_effect_tooltip = bfx_tt_end_denounced
+		add_popularity = { ideology = communism popularity = 0.05 }
+		add_war_support = 0.05
+		army_experience = 15
+		if = { limit = { country_exists = SOV } SOV = { add_opinion_modifier = { target = ROOT modifier = bfx_om_fraternal_party } } }
+		set_country_flag = bfx_neuilly_denounced
+		bfx_end_neuilly_common = yes
+	}
+}
+
+# Agrarians: revised through a League of Nations petition (peaceful, small bonus)
+bfx_end_neuilly_revised = {
+	if = {
+		limit = { NOT = { has_country_flag = bfx_neuilly_ended } }
+		custom_effect_tooltip = bfx_tt_end_revised
+		add_stability = 0.05
+		army_experience = 10
+		every_country = {
+			limit = { OR = { tag = GRE tag = YUG tag = TUR tag = ROM } }
+			add_opinion_modifier = { target = ROOT modifier = bfx_om_neuilly_honoured }
+		}
+		set_country_flag = bfx_neuilly_revised
+		bfx_end_neuilly_common = yes
+	}
+}
+
+# Zveno: rearm in the open by decree
+bfx_end_neuilly_open = {
+	if = {
+		limit = { NOT = { has_country_flag = bfx_neuilly_ended } }
+		custom_effect_tooltip = bfx_tt_end_open
+		army_experience = 20
+		add_to_variable = { bfx_suspicion = 30 }
+		every_country = {
+			limit = { OR = { tag = GRE tag = YUG tag = TUR tag = ROM } }
+			add_opinion_modifier = { target = ROOT modifier = bfx_om_balkan_protest }
+		}
+		set_country_flag = bfx_neuilly_open
+		bfx_end_neuilly_common = yes
+	}
+}
+
+bfx_startup = {
+	set_variable = { bfx_rearm = 0 }
+	set_variable = { bfx_suspicion = 10 }
+	set_variable = { bfx_tsargrad_fervour = 0 }
+	set_variable = { bfx_macedonia_unrest = 0 }
+	add_ideas = { bfx_neuilly_shackles bfx_imro_state_within_state bfx_military_league_intrigue bfx_tobacco_monoculture }
+	add_dynamic_modifier = { modifier = bfx_covert_rearmament }
+	bfx_neuilly_recalc = yes
+	if = {
+		limit = { is_ai = yes }
+		random_list = {
+			75 = { set_country_flag = bfx_ai_tsar random_list = { 70 = { set_country_flag = bfx_ai_tsar_axis } 23 = { set_country_flag = bfx_ai_tsar_neutral } 7 = { set_country_flag = bfx_ai_alt random_list = { 50 = { set_country_flag = bfx_ai_alt_empire } 50 = { set_country_flag = bfx_ai_alt_byz } } } } }
+			13 = { set_country_flag = bfx_ai_agr random_list = { 50 = { set_country_flag = bfx_ai_agr_dem } 50 = { set_country_flag = bfx_ai_agr_zveno } } }
+			12 = { set_country_flag = bfx_ai_com random_list = { 60 = { set_country_flag = bfx_ai_com_soviet } 40 = { set_country_flag = bfx_ai_com_fed } } }
+		}
+	}
+}
+
+bfx_monthly = {
+	if = {
+		limit = { NOT = { has_country_flag = bfx_neuilly_ended } }
+		subtract_from_variable = { bfx_suspicion = 2 }
+		bfx_neuilly_recalc = yes
+	}
+	random_list = {
+		90 = { }
+		2 = { country_event = bfx_flav.1 }
+		2 = { country_event = bfx_flav.2 }
+		2 = { country_event = bfx_flav.3 }
+		2 = { country_event = bfx_flav.4 }
+		2 = { country_event = bfx_flav.5 }
+	}
+}

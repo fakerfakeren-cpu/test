@@ -1,0 +1,577 @@
+ideas = {
+	country = {
+		bfx_neuilly_shackles = {
+			picture = bfx_neuilly_shackles
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				conscription_factor = -0.3
+				army_org_factor = -0.1
+				training_time_army_factor = 0.25
+				air_accidents_factor = 0.5
+				production_speed_dockyard_factor = -0.25
+			}
+		}
+		bfx_balkan_embargo = {
+			picture = bfx_balkan_embargo
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				local_resources_factor = -0.1
+				consumer_goods_factor = 0.03
+				stability_factor = -0.03
+			}
+		}
+		bfx_border_crisis = {
+			picture = bfx_border_crisis
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				war_support_factor = 0.1
+				stability_factor = -0.1
+				army_attack_factor = 0.05
+			}
+		}
+		bfx_salonika_freedom = {
+			picture = bfx_salonika_freedom
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				training_time_army_factor = -0.1
+				experience_gain_army_factor = 0.1
+				stability_factor = 0.03
+			}
+		}
+		bfx_imro_state_within_state = {
+			picture = bul_imro
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				stability_factor = -0.05
+				political_power_factor = -0.05
+			}
+		}
+		bfx_imro_crushed = {
+			picture = bul_imro
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.03
+				political_power_factor = 0.05
+			}
+		}
+		bfx_imro_tolerated = {
+			picture = bul_imro
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				war_support_factor = 0.05
+				stability_factor = -0.03
+				justify_war_goal_time = -0.1
+			}
+		}
+		bfx_imro_liberation_army = {
+			picture = bul_imro
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				war_support_factor = 0.08
+				justify_war_goal_time = -0.2
+				army_attack_factor = 0.03
+			}
+		}
+		bfx_military_league_intrigue = {
+			picture = MEX_politicised_army
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				stability_factor = -0.05
+				experience_gain_army_factor = 0.05
+			}
+		}
+		bfx_army_loyal_to_crown = {
+			picture = bul_tsar_boris_positive
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.03
+				army_org_factor = 0.03
+			}
+		}
+		bfx_zveno_officer_state = {
+			picture = bul_zveno
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				army_org_factor = 0.05
+				stability_factor = -0.05
+				political_power_gain = 0.15
+			}
+		}
+		bfx_tobacco_monoculture = {
+			picture = bul_tobacco_exports
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				political_power_gain = 0.05
+				stability_factor = -0.02
+				research_speed_factor = -0.03
+			}
+		}
+		bfx_tobacco_and_rose_exports = {
+			picture = bfx_tobacco_and_rose
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				political_power_gain = 0.1
+				consumer_goods_factor = -0.02
+				stability_factor = 0.02
+			}
+		}
+		bfx_valley_of_roses = {
+			picture = bfx_tobacco_and_rose
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				political_power_gain = 0.15
+				consumer_goods_factor = -0.04
+				stability_factor = 0.05
+			}
+		}
+		bfx_german_clearing = {
+			picture = GER_german_trade
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				industrial_capacity_factory = 0.05
+				production_speed_buildings_factor = 0.1
+				fascism_drift = 0.03
+			}
+		}
+		bfx_german_clearing_deep = {
+			picture = GER_german_trade
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				industrial_capacity_factory = 0.08
+				production_speed_buildings_factor = 0.1
+				research_speed_factor = 0.03
+				fascism_drift = 0.05
+				stability_factor = -0.03
+			}
+		}
+		bfx_diversified_trade = {
+			picture = BEL_engine_of_the_economy
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				research_speed_factor = 0.03
+				stability_factor = 0.05
+			}
+		}
+		bfx_open_markets = {
+			picture = BEL_engine_of_the_economy
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				research_speed_factor = 0.04
+				stability_factor = 0.05
+				production_speed_buildings_factor = 0.05
+				trade_opinion_factor = 0.2
+			}
+		}
+		bfx_partyless_regime = {
+			picture = bul_tsar_boris_negative
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				political_power_gain = 0.1
+				democratic_drift = -0.02
+				communism_drift = -0.02
+				stability_factor = -0.03
+			}
+		}
+		bfx_tsars_personal_regime = {
+			picture = bul_tsar_boris_positive
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				political_power_gain = 0.15
+				stability_factor = 0.05
+				drift_defence_factor = 0.15
+			}
+		}
+		bfx_tsar_unifier = {
+			picture = bfx_tsar_unifier
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				political_power_gain = 0.15
+				war_support_factor = 0.1
+				justify_war_goal_time = -0.25
+				stability_factor = 0.05
+			}
+		}
+		bfx_san_stefano_irredentism = {
+			picture = bul_bulgarian_irredentism
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				war_support_factor = 0.1
+				justify_war_goal_time = -0.15
+			}
+		}
+		bfx_balkan_switzerland = {
+			picture = bfx_balkan_switzerland
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				army_core_defence_factor = 0.1
+				enemy_justify_war_goal_time = 0.5
+				stability_factor = 0.1
+				political_power_gain = 0.1
+				drift_defence_factor = 0.2
+			}
+		}
+		bfx_straits_doorman = {
+			picture = bul_supremacy_on_the_bosphorus
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				naval_coordination = 0.1
+				opinion_gain_monthly_factor = 0.15
+			}
+		}
+		bfx_red_underground = {
+			picture = bfx_red_underground
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				communism_drift = 0.03
+				stability_factor = -0.05
+			}
+		}
+		bfx_fatherland_front_council = {
+			picture = bul_fatherland_front_positive
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				communism_drift = 0.05
+				war_support_factor = 0.05
+				political_power_gain = 0.1
+			}
+		}
+		bfx_peoples_republic = {
+			picture = bfx_peoples_republic
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+				political_power_gain = 0.15
+				production_factory_efficiency_gain_factor = 0.05
+				consumer_goods_factor = -0.03
+			}
+		}
+		bfx_tkzs = {
+			picture = generic_agrarian_reform
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				conscription_factor = 0.1
+				production_speed_buildings_factor = 0.1
+				stability_factor = -0.03
+			}
+		}
+		bfx_balkan_federation_spirit = {
+			picture = bfx_balkan_federation
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				justify_war_goal_time = -0.25
+				war_support_factor = 0.1
+				political_power_gain = 0.1
+			}
+		}
+		bfx_agrarian_union = {
+			picture = generic_agrarian_society
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+				democratic_drift = 0.03
+			}
+		}
+		bfx_orange_guard = {
+			picture = generic_agrarian_society
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+				democratic_drift = 0.03
+				conscription_factor = 0.1
+			}
+		}
+		bfx_green_international = {
+			picture = bfx_green_international
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.1
+				opinion_gain_monthly_factor = 0.2
+				trade_opinion_factor = 0.2
+				political_power_gain = 0.1
+				conscription_factor = 0.1
+			}
+		}
+		bfx_agrarian_democracy = {
+			picture = generic_agrarian_society
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.08
+				political_power_gain = 0.1
+				consumer_goods_factor = -0.02
+			}
+		}
+		bfx_peasant_cooperatives = {
+			picture = generic_agrarian_reform
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				consumer_goods_factor = -0.03
+				monthly_population = 0.1
+				stability_factor = 0.03
+			}
+		}
+		bfx_zveno_technocracy = {
+			picture = bfx_zveno_technocracy
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				research_speed_factor = 0.05
+				production_speed_buildings_factor = 0.1
+				stability_factor = -0.1
+			}
+		}
+		bfx_zveno_modernisation_drive = {
+			picture = bfx_zveno_technocracy
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				research_speed_factor = 0.07
+				production_speed_buildings_factor = 0.15
+				industrial_capacity_factory = 0.05
+				stability_factor = -0.08
+				war_support_factor = 0.05
+			}
+		}
+		bfx_prussia_of_the_balkans = {
+			picture = bul_prussia_of_the_balkans
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				army_org_factor = 0.05
+				army_morale_factor = 0.05
+				justify_war_goal_time = -0.2
+				experience_gain_army_factor = 0.1
+			}
+		}
+		bfx_ferdinand_restoration = {
+			picture = bfx_ferdinand_restoration
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				political_power_gain = 0.2
+				war_support_factor = 0.15
+				stability_factor = -0.1
+			}
+		}
+		bfx_third_empire_zeal = {
+			picture = bul_third_bulgarian_state
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				political_power_gain = 0.2
+				war_support_factor = 0.2
+				justify_war_goal_time = -0.3
+				army_morale_factor = 0.05
+				stability_factor = -0.05
+			}
+		}
+		bfx_byzantine_pretension = {
+			picture = bfx_byzantine_pretension
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				war_support_factor = 0.1
+				justify_war_goal_time = -0.25
+				annex_cost_factor = -0.2
+				stability_factor = 0.05
+			}
+		}
+		bfx_royal_natural_history_institute = {
+			picture = bfx_natural_history
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				research_speed_factor = 0.04
+			}
+		}
+		bfx_pernik_coal_works = {
+			picture = bfx_pernik_coal
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.05
+				local_resources_factor = 0.05
+			}
+		}
+		bfx_pernik_coal_works_2 = {
+			picture = bfx_pernik_coal
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.1
+				local_resources_factor = 0.1
+			}
+		}
+		bfx_railway_age = {
+			picture = bul_national_industry
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				production_speed_infrastructure_factor = 0.25
+			}
+		}
+		bfx_railway_age_2 = {
+			picture = bul_national_industry
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				production_speed_infrastructure_factor = 0.25
+				supply_consumption_factor = -0.05
+			}
+		}
+		bfx_iskar_hydro = {
+			picture = bfx_iskar_hydro
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				production_factory_efficiency_gain_factor = 0.1
+			}
+		}
+		bfx_trudovaks = {
+			picture = bfx_trudovaks
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				production_speed_buildings_factor = 0.1
+				conscription_factor = 0.05
+			}
+		}
+		bfx_open_conscription = {
+			picture = bfx_salonika_freedom
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				conscription_factor = 0.1
+				training_time_army_factor = -0.05
+			}
+		}
+		bfx_mountain_army = {
+			picture = bfx_mountain_army
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				special_forces_cap = 0.15
+				army_defence_factor = 0.03
+			}
+		}
+		bfx_balkan_mountain_doctrine = {
+			picture = bfx_mountain_army
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				special_forces_cap = 0.25
+				army_defence_factor = 0.05
+				army_attack_factor = 0.03
+				terrain_penalty_reduction = 0.1
+			}
+		}
+		bfx_black_sea_flotilla = {
+			picture = bfx_black_sea_fleet
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				experience_gain_navy_factor = 0.15
+				navy_org_factor = 0.05
+			}
+		}
+		bfx_black_sea_fleet = {
+			picture = bfx_black_sea_fleet
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				experience_gain_navy_factor = 0.15
+				navy_org_factor = 0.1
+				production_speed_dockyard_factor = 0.1
+				naval_coordination = 0.05
+			}
+		}
+		bfx_black_sea_raiders = {
+			picture = bfx_black_sea_fleet
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				convoy_raiding_efficiency_factor = 0.15
+				naval_strike_attack_factor = 0.1
+			}
+		}
+		bfx_clandestine_aviation = {
+			picture = bul_dar
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				experience_gain_air_factor = 0.1
+				air_training_xp_gain_factor = 0.1
+			}
+		}
+		bfx_vazdushni_voyski = {
+			picture = bul_dar
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				experience_gain_air_factor = 0.1
+				air_superiority_efficiency = 0.05
+				production_speed_air_base_factor = 0.25
+				air_accidents_factor = -0.2
+			}
+		}
+		bfx_foreign_air_instructors = {
+			picture = FIN_finnish_airforce
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				air_training_xp_gain_factor = 0.15
+				air_ace_generation_chance_factor = 0.2
+			}
+		}
+		bfx_sofia_air_defence = {
+			picture = FIN_finnish_airforce
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				air_superiority_efficiency = 0.05
+			}
+		}
+		bfx_wings_over_the_mountains = {
+			picture = FIN_finnish_airforce
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				air_mission_efficiency = 0.05
+				air_training_xp_gain_factor = 0.1
+			}
+		}
+	}
+}

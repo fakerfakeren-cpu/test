@@ -1,0 +1,12 @@
+# State IDs referenced by the mod, with the evidence that they exist in HOI4 1.19.
+# (The full vanilla history/states folder was not available; each ID below was confirmed individually.)
+48	Sofia (BUL core)	vanilla history/states mirror (2019) + Kaiserreich 2026 map
+211	Burgas (BUL core)	vanilla mirror (2019) + Kaiserreich 2026 map
+212	Plovdiv (BUL core)	vanilla mirror (2019) + Kaiserreich 2026 map
+77	Dobrudja / Southern Dobruja	HOI4 wiki Bulgarian events (Treaty of Craiova) + Byzantium formable
+971	Northern Dobruja	HOI4 wiki formable nations (Byzantium, Ottoman decisions)
+106	Macedonia (Vardar)	vanilla mirror (2019) + Kaiserreich 2026 map (same ID/name)
+184	Thrace (Western)	HOI4 wiki Byzantium formable + Greek events + state list
+731	Central Macedonia	HOI4 wiki Byzantium formable + Greek events
+341	Edirne	HOI4 wiki Bulgarian focus tree (Supremacy on the Bosporus) + Byzantium formable
+797	Istanbul	HOI4 wiki Bulgarian focus tree + Byzantium formable

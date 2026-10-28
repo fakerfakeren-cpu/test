@@ -1,0 +1,14 @@
+spriteTypes = {
+	SpriteType = {
+		name = "GFX_event_bfx_ferdinand_returns"
+		texturefile = "gfx/event_pictures/bfx_ferdinand_returns.dds"
+	}
+	SpriteType = {
+		name = "GFX_event_bfx_dimitrov_speech"
+		texturefile = "gfx/event_pictures/bfx_dimitrov_speech.dds"
+	}
+	SpriteType = {
+		name = "GFX_event_bfx_zveno_officers"
+		texturefile = "gfx/event_pictures/bfx_zveno_officers.dds"
+	}
+}

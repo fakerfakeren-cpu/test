@@ -1,0 +1,87 @@
+add_namespace = bfx_agr
+
+country_event = {
+	id = bfx_agr.1
+	title = bfx_agr.1.t
+	desc = bfx_agr.1.d
+	picture = GFX_event_bfx_zveno_officers
+	is_triggered_only = yes
+	option = {
+		name = bfx_agr.1.a
+		trigger = { OR = { democratic > 0.25 has_stability > 0.5 } }
+		add_political_power = 50
+		add_stability = -0.03
+		set_politics = { ruling_party = democratic elections_allowed = yes }
+	}
+	option = {
+		name = bfx_agr.1.b
+		trigger = { NOT = { OR = { democratic > 0.25 has_stability > 0.5 } } }
+		set_politics = { ruling_party = democratic elections_allowed = yes }
+		start_civil_war = { ideology = neutrality size = 0.3 }
+	}
+}
+
+country_event = {
+	id = bfx_agr.2
+	title = bfx_agr.2.t
+	desc = bfx_agr.2.d
+	picture = GFX_report_event_bul_making_bricks_for_school
+	is_triggered_only = yes
+	option = {
+		name = bfx_agr.2.a
+		add_stability = -0.05
+		add_popularity = { ideology = democratic popularity = 0.10 }
+	}
+	option = {
+		name = bfx_agr.2.b
+		add_stability = 0.05
+	}
+}
+
+country_event = {
+	id = bfx_agr.10
+	title = bfx_agr.10.t
+	desc = bfx_agr.10.d
+	picture = GFX_report_event_baltic_entente_one
+	is_triggered_only = yes
+	option = {
+		name = bfx_agr.10.a
+		ai_chance = {
+			base = 35
+			modifier = { factor = 2 has_opinion = { target = FROM value > 39 } }
+		}
+		FROM = { add_to_faction = ROOT }
+	}
+	option = {
+		name = bfx_agr.10.b
+		ai_chance = {
+			base = 50
+		}
+		add_stability = 0.01
+	}
+}
+
+country_event = {
+	id = bfx_agr.20
+	title = bfx_agr.20.t
+	desc = bfx_agr.20.d
+	picture = GFX_report_event_baltic_entente
+	is_triggered_only = yes
+	option = {
+		name = bfx_agr.20.a
+		ai_chance = {
+			base = 15
+			modifier = { factor = 3 has_opinion = { target = FROM value > 59 } }
+			modifier = { factor = 2 is_subject_of = FROM }
+		}
+		every_core_state = { add_core_of = FROM }
+		FROM = { annex_country = { target = ROOT transfer_troops = yes } }
+	}
+	option = {
+		name = bfx_agr.20.b
+		ai_chance = {
+			base = 60
+		}
+		add_war_support = 0.02
+	}
+}

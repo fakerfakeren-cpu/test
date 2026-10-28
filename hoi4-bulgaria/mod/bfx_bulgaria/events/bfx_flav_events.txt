@@ -1,0 +1,103 @@
+add_namespace = bfx_flav
+
+country_event = {
+	id = bfx_flav.1
+	title = bfx_flav.1.t
+	desc = bfx_flav.1.d
+	picture = GFX_report_event_bul_making_bricks_for_school
+	is_triggered_only = yes
+	trigger = { NOT = { has_country_flag = bfx_flav_1_done } }
+	immediate = {
+		set_country_flag = bfx_flav_1_done
+	}
+	option = {
+		name = bfx_flav.1.a
+		add_political_power = 40
+	}
+	option = {
+		name = bfx_flav.1.b
+		add_stability = 0.03
+	}
+}
+
+country_event = {
+	id = bfx_flav.2
+	title = bfx_flav.2.t
+	desc = bfx_flav.2.d
+	picture = GFX_report_event_bul_partisans_plovdiv
+	is_triggered_only = yes
+	trigger = { NOT = { has_country_flag = bfx_flav_2_done } }
+	immediate = {
+		set_country_flag = bfx_flav_2_done
+	}
+	option = {
+		name = bfx_flav.2.a
+		add_stability = 0.02
+		add_political_power = -25
+	}
+	option = {
+		name = bfx_flav.2.b
+		add_stability = -0.03
+		add_popularity = { ideology = communism popularity = -0.02 }
+	}
+}
+
+country_event = {
+	id = bfx_flav.3
+	title = bfx_flav.3.t
+	desc = bfx_flav.3.d
+	picture = GFX_report_event_bul_boris_tour
+	is_triggered_only = yes
+	trigger = { NOT = { has_country_flag = bfx_flav_3_done } }
+	immediate = {
+		set_country_flag = bfx_flav_3_done
+	}
+	option = {
+		name = bfx_flav.3.a
+		add_stability = 0.02
+	}
+	option = {
+		name = bfx_flav.3.b
+		add_political_power = 15
+	}
+}
+
+country_event = {
+	id = bfx_flav.4
+	title = bfx_flav.4.t
+	desc = bfx_flav.4.d
+	picture = GFX_report_event_bul_officers_burgas
+	is_triggered_only = yes
+	trigger = { NOT = { has_country_flag = bfx_flav_4_done } }
+	immediate = {
+		set_country_flag = bfx_flav_4_done
+	}
+	option = {
+		name = bfx_flav.4.a
+		add_war_support = 0.02
+	}
+	option = {
+		name = bfx_flav.4.b
+		add_popularity = { ideology = communism popularity = -0.03 }
+	}
+}
+
+country_event = {
+	id = bfx_flav.5
+	title = bfx_flav.5.t
+	desc = bfx_flav.5.d
+	picture = GFX_report_event_bul_prince_simeon
+	is_triggered_only = yes
+	trigger = { NOT = { has_country_flag = bfx_flav_5_done } }
+	immediate = {
+		set_country_flag = bfx_flav_5_done
+	}
+	option = {
+		name = bfx_flav.5.a
+		add_stability = 0.03
+	}
+	option = {
+		name = bfx_flav.5.b
+		add_political_power = 20
+	}
+}

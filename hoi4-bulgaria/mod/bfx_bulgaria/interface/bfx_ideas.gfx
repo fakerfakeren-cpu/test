@@ -1,0 +1,86 @@
+spriteTypes = {
+	SpriteType = {
+		name = "GFX_idea_bfx_neuilly_shackles"
+		texturefile = "gfx/interface/ideas/bfx_neuilly_shackles.dds"
+	}
+	SpriteType = {
+		name = "GFX_idea_bfx_covert_rearmament"
+		texturefile = "gfx/interface/ideas/bfx_covert_rearmament.dds"
+	}
+	SpriteType = {
+		name = "GFX_idea_bfx_balkan_embargo"
+		texturefile = "gfx/interface/ideas/bfx_balkan_embargo.dds"
+	}
+	SpriteType = {
+		name = "GFX_idea_bfx_border_crisis"
+		texturefile = "gfx/interface/ideas/bfx_border_crisis.dds"
+	}
+	SpriteType = {
+		name = "GFX_idea_bfx_salonika_freedom"
+		texturefile = "gfx/interface/ideas/bfx_salonika_freedom.dds"
+	}
+	SpriteType = {
+		name = "GFX_idea_bfx_tobacco_and_rose"
+		texturefile = "gfx/interface/ideas/bfx_tobacco_and_rose.dds"
+	}
+	SpriteType = {
+		name = "GFX_idea_bfx_tsar_unifier"
+		texturefile = "gfx/interface/ideas/bfx_tsar_unifier.dds"
+	}
+	SpriteType = {
+		name = "GFX_idea_bfx_balkan_switzerland"
+		texturefile = "gfx/interface/ideas/bfx_balkan_switzerland.dds"
+	}
+	SpriteType = {
+		name = "GFX_idea_bfx_red_underground"
+		texturefile = "gfx/interface/ideas/bfx_red_underground.dds"
+	}
+	SpriteType = {
+		name = "GFX_idea_bfx_peoples_republic"
+		texturefile = "gfx/interface/ideas/bfx_peoples_republic.dds"
+	}
+	SpriteType = {
+		name = "GFX_idea_bfx_balkan_federation"
+		texturefile = "gfx/interface/ideas/bfx_balkan_federation.dds"
+	}
+	SpriteType = {
+		name = "GFX_idea_bfx_green_international"
+		texturefile = "gfx/interface/ideas/bfx_green_international.dds"
+	}
+	SpriteType = {
+		name = "GFX_idea_bfx_zveno_technocracy"
+		texturefile = "gfx/interface/ideas/bfx_zveno_technocracy.dds"
+	}
+	SpriteType = {
+		name = "GFX_idea_bfx_ferdinand_restoration"
+		texturefile = "gfx/interface/ideas/bfx_ferdinand_restoration.dds"
+	}
+	SpriteType = {
+		name = "GFX_idea_bfx_byzantine_pretension"
+		texturefile = "gfx/interface/ideas/bfx_byzantine_pretension.dds"
+	}
+	SpriteType = {
+		name = "GFX_idea_bfx_natural_history"
+		texturefile = "gfx/interface/ideas/bfx_natural_history.dds"
+	}
+	SpriteType = {
+		name = "GFX_idea_bfx_pernik_coal"
+		texturefile = "gfx/interface/ideas/bfx_pernik_coal.dds"
+	}
+	SpriteType = {
+		name = "GFX_idea_bfx_iskar_hydro"
+		texturefile = "gfx/interface/ideas/bfx_iskar_hydro.dds"
+	}
+	SpriteType = {
+		name = "GFX_idea_bfx_trudovaks"
+		texturefile = "gfx/interface/ideas/bfx_trudovaks.dds"
+	}
+	SpriteType = {
+		name = "GFX_idea_bfx_mountain_army"
+		texturefile = "gfx/interface/ideas/bfx_mountain_army.dds"
+	}
+	SpriteType = {
+		name = "GFX_idea_bfx_black_sea_fleet"
+		texturefile = "gfx/interface/ideas/bfx_black_sea_fleet.dds"
+	}
+}

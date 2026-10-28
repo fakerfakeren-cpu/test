@@ -1,0 +1,176 @@
+add_namespace = bfx_neuilly
+
+country_event = {
+	id = bfx_neuilly.10
+	title = bfx_neuilly.10.t
+	desc = bfx_neuilly.10.d
+	picture = GFX_report_event_bul_muraviev_protest
+	is_triggered_only = yes
+	option = {
+		name = bfx_neuilly.10.a
+		ai_chance = {
+			base = 50
+		}
+		add_political_power = -25
+		if = {
+			limit = { NOT = { has_country_flag = bfx_neuilly_ended } }
+			custom_effect_tooltip = bfx_tt_neuilly_r0_sm5
+			hidden_effect = {
+				add_to_variable = { bfx_suspicion = -5 }
+				bfx_neuilly_recalc = yes
+			}
+		}
+	}
+	option = {
+		name = bfx_neuilly.10.b
+		ai_chance = {
+			base = 50
+		}
+		add_war_support = 0.03
+		every_country = { limit = { OR = { tag = GRE tag = YUG tag = TUR tag = ROM } } add_opinion_modifier = { target = ROOT modifier = bfx_om_balkan_protest } }
+	}
+}
+
+country_event = {
+	id = bfx_neuilly.11
+	title = bfx_neuilly.11.t
+	desc = bfx_neuilly.11.d
+	picture = GFX_report_event_baltic_entente
+	is_triggered_only = yes
+	option = {
+		name = bfx_neuilly.11.a
+		ai_chance = {
+			base = 50
+		}
+		custom_effect_tooltip = bfx_tt_entente_guarantees
+		hidden_effect = {
+			every_country = {
+				limit = { OR = { tag = GRE tag = YUG tag = TUR tag = ROM } NOT = { is_in_faction_with = ROOT } }
+				save_event_target_as = bfx_guarantor
+				every_country = {
+					limit = { OR = { tag = GRE tag = YUG tag = TUR tag = ROM } NOT = { tag = PREV } NOT = { is_in_faction_with = ROOT } }
+					event_target:bfx_guarantor = { give_guarantee = PREV }
+				}
+			}
+		}
+		add_war_support = 0.05
+	}
+	option = {
+		name = bfx_neuilly.11.b
+		ai_chance = {
+			base = 50
+		}
+		custom_effect_tooltip = bfx_tt_entente_guarantees
+		hidden_effect = {
+			every_country = {
+				limit = { OR = { tag = GRE tag = YUG tag = TUR tag = ROM } NOT = { is_in_faction_with = ROOT } }
+				save_event_target_as = bfx_guarantor
+				every_country = {
+					limit = { OR = { tag = GRE tag = YUG tag = TUR tag = ROM } NOT = { tag = PREV } NOT = { is_in_faction_with = ROOT } }
+					event_target:bfx_guarantor = { give_guarantee = PREV }
+				}
+			}
+		}
+		add_political_power = -50
+		if = {
+			limit = { NOT = { has_country_flag = bfx_neuilly_ended } }
+			custom_effect_tooltip = bfx_tt_neuilly_r0_sm10
+			hidden_effect = {
+				add_to_variable = { bfx_suspicion = -10 }
+				bfx_neuilly_recalc = yes
+			}
+		}
+	}
+}
+
+country_event = {
+	id = bfx_neuilly.12
+	title = bfx_neuilly.12.t
+	desc = bfx_neuilly.12.d
+	picture = GFX_report_event_bul_italian_equipment
+	is_triggered_only = yes
+	option = {
+		name = bfx_neuilly.12.a
+		ai_chance = {
+			base = 40
+		}
+		add_timed_idea = { idea = bfx_balkan_embargo days = 365 }
+	}
+	option = {
+		name = bfx_neuilly.12.b
+		ai_chance = {
+			base = 60
+		}
+		add_political_power = -75
+		add_timed_idea = { idea = bfx_balkan_embargo days = 180 }
+	}
+}
+
+country_event = {
+	id = bfx_neuilly.13
+	title = bfx_neuilly.13.t
+	desc = bfx_neuilly.13.d
+	picture = GFX_report_event_bul_troops_macedonia
+	is_triggered_only = yes
+	option = {
+		name = bfx_neuilly.13.a
+		ai_chance = {
+			base = 40
+		}
+		add_stability = -0.05
+		if = {
+			limit = { NOT = { has_country_flag = bfx_neuilly_ended } }
+			custom_effect_tooltip = bfx_tt_neuilly_rm20_sm40
+			hidden_effect = {
+				add_to_variable = { bfx_rearm = -20 } add_to_variable = { bfx_suspicion = -40 }
+				bfx_neuilly_recalc = yes
+			}
+		}
+	}
+	option = {
+		name = bfx_neuilly.13.b
+		ai_chance = {
+			base = 60
+		}
+		add_timed_idea = { idea = bfx_border_crisis days = 180 }
+		army_experience = 15
+		add_named_threat = { threat = 2 name = bfx_threat_petrich }
+	}
+}
+
+country_event = {
+	id = bfx_neuilly.20
+	title = bfx_neuilly.20.t
+	desc = bfx_neuilly.20.d
+	picture = GFX_report_event_baltic_entente_one
+	is_triggered_only = yes
+	option = {
+		name = bfx_neuilly.20.a
+		ai_chance = {
+			base = 100
+		}
+		add_stability = 0.01
+	}
+}
+
+country_event = {
+	id = bfx_neuilly.21
+	title = bfx_neuilly.21.t
+	desc = bfx_neuilly.21.d
+	picture = GFX_report_event_bul_military_parade_vidin
+	is_triggered_only = yes
+	option = {
+		name = bfx_neuilly.21.a
+		ai_chance = {
+			base = 70
+		}
+		add_war_support = 0.03
+	}
+	option = {
+		name = bfx_neuilly.21.b
+		ai_chance = {
+			base = 30
+		}
+		add_political_power = 15
+	}
+}

@@ -1,0 +1,75 @@
+leader_traits = {
+	bfx_trait_engine_driver_tsar = {
+		random = no
+		stability_factor = 0.05
+		opinion_gain_monthly_factor = 0.15
+		ai_will_do = { factor = 1 }
+	}
+	bfx_trait_old_fox = {
+		random = no
+		political_power_gain = 0.15
+		war_support_factor = 0.05
+		stability_factor = -0.05
+		ai_will_do = { factor = 1 }
+	}
+	bfx_trait_leipzig_defendant = {
+		random = no
+		political_power_gain = 0.1
+		war_support_factor = 0.05
+		ai_will_do = { factor = 1 }
+	}
+	bfx_trait_comintern_federalist = {
+		random = no
+		justify_war_goal_time = -0.1
+		opinion_gain_monthly_factor = 0.1
+		ai_will_do = { factor = 1 }
+	}
+	bfx_trait_pladne_agrarian = {
+		random = no
+		stability_factor = 0.08
+		democratic_drift = 0.03
+		ai_will_do = { factor = 1 }
+	}
+	bfx_trait_zveno_technocrat = {
+		random = no
+		research_speed_factor = 0.03
+		production_speed_buildings_factor = 0.05
+		ai_will_do = { factor = 1 }
+	}
+	bfx_adv_archaeologist_premier = {
+		random = no
+		political_power_gain = 0.1
+		fascism_drift = 0.03
+		ai_will_do = { factor = 1 }
+	}
+	bfx_adv_salonika_negotiator = {
+		random = no
+		opinion_gain_monthly_factor = 0.2
+		improve_relations_maintain_cost_factor = -0.2
+		ai_will_do = { factor = 1 }
+	}
+	bfx_adv_old_democrat = {
+		random = no
+		democratic_drift = 0.05
+		stability_factor = 0.03
+		ai_will_do = { factor = 1 }
+	}
+	bfx_adv_people_commissar = {
+		random = no
+		communism_drift = 0.05
+		drift_defence_factor = 0.15
+		ai_will_do = { factor = 1 }
+	}
+	bfx_adv_agrarian_minister = {
+		random = no
+		consumer_goods_factor = -0.02
+		stability_factor = 0.03
+		ai_will_do = { factor = 1 }
+	}
+	bfx_adv_imro_supremo = {
+		random = no
+		war_support_factor = 0.05
+		justify_war_goal_time = -0.15
+		ai_will_do = { factor = 1 }
+	}
+}

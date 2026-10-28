@@ -1,0 +1,170 @@
+add_namespace = bfx
+
+country_event = {
+	id = bfx.1
+	title = bfx.1.t
+	desc = bfx.1.d
+	picture = GFX_report_event_bul_boris_tour
+	is_triggered_only = yes
+	option = {
+		name = bfx.1.a
+		ai_chance = {
+			base = 50
+		}
+		add_political_power = 75
+		add_stability = -0.02
+	}
+	option = {
+		name = bfx.1.b
+		ai_chance = {
+			base = 30
+		}
+		add_stability = 0.05
+		add_popularity = { ideology = democratic popularity = 0.03 }
+	}
+	option = {
+		name = bfx.1.c
+		ai_chance = {
+			base = 20
+		}
+		army_experience = 10
+		add_war_support = 0.03
+	}
+}
+
+country_event = {
+	id = bfx.2
+	title = bfx.2.t
+	desc = bfx.2.d
+	picture = GFX_report_event_bul_officers_burgas
+	is_triggered_only = yes
+	option = {
+		name = bfx.2.a
+		ai_chance = {
+			base = 70
+		}
+		add_stability = 0.03
+		add_popularity = { ideology = democratic popularity = 0.02 }
+	}
+	option = {
+		name = bfx.2.b
+		ai_chance = {
+			base = 30
+		}
+		add_political_power = 50
+		add_stability = -0.03
+		add_war_support = 0.02
+	}
+}
+
+country_event = {
+	id = bfx.3
+	title = bfx.3.t
+	desc = bfx.3.d
+	picture = GFX_report_event_bul_making_bricks_for_school
+	is_triggered_only = yes
+	option = {
+		name = bfx.3.a
+		ai_chance = {
+			base = 30
+		}
+		add_popularity = { ideology = democratic popularity = 0.10 }
+		add_stability = 0.05
+	}
+	option = {
+		name = bfx.3.b
+		ai_chance = {
+			base = 50
+		}
+		add_political_power = 100
+		add_stability = -0.05
+	}
+	option = {
+		name = bfx.3.c
+		ai_chance = {
+			base = 20
+		}
+		add_popularity = { ideology = communism popularity = -0.05 }
+		add_political_power = 25
+	}
+}
+
+country_event = {
+	id = bfx.4
+	title = bfx.4.t
+	desc = bfx.4.d
+	picture = GFX_report_event_bul_partisans_plovdiv
+	is_triggered_only = yes
+	option = {
+		name = bfx.4.a
+		ai_chance = {
+			base = 20
+			modifier = { factor = 4 has_country_flag = bfx_ai_agr }
+		}
+		add_popularity = { ideology = democratic popularity = 0.08 }
+	}
+	option = {
+		name = bfx.4.b
+		ai_chance = {
+			base = 5
+			modifier = { factor = 10 has_country_flag = bfx_ai_com }
+		}
+		add_popularity = { ideology = communism popularity = 0.08 }
+	}
+	option = {
+		name = bfx.4.c
+		ai_chance = {
+			base = 15
+			modifier = { factor = 3 has_country_flag = bfx_ai_tsar_axis }
+		}
+		add_popularity = { ideology = fascism popularity = 0.08 }
+	}
+	option = {
+		name = bfx.4.e
+		ai_chance = {
+			base = 20
+		}
+		add_stability = 0.03
+	}
+}
+
+country_event = {
+	id = bfx.10
+	title = bfx.10.t
+	desc = bfx.10.d
+	picture = GFX_report_event_bul_italian_equipment
+	is_triggered_only = yes
+	option = {
+		name = bfx.10.a
+		trigger = { has_idea = bfx_german_clearing }
+		ai_chance = {
+			base = 30
+		}
+		swap_ideas = { remove_idea = bfx_german_clearing add_idea = bfx_diversified_trade }
+		add_stability = -0.05
+	}
+	option = {
+		name = bfx.10.b
+		trigger = { has_idea = bfx_german_clearing }
+		ai_chance = {
+			base = 70
+		}
+		swap_ideas = { remove_idea = bfx_german_clearing add_idea = bfx_german_clearing_deep }
+	}
+	option = {
+		name = bfx.10.c
+		trigger = { has_idea = bfx_diversified_trade }
+		ai_chance = {
+			base = 100
+		}
+		swap_ideas = { remove_idea = bfx_diversified_trade add_idea = bfx_open_markets }
+	}
+	option = {
+		name = bfx.10.e
+		trigger = { NOT = { has_idea = bfx_german_clearing } NOT = { has_idea = bfx_diversified_trade } }
+		ai_chance = {
+			base = 100
+		}
+		add_political_power = 50
+	}
+}

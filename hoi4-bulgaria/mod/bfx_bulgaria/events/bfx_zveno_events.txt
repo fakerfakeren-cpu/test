@@ -1,0 +1,18 @@
+add_namespace = bfx_zveno
+
+country_event = {
+	id = bfx_zveno.1
+	title = bfx_zveno.1.t
+	desc = bfx_zveno.1.d
+	picture = GFX_event_bfx_zveno_officers
+	is_triggered_only = yes
+	option = {
+		name = bfx_zveno.1.a
+		army_experience = 30
+		add_stability = -0.03
+	}
+	option = {
+		name = bfx_zveno.1.b
+		add_political_power = 40
+	}
+}

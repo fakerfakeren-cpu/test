@@ -1,0 +1,242 @@
+characters = {
+	bfx_BUL_boris_iii = {
+		name = bfx_BUL_boris_iii
+		portraits = {
+			civilian = {
+				large = "gfx/leaders/BUL/bfx_boris_iii.dds"
+				small = "gfx/interface/ideas/bfx_boris_iii_small.dds"
+			}
+		}
+		country_leader = {
+			ideology = despotism
+			traits = { bfx_trait_engine_driver_tsar }
+			expire = "1965.1.1.1"
+			id = -1
+		}
+	}
+	bfx_BUL_ferdinand_i = {
+		name = bfx_BUL_ferdinand_i
+		portraits = {
+			civilian = {
+				large = "gfx/leaders/BUL/bfx_ferdinand_i.dds"
+				small = "gfx/interface/ideas/bfx_ferdinand_i_small.dds"
+			}
+		}
+		country_leader = {
+			ideology = despotism
+			traits = { bfx_trait_old_fox }
+			expire = "1965.1.1.1"
+			id = -1
+		}
+	}
+	bfx_BUL_georgi_dimitrov = {
+		name = bfx_BUL_georgi_dimitrov
+		portraits = {
+			civilian = {
+				large = "gfx/leaders/BUL/bfx_georgi_dimitrov.dds"
+				small = "gfx/interface/ideas/bfx_georgi_dimitrov_small.dds"
+			}
+		}
+		country_leader = {
+			ideology = stalinism
+			traits = { bfx_trait_leipzig_defendant }
+			expire = "1965.1.1.1"
+			id = -1
+		}
+	}
+	bfx_BUL_vasil_kolarov = {
+		name = bfx_BUL_vasil_kolarov
+		portraits = {
+			civilian = {
+				large = "gfx/leaders/BUL/bfx_vasil_kolarov.dds"
+				small = "gfx/interface/ideas/bfx_vasil_kolarov_small.dds"
+			}
+		}
+		country_leader = {
+			ideology = leninism
+			traits = { bfx_trait_comintern_federalist }
+			expire = "1965.1.1.1"
+			id = -1
+		}
+	}
+	bfx_BUL_nikola_petkov = {
+		name = bfx_BUL_nikola_petkov
+		portraits = {
+			civilian = {
+				large = "gfx/leaders/BUL/bfx_nikola_petkov.dds"
+				small = "gfx/interface/ideas/bfx_nikola_petkov_small.dds"
+			}
+		}
+		country_leader = {
+			ideology = socialism
+			traits = { bfx_trait_pladne_agrarian }
+			expire = "1965.1.1.1"
+			id = -1
+		}
+	}
+	bfx_BUL_kimon_georgiev = {
+		name = bfx_BUL_kimon_georgiev
+		portraits = {
+			civilian = {
+				large = "gfx/leaders/BUL/bfx_kimon_georgiev.dds"
+				small = "gfx/interface/ideas/bfx_kimon_georgiev_small.dds"
+			}
+		}
+		country_leader = {
+			ideology = oligarchism
+			traits = { bfx_trait_zveno_technocrat }
+			expire = "1965.1.1.1"
+			id = -1
+		}
+	}
+	bfx_BUL_bogdan_filov = {
+		name = bfx_BUL_bogdan_filov
+		portraits = {
+			civilian = {
+				large = "gfx/leaders/BUL/bfx_bogdan_filov.dds"
+				small = "gfx/interface/ideas/bfx_bogdan_filov_small.dds"
+			}
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = bfx_BUL_bogdan_filov_advisor
+			allowed = { original_tag = BUL }
+			traits = { bfx_adv_archaeologist_premier }
+			cost = 150
+			ai_will_do = { factor = 1 }
+		}
+	}
+	bfx_BUL_georgi_kyoseivanov = {
+		name = bfx_BUL_georgi_kyoseivanov
+		portraits = {
+			civilian = {
+				large = "gfx/leaders/BUL/bfx_georgi_kyoseivanov.dds"
+				small = "gfx/interface/ideas/bfx_georgi_kyoseivanov_small.dds"
+			}
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = bfx_BUL_georgi_kyoseivanov_advisor
+			allowed = { original_tag = BUL }
+			traits = { bfx_adv_salonika_negotiator }
+			cost = 150
+			ai_will_do = { factor = 1 }
+		}
+	}
+	bfx_BUL_nikola_mushanov = {
+		name = bfx_BUL_nikola_mushanov
+		portraits = {
+			civilian = {
+				large = "gfx/leaders/BUL/bfx_nikola_mushanov.dds"
+				small = "gfx/interface/ideas/bfx_nikola_mushanov_small.dds"
+			}
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = bfx_BUL_nikola_mushanov_advisor
+			allowed = { original_tag = BUL }
+			traits = { bfx_adv_old_democrat }
+			cost = 150
+			ai_will_do = { factor = 1 }
+		}
+	}
+	bfx_BUL_anton_yugov = {
+		name = bfx_BUL_anton_yugov
+		portraits = {
+			civilian = {
+				large = "gfx/leaders/BUL/bfx_anton_yugov.dds"
+				small = "gfx/interface/ideas/bfx_anton_yugov_small.dds"
+			}
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = bfx_BUL_anton_yugov_advisor
+			allowed = { original_tag = BUL }
+			traits = { bfx_adv_people_commissar }
+			cost = 150
+			ai_will_do = { factor = 1 }
+		}
+	}
+	bfx_BUL_konstantin_muraviev = {
+		name = bfx_BUL_konstantin_muraviev
+		portraits = {
+			civilian = {
+				large = "gfx/leaders/BUL/bfx_konstantin_muraviev.dds"
+				small = "gfx/interface/ideas/bfx_konstantin_muraviev_small.dds"
+			}
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = bfx_BUL_konstantin_muraviev_advisor
+			allowed = { original_tag = BUL }
+			traits = { bfx_adv_agrarian_minister }
+			cost = 150
+			ai_will_do = { factor = 1 }
+		}
+	}
+	bfx_BUL_ivan_mihaylov = {
+		name = bfx_BUL_ivan_mihaylov
+		portraits = {
+			civilian = {
+				large = "gfx/leaders/BUL/bfx_ivan_mihaylov.dds"
+				small = "gfx/interface/ideas/bfx_ivan_mihaylov_small.dds"
+			}
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = bfx_BUL_ivan_mihaylov_advisor
+			allowed = { original_tag = BUL }
+			traits = { bfx_adv_imro_supremo }
+			cost = 150
+			ai_will_do = { factor = 1 }
+		}
+	}
+	bfx_BUL_nikola_zhekov = {
+		name = bfx_BUL_nikola_zhekov
+		portraits = {
+			army = {
+				large = "gfx/leaders/BUL/bfx_nikola_zhekov.dds"
+				small = "gfx/interface/ideas/bfx_nikola_zhekov_small.dds"
+			}
+		}
+		field_marshal = {
+			skill = 4
+			attack_skill = 3
+			defense_skill = 4
+			planning_skill = 4
+			logistics_skill = 3
+		}
+	}
+	bfx_BUL_hristo_lukov = {
+		name = bfx_BUL_hristo_lukov
+		portraits = {
+			army = {
+				large = "gfx/leaders/BUL/bfx_hristo_lukov.dds"
+				small = "gfx/interface/ideas/bfx_hristo_lukov_small.dds"
+			}
+		}
+		corps_commander = {
+			skill = 3
+			attack_skill = 3
+			defense_skill = 2
+			planning_skill = 3
+			logistics_skill = 2
+		}
+	}
+	bfx_BUL_vladimir_zaimov = {
+		name = bfx_BUL_vladimir_zaimov
+		portraits = {
+			army = {
+				large = "gfx/leaders/BUL/bfx_vladimir_zaimov.dds"
+				small = "gfx/interface/ideas/bfx_vladimir_zaimov_small.dds"
+			}
+		}
+		corps_commander = {
+			skill = 3
+			attack_skill = 2
+			defense_skill = 3
+			planning_skill = 3
+			logistics_skill = 3
+		}
+	}
+}

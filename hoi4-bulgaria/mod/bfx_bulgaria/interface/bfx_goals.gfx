@@ -1,0 +1,106 @@
+spriteTypes = {
+	SpriteType = {
+		name = "GFX_focus_bfx_tsars_dilemma"
+		texturefile = "gfx/interface/goals/bfx_tsars_dilemma.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_neuilly_ledger"
+		texturefile = "gfx/interface/goals/bfx_neuilly_ledger.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_salonika_agreement"
+		texturefile = "gfx/interface/goals/bfx_salonika_agreement.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_tear_up_neuilly"
+		texturefile = "gfx/interface/goals/bfx_tear_up_neuilly.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_tsar_steps_forward"
+		texturefile = "gfx/interface/goals/bfx_tsar_steps_forward.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_tsar_three_seas"
+		texturefile = "gfx/interface/goals/bfx_tsar_three_seas.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_tsar_balkan_switzerland"
+		texturefile = "gfx/interface/goals/bfx_tsar_balkan_switzerland.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_tsar_danubian_confederation"
+		texturefile = "gfx/interface/goals/bfx_tsar_danubian_confederation.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_alt_old_fox_stirs"
+		texturefile = "gfx/interface/goals/bfx_alt_old_fox_stirs.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_alt_tsargrad"
+		texturefile = "gfx/interface/goals/bfx_alt_tsargrad.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_alt_hagia_sophia"
+		texturefile = "gfx/interface/goals/bfx_alt_hagia_sophia.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_alt_asparuhs_homecoming"
+		texturefile = "gfx/interface/goals/bfx_alt_asparuhs_homecoming.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_alt_exarchate_of_ravenna"
+		texturefile = "gfx/interface/goals/bfx_alt_exarchate_of_ravenna.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_com_workers_party"
+		texturefile = "gfx/interface/goals/bfx_com_workers_party.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_com_ninth_of_september"
+		texturefile = "gfx/interface/goals/bfx_com_ninth_of_september.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_com_balkan_federation"
+		texturefile = "gfx/interface/goals/bfx_com_balkan_federation.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_com_red_danubia"
+		texturefile = "gfx/interface/goals/bfx_com_red_danubia.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_com_red_black_sea"
+		texturefile = "gfx/interface/goals/bfx_com_red_black_sea.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_agr_union_stirs"
+		texturefile = "gfx/interface/goals/bfx_agr_union_stirs.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_agr_green_international"
+		texturefile = "gfx/interface/goals/bfx_agr_green_international.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_agr_baltic_to_aegean"
+		texturefile = "gfx/interface/goals/bfx_agr_baltic_to_aegean.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_zveno_takes_the_helm"
+		texturefile = "gfx/interface/goals/bfx_zveno_takes_the_helm.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_zveno_anatolian_gambit"
+		texturefile = "gfx/interface/goals/bfx_zveno_anatolian_gambit.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_eco_rose_and_leaf"
+		texturefile = "gfx/interface/goals/bfx_eco_rose_and_leaf.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_eco_german_clearing"
+		texturefile = "gfx/interface/goals/bfx_eco_german_clearing.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_air_aero_clubs"
+		texturefile = "gfx/interface/goals/bfx_air_aero_clubs.dds"
+	}
+}
