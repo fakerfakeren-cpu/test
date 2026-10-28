@@ -42,6 +42,17 @@ ideas = {
 				stability_factor = 0.03
 			}
 		}
+		bfx_imperial_mandate = {
+			picture = bfx_tsar_unifier
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.1
+				political_power_gain = 0.1
+				compliance_growth = 0.1
+				war_support_factor = 0.05
+			}
+		}
 		bfx_imro_state_within_state = {
 			picture = bul_imro
 			allowed = { always = no }

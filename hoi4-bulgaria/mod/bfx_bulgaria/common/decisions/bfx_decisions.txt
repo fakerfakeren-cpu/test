@@ -521,9 +521,9 @@ bfx_tsargrad_category = {
 		cost = 100
 		days_re_enable = 60
 		visible = { always = yes }
-		available = { check_variable = { bfx_tsargrad_fervour > 49 } any_owned_state = { OR = { is_core_of = UKR is_core_of = CRI } NOT = { is_core_of = ROOT } } }
+		available = { check_variable = { bfx_tsargrad_fervour > 49 } any_owned_state = { OR = { is_core_of = UKR } NOT = { is_core_of = ROOT } } }
 		complete_effect = {
-			every_owned_state = { limit = { OR = { is_core_of = UKR is_core_of = CRI } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
+			every_owned_state = { limit = { OR = { is_core_of = UKR } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
 			add_to_variable = { bfx_tsargrad_fervour = -30 }
 			clamp_variable = { var = bfx_tsargrad_fervour min = 0 max = 100 }
 			custom_effect_tooltip = bfx_tt_fervour_m30
@@ -571,5 +571,190 @@ bfx_tsargrad_category = {
 			custom_effect_tooltip = bfx_tt_fervour_m30
 		}
 		ai_will_do = { factor = 10 }
+	}
+}
+
+bfx_integration_category = {
+	bfx_integrate_region_west_balkans = {
+		icon = generic_form_nation
+		cost = 60
+		days_re_enable = 60
+		visible = { always = yes }
+		available = { any_owned_state = { OR = { is_core_of = YUG is_core_of = SER is_core_of = CRO is_core_of = SLV is_core_of = BOS is_core_of = MNT is_core_of = MAC } NOT = { is_core_of = ROOT } } }
+		complete_effect = {
+			every_owned_state = { limit = { OR = { is_core_of = YUG is_core_of = SER is_core_of = CRO is_core_of = SLV is_core_of = BOS is_core_of = MNT is_core_of = MAC } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
+			add_stability = -0.02
+		}
+		ai_will_do = { factor = 10 }
+	}
+	bfx_integrate_region_albania = {
+		icon = generic_form_nation
+		cost = 60
+		days_re_enable = 60
+		visible = { always = yes }
+		available = { any_owned_state = { OR = { is_core_of = ALB } NOT = { is_core_of = ROOT } } }
+		complete_effect = {
+			every_owned_state = { limit = { OR = { is_core_of = ALB } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
+			add_stability = -0.02
+		}
+		ai_will_do = { factor = 10 }
+	}
+	bfx_integrate_region_hellas = {
+		icon = generic_form_nation
+		cost = 60
+		days_re_enable = 60
+		visible = { always = yes }
+		available = { any_owned_state = { OR = { is_core_of = GRE } NOT = { is_core_of = ROOT } } }
+		complete_effect = {
+			every_owned_state = { limit = { OR = { is_core_of = GRE } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
+			add_stability = -0.02
+		}
+		ai_will_do = { factor = 10 }
+	}
+	bfx_integrate_region_wallachia = {
+		icon = generic_form_nation
+		cost = 60
+		days_re_enable = 60
+		visible = { always = yes }
+		available = { any_owned_state = { OR = { is_core_of = ROM is_core_of = MOL } NOT = { is_core_of = ROOT } } }
+		complete_effect = {
+			every_owned_state = { limit = { OR = { is_core_of = ROM is_core_of = MOL } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
+			add_stability = -0.02
+		}
+		ai_will_do = { factor = 10 }
+	}
+	bfx_integrate_region_pannonia = {
+		icon = generic_form_nation
+		cost = 60
+		days_re_enable = 60
+		visible = { always = yes }
+		available = { any_owned_state = { OR = { is_core_of = HUN } NOT = { is_core_of = ROOT } } }
+		complete_effect = {
+			every_owned_state = { limit = { OR = { is_core_of = HUN } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
+			add_stability = -0.02
+		}
+		ai_will_do = { factor = 10 }
+	}
+	bfx_integrate_region_anatolia = {
+		icon = generic_form_nation
+		cost = 60
+		days_re_enable = 60
+		visible = { always = yes }
+		available = { any_owned_state = { OR = { is_core_of = TUR } NOT = { is_core_of = ROOT } } }
+		complete_effect = {
+			every_owned_state = { limit = { OR = { is_core_of = TUR } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
+			add_stability = -0.02
+		}
+		ai_will_do = { factor = 10 }
+	}
+	bfx_integrate_region_caucasus = {
+		icon = generic_form_nation
+		cost = 60
+		days_re_enable = 60
+		visible = { always = yes }
+		available = { any_owned_state = { OR = { is_core_of = GEO is_core_of = ARM is_core_of = AZR } NOT = { is_core_of = ROOT } } }
+		complete_effect = {
+			every_owned_state = { limit = { OR = { is_core_of = GEO is_core_of = ARM is_core_of = AZR } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
+			add_stability = -0.02
+		}
+		ai_will_do = { factor = 10 }
+	}
+	bfx_integrate_region_levant = {
+		icon = generic_form_nation
+		cost = 60
+		days_re_enable = 60
+		visible = { always = yes }
+		available = { any_owned_state = { OR = { is_core_of = SYR is_core_of = LEB is_core_of = PAL is_core_of = JOR is_core_of = ISR is_core_of = IRQ } NOT = { is_core_of = ROOT } } }
+		complete_effect = {
+			every_owned_state = { limit = { OR = { is_core_of = SYR is_core_of = LEB is_core_of = PAL is_core_of = JOR is_core_of = ISR is_core_of = IRQ } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
+			add_stability = -0.02
+		}
+		ai_will_do = { factor = 10 }
+	}
+	bfx_integrate_region_egypt = {
+		icon = generic_form_nation
+		cost = 60
+		days_re_enable = 60
+		visible = { always = yes }
+		available = { any_owned_state = { OR = { is_core_of = EGY } NOT = { is_core_of = ROOT } } }
+		complete_effect = {
+			every_owned_state = { limit = { OR = { is_core_of = EGY } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
+			add_stability = -0.02
+		}
+		ai_will_do = { factor = 10 }
+	}
+	bfx_integrate_region_italy = {
+		icon = generic_form_nation
+		cost = 60
+		days_re_enable = 60
+		visible = { always = yes }
+		available = { any_owned_state = { OR = { is_core_of = ITA } NOT = { is_core_of = ROOT } } }
+		complete_effect = {
+			every_owned_state = { limit = { OR = { is_core_of = ITA } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
+			add_stability = -0.02
+		}
+		ai_will_do = { factor = 10 }
+	}
+	bfx_integrate_region_central_europe = {
+		icon = generic_form_nation
+		cost = 60
+		days_re_enable = 60
+		visible = { always = yes }
+		available = { any_owned_state = { OR = { is_core_of = AUS is_core_of = CZE is_core_of = SLO is_core_of = POL } NOT = { is_core_of = ROOT } } }
+		complete_effect = {
+			every_owned_state = { limit = { OR = { is_core_of = AUS is_core_of = CZE is_core_of = SLO is_core_of = POL } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
+			add_stability = -0.02
+		}
+		ai_will_do = { factor = 10 }
+	}
+	bfx_integrate_region_pontic_steppe = {
+		icon = generic_form_nation
+		cost = 60
+		days_re_enable = 60
+		visible = { always = yes }
+		available = { any_owned_state = { OR = { is_core_of = UKR is_core_of = BLR } NOT = { is_core_of = ROOT } } }
+		complete_effect = {
+			every_owned_state = { limit = { OR = { is_core_of = UKR is_core_of = BLR } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
+			add_stability = -0.02
+		}
+		ai_will_do = { factor = 10 }
+	}
+	bfx_integrate_region_volga = {
+		icon = generic_form_nation
+		cost = 60
+		days_re_enable = 60
+		visible = { always = yes }
+		available = { any_owned_state = { OR = { is_core_of = SOV } NOT = { is_core_of = ROOT } } }
+		complete_effect = {
+			every_owned_state = { limit = { OR = { is_core_of = SOV } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
+			add_stability = -0.02
+		}
+		ai_will_do = { factor = 10 }
+	}
+	bfx_integrate_region_baltic = {
+		icon = generic_form_nation
+		cost = 60
+		days_re_enable = 60
+		visible = { always = yes }
+		available = { any_owned_state = { OR = { is_core_of = LIT is_core_of = LAT is_core_of = EST } NOT = { is_core_of = ROOT } } }
+		complete_effect = {
+			every_owned_state = { limit = { OR = { is_core_of = LIT is_core_of = LAT is_core_of = EST } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
+			add_stability = -0.02
+		}
+		ai_will_do = { factor = 10 }
+	}
+	bfx_proclaim_bulgarian_empire = {
+		icon = generic_form_nation
+		cost = 150
+		fire_only_once = yes
+		visible = { always = yes }
+		available = { owns_state = 106 owns_state = 184 owns_state = 77 owns_state = 341 }
+		complete_effect = {
+			set_cosmetic_tag = bfx_bulgarian_empire
+			every_owned_state = { limit = { OR = { is_core_of = YUG is_core_of = SER is_core_of = CRO is_core_of = SLV is_core_of = BOS is_core_of = MNT is_core_of = MAC is_core_of = ALB is_core_of = GRE is_core_of = ROM is_core_of = MOL } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
+			every_state = { limit = { OR = { is_core_of = HUN is_core_of = AUS } NOT = { is_core_of = ROOT } NOT = { is_claimed_by = ROOT } } add_claim_by = ROOT }
+			add_ideas = bfx_imperial_mandate
+		}
+		ai_will_do = { factor = 50 }
 	}
 }

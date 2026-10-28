@@ -100,6 +100,22 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/bfx_eco_german_clearing.dds"
 	}
 	SpriteType = {
+		name = "GFX_focus_bfx_alt_volga_bulgaria"
+		texturefile = "gfx/interface/goals/bfx_alt_volga_bulgaria.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_alt_justinians_empire"
+		texturefile = "gfx/interface/goals/bfx_alt_justinians_empire.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_com_trieste_to_odessa"
+		texturefile = "gfx/interface/goals/bfx_com_trieste_to_odessa.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_agr_peasant_commonwealth"
+		texturefile = "gfx/interface/goals/bfx_agr_peasant_commonwealth.dds"
+	}
+	SpriteType = {
 		name = "GFX_focus_bfx_air_aero_clubs"
 		texturefile = "gfx/interface/goals/bfx_air_aero_clubs.dds"
 	}

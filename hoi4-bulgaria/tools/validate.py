@@ -269,6 +269,20 @@ def main():
     for p, fs in occupied.items():
         if len(fs) > 1:
             err(f"focuses share position {p}: {fs}")
+    rows = defaultdict(list)
+    for fid, (x, y) in pos.items():
+        rows[y].append((x, fid))
+    for y, xs in rows.items():
+        xs.sort()
+        for (x1, f1), (x2, f2) in zip(xs, xs[1:]):
+            if x2 - x1 < 2:
+                err(f"focuses too close (need 2 columns): {f1} and {f2} in row {y}")
+    cfp = first(tree, "continuous_focus_position")
+    if cfp:
+        if min(x for x, _ in pos.values()) < 12:
+            err("tree starts left of column 12: it would sit on top of the continuous-focus panel")
+        if float(first(cfp, "y")) < (max(y for _, y in pos.values()) + 1) * 130:
+            err("continuous_focus_position overlaps the tree (must be below the deepest row)")
     edges = []
     for fid, f in byid.items():
         for grp in get(f, "prerequisite"):
@@ -531,7 +545,7 @@ def main():
     folder flag yes no characters
     """.split())
     ideologies = {"fascism", "communism", "democratic", "neutrality"}
-    tags = set("BUL GRE YUG TUR ROM ALB GER ITA ENG FRA SOV CZE HUN POL UKR CRI MNT MAC SER CRO SLV BOS AUS SLO MOL LIT LAT EST".split())
+    tags = ref_set("country_tags.txt")
     own = defined | seffects | set(byid) | set(ideas)
     allowed_keys = effects | triggers | modifiers | structural | ideologies | tags | own
     for p in data:
@@ -552,6 +566,17 @@ def main():
                 continue
             if k not in allowed_keys:
                 err(f"{rel(p)}: unknown key '{k}' (not an effect/trigger/modifier in 1.19 script docs)")
+
+    # ---------- country tags exist
+    known_tags = ref_set("country_tags.txt")
+    for p in data:
+        for k, _, v, _ in walk(data[p]):
+            if k in ("is_core_of", "tag", "original_tag", "country_exists", "has_war_with", "is_in_faction_with",
+                     "is_subject_of", "producer") and isinstance(v, str) and re.fullmatch(r"[A-Z][A-Z0-9]{2}", v):
+                if v not in known_tags:
+                    err(f"{rel(p)}: unknown country tag {v}")
+            if k and re.fullmatch(r"[A-Z][A-Z0-9]{2}", k) and k not in ("AND", "NOT") and k not in known_tags:
+                err(f"{rel(p)}: unknown country scope {k}")
 
     # ---------- DLC gating
     for p in data:

@@ -1,11 +1,11 @@
 # Bulgaria: Shackles of Neuilly (`bfx_bulgaria`) — HOI4 1.19 mod
 
-A new 126-focus tree for Bulgaria with the **Shackles of Neuilly** rearmament mechanic, 4 political paths (8 sub-branches),
-58 national spirits, 15 historical characters with new portraits, 35 events, 39 decisions and 9 formable identities.
+A new 134-focus tree for Bulgaria with the **Shackles of Neuilly** rearmament mechanic, 4 political paths (8 sub-branches),
+59 national spirits, 15 historical characters with new portraits, 35 events, 54 decisions and 10 formable identities, plus Imperial Integration decisions that can core land from the Adriatic to the Volga.
 Base game only (no DLC needed). Works with or without Road to 56.
 
 ## Install
-1. Unzip `bfx_bulgaria_v1.0.zip` into `Documents/Paradox Interactive/Hearts of Iron IV/mod/`.
+1. Unzip `bfx_bulgaria_v1.1.zip` into `Documents/Paradox Interactive/Hearts of Iron IV/mod/`.
    You should then have **both** `mod/bfx_bulgaria.mod` and the folder `mod/bfx_bulgaria/`.
 2. Open the launcher, add **Bulgaria: Shackles of Neuilly** to your playset and enable it.
    If you use Road to 56, place this mod **below** Road to 56 (the descriptor declares a soft dependency on it so the launcher sorts it after R56 when both are on).
@@ -45,6 +45,12 @@ Danubian Federation** from Prague to the Bosporus.
 give land to the tiller, revive the Orange Guard and the **Green International**, then offer peaceful union to the peasant
 democracies from the Aegean to the Baltic. *Zveno* installs a technocratic officers' state: fast modernisation, unstable
 politics, the **Prussia of the Balkans**, and finally an **Anatolian Gambit** against Turkey.
+
+## Coring everything
+Every branch unlocks **Imperial Integration** halfway along. Its decisions core any land you hold, region by region,
+across the whole Balkans and as far as Anatolia, the Caucasus, the Levant, Egypt, Italy, Central Europe, Ukraine, the
+Baltic and the Volga. Hold Macedonia, Thrace, Dobrudja and Edirne to **Proclaim the Bulgarian Empire**; its name changes
+with your ideology.
 
 ## Repository layout
 - `mod/bfx_bulgaria/`, `mod/bfx_bulgaria.mod`: the mod (generated).
