@@ -12,7 +12,7 @@ focus_tree = {
 	focus = {
 		id = bfx_tsars_dilemma
 		icon = GFX_focus_bfx_tsars_dilemma
-		x = 42
+		x = 35
 		y = 0
 		cost = 5
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_HISTORICAL }
@@ -29,7 +29,7 @@ focus_tree = {
 		id = bfx_velchev_trial
 		icon = GFX_focus_BUL_destroy_the_zveno
 		relative_position_id = bfx_tsars_dilemma
-		x = -8
+		x = -6
 		y = 1
 		cost = 7
 		prerequisite = { focus = bfx_tsars_dilemma }
@@ -46,7 +46,7 @@ focus_tree = {
 		id = bfx_neuilly_ledger
 		icon = GFX_focus_bfx_neuilly_ledger
 		relative_position_id = bfx_tsars_dilemma
-		x = -4
+		x = -3
 		y = 1
 		cost = 5
 		prerequisite = { focus = bfx_tsars_dilemma }
@@ -96,7 +96,7 @@ focus_tree = {
 		id = bfx_macedonian_question
 		icon = GFX_focus_BUL_support_macedonian_organizations
 		relative_position_id = bfx_tsars_dilemma
-		x = 8
+		x = 6
 		y = 1
 		cost = 5
 		prerequisite = { focus = bfx_tsars_dilemma }
@@ -114,7 +114,7 @@ focus_tree = {
 		id = bfx_kingdom_without_parties
 		icon = GFX_focus_BUL_power_to_the_tsar
 		relative_position_id = bfx_tsars_dilemma
-		x = -8
+		x = -6
 		y = 2
 		cost = 10
 		prerequisite = { focus = bfx_velchev_trial }
@@ -131,7 +131,7 @@ focus_tree = {
 		id = bfx_war_ministry_cellars
 		icon = GFX_goal_generic_small_arms
 		relative_position_id = bfx_tsars_dilemma
-		x = -4
+		x = -3
 		y = 2
 		cost = 7
 		prerequisite = { focus = bfx_neuilly_ledger }
@@ -183,7 +183,7 @@ focus_tree = {
 		id = bfx_crush_imro
 		icon = GFX_focus_BUL_condemn_macedonian_organizations
 		relative_position_id = bfx_tsars_dilemma
-		x = 6
+		x = 5
 		y = 2
 		cost = 10
 		prerequisite = { focus = bfx_macedonian_question }
@@ -215,7 +215,7 @@ focus_tree = {
 		id = bfx_tolerate_imro
 		icon = GFX_focus_BUL_support_macedonian_organizations
 		relative_position_id = bfx_tsars_dilemma
-		x = 10
+		x = 8
 		y = 2
 		cost = 10
 		prerequisite = { focus = bfx_macedonian_question }
@@ -246,7 +246,7 @@ focus_tree = {
 		id = bfx_elections_of_1938
 		icon = GFX_focus_generic_election
 		relative_position_id = bfx_tsars_dilemma
-		x = -8
+		x = -6
 		y = 3
 		cost = 10
 		prerequisite = { focus = bfx_kingdom_without_parties }
@@ -289,7 +289,7 @@ focus_tree = {
 		id = bfx_tear_up_neuilly
 		icon = GFX_focus_bfx_tear_up_neuilly
 		relative_position_id = bfx_tsars_dilemma
-		x = 4
+		x = 3
 		y = 3
 		cost = 10
 		prerequisite = { focus = bfx_war_ministry_cellars }
@@ -312,7 +312,7 @@ focus_tree = {
 		id = bfx_shadow_parties
 		icon = GFX_focus_BUL_oppose_the_royal_dictatorship
 		relative_position_id = bfx_tsars_dilemma
-		x = 8
+		x = 6
 		y = 3
 		cost = 7
 		prerequisite = { focus = bfx_crush_imro focus = bfx_tolerate_imro }
@@ -329,7 +329,7 @@ focus_tree = {
 		id = bfx_hour_of_decision
 		icon = GFX_goal_generic_political_pressure
 		relative_position_id = bfx_tsars_dilemma
-		x = -4
+		x = -3
 		y = 4
 		cost = 5
 		prerequisite = { focus = bfx_elections_of_1938 }
@@ -347,7 +347,7 @@ focus_tree = {
 	focus = {
 		id = bfx_tsar_steps_forward
 		icon = GFX_focus_bfx_tsar_steps_forward
-		x = 20
+		x = 19
 		y = 5
 		cost = 10
 		prerequisite = { focus = bfx_hour_of_decision }
@@ -391,7 +391,7 @@ focus_tree = {
 		id = bfx_tsar_san_stefano_dream
 		icon = GFX_focus_BUL_promote_bulgarian_nationalism
 		relative_position_id = bfx_tsar_steps_forward
-		x = -4
+		x = -3
 		y = 2
 		cost = 10
 		prerequisite = { focus = bfx_tsar_muzzle_the_league }
@@ -411,7 +411,7 @@ focus_tree = {
 		id = bfx_tsar_filov_cabinet
 		icon = GFX_goal_support_fascism
 		relative_position_id = bfx_tsar_steps_forward
-		x = -6
+		x = -5
 		y = 3
 		cost = 10
 		prerequisite = { focus = bfx_tsar_san_stefano_dream }
@@ -452,7 +452,7 @@ focus_tree = {
 		id = bfx_tsar_seek_the_pact
 		icon = GFX_goal_tripartite_pact
 		relative_position_id = bfx_tsar_steps_forward
-		x = -6
+		x = -5
 		y = 4
 		cost = 10
 		prerequisite = { focus = bfx_tsar_filov_cabinet }
@@ -477,7 +477,7 @@ focus_tree = {
 		id = bfx_tsar_vardar_macedonia
 		icon = GFX_focus_BUL_the_fate_of_the_balkans
 		relative_position_id = bfx_tsar_steps_forward
-		x = -4
+		x = -3
 		y = 5
 		cost = 10
 		prerequisite = { focus = bfx_tsar_seek_the_pact }
@@ -580,7 +580,7 @@ focus_tree = {
 		id = bfx_tsar_balkan_switzerland
 		icon = GFX_focus_bfx_tsar_balkan_switzerland
 		relative_position_id = bfx_tsar_steps_forward
-		x = 4
+		x = 3
 		y = 2
 		cost = 10
 		prerequisite = { focus = bfx_tsar_muzzle_the_league }
@@ -621,7 +621,7 @@ focus_tree = {
 		id = bfx_tsar_court_the_entente
 		icon = GFX_goal_generic_improve_relations
 		relative_position_id = bfx_tsar_steps_forward
-		x = 6
+		x = 4
 		y = 3
 		cost = 10
 		prerequisite = { focus = bfx_tsar_balkan_switzerland }
@@ -676,7 +676,7 @@ focus_tree = {
 		id = bfx_tsar_balkan_concord
 		icon = GFX_goal_generic_alliance
 		relative_position_id = bfx_tsar_steps_forward
-		x = 6
+		x = 4
 		y = 4
 		cost = 10
 		prerequisite = { focus = bfx_tsar_court_the_entente }
@@ -703,7 +703,7 @@ focus_tree = {
 		id = bfx_tsar_guardian_of_straits
 		icon = GFX_goal_generic_navy_doctrines_tactics
 		relative_position_id = bfx_tsar_steps_forward
-		x = 4
+		x = 3
 		y = 5
 		cost = 10
 		prerequisite = { focus = bfx_tsar_city_loans }
@@ -753,7 +753,7 @@ focus_tree = {
 		id = bfx_tsar_third_way
 		icon = GFX_goal_generic_neutrality_focus
 		relative_position_id = bfx_tsar_steps_forward
-		x = 6
+		x = 4
 		y = 6
 		cost = 10
 		prerequisite = { focus = bfx_tsar_guardian_of_straits }
@@ -772,7 +772,7 @@ focus_tree = {
 		id = bfx_tsar_danubian_confederation
 		icon = GFX_focus_bfx_tsar_danubian_confederation
 		relative_position_id = bfx_tsar_steps_forward
-		x = 4
+		x = 3
 		y = 7
 		cost = 10
 		prerequisite = { focus = bfx_tsar_allied_alignment focus = bfx_tsar_third_way }
@@ -794,7 +794,7 @@ focus_tree = {
 	focus = {
 		id = bfx_alt_old_fox_stirs
 		icon = GFX_focus_bfx_alt_old_fox_stirs
-		x = 34
+		x = 29
 		y = 7
 		cost = 10
 		prerequisite = { focus = bfx_tsar_muzzle_the_league }
@@ -839,7 +839,7 @@ focus_tree = {
 		id = bfx_alt_entomologist_tsar
 		icon = GFX_goal_generic_scientific_exchange
 		relative_position_id = bfx_alt_old_fox_stirs
-		x = 4
+		x = 3
 		y = 1
 		cost = 10
 		prerequisite = { focus = bfx_alt_old_fox_stirs }
@@ -875,7 +875,7 @@ focus_tree = {
 		id = bfx_alt_coburg_capital
 		icon = GFX_goal_generic_construct_mil_factory
 		relative_position_id = bfx_alt_old_fox_stirs
-		x = 4
+		x = 3
 		y = 2
 		cost = 10
 		prerequisite = { focus = bfx_alt_entomologist_tsar }
@@ -901,7 +901,7 @@ focus_tree = {
 		id = bfx_alt_third_empire
 		icon = GFX_focus_BUL_the_third_bulgarian_empire
 		relative_position_id = bfx_alt_old_fox_stirs
-		x = -4
+		x = -3
 		y = 3
 		cost = 10
 		prerequisite = { focus = bfx_alt_imperial_life_guard }
@@ -926,7 +926,7 @@ focus_tree = {
 		id = bfx_alt_simeons_borders
 		icon = GFX_focus_BUL_bulgarian_administration_of_the_balkans
 		relative_position_id = bfx_alt_old_fox_stirs
-		x = -4
+		x = -3
 		y = 4
 		cost = 10
 		prerequisite = { focus = bfx_alt_third_empire }
@@ -949,7 +949,7 @@ focus_tree = {
 		id = bfx_alt_tsar_of_the_vlachs
 		icon = GFX_goal_generic_territory_or_war
 		relative_position_id = bfx_alt_old_fox_stirs
-		x = -2
+		x = -1
 		y = 5
 		cost = 10
 		prerequisite = { focus = bfx_alt_simeons_borders }
@@ -970,7 +970,7 @@ focus_tree = {
 		id = bfx_alt_coronation_at_tarnovo
 		icon = GFX_focus_BUL_consolidate_the_third_bulgarian_state
 		relative_position_id = bfx_alt_old_fox_stirs
-		x = -2
+		x = -1
 		y = 6
 		cost = 10
 		prerequisite = { focus = bfx_alt_tsar_of_the_vlachs }
@@ -993,7 +993,7 @@ focus_tree = {
 		id = bfx_alt_old_great_bulgaria
 		icon = GFX_focus_BUL_bulgaria_on_the_three_seas
 		relative_position_id = bfx_alt_old_fox_stirs
-		x = -4
+		x = -3
 		y = 6
 		cost = 10
 		prerequisite = { focus = bfx_alt_simeons_borders }
@@ -1014,7 +1014,7 @@ focus_tree = {
 		id = bfx_alt_asparuhs_homecoming
 		icon = GFX_focus_bfx_alt_asparuhs_homecoming
 		relative_position_id = bfx_alt_old_fox_stirs
-		x = -4
+		x = -3
 		y = 7
 		cost = 10
 		prerequisite = { focus = bfx_alt_old_great_bulgaria }
@@ -1039,7 +1039,7 @@ focus_tree = {
 		id = bfx_alt_tsargrad
 		icon = GFX_focus_bfx_alt_tsargrad
 		relative_position_id = bfx_alt_old_fox_stirs
-		x = 4
+		x = 3
 		y = 3
 		cost = 10
 		prerequisite = { focus = bfx_alt_imperial_life_guard }
@@ -1067,7 +1067,7 @@ focus_tree = {
 		id = bfx_alt_basileus
 		icon = GFX_focus_GRE_reviving_the_double_headed_eagle
 		relative_position_id = bfx_alt_old_fox_stirs
-		x = 4
+		x = 3
 		y = 4
 		cost = 10
 		prerequisite = { focus = bfx_alt_tsargrad }
@@ -1112,7 +1112,7 @@ focus_tree = {
 		id = bfx_alt_restore_the_themes
 		icon = GFX_focus_GRE_byzantine_themata
 		relative_position_id = bfx_alt_old_fox_stirs
-		x = 4
+		x = 3
 		y = 6
 		cost = 10
 		prerequisite = { focus = bfx_alt_hagia_sophia }
@@ -1136,7 +1136,7 @@ focus_tree = {
 		id = bfx_alt_exarchate_of_ravenna
 		icon = GFX_focus_bfx_alt_exarchate_of_ravenna
 		relative_position_id = bfx_alt_old_fox_stirs
-		x = 4
+		x = 3
 		y = 7
 		cost = 10
 		prerequisite = { focus = bfx_alt_restore_the_themes }
@@ -1160,7 +1160,7 @@ focus_tree = {
 	focus = {
 		id = bfx_com_workers_party
 		icon = GFX_focus_bfx_com_workers_party
-		x = 52
+		x = 43
 		y = 5
 		cost = 10
 		prerequisite = { focus = bfx_hour_of_decision }
@@ -1222,7 +1222,7 @@ focus_tree = {
 		id = bfx_com_dimitrov_comes_home
 		icon = GFX_focus_BUL_the_peoples_republic_of_bulgaria
 		relative_position_id = bfx_com_workers_party
-		x = -4
+		x = -3
 		y = 3
 		cost = 10
 		prerequisite = { focus = bfx_com_ninth_of_september }
@@ -1245,7 +1245,7 @@ focus_tree = {
 		id = bfx_com_soviet_advisers
 		icon = GFX_goal_generic_army_doctrines
 		relative_position_id = bfx_com_workers_party
-		x = -6
+		x = -5
 		y = 4
 		cost = 10
 		prerequisite = { focus = bfx_com_dimitrov_comes_home }
@@ -1282,7 +1282,7 @@ focus_tree = {
 		id = bfx_com_join_comintern
 		icon = GFX_goal_support_communism
 		relative_position_id = bfx_com_workers_party
-		x = -6
+		x = -5
 		y = 5
 		cost = 10
 		prerequisite = { focus = bfx_com_soviet_advisers }
@@ -1331,7 +1331,7 @@ focus_tree = {
 		id = bfx_com_straits_for_moscow
 		icon = GFX_focus_BUL_supremacy_on_the_bosporus
 		relative_position_id = bfx_com_workers_party
-		x = -6
+		x = -5
 		y = 6
 		cost = 10
 		prerequisite = { focus = bfx_com_join_comintern }
@@ -1356,7 +1356,7 @@ focus_tree = {
 		id = bfx_com_red_black_sea
 		icon = GFX_focus_bfx_com_red_black_sea
 		relative_position_id = bfx_com_workers_party
-		x = -4
+		x = -3
 		y = 7
 		cost = 10
 		prerequisite = { focus = bfx_com_straits_for_moscow }
@@ -1383,7 +1383,7 @@ focus_tree = {
 		id = bfx_com_kolarovs_federation
 		icon = GFX_focus_BUL_balkan_federation_of_socialist_republics
 		relative_position_id = bfx_com_workers_party
-		x = 4
+		x = 3
 		y = 3
 		cost = 10
 		prerequisite = { focus = bfx_com_ninth_of_september }
@@ -1406,7 +1406,7 @@ focus_tree = {
 		id = bfx_com_yugoslav_partisans
 		icon = GFX_focus_BUL_free_balkan_states
 		relative_position_id = bfx_com_workers_party
-		x = 2
+		x = 1
 		y = 4
 		cost = 10
 		prerequisite = { focus = bfx_com_kolarovs_federation }
@@ -1425,7 +1425,7 @@ focus_tree = {
 		id = bfx_com_greek_comrades
 		icon = GFX_goal_support_communism
 		relative_position_id = bfx_com_workers_party
-		x = 6
+		x = 4
 		y = 4
 		cost = 10
 		prerequisite = { focus = bfx_com_kolarovs_federation }
@@ -1444,7 +1444,7 @@ focus_tree = {
 		id = bfx_com_independent_line
 		icon = GFX_focus_BUL_guardians_of_the_balkans
 		relative_position_id = bfx_com_workers_party
-		x = 4
+		x = 3
 		y = 5
 		cost = 10
 		prerequisite = { focus = bfx_com_yugoslav_partisans }
@@ -1464,7 +1464,7 @@ focus_tree = {
 		id = bfx_com_balkan_federation
 		icon = GFX_focus_bfx_com_balkan_federation
 		relative_position_id = bfx_com_workers_party
-		x = 4
+		x = 3
 		y = 6
 		cost = 10
 		prerequisite = { focus = bfx_com_independent_line }
@@ -1489,7 +1489,7 @@ focus_tree = {
 		id = bfx_com_danube_to_aegean
 		icon = GFX_focus_BUL_the_unification_of_the_balkans
 		relative_position_id = bfx_com_workers_party
-		x = 2
+		x = 1
 		y = 7
 		cost = 10
 		prerequisite = { focus = bfx_com_balkan_federation }
@@ -1509,7 +1509,7 @@ focus_tree = {
 		id = bfx_com_carpathian_soviets
 		icon = GFX_goal_generic_occupy_start_war
 		relative_position_id = bfx_com_workers_party
-		x = 6
+		x = 4
 		y = 7
 		cost = 10
 		prerequisite = { focus = bfx_com_balkan_federation }
@@ -1530,7 +1530,7 @@ focus_tree = {
 		id = bfx_com_red_danubia
 		icon = GFX_focus_bfx_com_red_danubia
 		relative_position_id = bfx_com_workers_party
-		x = 4
+		x = 3
 		y = 8
 		cost = 10
 		prerequisite = { focus = bfx_com_danube_to_aegean }
@@ -1553,7 +1553,7 @@ focus_tree = {
 	focus = {
 		id = bfx_agr_union_stirs
 		icon = GFX_focus_bfx_agr_union_stirs
-		x = 68
+		x = 55
 		y = 5
 		cost = 10
 		prerequisite = { focus = bfx_hour_of_decision }
@@ -1595,7 +1595,7 @@ focus_tree = {
 		id = bfx_agr_stamboliyskis_heirs
 		icon = GFX_goal_support_democracy
 		relative_position_id = bfx_agr_union_stirs
-		x = -4
+		x = -3
 		y = 2
 		cost = 10
 		prerequisite = { focus = bfx_agr_second_19_may }
@@ -1619,7 +1619,7 @@ focus_tree = {
 		id = bfx_agr_land_to_the_tiller
 		icon = GFX_focus_ITA_peasants_rise
 		relative_position_id = bfx_agr_union_stirs
-		x = -6
+		x = -5
 		y = 3
 		cost = 10
 		prerequisite = { focus = bfx_agr_stamboliyskis_heirs }
@@ -1655,7 +1655,7 @@ focus_tree = {
 		id = bfx_agr_cooperative_banks
 		icon = GFX_goal_generic_construct_civ_factory
 		relative_position_id = bfx_agr_union_stirs
-		x = -6
+		x = -5
 		y = 4
 		cost = 10
 		prerequisite = { focus = bfx_agr_land_to_the_tiller }
@@ -1698,7 +1698,7 @@ focus_tree = {
 		id = bfx_agr_green_international
 		icon = GFX_focus_bfx_agr_green_international
 		relative_position_id = bfx_agr_union_stirs
-		x = -4
+		x = -3
 		y = 5
 		cost = 10
 		prerequisite = { focus = bfx_agr_cooperative_banks }
@@ -1727,7 +1727,7 @@ focus_tree = {
 		id = bfx_agr_balkan_peasant_union
 		icon = GFX_goal_generic_national_unity
 		relative_position_id = bfx_agr_union_stirs
-		x = -4
+		x = -3
 		y = 6
 		cost = 10
 		prerequisite = { focus = bfx_agr_green_international }
@@ -1749,7 +1749,7 @@ focus_tree = {
 		id = bfx_agr_baltic_to_aegean
 		icon = GFX_focus_bfx_agr_baltic_to_aegean
 		relative_position_id = bfx_agr_union_stirs
-		x = -4
+		x = -3
 		y = 7
 		cost = 10
 		prerequisite = { focus = bfx_agr_balkan_peasant_union }
@@ -1774,7 +1774,7 @@ focus_tree = {
 		id = bfx_zveno_takes_the_helm
 		icon = GFX_focus_bfx_zveno_takes_the_helm
 		relative_position_id = bfx_agr_union_stirs
-		x = 4
+		x = 3
 		y = 2
 		cost = 10
 		prerequisite = { focus = bfx_agr_second_19_may }
@@ -1797,7 +1797,7 @@ focus_tree = {
 		id = bfx_zveno_abolish_parties
 		icon = GFX_goal_generic_political_pressure
 		relative_position_id = bfx_agr_union_stirs
-		x = 2
+		x = 1
 		y = 3
 		cost = 10
 		prerequisite = { focus = bfx_zveno_takes_the_helm }
@@ -1817,7 +1817,7 @@ focus_tree = {
 		id = bfx_zveno_officers_take_ministries
 		icon = GFX_goal_generic_army_doctrines
 		relative_position_id = bfx_agr_union_stirs
-		x = 6
+		x = 4
 		y = 3
 		cost = 10
 		prerequisite = { focus = bfx_zveno_takes_the_helm }
@@ -1838,7 +1838,7 @@ focus_tree = {
 		id = bfx_zveno_five_year_plan
 		icon = GFX_goal_generic_production
 		relative_position_id = bfx_agr_union_stirs
-		x = 2
+		x = 1
 		y = 4
 		cost = 10
 		prerequisite = { focus = bfx_zveno_abolish_parties }
@@ -1871,7 +1871,7 @@ focus_tree = {
 		id = bfx_zveno_state_monopolies
 		icon = GFX_goal_generic_trade
 		relative_position_id = bfx_agr_union_stirs
-		x = 6
+		x = 4
 		y = 4
 		cost = 10
 		prerequisite = { focus = bfx_zveno_officers_take_ministries }
@@ -1894,7 +1894,7 @@ focus_tree = {
 		id = bfx_zveno_prussia_of_the_balkans
 		icon = GFX_focus_BUL_prussia_of_the_balkans
 		relative_position_id = bfx_agr_union_stirs
-		x = 4
+		x = 3
 		y = 5
 		cost = 10
 		prerequisite = { focus = bfx_zveno_five_year_plan }
@@ -1913,7 +1913,7 @@ focus_tree = {
 		id = bfx_zveno_officers_balkans
 		icon = GFX_goal_generic_major_war
 		relative_position_id = bfx_agr_union_stirs
-		x = 4
+		x = 3
 		y = 6
 		cost = 10
 		prerequisite = { focus = bfx_zveno_prussia_of_the_balkans }
@@ -1939,7 +1939,7 @@ focus_tree = {
 		id = bfx_zveno_anatolian_gambit
 		icon = GFX_focus_bfx_zveno_anatolian_gambit
 		relative_position_id = bfx_agr_union_stirs
-		x = 4
+		x = 3
 		y = 7
 		cost = 10
 		prerequisite = { focus = bfx_zveno_officers_balkans }
@@ -1964,7 +1964,7 @@ focus_tree = {
 	focus = {
 		id = bfx_eco_rose_and_leaf
 		icon = GFX_focus_bfx_eco_rose_and_leaf
-		x = 84
+		x = 67
 		y = 0
 		cost = 7
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -1982,7 +1982,7 @@ focus_tree = {
 		id = bfx_eco_german_clearing
 		icon = GFX_focus_bfx_eco_german_clearing
 		relative_position_id = bfx_eco_rose_and_leaf
-		x = -4
+		x = -3
 		y = 1
 		cost = 10
 		prerequisite = { focus = bfx_eco_rose_and_leaf }
@@ -2003,7 +2003,7 @@ focus_tree = {
 		id = bfx_eco_diversify
 		icon = GFX_goal_generic_positive_trade_relations
 		relative_position_id = bfx_eco_rose_and_leaf
-		x = 4
+		x = 3
 		y = 1
 		cost = 10
 		prerequisite = { focus = bfx_eco_rose_and_leaf }
@@ -2023,7 +2023,7 @@ focus_tree = {
 		id = bfx_eco_tobacco_boom
 		icon = GFX_goal_generic_trade
 		relative_position_id = bfx_eco_rose_and_leaf
-		x = -4
+		x = -3
 		y = 2
 		cost = 10
 		prerequisite = { focus = bfx_eco_german_clearing focus = bfx_eco_diversify }
@@ -2041,7 +2041,7 @@ focus_tree = {
 		id = bfx_eco_valley_of_roses
 		icon = GFX_goal_generic_consumer_goods
 		relative_position_id = bfx_eco_rose_and_leaf
-		x = -4
+		x = -3
 		y = 3
 		cost = 10
 		prerequisite = { focus = bfx_eco_tobacco_boom }
@@ -2060,7 +2060,7 @@ focus_tree = {
 		id = bfx_eco_hard_currency
 		icon = GFX_goal_generic_construct_civ_factory
 		relative_position_id = bfx_eco_rose_and_leaf
-		x = -4
+		x = -3
 		y = 4
 		cost = 10
 		prerequisite = { focus = bfx_eco_valley_of_roses }
@@ -2086,7 +2086,7 @@ focus_tree = {
 		id = bfx_eco_ledger_of_trade
 		icon = GFX_goal_generic_dangerous_deal
 		relative_position_id = bfx_eco_rose_and_leaf
-		x = -4
+		x = -3
 		y = 5
 		cost = 10
 		prerequisite = { focus = bfx_eco_hard_currency }
@@ -2103,7 +2103,7 @@ focus_tree = {
 		id = bfx_eco_plovdiv_fair
 		icon = GFX_goal_generic_scientific_exchange
 		relative_position_id = bfx_eco_rose_and_leaf
-		x = -4
+		x = -3
 		y = 6
 		cost = 10
 		prerequisite = { focus = bfx_eco_ledger_of_trade }
@@ -2236,7 +2236,7 @@ focus_tree = {
 		id = bfx_eco_bdz
 		icon = GFX_goal_generic_construct_infrastructure
 		relative_position_id = bfx_eco_rose_and_leaf
-		x = 6
+		x = 4
 		y = 2
 		cost = 10
 		prerequisite = { focus = bfx_eco_rose_and_leaf }
@@ -2257,7 +2257,7 @@ focus_tree = {
 		id = bfx_eco_main_line
 		icon = GFX_focus_NOR_build_the_northern_rail
 		relative_position_id = bfx_eco_rose_and_leaf
-		x = 6
+		x = 4
 		y = 3
 		cost = 10
 		prerequisite = { focus = bfx_eco_bdz }
@@ -2280,7 +2280,7 @@ focus_tree = {
 		id = bfx_eco_iskar_dams
 		icon = GFX_goal_generic_construction2
 		relative_position_id = bfx_eco_rose_and_leaf
-		x = 4
+		x = 3
 		y = 4
 		cost = 10
 		prerequisite = { focus = bfx_eco_main_line }
@@ -2302,7 +2302,7 @@ focus_tree = {
 		id = bfx_eco_black_sea_ports
 		icon = GFX_goal_generic_construct_naval_dockyard
 		relative_position_id = bfx_eco_rose_and_leaf
-		x = 8
+		x = 6
 		y = 4
 		cost = 10
 		prerequisite = { focus = bfx_eco_main_line }
@@ -2324,7 +2324,7 @@ focus_tree = {
 		id = bfx_eco_petroleum
 		icon = GFX_goal_generic_oil_refinery
 		relative_position_id = bfx_eco_rose_and_leaf
-		x = 4
+		x = 3
 		y = 5
 		cost = 10
 		prerequisite = { focus = bfx_eco_iskar_dams }
@@ -2342,7 +2342,7 @@ focus_tree = {
 		id = bfx_eco_labour_brigades
 		icon = GFX_goal_generic_construction
 		relative_position_id = bfx_eco_rose_and_leaf
-		x = 8
+		x = 6
 		y = 5
 		cost = 10
 		prerequisite = { focus = bfx_eco_black_sea_ports }
@@ -2367,7 +2367,7 @@ focus_tree = {
 		id = bfx_eco_national_bank
 		icon = GFX_goal_generic_positive_trade_relations
 		relative_position_id = bfx_eco_rose_and_leaf
-		x = 6
+		x = 4
 		y = 6
 		cost = 10
 		prerequisite = { focus = bfx_eco_petroleum }
@@ -2390,7 +2390,7 @@ focus_tree = {
 	focus = {
 		id = bfx_mil_neuilly_army
 		icon = GFX_goal_generic_army_doctrines
-		x = 104
+		x = 82
 		y = 0
 		cost = 7
 		search_filters = { FOCUS_FILTER_ARMY_XP }
@@ -2414,7 +2414,7 @@ focus_tree = {
 		id = bfx_mil_rhodope_rangers
 		icon = GFX_focus_AFG_mountain_training
 		relative_position_id = bfx_mil_neuilly_army
-		x = -4
+		x = -3
 		y = 1
 		cost = 10
 		prerequisite = { focus = bfx_mil_neuilly_army }
@@ -2450,7 +2450,7 @@ focus_tree = {
 		id = bfx_mil_mountain_doctrine
 		icon = GFX_goal_generic_special_forces
 		relative_position_id = bfx_mil_neuilly_army
-		x = -4
+		x = -3
 		y = 2
 		cost = 10
 		prerequisite = { focus = bfx_mil_rhodope_rangers }
@@ -2504,7 +2504,7 @@ focus_tree = {
 		id = bfx_mil_universal_service
 		icon = GFX_goal_generic_allies_build_infantry
 		relative_position_id = bfx_mil_neuilly_army
-		x = -4
+		x = -3
 		y = 4
 		cost = 10
 		prerequisite = { focus = bfx_mil_staff_academy }
@@ -2563,7 +2563,7 @@ focus_tree = {
 		id = bfx_nav_black_sea_flotilla
 		icon = GFX_goal_generic_build_navy
 		relative_position_id = bfx_mil_neuilly_army
-		x = 4
+		x = 3
 		y = 1
 		cost = 10
 		prerequisite = { focus = bfx_mil_neuilly_army }
@@ -2581,7 +2581,7 @@ focus_tree = {
 		id = bfx_nav_varna_naval_school
 		icon = GFX_goal_generic_navy_doctrines_tactics
 		relative_position_id = bfx_mil_neuilly_army
-		x = 4
+		x = 3
 		y = 2
 		cost = 10
 		prerequisite = { focus = bfx_nav_black_sea_flotilla }
@@ -2603,7 +2603,7 @@ focus_tree = {
 		id = bfx_nav_torpedo_squadrons
 		icon = GFX_goal_generic_navy_submarine
 		relative_position_id = bfx_mil_neuilly_army
-		x = 2
+		x = 1
 		y = 3
 		cost = 10
 		prerequisite = { focus = bfx_nav_varna_naval_school }
@@ -2629,7 +2629,7 @@ focus_tree = {
 		id = bfx_nav_coastal_batteries
 		icon = GFX_goal_generic_defence
 		relative_position_id = bfx_mil_neuilly_army
-		x = 6
+		x = 4
 		y = 3
 		cost = 10
 		prerequisite = { focus = bfx_nav_varna_naval_school }
@@ -2649,7 +2649,7 @@ focus_tree = {
 		id = bfx_nav_black_sea_raiders
 		icon = GFX_goal_generic_wolf_pack
 		relative_position_id = bfx_mil_neuilly_army
-		x = 4
+		x = 3
 		y = 4
 		cost = 10
 		prerequisite = { focus = bfx_nav_torpedo_squadrons }
@@ -2668,7 +2668,7 @@ focus_tree = {
 		id = bfx_air_aero_clubs
 		icon = GFX_focus_bfx_air_aero_clubs
 		relative_position_id = bfx_mil_neuilly_army
-		x = 10
+		x = 7
 		y = 1
 		cost = 10
 		prerequisite = { focus = bfx_mil_neuilly_army }
@@ -2694,7 +2694,7 @@ focus_tree = {
 		id = bfx_air_dar_works
 		icon = GFX_goal_generic_air_production
 		relative_position_id = bfx_mil_neuilly_army
-		x = 10
+		x = 7
 		y = 2
 		cost = 10
 		prerequisite = { focus = bfx_air_aero_clubs }
@@ -2716,7 +2716,7 @@ focus_tree = {
 		id = bfx_air_foreign_instructors
 		icon = GFX_goal_generic_air_doctrine
 		relative_position_id = bfx_mil_neuilly_army
-		x = 12
+		x = 9
 		y = 3
 		cost = 10
 		prerequisite = { focus = bfx_air_dar_works }
@@ -2734,7 +2734,7 @@ focus_tree = {
 		id = bfx_air_vazdushni_voyski
 		icon = GFX_goal_expand_the_luftwaffe
 		relative_position_id = bfx_mil_neuilly_army
-		x = 8
+		x = 6
 		y = 3
 		cost = 10
 		prerequisite = { focus = bfx_air_dar_works }
@@ -2756,7 +2756,7 @@ focus_tree = {
 		id = bfx_air_fighter_regiment
 		icon = GFX_goal_generic_air_fighter
 		relative_position_id = bfx_mil_neuilly_army
-		x = 8
+		x = 6
 		y = 4
 		cost = 10
 		prerequisite = { focus = bfx_air_vazdushni_voyski }
@@ -2774,7 +2774,7 @@ focus_tree = {
 		id = bfx_air_mountain_support
 		icon = GFX_goal_generic_CAS
 		relative_position_id = bfx_mil_neuilly_army
-		x = 12
+		x = 9
 		y = 4
 		cost = 10
 		prerequisite = { focus = bfx_air_foreign_instructors }
@@ -2817,7 +2817,7 @@ focus_tree = {
 		id = bfx_tsar_imperial_federation
 		icon = GFX_goal_generic_major_alliance
 		relative_position_id = bfx_tsar_steps_forward
-		x = 4
+		x = 3
 		y = 8
 		cost = 10
 		prerequisite = { focus = bfx_tsar_danubian_confederation }
@@ -2838,7 +2838,7 @@ focus_tree = {
 		id = bfx_alt_volga_bulgaria
 		icon = GFX_focus_bfx_alt_volga_bulgaria
 		relative_position_id = bfx_alt_old_fox_stirs
-		x = -4
+		x = -3
 		y = 8
 		cost = 10
 		prerequisite = { focus = bfx_alt_asparuhs_homecoming }
@@ -2860,7 +2860,7 @@ focus_tree = {
 		id = bfx_alt_justinians_empire
 		icon = GFX_focus_bfx_alt_justinians_empire
 		relative_position_id = bfx_alt_old_fox_stirs
-		x = 4
+		x = 3
 		y = 8
 		cost = 10
 		prerequisite = { focus = bfx_alt_exarchate_of_ravenna }
@@ -2885,7 +2885,7 @@ focus_tree = {
 		id = bfx_com_black_sea_union
 		icon = GFX_focus_BUL_supremacy_on_the_bosporus
 		relative_position_id = bfx_com_workers_party
-		x = -4
+		x = -3
 		y = 8
 		cost = 10
 		prerequisite = { focus = bfx_com_red_black_sea }
@@ -2909,7 +2909,7 @@ focus_tree = {
 		id = bfx_com_trieste_to_odessa
 		icon = GFX_focus_bfx_com_trieste_to_odessa
 		relative_position_id = bfx_com_workers_party
-		x = 4
+		x = 3
 		y = 9
 		cost = 10
 		prerequisite = { focus = bfx_com_red_danubia }
@@ -2934,7 +2934,7 @@ focus_tree = {
 		id = bfx_agr_peasant_commonwealth
 		icon = GFX_focus_bfx_agr_peasant_commonwealth
 		relative_position_id = bfx_agr_union_stirs
-		x = -4
+		x = -3
 		y = 8
 		cost = 10
 		prerequisite = { focus = bfx_agr_baltic_to_aegean }
@@ -2955,7 +2955,7 @@ focus_tree = {
 		id = bfx_zveno_levant_command
 		icon = GFX_goal_generic_occupy_states_ongoing_war
 		relative_position_id = bfx_agr_union_stirs
-		x = 4
+		x = 3
 		y = 8
 		cost = 10
 		prerequisite = { focus = bfx_zveno_anatolian_gambit }
