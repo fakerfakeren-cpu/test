@@ -22,7 +22,8 @@ local CONFIG = {
 	SCALE = 2, -- screen pixels per source pixel
 	MARGIN = 1, -- ring of chunks kept loaded around the screen
 	UPLOADS_PER_FRAME = 4, -- full chunk uploads per frame (cycled by a button)
-	LIGHT_HZ = 20, -- lightmap recomputes per second
+	ATLAS_ASSET_ID = 0, -- uploaded tile sheet (layout in README); 0 = generated textures
+	LIGHT_HZ = 30, -- lightmap recomputes per second (cycled by a button)
 	LIGHT_PAD = 12, -- extra tiles computed around the screen so edge light is right
 	LIGHT_SKIPS_CHUNK_FRAME = false, -- true: never upload light and chunks in the same frame
 	MOB_COUNT = 50,
@@ -141,8 +142,54 @@ local function setPixel(tex: buffer, px: number, py: number, r: number, g: numbe
 	buffer.writeu8(tex, o + 3, a)
 end
 
+-- Optional uploaded tile sheet: 8x8 tiles, row 0 = foreground in id order
+-- (AIR, DIRT, GRASS, STONE, ORE, TORCH), row 1 = walls (NO_WALL, DIRT_WALL, STONE_WALL).
+-- It is read into a buffer once and the EditableImage is destroyed, so it costs no budget.
+local tileSource = "generated"
+
+local function loadSheet(): (buffer?, number)
+	if CONFIG.ATLAS_ASSET_ID == 0 then
+		return nil, 0
+	end
+	local ok, image = pcall(function()
+		return AssetService:CreateEditableImageAsync(Content.fromAssetId(CONFIG.ATLAS_ASSET_ID))
+	end)
+	if not ok or not image then
+		tileSource = "generated (sheet failed: " .. string.sub(tostring(image), 1, 60) .. ")"
+		return nil, 0
+	end
+	local size = image.Size
+	if size.X < FG_COUNT * TILE_ART or size.Y < 2 * TILE_ART then
+		image:Destroy()
+		tileSource = string.format("generated (sheet is %dx%d, needs %dx%d)", size.X, size.Y, FG_COUNT * TILE_ART, 2 * TILE_ART)
+		return nil, 0
+	end
+	local pixels = image:ReadPixelsBuffer(Vector2.zero, size)
+	image:Destroy()
+	tileSource = "sheet " .. CONFIG.ATLAS_ASSET_ID
+	return pixels, size.X
+end
+
+local sheet, sheetW = loadSheet()
+
+local function sheetTile(col: number, row: number): buffer
+	local tex = buffer.create(TILE_BYTES)
+	for r = 0, TILE_ART - 1 do
+		local src = ((row * TILE_ART + r) * sheetW + col * TILE_ART) * 4
+		buffer.copy(tex, r * TILE_ROW_BYTES, sheet :: buffer, src, TILE_ROW_BYTES)
+	end
+	return tex
+end
+
 local function buildFgTextures(): { [number]: buffer }
 	local t = {}
+	if sheet then
+		for f = 0, FG_COUNT - 1 do
+			t[f] = sheetTile(f, 0)
+		end
+		t[AIR] = buffer.create(TILE_BYTES)
+		return t
+	end
 	t[AIR] = buffer.create(TILE_BYTES) -- fully transparent
 	t[DIRT] = noiseTexture(1, 125, 85, 55, 0.35)
 	t[STONE] = noiseTexture(2, 125, 125, 132, 0.3)
@@ -173,6 +220,14 @@ local function buildFgTextures(): { [number]: buffer }
 end
 
 local function buildWallTextures(): { [number]: buffer }
+	if sheet then
+		local t = {}
+		for w = 0, WALL_COUNT - 1 do
+			t[w] = sheetTile(w, 1)
+		end
+		t[NO_WALL] = buffer.create(TILE_BYTES)
+		return t
+	end
 	return {
 		[NO_WALL] = buffer.create(TILE_BYTES),
 		[DIRT_WALL] = noiseTexture(6, 60, 40, 28, 0.3),
@@ -457,6 +512,7 @@ local lightImage, lightErr = createImage(Vector2.new(LIGHT_W, LIGHT_H))
 local lightLabel: ImageLabel? = nil
 if lightImage then
 	lightLabel = imageLabel(lightImage, Vector2.new(LIGHT_W * TILE_PX, LIGHT_H * TILE_PX), 6)
+	lightLabel.ResampleMode = Enum.ResamplerMode.Default -- smooth; the button switches to pixel
 	memoryBytes += LIGHT_W * LIGHT_H * 4
 else
 	poolCreateError = poolCreateError or lightErr
@@ -465,9 +521,10 @@ local lightBuf = buffer.create(LIGHT_W * LIGHT_H * 4)
 local L = table.create(LIGHT_W * LIGHT_H, 0)
 local D = table.create(LIGHT_W * LIGHT_H, AIR_DECAY)
 local lightEnabled = true
-local lightSmooth = false
+local lightSmooth = true
+local PLAYER_LIGHT_RADIUS = 5
 
-local function updateLight(lightTx: number, lightTy: number)
+local function updateLight(lightX: number, lightY: number)
 	if not lightImage or not lightLabel then
 		return
 	end
@@ -497,9 +554,21 @@ local function updateLight(lightTx: number, lightTy: number)
 		end
 	end
 
-	local plx, ply = lightTx - ox, lightTy - oy
-	if plx >= 0 and plx < LIGHT_W and ply >= 0 and ply < LIGHT_H then
-		L[ply * LIGHT_W + plx + 1] = 1
+	-- Seed the player light from the exact sub-tile position so it glides instead of
+	-- jumping a whole tile at a time.
+	local R = PLAYER_LIGHT_RADIUS
+	for ty = math.floor(lightY) - R, math.floor(lightY) + R do
+		for tx = math.floor(lightX) - R, math.floor(lightX) + R do
+			local lx, ly = tx - ox, ty - oy
+			if lx >= 0 and lx < LIGHT_W and ly >= 0 and ly < LIGHT_H then
+				local dx, dy = tx + 0.5 - lightX, ty + 0.5 - lightY
+				local v = 1 - math.sqrt(dx * dx + dy * dy) / (R + 1)
+				local k = ly * LIGHT_W + lx + 1
+				if v > L[k] then
+					L[k] = v
+				end
+			end
+		end
 	end
 
 	-- Two rounds of four directional sweeps: light(k) = max(light(k), neighbour * decay(k)).
@@ -785,7 +854,16 @@ button("Lighting: ON", function(b)
 	end
 end)
 
-button("Light look: pixel", function(b)
+local lightSteps = { 10, 20, 30, 60 }
+local lightIndex = table.find(lightSteps, CONFIG.LIGHT_HZ) or 3
+CONFIG.LIGHT_HZ = lightSteps[lightIndex]
+button("Light rate: " .. CONFIG.LIGHT_HZ .. "/s", function(b)
+	lightIndex = lightIndex % #lightSteps + 1
+	CONFIG.LIGHT_HZ = lightSteps[lightIndex]
+	b.Text = "Light rate: " .. CONFIG.LIGHT_HZ .. "/s"
+end)
+
+button("Light look: smooth", function(b)
 	lightSmooth = not lightSmooth
 	b.Text = if lightSmooth then "Light look: smooth" else "Light look: pixel"
 	if lightLabel then
@@ -793,7 +871,15 @@ button("Light look: pixel", function(b)
 	end
 end)
 
-button("Probe memory budget", function()
+-- Runs once per session. Hitting the limit is the point, so the engine prints one
+-- "Failed to create empty EditableImage ... memory budget limits" warning. That is expected.
+local probeUsed = false
+button("Probe memory budget", function(b)
+	if probeUsed then
+		return
+	end
+	probeUsed = true
+	b.Text = "Probe: done (rejoin to rerun)"
 	probeResult = "Probe: running..."
 	task.defer(function()
 		local extra = {}
@@ -817,6 +903,7 @@ button("Probe memory budget", function()
 			(memoryBytes + n * CHUNK_BYTES) / 1048576,
 			if err then "Stopped by: " .. string.sub(err, 1, 80) else "No failure up to the 100 MB cap."
 		)
+		print("TerrainBench " .. probeResult)
 	end)
 end)
 
@@ -954,7 +1041,7 @@ RunService.RenderStepped:Connect(function(rawDt)
 	if lightEnabled and lightTimer >= 1 / CONFIG.LIGHT_HZ then
 		if not (CONFIG.LIGHT_SKIPS_CHUNK_FRAME and uploaded > 0) then
 			lightTimer = 0
-			updateLight(math.floor(focusX), math.floor(focusY))
+			updateLight(focusX, focusY)
 		end
 	end
 
@@ -1005,7 +1092,7 @@ RunService.RenderStepped:Connect(function(rawDt)
 		hud.Text = table.concat({
 			string.format("FPS %d   worst frame %.1f ms   world gen %.0f ms", math.floor(s.frames / statTimer), s.worstDt * 1000, genMs),
 			string.format("View %dx%d   chunk pool %d/%d   pool shortages %d", viewW, viewH, used, #entries, s.poolShortage),
-			string.format("EditableImage memory ~%.2f MB (budget reported ~32 MB)", memoryBytes / 1048576),
+			string.format("EditableImage memory ~%.2f MB (budget reported ~32 MB)   tiles: %s", memoryBytes / 1048576, tileSource),
 			string.format(
 				"Chunk uploads %d/s   build %.2f ms   WritePixelsBuffer %.2f ms (avg CPU)",
 				s.chunkUploads,

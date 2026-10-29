@@ -22,8 +22,21 @@ rotating the phone, rejoin.
   reused (about 256 KB each). Walls and tiles are merged into one image.
 - Edits a single tile by writing just that 8×8 area. A chunk is only fully redrawn
   when it comes into view.
-- Lighting is one EditableImage with one pixel per tile, recomputed 20 times per second.
+- Lighting is one EditableImage with one pixel per tile, recomputed 30 times per second by default. The player's light follows their exact position, not just whole tiles.
 - 50 mobs share one sprite image. Collision is tile-grid AABB, and there are up to 200 particles.
+
+## Using your own tile art
+
+Upload a PNG tile sheet as an image asset owned by you or the group that owns the game,
+then set `ATLAS_ASSET_ID` at the top of the script to its asset ID. Layout, with 8×8 px tiles and no padding:
+
+- **Row 0 (y 0–7):** air, dirt, grass, stone, ore, torch. The air slot is ignored.
+- **Row 1 (y 8–15):** no wall, dirt wall, stone wall. The no-wall slot is ignored.
+
+The minimum size is 48×16. Transparent pixels in a foreground tile show the wall behind it.
+The sheet is read into a buffer once and its EditableImage is destroyed right away,
+so it costs nothing against the image memory budget. The HUD's `tiles:` field shows whether
+the sheet loaded, or why it didn't.
 
 ## Controls
 
@@ -40,8 +53,9 @@ rotating the phone, rejoin.
 | Uploads/frame | Caps full chunk uploads per frame (1, 2, 4, 8, unlimited). |
 | Flash all chunks | Re-tints and re-uploads **every** loaded chunk in one frame. **Watch the screen:** if every chunk changes color at once, there is no hidden one-update-per-frame limit. If they change one after another over several frames, the limit is real. |
 | Lighting | Turns lighting on or off to isolate its cost. |
-| Light look | Switches between blocky light (pixel) and smooth light. |
-| Probe memory budget | Creates extra 256×256 images until creation fails, then frees them, and reports the real client budget. |
+| Light rate | How often lighting is recalculated: 10, 20, 30 (default) or 60 per second. Higher looks smoother and costs more. |
+| Light look | Switches between smooth light (default) and blocky light (pixel). |
+| Probe memory budget | Creates extra 256×256 images until creation fails, then frees them, and reports the real client budget. It runs **once per session**. It prints one `Failed to create empty EditableImage ... memory budget limits` warning, which is expected: hitting the limit is how it measures it. Rejoin to run it again. |
 
 ## Pass / fail
 
