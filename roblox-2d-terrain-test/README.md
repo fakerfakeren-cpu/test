@@ -27,7 +27,10 @@ rotating the phone, rejoin.
 
 ## Using your own tile art
 
-Upload a PNG tile sheet as an image asset owned by you or the group that owns the game,
+A ready-made sheet is in `art/tiles.png`. `art/tiles_preview.png` is a zoomed-in copy for
+viewing, and `art/make_tiles.py` regenerates both if you edit the pixel maps.
+
+Upload the PNG tile sheet as an image asset owned by you or the group that owns the game,
 then set `ATLAS_ASSET_ID` at the top of the script to its asset ID. Layout, with 8×8 px tiles and no padding:
 
 - **Row 0 (y 0–7):** air, dirt, grass, stone, ore, torch. The air slot is ignored.
@@ -55,7 +58,7 @@ the sheet loaded, or why it didn't.
 | Lighting | Turns lighting on or off to isolate its cost. |
 | Light rate | How often lighting is recalculated: 10, 20, 30 (default) or 60 per second. Higher looks smoother and costs more. |
 | Light look | Switches between smooth light (default) and blocky light (pixel). |
-| Probe memory budget | Creates extra 256×256 images until creation fails, then frees them, and reports the real client budget. It runs **once per session**. It prints one `Failed to create empty EditableImage ... memory budget limits` warning, which is expected: hitting the limit is how it measures it. Rejoin to run it again. |
+| Probe memory budget | Creates extra 256×256 images until creation fails, then frees them, and reports the real client budget. It runs **once per session**. It prints one `Failed to create empty EditableImage ... memory budget limits` warning, which is expected: hitting the limit is how it measures it. When it finishes, the button shows the measured budget. Rejoin to run it again. |
 
 ## Pass / fail
 

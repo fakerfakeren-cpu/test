@@ -879,7 +879,7 @@ button("Probe memory budget", function(b)
 		return
 	end
 	probeUsed = true
-	b.Text = "Probe: done (rejoin to rerun)"
+	b.Text = "Probe: running..."
 	probeResult = "Probe: running..."
 	task.defer(function()
 		local extra = {}
@@ -904,6 +904,7 @@ button("Probe memory budget", function(b)
 			if err then "Stopped by: " .. string.sub(err, 1, 80) else "No failure up to the 100 MB cap."
 		)
 		print("TerrainBench " .. probeResult)
+		b.Text = string.format("Budget ~%.0f MB (done)", (memoryBytes + n * CHUNK_BYTES) / 1048576)
 	end)
 end)
 
