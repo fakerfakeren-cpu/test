@@ -334,8 +334,8 @@ focus_tree = {
 		prerequisite = { focus = bfx_war_ministry_cellars }
 		mutually_exclusive = { focus = bfx_salonika_agreement }
 		available = {
-			NOT = { has_country_flag = bfx_neuilly_ended }
-			check_variable = { bfx_rearm > 59 }
+			custom_trigger_tooltip = { tooltip = bfx_tt_req_neuilly_in_force NOT = { has_country_flag = bfx_neuilly_ended } }
+			custom_trigger_tooltip = { tooltip = bfx_tt_req_rearm_50 check_variable = { bfx_rearm > 49 } }
 		}
 		search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
@@ -357,8 +357,9 @@ focus_tree = {
 		prerequisite = { focus = bfx_kyoseivanov_cabinet }
 		mutually_exclusive = { focus = bfx_tear_up_neuilly }
 		available = {
-			NOT = { has_country_flag = bfx_neuilly_ended }
-			OR = { date > 1938.6.1 check_variable = { bfx_rearm > 49 } }
+			custom_trigger_tooltip = { tooltip = bfx_tt_req_neuilly_in_force NOT = { has_country_flag = bfx_neuilly_ended } }
+			date > 1938.6.1
+			custom_trigger_tooltip = { tooltip = bfx_tt_req_suspicion_50 check_variable = { bfx_suspicion < 50 } }
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ARMY_XP FOCUS_FILTER_HISTORICAL }
 		ai_will_do = {

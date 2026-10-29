@@ -914,6 +914,7 @@ bfx_imro_category = {
 		available = { always = yes }
 		complete_effect = {
 			every_country = { limit = { has_country_flag = bfx_imro_rebel_state } ROOT = { give_guarantee = PREV } }
+			set_country_flag = bfx_macedonia_recognised
 			YUG = { add_opinion_modifier = { target = ROOT modifier = bfx_om_bulgarian_threat } }
 			if = {
 				limit = { NOT = { has_country_flag = bfx_neuilly_ended } }

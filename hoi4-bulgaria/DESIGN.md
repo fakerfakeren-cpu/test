@@ -52,7 +52,8 @@ Every focus has `search_filters` and `ai_will_do`.
 * `bfx_suspicion` (0–100, starts at 15) **grows every month by 1 + rearmament/25**, so heavy rearmament is noticed fast.
 * Thresholds 25 (protests), 50 (the Entente guarantees each other), 75 (embargo), 100 (the Petrich crisis) **re-arm** once suspicion
   falls 15 points below them, so penalties recur.
-* Ends via the Salonika Agreement (negotiated: XP, good relations) or Tear Up Neuilly / Ferdinand burning the treaty (embargo and crisis).
+* Ends via the **Salonika Agreement** (from June 1938, only with suspicion below 50; XP and good relations) or **Tear Up Neuilly**
+  (needs rearmament 50; embargo and crisis), or Ferdinand burning the treaty on the secret path.
 
 ## Mechanic 2: The Tsar's Balance (new)
 Four blocs with influence 0–100, shown with their effects in the decision tab, driving the *Tsar's Balance* dynamic modifier:
@@ -71,8 +72,11 @@ Four blocs with influence 0–100, shown with their effects in the decision tab,
 Tolerating IMRO unlocks raids, newspapers and arms caches that raise **unrest in Vardar Macedonia**. At 70 IMRO can raise the Ilinden banner:
 Yugoslavia gets a **civil war** limited to Macedonia (25% of its forces defect). The rebels become the **Independent State of Macedonia**
 (own name, flag and map colour, led by Ivan Mihaylov, with the *Ilinden Fervour* spirit). Bulgaria can send volunteers (manpower),
-rifles, mountain guns and *Officers on Leave*, recognise and guarantee the state, or intervene openly. **Intervening openly** brings in every country that guarantees Yugoslavia (its faction allies may join on their own). If the rising survives
-8 months, or Yugoslavia starts to collapse, Belgrade makes peace with the rebels. If Bulgaria is still at war with Yugoslavia then, it chooses:
+rifles, mountain guns and *Officers on Leave*, recognise and guarantee the state, or intervene openly. **Intervening openly** brings in every country that guarantees Yugoslavia (its faction allies may join on their own). Every week the rising is checked: once it has
+survived 8 months, or Yugoslavia's surrender progress passes 15%, Vardar Macedonia becomes a **real independent state** (tag MAC): the rebels
+hand it their army, the civil-war country is folded back into Yugoslavia (which closes the civil war with Yugoslavia intact), and Skopje gets a
+one-year truce with Belgrade (and Bulgaria's guarantee, if it recognised the rising). Up to v3.3 the rising ended with a white peace that named the
+rebels as winner; in a civil war the winner annexes the loser, so Yugoslavia was annexed. That white peace is gone. If Bulgaria is still at war with Yugoslavia then, it chooses:
 **white peace** with Yugoslavia and everyone fighting for it as ally or guarantor, or **keep marching** (claims on every Yugoslav state bordering
 Bulgaria or free Macedonia). Six months later Skopje asks to join: annex it (cores) or keep it as a client.
 If it is crushed, Bulgaria pays in stability and IMRO influence. Mihaylov leaves the Bulgarian cabinet to lead the new state.
@@ -119,7 +123,7 @@ Splitting provinces or states (for example exact San Stefano borders) means edit
 `history/states` files. That overrides vanilla files and breaks Road to 56 and every other map-touching mod, which this mod's rules forbid.
 Border realism therefore works at state level: historical cores, claims elsewhere, compliance-gated integration.
 
-## Events (46) and decisions (77)
+## Events (47) and decisions (77)
 Events cover the opening, Neuilly thresholds, the court crises and Boris's death, diplomacy answers (pacts, guarantees, invitations,
 Craiova, the Albanian protectorate, Axis entry), the March on Sofia and the attempt on Lukov, the uprising (news, peace, defeat, union),
 the Coburg letters, Ferdinand's return, Hagia Sophia and Tarnovo, the three ultimatums (Athens, Belgrade, Ankara), the two momentum crises, and five random flavour events.

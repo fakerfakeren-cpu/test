@@ -277,10 +277,16 @@ bfx_start_macedonian_uprising = {
 	set_variable = { bfx_uprising_months = 0 }
 	set_variable = { bfx_macedonia_unrest = 0 }
 	news_event = { id = bfx_imro.1 days = 1 }
+	country_event = { id = bfx_imro.5 days = 7 }
 }
 
 bfx_uprising_monthly = {
 	add_to_variable = { bfx_uprising_months = 1 }
+}
+
+# checked every week (hidden event bfx_imro.5), so the rising is settled before Yugoslavia can collapse:
+# a civil war only ends when one side annexes the other, which is what must not happen here
+bfx_uprising_check = {
 	if = {
 		limit = { NOT = { any_country = { has_country_flag = bfx_imro_rebel_state } } }
 		clr_country_flag = bfx_uprising_active
@@ -291,17 +297,45 @@ bfx_uprising_monthly = {
 		limit = {
 			OR = {
 				check_variable = { bfx_uprising_months > 7 }
-				YUG = { surrender_progress > 0.2 }
-				YUG = { has_capitulated = yes }
+				YUG = { surrender_progress > 0.15 }
 			}
 		}
-		every_country = {
-			limit = { has_country_flag = bfx_imro_rebel_state }
-			white_peace = { tag = YUG }
-		}
-		clr_country_flag = bfx_uprising_active
-		set_country_flag = bfx_macedonia_free
-		set_variable = { bfx_uprising_months = 0 }
-		country_event = { id = bfx_imro.10 days = 1 }
+		bfx_macedonia_independence = yes
 	}
+}
+
+# Independence: the rebels hand Vardar Macedonia and their army to a real Macedonian state (tag MAC),
+# then the civil-war country is folded back into Yugoslavia, which ends the civil war without anyone annexing Yugoslavia.
+bfx_macedonia_independence = {
+	clr_country_flag = bfx_uprising_active
+	set_country_flag = bfx_macedonia_free
+	set_variable = { bfx_uprising_months = 0 }
+	random_country = { limit = { has_country_flag = bfx_imro_rebel_state } save_event_target_as = bfx_rebels }
+	106 = { if = { limit = { NOT = { is_core_of = MAC } } add_core_of = MAC } }
+	event_target:bfx_rebels = {
+		clr_country_flag = bfx_imro_rebel_state
+		release = MAC
+		if = { limit = { MAC = { is_subject_of = PREV } } end_puppet = MAC }
+		transfer_units_fraction = { target = MAC size = 1 }
+	}
+	if = {
+		limit = { event_target:bfx_rebels = { exists = yes } }
+		YUG = { annex_country = { target = event_target:bfx_rebels transfer_troops = no } }
+	}
+	if = {
+		limit = { country_exists = MAC }
+		MAC = {
+			set_country_flag = bfx_imro_rebel_state
+			set_cosmetic_tag = bfx_independent_macedonia
+			set_popularities = { fascism = 60 neutrality = 30 democratic = 5 communism = 5 }
+			set_politics = { ruling_party = fascism elections_allowed = no }
+			create_country_leader = { name = "Ivan Mihaylov" desc = bfx_mac_mihaylov_desc picture = "gfx/leaders/BUL/bfx_ivan_mihaylov.dds" expire = "1965.1.1" ideology = fascism_ideology traits = { bfx_trait_imro_vozhd } }
+			add_ideas = bfx_imro_fervour
+			add_manpower = 10000
+			add_equipment_to_stockpile = { type = infantry_equipment amount = 2000 }
+			set_truce = { target = YUG days = 365 }
+		}
+		if = { limit = { has_country_flag = bfx_macedonia_recognised } give_guarantee = MAC }
+	}
+	country_event = { id = bfx_imro.10 days = 1 }
 }

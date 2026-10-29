@@ -15,7 +15,7 @@ sys.path.insert(0, HERE)
 import core  # noqa: E402
 import ideas, characters, mechanic, events, tree  # noqa: E402,E401
 
-VERSION = "3.3"
+VERSION = "3.4"
 GAME_VERSION = "1.19.*"
 MOD = os.path.join(ROOT, "mod", "bfx_bulgaria")
 

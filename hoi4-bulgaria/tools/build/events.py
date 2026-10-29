@@ -9,11 +9,13 @@ def opt(name, effect="", ai=None, trigger=None):
 
 
 def E(eid, title, desc, picture, options, kind="country_event", trigger=None, immediate=None, major=False,
-      triggered_only=True):
+      triggered_only=True, hidden=False):
     ns = eid.split(".")[0]
     lines = [f"{kind} = {{", f"\tid = {eid}", f"\ttitle = {eid}.t", f"\tdesc = {eid}.d", f"\tpicture = {picture}"]
     if major:
         lines.append("\tmajor = yes")
+    if hidden:
+        lines.append("\thidden = yes")
     if triggered_only:
         lines.append("\tis_triggered_only = yes")
     if trigger:
@@ -315,8 +317,11 @@ E("bfx_imro.1", "Ilinden Again: Macedonia Rises",
       opt("Sofia is with you!", "add_war_support = 0.03", None, "tag = BUL"),
       opt("The Balkans are burning again.", "", None, "NOT = { tag = BUL }"),
   ], kind="news_event", major=True)
+E("bfx_imro.5", "The Uprising: Weekly Report", "Hidden: settles the rising before Yugoslavia can collapse.",
+  "GFX_event_bfx_imro_uprising", [], hidden=True,
+  immediate="if = { limit = { has_country_flag = bfx_uprising_active } bfx_uprising_check = yes }\nif = { limit = { has_country_flag = bfx_uprising_active } country_event = { id = bfx_imro.5 days = 7 } }")
 E("bfx_imro.10", "Belgrade Lets Macedonia Go",
-  "Yugoslavia has given up. Its envoys sign a ceasefire with the rebels in Kumanovo, and the Independent State of Macedonia stands on its own. In six months, they say, Skopje will decide its future. If our own army crossed the border, Belgrade is still at war with us, and so is anyone who came to its aid.",
+  "Yugoslavia has given up. Its envoys sign a ceasefire in Kumanovo: Vardar Macedonia is free, the rebel army becomes the army of the Independent State of Macedonia, and Belgrade keeps the rest of the kingdom under a year's truce. In six months, they say, Skopje will decide its future. If our own army crossed the border, Belgrade is still at war with us, and so is anyone who came to its aid.",
   "GFX_event_bfx_imro_uprising", [
       opt("Long live free Macedonia!", "add_stability = 0.05\nadd_war_support = 0.05\n" + court(imro=10),
           trigger="NOT = { has_war_with = YUG }"),

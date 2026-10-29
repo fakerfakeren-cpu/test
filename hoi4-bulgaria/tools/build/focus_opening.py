@@ -3,9 +3,15 @@ from focus_core import *  # noqa: F401,F403
 from focus_core import ded, civ, mil, dock, tech, claim_states, core_if_owned, claims_on_cores_of, \
     cores_on_owned_cores_of, wargoal_on_owner, tt, neuilly, F, swap, court, ai_flag, ai_prefer, INTEGRATION, \
     transfer_if_allied, F_POL, F_STAB, F_WS, F_IND, F_RES, F_MAN, F_ANNEX, F_ARMY, F_NAVY, F_AIR, F_HIST, \
-    F_MILCHAR, F_POLCHAR
+    F_MILCHAR, F_POLCHAR, loc
 
 CHANCELLERY_RULES = "set_rule = { can_create_factions = yes can_join_factions = yes can_guarantee_other_ideologies = yes can_send_volunteers = yes can_only_justify_war_on_threat_country = no }"
+
+# readable requirement tooltips (raw check_variable shows script names and hides the current value)
+NEUILLY_IN_FORCE = "custom_trigger_tooltip = { tooltip = bfx_tt_req_neuilly_in_force NOT = { has_country_flag = bfx_neuilly_ended } }"
+loc("bfx_tt_req_neuilly_in_force", "The §YShackles of Neuilly§! are still in force", "neuilly")
+loc("bfx_tt_req_rearm_50", "§YCovert Rearmament§! is at least §Y50§! (now §Y[?bfx_rearm|0]§!)", "neuilly")
+loc("bfx_tt_req_suspicion_50", "§YBalkan Suspicion§! is below §Y50§! (now §Y[?bfx_suspicion|0]§!)", "neuilly")
 
 # =====================================================================================
 # OPENING (20)
@@ -80,15 +86,15 @@ F("bfx_the_tsars_balance", 20, 3, "The Tsar's Balance",
   "GFX_focus_bfx_tsars_balance", B, prereq=["bfx_kingdom_without_parties"], filters=(F_POL, F_STAB))
 
 F("bfx_tear_up_neuilly", 22, 3, "Tear Up Neuilly",
-  "Why ask permission? With enough rifles in the cellars, Bulgaria can simply announce that the treaty no longer applies and dare the Entente to march. Rules out the negotiated Salonika route.",
+  "Why ask permission? With enough rifles in the cellars, Bulgaria can simply announce that the treaty no longer applies and dare the Entente to march. Needs Covert Rearmament of 50. Rules out the negotiated Salonika route.",
   "bfx_end_neuilly_torn = yes", "GFX_focus_bfx_tear_up_neuilly", B, prereq=["bfx_war_ministry_cellars"], excl=["bfx_salonika_agreement"],
-  available="NOT = { has_country_flag = bfx_neuilly_ended }\ncheck_variable = { bfx_rearm > 59 }", filters=(F_WS, F_ARMY),
+  available=NEUILLY_IN_FORCE + "\ncustom_trigger_tooltip = { tooltip = bfx_tt_req_rearm_50 check_variable = { bfx_rearm > 49 } }", filters=(F_WS, F_ARMY),
   ai="factor = 5\nmodifier = { factor = 4 has_country_flag = bfx_ai_fascist }")
 
 F("bfx_salonika_agreement", 25, 3, "The Salonika Agreement",
-  "July 1938, Thessaloniki: the Balkan Entente formally releases Bulgaria from the military clauses of Neuilly in exchange for a promise to behave. Rules out tearing the treaty up.",
+  "July 1938, Thessaloniki: the Balkan Entente formally releases Bulgaria from the military clauses of Neuilly in exchange for a promise to behave. Available from June 1938, and only if Balkan Suspicion is below 50: nobody negotiates with a neighbour they fear. Rules out tearing the treaty up.",
   "bfx_end_neuilly_negotiated = yes", "GFX_focus_bfx_salonika_agreement", B, prereq=["bfx_kyoseivanov_cabinet"], excl=["bfx_tear_up_neuilly"],
-  available="NOT = { has_country_flag = bfx_neuilly_ended }\nOR = { date > 1938.6.1 check_variable = { bfx_rearm > 49 } }",
+  available=NEUILLY_IN_FORCE + "\ndate > 1938.6.1\ncustom_trigger_tooltip = { tooltip = bfx_tt_req_suspicion_50 check_variable = { bfx_suspicion < 50 } }",
   filters=(F_POL, F_ARMY, F_HIST), ai="factor = 20")
 
 F("bfx_italian_queen", 27, 3, "The Italian Queen",
