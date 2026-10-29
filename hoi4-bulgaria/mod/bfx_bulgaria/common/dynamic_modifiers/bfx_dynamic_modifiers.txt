@@ -8,3 +8,15 @@ bfx_covert_rearmament = {
 	air_accidents_factor = bfx_dm_air
 	production_speed_dockyard_factor = bfx_dm_dock
 }
+
+bfx_court_balance = {
+	icon = GFX_idea_bfx_court_balance
+	enable = { always = yes }
+	stability_factor = bfx_cb_stab
+	political_power_factor = bfx_cb_pp
+	army_org_factor = bfx_cb_org
+	experience_gain_army_factor = bfx_cb_xp
+	war_support_factor = bfx_cb_ws
+	conscription_factor = bfx_cb_cons
+	justify_war_goal_time = bfx_cb_justify
+}

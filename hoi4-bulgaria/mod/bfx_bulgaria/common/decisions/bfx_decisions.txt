@@ -8,9 +8,9 @@ bfx_neuilly_category = {
 		complete_effect = {
 			if = {
 				limit = { NOT = { has_country_flag = bfx_neuilly_ended } }
-				custom_effect_tooltip = bfx_tt_neuilly_r10_s6
+				custom_effect_tooltip = bfx_tt_neuilly_r10_s7
 				hidden_effect = {
-					add_to_variable = { bfx_rearm = 10 } add_to_variable = { bfx_suspicion = 6 }
+					add_to_variable = { bfx_rearm = 10 } add_to_variable = { bfx_suspicion = 7 }
 					bfx_neuilly_recalc = yes
 				}
 			}
@@ -26,9 +26,9 @@ bfx_neuilly_category = {
 		complete_effect = {
 			if = {
 				limit = { NOT = { has_country_flag = bfx_neuilly_ended } }
-				custom_effect_tooltip = bfx_tt_neuilly_r8_s5
+				custom_effect_tooltip = bfx_tt_neuilly_r8_s6
 				hidden_effect = {
-					add_to_variable = { bfx_rearm = 8 } add_to_variable = { bfx_suspicion = 5 }
+					add_to_variable = { bfx_rearm = 8 } add_to_variable = { bfx_suspicion = 6 }
 					bfx_neuilly_recalc = yes
 				}
 			}
@@ -45,9 +45,9 @@ bfx_neuilly_category = {
 		complete_effect = {
 			if = {
 				limit = { NOT = { has_country_flag = bfx_neuilly_ended } }
-				custom_effect_tooltip = bfx_tt_neuilly_r12_s8
+				custom_effect_tooltip = bfx_tt_neuilly_r12_s9
 				hidden_effect = {
-					add_to_variable = { bfx_rearm = 12 } add_to_variable = { bfx_suspicion = 8 }
+					add_to_variable = { bfx_rearm = 12 } add_to_variable = { bfx_suspicion = 9 }
 					bfx_neuilly_recalc = yes
 				}
 			}
@@ -64,9 +64,9 @@ bfx_neuilly_category = {
 		complete_effect = {
 			if = {
 				limit = { NOT = { has_country_flag = bfx_neuilly_ended } }
-				custom_effect_tooltip = bfx_tt_neuilly_r12_s9
+				custom_effect_tooltip = bfx_tt_neuilly_r12_s10
 				hidden_effect = {
-					add_to_variable = { bfx_rearm = 12 } add_to_variable = { bfx_suspicion = 9 }
+					add_to_variable = { bfx_rearm = 12 } add_to_variable = { bfx_suspicion = 10 }
 					bfx_neuilly_recalc = yes
 				}
 			}
@@ -83,9 +83,9 @@ bfx_neuilly_category = {
 		complete_effect = {
 			if = {
 				limit = { NOT = { has_country_flag = bfx_neuilly_ended } }
-				custom_effect_tooltip = bfx_tt_neuilly_r8_s4
+				custom_effect_tooltip = bfx_tt_neuilly_r8_s5
 				hidden_effect = {
-					add_to_variable = { bfx_rearm = 8 } add_to_variable = { bfx_suspicion = 4 }
+					add_to_variable = { bfx_rearm = 8 } add_to_variable = { bfx_suspicion = 5 }
 					bfx_neuilly_recalc = yes
 				}
 			}
@@ -95,7 +95,7 @@ bfx_neuilly_category = {
 	}
 	bfx_reassure_capitals = {
 		icon = generic_political_discourse
-		cost = 35
+		cost = 50
 		days_re_enable = 60
 		visible = { always = yes }
 		available = { NOT = { has_country_flag = bfx_neuilly_ended } }
@@ -114,7 +114,7 @@ bfx_neuilly_category = {
 	}
 	bfx_league_observers = {
 		icon = generic_political_address
-		cost = 60
+		cost = 80
 		days_re_enable = 180
 		visible = { always = yes }
 		available = { NOT = { has_country_flag = bfx_neuilly_ended } }
@@ -133,17 +133,423 @@ bfx_neuilly_category = {
 	}
 }
 
+bfx_court_category = {
+	bfx_court_royal_audience = {
+		icon = generic_political_address
+		cost = 30
+		days_re_enable = 60
+		visible = { always = yes }
+		available = { always = yes }
+		complete_effect = {
+			custom_effect_tooltip = bfx_tt_court_p8
+			hidden_effect = {
+				add_to_variable = { bfx_inf_palace = 8 }
+				bfx_court_recalc = yes
+			}
+		}
+		ai_will_do = { factor = 2
+	modifier = { factor = 5 check_variable = { bfx_inf_palace < 35 } } }
+	}
+	bfx_court_promote_generals = {
+		icon = generic_military
+		cost = 40
+		days_re_enable = 90
+		visible = { always = yes }
+		available = { always = yes }
+		complete_effect = {
+			custom_effect_tooltip = bfx_tt_court_pm5_a10
+			hidden_effect = {
+				add_to_variable = { bfx_inf_palace = -5 } add_to_variable = { bfx_inf_army = 10 }
+				bfx_court_recalc = yes
+			}
+		}
+		ai_will_do = { factor = 1
+	modifier = { factor = 4 check_variable = { bfx_inf_army < 30 } } }
+	}
+	bfx_court_purge_league = {
+		icon = generic_arrest
+		cost = 50
+		days_re_enable = 180
+		visible = { always = yes }
+		available = { always = yes }
+		complete_effect = {
+			custom_effect_tooltip = bfx_tt_court_p5_am20
+			hidden_effect = {
+				add_to_variable = { bfx_inf_palace = 5 } add_to_variable = { bfx_inf_army = -20 }
+				bfx_court_recalc = yes
+			}
+			add_stability = -0.02
+		}
+		ai_will_do = { factor = 0
+	modifier = { add = 5 check_variable = { bfx_inf_army > 70 } } }
+	}
+	bfx_court_patronise_legions = {
+		icon = generic_political_rally
+		cost = 35
+		days_re_enable = 60
+		visible = { always = yes }
+		available = { always = yes }
+		complete_effect = {
+			custom_effect_tooltip = bfx_tt_court_l10
+			hidden_effect = {
+				add_to_variable = { bfx_inf_legion = 10 }
+				bfx_court_recalc = yes
+			}
+			add_war_support = 0.02
+		}
+		ai_will_do = { factor = 1
+	modifier = { factor = 15 has_country_flag = bfx_ai_fascist check_variable = { bfx_inf_legion < 45 } } }
+	}
+	bfx_court_ban_rallies = {
+		icon = generic_police_action
+		cost = 40
+		days_re_enable = 120
+		visible = { always = yes }
+		available = { always = yes }
+		complete_effect = {
+			custom_effect_tooltip = bfx_tt_court_lm15
+			hidden_effect = {
+				add_to_variable = { bfx_inf_legion = -15 }
+				bfx_court_recalc = yes
+			}
+			add_war_support = -0.02
+		}
+		ai_will_do = { factor = 0
+	modifier = { add = 5 check_variable = { bfx_inf_legion > 70 } has_country_flag = bfx_boris_rules } }
+	}
+	bfx_court_subsidise_committees = {
+		icon = generic_nationalism
+		cost = 30
+		days_re_enable = 90
+		visible = { always = yes }
+		available = { always = yes }
+		complete_effect = {
+			custom_effect_tooltip = bfx_tt_court_i10
+			hidden_effect = {
+				add_to_variable = { bfx_inf_imro = 10 }
+				bfx_court_recalc = yes
+			}
+		}
+		ai_will_do = { factor = 1 }
+	}
+	bfx_court_arrest_gunmen = {
+		icon = generic_arrest
+		cost = 50
+		days_re_enable = 120
+		visible = { always = yes }
+		available = { always = yes }
+		complete_effect = {
+			custom_effect_tooltip = bfx_tt_court_im20
+			hidden_effect = {
+				add_to_variable = { bfx_inf_imro = -20 }
+				bfx_court_recalc = yes
+			}
+			add_stability = 0.02
+		}
+		ai_will_do = { factor = 0
+	modifier = { add = 5 check_variable = { bfx_inf_imro > 70 } } }
+	}
+	bfx_court_metropolitan_blessing = {
+		icon = generic_welfare
+		cost = 50
+		days_re_enable = 180
+		visible = { always = yes }
+		available = { always = yes }
+		complete_effect = {
+			custom_effect_tooltip = bfx_tt_court_p5
+			hidden_effect = {
+				add_to_variable = { bfx_inf_palace = 5 }
+				bfx_court_recalc = yes
+			}
+			add_stability = 0.03
+		}
+		ai_will_do = { factor = 1 }
+	}
+	bfx_court_answer_coburg = {
+		icon = generic_monarchy
+		cost = 75
+		days_re_enable = 120
+		visible = { check_variable = { bfx_coburg_letters > 0 } check_variable = { bfx_coburg_letters < 3 } NOT = { has_country_flag = bfx_secret_unlocked } }
+		available = { always = yes }
+		complete_effect = {
+			add_to_variable = { bfx_coburg_letters = 1 }
+			custom_effect_tooltip = bfx_tt_coburg_letter
+			if = { limit = { check_variable = { bfx_coburg_letters > 2 } } set_country_flag = bfx_secret_unlocked mark_focus_tree_layout_dirty = yes }
+		}
+		ai_will_do = { factor = 1
+	modifier = { factor = 5 has_country_flag = bfx_ai_secret } }
+	}
+}
+
+bfx_diplomacy_category = {
+	bfx_dip_nap_tur = {
+		icon = generic_political_discourse
+		cost = 25
+		days_re_enable = 180
+		visible = { country_exists = TUR NOT = { is_in_faction_with = TUR } }
+		available = { NOT = { has_war_with = TUR } }
+		complete_effect = {
+			TUR = { country_event = { id = bfx_dip.1 days = 2 } }
+		}
+		ai_will_do = { factor = 1 }
+	}
+	bfx_dip_nap_rom = {
+		icon = generic_political_discourse
+		cost = 25
+		days_re_enable = 180
+		visible = { country_exists = ROM NOT = { is_in_faction_with = ROM } }
+		available = { NOT = { has_war_with = ROM } }
+		complete_effect = {
+			ROM = { country_event = { id = bfx_dip.1 days = 2 } }
+		}
+		ai_will_do = { factor = 1 }
+	}
+	bfx_dip_nap_gre = {
+		icon = generic_political_discourse
+		cost = 25
+		days_re_enable = 180
+		visible = { country_exists = GRE NOT = { is_in_faction_with = GRE } }
+		available = { NOT = { has_war_with = GRE } }
+		complete_effect = {
+			GRE = { country_event = { id = bfx_dip.1 days = 2 } }
+		}
+		ai_will_do = { factor = 1 }
+	}
+	bfx_dip_nap_yug = {
+		icon = generic_political_discourse
+		cost = 25
+		days_re_enable = 180
+		visible = { country_exists = YUG NOT = { is_in_faction_with = YUG } }
+		available = { NOT = { has_war_with = YUG } }
+		complete_effect = {
+			YUG = { country_event = { id = bfx_dip.1 days = 2 } }
+		}
+		ai_will_do = { factor = 1 }
+	}
+	bfx_dip_nap_sov = {
+		icon = generic_political_discourse
+		cost = 25
+		days_re_enable = 180
+		visible = { country_exists = SOV NOT = { is_in_faction_with = SOV } }
+		available = { NOT = { has_war_with = SOV } }
+		complete_effect = {
+			SOV = { country_event = { id = bfx_dip.1 days = 2 } }
+		}
+		ai_will_do = { factor = 1 }
+	}
+	bfx_dip_nap_hun = {
+		icon = generic_political_discourse
+		cost = 25
+		days_re_enable = 180
+		visible = { country_exists = HUN NOT = { is_in_faction_with = HUN } }
+		available = { NOT = { has_war_with = HUN } }
+		complete_effect = {
+			HUN = { country_event = { id = bfx_dip.1 days = 2 } }
+		}
+		ai_will_do = { factor = 1 }
+	}
+	bfx_dip_nap_ita = {
+		icon = generic_political_discourse
+		cost = 25
+		days_re_enable = 180
+		visible = { country_exists = ITA NOT = { is_in_faction_with = ITA } }
+		available = { NOT = { has_war_with = ITA } }
+		complete_effect = {
+			ITA = { country_event = { id = bfx_dip.1 days = 2 } }
+		}
+		ai_will_do = { factor = 1 }
+	}
+	bfx_dip_guarantee_ger = {
+		icon = generic_political_address
+		cost = 25
+		days_re_enable = 180
+		visible = { country_exists = GER }
+		available = { NOT = { has_war_with = GER } }
+		complete_effect = {
+			GER = { country_event = { id = bfx_dip.4 days = 2 } }
+		}
+		ai_will_do = { factor = 1 }
+	}
+	bfx_dip_guarantee_ita = {
+		icon = generic_political_address
+		cost = 25
+		days_re_enable = 180
+		visible = { country_exists = ITA }
+		available = { NOT = { has_war_with = ITA } }
+		complete_effect = {
+			ITA = { country_event = { id = bfx_dip.4 days = 2 } }
+		}
+		ai_will_do = { factor = 1 }
+	}
+	bfx_dip_guarantee_eng = {
+		icon = generic_political_address
+		cost = 25
+		days_re_enable = 180
+		visible = { country_exists = ENG }
+		available = { NOT = { has_war_with = ENG } }
+		complete_effect = {
+			ENG = { country_event = { id = bfx_dip.4 days = 2 } }
+		}
+		ai_will_do = { factor = 1 }
+	}
+	bfx_dip_guarantee_fra = {
+		icon = generic_political_address
+		cost = 25
+		days_re_enable = 180
+		visible = { country_exists = FRA }
+		available = { NOT = { has_war_with = FRA } }
+		complete_effect = {
+			FRA = { country_event = { id = bfx_dip.4 days = 2 } }
+		}
+		ai_will_do = { factor = 1 }
+	}
+	bfx_dip_invite_hun = {
+		icon = generic_form_nation
+		cost = 25
+		days_re_enable = 180
+		visible = { is_faction_leader = yes country_exists = HUN }
+		available = { HUN = { is_in_faction = no } NOT = { has_war_with = HUN } }
+		complete_effect = {
+			HUN = { country_event = { id = bfx_dip.5 days = 2 } }
+		}
+		ai_will_do = { factor = 2 }
+	}
+	bfx_dip_invite_rom = {
+		icon = generic_form_nation
+		cost = 25
+		days_re_enable = 180
+		visible = { is_faction_leader = yes country_exists = ROM }
+		available = { ROM = { is_in_faction = no } NOT = { has_war_with = ROM } }
+		complete_effect = {
+			ROM = { country_event = { id = bfx_dip.5 days = 2 } }
+		}
+		ai_will_do = { factor = 2 }
+	}
+	bfx_dip_invite_gre = {
+		icon = generic_form_nation
+		cost = 25
+		days_re_enable = 180
+		visible = { is_faction_leader = yes country_exists = GRE }
+		available = { GRE = { is_in_faction = no } NOT = { has_war_with = GRE } }
+		complete_effect = {
+			GRE = { country_event = { id = bfx_dip.5 days = 2 } }
+		}
+		ai_will_do = { factor = 2 }
+	}
+	bfx_dip_invite_yug = {
+		icon = generic_form_nation
+		cost = 25
+		days_re_enable = 180
+		visible = { is_faction_leader = yes country_exists = YUG }
+		available = { YUG = { is_in_faction = no } NOT = { has_war_with = YUG } }
+		complete_effect = {
+			YUG = { country_event = { id = bfx_dip.5 days = 2 } }
+		}
+		ai_will_do = { factor = 2 }
+	}
+	bfx_dip_invite_tur = {
+		icon = generic_form_nation
+		cost = 25
+		days_re_enable = 180
+		visible = { is_faction_leader = yes country_exists = TUR }
+		available = { TUR = { is_in_faction = no } NOT = { has_war_with = TUR } }
+		complete_effect = {
+			TUR = { country_event = { id = bfx_dip.5 days = 2 } }
+		}
+		ai_will_do = { factor = 2 }
+	}
+	bfx_dip_invite_alb = {
+		icon = generic_form_nation
+		cost = 25
+		days_re_enable = 180
+		visible = { is_faction_leader = yes country_exists = ALB }
+		available = { ALB = { is_in_faction = no } NOT = { has_war_with = ALB } }
+		complete_effect = {
+			ALB = { country_event = { id = bfx_dip.5 days = 2 } }
+		}
+		ai_will_do = { factor = 2 }
+	}
+	bfx_dip_give_guarantee_alb = {
+		icon = generic_protection
+		cost = 15
+		fire_only_once = yes
+		visible = { country_exists = ALB }
+		available = { NOT = { has_war_with = ALB } }
+		complete_effect = {
+			give_guarantee = ALB
+		}
+		ai_will_do = { factor = 0 }
+	}
+	bfx_dip_give_guarantee_hun = {
+		icon = generic_protection
+		cost = 15
+		fire_only_once = yes
+		visible = { country_exists = HUN }
+		available = { NOT = { has_war_with = HUN } }
+		complete_effect = {
+			give_guarantee = HUN
+		}
+		ai_will_do = { factor = 0 }
+	}
+	bfx_dip_give_guarantee_gre = {
+		icon = generic_protection
+		cost = 15
+		fire_only_once = yes
+		visible = { country_exists = GRE }
+		available = { NOT = { has_war_with = GRE } }
+		complete_effect = {
+			give_guarantee = GRE
+		}
+		ai_will_do = { factor = 0 }
+	}
+	bfx_dip_give_guarantee_rom = {
+		icon = generic_protection
+		cost = 15
+		fire_only_once = yes
+		visible = { country_exists = ROM }
+		available = { NOT = { has_war_with = ROM } }
+		complete_effect = {
+			give_guarantee = ROM
+		}
+		ai_will_do = { factor = 0 }
+	}
+	bfx_dip_give_guarantee_yug = {
+		icon = generic_protection
+		cost = 15
+		fire_only_once = yes
+		visible = { country_exists = YUG }
+		available = { NOT = { has_war_with = YUG } }
+		complete_effect = {
+			give_guarantee = YUG
+		}
+		ai_will_do = { factor = 0 }
+	}
+	bfx_dip_demand_dobruja = {
+		icon = generic_break_treaty
+		cost = 50
+		days_re_enable = 365
+		visible = { NOT = { owns_state = 77 } }
+		available = { 77 = { owner = { NOT = { is_in_faction_with = ROOT } NOT = { has_war_with = ROOT } } } }
+		complete_effect = {
+			add_state_claim = 77
+			77 = { owner = { country_event = { id = bfx_dip.6 days = 2 } } }
+		}
+		ai_will_do = { factor = 2 }
+	}
+}
+
 bfx_imro_category = {
 	bfx_imro_cheta_raids = {
 		icon = generic_assassination
-		cost = 50
-		days_re_enable = 90
+		cost = 40
+		days_re_enable = 60
 		visible = { always = yes }
-		available = { NOT = { owns_state = 106 } check_variable = { bfx_macedonia_unrest < 3 } }
+		available = { NOT = { has_country_flag = bfx_uprising_active } NOT = { has_country_flag = bfx_macedonia_free } NOT = { owns_state = 106 } 106 = { is_owned_by = YUG } }
 		complete_effect = {
-			add_to_variable = { bfx_macedonia_unrest = 1 }
-			custom_effect_tooltip = bfx_tt_unrest_plus_1
-			106 = { owner = { add_stability = -0.02 } }
+			add_to_variable = { bfx_macedonia_unrest = 15 }
+			clamp_variable = { var = bfx_macedonia_unrest min = 0 max = 100 }
+			custom_effect_tooltip = bfx_tt_unrest_15
+			YUG = { add_stability = -0.02 }
 			if = {
 				limit = { NOT = { has_country_flag = bfx_neuilly_ended } }
 				custom_effect_tooltip = bfx_tt_neuilly_r0_s5
@@ -153,310 +559,238 @@ bfx_imro_category = {
 				}
 			}
 		}
-		ai_will_do = { factor = 2
-	modifier = { factor = 3 has_country_flag = bfx_ai_tsar_axis } }
+		ai_will_do = { factor = 3 }
 	}
-	bfx_imro_scientific_institute = {
-		icon = generic_research
-		cost = 30
-		days_re_enable = 180
+	bfx_imro_newspapers = {
+		icon = generic_speech
+		cost = 20
+		days_re_enable = 45
 		visible = { always = yes }
-		available = { always = yes }
+		available = { NOT = { has_country_flag = bfx_uprising_active } NOT = { has_country_flag = bfx_macedonia_free } NOT = { owns_state = 106 } 106 = { is_owned_by = YUG } }
 		complete_effect = {
-			add_war_support = 0.03
-			add_political_power = 10
+			add_to_variable = { bfx_macedonia_unrest = 8 }
+			clamp_variable = { var = bfx_macedonia_unrest min = 0 max = 100 }
+			custom_effect_tooltip = bfx_tt_unrest_8
 		}
-		ai_will_do = { factor = 1 }
+		ai_will_do = { factor = 3 }
 	}
-	bfx_imro_volunteers = {
+	bfx_imro_arms_caches = {
 		icon = generic_army_support
-		cost = 40
-		fire_only_once = yes
-		visible = { always = yes }
-		available = { always = yes }
-		complete_effect = {
-			add_manpower = 5000
-			army_experience = 10
-		}
-		ai_will_do = { factor = 1 }
-	}
-	bfx_imro_uprising = {
-		icon = generic_ignite_civil_war
-		cost = 75
-		fire_only_once = yes
-		visible = { always = yes }
-		available = { check_variable = { bfx_macedonia_unrest > 2 } NOT = { owns_state = 106 } }
-		complete_effect = {
-			add_state_claim = 106
-			106 = { owner = { save_event_target_as = bfx_wg_target } }
-			create_wargoal = { type = take_state_focus target = event_target:bfx_wg_target generator = { 106 } }
-		}
-		ai_will_do = { factor = 5 }
-	}
-}
-
-bfx_partisan_category = {
-	bfx_partisans_yug = {
-		icon = generic_army_support
-		cost = 50
-		days_re_enable = 60
-		visible = { has_country_flag = bfx_partisans_west country_exists = YUG NOT = { YUG = { has_government = communism } } }
-		available = { NOT = { has_war_with = YUG } }
-		complete_effect = {
-			YUG = { add_popularity = { ideology = communism popularity = 0.08 } add_opinion_modifier = { target = ROOT modifier = bfx_om_partisan_meddling } }
-			add_equipment_to_stockpile = { type = infantry_equipment amount = -500 }
-		}
-		ai_will_do = { factor = 2 }
-	}
-	bfx_revolution_yug = {
-		icon = generic_ignite_civil_war
-		cost = 100
-		days_re_enable = 365
-		visible = { has_country_flag = bfx_partisans_west country_exists = YUG NOT = { YUG = { has_government = communism } } }
-		available = { YUG = { communism > 0.45 has_civil_war = no } }
-		complete_effect = {
-			YUG = { start_civil_war = { ideology = communism size = 0.5 } }
-		}
-		ai_will_do = { factor = 5 }
-	}
-	bfx_partisans_alb = {
-		icon = generic_army_support
-		cost = 50
-		days_re_enable = 60
-		visible = { has_country_flag = bfx_partisans_west country_exists = ALB NOT = { ALB = { has_government = communism } } }
-		available = { NOT = { has_war_with = ALB } }
-		complete_effect = {
-			ALB = { add_popularity = { ideology = communism popularity = 0.08 } add_opinion_modifier = { target = ROOT modifier = bfx_om_partisan_meddling } }
-			add_equipment_to_stockpile = { type = infantry_equipment amount = -500 }
-		}
-		ai_will_do = { factor = 2 }
-	}
-	bfx_revolution_alb = {
-		icon = generic_ignite_civil_war
-		cost = 100
-		days_re_enable = 365
-		visible = { has_country_flag = bfx_partisans_west country_exists = ALB NOT = { ALB = { has_government = communism } } }
-		available = { ALB = { communism > 0.45 has_civil_war = no } }
-		complete_effect = {
-			ALB = { start_civil_war = { ideology = communism size = 0.5 } }
-		}
-		ai_will_do = { factor = 5 }
-	}
-	bfx_partisans_gre = {
-		icon = generic_army_support
-		cost = 50
-		days_re_enable = 60
-		visible = { has_country_flag = bfx_partisans_south country_exists = GRE NOT = { GRE = { has_government = communism } } }
-		available = { NOT = { has_war_with = GRE } }
-		complete_effect = {
-			GRE = { add_popularity = { ideology = communism popularity = 0.08 } add_opinion_modifier = { target = ROOT modifier = bfx_om_partisan_meddling } }
-			add_equipment_to_stockpile = { type = infantry_equipment amount = -500 }
-		}
-		ai_will_do = { factor = 2 }
-	}
-	bfx_revolution_gre = {
-		icon = generic_ignite_civil_war
-		cost = 100
-		days_re_enable = 365
-		visible = { has_country_flag = bfx_partisans_south country_exists = GRE NOT = { GRE = { has_government = communism } } }
-		available = { GRE = { communism > 0.45 has_civil_war = no } }
-		complete_effect = {
-			GRE = { start_civil_war = { ideology = communism size = 0.5 } }
-		}
-		ai_will_do = { factor = 5 }
-	}
-	bfx_partisans_tur = {
-		icon = generic_army_support
-		cost = 50
-		days_re_enable = 60
-		visible = { has_country_flag = bfx_partisans_south country_exists = TUR NOT = { TUR = { has_government = communism } } }
-		available = { NOT = { has_war_with = TUR } }
-		complete_effect = {
-			TUR = { add_popularity = { ideology = communism popularity = 0.08 } add_opinion_modifier = { target = ROOT modifier = bfx_om_partisan_meddling } }
-			add_equipment_to_stockpile = { type = infantry_equipment amount = -500 }
-		}
-		ai_will_do = { factor = 2 }
-	}
-	bfx_revolution_tur = {
-		icon = generic_ignite_civil_war
-		cost = 100
-		days_re_enable = 365
-		visible = { has_country_flag = bfx_partisans_south country_exists = TUR NOT = { TUR = { has_government = communism } } }
-		available = { TUR = { communism > 0.45 has_civil_war = no } }
-		complete_effect = {
-			TUR = { start_civil_war = { ideology = communism size = 0.5 } }
-		}
-		ai_will_do = { factor = 5 }
-	}
-	bfx_integrate_yug = {
-		icon = generic_form_nation
-		cost = 100
-		days_re_enable = 30
-		visible = { has_country_flag = bfx_federation_proclaimed }
-		available = { any_country = { original_tag = YUG has_government = communism OR = { is_subject_of = ROOT is_in_faction_with = ROOT } NOT = { tag = ROOT } } }
-		complete_effect = {
-			every_country = {
-				limit = { original_tag = YUG has_government = communism OR = { is_subject_of = ROOT is_in_faction_with = ROOT } NOT = { tag = ROOT } }
-				every_core_state = { add_core_of = ROOT }
-				ROOT = { annex_country = { target = PREV transfer_troops = yes } }
-			}
-		}
-		ai_will_do = { factor = 10 }
-	}
-	bfx_integrate_alb = {
-		icon = generic_form_nation
-		cost = 100
-		days_re_enable = 30
-		visible = { has_country_flag = bfx_federation_proclaimed }
-		available = { any_country = { original_tag = ALB has_government = communism OR = { is_subject_of = ROOT is_in_faction_with = ROOT } NOT = { tag = ROOT } } }
-		complete_effect = {
-			every_country = {
-				limit = { original_tag = ALB has_government = communism OR = { is_subject_of = ROOT is_in_faction_with = ROOT } NOT = { tag = ROOT } }
-				every_core_state = { add_core_of = ROOT }
-				ROOT = { annex_country = { target = PREV transfer_troops = yes } }
-			}
-		}
-		ai_will_do = { factor = 10 }
-	}
-	bfx_integrate_gre = {
-		icon = generic_form_nation
-		cost = 100
-		days_re_enable = 30
-		visible = { has_country_flag = bfx_federation_proclaimed }
-		available = { any_country = { original_tag = GRE has_government = communism OR = { is_subject_of = ROOT is_in_faction_with = ROOT } NOT = { tag = ROOT } } }
-		complete_effect = {
-			every_country = {
-				limit = { original_tag = GRE has_government = communism OR = { is_subject_of = ROOT is_in_faction_with = ROOT } NOT = { tag = ROOT } }
-				every_core_state = { add_core_of = ROOT }
-				ROOT = { annex_country = { target = PREV transfer_troops = yes } }
-			}
-		}
-		ai_will_do = { factor = 10 }
-	}
-	bfx_integrate_tur = {
-		icon = generic_form_nation
-		cost = 100
-		days_re_enable = 30
-		visible = { has_country_flag = bfx_federation_proclaimed }
-		available = { any_country = { original_tag = TUR has_government = communism OR = { is_subject_of = ROOT is_in_faction_with = ROOT } NOT = { tag = ROOT } } }
-		complete_effect = {
-			every_country = {
-				limit = { original_tag = TUR has_government = communism OR = { is_subject_of = ROOT is_in_faction_with = ROOT } NOT = { tag = ROOT } }
-				every_core_state = { add_core_of = ROOT }
-				ROOT = { annex_country = { target = PREV transfer_troops = yes } }
-			}
-		}
-		ai_will_do = { factor = 10 }
-	}
-	bfx_integrate_rom = {
-		icon = generic_form_nation
-		cost = 100
-		days_re_enable = 30
-		visible = { has_country_flag = bfx_red_danubia }
-		available = { any_country = { original_tag = ROM has_government = communism OR = { is_subject_of = ROOT is_in_faction_with = ROOT } NOT = { tag = ROOT } } }
-		complete_effect = {
-			every_country = {
-				limit = { original_tag = ROM has_government = communism OR = { is_subject_of = ROOT is_in_faction_with = ROOT } NOT = { tag = ROOT } }
-				every_core_state = { add_core_of = ROOT }
-				ROOT = { annex_country = { target = PREV transfer_troops = yes } }
-			}
-		}
-		ai_will_do = { factor = 10 }
-	}
-	bfx_integrate_hun = {
-		icon = generic_form_nation
-		cost = 100
-		days_re_enable = 30
-		visible = { has_country_flag = bfx_red_danubia }
-		available = { any_country = { original_tag = HUN has_government = communism OR = { is_subject_of = ROOT is_in_faction_with = ROOT } NOT = { tag = ROOT } } }
-		complete_effect = {
-			every_country = {
-				limit = { original_tag = HUN has_government = communism OR = { is_subject_of = ROOT is_in_faction_with = ROOT } NOT = { tag = ROOT } }
-				every_core_state = { add_core_of = ROOT }
-				ROOT = { annex_country = { target = PREV transfer_troops = yes } }
-			}
-		}
-		ai_will_do = { factor = 10 }
-	}
-	bfx_integrate_cze = {
-		icon = generic_form_nation
-		cost = 100
-		days_re_enable = 30
-		visible = { has_country_flag = bfx_red_danubia }
-		available = { any_country = { original_tag = CZE has_government = communism OR = { is_subject_of = ROOT is_in_faction_with = ROOT } NOT = { tag = ROOT } } }
-		complete_effect = {
-			every_country = {
-				limit = { original_tag = CZE has_government = communism OR = { is_subject_of = ROOT is_in_faction_with = ROOT } NOT = { tag = ROOT } }
-				every_core_state = { add_core_of = ROOT }
-				ROOT = { annex_country = { target = PREV transfer_troops = yes } }
-			}
-		}
-		ai_will_do = { factor = 10 }
-	}
-}
-
-bfx_cooperative_category = {
-	bfx_coop_village = {
-		icon = generic_welfare
 		cost = 25
 		days_re_enable = 60
-		visible = { NOT = { has_completed_focus = bfx_zveno_takes_the_helm } }
-		available = { always = yes }
+		visible = { always = yes }
+		available = { NOT = { has_country_flag = bfx_uprising_active } NOT = { has_country_flag = bfx_macedonia_free } NOT = { owns_state = 106 } 106 = { is_owned_by = YUG } }
 		complete_effect = {
-			add_stability = 0.02
-			random_owned_controlled_state = { add_building_construction = { type = infrastructure level = 1 instant_build = yes } }
+			add_to_variable = { bfx_macedonia_unrest = 10 }
+			clamp_variable = { var = bfx_macedonia_unrest min = 0 max = 100 }
+			custom_effect_tooltip = bfx_tt_unrest_10
+			add_equipment_to_stockpile = { type = infantry_equipment amount = -500 }
 		}
-		ai_will_do = { factor = 1 }
+		ai_will_do = { factor = 3 }
 	}
-	bfx_coop_green_congress = {
-		icon = generic_political_rally
-		cost = 50
-		days_re_enable = 180
-		visible = { has_completed_focus = bfx_agr_green_international }
-		available = { always = yes }
+	bfx_imro_ilinden = {
+		icon = generic_ignite_civil_war
+		cost = 100
+		days_re_enable = 365
+		visible = { always = yes }
+		available = { NOT = { has_country_flag = bfx_uprising_active } NOT = { has_country_flag = bfx_macedonia_free } NOT = { owns_state = 106 } 106 = { is_owned_by = YUG } check_variable = { bfx_macedonia_unrest > 69 } YUG = { has_civil_war = no } }
 		complete_effect = {
-			every_country = { limit = { is_in_faction_with = ROOT NOT = { tag = ROOT } } add_opinion_modifier = { target = ROOT modifier = bfx_om_green_brothers } }
-			add_political_power = 25
-		}
-		ai_will_do = { factor = 1 }
-	}
-	bfx_coop_peasant_militia = {
-		icon = generic_army_support
-		cost = 40
-		fire_only_once = yes
-		visible = { has_completed_focus = bfx_agr_orange_guard }
-		available = { always = yes }
-		complete_effect = {
-			add_manpower = 8000
-		}
-		ai_will_do = { factor = 1 }
-	}
-	bfx_zveno_industry_directive = {
-		icon = generic_industry
-		cost = 75
-		days_re_enable = 180
-		visible = { has_completed_focus = bfx_zveno_takes_the_helm }
-		available = { always = yes }
-		complete_effect = {
-			random_owned_controlled_state = {
-				limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes } }
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			bfx_start_macedonian_uprising = yes
+			custom_effect_tooltip = bfx_tt_court_i10
+			hidden_effect = {
+				add_to_variable = { bfx_inf_imro = 10 }
+				bfx_court_recalc = yes
+			}
+			if = {
+				limit = { NOT = { has_country_flag = bfx_neuilly_ended } }
+				custom_effect_tooltip = bfx_tt_neuilly_r0_s20
+				hidden_effect = {
+					add_to_variable = { bfx_suspicion = 20 }
+					bfx_neuilly_recalc = yes
+				}
 			}
 		}
-		ai_will_do = { factor = 1 }
+		ai_will_do = { factor = 10 }
 	}
-	bfx_zveno_purge_reactionaries = {
-		icon = generic_arrest
-		cost = 50
-		days_re_enable = 120
-		visible = { has_completed_focus = bfx_zveno_takes_the_helm }
+	bfx_uprising_volunteers = {
+		icon = generic_army_support
+		cost = 25
+		days_re_enable = 30
+		visible = { has_country_flag = bfx_uprising_active any_country = { has_country_flag = bfx_imro_rebel_state } }
 		available = { always = yes }
 		complete_effect = {
-			add_stability = 0.05
-			add_war_support = -0.02
+			add_manpower = -8000
+			every_country = { limit = { has_country_flag = bfx_imro_rebel_state } add_manpower = 8000 }
 		}
-		ai_will_do = { factor = 1 }
+		ai_will_do = { factor = 5 }
+	}
+	bfx_uprising_rifles = {
+		icon = generic_army_support
+		cost = 15
+		days_re_enable = 30
+		visible = { has_country_flag = bfx_uprising_active any_country = { has_country_flag = bfx_imro_rebel_state } }
+		available = { always = yes }
+		complete_effect = {
+			add_equipment_to_stockpile = { type = infantry_equipment amount = -1500 }
+			every_country = { limit = { has_country_flag = bfx_imro_rebel_state } add_equipment_to_stockpile = { type = infantry_equipment amount = 1500 } }
+		}
+		ai_will_do = { factor = 5 }
+	}
+	bfx_uprising_guns = {
+		icon = generic_tank
+		cost = 25
+		days_re_enable = 60
+		visible = { has_country_flag = bfx_uprising_active any_country = { has_country_flag = bfx_imro_rebel_state } }
+		available = { always = yes }
+		complete_effect = {
+			add_equipment_to_stockpile = { type = artillery_equipment amount = -60 }
+			every_country = { limit = { has_country_flag = bfx_imro_rebel_state } add_equipment_to_stockpile = { type = artillery_equipment amount = 60 } }
+		}
+		ai_will_do = { factor = 3 }
+	}
+	bfx_uprising_officers = {
+		icon = generic_military
+		cost = 50
+		fire_only_once = yes
+		visible = { has_country_flag = bfx_uprising_active any_country = { has_country_flag = bfx_imro_rebel_state } }
+		available = { always = yes }
+		complete_effect = {
+			army_experience = -10
+			every_country = { limit = { has_country_flag = bfx_imro_rebel_state } add_ideas = bfx_imro_bulgarian_officers }
+		}
+		ai_will_do = { factor = 5 }
+	}
+	bfx_uprising_recognise = {
+		icon = generic_independence
+		cost = 40
+		fire_only_once = yes
+		visible = { has_country_flag = bfx_uprising_active any_country = { has_country_flag = bfx_imro_rebel_state } }
+		available = { always = yes }
+		complete_effect = {
+			every_country = { limit = { has_country_flag = bfx_imro_rebel_state } ROOT = { give_guarantee = PREV } }
+			YUG = { add_opinion_modifier = { target = ROOT modifier = bfx_om_bulgarian_threat } }
+			if = {
+				limit = { NOT = { has_country_flag = bfx_neuilly_ended } }
+				custom_effect_tooltip = bfx_tt_neuilly_r0_s15
+				hidden_effect = {
+					add_to_variable = { bfx_suspicion = 15 }
+					bfx_neuilly_recalc = yes
+				}
+			}
+		}
+		ai_will_do = { factor = 2 }
+	}
+	bfx_uprising_intervene = {
+		icon = generic_break_treaty
+		cost = 50
+		fire_only_once = yes
+		visible = { has_country_flag = bfx_uprising_active any_country = { has_country_flag = bfx_imro_rebel_state } }
+		available = { NOT = { has_war_with = YUG } }
+		complete_effect = {
+			every_country = { limit = { has_country_flag = bfx_imro_rebel_state } ROOT = { add_to_war = { targeted_alliance = PREV enemy = YUG } } }
+		}
+		ai_will_do = { factor = 1
+	modifier = { factor = 5 has_country_flag = bfx_ai_tsar_hegemon } }
+	}
+}
+
+bfx_integration_category = {
+	bfx_integrate_bulgarian_lands = {
+		icon = generic_form_nation
+		cost = 50
+		days_re_enable = 60
+		visible = { always = yes }
+		available = { any_owned_state = { OR = { state = 106 state = 184 state = 77 state = 341 state = 731 state = 971 is_core_of = MAC } NOT = { is_core_of = ROOT } compliance > 35 } }
+		complete_effect = {
+			every_owned_state = { limit = { OR = { state = 106 state = 184 state = 77 state = 341 state = 731 state = 971 is_core_of = MAC } NOT = { is_core_of = ROOT } compliance > 35 } add_core_of = ROOT }
+			add_stability = -0.01
+		}
+		ai_will_do = { factor = 10 }
+	}
+	bfx_integrate_serbia = {
+		icon = generic_form_nation
+		cost = 50
+		days_re_enable = 60
+		visible = { always = yes }
+		available = { any_owned_state = { OR = { is_core_of = YUG is_core_of = SER is_core_of = MNT is_core_of = CRO is_core_of = SLV is_core_of = BOS } NOT = { is_core_of = ROOT } compliance > 65 } }
+		complete_effect = {
+			every_owned_state = { limit = { OR = { is_core_of = YUG is_core_of = SER is_core_of = MNT is_core_of = CRO is_core_of = SLV is_core_of = BOS } NOT = { is_core_of = ROOT } compliance > 65 } add_core_of = ROOT }
+			add_stability = -0.01
+		}
+		ai_will_do = { factor = 10 }
+	}
+	bfx_integrate_greece = {
+		icon = generic_form_nation
+		cost = 50
+		days_re_enable = 60
+		visible = { always = yes }
+		available = { any_owned_state = { is_core_of = GRE NOT = { is_core_of = ROOT } compliance > 60 } }
+		complete_effect = {
+			every_owned_state = { limit = { is_core_of = GRE NOT = { is_core_of = ROOT } compliance > 60 } add_core_of = ROOT }
+			add_stability = -0.01
+		}
+		ai_will_do = { factor = 10 }
+	}
+	bfx_integrate_albania = {
+		icon = generic_form_nation
+		cost = 50
+		days_re_enable = 60
+		visible = { always = yes }
+		available = { any_owned_state = { is_core_of = ALB NOT = { is_core_of = ROOT } compliance > 60 } }
+		complete_effect = {
+			every_owned_state = { limit = { is_core_of = ALB NOT = { is_core_of = ROOT } compliance > 60 } add_core_of = ROOT }
+			add_stability = -0.01
+		}
+		ai_will_do = { factor = 10 }
+	}
+	bfx_integrate_romania = {
+		icon = generic_form_nation
+		cost = 50
+		days_re_enable = 60
+		visible = { always = yes }
+		available = { any_owned_state = { OR = { is_core_of = ROM is_core_of = MOL } NOT = { is_core_of = ROOT } compliance > 65 } }
+		complete_effect = {
+			every_owned_state = { limit = { OR = { is_core_of = ROM is_core_of = MOL } NOT = { is_core_of = ROOT } compliance > 65 } add_core_of = ROOT }
+			add_stability = -0.01
+		}
+		ai_will_do = { factor = 10 }
+	}
+	bfx_integrate_anatolia = {
+		icon = generic_form_nation
+		cost = 50
+		days_re_enable = 60
+		visible = { always = yes }
+		available = { any_owned_state = { is_core_of = TUR NOT = { is_core_of = ROOT } compliance > 70 } }
+		complete_effect = {
+			every_owned_state = { limit = { is_core_of = TUR NOT = { is_core_of = ROOT } compliance > 70 } add_core_of = ROOT }
+			add_stability = -0.01
+		}
+		ai_will_do = { factor = 10 }
+	}
+	bfx_integrate_pontic_coast = {
+		icon = generic_form_nation
+		cost = 50
+		days_re_enable = 60
+		visible = { always = yes }
+		available = { any_owned_state = { is_core_of = UKR NOT = { is_core_of = ROOT } compliance > 75 } }
+		complete_effect = {
+			every_owned_state = { limit = { is_core_of = UKR NOT = { is_core_of = ROOT } compliance > 75 } add_core_of = ROOT }
+			add_stability = -0.01
+		}
+		ai_will_do = { factor = 10 }
+	}
+	bfx_proclaim_bulgarian_empire = {
+		icon = generic_form_nation
+		cost = 150
+		fire_only_once = yes
+		visible = { always = yes }
+		available = { owns_state = 106 owns_state = 184 owns_state = 77 owns_state = 341 }
+		complete_effect = {
+			set_cosmetic_tag = bfx_bulgarian_empire
+			every_owned_state = { limit = { NOT = { is_core_of = ROOT } } add_compliance = 20 }
+			add_ideas = bfx_imperial_mandate
+		}
+		ai_will_do = { factor = 50 }
 	}
 }
 
@@ -482,10 +816,10 @@ bfx_tsargrad_category = {
 		visible = { always = yes }
 		available = { always = yes }
 		complete_effect = {
-			add_stability = 0.05
 			add_to_variable = { bfx_tsargrad_fervour = 15 }
 			clamp_variable = { var = bfx_tsargrad_fervour min = 0 max = 100 }
 			custom_effect_tooltip = bfx_tt_fervour_15
+			add_stability = 0.05
 		}
 		ai_will_do = { factor = 3 }
 	}
@@ -504,54 +838,12 @@ bfx_tsargrad_category = {
 	}
 	bfx_theme_thrace = {
 		icon = generic_form_nation
-		cost = 100
+		cost = 75
 		days_re_enable = 60
 		visible = { always = yes }
-		available = { check_variable = { bfx_tsargrad_fervour > 49 } any_owned_state = { OR = { is_core_of = GRE is_core_of = TUR } NOT = { is_core_of = ROOT } } }
+		available = { check_variable = { bfx_tsargrad_fervour > 49 } any_owned_state = { OR = { is_core_of = TUR is_core_of = GRE } NOT = { is_core_of = ROOT } compliance > 40 } }
 		complete_effect = {
-			every_owned_state = { limit = { OR = { is_core_of = GRE is_core_of = TUR } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
-			add_to_variable = { bfx_tsargrad_fervour = -30 }
-			clamp_variable = { var = bfx_tsargrad_fervour min = 0 max = 100 }
-			custom_effect_tooltip = bfx_tt_fervour_m30
-		}
-		ai_will_do = { factor = 10 }
-	}
-	bfx_theme_cherson = {
-		icon = generic_form_nation
-		cost = 100
-		days_re_enable = 60
-		visible = { always = yes }
-		available = { check_variable = { bfx_tsargrad_fervour > 49 } any_owned_state = { OR = { is_core_of = UKR } NOT = { is_core_of = ROOT } } }
-		complete_effect = {
-			every_owned_state = { limit = { OR = { is_core_of = UKR } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
-			add_to_variable = { bfx_tsargrad_fervour = -30 }
-			clamp_variable = { var = bfx_tsargrad_fervour min = 0 max = 100 }
-			custom_effect_tooltip = bfx_tt_fervour_m30
-		}
-		ai_will_do = { factor = 10 }
-	}
-	bfx_theme_ravenna = {
-		icon = generic_form_nation
-		cost = 100
-		days_re_enable = 60
-		visible = { always = yes }
-		available = { check_variable = { bfx_tsargrad_fervour > 49 } any_owned_state = { OR = { is_core_of = ITA } NOT = { is_core_of = ROOT } } }
-		complete_effect = {
-			every_owned_state = { limit = { OR = { is_core_of = ITA } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
-			add_to_variable = { bfx_tsargrad_fervour = -30 }
-			clamp_variable = { var = bfx_tsargrad_fervour min = 0 max = 100 }
-			custom_effect_tooltip = bfx_tt_fervour_m30
-		}
-		ai_will_do = { factor = 10 }
-	}
-	bfx_theme_dacia = {
-		icon = generic_form_nation
-		cost = 100
-		days_re_enable = 60
-		visible = { always = yes }
-		available = { check_variable = { bfx_tsargrad_fervour > 49 } any_owned_state = { OR = { is_core_of = ROM is_core_of = HUN } NOT = { is_core_of = ROOT } } }
-		complete_effect = {
-			every_owned_state = { limit = { OR = { is_core_of = ROM is_core_of = HUN } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
+			every_owned_state = { limit = { OR = { is_core_of = TUR is_core_of = GRE } NOT = { is_core_of = ROOT } compliance > 40 } add_core_of = ROOT }
 			add_to_variable = { bfx_tsargrad_fervour = -30 }
 			clamp_variable = { var = bfx_tsargrad_fervour min = 0 max = 100 }
 			custom_effect_tooltip = bfx_tt_fervour_m30
@@ -560,201 +852,30 @@ bfx_tsargrad_category = {
 	}
 	bfx_theme_illyricum = {
 		icon = generic_form_nation
-		cost = 100
+		cost = 75
 		days_re_enable = 60
 		visible = { always = yes }
-		available = { check_variable = { bfx_tsargrad_fervour > 49 } any_owned_state = { OR = { is_core_of = YUG is_core_of = SER is_core_of = CRO is_core_of = SLV is_core_of = BOS is_core_of = MNT is_core_of = MAC is_core_of = ALB } NOT = { is_core_of = ROOT } } }
+		available = { check_variable = { bfx_tsargrad_fervour > 49 } any_owned_state = { OR = { is_core_of = YUG is_core_of = SER is_core_of = ALB is_core_of = MNT } NOT = { is_core_of = ROOT } compliance > 40 } }
 		complete_effect = {
-			every_owned_state = { limit = { OR = { is_core_of = YUG is_core_of = SER is_core_of = CRO is_core_of = SLV is_core_of = BOS is_core_of = MNT is_core_of = MAC is_core_of = ALB } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
+			every_owned_state = { limit = { OR = { is_core_of = YUG is_core_of = SER is_core_of = ALB is_core_of = MNT } NOT = { is_core_of = ROOT } compliance > 40 } add_core_of = ROOT }
 			add_to_variable = { bfx_tsargrad_fervour = -30 }
 			clamp_variable = { var = bfx_tsargrad_fervour min = 0 max = 100 }
 			custom_effect_tooltip = bfx_tt_fervour_m30
 		}
 		ai_will_do = { factor = 10 }
 	}
-}
-
-bfx_integration_category = {
-	bfx_integrate_region_west_balkans = {
+	bfx_theme_paristrion = {
 		icon = generic_form_nation
-		cost = 60
+		cost = 75
 		days_re_enable = 60
 		visible = { always = yes }
-		available = { any_owned_state = { OR = { is_core_of = YUG is_core_of = SER is_core_of = CRO is_core_of = SLV is_core_of = BOS is_core_of = MNT is_core_of = MAC } NOT = { is_core_of = ROOT } } }
+		available = { check_variable = { bfx_tsargrad_fervour > 49 } any_owned_state = { OR = { is_core_of = ROM is_core_of = MOL } NOT = { is_core_of = ROOT } compliance > 40 } }
 		complete_effect = {
-			every_owned_state = { limit = { OR = { is_core_of = YUG is_core_of = SER is_core_of = CRO is_core_of = SLV is_core_of = BOS is_core_of = MNT is_core_of = MAC } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
-			add_stability = -0.02
+			every_owned_state = { limit = { OR = { is_core_of = ROM is_core_of = MOL } NOT = { is_core_of = ROOT } compliance > 40 } add_core_of = ROOT }
+			add_to_variable = { bfx_tsargrad_fervour = -30 }
+			clamp_variable = { var = bfx_tsargrad_fervour min = 0 max = 100 }
+			custom_effect_tooltip = bfx_tt_fervour_m30
 		}
 		ai_will_do = { factor = 10 }
-	}
-	bfx_integrate_region_albania = {
-		icon = generic_form_nation
-		cost = 60
-		days_re_enable = 60
-		visible = { always = yes }
-		available = { any_owned_state = { OR = { is_core_of = ALB } NOT = { is_core_of = ROOT } } }
-		complete_effect = {
-			every_owned_state = { limit = { OR = { is_core_of = ALB } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
-			add_stability = -0.02
-		}
-		ai_will_do = { factor = 10 }
-	}
-	bfx_integrate_region_hellas = {
-		icon = generic_form_nation
-		cost = 60
-		days_re_enable = 60
-		visible = { always = yes }
-		available = { any_owned_state = { OR = { is_core_of = GRE } NOT = { is_core_of = ROOT } } }
-		complete_effect = {
-			every_owned_state = { limit = { OR = { is_core_of = GRE } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
-			add_stability = -0.02
-		}
-		ai_will_do = { factor = 10 }
-	}
-	bfx_integrate_region_wallachia = {
-		icon = generic_form_nation
-		cost = 60
-		days_re_enable = 60
-		visible = { always = yes }
-		available = { any_owned_state = { OR = { is_core_of = ROM is_core_of = MOL } NOT = { is_core_of = ROOT } } }
-		complete_effect = {
-			every_owned_state = { limit = { OR = { is_core_of = ROM is_core_of = MOL } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
-			add_stability = -0.02
-		}
-		ai_will_do = { factor = 10 }
-	}
-	bfx_integrate_region_pannonia = {
-		icon = generic_form_nation
-		cost = 60
-		days_re_enable = 60
-		visible = { always = yes }
-		available = { any_owned_state = { OR = { is_core_of = HUN } NOT = { is_core_of = ROOT } } }
-		complete_effect = {
-			every_owned_state = { limit = { OR = { is_core_of = HUN } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
-			add_stability = -0.02
-		}
-		ai_will_do = { factor = 10 }
-	}
-	bfx_integrate_region_anatolia = {
-		icon = generic_form_nation
-		cost = 60
-		days_re_enable = 60
-		visible = { always = yes }
-		available = { any_owned_state = { OR = { is_core_of = TUR } NOT = { is_core_of = ROOT } } }
-		complete_effect = {
-			every_owned_state = { limit = { OR = { is_core_of = TUR } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
-			add_stability = -0.02
-		}
-		ai_will_do = { factor = 10 }
-	}
-	bfx_integrate_region_caucasus = {
-		icon = generic_form_nation
-		cost = 60
-		days_re_enable = 60
-		visible = { always = yes }
-		available = { any_owned_state = { OR = { is_core_of = GEO is_core_of = ARM is_core_of = AZR } NOT = { is_core_of = ROOT } } }
-		complete_effect = {
-			every_owned_state = { limit = { OR = { is_core_of = GEO is_core_of = ARM is_core_of = AZR } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
-			add_stability = -0.02
-		}
-		ai_will_do = { factor = 10 }
-	}
-	bfx_integrate_region_levant = {
-		icon = generic_form_nation
-		cost = 60
-		days_re_enable = 60
-		visible = { always = yes }
-		available = { any_owned_state = { OR = { is_core_of = SYR is_core_of = LEB is_core_of = PAL is_core_of = JOR is_core_of = ISR is_core_of = IRQ } NOT = { is_core_of = ROOT } } }
-		complete_effect = {
-			every_owned_state = { limit = { OR = { is_core_of = SYR is_core_of = LEB is_core_of = PAL is_core_of = JOR is_core_of = ISR is_core_of = IRQ } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
-			add_stability = -0.02
-		}
-		ai_will_do = { factor = 10 }
-	}
-	bfx_integrate_region_egypt = {
-		icon = generic_form_nation
-		cost = 60
-		days_re_enable = 60
-		visible = { always = yes }
-		available = { any_owned_state = { OR = { is_core_of = EGY } NOT = { is_core_of = ROOT } } }
-		complete_effect = {
-			every_owned_state = { limit = { OR = { is_core_of = EGY } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
-			add_stability = -0.02
-		}
-		ai_will_do = { factor = 10 }
-	}
-	bfx_integrate_region_italy = {
-		icon = generic_form_nation
-		cost = 60
-		days_re_enable = 60
-		visible = { always = yes }
-		available = { any_owned_state = { OR = { is_core_of = ITA } NOT = { is_core_of = ROOT } } }
-		complete_effect = {
-			every_owned_state = { limit = { OR = { is_core_of = ITA } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
-			add_stability = -0.02
-		}
-		ai_will_do = { factor = 10 }
-	}
-	bfx_integrate_region_central_europe = {
-		icon = generic_form_nation
-		cost = 60
-		days_re_enable = 60
-		visible = { always = yes }
-		available = { any_owned_state = { OR = { is_core_of = AUS is_core_of = CZE is_core_of = SLO is_core_of = POL } NOT = { is_core_of = ROOT } } }
-		complete_effect = {
-			every_owned_state = { limit = { OR = { is_core_of = AUS is_core_of = CZE is_core_of = SLO is_core_of = POL } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
-			add_stability = -0.02
-		}
-		ai_will_do = { factor = 10 }
-	}
-	bfx_integrate_region_pontic_steppe = {
-		icon = generic_form_nation
-		cost = 60
-		days_re_enable = 60
-		visible = { always = yes }
-		available = { any_owned_state = { OR = { is_core_of = UKR is_core_of = BLR } NOT = { is_core_of = ROOT } } }
-		complete_effect = {
-			every_owned_state = { limit = { OR = { is_core_of = UKR is_core_of = BLR } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
-			add_stability = -0.02
-		}
-		ai_will_do = { factor = 10 }
-	}
-	bfx_integrate_region_volga = {
-		icon = generic_form_nation
-		cost = 60
-		days_re_enable = 60
-		visible = { always = yes }
-		available = { any_owned_state = { OR = { is_core_of = SOV } NOT = { is_core_of = ROOT } } }
-		complete_effect = {
-			every_owned_state = { limit = { OR = { is_core_of = SOV } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
-			add_stability = -0.02
-		}
-		ai_will_do = { factor = 10 }
-	}
-	bfx_integrate_region_baltic = {
-		icon = generic_form_nation
-		cost = 60
-		days_re_enable = 60
-		visible = { always = yes }
-		available = { any_owned_state = { OR = { is_core_of = LIT is_core_of = LAT is_core_of = EST } NOT = { is_core_of = ROOT } } }
-		complete_effect = {
-			every_owned_state = { limit = { OR = { is_core_of = LIT is_core_of = LAT is_core_of = EST } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
-			add_stability = -0.02
-		}
-		ai_will_do = { factor = 10 }
-	}
-	bfx_proclaim_bulgarian_empire = {
-		icon = generic_form_nation
-		cost = 150
-		fire_only_once = yes
-		visible = { always = yes }
-		available = { owns_state = 106 owns_state = 184 owns_state = 77 owns_state = 341 }
-		complete_effect = {
-			set_cosmetic_tag = bfx_bulgarian_empire
-			every_owned_state = { limit = { OR = { is_core_of = YUG is_core_of = SER is_core_of = CRO is_core_of = SLV is_core_of = BOS is_core_of = MNT is_core_of = MAC is_core_of = ALB is_core_of = GRE is_core_of = ROM is_core_of = MOL } NOT = { is_core_of = ROOT } } add_core_of = ROOT }
-			every_state = { limit = { OR = { is_core_of = HUN is_core_of = AUS } NOT = { is_core_of = ROOT } NOT = { is_claimed_by = ROOT } } add_claim_by = ROOT }
-			add_ideas = bfx_imperial_mandate
-		}
-		ai_will_do = { factor = 50 }
 	}
 }

@@ -1,0 +1,185 @@
+add_namespace = bfx_dip
+
+country_event = {
+	id = bfx_dip.1
+	title = bfx_dip.1.t
+	desc = bfx_dip.1.d
+	picture = GFX_report_event_baltic_entente_one
+	is_triggered_only = yes
+	option = {
+		name = bfx_dip.1.a
+		ai_chance = {
+			base = 50
+			modifier = { factor = 2 has_opinion = { target = FROM value > 24 } }
+			modifier = { factor = 0.2 any_owned_state = { is_claimed_by = FROM } }
+			modifier = { factor = 0.5 is_major = yes }
+		}
+		diplomatic_relation = { country = FROM relation = non_aggression_pact active = yes }
+		FROM = { country_event = { id = bfx_dip.2 days = 1 } }
+	}
+	option = {
+		name = bfx_dip.1.b
+		ai_chance = {
+			base = 50
+		}
+		FROM = { country_event = { id = bfx_dip.3 days = 1 } }
+	}
+}
+
+country_event = {
+	id = bfx_dip.2
+	title = bfx_dip.2.t
+	desc = bfx_dip.2.d
+	picture = GFX_report_event_baltic_entente_one
+	is_triggered_only = yes
+	option = {
+		name = bfx_dip.2.a
+		add_political_power = 15
+	}
+}
+
+country_event = {
+	id = bfx_dip.3
+	title = bfx_dip.3.t
+	desc = bfx_dip.3.d
+	picture = GFX_report_event_bul_muraviev_protest
+	is_triggered_only = yes
+	option = {
+		name = bfx_dip.3.a
+		add_war_support = 0.02
+	}
+}
+
+country_event = {
+	id = bfx_dip.4
+	title = bfx_dip.4.t
+	desc = bfx_dip.4.d
+	picture = GFX_report_event_bul_boris_military
+	is_triggered_only = yes
+	option = {
+		name = bfx_dip.4.a
+		ai_chance = {
+			base = 40
+			modifier = { factor = 2 has_opinion = { target = FROM value > 24 } }
+		}
+		give_guarantee = FROM
+		FROM = { country_event = { id = bfx_dip.2 days = 1 } }
+	}
+	option = {
+		name = bfx_dip.4.b
+		ai_chance = {
+			base = 60
+		}
+		FROM = { country_event = { id = bfx_dip.3 days = 1 } }
+	}
+}
+
+country_event = {
+	id = bfx_dip.5
+	title = bfx_dip.5.t
+	desc = bfx_dip.5.d
+	picture = GFX_report_event_baltic_entente
+	is_triggered_only = yes
+	option = {
+		name = bfx_dip.5.a
+		ai_chance = {
+			base = 25
+			modifier = { factor = 3 has_opinion = { target = FROM value > 39 } }
+			modifier = { factor = 0 any_owned_state = { is_claimed_by = FROM } }
+		}
+		FROM = { add_to_faction = ROOT }
+		FROM = { country_event = { id = bfx_dip.2 days = 1 } }
+	}
+	option = {
+		name = bfx_dip.5.b
+		ai_chance = {
+			base = 60
+		}
+		FROM = { country_event = { id = bfx_dip.3 days = 1 } }
+	}
+}
+
+country_event = {
+	id = bfx_dip.6
+	title = bfx_dip.6.t
+	desc = bfx_dip.6.d
+	picture = GFX_report_event_bul_troops_dobrudja
+	is_triggered_only = yes
+	option = {
+		name = bfx_dip.6.a
+		ai_chance = {
+			base = 15
+			modifier = { factor = 4 country_exists = GER FROM = { is_in_faction_with = GER } }
+			modifier = { factor = 3 is_in_faction_with = FROM }
+			modifier = { factor = 2 has_war = yes }
+		}
+		FROM = { transfer_state = 77 add_state_core = 77 country_event = { id = bfx_dip.2 days = 1 } }
+	}
+	option = {
+		name = bfx_dip.6.b
+		ai_chance = {
+			base = 70
+		}
+		FROM = { create_wargoal = { type = take_state_focus target = ROOT generator = { 77 } } country_event = { id = bfx_dip.3 days = 1 } }
+	}
+}
+
+country_event = {
+	id = bfx_dip.7
+	title = bfx_dip.7.t
+	desc = bfx_dip.7.d
+	picture = GFX_report_event_albanian_king_zog
+	is_triggered_only = yes
+	option = {
+		name = bfx_dip.7.a
+		ai_chance = {
+			base = 20
+			modifier = { factor = 3 has_opinion = { target = FROM value > 24 } }
+		}
+		FROM = { puppet = ROOT }
+	}
+	option = {
+		name = bfx_dip.7.b
+		ai_chance = {
+			base = 80
+		}
+		FROM = { create_wargoal = { type = puppet_wargoal_focus target = ROOT } country_event = { id = bfx_dip.3 days = 1 } }
+	}
+}
+
+country_event = {
+	id = bfx_dip.8
+	title = bfx_dip.8.t
+	desc = bfx_dip.8.d
+	picture = GFX_report_event_bul_boris_with_hitler
+	is_triggered_only = yes
+	option = {
+		name = bfx_dip.8.a
+		ai_chance = {
+			base = 85
+		}
+		add_to_faction = FROM
+		FROM = { country_event = { id = bfx_dip.2 days = 1 } }
+	}
+	option = {
+		name = bfx_dip.8.b
+		ai_chance = {
+			base = 15
+		}
+		FROM = { country_event = { id = bfx_dip.9 days = 1 } }
+	}
+}
+
+country_event = {
+	id = bfx_dip.9
+	title = bfx_dip.9.t
+	desc = bfx_dip.9.d
+	picture = GFX_report_event_bul_boris_with_hitler
+	is_triggered_only = yes
+	option = {
+		name = bfx_dip.9.a
+		set_rule = { can_create_factions = yes }
+		if = { limit = { is_in_faction = no } create_faction = bfx_faction_balkan_axis }
+		add_war_support = 0.03
+	}
+}

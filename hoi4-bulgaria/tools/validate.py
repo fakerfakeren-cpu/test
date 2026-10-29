@@ -359,6 +359,11 @@ def main():
                 err(f"missing flag gfx/flags/{sub}{c}.tga")
     for f in factions:
         need(f, "faction name")
+    colour_files = find("common/countries/")
+    coloured = {k for p in colour_files for k, _, _ in data[p]}
+    for c in cosmetic:
+        if c not in coloured:
+            err(f"cosmetic tag {c} has no map colour in common/countries/bfx_cosmetic.txt")
     for p in data:
         for k, _, v, _ in walk(data[p]):
             if k == "custom_effect_tooltip":
@@ -425,6 +430,10 @@ def main():
             for _, _, kind in pt:
                 for size_key, _, path in kind:
                     path = path.strip('"')
+                    if path.startswith("GFX_"):
+                        if path not in sprites and path not in refspr:
+                            err(f"{c}: portrait sprite {path} unknown")
+                        continue
                     full = os.path.join(MOD, path)
                     if not os.path.exists(full):
                         err(f"{c}: portrait {path} missing")
@@ -512,8 +521,10 @@ def main():
 
     # ---------- state ids
     known_states = {l.split("\t")[0] for l in open(os.path.join(REF, "states_used.txt")) if l[0].isdigit()}
-    state_keys = {"add_state_claim", "add_state_core", "owns_state", "controls_state", "transfer_state", "remove_state_core"}
+    state_keys = {"add_state_claim", "add_state_core", "owns_state", "controls_state", "transfer_state", "remove_state_core", "state"}
     for p in data:
+        if "common/countries/" in p:
+            continue
         for k, _, v, path in walk(data[p]):
             if k in state_keys and isinstance(v, str) and v.isdigit() and v not in known_states:
                 err(f"{rel(p)}: state {v} not in reference/states_used.txt")
@@ -542,14 +553,16 @@ def main():
     type level instant_build province all_provinces limit_to_border limit_to_coastal building size include_locked
     bonus uses category ideology popularity ruling_party elections_allowed target generator threat amount producer
     var min max remove_idea add_idea idea transfer_troops OR AND NOT ROOT FROM PREV THIS owner controller capital_scope
-    folder flag yes no characters
+    folder flag yes no characters allow_branch states targeted_alliance enemy color color_ui relation active
+    can_create_factions can_join_factions can_send_volunteers can_only_justify_war_on_threat_country can_guarantee_other_ideologies
+    can_puppet can_boost_other_ideologies can_lower_tension can_declare_war_on_same_ideology
     """.split())
     ideologies = {"fascism", "communism", "democratic", "neutrality"}
     tags = ref_set("country_tags.txt")
     own = defined | seffects | set(byid) | set(ideas)
     allowed_keys = effects | triggers | modifiers | structural | ideologies | tags | own
     for p in data:
-        if "/interface/" in p:
+        if "/interface/" in p or "common/countries/" in p:
             continue
         top_level_defs = {k for k, _, _ in data[p]}
         for k, op, v, path in walk(data[p]):
@@ -577,6 +590,17 @@ def main():
                     err(f"{rel(p)}: unknown country tag {v}")
             if k and re.fullmatch(r"[A-Z][A-Z0-9]{2}", k) and k not in ("AND", "NOT") and k not in known_tags:
                 err(f"{rel(p)}: unknown country scope {k}")
+
+    # ---------- stray bare words inside effect/trigger blocks (catches unreplaced placeholders and typos)
+    list_blocks = {"search_filters", "generator", "add_ideas", "traits", "mutually_exclusive", "prerequisite", "states",
+                   "remove_ideas", "color", "color_ui", "x", "y"}
+    for p in data:
+        if "/interface/" in p or "common/countries/" in p:
+            continue
+        for k, op, v, path in walk(data[p]):
+            if op is None and k and (k.startswith("__") or (path and path[-1] not in list_blocks and not re.fullmatch(r"-?[0-9.]+", k)
+                                                         and path[-1] in ("completion_reward", "complete_effect", "effect", "immediate", "option", "limit", "available", "visible", "allowed", "if", "else", "else_if", "hidden_effect"))):
+                err(f"{rel(p)}: stray bare word '{k}' inside {path[-1] if path else 'top level'}")
 
     # ---------- DLC gating
     for p in data:

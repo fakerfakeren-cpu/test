@@ -38,7 +38,11 @@ country_event = {
 	option = {
 		name = bfx_flav.2.b
 		add_stability = -0.03
-		add_popularity = { ideology = communism popularity = -0.02 }
+		custom_effect_tooltip = bfx_tt_court_l5
+		hidden_effect = {
+			add_to_variable = { bfx_inf_legion = 5 }
+			bfx_court_recalc = yes
+		}
 	}
 }
 
@@ -55,6 +59,11 @@ country_event = {
 	option = {
 		name = bfx_flav.3.a
 		add_stability = 0.02
+		custom_effect_tooltip = bfx_tt_court_p3
+		hidden_effect = {
+			add_to_variable = { bfx_inf_palace = 3 }
+			bfx_court_recalc = yes
+		}
 	}
 	option = {
 		name = bfx_flav.3.b

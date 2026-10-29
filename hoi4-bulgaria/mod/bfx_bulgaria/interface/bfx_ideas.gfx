@@ -8,6 +8,10 @@ spriteTypes = {
 		texturefile = "gfx/interface/ideas/bfx_covert_rearmament.dds"
 	}
 	SpriteType = {
+		name = "GFX_idea_bfx_court_balance"
+		texturefile = "gfx/interface/ideas/bfx_court_balance.dds"
+	}
+	SpriteType = {
 		name = "GFX_idea_bfx_balkan_embargo"
 		texturefile = "gfx/interface/ideas/bfx_balkan_embargo.dds"
 	}
@@ -20,36 +24,44 @@ spriteTypes = {
 		texturefile = "gfx/interface/ideas/bfx_salonika_freedom.dds"
 	}
 	SpriteType = {
-		name = "GFX_idea_bfx_tobacco_and_rose"
-		texturefile = "gfx/interface/ideas/bfx_tobacco_and_rose.dds"
+		name = "GFX_idea_bfx_royal_propaganda"
+		texturefile = "gfx/interface/ideas/bfx_royal_propaganda.dds"
+	}
+	SpriteType = {
+		name = "GFX_idea_bfx_open_chancelleries"
+		texturefile = "gfx/interface/ideas/bfx_open_chancelleries.dds"
 	}
 	SpriteType = {
 		name = "GFX_idea_bfx_tsar_unifier"
 		texturefile = "gfx/interface/ideas/bfx_tsar_unifier.dds"
 	}
 	SpriteType = {
-		name = "GFX_idea_bfx_balkan_switzerland"
-		texturefile = "gfx/interface/ideas/bfx_balkan_switzerland.dds"
+		name = "GFX_idea_bfx_raindrops"
+		texturefile = "gfx/interface/ideas/bfx_raindrops.dds"
 	}
 	SpriteType = {
-		name = "GFX_idea_bfx_red_underground"
-		texturefile = "gfx/interface/ideas/bfx_red_underground.dds"
+		name = "GFX_idea_bfx_occupation_corps"
+		texturefile = "gfx/interface/ideas/bfx_occupation_corps.dds"
 	}
 	SpriteType = {
-		name = "GFX_idea_bfx_peoples_republic"
-		texturefile = "gfx/interface/ideas/bfx_peoples_republic.dds"
+		name = "GFX_idea_bfx_crusade_east"
+		texturefile = "gfx/interface/ideas/bfx_crusade_east.dds"
 	}
 	SpriteType = {
-		name = "GFX_idea_bfx_balkan_federation"
-		texturefile = "gfx/interface/ideas/bfx_balkan_federation.dds"
+		name = "GFX_idea_bfx_balkan_hegemon"
+		texturefile = "gfx/interface/ideas/bfx_balkan_hegemon.dds"
 	}
 	SpriteType = {
-		name = "GFX_idea_bfx_green_international"
-		texturefile = "gfx/interface/ideas/bfx_green_international.dds"
+		name = "GFX_idea_bfx_legionary_state"
+		texturefile = "gfx/interface/ideas/bfx_legionary_state.dds"
 	}
 	SpriteType = {
-		name = "GFX_idea_bfx_zveno_technocracy"
-		texturefile = "gfx/interface/ideas/bfx_zveno_technocracy.dds"
+		name = "GFX_idea_bfx_brannik"
+		texturefile = "gfx/interface/ideas/bfx_brannik.dds"
+	}
+	SpriteType = {
+		name = "GFX_idea_bfx_iron_fist"
+		texturefile = "gfx/interface/ideas/bfx_iron_fist.dds"
 	}
 	SpriteType = {
 		name = "GFX_idea_bfx_ferdinand_restoration"
@@ -64,6 +76,10 @@ spriteTypes = {
 		texturefile = "gfx/interface/ideas/bfx_natural_history.dds"
 	}
 	SpriteType = {
+		name = "GFX_idea_bfx_tobacco_and_rose"
+		texturefile = "gfx/interface/ideas/bfx_tobacco_and_rose.dds"
+	}
+	SpriteType = {
 		name = "GFX_idea_bfx_pernik_coal"
 		texturefile = "gfx/interface/ideas/bfx_pernik_coal.dds"
 	}
@@ -72,12 +88,28 @@ spriteTypes = {
 		texturefile = "gfx/interface/ideas/bfx_iskar_hydro.dds"
 	}
 	SpriteType = {
+		name = "GFX_idea_bfx_chemical"
+		texturefile = "gfx/interface/ideas/bfx_chemical.dds"
+	}
+	SpriteType = {
 		name = "GFX_idea_bfx_trudovaks"
 		texturefile = "gfx/interface/ideas/bfx_trudovaks.dds"
 	}
 	SpriteType = {
+		name = "GFX_idea_bfx_atomic"
+		texturefile = "gfx/interface/ideas/bfx_atomic.dds"
+	}
+	SpriteType = {
 		name = "GFX_idea_bfx_mountain_army"
 		texturefile = "gfx/interface/ideas/bfx_mountain_army.dds"
+	}
+	SpriteType = {
+		name = "GFX_idea_bfx_bayonet"
+		texturefile = "gfx/interface/ideas/bfx_bayonet.dds"
+	}
+	SpriteType = {
+		name = "GFX_idea_bfx_reservists"
+		texturefile = "gfx/interface/ideas/bfx_reservists.dds"
 	}
 	SpriteType = {
 		name = "GFX_idea_bfx_black_sea_fleet"

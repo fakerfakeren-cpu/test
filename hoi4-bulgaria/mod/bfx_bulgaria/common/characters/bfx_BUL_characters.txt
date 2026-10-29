@@ -29,64 +29,30 @@ characters = {
 			id = -1
 		}
 	}
-	bfx_BUL_georgi_dimitrov = {
-		name = bfx_BUL_georgi_dimitrov
+	bfx_BUL_hristo_lukov = {
+		name = bfx_BUL_hristo_lukov
 		portraits = {
 			civilian = {
-				large = "gfx/leaders/BUL/bfx_georgi_dimitrov.dds"
-				small = "gfx/interface/ideas/bfx_georgi_dimitrov_small.dds"
+				large = "gfx/leaders/BUL/bfx_hristo_lukov.dds"
+				small = "gfx/interface/ideas/bfx_hristo_lukov_small.dds"
+			}
+			army = {
+				large = "gfx/leaders/BUL/bfx_hristo_lukov.dds"
+				small = "gfx/interface/ideas/bfx_hristo_lukov_small.dds"
 			}
 		}
 		country_leader = {
-			ideology = stalinism
-			traits = { bfx_trait_leipzig_defendant }
+			ideology = fascism_ideology
+			traits = { bfx_trait_legion_commander }
 			expire = "1965.1.1.1"
 			id = -1
 		}
-	}
-	bfx_BUL_vasil_kolarov = {
-		name = bfx_BUL_vasil_kolarov
-		portraits = {
-			civilian = {
-				large = "gfx/leaders/BUL/bfx_vasil_kolarov.dds"
-				small = "gfx/interface/ideas/bfx_vasil_kolarov_small.dds"
-			}
-		}
-		country_leader = {
-			ideology = leninism
-			traits = { bfx_trait_comintern_federalist }
-			expire = "1965.1.1.1"
-			id = -1
-		}
-	}
-	bfx_BUL_nikola_petkov = {
-		name = bfx_BUL_nikola_petkov
-		portraits = {
-			civilian = {
-				large = "gfx/leaders/BUL/bfx_nikola_petkov.dds"
-				small = "gfx/interface/ideas/bfx_nikola_petkov_small.dds"
-			}
-		}
-		country_leader = {
-			ideology = socialism
-			traits = { bfx_trait_pladne_agrarian }
-			expire = "1965.1.1.1"
-			id = -1
-		}
-	}
-	bfx_BUL_kimon_georgiev = {
-		name = bfx_BUL_kimon_georgiev
-		portraits = {
-			civilian = {
-				large = "gfx/leaders/BUL/bfx_kimon_georgiev.dds"
-				small = "gfx/interface/ideas/bfx_kimon_georgiev_small.dds"
-			}
-		}
-		country_leader = {
-			ideology = oligarchism
-			traits = { bfx_trait_zveno_technocrat }
-			expire = "1965.1.1.1"
-			id = -1
+		corps_commander = {
+			skill = 3
+			attack_skill = 3
+			defense_skill = 2
+			planning_skill = 3
+			logistics_skill = 2
 		}
 	}
 	bfx_BUL_bogdan_filov = {
@@ -104,6 +70,12 @@ characters = {
 			traits = { bfx_adv_archaeologist_premier }
 			cost = 150
 			ai_will_do = { factor = 1 }
+		}
+		country_leader = {
+			ideology = despotism
+			traits = { bfx_trait_regent }
+			expire = "1965.1.1.1"
+			id = -1
 		}
 	}
 	bfx_BUL_georgi_kyoseivanov = {
@@ -123,53 +95,19 @@ characters = {
 			ai_will_do = { factor = 1 }
 		}
 	}
-	bfx_BUL_nikola_mushanov = {
-		name = bfx_BUL_nikola_mushanov
+	bfx_BUL_kimon_georgiev = {
+		name = bfx_BUL_kimon_georgiev
 		portraits = {
 			civilian = {
-				large = "gfx/leaders/BUL/bfx_nikola_mushanov.dds"
-				small = "gfx/interface/ideas/bfx_nikola_mushanov_small.dds"
+				large = "gfx/leaders/BUL/bfx_kimon_georgiev.dds"
+				small = "gfx/interface/ideas/bfx_kimon_georgiev_small.dds"
 			}
 		}
 		advisor = {
 			slot = political_advisor
-			idea_token = bfx_BUL_nikola_mushanov_advisor
+			idea_token = bfx_BUL_kimon_georgiev_advisor
 			allowed = { original_tag = BUL }
-			traits = { bfx_adv_old_democrat }
-			cost = 150
-			ai_will_do = { factor = 1 }
-		}
-	}
-	bfx_BUL_anton_yugov = {
-		name = bfx_BUL_anton_yugov
-		portraits = {
-			civilian = {
-				large = "gfx/leaders/BUL/bfx_anton_yugov.dds"
-				small = "gfx/interface/ideas/bfx_anton_yugov_small.dds"
-			}
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = bfx_BUL_anton_yugov_advisor
-			allowed = { original_tag = BUL }
-			traits = { bfx_adv_people_commissar }
-			cost = 150
-			ai_will_do = { factor = 1 }
-		}
-	}
-	bfx_BUL_konstantin_muraviev = {
-		name = bfx_BUL_konstantin_muraviev
-		portraits = {
-			civilian = {
-				large = "gfx/leaders/BUL/bfx_konstantin_muraviev.dds"
-				small = "gfx/interface/ideas/bfx_konstantin_muraviev_small.dds"
-			}
-		}
-		advisor = {
-			slot = political_advisor
-			idea_token = bfx_BUL_konstantin_muraviev_advisor
-			allowed = { original_tag = BUL }
-			traits = { bfx_adv_agrarian_minister }
+			traits = { bfx_adv_zveno_technocrat }
 			cost = 150
 			ai_will_do = { factor = 1 }
 		}
@@ -191,6 +129,102 @@ characters = {
 			ai_will_do = { factor = 1 }
 		}
 	}
+	bfx_BUL_aleksandar_tsankov = {
+		name = bfx_BUL_aleksandar_tsankov
+		portraits = {
+			civilian = {
+				small = GFX_idea_bul_aleksandar_tsankov
+			}
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = bfx_BUL_aleksandar_tsankov_advisor
+			allowed = { original_tag = BUL }
+			traits = { bfx_adv_national_socialist_ideologue }
+			cost = 150
+			ai_will_do = { factor = 1 }
+		}
+	}
+	bfx_BUL_ivan_dochev = {
+		name = bfx_BUL_ivan_dochev
+		portraits = {
+			civilian = {
+				small = GFX_idea_bul_ivan_dochev
+			}
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = bfx_BUL_ivan_dochev_advisor
+			allowed = { original_tag = BUL }
+			traits = { bfx_adv_legion_organiser }
+			cost = 150
+			ai_will_do = { factor = 1 }
+		}
+	}
+	bfx_BUL_dobri_bozhilov = {
+		name = bfx_BUL_dobri_bozhilov
+		portraits = {
+			civilian = {
+				small = GFX_idea_bul_dobri_bozhilov
+			}
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = bfx_BUL_dobri_bozhilov_advisor
+			allowed = { original_tag = BUL }
+			traits = { bfx_adv_finance_minister }
+			cost = 150
+			ai_will_do = { factor = 1 }
+		}
+	}
+	bfx_BUL_teodosi_daskalov = {
+		name = bfx_BUL_teodosi_daskalov
+		portraits = {
+			civilian = {
+				small = GFX_idea_bul_theodosi_daskalov
+			}
+		}
+		advisor = {
+			slot = high_command
+			idea_token = bfx_BUL_teodosi_daskalov_advisor
+			allowed = { original_tag = BUL }
+			traits = { bfx_adv_war_minister }
+			cost = 150
+			ai_will_do = { factor = 1 }
+		}
+	}
+	bfx_BUL_konstantin_lukash = {
+		name = bfx_BUL_konstantin_lukash
+		portraits = {
+			civilian = {
+				small = GFX_idea_bul_konstantin_lukash
+			}
+		}
+		advisor = {
+			slot = army_chief
+			idea_token = bfx_BUL_konstantin_lukash_advisor
+			allowed = { original_tag = BUL }
+			traits = { bfx_adv_chief_of_staff }
+			cost = 150
+			ai_will_do = { factor = 1 }
+		}
+	}
+	bfx_BUL_stoyan_stoyanov = {
+		name = bfx_BUL_stoyan_stoyanov
+		portraits = {
+			civilian = {
+				small = GFX_idea_bul_stoyan_stoyanov
+			}
+		}
+		advisor = {
+			slot = air_chief
+			idea_token = bfx_BUL_stoyan_stoyanov_advisor
+			allowed = { original_tag = BUL }
+			traits = { bfx_adv_fighter_ace }
+			cost = 150
+			ai_will_do = { factor = 1 }
+		}
+	}
 	bfx_BUL_nikola_zhekov = {
 		name = bfx_BUL_nikola_zhekov
 		portraits = {
@@ -205,22 +239,6 @@ characters = {
 			defense_skill = 4
 			planning_skill = 4
 			logistics_skill = 3
-		}
-	}
-	bfx_BUL_hristo_lukov = {
-		name = bfx_BUL_hristo_lukov
-		portraits = {
-			army = {
-				large = "gfx/leaders/BUL/bfx_hristo_lukov.dds"
-				small = "gfx/interface/ideas/bfx_hristo_lukov_small.dds"
-			}
-		}
-		corps_commander = {
-			skill = 3
-			attack_skill = 3
-			defense_skill = 2
-			planning_skill = 3
-			logistics_skill = 2
 		}
 	}
 	bfx_BUL_vladimir_zaimov = {

@@ -15,14 +15,14 @@ sys.path.insert(0, HERE)
 import core  # noqa: E402
 import ideas, characters, mechanic, events, tree  # noqa: E402,E401
 
-VERSION = "1.1"
+VERSION = "2.0"
 GAME_VERSION = "1.19.*"
 MOD = os.path.join(ROOT, "mod", "bfx_bulgaria")
 
 LOC_FILES = {  # group -> file
     "focus": "bfx_focus_l_english.yml", "ideas": "bfx_ideas_l_english.yml", "characters": "bfx_characters_l_english.yml",
     "events": "bfx_events_l_english.yml", "decisions": "bfx_decisions_l_english.yml", "neuilly": "bfx_neuilly_l_english.yml",
-    "tooltips": "bfx_tooltips_l_english.yml", "cosmetic": "bfx_cosmetic_l_english.yml", "misc": "bfx_misc_l_english.yml",
+    "tooltips": "bfx_tooltips_l_english.yml", "cosmetic": "bfx_cosmetic_l_english.yml", "misc": "bfx_misc_l_english.yml", "court": "bfx_court_l_english.yml",
 }
 
 
@@ -31,7 +31,7 @@ def descriptor(path_line):
         f'version="{VERSION}"',
         'tags={\n\t"Alternative History"\n\t"National Focuses"\n\t"Events"\n\t"Historical"\n}',
         'dependencies={\n\t"Road to 56"\n}',
-        'name="Bulgaria: Shackles of Neuilly"',
+        'name="Bulgaria: The Tsar\'s Balance"',
         'picture="thumbnail.png"',
         f'supported_version="{GAME_VERSION}"',
     ] + ([path_line] if path_line else [])) + "\n"
@@ -76,6 +76,14 @@ def main():
         fh.write(descriptor(None))
     with open(os.path.join(ROOT, "mod", "bfx_bulgaria.mod"), "w", encoding="utf-8", newline="\n") as fh:
         fh.write(descriptor('path="mod/bfx_bulgaria"'))
+
+    # ship only the portraits our characters use
+    used = characters.used_portraits()
+    for sub, suffix in (("gfx/leaders/BUL", ".dds"), ("gfx/interface/ideas", "_small.dds")):
+        d = os.path.join(MOD, sub)
+        for f in os.listdir(d) if os.path.isdir(d) else []:
+            if f.startswith("bfx_") and f.endswith(suffix) and f[4:-len(suffix)] not in used and (suffix != ".dds" or sub.endswith("BUL")):
+                os.remove(os.path.join(d, f))
 
     # focus table for DESIGN.md
     with open(os.path.join(HERE, "out", "focus_table.md"), "w") as fh:

@@ -6,27 +6,35 @@ bfx_neuilly_category = {
 	priority = 100
 }
 
+bfx_court_category = {
+	icon = generic_political_actions
+	picture = GFX_decision_cat_picture_plot_against_boris
+	allowed = { original_tag = BUL }
+	visible = { always = yes }
+	priority = 100
+}
+
+bfx_diplomacy_category = {
+	icon = generic_foreign_policy
+	picture = GFX_decision_cat_picture_balkan_faction
+	allowed = { original_tag = BUL }
+	visible = { has_country_flag = bfx_chancelleries_open }
+	priority = 100
+}
+
 bfx_imro_category = {
 	icon = generic_political_actions
 	picture = GFX_decision_cat_picture_macedonian_organizations
 	allowed = { original_tag = BUL }
-	visible = { has_country_flag = bfx_imro_tolerated NOT = { has_completed_focus = bfx_com_workers_party } }
+	visible = { has_country_flag = bfx_imro_tolerated }
 	priority = 100
 }
 
-bfx_partisan_category = {
-	icon = generic_communism
-	picture = GFX_decision_cat_picture_spreading_the_red_flame
+bfx_integration_category = {
+	icon = generic_formable_nations
+	picture = GFX_decision_cat_generic_byzantine_empire
 	allowed = { original_tag = BUL }
-	visible = { has_completed_focus = bfx_com_fatherland_front }
-	priority = 100
-}
-
-bfx_cooperative_category = {
-	icon = generic_economy
-	picture = GFX_decision_cat_picture_fatherland_front
-	allowed = { original_tag = BUL }
-	visible = { has_completed_focus = bfx_agr_union_stirs }
+	visible = { has_country_flag = bfx_integration_unlocked }
 	priority = 100
 }
 
@@ -35,13 +43,5 @@ bfx_tsargrad_category = {
 	picture = GFX_decision_cat_generic_byzantine_empire
 	allowed = { original_tag = BUL }
 	visible = { has_completed_focus = bfx_alt_old_fox_stirs }
-	priority = 100
-}
-
-bfx_integration_category = {
-	icon = generic_formable_nations
-	picture = GFX_decision_cat_generic_byzantine_empire
-	allowed = { original_tag = BUL }
-	visible = { has_country_flag = bfx_imperial_integration }
 	priority = 100
 }

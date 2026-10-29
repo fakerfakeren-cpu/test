@@ -1,5 +1,4 @@
-# Recompute the Covert Rearmament dynamic modifier from bfx_rearm (0-100) and check Suspicion thresholds.
-# At 100 rearmament every Neuilly penalty is exactly cancelled.
+# ---------------------------------------------------------------- Neuilly
 bfx_neuilly_recalc = {
 	clamp_variable = { var = bfx_rearm min = 0 max = 100 }
 	clamp_variable = { var = bfx_suspicion min = 0 max = 100 }
@@ -13,13 +12,22 @@ bfx_neuilly_recalc = {
 	multiply_variable = { bfx_dm_air = -0.005 }
 	set_variable = { bfx_dm_dock = bfx_rearm }
 	multiply_variable = { bfx_dm_dock = 0.0025 }
+	set_variable = { bfx_susp_growth = bfx_rearm }
+	divide_variable = { bfx_susp_growth = 25 }
+	add_to_variable = { bfx_susp_growth = 1 }
+	if = { limit = { has_country_flag = bfx_hidden_arsenals } set_variable = { bfx_rearm_decay = 0 } }
+	else = { set_variable = { bfx_rearm_decay = 1 } }
 	force_update_dynamic_modifier = yes
 	if = {
 		limit = { NOT = { has_country_flag = bfx_neuilly_ended } }
 if = { limit = { check_variable = { bfx_suspicion > 24.99 } NOT = { has_country_flag = bfx_susp_25 } } set_country_flag = bfx_susp_25 country_event = { id = bfx_neuilly.10 days = 1 } }
-	if = { limit = { check_variable = { bfx_suspicion > 49.99 } NOT = { has_country_flag = bfx_susp_50 } } set_country_flag = bfx_susp_50 country_event = { id = bfx_neuilly.11 days = 1 } }
-	if = { limit = { check_variable = { bfx_suspicion > 74.99 } NOT = { has_country_flag = bfx_susp_75 } } set_country_flag = bfx_susp_75 country_event = { id = bfx_neuilly.12 days = 1 } }
-	if = { limit = { check_variable = { bfx_suspicion > 99.99 } NOT = { has_country_flag = bfx_susp_100 } } set_country_flag = bfx_susp_100 country_event = { id = bfx_neuilly.13 days = 1 } }
+		if = { limit = { check_variable = { bfx_suspicion < 10 } has_country_flag = bfx_susp_25 } clr_country_flag = bfx_susp_25 }
+		if = { limit = { check_variable = { bfx_suspicion > 49.99 } NOT = { has_country_flag = bfx_susp_50 } } set_country_flag = bfx_susp_50 country_event = { id = bfx_neuilly.11 days = 1 } }
+		if = { limit = { check_variable = { bfx_suspicion < 35 } has_country_flag = bfx_susp_50 } clr_country_flag = bfx_susp_50 }
+		if = { limit = { check_variable = { bfx_suspicion > 74.99 } NOT = { has_country_flag = bfx_susp_75 } } set_country_flag = bfx_susp_75 country_event = { id = bfx_neuilly.12 days = 1 } }
+		if = { limit = { check_variable = { bfx_suspicion < 60 } has_country_flag = bfx_susp_75 } clr_country_flag = bfx_susp_75 }
+		if = { limit = { check_variable = { bfx_suspicion > 99.99 } NOT = { has_country_flag = bfx_susp_100 } } set_country_flag = bfx_susp_100 country_event = { id = bfx_neuilly.13 days = 1 } }
+		if = { limit = { check_variable = { bfx_suspicion < 85 } has_country_flag = bfx_susp_100 } clr_country_flag = bfx_susp_100 }
 	}
 }
 
@@ -31,7 +39,6 @@ bfx_end_neuilly_common = {
 	set_variable = { bfx_suspicion = 0 }
 }
 
-# Tsardom / opening: negotiated at Salonika
 bfx_end_neuilly_negotiated = {
 	if = {
 		limit = { NOT = { has_country_flag = bfx_neuilly_ended } }
@@ -49,7 +56,6 @@ bfx_end_neuilly_negotiated = {
 	}
 }
 
-# Opening "Tear Up Neuilly" and the Coburg restoration: torn up loudly
 bfx_end_neuilly_torn = {
 	if = {
 		limit = { NOT = { has_country_flag = bfx_neuilly_ended } }
@@ -69,76 +75,122 @@ bfx_end_neuilly_torn = {
 	}
 }
 
-# Communists: denounced as an imperialist diktat
-bfx_end_neuilly_denounced = {
-	if = {
-		limit = { NOT = { has_country_flag = bfx_neuilly_ended } }
-		custom_effect_tooltip = bfx_tt_end_denounced
-		add_popularity = { ideology = communism popularity = 0.05 }
-		add_war_support = 0.05
-		army_experience = 15
-		if = { limit = { country_exists = SOV } SOV = { add_opinion_modifier = { target = ROOT modifier = bfx_om_fraternal_party } } }
-		set_country_flag = bfx_neuilly_denounced
-		bfx_end_neuilly_common = yes
-	}
-}
-
-# Agrarians: revised through a League of Nations petition (peaceful, small bonus)
-bfx_end_neuilly_revised = {
-	if = {
-		limit = { NOT = { has_country_flag = bfx_neuilly_ended } }
-		custom_effect_tooltip = bfx_tt_end_revised
-		add_stability = 0.05
-		army_experience = 10
-		every_country = {
-			limit = { OR = { tag = GRE tag = YUG tag = TUR tag = ROM } }
-			add_opinion_modifier = { target = ROOT modifier = bfx_om_neuilly_honoured }
-		}
-		set_country_flag = bfx_neuilly_revised
-		bfx_end_neuilly_common = yes
-	}
-}
-
-# Zveno: rearm in the open by decree
-bfx_end_neuilly_open = {
-	if = {
-		limit = { NOT = { has_country_flag = bfx_neuilly_ended } }
-		custom_effect_tooltip = bfx_tt_end_open
-		army_experience = 20
-		add_to_variable = { bfx_suspicion = 30 }
-		every_country = {
-			limit = { OR = { tag = GRE tag = YUG tag = TUR tag = ROM } }
-			add_opinion_modifier = { target = ROOT modifier = bfx_om_balkan_protest }
-		}
-		set_country_flag = bfx_neuilly_open
-		bfx_end_neuilly_common = yes
-	}
+# ---------------------------------------------------------------- The Tsar's Balance
+bfx_court_recalc = {
+	clamp_variable = { var = bfx_inf_palace min = 0 max = 100 }
+	clamp_variable = { var = bfx_inf_army min = 0 max = 100 }
+	clamp_variable = { var = bfx_inf_legion min = 0 max = 100 }
+	clamp_variable = { var = bfx_inf_imro min = 0 max = 100 }
+	# Crown: stability (-10%..+10%, minus IMRO violence) and political power (0..+20%)
+	set_variable = { bfx_cb_stab = bfx_inf_palace }
+	subtract_from_variable = { bfx_cb_stab = 50 }
+	multiply_variable = { bfx_cb_stab = 0.002 }
+	set_temp_variable = { bfx_tmp = bfx_inf_imro }
+	multiply_temp_variable = { bfx_tmp = 0.0005 }
+	subtract_from_variable = { bfx_cb_stab = bfx_tmp }
+	set_variable = { bfx_cb_pp = bfx_inf_palace }
+	multiply_variable = { bfx_cb_pp = 0.002 }
+	# Army: organisation (0..+8%) and army experience gain (0..+20%)
+	set_variable = { bfx_cb_org = bfx_inf_army }
+	multiply_variable = { bfx_cb_org = 0.0008 }
+	set_variable = { bfx_cb_xp = bfx_inf_army }
+	multiply_variable = { bfx_cb_xp = 0.002 }
+	# Legions: war support (-5%..+15%) and conscription (0..+10%)
+	set_variable = { bfx_cb_ws = bfx_inf_legion }
+	subtract_from_variable = { bfx_cb_ws = 25 }
+	multiply_variable = { bfx_cb_ws = 0.002 }
+	set_variable = { bfx_cb_cons = bfx_inf_legion }
+	multiply_variable = { bfx_cb_cons = 0.001 }
+	# IMRO: faster war justification (0..-30%)
+	set_variable = { bfx_cb_justify = bfx_inf_imro }
+	multiply_variable = { bfx_cb_justify = -0.003 }
+	force_update_dynamic_modifier = yes
+if = { limit = { check_variable = { bfx_inf_army > 79 } NOT = { has_country_flag = bfx_court_army_high } } set_country_flag = bfx_court_army_high country_event = { id = bfx_court.10 days = 2 } }
+	if = { limit = { check_variable = { bfx_inf_army < 64 } has_country_flag = bfx_court_army_high } clr_country_flag = bfx_court_army_high }
+	if = { limit = { check_variable = { bfx_inf_legion > 79 } NOT = { has_country_flag = bfx_court_legion_high } } set_country_flag = bfx_court_legion_high country_event = { id = bfx_court.11 days = 2 } }
+	if = { limit = { check_variable = { bfx_inf_legion < 64 } has_country_flag = bfx_court_legion_high } clr_country_flag = bfx_court_legion_high }
+	if = { limit = { check_variable = { bfx_inf_imro > 79 } NOT = { has_country_flag = bfx_court_imro_high } } set_country_flag = bfx_court_imro_high country_event = { id = bfx_court.12 days = 2 } }
+	if = { limit = { check_variable = { bfx_inf_imro < 64 } has_country_flag = bfx_court_imro_high } clr_country_flag = bfx_court_imro_high }
+	if = { limit = { check_variable = { bfx_inf_palace < 21 } NOT = { has_country_flag = bfx_court_palace_low } } set_country_flag = bfx_court_palace_low country_event = { id = bfx_court.13 days = 2 } }
+	if = { limit = { check_variable = { bfx_inf_palace > 35 } has_country_flag = bfx_court_palace_low } clr_country_flag = bfx_court_palace_low }
+	if = { limit = { check_variable = { bfx_inf_army < 16 } NOT = { has_country_flag = bfx_court_army_low } } set_country_flag = bfx_court_army_low country_event = { id = bfx_court.14 days = 2 } }
+	if = { limit = { check_variable = { bfx_inf_army > 30 } has_country_flag = bfx_court_army_low } clr_country_flag = bfx_court_army_low }
 }
 
 bfx_startup = {
 	set_variable = { bfx_rearm = 0 }
-	set_variable = { bfx_suspicion = 10 }
+	set_variable = { bfx_suspicion = 15 }
 	set_variable = { bfx_tsargrad_fervour = 0 }
 	set_variable = { bfx_macedonia_unrest = 0 }
+	set_variable = { bfx_coburg_letters = 0 }
+	set_variable = { bfx_uprising_months = 0 }
+	set_variable = { bfx_inf_palace = 50 }
+	set_variable = { bfx_inf_army = 45 }
+	set_variable = { bfx_inf_legion = 20 }
+	set_variable = { bfx_inf_imro = 35 }
 	add_ideas = { bfx_neuilly_shackles bfx_imro_state_within_state bfx_military_league_intrigue bfx_tobacco_monoculture }
 	add_dynamic_modifier = { modifier = bfx_covert_rearmament }
+	add_dynamic_modifier = { modifier = bfx_court_balance }
 	bfx_neuilly_recalc = yes
+	bfx_court_recalc = yes
 	if = {
 		limit = { is_ai = yes }
 		random_list = {
-			75 = { set_country_flag = bfx_ai_tsar random_list = { 70 = { set_country_flag = bfx_ai_tsar_axis } 23 = { set_country_flag = bfx_ai_tsar_neutral } 7 = { set_country_flag = bfx_ai_alt random_list = { 50 = { set_country_flag = bfx_ai_alt_empire } 50 = { set_country_flag = bfx_ai_alt_byz } } } } }
-			13 = { set_country_flag = bfx_ai_agr random_list = { 50 = { set_country_flag = bfx_ai_agr_dem } 50 = { set_country_flag = bfx_ai_agr_zveno } } }
-			12 = { set_country_flag = bfx_ai_com random_list = { 60 = { set_country_flag = bfx_ai_com_soviet } 40 = { set_country_flag = bfx_ai_com_fed } } }
+			72 = { set_country_flag = bfx_ai_tsar random_list = { 70 = { set_country_flag = bfx_ai_tsar_axis } 30 = { set_country_flag = bfx_ai_tsar_hegemon } } }
+			28 = { set_country_flag = bfx_ai_fascist random_list = { 60 = { set_country_flag = bfx_ai_fascist_axis } 40 = { set_country_flag = bfx_ai_fascist_imperium } } }
+		}
+		random_list = {
+			30 = { set_country_flag = bfx_ai_secret random_list = { 50 = { set_country_flag = bfx_ai_secret_empire } 50 = { set_country_flag = bfx_ai_secret_byz } } }
+			70 = { }
 		}
 	}
 }
 
 bfx_monthly = {
+	# Neuilly: suspicion grows by 1 + rearmament/25 per month; rearmament rusts by 1 (0 with Hidden Arsenals)
 	if = {
 		limit = { NOT = { has_country_flag = bfx_neuilly_ended } }
-		subtract_from_variable = { bfx_suspicion = 2 }
+		add_to_variable = { bfx_suspicion = bfx_susp_growth }
+		subtract_from_variable = { bfx_rearm = bfx_rearm_decay }
 		bfx_neuilly_recalc = yes
 	}
+	# The Tsar's Balance: monthly drift
+	subtract_from_variable = { bfx_inf_palace = 1 }
+	if = { limit = { has_stability > 0.6 } add_to_variable = { bfx_inf_palace = 1 } }
+	if = { limit = { OR = { has_war = yes check_variable = { bfx_rearm > 50 } } } add_to_variable = { bfx_inf_army = 1 } }
+	if = { limit = { has_war_support > 0.5 } add_to_variable = { bfx_inf_legion = 1 } }
+	if = { limit = { fascism > 0.15 } add_to_variable = { bfx_inf_legion = 1 } }
+	if = { limit = { has_country_flag = bfx_boris_rules } subtract_from_variable = { bfx_inf_legion = 1 } }
+	if = { limit = { has_country_flag = bfx_imro_tolerated } add_to_variable = { bfx_inf_imro = 1 } }
+	if = { limit = { has_country_flag = bfx_imro_crushed } subtract_from_variable = { bfx_inf_imro = 2 } }
+	bfx_court_recalc = yes
+	# The death of Tsar Boris (historically 28 August 1943)
+	if = {
+		limit = { has_country_flag = bfx_boris_rules date > 1943.8.1 NOT = { has_country_flag = bfx_boris_dead } }
+		random_list = { 25 = { country_event = bfx_court.20 } 75 = { } }
+	}
+	# Letters from Coburg (the secret path)
+	if = {
+		limit = { date > 1937.1.1 check_variable = { bfx_coburg_letters < 3 } NOT = { has_country_flag = bfx_secret_unlocked } NOT = { has_completed_focus = bfx_fas_legions_march } }
+		random_list = { 7 = { country_event = bfx_secret.1 } 93 = { } }
+	}
+	# Lukov's fate (historically assassinated 13 February 1943)
+	if = {
+		limit = { has_completed_focus = bfx_fas_legions_march date > 1943.2.1 NOT = { has_country_flag = bfx_lukov_attempt } }
+		random_list = { 20 = { country_event = bfx_fas.2 } 80 = { } }
+	}
+	# The Macedonian uprising
+	if = { limit = { has_country_flag = bfx_uprising_active } bfx_uprising_monthly = yes }
+	if = {
+		limit = { has_country_flag = bfx_macedonia_free NOT = { has_country_flag = bfx_macedonia_union_asked } }
+		add_to_variable = { bfx_uprising_months = 1 }
+		if = {
+			limit = { check_variable = { bfx_uprising_months > 5 } }
+			set_country_flag = bfx_macedonia_union_asked
+			every_country = { limit = { has_country_flag = bfx_imro_rebel_state } ROOT = { country_event = { id = bfx_imro.30 days = 1 } } }
+		}
+	}
+	# Flavour
 	random_list = {
 		90 = { }
 		2 = { country_event = bfx_flav.1 }
@@ -146,5 +198,55 @@ bfx_monthly = {
 		2 = { country_event = bfx_flav.3 }
 		2 = { country_event = bfx_flav.4 }
 		2 = { country_event = bfx_flav.5 }
+	}
+}
+
+# ---------------------------------------------------------------- the Macedonian uprising
+bfx_start_macedonian_uprising = {
+	106 = { owner = { save_event_target_as = bfx_uprising_target } }
+	event_target:bfx_uprising_target = {
+		if = { limit = { has_government = fascism } start_civil_war = { ideology = neutrality size = 0.25 states = { 106 } } }
+		else = { start_civil_war = { ideology = fascism size = 0.25 states = { 106 } } }
+	}
+	106 = {
+		owner = {
+			set_country_flag = bfx_imro_rebel_state
+			set_cosmetic_tag = bfx_independent_macedonia
+			add_ideas = bfx_imro_fervour
+			add_manpower = 15000
+			add_equipment_to_stockpile = { type = infantry_equipment amount = 2000 }
+			if = { limit = { has_government = fascism } recruit_character = bfx_BUL_ivan_mihaylov promote_character = bfx_BUL_ivan_mihaylov }
+		}
+	}
+	set_country_flag = bfx_uprising_active
+	set_variable = { bfx_uprising_months = 0 }
+	set_variable = { bfx_macedonia_unrest = 0 }
+	news_event = { id = bfx_imro.1 days = 1 }
+}
+
+bfx_uprising_monthly = {
+	add_to_variable = { bfx_uprising_months = 1 }
+	if = {
+		limit = { NOT = { any_country = { has_country_flag = bfx_imro_rebel_state } } }
+		clr_country_flag = bfx_uprising_active
+		set_country_flag = bfx_uprising_crushed
+		country_event = { id = bfx_imro.20 days = 1 }
+	}
+	else_if = {
+		limit = {
+			OR = {
+				check_variable = { bfx_uprising_months > 7 }
+				YUG = { surrender_progress > 0.2 }
+				YUG = { has_capitulated = yes }
+			}
+		}
+		every_country = {
+			limit = { has_country_flag = bfx_imro_rebel_state }
+			white_peace = { tag = YUG }
+		}
+		clr_country_flag = bfx_uprising_active
+		set_country_flag = bfx_macedonia_free
+		set_variable = { bfx_uprising_months = 0 }
+		country_event = { id = bfx_imro.10 days = 1 }
 	}
 }

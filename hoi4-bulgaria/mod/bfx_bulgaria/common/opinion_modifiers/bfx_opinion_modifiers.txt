@@ -6,9 +6,9 @@ opinion_modifiers = {
 	bfx_om_balkan_protest = { value = -20 }
 	bfx_om_neuilly_honoured = { value = 20 }
 	bfx_om_neuilly_torn = { value = -30 }
-	bfx_om_fraternal_party = { value = 30 }
-	bfx_om_heretic_party = { value = -25 }
 	bfx_om_rose_trade = { value = 15 }
-	bfx_om_green_brothers = { value = 25 }
-	bfx_om_partisan_meddling = { value = -25 }
+	bfx_om_royal_wedding = { value = 25 }
+	bfx_om_revisionist_brothers = { value = 30 }
+	bfx_om_bulgarian_threat = { value = -40 }
+	bfx_om_diplomatic_courtesy = { value = 15 }
 }

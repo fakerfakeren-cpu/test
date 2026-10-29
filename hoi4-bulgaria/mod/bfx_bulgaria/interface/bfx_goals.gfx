@@ -8,6 +8,10 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/bfx_neuilly_ledger.dds"
 	}
 	SpriteType = {
+		name = "GFX_focus_bfx_tsars_balance"
+		texturefile = "gfx/interface/goals/bfx_tsars_balance.dds"
+	}
+	SpriteType = {
 		name = "GFX_focus_bfx_salonika_agreement"
 		texturefile = "gfx/interface/goals/bfx_salonika_agreement.dds"
 	}
@@ -16,24 +20,84 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/bfx_tear_up_neuilly.dds"
 	}
 	SpriteType = {
+		name = "GFX_focus_bfx_open_the_chancelleries"
+		texturefile = "gfx/interface/goals/bfx_open_the_chancelleries.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_handshake"
+		texturefile = "gfx/interface/goals/bfx_handshake.dds"
+	}
+	SpriteType = {
 		name = "GFX_focus_bfx_tsar_steps_forward"
 		texturefile = "gfx/interface/goals/bfx_tsar_steps_forward.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_tsar_raindrops"
+		texturefile = "gfx/interface/goals/bfx_tsar_raindrops.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_bessarabian_bulgars"
+		texturefile = "gfx/interface/goals/bfx_bessarabian_bulgars.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_crusade_east"
+		texturefile = "gfx/interface/goals/bfx_crusade_east.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_greater_bulgaria"
+		texturefile = "gfx/interface/goals/bfx_greater_bulgaria.dds"
 	}
 	SpriteType = {
 		name = "GFX_focus_bfx_tsar_three_seas"
 		texturefile = "gfx/interface/goals/bfx_tsar_three_seas.dds"
 	}
 	SpriteType = {
-		name = "GFX_focus_bfx_tsar_balkan_switzerland"
-		texturefile = "gfx/interface/goals/bfx_tsar_balkan_switzerland.dds"
+		name = "GFX_focus_bfx_san_stefano"
+		texturefile = "gfx/interface/goals/bfx_san_stefano.dds"
 	}
 	SpriteType = {
-		name = "GFX_focus_bfx_tsar_danubian_confederation"
-		texturefile = "gfx/interface/goals/bfx_tsar_danubian_confederation.dds"
+		name = "GFX_focus_bfx_tsar_of_the_bulgarians"
+		texturefile = "gfx/interface/goals/bfx_tsar_of_the_bulgarians.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_tsar_stands_alone"
+		texturefile = "gfx/interface/goals/bfx_tsar_stands_alone.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_balkan_tsardom"
+		texturefile = "gfx/interface/goals/bfx_balkan_tsardom.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_master_of_the_peninsula"
+		texturefile = "gfx/interface/goals/bfx_master_of_the_peninsula.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_legions_march"
+		texturefile = "gfx/interface/goals/bfx_legions_march.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_legionary_state"
+		texturefile = "gfx/interface/goals/bfx_legionary_state.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_into_the_axis"
+		texturefile = "gfx/interface/goals/bfx_into_the_axis.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_new_bulgarian_order"
+		texturefile = "gfx/interface/goals/bfx_new_bulgarian_order.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_iron_imperium"
+		texturefile = "gfx/interface/goals/bfx_iron_imperium.dds"
 	}
 	SpriteType = {
 		name = "GFX_focus_bfx_alt_old_fox_stirs"
 		texturefile = "gfx/interface/goals/bfx_alt_old_fox_stirs.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_third_empire"
+		texturefile = "gfx/interface/goals/bfx_third_empire.dds"
 	}
 	SpriteType = {
 		name = "GFX_focus_bfx_alt_tsargrad"
@@ -44,52 +108,8 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/bfx_alt_hagia_sophia.dds"
 	}
 	SpriteType = {
-		name = "GFX_focus_bfx_alt_asparuhs_homecoming"
-		texturefile = "gfx/interface/goals/bfx_alt_asparuhs_homecoming.dds"
-	}
-	SpriteType = {
-		name = "GFX_focus_bfx_alt_exarchate_of_ravenna"
-		texturefile = "gfx/interface/goals/bfx_alt_exarchate_of_ravenna.dds"
-	}
-	SpriteType = {
-		name = "GFX_focus_bfx_com_workers_party"
-		texturefile = "gfx/interface/goals/bfx_com_workers_party.dds"
-	}
-	SpriteType = {
-		name = "GFX_focus_bfx_com_ninth_of_september"
-		texturefile = "gfx/interface/goals/bfx_com_ninth_of_september.dds"
-	}
-	SpriteType = {
-		name = "GFX_focus_bfx_com_balkan_federation"
-		texturefile = "gfx/interface/goals/bfx_com_balkan_federation.dds"
-	}
-	SpriteType = {
-		name = "GFX_focus_bfx_com_red_danubia"
-		texturefile = "gfx/interface/goals/bfx_com_red_danubia.dds"
-	}
-	SpriteType = {
-		name = "GFX_focus_bfx_com_red_black_sea"
-		texturefile = "gfx/interface/goals/bfx_com_red_black_sea.dds"
-	}
-	SpriteType = {
-		name = "GFX_focus_bfx_agr_union_stirs"
-		texturefile = "gfx/interface/goals/bfx_agr_union_stirs.dds"
-	}
-	SpriteType = {
-		name = "GFX_focus_bfx_agr_green_international"
-		texturefile = "gfx/interface/goals/bfx_agr_green_international.dds"
-	}
-	SpriteType = {
-		name = "GFX_focus_bfx_agr_baltic_to_aegean"
-		texturefile = "gfx/interface/goals/bfx_agr_baltic_to_aegean.dds"
-	}
-	SpriteType = {
-		name = "GFX_focus_bfx_zveno_takes_the_helm"
-		texturefile = "gfx/interface/goals/bfx_zveno_takes_the_helm.dds"
-	}
-	SpriteType = {
-		name = "GFX_focus_bfx_zveno_anatolian_gambit"
-		texturefile = "gfx/interface/goals/bfx_zveno_anatolian_gambit.dds"
+		name = "GFX_focus_bfx_new_rome"
+		texturefile = "gfx/interface/goals/bfx_new_rome.dds"
 	}
 	SpriteType = {
 		name = "GFX_focus_bfx_eco_rose_and_leaf"
@@ -100,23 +120,27 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/bfx_eco_german_clearing.dds"
 	}
 	SpriteType = {
-		name = "GFX_focus_bfx_alt_volga_bulgaria"
-		texturefile = "gfx/interface/goals/bfx_alt_volga_bulgaria.dds"
+		name = "GFX_focus_bfx_atom"
+		texturefile = "gfx/interface/goals/bfx_atom.dds"
 	}
 	SpriteType = {
-		name = "GFX_focus_bfx_alt_justinians_empire"
-		texturefile = "gfx/interface/goals/bfx_alt_justinians_empire.dds"
+		name = "GFX_focus_bfx_bukhovo_uranium"
+		texturefile = "gfx/interface/goals/bfx_bukhovo_uranium.dds"
 	}
 	SpriteType = {
-		name = "GFX_focus_bfx_com_trieste_to_odessa"
-		texturefile = "gfx/interface/goals/bfx_com_trieste_to_odessa.dds"
+		name = "GFX_focus_bfx_nuclear_plant"
+		texturefile = "gfx/interface/goals/bfx_nuclear_plant.dds"
 	}
 	SpriteType = {
-		name = "GFX_focus_bfx_agr_peasant_commonwealth"
-		texturefile = "gfx/interface/goals/bfx_agr_peasant_commonwealth.dds"
+		name = "GFX_focus_bfx_rila_device"
+		texturefile = "gfx/interface/goals/bfx_rila_device.dds"
 	}
 	SpriteType = {
 		name = "GFX_focus_bfx_air_aero_clubs"
 		texturefile = "gfx/interface/goals/bfx_air_aero_clubs.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_parachute"
+		texturefile = "gfx/interface/goals/bfx_parachute.dds"
 	}
 }

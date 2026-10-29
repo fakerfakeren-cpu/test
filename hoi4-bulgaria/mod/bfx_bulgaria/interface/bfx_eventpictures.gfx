@@ -4,11 +4,11 @@ spriteTypes = {
 		texturefile = "gfx/event_pictures/bfx_ferdinand_returns.dds"
 	}
 	SpriteType = {
-		name = "GFX_event_bfx_dimitrov_speech"
-		texturefile = "gfx/event_pictures/bfx_dimitrov_speech.dds"
+		name = "GFX_event_bfx_lukov_legion"
+		texturefile = "gfx/event_pictures/bfx_lukov_legion.dds"
 	}
 	SpriteType = {
-		name = "GFX_event_bfx_zveno_officers"
-		texturefile = "gfx/event_pictures/bfx_zveno_officers.dds"
+		name = "GFX_event_bfx_imro_uprising"
+		texturefile = "gfx/event_pictures/bfx_imro_uprising.dds"
 	}
 }

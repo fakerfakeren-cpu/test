@@ -12,23 +12,36 @@ country_event = {
 			base = 50
 		}
 		add_political_power = 75
-		add_stability = -0.02
+		custom_effect_tooltip = bfx_tt_court_p5
+		hidden_effect = {
+			add_to_variable = { bfx_inf_palace = 5 }
+			bfx_court_recalc = yes
+		}
 	}
 	option = {
 		name = bfx.1.b
 		ai_chance = {
-			base = 30
+			base = 25
 		}
-		add_stability = 0.05
-		add_popularity = { ideology = democratic popularity = 0.03 }
+		army_experience = 10
+		custom_effect_tooltip = bfx_tt_court_pm5_a10
+		hidden_effect = {
+			add_to_variable = { bfx_inf_palace = -5 } add_to_variable = { bfx_inf_army = 10 }
+			bfx_court_recalc = yes
+		}
 	}
 	option = {
 		name = bfx.1.c
 		ai_chance = {
-			base = 20
+			base = 25
+			modifier = { factor = 4 has_country_flag = bfx_ai_fascist }
 		}
-		army_experience = 10
 		add_war_support = 0.03
+		custom_effect_tooltip = bfx_tt_court_pm5_l10
+		hidden_effect = {
+			add_to_variable = { bfx_inf_palace = -5 } add_to_variable = { bfx_inf_legion = 10 }
+			bfx_court_recalc = yes
+		}
 	}
 }
 
@@ -44,7 +57,11 @@ country_event = {
 			base = 70
 		}
 		add_stability = 0.03
-		add_popularity = { ideology = democratic popularity = 0.02 }
+		custom_effect_tooltip = bfx_tt_court_a5
+		hidden_effect = {
+			add_to_variable = { bfx_inf_army = 5 }
+			bfx_court_recalc = yes
+		}
 	}
 	option = {
 		name = bfx.2.b
@@ -53,7 +70,11 @@ country_event = {
 		}
 		add_political_power = 50
 		add_stability = -0.03
-		add_war_support = 0.02
+		custom_effect_tooltip = bfx_tt_court_p10_am15
+		hidden_effect = {
+			add_to_variable = { bfx_inf_palace = 10 } add_to_variable = { bfx_inf_army = -15 }
+			bfx_court_recalc = yes
+		}
 	}
 }
 
@@ -68,13 +89,17 @@ country_event = {
 		ai_chance = {
 			base = 30
 		}
-		add_popularity = { ideology = democratic popularity = 0.10 }
 		add_stability = 0.05
+		custom_effect_tooltip = bfx_tt_court_p5
+		hidden_effect = {
+			add_to_variable = { bfx_inf_palace = 5 }
+			bfx_court_recalc = yes
+		}
 	}
 	option = {
 		name = bfx.3.b
 		ai_chance = {
-			base = 50
+			base = 40
 		}
 		add_political_power = 100
 		add_stability = -0.05
@@ -83,9 +108,14 @@ country_event = {
 		name = bfx.3.c
 		ai_chance = {
 			base = 20
+			modifier = { factor = 5 has_country_flag = bfx_ai_fascist }
 		}
-		add_popularity = { ideology = communism popularity = -0.05 }
-		add_political_power = 25
+		add_popularity = { ideology = fascism popularity = 0.08 }
+		custom_effect_tooltip = bfx_tt_court_l10
+		hidden_effect = {
+			add_to_variable = { bfx_inf_legion = 10 }
+			bfx_court_recalc = yes
+		}
 	}
 }
 
@@ -99,32 +129,38 @@ country_event = {
 		name = bfx.4.a
 		ai_chance = {
 			base = 20
-			modifier = { factor = 4 has_country_flag = bfx_ai_agr }
+			modifier = { factor = 10 has_country_flag = bfx_ai_fascist }
 		}
-		add_popularity = { ideology = democratic popularity = 0.08 }
+		add_popularity = { ideology = fascism popularity = 0.10 }
+		custom_effect_tooltip = bfx_tt_court_pm5_l15
+		hidden_effect = {
+			add_to_variable = { bfx_inf_palace = -5 } add_to_variable = { bfx_inf_legion = 15 }
+			bfx_court_recalc = yes
+		}
 	}
 	option = {
 		name = bfx.4.b
 		ai_chance = {
-			base = 5
-			modifier = { factor = 10 has_country_flag = bfx_ai_com }
+			base = 30
 		}
-		add_popularity = { ideology = communism popularity = 0.08 }
+		add_popularity = { ideology = communism popularity = -0.05 }
+		custom_effect_tooltip = bfx_tt_court_a5
+		hidden_effect = {
+			add_to_variable = { bfx_inf_army = 5 }
+			bfx_court_recalc = yes
+		}
 	}
 	option = {
 		name = bfx.4.c
 		ai_chance = {
-			base = 15
-			modifier = { factor = 3 has_country_flag = bfx_ai_tsar_axis }
-		}
-		add_popularity = { ideology = fascism popularity = 0.08 }
-	}
-	option = {
-		name = bfx.4.e
-		ai_chance = {
-			base = 20
+			base = 40
 		}
 		add_stability = 0.03
+		custom_effect_tooltip = bfx_tt_court_p10_lm5
+		hidden_effect = {
+			add_to_variable = { bfx_inf_palace = 10 } add_to_variable = { bfx_inf_legion = -5 }
+			bfx_court_recalc = yes
+		}
 	}
 }
 

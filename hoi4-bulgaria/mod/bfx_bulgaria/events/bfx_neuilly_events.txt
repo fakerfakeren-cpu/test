@@ -11,12 +11,12 @@ country_event = {
 		ai_chance = {
 			base = 50
 		}
-		add_political_power = -25
+		add_political_power = -40
 		if = {
 			limit = { NOT = { has_country_flag = bfx_neuilly_ended } }
-			custom_effect_tooltip = bfx_tt_neuilly_r0_sm5
+			custom_effect_tooltip = bfx_tt_neuilly_r0_sm8
 			hidden_effect = {
-				add_to_variable = { bfx_suspicion = -5 }
+				add_to_variable = { bfx_suspicion = -8 }
 				bfx_neuilly_recalc = yes
 			}
 		}
@@ -71,7 +71,7 @@ country_event = {
 				}
 			}
 		}
-		add_political_power = -50
+		add_political_power = -60
 		if = {
 			limit = { NOT = { has_country_flag = bfx_neuilly_ended } }
 			custom_effect_tooltip = bfx_tt_neuilly_r0_sm10
@@ -101,7 +101,7 @@ country_event = {
 		ai_chance = {
 			base = 60
 		}
-		add_political_power = -75
+		add_political_power = -100
 		add_timed_idea = { idea = bfx_balkan_embargo days = 180 }
 	}
 }
@@ -126,6 +126,11 @@ country_event = {
 				bfx_neuilly_recalc = yes
 			}
 		}
+		custom_effect_tooltip = bfx_tt_court_pm5_am10
+		hidden_effect = {
+			add_to_variable = { bfx_inf_palace = -5 } add_to_variable = { bfx_inf_army = -10 }
+			bfx_court_recalc = yes
+		}
 	}
 	option = {
 		name = bfx_neuilly.13.b
@@ -135,6 +140,11 @@ country_event = {
 		add_timed_idea = { idea = bfx_border_crisis days = 180 }
 		army_experience = 15
 		add_named_threat = { threat = 2 name = bfx_threat_petrich }
+		custom_effect_tooltip = bfx_tt_court_a10_l5
+		hidden_effect = {
+			add_to_variable = { bfx_inf_army = 10 } add_to_variable = { bfx_inf_legion = 5 }
+			bfx_court_recalc = yes
+		}
 	}
 }
 

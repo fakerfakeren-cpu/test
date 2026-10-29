@@ -1,0 +1,36 @@
+bfx_greater_bulgaria = {
+	color = rgb { 34 128 76 }
+	color_ui = rgb { 54 176 108 }
+}
+bfx_san_stefano_bulgaria = {
+	color = rgb { 20 150 100 }
+	color_ui = rgb { 36 205 140 }
+}
+bfx_balkan_tsardom = {
+	color = rgb { 150 32 44 }
+	color_ui = rgb { 205 51 67 }
+}
+bfx_legionary_bulgaria = {
+	color = rgb { 70 96 40 }
+	color_ui = rgb { 101 134 62 }
+}
+bfx_bulgarian_imperium = {
+	color = rgb { 96 34 30 }
+	color_ui = rgb { 134 54 49 }
+}
+bfx_third_empire = {
+	color = rgb { 122 22 64 }
+	color_ui = rgb { 168 38 93 }
+}
+bfx_byzantium = {
+	color = rgb { 112 24 112 }
+	color_ui = rgb { 155 41 155 }
+}
+bfx_independent_macedonia = {
+	color = rgb { 196 52 40 }
+	color_ui = rgb { 255 77 62 }
+}
+bfx_bulgarian_empire = {
+	color = rgb { 60 110 60 }
+	color_ui = rgb { 88 153 88 }
+}

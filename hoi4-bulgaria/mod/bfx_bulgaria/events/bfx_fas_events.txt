@@ -1,0 +1,63 @@
+add_namespace = bfx_fas
+
+country_event = {
+	id = bfx_fas.1
+	title = bfx_fas.1.t
+	desc = bfx_fas.1.d
+	picture = GFX_event_bfx_lukov_legion
+	is_triggered_only = yes
+	option = {
+		name = bfx_fas.1.a
+		trigger = { OR = { check_variable = { bfx_inf_palace < 50 } check_variable = { bfx_inf_legion > 59 } } }
+		set_politics = { ruling_party = fascism elections_allowed = no }
+		retire_country_leader = yes
+		recruit_character = bfx_BUL_hristo_lukov
+		promote_character = bfx_BUL_hristo_lukov
+		set_country_flag = bfx_chancelleries_open
+		custom_effect_tooltip = bfx_tt_court_pm10_l10
+		hidden_effect = {
+			add_to_variable = { bfx_inf_palace = -10 } add_to_variable = { bfx_inf_legion = 10 }
+			bfx_court_recalc = yes
+		}
+	}
+	option = {
+		name = bfx_fas.1.b
+		trigger = { NOT = { OR = { check_variable = { bfx_inf_palace < 50 } check_variable = { bfx_inf_legion > 59 } } } }
+		set_politics = { ruling_party = fascism elections_allowed = no }
+		retire_country_leader = yes
+		recruit_character = bfx_BUL_hristo_lukov
+		promote_character = bfx_BUL_hristo_lukov
+		set_country_flag = bfx_chancelleries_open
+		start_civil_war = { ideology = neutrality size = 0.3 }
+		custom_effect_tooltip = bfx_tt_court_pm30_l15
+		hidden_effect = {
+			add_to_variable = { bfx_inf_palace = -30 } add_to_variable = { bfx_inf_legion = 15 }
+			bfx_court_recalc = yes
+		}
+	}
+}
+
+country_event = {
+	id = bfx_fas.2
+	title = bfx_fas.2.t
+	desc = bfx_fas.2.d
+	picture = GFX_report_event_bul_partisans_plovdiv
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = bfx_lukov_attempt
+	}
+	option = {
+		name = bfx_fas.2.a
+		add_popularity = { ideology = communism popularity = -0.05 }
+		add_stability = -0.02
+		custom_effect_tooltip = bfx_tt_court_l5
+		hidden_effect = {
+			add_to_variable = { bfx_inf_legion = 5 }
+			bfx_court_recalc = yes
+		}
+	}
+	option = {
+		name = bfx_fas.2.b
+		add_war_support = 0.05
+	}
+}

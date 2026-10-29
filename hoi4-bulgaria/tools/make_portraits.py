@@ -30,20 +30,12 @@ for d in (OUT_L, OUT_S, PREV):
 RNG = np.random.default_rng(1936)
 
 
+BG_FILE = os.path.join(HERE, "assets", "portrait_background.png")  # user-supplied 156x210 backdrop
+
+
 def backdrop(w, h, seed=0):
-    """Vanilla-like portrait background: darker top/edges, lighter band behind the shoulders."""
-    rng = np.random.default_rng(seed)
-    y = np.linspace(0, 1, h)[:, None]
-    x = np.linspace(-1, 1, w)[None, :]
-    # vertical profile sampled from vanilla: ~30 at top, ~85 at 55-60% height
-    prof = 30 + 58 * np.exp(-((y - 0.6) / 0.33) ** 2)
-    vign = 1 - 0.28 * (x ** 2)
-    lum = prof * vign
-    tex = rng.normal(0, 1, (h // 3 + 1, w // 3 + 1))
-    tex = np.array(Image.fromarray(((tex * 12) + 128).clip(0, 255).astype(np.uint8)).resize((w, h), Image.BICUBIC)).astype(float) - 128
-    lum = lum + tex * 0.35 + rng.normal(0, 1.6, (h, w))
-    rgb = np.stack([lum + 3, lum, lum - 6], -1)  # slightly warm, as in vanilla
-    return Image.fromarray(rgb.clip(0, 255).astype(np.uint8), "RGB")
+    """The user's portrait background, scaled to the target size."""
+    return Image.open(BG_FILE).convert("RGB").resize((w, h), Image.LANCZOS)
 
 
 def cutout(img):
@@ -182,16 +174,13 @@ def main(names=None):
             continue
         img = Image.open(f).convert("RGB")
         if name.endswith("__hoi4"):
-            # already a finished in-game portrait (user-supplied): keep it, derive the small one
+            # an existing painted portrait: cut the figure out, keep its colours, put it on our backdrop
             name = name[: -len("__hoi4")]
-            large = img.resize((156, 210), Image.LANCZOS) if img.size != (156, 210) else img
-            face = find_face(large)
-            fx, fy, fw, fh = face if face is not None else (40, 40, 76, 90)
-            side = int(fh * 1.75)
-            cx, cy = fx + fw / 2, fy + fh * 0.55
-            box = (int(cx - side / 2), int(cy - side * 0.52), int(cx + side / 2), int(cy + side * 0.52))
-            small = large.crop(box).resize((65, 67), Image.LANCZOS)
-            how = "as supplied (HOI4 portrait)"
+            cut, how = cutout(img)
+            face = find_face(img)
+            large = compose(cut, face, (156, 210), head_frac=0.36, top_frac=0.30, seed=i)
+            small = compose(cut, face, (65, 67), head_frac=0.52, top_frac=0.20, seed=i + 100)
+            how += " (painted original, colours kept)"
         else:
             cut, how = cutout(img)
             face = find_face(img)

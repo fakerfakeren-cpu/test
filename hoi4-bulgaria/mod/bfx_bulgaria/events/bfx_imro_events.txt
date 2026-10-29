@@ -1,0 +1,82 @@
+add_namespace = bfx_imro
+
+news_event = {
+	id = bfx_imro.1
+	title = bfx_imro.1.t
+	desc = bfx_imro.1.d
+	picture = GFX_news_event_bulgarian_partisans
+	major = yes
+	is_triggered_only = yes
+	option = {
+		name = bfx_imro.1.a
+		trigger = { tag = BUL }
+		add_war_support = 0.03
+	}
+	option = {
+		name = bfx_imro.1.b
+		trigger = { NOT = { tag = BUL } }
+	}
+}
+
+country_event = {
+	id = bfx_imro.10
+	title = bfx_imro.10.t
+	desc = bfx_imro.10.d
+	picture = GFX_event_bfx_imro_uprising
+	is_triggered_only = yes
+	option = {
+		name = bfx_imro.10.a
+		add_stability = 0.05
+		add_war_support = 0.05
+		custom_effect_tooltip = bfx_tt_court_i10
+		hidden_effect = {
+			add_to_variable = { bfx_inf_imro = 10 }
+			bfx_court_recalc = yes
+		}
+	}
+}
+
+country_event = {
+	id = bfx_imro.20
+	title = bfx_imro.20.t
+	desc = bfx_imro.20.d
+	picture = GFX_report_event_bul_imro_chieftain
+	is_triggered_only = yes
+	option = {
+		name = bfx_imro.20.a
+		add_stability = -0.05
+		custom_effect_tooltip = bfx_tt_court_im30
+		hidden_effect = {
+			add_to_variable = { bfx_inf_imro = -30 }
+			bfx_court_recalc = yes
+		}
+	}
+	option = {
+		name = bfx_imro.20.b
+		add_political_power = -50
+		custom_effect_tooltip = bfx_tt_court_im10
+		hidden_effect = {
+			add_to_variable = { bfx_inf_imro = -10 }
+			bfx_court_recalc = yes
+		}
+	}
+}
+
+country_event = {
+	id = bfx_imro.30
+	title = bfx_imro.30.t
+	desc = bfx_imro.30.d
+	picture = GFX_event_bfx_imro_uprising
+	is_triggered_only = yes
+	option = {
+		name = bfx_imro.30.a
+		FROM = { every_owned_state = { add_core_of = ROOT } }
+		annex_country = { target = FROM transfer_troops = yes }
+		add_stability = 0.05
+	}
+	option = {
+		name = bfx_imro.30.b
+		puppet = FROM
+		add_political_power = 50
+	}
+}

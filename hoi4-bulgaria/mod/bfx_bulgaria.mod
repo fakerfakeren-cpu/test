@@ -1,4 +1,4 @@
-version="1.1"
+version="2.0"
 tags={
 	"Alternative History"
 	"National Focuses"
@@ -8,7 +8,7 @@ tags={
 dependencies={
 	"Road to 56"
 }
-name="Bulgaria: Shackles of Neuilly"
+name="Bulgaria: The Tsar's Balance"
 picture="thumbnail.png"
 supported_version="1.19.*"
 path="mod/bfx_bulgaria"
