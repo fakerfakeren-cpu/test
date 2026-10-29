@@ -3534,7 +3534,7 @@ focus_tree = {
 		icon = GFX_focus_bfx_eco_rose_and_leaf
 		x = 92
 		y = 0
-		cost = 7
+		cost = 3
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
 			factor = 10
@@ -3551,7 +3551,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = -9
 		y = 1
-		cost = 7
+		cost = 3
 		prerequisite = { focus = bfx_eco_rose_and_leaf }
 		mutually_exclusive = { focus = bfx_eco_diversify }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -3571,7 +3571,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = -6
 		y = 1
-		cost = 7
+		cost = 3
 		prerequisite = { focus = bfx_eco_rose_and_leaf }
 		mutually_exclusive = { focus = bfx_eco_german_clearing }
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY }
@@ -3590,7 +3590,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = 0
 		y = 1
-		cost = 7
+		cost = 3
 		prerequisite = { focus = bfx_eco_rose_and_leaf }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
@@ -3608,7 +3608,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = 6
 		y = 1
-		cost = 8
+		cost = 3
 		prerequisite = { focus = bfx_eco_rose_and_leaf }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
@@ -3617,13 +3617,6 @@ focus_tree = {
 		completion_reward = {
 			every_owned_state = { limit = { is_controlled_by = ROOT } add_building_construction = { type = infrastructure level = 1 instant_build = yes } }
 			add_ideas = bfx_railway_age
-			if = { limit = { has_idea = bfx_railway_age } swap_ideas = { remove_idea = bfx_railway_age add_idea = bfx_railway_age_2 } }
-			else = { add_ideas = bfx_railway_age_2 }
-			random_owned_controlled_state = {
-				limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes } }
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
-			}
 		}
 	}
 
@@ -3633,7 +3626,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = 11
 		y = 1
-		cost = 7
+		cost = 3
 		prerequisite = { focus = bfx_eco_rose_and_leaf }
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		ai_will_do = {
@@ -3642,7 +3635,6 @@ focus_tree = {
 		completion_reward = {
 			add_tech_bonus = { name = bfx_eco_sofia_university bonus = 0.5 uses = 1 category = electronics }
 			add_tech_bonus = { name = bfx_eco_sofia_university_i bonus = 0.5 uses = 1 category = industry }
-			add_tech_bonus = { name = bfx_eco_nadjakov_laboratory bonus = 0.5 uses = 2 category = electronics }
 		}
 	}
 
@@ -3652,18 +3644,15 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = -7
 		y = 2
-		cost = 7
+		cost = 3
 		prerequisite = { focus = bfx_eco_german_clearing focus = bfx_eco_diversify }
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL }
 		ai_will_do = {
 			factor = 10
 		}
 		completion_reward = {
 			if = { limit = { has_idea = bfx_tobacco_monoculture } swap_ideas = { remove_idea = bfx_tobacco_monoculture add_idea = bfx_tobacco_and_rose_exports } }
 			else = { add_ideas = bfx_tobacco_and_rose_exports }
-			if = { limit = { has_idea = bfx_tobacco_and_rose_exports } swap_ideas = { remove_idea = bfx_tobacco_and_rose_exports add_idea = bfx_valley_of_roses } }
-			else = { add_ideas = bfx_valley_of_roses }
-			if = { limit = { country_exists = FRA } FRA = { add_opinion_modifier = { target = ROOT modifier = bfx_om_rose_trade } } }
 		}
 	}
 
@@ -3673,7 +3662,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = -1
 		y = 2
-		cost = 7
+		cost = 3
 		prerequisite = { focus = bfx_eco_pernik_coal }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
@@ -3682,12 +3671,6 @@ focus_tree = {
 		completion_reward = {
 			if = { limit = { has_idea = bfx_pernik_coal_works } swap_ideas = { remove_idea = bfx_pernik_coal_works add_idea = bfx_pernik_coal_works_2 } }
 			else = { add_ideas = bfx_pernik_coal_works_2 }
-			capital_scope = { add_resource = { type = steel amount = 4 } }
-			random_owned_controlled_state = {
-				limit = { free_building_slots = { building = arms_factory size > 0 include_locked = yes } }
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
-			}
 			capital_scope = { add_resource = { type = steel amount = 4 } }
 		}
 	}
@@ -3698,7 +3681,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = 2
 		y = 2
-		cost = 7
+		cost = 3
 		prerequisite = { focus = bfx_eco_pernik_coal }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
@@ -3711,6 +3694,103 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
 			}
+		}
+	}
+
+	focus = {
+		id = bfx_eco_main_line
+		icon = GFX_focus_NOR_build_the_northern_rail
+		relative_position_id = bfx_eco_rose_and_leaf
+		x = 6
+		y = 2
+		cost = 3
+		prerequisite = { focus = bfx_eco_bdz }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			if = { limit = { has_idea = bfx_railway_age } swap_ideas = { remove_idea = bfx_railway_age add_idea = bfx_railway_age_2 } }
+			else = { add_ideas = bfx_railway_age_2 }
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+		}
+	}
+
+	focus = {
+		id = bfx_eco_nadjakov_laboratory
+		icon = GFX_focus_bfx_atom
+		relative_position_id = bfx_eco_rose_and_leaf
+		x = 11
+		y = 2
+		cost = 3
+		prerequisite = { focus = bfx_eco_sofia_university }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_tech_bonus = { name = bfx_eco_nadjakov_laboratory bonus = 0.5 uses = 2 category = electronics }
+		}
+	}
+
+	focus = {
+		id = bfx_eco_valley_of_roses
+		icon = GFX_goal_generic_consumer_goods
+		relative_position_id = bfx_eco_rose_and_leaf
+		x = -7
+		y = 3
+		cost = 3
+		prerequisite = { focus = bfx_eco_tobacco_boom }
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			if = { limit = { has_idea = bfx_tobacco_and_rose_exports } swap_ideas = { remove_idea = bfx_tobacco_and_rose_exports add_idea = bfx_valley_of_roses } }
+			else = { add_ideas = bfx_valley_of_roses }
+			if = { limit = { country_exists = FRA } FRA = { add_opinion_modifier = { target = ROOT modifier = bfx_om_rose_trade } } }
+		}
+	}
+
+	focus = {
+		id = bfx_eco_kremikovtsi_steel
+		icon = GFX_goal_generic_construct_mil_factory
+		relative_position_id = bfx_eco_rose_and_leaf
+		x = -1
+		y = 3
+		cost = 3
+		prerequisite = { focus = bfx_eco_balkan_iron }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = arms_factory size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+			capital_scope = { add_resource = { type = steel amount = 4 } }
+		}
+	}
+
+	focus = {
+		id = bfx_eco_iskar_dams
+		icon = GFX_goal_generic_construction
+		relative_position_id = bfx_eco_rose_and_leaf
+		x = 2
+		y = 3
+		cost = 3
+		prerequisite = { focus = bfx_eco_electrification }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
 			if = { limit = { has_idea = bfx_electrification } swap_ideas = { remove_idea = bfx_electrification add_idea = bfx_iskar_hydro } }
 			else = { add_ideas = bfx_iskar_hydro }
 		}
@@ -3721,10 +3801,10 @@ focus_tree = {
 		icon = GFX_goal_generic_trade
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = 5
-		y = 2
-		cost = 8
-		prerequisite = { focus = bfx_eco_bdz }
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_NAVY_XP }
+		y = 3
+		cost = 3
+		prerequisite = { focus = bfx_eco_main_line }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
 			factor = 10
 		}
@@ -3735,6 +3815,22 @@ focus_tree = {
 				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
 			}
 			add_tech_bonus = { name = bfx_eco_danube_ports bonus = 0.3 uses = 1 category = industry }
+		}
+	}
+
+	focus = {
+		id = bfx_eco_black_sea_ports
+		icon = GFX_goal_generic_construct_naval_dockyard
+		relative_position_id = bfx_eco_rose_and_leaf
+		x = 8
+		y = 3
+		cost = 3
+		prerequisite = { focus = bfx_eco_main_line }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_NAVY_XP }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
 			random_owned_controlled_state = {
 				limit = { is_coastal = yes free_building_slots = { building = dockyard size > 0 include_locked = yes } }
 				add_extra_state_shared_building_slots = 1
@@ -3748,11 +3844,11 @@ focus_tree = {
 		icon = GFX_focus_bfx_bukhovo_uranium
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = 11
-		y = 2
-		cost = 7
-		prerequisite = { focus = bfx_eco_sofia_university }
+		y = 3
+		cost = 3
+		prerequisite = { focus = bfx_eco_nadjakov_laboratory }
 		available = {
-			date > 1940.1.1
+			date > 1938.1.1
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		ai_will_do = {
@@ -3761,8 +3857,6 @@ focus_tree = {
 		completion_reward = {
 			capital_scope = { add_extra_state_shared_building_slots = 1 }
 			add_tech_bonus = { name = bfx_eco_bukhovo_uranium bonus = 0.5 uses = 1 category = nuclear }
-			add_ideas = bfx_atomic_commission
-			add_tech_bonus = { name = bfx_eco_atomic_commission bonus = 0.5 uses = 1 category = nuclear }
 		}
 	}
 
@@ -3771,10 +3865,10 @@ focus_tree = {
 		icon = GFX_goal_generic_construct_civ_factory
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = -7
-		y = 3
-		cost = 7
-		prerequisite = { focus = bfx_eco_tobacco_boom }
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL }
+		y = 4
+		cost = 3
+		prerequisite = { focus = bfx_eco_valley_of_roses }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
 			factor = 10
 		}
@@ -3784,7 +3878,6 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
 			}
-			country_event = bfx.10
 		}
 	}
 
@@ -3793,9 +3886,9 @@ focus_tree = {
 		icon = GFX_goal_generic_army_artillery2
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = -3
-		y = 3
-		cost = 8
-		prerequisite = { focus = bfx_eco_balkan_iron }
+		y = 4
+		cost = 3
+		prerequisite = { focus = bfx_eco_kremikovtsi_steel }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
 			factor = 10
@@ -3807,6 +3900,22 @@ focus_tree = {
 				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
 			}
 			add_tech_bonus = { name = bfx_eco_kazanlak_arsenal bonus = 0.5 uses = 1 category = artillery }
+		}
+	}
+
+	focus = {
+		id = bfx_eco_sopot_works
+		icon = GFX_goal_generic_small_arms
+		relative_position_id = bfx_eco_rose_and_leaf
+		x = 0
+		y = 4
+		cost = 3
+		prerequisite = { focus = bfx_eco_kremikovtsi_steel }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
 			random_owned_controlled_state = {
 				limit = { free_building_slots = { building = arms_factory size > 0 include_locked = yes } }
 				add_extra_state_shared_building_slots = 1
@@ -3821,9 +3930,9 @@ focus_tree = {
 		icon = GFX_goal_generic_construction2
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = 3
-		y = 3
-		cost = 8
-		prerequisite = { focus = bfx_eco_electrification }
+		y = 4
+		cost = 3
+		prerequisite = { focus = bfx_eco_iskar_dams }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
 			factor = 10
@@ -3835,12 +3944,6 @@ focus_tree = {
 				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
 			}
 			add_tech_bonus = { name = bfx_eco_hydro_grid bonus = 0.5 uses = 1 category = industry }
-			add_ideas = bfx_chemical_industry
-			random_owned_controlled_state = {
-				limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes } }
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
-			}
 		}
 	}
 
@@ -3849,9 +3952,9 @@ focus_tree = {
 		icon = GFX_goal_generic_construction
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = 8
-		y = 3
-		cost = 7
-		prerequisite = { focus = bfx_eco_danube_ports }
+		y = 4
+		cost = 3
+		prerequisite = { focus = bfx_eco_black_sea_ports }
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MANPOWER }
 		ai_will_do = {
 			factor = 10
@@ -3866,7 +3969,44 @@ focus_tree = {
 					bfx_neuilly_recalc = yes
 				}
 			}
-			every_owned_state = { limit = { is_controlled_by = ROOT is_core_of = ROOT } add_building_construction = { type = infrastructure level = 1 instant_build = yes } }
+		}
+	}
+
+	focus = {
+		id = bfx_eco_atomic_commission
+		icon = GFX_focus_bfx_atom
+		relative_position_id = bfx_eco_rose_and_leaf
+		x = 11
+		y = 4
+		cost = 3
+		prerequisite = { focus = bfx_eco_bukhovo_uranium }
+		available = {
+			date > 1940.1.1
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_ideas = bfx_atomic_commission
+			add_tech_bonus = { name = bfx_eco_atomic_commission bonus = 0.5 uses = 1 category = nuclear }
+		}
+	}
+
+	focus = {
+		id = bfx_eco_ledger_of_trade
+		icon = GFX_goal_generic_dangerous_deal
+		relative_position_id = bfx_eco_rose_and_leaf
+		x = -7
+		y = 5
+		cost = 3
+		prerequisite = { focus = bfx_eco_hard_currency }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			country_event = bfx.10
 		}
 	}
 
@@ -3875,21 +4015,55 @@ focus_tree = {
 		icon = GFX_goal_generic_production2
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = -1
-		y = 4
-		cost = 7
+		y = 5
+		cost = 3
 		prerequisite = { focus = bfx_eco_kazanlak_arsenal }
+		prerequisite = { focus = bfx_eco_sopot_works }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
 			factor = 10
 		}
 		completion_reward = {
 			add_ideas = bfx_state_arsenals
-			add_ideas = bfx_war_economy
+		}
+	}
+
+	focus = {
+		id = bfx_eco_chemical_combine
+		icon = GFX_goal_generic_oil_refinery
+		relative_position_id = bfx_eco_rose_and_leaf
+		x = 3
+		y = 5
+		cost = 3
+		prerequisite = { focus = bfx_eco_hydro_grid }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_ideas = bfx_chemical_industry
 			random_owned_controlled_state = {
-				limit = { free_building_slots = { building = arms_factory size > 0 include_locked = yes } }
+				limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes } }
 				add_extra_state_shared_building_slots = 1
-				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
 			}
+		}
+	}
+
+	focus = {
+		id = bfx_eco_road_network
+		icon = GFX_goal_generic_construct_infrastructure
+		relative_position_id = bfx_eco_rose_and_leaf
+		x = 8
+		y = 5
+		cost = 3
+		prerequisite = { focus = bfx_eco_labour_brigades }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			every_owned_state = { limit = { is_controlled_by = ROOT is_core_of = ROOT } add_building_construction = { type = infrastructure level = 1 instant_build = yes } }
 		}
 	}
 
@@ -3898,19 +4072,18 @@ focus_tree = {
 		icon = GFX_focus_bfx_nuclear_plant
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = 11
-		y = 3
-		cost = 7
-		prerequisite = { focus = bfx_eco_bukhovo_uranium }
+		y = 5
+		cost = 3
+		prerequisite = { focus = bfx_eco_atomic_commission }
 		available = {
-			date > 1942.1.1
+			date > 1941.6.1
 		}
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
+		search_filters = { FOCUS_FILTER_RESEARCH }
 		ai_will_do = {
 			factor = 10
 		}
 		completion_reward = {
 			add_tech_bonus = { name = bfx_eco_reactor_project bonus = 1.0 uses = 1 category = nuclear }
-			capital_scope = { add_building_construction = { type = nuclear_reactor level = 1 instant_build = yes } }
 		}
 	}
 
@@ -3919,15 +4092,31 @@ focus_tree = {
 		icon = GFX_goal_generic_scientific_exchange
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = -9
-		y = 4
-		cost = 7
-		prerequisite = { focus = bfx_eco_hard_currency }
-		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
+		y = 6
+		cost = 3
+		prerequisite = { focus = bfx_eco_ledger_of_trade }
+		search_filters = { FOCUS_FILTER_RESEARCH }
 		ai_will_do = {
 			factor = 10
 		}
 		completion_reward = {
 			add_tech_bonus = { name = bfx_eco_plovdiv_fair bonus = 0.5 uses = 2 category = industry }
+		}
+	}
+
+	focus = {
+		id = bfx_eco_export_drive
+		icon = GFX_goal_generic_trade
+		relative_position_id = bfx_eco_rose_and_leaf
+		x = -6
+		y = 6
+		cost = 3
+		prerequisite = { focus = bfx_eco_ledger_of_trade }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
 			random_owned_controlled_state = {
 				limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes } }
 				add_extra_state_shared_building_slots = 1
@@ -3938,13 +4127,35 @@ focus_tree = {
 	}
 
 	focus = {
+		id = bfx_eco_war_economy
+		icon = GFX_goal_generic_production
+		relative_position_id = bfx_eco_rose_and_leaf
+		x = -1
+		y = 6
+		cost = 3
+		prerequisite = { focus = bfx_eco_state_arsenals }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_ideas = bfx_war_economy
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = arms_factory size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+		}
+	}
+
+	focus = {
 		id = bfx_eco_tyulenovo_oil
 		icon = GFX_goal_generic_oil_refinery
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = 2
-		y = 4
-		cost = 8
-		prerequisite = { focus = bfx_eco_hydro_grid }
+		y = 6
+		cost = 3
+		prerequisite = { focus = bfx_eco_chemical_combine }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
 			factor = 10
@@ -3952,10 +4163,44 @@ focus_tree = {
 		completion_reward = {
 			if = { limit = { owns_state = 77 } 77 = { add_resource = { type = oil amount = 8 } } }
 			else = { capital_scope = { add_extra_state_shared_building_slots = 1 add_building_construction = { type = synthetic_refinery level = 1 instant_build = yes } } }
+		}
+	}
+
+	focus = {
+		id = bfx_eco_synthetic_fuel
+		icon = GFX_goal_generic_oil_refinery
+		relative_position_id = bfx_eco_rose_and_leaf
+		x = 5
+		y = 6
+		cost = 3
+		prerequisite = { focus = bfx_eco_chemical_combine }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
 			capital_scope = { add_extra_state_shared_building_slots = 1 add_building_construction = { type = synthetic_refinery level = 1 instant_build = yes } }
 			add_tech_bonus = { name = bfx_eco_synthetic_fuel bonus = 0.5 uses = 1 category = synth_resources }
-			capital_scope = { add_building_construction = { type = fuel_silo level = 1 instant_build = yes } }
-			add_tech_bonus = { name = bfx_eco_fuel_reserves bonus = 0.5 uses = 1 category = synth_resources }
+		}
+	}
+
+	focus = {
+		id = bfx_eco_kozloduy_reactor
+		icon = GFX_focus_bfx_nuclear_plant
+		relative_position_id = bfx_eco_rose_and_leaf
+		x = 11
+		y = 6
+		cost = 3
+		prerequisite = { focus = bfx_eco_reactor_project }
+		available = {
+			date > 1942.1.1
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			capital_scope = { add_building_construction = { type = nuclear_reactor level = 1 instant_build = yes } }
 		}
 	}
 
@@ -3964,20 +4209,17 @@ focus_tree = {
 		icon = GFX_goal_generic_positive_trade_relations
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = -7
-		y = 5
-		cost = 7
+		y = 7
+		cost = 3
 		prerequisite = { focus = bfx_eco_plovdiv_fair }
-		available = {
-			date > 1938.1.1
-		}
-		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_RESEARCH }
+		prerequisite = { focus = bfx_eco_export_drive }
+		search_filters = { FOCUS_FILTER_STABILITY }
 		ai_will_do = {
 			factor = 10
 		}
 		completion_reward = {
 			add_stability = 0.05
 			add_political_power = 75
-			add_research_slot = 1
 		}
 	}
 
@@ -3986,9 +4228,9 @@ focus_tree = {
 		icon = GFX_goal_generic_construct_civilian
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = -3
-		y = 5
-		cost = 8
-		prerequisite = { focus = bfx_eco_state_arsenals }
+		y = 7
+		cost = 3
+		prerequisite = { focus = bfx_eco_war_economy }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
 			factor = 10
@@ -4004,6 +4246,22 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
 			}
+		}
+	}
+
+	focus = {
+		id = bfx_eco_dispersed_industry
+		icon = GFX_goal_generic_construct_mil_factory
+		relative_position_id = bfx_eco_rose_and_leaf
+		x = 0
+		y = 7
+		cost = 3
+		prerequisite = { focus = bfx_eco_war_economy }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
 			add_ideas = bfx_dispersed_industry
 			random_owned_controlled_state = {
 				limit = { free_building_slots = { building = arms_factory size > 0 include_locked = yes } }
@@ -4014,13 +4272,32 @@ focus_tree = {
 	}
 
 	focus = {
+		id = bfx_eco_fuel_reserves
+		icon = GFX_goal_generic_oil_refinery
+		relative_position_id = bfx_eco_rose_and_leaf
+		x = 3
+		y = 7
+		cost = 3
+		prerequisite = { focus = bfx_eco_tyulenovo_oil }
+		prerequisite = { focus = bfx_eco_synthetic_fuel }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			capital_scope = { add_building_construction = { type = fuel_silo level = 1 instant_build = yes } }
+			add_tech_bonus = { name = bfx_eco_fuel_reserves bonus = 0.5 uses = 1 category = synth_resources }
+		}
+	}
+
+	focus = {
 		id = bfx_eco_rila_device
 		icon = GFX_focus_bfx_rila_device
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = 11
-		y = 4
-		cost = 7
-		prerequisite = { focus = bfx_eco_reactor_project }
+		y = 7
+		cost = 3
+		prerequisite = { focus = bfx_eco_kozloduy_reactor }
 		available = {
 			date > 1944.1.1
 		}
@@ -4035,13 +4312,34 @@ focus_tree = {
 	}
 
 	focus = {
+		id = bfx_eco_academy_of_sciences
+		icon = GFX_goal_generic_scientific_exchange
+		relative_position_id = bfx_eco_rose_and_leaf
+		x = -6
+		y = 8
+		cost = 3
+		prerequisite = { focus = bfx_eco_national_bank }
+		available = {
+			date > 1938.1.1
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+
+	focus = {
 		id = bfx_eco_total_war_production
 		icon = GFX_goal_generic_construct_military
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = -1
-		y = 6
-		cost = 5
+		y = 8
+		cost = 3
 		prerequisite = { focus = bfx_eco_industrial_ring }
+		prerequisite = { focus = bfx_eco_dispersed_industry }
 		available = {
 			has_war = yes
 		}
@@ -4068,7 +4366,7 @@ focus_tree = {
 		icon = GFX_goal_generic_army_doctrines
 		x = 121
 		y = 0
-		cost = 7
+		cost = 3
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
 			factor = 10
@@ -4097,7 +4395,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = -14
 		y = 1
-		cost = 8
+		cost = 3
 		prerequisite = { focus = bfx_mil_neuilly_army }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
@@ -4106,10 +4404,6 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = bfx_mountain_army
 			add_tech_bonus = { name = bfx_mil_rhodope_rangers bonus = 0.75 uses = 1 category = mountaineers_tech }
-			if = { limit = { has_idea = bfx_mountain_army } swap_ideas = { remove_idea = bfx_mountain_army add_idea = bfx_balkan_mountain_doctrine } }
-			else = { add_ideas = bfx_balkan_mountain_doctrine }
-			add_tech_bonus = { name = bfx_mil_mountain_brigades bonus = 0.5 uses = 1 category = mountaineers_tech }
-			army_experience = 15
 		}
 	}
 
@@ -4119,17 +4413,85 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = -11
 		y = 1
-		cost = 8
+		cost = 3
 		prerequisite = { focus = bfx_mil_neuilly_army }
-		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_MILITARY_CHARACTER }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
 			factor = 10
 		}
 		completion_reward = {
 			add_mastery_bonus = { bonus = 0.20 days = 365 name = bfx_mil_chataldzha_lessons folder = land }
 			army_experience = 15
+		}
+	}
+
+	focus = {
+		id = bfx_mil_mountain_doctrine
+		icon = GFX_goal_generic_special_forces
+		relative_position_id = bfx_mil_neuilly_army
+		x = -14
+		y = 2
+		cost = 3
+		prerequisite = { focus = bfx_mil_rhodope_rangers }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			if = { limit = { has_idea = bfx_mountain_army } swap_ideas = { remove_idea = bfx_mountain_army add_idea = bfx_balkan_mountain_doctrine } }
+			else = { add_ideas = bfx_balkan_mountain_doctrine }
+		}
+	}
+
+	focus = {
+		id = bfx_mil_staff_academy
+		icon = GFX_goal_generic_position_armies
+		relative_position_id = bfx_mil_neuilly_army
+		x = -11
+		y = 2
+		cost = 3
+		prerequisite = { focus = bfx_mil_chataldzha_lessons }
+		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_MILITARY_CHARACTER }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
 			add_ideas = bfx_general_staff_academy
 			recruit_character = bfx_BUL_konstantin_lukash
+		}
+	}
+
+	focus = {
+		id = bfx_mil_mountain_brigades
+		icon = GFX_focus_AFG_mountain_training
+		relative_position_id = bfx_mil_neuilly_army
+		x = -14
+		y = 3
+		cost = 3
+		prerequisite = { focus = bfx_mil_mountain_doctrine }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_tech_bonus = { name = bfx_mil_mountain_brigades bonus = 0.5 uses = 1 category = mountaineers_tech }
+			army_experience = 15
+		}
+	}
+
+	focus = {
+		id = bfx_mil_bayonet_tradition
+		icon = GFX_goal_generic_small_arms
+		relative_position_id = bfx_mil_neuilly_army
+		x = -11
+		y = 3
+		cost = 3
+		prerequisite = { focus = bfx_mil_staff_academy }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
 			add_ideas = bfx_bayonet_tradition
 		}
 	}
@@ -4139,10 +4501,10 @@ focus_tree = {
 		icon = GFX_goal_generic_position_armies
 		relative_position_id = bfx_mil_neuilly_army
 		x = -12
-		y = 2
-		cost = 8
-		prerequisite = { focus = bfx_mil_rhodope_rangers }
-		prerequisite = { focus = bfx_mil_chataldzha_lessons }
+		y = 4
+		cost = 3
+		prerequisite = { focus = bfx_mil_mountain_brigades }
+		prerequisite = { focus = bfx_mil_bayonet_tradition }
 		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_MILITARY_CHARACTER }
 		ai_will_do = {
 			factor = 10
@@ -4150,8 +4512,57 @@ focus_tree = {
 		completion_reward = {
 			army_experience = 25
 			recruit_character = bfx_BUL_teodosi_daskalov
+		}
+	}
+
+	focus = {
+		id = bfx_mil_officer_corps
+		icon = GFX_goal_generic_army_doctrines
+		relative_position_id = bfx_mil_neuilly_army
+		x = -14
+		y = 5
+		cost = 3
+		prerequisite = { focus = bfx_mil_balkan_war_plan }
+		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_MILITARY_CHARACTER }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
 			army_experience = 20
 			recruit_character = bfx_BUL_vladimir_zaimov
+		}
+	}
+
+	focus = {
+		id = bfx_mil_combined_arms
+		icon = GFX_goal_generic_army_tanks
+		relative_position_id = bfx_mil_neuilly_army
+		x = -11
+		y = 5
+		cost = 3
+		prerequisite = { focus = bfx_mil_balkan_war_plan }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_mastery_bonus = { bonus = 0.20 days = 365 name = bfx_mil_combined_arms folder = land }
+		}
+	}
+
+	focus = {
+		id = bfx_mil_royal_guard
+		icon = GFX_goal_generic_special_forces
+		relative_position_id = bfx_mil_neuilly_army
+		x = -14
+		y = 6
+		cost = 3
+		prerequisite = { focus = bfx_mil_officer_corps }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
 			add_equipment_to_stockpile = { type = infantry_equipment amount = 1500 }
 			army_experience = 15
 			custom_effect_tooltip = bfx_tt_court_p5_a5
@@ -4163,13 +4574,13 @@ focus_tree = {
 	}
 
 	focus = {
-		id = bfx_mil_combined_arms
-		icon = GFX_goal_generic_army_tanks
+		id = bfx_mil_armoured_brigade
+		icon = GFX_goal_generic_build_tank
 		relative_position_id = bfx_mil_neuilly_army
 		x = -11
-		y = 3
-		cost = 7
-		prerequisite = { focus = bfx_mil_balkan_war_plan }
+		y = 6
+		cost = 3
+		prerequisite = { focus = bfx_mil_combined_arms }
 		available = {
 			has_country_flag = bfx_neuilly_ended
 		}
@@ -4178,7 +4589,6 @@ focus_tree = {
 			factor = 10
 		}
 		completion_reward = {
-			add_mastery_bonus = { bonus = 0.20 days = 365 name = bfx_mil_combined_arms folder = land }
 			add_tech_bonus = { name = bfx_mil_armoured_brigade bonus = 0.5 uses = 1 category = armor }
 			add_tech_bonus = { name = bfx_mil_armoured_motor bonus = 0.5 uses = 1 category = motorized_equipment }
 		}
@@ -4189,10 +4599,10 @@ focus_tree = {
 		icon = GFX_goal_generic_army_motorized
 		relative_position_id = bfx_mil_neuilly_army
 		x = -12
-		y = 4
-		cost = 7
-		prerequisite = { focus = bfx_mil_balkan_war_plan }
-		prerequisite = { focus = bfx_mil_combined_arms }
+		y = 7
+		cost = 3
+		prerequisite = { focus = bfx_mil_royal_guard }
+		prerequisite = { focus = bfx_mil_armoured_brigade }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
 			factor = 10
@@ -4209,7 +4619,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = -6
 		y = 1
-		cost = 8
+		cost = 3
 		prerequisite = { focus = bfx_mil_neuilly_army }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
@@ -4217,10 +4627,6 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_tech_bonus = { name = bfx_mil_small_arms bonus = 0.5 uses = 1 category = infantry_weapons }
-			add_equipment_to_stockpile = { type = infantry_equipment amount = 1000 }
-			add_tech_bonus = { name = bfx_mil_machine_guns bonus = 0.5 uses = 1 category = infantry_weapons }
-			add_tech_bonus = { name = bfx_mil_anti_tank bonus = 0.5 uses = 1 category = artillery }
-			army_experience = 10
 		}
 	}
 
@@ -4230,7 +4636,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = -8
 		y = 2
-		cost = 7
+		cost = 3
 		prerequisite = { focus = bfx_mil_small_arms }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
@@ -4238,7 +4644,59 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_tech_bonus = { name = bfx_mil_mountain_guns bonus = 0.5 uses = 1 category = artillery }
+		}
+	}
+
+	focus = {
+		id = bfx_mil_machine_guns
+		icon = GFX_goal_generic_small_arms
+		relative_position_id = bfx_mil_neuilly_army
+		x = -5
+		y = 2
+		cost = 3
+		prerequisite = { focus = bfx_mil_small_arms }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_equipment_to_stockpile = { type = infantry_equipment amount = 1000 }
+			add_tech_bonus = { name = bfx_mil_machine_guns bonus = 0.5 uses = 1 category = infantry_weapons }
+		}
+	}
+
+	focus = {
+		id = bfx_mil_rifle_contracts
+		icon = GFX_goal_generic_military_deal
+		relative_position_id = bfx_mil_neuilly_army
+		x = -8
+		y = 3
+		cost = 3
+		prerequisite = { focus = bfx_mil_mountain_guns }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
 			add_equipment_to_stockpile = { type = infantry_equipment amount = 2000 }
+		}
+	}
+
+	focus = {
+		id = bfx_mil_anti_tank
+		icon = GFX_goal_generic_army_artillery2
+		relative_position_id = bfx_mil_neuilly_army
+		x = -5
+		y = 3
+		cost = 3
+		prerequisite = { focus = bfx_mil_machine_guns }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_tech_bonus = { name = bfx_mil_anti_tank bonus = 0.5 uses = 1 category = artillery }
+			army_experience = 10
 		}
 	}
 
@@ -4247,10 +4705,10 @@ focus_tree = {
 		icon = GFX_goal_generic_army_artillery
 		relative_position_id = bfx_mil_neuilly_army
 		x = -6
-		y = 3
-		cost = 8
-		prerequisite = { focus = bfx_mil_mountain_guns }
-		prerequisite = { focus = bfx_mil_small_arms }
+		y = 4
+		cost = 3
+		prerequisite = { focus = bfx_mil_rifle_contracts }
+		prerequisite = { focus = bfx_mil_anti_tank }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
 			factor = 10
@@ -4258,7 +4716,39 @@ focus_tree = {
 		completion_reward = {
 			add_equipment_to_stockpile = { type = artillery_equipment amount = 150 }
 			add_tech_bonus = { name = bfx_mil_field_artillery bonus = 0.5 uses = 1 category = artillery }
+		}
+	}
+
+	focus = {
+		id = bfx_mil_support_companies
+		icon = GFX_goal_generic_army_doctrines
+		relative_position_id = bfx_mil_neuilly_army
+		x = -6
+		y = 5
+		cost = 3
+		prerequisite = { focus = bfx_mil_field_artillery }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
 			add_tech_bonus = { name = bfx_mil_support_companies bonus = 0.5 uses = 2 category = support_tech }
+		}
+	}
+
+	focus = {
+		id = bfx_mil_supply_columns
+		icon = GFX_goal_generic_army_motorized
+		relative_position_id = bfx_mil_neuilly_army
+		x = -6
+		y = 6
+		cost = 3
+		prerequisite = { focus = bfx_mil_support_companies }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
 			add_tech_bonus = { name = bfx_mil_supply_columns bonus = 0.5 uses = 1 category = motorized_equipment }
 			add_equipment_to_stockpile = { type = support_equipment amount = 300 }
 		}
@@ -4270,7 +4760,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = 0
 		y = 1
-		cost = 8
+		cost = 3
 		prerequisite = { focus = bfx_mil_neuilly_army }
 		search_filters = { FOCUS_FILTER_MANPOWER }
 		ai_will_do = {
@@ -4287,12 +4777,44 @@ focus_tree = {
 					bfx_neuilly_recalc = yes
 				}
 			}
+		}
+	}
+
+	focus = {
+		id = bfx_mil_macedonian_emigration
+		icon = GFX_focus_BUL_support_macedonian_organizations
+		relative_position_id = bfx_mil_neuilly_army
+		x = -2
+		y = 2
+		cost = 3
+		prerequisite = { focus = bfx_mil_reservists }
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
 			add_manpower = 12000
 			custom_effect_tooltip = bfx_tt_court_i5
 			hidden_effect = {
 				add_to_variable = { bfx_inf_imro = 5 }
 				bfx_court_recalc = yes
 			}
+		}
+	}
+
+	focus = {
+		id = bfx_mil_pomak_battalions
+		icon = GFX_goal_generic_special_forces
+		relative_position_id = bfx_mil_neuilly_army
+		x = 1
+		y = 2
+		cost = 3
+		prerequisite = { focus = bfx_mil_reservists }
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
 			add_manpower = 8000
 			add_tech_bonus = { name = bfx_mil_pomak_battalions bonus = 0.25 uses = 1 category = mountaineers_tech }
 		}
@@ -4303,15 +4825,31 @@ focus_tree = {
 		icon = GFX_goal_generic_army_doctrines
 		relative_position_id = bfx_mil_neuilly_army
 		x = -2
-		y = 2
-		cost = 7
-		prerequisite = { focus = bfx_mil_reservists }
-		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY }
+		y = 3
+		cost = 3
+		prerequisite = { focus = bfx_mil_macedonian_emigration }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
 			factor = 10
 		}
 		completion_reward = {
 			add_ideas = bfx_veterans_of_1912
+		}
+	}
+
+	focus = {
+		id = bfx_mil_womens_auxiliary
+		icon = GFX_goal_generic_construct_civilian
+		relative_position_id = bfx_mil_neuilly_army
+		x = 1
+		y = 3
+		cost = 3
+		prerequisite = { focus = bfx_mil_pomak_battalions }
+		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
 			add_ideas = bfx_womens_auxiliary
 		}
 	}
@@ -4321,9 +4859,10 @@ focus_tree = {
 		icon = GFX_goal_generic_allies_build_infantry
 		relative_position_id = bfx_mil_neuilly_army
 		x = 0
-		y = 3
-		cost = 7
+		y = 4
+		cost = 3
 		prerequisite = { focus = bfx_mil_veterans_1912 }
+		prerequisite = { focus = bfx_mil_womens_auxiliary }
 		available = {
 			has_country_flag = bfx_neuilly_ended
 		}
@@ -4334,6 +4873,22 @@ focus_tree = {
 		completion_reward = {
 			add_manpower = 25000
 			add_ideas = bfx_open_conscription
+		}
+	}
+
+	focus = {
+		id = bfx_mil_mobilisation_law
+		icon = GFX_goal_generic_position_armies
+		relative_position_id = bfx_mil_neuilly_army
+		x = -2
+		y = 5
+		cost = 3
+		prerequisite = { focus = bfx_mil_universal_service }
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
 			add_manpower = 15000
 			army_experience = 10
 		}
@@ -4344,10 +4899,10 @@ focus_tree = {
 		icon = GFX_goal_generic_special_forces
 		relative_position_id = bfx_mil_neuilly_army
 		x = 1
-		y = 4
-		cost = 7
+		y = 5
+		cost = 3
 		prerequisite = { focus = bfx_mil_universal_service }
-		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_MANPOWER }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
 			factor = 10
 		}
@@ -4355,6 +4910,23 @@ focus_tree = {
 			add_tech_bonus = { name = bfx_mil_training_camps bonus = 0.25 uses = 1 category = infantry_weapons }
 			army_experience = 15
 			add_manpower = 5000
+		}
+	}
+
+	focus = {
+		id = bfx_mil_national_army
+		icon = GFX_goal_generic_axis_build_infantry
+		relative_position_id = bfx_mil_neuilly_army
+		x = 0
+		y = 6
+		cost = 3
+		prerequisite = { focus = bfx_mil_mobilisation_law }
+		prerequisite = { focus = bfx_mil_training_camps }
+		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_ARMY_XP }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
 			add_ideas = bfx_national_army
 		}
 	}
@@ -4365,7 +4937,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = 6
 		y = 1
-		cost = 7
+		cost = 3
 		prerequisite = { focus = bfx_mil_neuilly_army }
 		search_filters = { FOCUS_FILTER_NAVY_XP }
 		ai_will_do = {
@@ -4374,6 +4946,22 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = bfx_black_sea_flotilla
 			navy_experience = 10
+		}
+	}
+
+	focus = {
+		id = bfx_nav_varna_naval_school
+		icon = GFX_goal_generic_navy_doctrines_tactics
+		relative_position_id = bfx_mil_neuilly_army
+		x = 4
+		y = 2
+		cost = 3
+		prerequisite = { focus = bfx_nav_black_sea_flotilla }
+		search_filters = { FOCUS_FILTER_NAVY_XP }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
 			navy_experience = 15
 			random_owned_controlled_state = {
 				limit = { is_coastal = yes free_building_slots = { building = dockyard size > 0 include_locked = yes } }
@@ -4389,7 +4977,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = 7
 		y = 2
-		cost = 7
+		cost = 3
 		prerequisite = { focus = bfx_nav_black_sea_flotilla }
 		search_filters = { FOCUS_FILTER_NAVY_XP }
 		ai_will_do = {
@@ -4402,7 +4990,6 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = { type = dockyard level = 1 instant_build = yes }
 			}
-			add_ideas = bfx_minefields
 		}
 	}
 
@@ -4411,9 +4998,9 @@ focus_tree = {
 		icon = GFX_goal_generic_navy_submarine
 		relative_position_id = bfx_mil_neuilly_army
 		x = 4
-		y = 2
-		cost = 7
-		prerequisite = { focus = bfx_nav_black_sea_flotilla }
+		y = 3
+		cost = 3
+		prerequisite = { focus = bfx_nav_varna_naval_school }
 		search_filters = { FOCUS_FILTER_NAVY_XP }
 		ai_will_do = {
 			factor = 10
@@ -4429,6 +5016,39 @@ focus_tree = {
 					bfx_neuilly_recalc = yes
 				}
 			}
+		}
+	}
+
+	focus = {
+		id = bfx_nav_minelayers
+		icon = GFX_goal_generic_navy_anti_submarine
+		relative_position_id = bfx_mil_neuilly_army
+		x = 7
+		y = 3
+		cost = 3
+		prerequisite = { focus = bfx_nav_danube_flotilla }
+		search_filters = { FOCUS_FILTER_NAVY_XP }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_ideas = bfx_minefields
+		}
+	}
+
+	focus = {
+		id = bfx_nav_coastal_batteries
+		icon = GFX_goal_generic_defence
+		relative_position_id = bfx_mil_neuilly_army
+		x = 4
+		y = 4
+		cost = 3
+		prerequisite = { focus = bfx_nav_torpedo_squadrons }
+		search_filters = { FOCUS_FILTER_NAVY_XP }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
 			every_owned_state = { limit = { is_controlled_by = ROOT is_coastal = yes } add_building_construction = { type = coastal_bunker level = 2 instant_build = yes province = { all_provinces = yes limit_to_coastal = yes } } }
 		}
 	}
@@ -4438,10 +5058,9 @@ focus_tree = {
 		icon = GFX_goal_generic_air_naval_bomber
 		relative_position_id = bfx_mil_neuilly_army
 		x = 7
-		y = 3
-		cost = 7
-		prerequisite = { focus = bfx_nav_danube_flotilla }
-		prerequisite = { focus = bfx_nav_torpedo_squadrons }
+		y = 4
+		cost = 3
+		prerequisite = { focus = bfx_nav_minelayers }
 		search_filters = { FOCUS_FILTER_NAVY_XP FOCUS_FILTER_AIR_XP }
 		ai_will_do = {
 			factor = 10
@@ -4449,6 +5068,23 @@ focus_tree = {
 		completion_reward = {
 			air_experience = 10
 			navy_experience = 10
+		}
+	}
+
+	focus = {
+		id = bfx_nav_black_sea_raiders
+		icon = GFX_goal_generic_wolf_pack
+		relative_position_id = bfx_mil_neuilly_army
+		x = 6
+		y = 5
+		cost = 3
+		prerequisite = { focus = bfx_nav_coastal_batteries }
+		prerequisite = { focus = bfx_nav_naval_aviation }
+		search_filters = { FOCUS_FILTER_NAVY_XP }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
 			add_ideas = bfx_black_sea_raiders
 			navy_experience = 20
 		}
@@ -4459,9 +5095,9 @@ focus_tree = {
 		icon = GFX_goal_generic_navy_submarine
 		relative_position_id = bfx_mil_neuilly_army
 		x = 4
-		y = 4
-		cost = 8
-		prerequisite = { focus = bfx_nav_naval_aviation }
+		y = 6
+		cost = 3
+		prerequisite = { focus = bfx_nav_black_sea_raiders }
 		available = {
 			has_country_flag = bfx_neuilly_ended
 		}
@@ -4476,6 +5112,25 @@ focus_tree = {
 				add_building_construction = { type = dockyard level = 1 instant_build = yes }
 			}
 			navy_experience = 20
+		}
+	}
+
+	focus = {
+		id = bfx_nav_destroyer_squadron
+		icon = GFX_goal_generic_navy_cruiser
+		relative_position_id = bfx_mil_neuilly_army
+		x = 7
+		y = 6
+		cost = 3
+		prerequisite = { focus = bfx_nav_black_sea_raiders }
+		available = {
+			has_country_flag = bfx_neuilly_ended
+		}
+		search_filters = { FOCUS_FILTER_NAVY_XP }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
 			random_owned_controlled_state = {
 				limit = { is_coastal = yes free_building_slots = { building = dockyard size > 0 include_locked = yes } }
 				add_extra_state_shared_building_slots = 1
@@ -4491,9 +5146,9 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = 12
 		y = 1
-		cost = 7
+		cost = 3
 		prerequisite = { focus = bfx_mil_neuilly_army }
-		search_filters = { FOCUS_FILTER_AIR_XP FOCUS_FILTER_INDUSTRY }
+		search_filters = { FOCUS_FILTER_AIR_XP }
 		ai_will_do = {
 			factor = 10
 		}
@@ -4508,6 +5163,22 @@ focus_tree = {
 					bfx_neuilly_recalc = yes
 				}
 			}
+		}
+	}
+
+	focus = {
+		id = bfx_air_dar_works
+		icon = GFX_goal_generic_air_production
+		relative_position_id = bfx_mil_neuilly_army
+		x = 10
+		y = 2
+		cost = 3
+		prerequisite = { focus = bfx_air_aero_clubs }
+		search_filters = { FOCUS_FILTER_AIR_XP FOCUS_FILTER_INDUSTRY }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
 			random_owned_controlled_state = {
 				limit = { free_building_slots = { building = arms_factory size > 0 include_locked = yes } }
 				add_extra_state_shared_building_slots = 1
@@ -4523,7 +5194,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = 13
 		y = 2
-		cost = 8
+		cost = 3
 		prerequisite = { focus = bfx_air_aero_clubs }
 		search_filters = { FOCUS_FILTER_AIR_XP }
 		ai_will_do = {
@@ -4531,7 +5202,39 @@ focus_tree = {
 		}
 		completion_reward = {
 			air_experience = 20
+		}
+	}
+
+	focus = {
+		id = bfx_air_avia_biplanes
+		icon = GFX_goal_generic_air_fighter2
+		relative_position_id = bfx_mil_neuilly_army
+		x = 10
+		y = 3
+		cost = 3
+		prerequisite = { focus = bfx_air_dar_works }
+		search_filters = { FOCUS_FILTER_AIR_XP }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
 			air_experience = 15
+		}
+	}
+
+	focus = {
+		id = bfx_air_foreign_instructors
+		icon = GFX_goal_generic_air_doctrine
+		relative_position_id = bfx_mil_neuilly_army
+		x = 13
+		y = 3
+		cost = 3
+		prerequisite = { focus = bfx_air_polish_fighters }
+		search_filters = { FOCUS_FILTER_AIR_XP }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
 			add_ideas = bfx_foreign_air_instructors
 			air_experience = 15
 		}
@@ -4542,9 +5245,10 @@ focus_tree = {
 		icon = GFX_goal_expand_the_luftwaffe
 		relative_position_id = bfx_mil_neuilly_army
 		x = 12
-		y = 3
-		cost = 8
-		prerequisite = { focus = bfx_air_polish_fighters }
+		y = 4
+		cost = 3
+		prerequisite = { focus = bfx_air_avia_biplanes }
+		prerequisite = { focus = bfx_air_foreign_instructors }
 		available = {
 			has_country_flag = bfx_neuilly_ended
 		}
@@ -4557,9 +5261,24 @@ focus_tree = {
 			else = { add_ideas = bfx_vazdushni_voyski }
 			capital_scope = { add_building_construction = { type = air_base level = 3 instant_build = yes } }
 			recruit_character = bfx_BUL_stoyan_stoyanov
+		}
+	}
+
+	focus = {
+		id = bfx_air_fighter_regiment
+		icon = GFX_goal_generic_air_fighter
+		relative_position_id = bfx_mil_neuilly_army
+		x = 10
+		y = 5
+		cost = 3
+		prerequisite = { focus = bfx_air_vazdushni_voyski }
+		search_filters = { FOCUS_FILTER_AIR_XP }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
 			add_ideas = bfx_sofia_air_defence
 			air_experience = 15
-			capital_scope = { add_building_construction = { type = anti_air_building level = 3 instant_build = yes } }
 		}
 	}
 
@@ -4568,8 +5287,8 @@ focus_tree = {
 		icon = GFX_goal_generic_air_bomber
 		relative_position_id = bfx_mil_neuilly_army
 		x = 13
-		y = 4
-		cost = 7
+		y = 5
+		cost = 3
 		prerequisite = { focus = bfx_air_vazdushni_voyski }
 		search_filters = { FOCUS_FILTER_AIR_XP }
 		ai_will_do = {
@@ -4578,6 +5297,39 @@ focus_tree = {
 		completion_reward = {
 			air_experience = 20
 			add_tech_bonus = { name = bfx_air_dornier_bombers bonus = 0.25 uses = 1 category = industry }
+		}
+	}
+
+	focus = {
+		id = bfx_air_sofia_flak
+		icon = GFX_goal_generic_radar
+		relative_position_id = bfx_mil_neuilly_army
+		x = 10
+		y = 6
+		cost = 3
+		prerequisite = { focus = bfx_air_fighter_regiment }
+		search_filters = { FOCUS_FILTER_AIR_XP }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			capital_scope = { add_building_construction = { type = anti_air_building level = 3 instant_build = yes } }
+		}
+	}
+
+	focus = {
+		id = bfx_air_wings_over_mountains
+		icon = GFX_goal_generic_CAS
+		relative_position_id = bfx_mil_neuilly_army
+		x = 13
+		y = 6
+		cost = 3
+		prerequisite = { focus = bfx_air_dornier_bombers }
+		search_filters = { FOCUS_FILTER_AIR_XP }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
 			add_ideas = bfx_wings_over_the_mountains
 		}
 	}
@@ -4587,10 +5339,10 @@ focus_tree = {
 		icon = GFX_focus_bfx_parachute
 		relative_position_id = bfx_mil_neuilly_army
 		x = 12
-		y = 5
-		cost = 7
-		prerequisite = { focus = bfx_air_vazdushni_voyski }
-		prerequisite = { focus = bfx_air_dornier_bombers }
+		y = 7
+		cost = 3
+		prerequisite = { focus = bfx_air_sofia_flak }
+		prerequisite = { focus = bfx_air_wings_over_mountains }
 		search_filters = { FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
 			factor = 10

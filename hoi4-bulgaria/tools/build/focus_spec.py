@@ -8,8 +8,6 @@ import focus_legion  # noqa: F401,E402
 import focus_secret  # noqa: F401,E402
 
 import focus_eco_mil  # noqa: F401,E402
-import focus_compact  # noqa: E402
-focus_compact.compact(FOCUSES)  # merge linked industry/military focuses (all rewards kept)
 
 ECO_MIL_SHIFT = 4  # keeps the industry and military blocks clear of the Legion's right edge
 for _f in FOCUSES:
@@ -38,3 +36,8 @@ for _f in FOCUSES:
         _f["cost"] = _tier(_f)
         if _f.get("merged", 1) >= 3:
             _f["cost"] = max(_f["cost"], 8)  # three focuses in one: 56 days
+
+# industry and military: every focus takes 21 days, so the long side blocks keep pace with the political paths
+for _f in FOCUSES:
+    if _f["block"] in ("eco", "mil"):
+        _f["cost"] = 3

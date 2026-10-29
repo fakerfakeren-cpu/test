@@ -45,7 +45,7 @@ Every focus has `search_filters` and `ai_will_do`.
 
 **Durations** (v3.1): 35 days for plain stat bumps, 49 days by default, 56 days for war goals, land transfers and two or more buildings, 70 days for path choices, formables and finales; the opening keeps its short 35/49-day focuses. Average {round(sum(f['cost'] for f in F) * 7 / len(F))} days per focus (v3.0: almost all 70).
 
-**Compact industry and military** (v3.7): linked focuses in those two blocks are merged (92 → 46) by `tools/build/focus_compact.py`. A merged focus grants every reward of the focuses it replaces; nothing was cut. The two blocks now take about 2,350 days to complete instead of about 4,370.
+**Industry and military** (v3.8): every focus in those two blocks takes **21 days**, so the 92 of them take about 1,930 days in total instead of about 4,370.
 
 ## How to reach each path
 * **Tsar's Way**: *The Hour of Decision* → *The Tsar Steps Forward*. Always available.
