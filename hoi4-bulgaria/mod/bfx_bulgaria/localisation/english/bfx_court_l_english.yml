@@ -31,6 +31,8 @@
  bfx_tt_momentum_m20:0 "Revolutionary Momentum: §R-20§!"
  bfx_tt_momentum_m25:0 "Revolutionary Momentum: §R-25§!"
  bfx_tt_court_i10:0 "The Tsar's Balance: IMRO §G+10§!"
+ bfx_tt_court_p5_i10:0 "The Tsar's Balance: Crown §G+5§!, IMRO §G+10§!"
+ bfx_tt_court_a5_i5:0 "The Tsar's Balance: Army §G+5§!, IMRO §G+5§!"
  bfx_tt_court_im30:0 "The Tsar's Balance: IMRO §R-30§!"
  bfx_tt_court_im10:0 "The Tsar's Balance: IMRO §R-10§!"
  bfx_tt_court_p30:0 "The Tsar's Balance: Crown §G+30§!"

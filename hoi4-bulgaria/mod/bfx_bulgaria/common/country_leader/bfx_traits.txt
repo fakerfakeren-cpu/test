@@ -1,4 +1,11 @@
 leader_traits = {
+	bfx_trait_imro_vozhd = {
+		random = no
+		war_support_factor = 0.1
+		army_core_defence_factor = 0.1
+		stability_factor = 0.05
+		ai_will_do = { factor = 1 }
+	}
 	bfx_trait_engine_driver_tsar = {
 		random = no
 		stability_factor = 0.05

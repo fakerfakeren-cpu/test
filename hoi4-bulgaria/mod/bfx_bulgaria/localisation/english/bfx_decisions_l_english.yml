@@ -70,6 +70,7 @@
  bfx_mom_incident:0 "Manufacture an Incident"
  bfx_mom_incident_desc:0 "A shot at a frontier post, a burned customs house and a furious radio."
  bfx_threat_incident:0 "Bulgarian border incident"
+ bfx_tt_intervene_guarantors:0 "§RCountries that guarantee Yugoslavia join the war against us§! (its faction allies may too). When Belgrade gives up, we can make peace with all of them at once."
  bfx_diplomacy_category:0 "The Sofia Chancellery"
  bfx_diplomacy_category_desc:0 "Non-aggression pacts, guarantees, alliances and demands. Each proposal is sent as an event; the other side may refuse."
  bfx_dip_nap_tur:0 "Propose a Pact to Turkey"

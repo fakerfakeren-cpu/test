@@ -285,9 +285,12 @@ def scripted_effects():
     			add_ideas = bfx_imro_fervour
     			add_manpower = 15000
     			add_equipment_to_stockpile = { type = infantry_equipment amount = 2000 }
-    			if = { limit = { has_government = fascism } recruit_character = bfx_BUL_ivan_mihaylov promote_character = bfx_BUL_ivan_mihaylov }
+    			if = { limit = { has_government = fascism } recruit_character = bfx_MAC_ivan_mihaylov_f promote_character = bfx_MAC_ivan_mihaylov_f }
+    			else = { recruit_character = bfx_MAC_ivan_mihaylov_n promote_character = bfx_MAC_ivan_mihaylov_n }
     		}
     	}
+    	# Mihaylov leaves Sofia to lead the rising
+    	if = { limit = { has_character = bfx_BUL_ivan_mihaylov } retire_character = bfx_BUL_ivan_mihaylov }
     	set_country_flag = bfx_uprising_active
     	set_variable = { bfx_uprising_months = 0 }
     	set_variable = { bfx_macedonia_unrest = 0 }
@@ -580,6 +583,7 @@ def decisions():
         visible="has_country_flag = bfx_incidents_open", days_re_enable=120,
         ai="factor = 2\nmodifier = { factor = 5 check_variable = { bfx_momentum < 25 } }")
     loc("bfx_threat_incident", "Bulgarian border incident", "decisions")
+    loc("bfx_tt_intervene_guarantors", "§RCountries that guarantee Yugoslavia join the war against us§! (its faction allies may too). When Belgrade gives up, we can make peace with all of them at once.", "decisions")
 
     # ---------------- Diplomacy ----------------
     cat("bfx_diplomacy_category", "generic_foreign_policy", "GFX_decision_cat_picture_balkan_faction",
@@ -659,7 +663,9 @@ def decisions():
         "generic_independence", 40, "every_country = { limit = { has_country_flag = bfx_imro_rebel_state } ROOT = { give_guarantee = PREV } }\nYUG = { add_opinion_modifier = { target = ROOT modifier = bfx_om_bulgarian_threat } }\n" + neuilly(0, 15),
         visible=act, fire_once=True, ai="factor = 2")
     dec(M, "bfx_uprising_intervene", "Intervene Openly", "The army crosses the border to help our brothers. This means war with Yugoslavia.",
-        "generic_break_treaty", 50, "every_country = { limit = { has_country_flag = bfx_imro_rebel_state } ROOT = { add_to_war = { targeted_alliance = PREV enemy = YUG } } }",
+        "generic_break_treaty", 50, "every_country = { limit = { has_country_flag = bfx_imro_rebel_state } ROOT = { add_to_war = { targeted_alliance = PREV enemy = YUG } } }\n"
+        "every_country = { limit = { has_guaranteed = YUG NOT = { tag = ROOT } NOT = { has_war_with = ROOT } NOT = { is_in_faction_with = ROOT } } add_to_war = { targeted_alliance = YUG enemy = ROOT } }\n"
+        "custom_effect_tooltip = bfx_tt_intervene_guarantors",
         visible=act, available="NOT = { has_war_with = YUG }", fire_once=True, ai="factor = 1\nmodifier = { factor = 5 has_country_flag = bfx_ai_tsar_hegemon }")
 
     # ---------------- Integration (compliance-gated cores) ----------------

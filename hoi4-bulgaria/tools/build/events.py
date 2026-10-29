@@ -316,8 +316,37 @@ E("bfx_imro.1", "Ilinden Again: Macedonia Rises",
       opt("The Balkans are burning again.", "", None, "NOT = { tag = BUL }"),
   ], kind="news_event", major=True)
 E("bfx_imro.10", "Belgrade Lets Macedonia Go",
-  "Yugoslavia has given up. Its envoys sign a ceasefire in Kumanovo, and the Independent State of Macedonia stands on its own. In six months, they say, Skopje will decide its future.",
-  "GFX_event_bfx_imro_uprising", [opt("Long live free Macedonia!", "add_stability = 0.05\nadd_war_support = 0.05\n" + court(imro=10))])
+  "Yugoslavia has given up. Its envoys sign a ceasefire with the rebels in Kumanovo, and the Independent State of Macedonia stands on its own. In six months, they say, Skopje will decide its future. If our own army crossed the border, Belgrade is still at war with us, and so is anyone who came to its aid.",
+  "GFX_event_bfx_imro_uprising", [
+      opt("Long live free Macedonia!", "add_stability = 0.05\nadd_war_support = 0.05\n" + court(imro=10),
+          trigger="NOT = { has_war_with = YUG }"),
+      opt("Make peace with Belgrade and its friends too.", ded("""
+      every_country = { limit = { has_war_with = ROOT OR = { tag = YUG is_in_faction_with = YUG has_guaranteed = YUG } } white_peace = { tag = ROOT } }
+      custom_effect_tooltip = bfx_tt_peace_belgrade
+      add_stability = 0.05
+      """) + "\n" + court(imro=10, palace=5),
+          ai="base = 60\nmodifier = { factor = 0.3 OR = { has_country_flag = bfx_ai_tsar_hegemon has_country_flag = bfx_momentum_active } }",
+          trigger="has_war_with = YUG"),
+      opt("Keep marching on Belgrade.", ded("""
+      every_state = {
+      	limit = {
+      		OR = { is_core_of = YUG is_core_of = SER }
+      		NOT = { is_owned_by = ROOT }
+      		NOT = { is_claimed_by = ROOT }
+      		NOT = { owner = { has_country_flag = bfx_imro_rebel_state } }
+      		any_neighbor_state = { OR = { is_owned_by = ROOT owner = { has_country_flag = bfx_imro_rebel_state } } }
+      	}
+      	add_claim_by = ROOT
+      }
+      custom_effect_tooltip = bfx_tt_keep_marching
+      add_war_support = 0.05
+      army_experience = 10
+      """) + "\nif = { limit = { has_country_flag = bfx_momentum_active } " + momentum(10).replace("\n", " ") + " }\n" + court(army=5, imro=5),
+          ai="base = 40\nmodifier = { factor = 3 OR = { has_country_flag = bfx_ai_tsar_hegemon has_country_flag = bfx_momentum_active } }",
+          trigger="has_war_with = YUG"),
+  ])
+loc("bfx_tt_peace_belgrade", "§GWhite peace§! with Yugoslavia and with every country fighting us as its ally or guarantor.", "events")
+loc("bfx_tt_keep_marching", "Our war with Yugoslavia goes on. §YClaims§! on every Yugoslav state bordering us or free Macedonia.", "events")
 E("bfx_imro.20", "The Uprising Is Crushed",
   "The last bands have retreated into the Shar mountains. Skopje is Yugoslav again, the gallows are busy and the refugees are crossing into Bulgaria.",
   "GFX_report_event_bul_imro_chieftain", [

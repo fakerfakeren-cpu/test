@@ -94,9 +94,11 @@ Four blocs with influence 0–100, shown with their effects in the decision tab,
 Tolerating IMRO unlocks raids, newspapers and arms caches that raise **unrest in Vardar Macedonia**. At 70 IMRO can raise the Ilinden banner:
 Yugoslavia gets a **civil war** limited to Macedonia (25% of its forces defect). The rebels become the **Independent State of Macedonia**
 (own name, flag and map colour, led by Ivan Mihaylov, with the *Ilinden Fervour* spirit). Bulgaria can send volunteers (manpower),
-rifles, mountain guns and *Officers on Leave*, recognise and guarantee the state, or intervene openly. If the rising survives
-8 months, or Yugoslavia starts to collapse, Belgrade makes peace. Six months later Skopje asks to join: annex it (cores) or keep it as a client.
-If it is crushed, Bulgaria pays in stability and IMRO influence.
+rifles, mountain guns and *Officers on Leave*, recognise and guarantee the state, or intervene openly. **Intervening openly** brings in every country that guarantees Yugoslavia (its faction allies may join on their own). If the rising survives
+8 months, or Yugoslavia starts to collapse, Belgrade makes peace with the rebels. If Bulgaria is still at war with Yugoslavia then, it chooses:
+**white peace** with Yugoslavia and everyone fighting for it as ally or guarantor, or **keep marching** (claims on every Yugoslav state bordering
+Bulgaria or free Macedonia). Six months later Skopje asks to join: annex it (cores) or keep it as a client.
+If it is crushed, Bulgaria pays in stability and IMRO influence. Mihaylov leaves the Bulgarian cabinet to lead the new state.
 
 ## Mechanic 4: The Bulgarian Auction (Tsar's Way)
 * Berlin, London and Moscow each have a **bid** for Bulgaria (`bfx_bid_ger/eng/sov`, 0–100; start 15/10/5). *Receive the Envoys* opens the auction.

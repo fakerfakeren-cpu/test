@@ -129,6 +129,36 @@ characters = {
 			ai_will_do = { factor = 1 }
 		}
 	}
+	bfx_MAC_ivan_mihaylov_f = {
+		name = bfx_MAC_ivan_mihaylov_f
+		portraits = {
+			civilian = {
+				large = "gfx/leaders/BUL/bfx_ivan_mihaylov.dds"
+				small = "gfx/interface/ideas/bfx_ivan_mihaylov_small.dds"
+			}
+		}
+		country_leader = {
+			ideology = fascism_ideology
+			traits = { bfx_trait_imro_vozhd }
+			expire = "1965.1.1.1"
+			id = -1
+		}
+	}
+	bfx_MAC_ivan_mihaylov_n = {
+		name = bfx_MAC_ivan_mihaylov_n
+		portraits = {
+			civilian = {
+				large = "gfx/leaders/BUL/bfx_ivan_mihaylov.dds"
+				small = "gfx/interface/ideas/bfx_ivan_mihaylov_small.dds"
+			}
+		}
+		country_leader = {
+			ideology = despotism
+			traits = { bfx_trait_imro_vozhd }
+			expire = "1965.1.1.1"
+			id = -1
+		}
+	}
 	bfx_BUL_aleksandar_tsankov = {
 		name = bfx_BUL_aleksandar_tsankov
 		portraits = {

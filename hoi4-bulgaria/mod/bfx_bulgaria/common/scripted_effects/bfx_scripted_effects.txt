@@ -266,9 +266,12 @@ bfx_start_macedonian_uprising = {
 			add_ideas = bfx_imro_fervour
 			add_manpower = 15000
 			add_equipment_to_stockpile = { type = infantry_equipment amount = 2000 }
-			if = { limit = { has_government = fascism } recruit_character = bfx_BUL_ivan_mihaylov promote_character = bfx_BUL_ivan_mihaylov }
+			if = { limit = { has_government = fascism } recruit_character = bfx_MAC_ivan_mihaylov_f promote_character = bfx_MAC_ivan_mihaylov_f }
+			else = { recruit_character = bfx_MAC_ivan_mihaylov_n promote_character = bfx_MAC_ivan_mihaylov_n }
 		}
 	}
+	# Mihaylov leaves Sofia to lead the rising
+	if = { limit = { has_character = bfx_BUL_ivan_mihaylov } retire_character = bfx_BUL_ivan_mihaylov }
 	set_country_flag = bfx_uprising_active
 	set_variable = { bfx_uprising_months = 0 }
 	set_variable = { bfx_macedonia_unrest = 0 }

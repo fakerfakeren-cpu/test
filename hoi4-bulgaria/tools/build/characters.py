@@ -27,6 +27,12 @@ CHARS = [
     ("bfx_BUL_ivan_mihaylov", "Ivan Mihaylov", "ivan_mihaylov",
      [dict(kind="advisor", slot="political_advisor", traits=["bfx_adv_imro_supremo"])],
      "IMRO leader 1924–1934; fled after the Zveno crackdown; died in Rome in 1990."),
+    ("bfx_MAC_ivan_mihaylov_f", "Ivan Mihaylov", "ivan_mihaylov",
+     [dict(kind="leader", ideology="fascism_ideology", traits=["bfx_trait_imro_vozhd"])],
+     "IMRO leader 1924–1934. In 1944 Germany offered him an independent Macedonia and he refused; here he accepts. Leads the Independent State of Macedonia during the uprising."),
+    ("bfx_MAC_ivan_mihaylov_n", "Ivan Mihaylov", "ivan_mihaylov",
+     [dict(kind="leader", ideology="despotism", traits=["bfx_trait_imro_vozhd"])],
+     "IMRO leader 1924–1934. In 1944 Germany offered him an independent Macedonia and he refused; here he accepts. Leads the Independent State of Macedonia during the uprising. (Used when Yugoslavia itself is fascist, so the rising is non-aligned.)"),
     ("bfx_BUL_aleksandar_tsankov", "Aleksandar Tsankov", ("vanilla", "GFX_idea_bul_aleksandar_tsankov"),
      [dict(kind="advisor", slot="political_advisor", traits=["bfx_adv_national_socialist_ideologue"])],
      "PM 1923–1926; founded the National Social Movement in 1932; headed the pro-German government in exile in 1944–45."),
@@ -54,6 +60,8 @@ CHARS = [
 ]
 
 LEADER_TRAITS = {
+    "bfx_trait_imro_vozhd": ("Vozhd of the Organisation", dict(war_support_factor=0.10, army_core_defence_factor=0.10, stability_factor=0.05),
+                             "Ivan Mihaylov ran IMRO for ten years from the shadows. Now he runs a state, and the shadows come with him."),
     "bfx_trait_engine_driver_tsar": ("Engine-Driver Tsar", dict(stability_factor=0.05, opinion_gain_monthly_factor=0.15),
                                      "Boris III held a locomotive driver's licence and drove the royal train himself."),
     "bfx_trait_old_fox": ("The Old Fox", dict(political_power_gain=0.15, war_support_factor=0.05, stability_factor=-0.05),

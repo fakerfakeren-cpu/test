@@ -26,11 +26,55 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = bfx_imro.10.a
+		trigger = { NOT = { has_war_with = YUG } }
 		add_stability = 0.05
 		add_war_support = 0.05
 		custom_effect_tooltip = bfx_tt_court_i10
 		hidden_effect = {
 			add_to_variable = { bfx_inf_imro = 10 }
+			bfx_court_recalc = yes
+		}
+	}
+	option = {
+		name = bfx_imro.10.b
+		trigger = { has_war_with = YUG }
+		ai_chance = {
+			base = 60
+			modifier = { factor = 0.3 OR = { has_country_flag = bfx_ai_tsar_hegemon has_country_flag = bfx_momentum_active } }
+		}
+		every_country = { limit = { has_war_with = ROOT OR = { tag = YUG is_in_faction_with = YUG has_guaranteed = YUG } } white_peace = { tag = ROOT } }
+		custom_effect_tooltip = bfx_tt_peace_belgrade
+		add_stability = 0.05
+		custom_effect_tooltip = bfx_tt_court_p5_i10
+		hidden_effect = {
+			add_to_variable = { bfx_inf_palace = 5 } add_to_variable = { bfx_inf_imro = 10 }
+			bfx_court_recalc = yes
+		}
+	}
+	option = {
+		name = bfx_imro.10.c
+		trigger = { has_war_with = YUG }
+		ai_chance = {
+			base = 40
+			modifier = { factor = 3 OR = { has_country_flag = bfx_ai_tsar_hegemon has_country_flag = bfx_momentum_active } }
+		}
+		every_state = {
+			limit = {
+				OR = { is_core_of = YUG is_core_of = SER }
+				NOT = { is_owned_by = ROOT }
+				NOT = { is_claimed_by = ROOT }
+				NOT = { owner = { has_country_flag = bfx_imro_rebel_state } }
+				any_neighbor_state = { OR = { is_owned_by = ROOT owner = { has_country_flag = bfx_imro_rebel_state } } }
+			}
+			add_claim_by = ROOT
+		}
+		custom_effect_tooltip = bfx_tt_keep_marching
+		add_war_support = 0.05
+		army_experience = 10
+		if = { limit = { has_country_flag = bfx_momentum_active } custom_effect_tooltip = bfx_tt_momentum_10 hidden_effect = { 	add_to_variable = { bfx_momentum = 10 } 	bfx_momentum_recalc = yes } }
+		custom_effect_tooltip = bfx_tt_court_a5_i5
+		hidden_effect = {
+			add_to_variable = { bfx_inf_army = 5 } add_to_variable = { bfx_inf_imro = 5 }
 			bfx_court_recalc = yes
 		}
 	}

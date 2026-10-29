@@ -71,9 +71,11 @@ Four blocs with influence 0–100, shown with their effects in the decision tab,
 Tolerating IMRO unlocks raids, newspapers and arms caches that raise **unrest in Vardar Macedonia**. At 70 IMRO can raise the Ilinden banner:
 Yugoslavia gets a **civil war** limited to Macedonia (25% of its forces defect). The rebels become the **Independent State of Macedonia**
 (own name, flag and map colour, led by Ivan Mihaylov, with the *Ilinden Fervour* spirit). Bulgaria can send volunteers (manpower),
-rifles, mountain guns and *Officers on Leave*, recognise and guarantee the state, or intervene openly. If the rising survives
-8 months, or Yugoslavia starts to collapse, Belgrade makes peace. Six months later Skopje asks to join: annex it (cores) or keep it as a client.
-If it is crushed, Bulgaria pays in stability and IMRO influence.
+rifles, mountain guns and *Officers on Leave*, recognise and guarantee the state, or intervene openly. **Intervening openly** brings in every country that guarantees Yugoslavia (its faction allies may join on their own). If the rising survives
+8 months, or Yugoslavia starts to collapse, Belgrade makes peace with the rebels. If Bulgaria is still at war with Yugoslavia then, it chooses:
+**white peace** with Yugoslavia and everyone fighting for it as ally or guarantor, or **keep marching** (claims on every Yugoslav state bordering
+Bulgaria or free Macedonia). Six months later Skopje asks to join: annex it (cores) or keep it as a client.
+If it is crushed, Bulgaria pays in stability and IMRO influence. Mihaylov leaves the Bulgarian cabinet to lead the new state.
 
 ## Mechanic 4: The Bulgarian Auction (Tsar's Way)
 * Berlin, London and Moscow each have a **bid** for Bulgaria (`bfx_bid_ger/eng/sov`, 0–100; start 15/10/5). *Receive the Envoys* opens the auction.
@@ -212,7 +214,7 @@ to take the secret path if it is revealed. Fascist AIs patronise the Legions unt
 | `bfx_storm_offensive` | Storm Offensive | army_attack_factor +0.15, breakthrough_factor +0.1, army_speed_factor +0.05 |
 | `bfx_legionary_prefects` | Legionary Prefects | compliance_growth +0.1, resistance_growth -0.15, stability_factor -0.02 |
 
-## Characters (15)
+## Characters (17)
 | ID | Name | Roles | Biography |
 |---|---|---|---|
 | `bfx_BUL_boris_iii` | Boris III | leader (despotism) | Tsar 1918–1943; personal regime from 1935; famous for 'walking between the raindrops'; died Aug 1943 after meeting Hitler. |
@@ -222,6 +224,8 @@ to take the secret path if it is revealed. Fascist AIs patronise the Legions unt
 | `bfx_BUL_georgi_kyoseivanov` | Georgi Kyoseivanov | advisor (political_advisor) | Diplomat; PM 1935–1940; signed the 1937 pact with Yugoslavia and the 1938 Salonika Agreement. |
 | `bfx_BUL_kimon_georgiev` | Kimon Georgiev | advisor (political_advisor) | Zveno leader; PM after the 19 May 1934 coup and again 1944–1946. |
 | `bfx_BUL_ivan_mihaylov` | Ivan Mihaylov | advisor (political_advisor) | IMRO leader 1924–1934; fled after the Zveno crackdown; died in Rome in 1990. |
+| `bfx_MAC_ivan_mihaylov_f` | Ivan Mihaylov | leader (fascism_ideology) | IMRO leader 1924–1934. In 1944 Germany offered him an independent Macedonia and he refused; here he accepts. Leads the Independent State of Macedonia during the uprising. |
+| `bfx_MAC_ivan_mihaylov_n` | Ivan Mihaylov | leader (despotism) | IMRO leader 1924–1934. In 1944 Germany offered him an independent Macedonia and he refused; here he accepts. Leads the Independent State of Macedonia during the uprising. (Used when Yugoslavia itself is fascist, so the rising is non-aligned.) |
 | `bfx_BUL_aleksandar_tsankov` | Aleksandar Tsankov | advisor (political_advisor) | PM 1923–1926; founded the National Social Movement in 1932; headed the pro-German government in exile in 1944–45. |
 | `bfx_BUL_ivan_dochev` | Ivan Dochev | advisor (political_advisor) | A leading figure of the Union of Bulgarian National Legions; emigrated after 1944. |
 | `bfx_BUL_dobri_bozhilov` | Dobri Bozhilov | advisor (political_advisor) | Banker; Finance Minister 1938–1943 and PM 1943–1944. |
