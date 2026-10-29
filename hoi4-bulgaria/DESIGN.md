@@ -20,6 +20,8 @@ the Tsar by diplomacy, proxies and auctioning his alliance; the Legion by war, w
 Total **250 focuses**; plain stat bumps 19 (7%). Every exclusive choice says what it rules out.
 Every focus has `search_filters` and `ai_will_do`.
 
+**Durations** (v3.1): 35 days for plain stat bumps, 49 days by default, 56 days for war goals, land transfers and two or more buildings, 70 days for path choices, formables and finales; the opening keeps its short 35/49-day focuses. Average 50 days per focus (v3.0: almost all 70).
+
 ## How to reach each path
 * **Tsar's Way**: *The Hour of Decision* → *The Tsar Steps Forward*. Always available.
 * **Legionary Revolution**: *The Hour of Decision* → *The Legions March*, which needs **Legion influence 40+** (start: 20). Raise it with

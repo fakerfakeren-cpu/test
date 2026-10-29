@@ -121,7 +121,7 @@ focus_tree = {
 		relative_position_id = bfx_tsars_dilemma
 		x = -7
 		y = 2
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_velchev_trial }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		ai_will_do = {
@@ -195,7 +195,7 @@ focus_tree = {
 		relative_position_id = bfx_tsars_dilemma
 		x = 3
 		y = 2
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eternal_friendship }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_POLITICAL_CHARACTER }
 		ai_will_do = {
@@ -221,7 +221,7 @@ focus_tree = {
 		relative_position_id = bfx_tsars_dilemma
 		x = 6
 		y = 2
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_macedonian_question }
 		mutually_exclusive = { focus = bfx_tolerate_imro }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
@@ -256,7 +256,7 @@ focus_tree = {
 		relative_position_id = bfx_tsars_dilemma
 		x = 9
 		y = 2
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_macedonian_question }
 		mutually_exclusive = { focus = bfx_crush_imro }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
@@ -290,7 +290,7 @@ focus_tree = {
 		relative_position_id = bfx_tsars_dilemma
 		x = -9
 		y = 3
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_kingdom_without_parties }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		ai_will_do = {
@@ -307,7 +307,7 @@ focus_tree = {
 		relative_position_id = bfx_tsars_dilemma
 		x = -6
 		y = 3
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_kingdom_without_parties }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		ai_will_do = {
@@ -330,7 +330,7 @@ focus_tree = {
 		relative_position_id = bfx_tsars_dilemma
 		x = -3
 		y = 3
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_war_ministry_cellars }
 		mutually_exclusive = { focus = bfx_salonika_agreement }
 		available = {
@@ -353,7 +353,7 @@ focus_tree = {
 		relative_position_id = bfx_tsars_dilemma
 		x = 2
 		y = 3
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_kyoseivanov_cabinet }
 		mutually_exclusive = { focus = bfx_tear_up_neuilly }
 		available = {
@@ -455,7 +455,7 @@ focus_tree = {
 		relative_position_id = bfx_tsars_dilemma
 		x = 5
 		y = 4
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_italian_queen }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = {
@@ -504,7 +504,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = -11
 		y = 1
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_steps_forward }
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_MILITARY_CHARACTER }
 		ai_will_do = {
@@ -528,7 +528,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = -11
 		y = 2
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_muzzle_the_league }
 		available = {
 			date > 1937.6.1
@@ -553,7 +553,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = -11
 		y = 3
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_heir_to_the_throne }
 		search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_POLITICAL_CHARACTER }
 		ai_will_do = {
@@ -576,7 +576,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = -11
 		y = 4
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_propaganda_directorate }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_POLITICAL_CHARACTER }
 		ai_will_do = {
@@ -599,7 +599,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = -11
 		y = 5
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_the_tsars_men }
 		search_filters = { FOCUS_FILTER_STABILITY }
 		ai_will_do = {
@@ -621,7 +621,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = -3
 		y = 1
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_steps_forward }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = {
@@ -644,7 +644,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = -6
 		y = 2
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_receive_the_envoys }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
@@ -666,7 +666,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = -3
 		y = 2
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_receive_the_envoys }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = {
@@ -688,7 +688,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = 0
 		y = 2
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_receive_the_envoys }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_HISTORICAL }
 		ai_will_do = {
@@ -710,7 +710,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = -3
 		y = 3
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_german_offer focus = bfx_tsar_british_offer focus = bfx_tsar_soviet_offer }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = {
@@ -732,7 +732,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = -5
 		y = 4
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_play_them_off }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_HISTORICAL }
 		ai_will_do = {
@@ -754,7 +754,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = -2
 		y = 4
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_play_them_off }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = {
@@ -784,7 +784,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = -3
 		y = 5
-		cost = 10
+		cost = 8
 		prerequisite = { focus = bfx_tsar_turkish_pact }
 		prerequisite = { focus = bfx_tsar_break_the_entente }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
@@ -806,7 +806,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = 3
 		y = 1
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_steps_forward }
 		available = {
 			NOT = { has_country_flag = bfx_imro_crushed }
@@ -834,7 +834,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = 3
 		y = 2
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_macedonian_committees }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER }
 		ai_will_do = {
@@ -853,7 +853,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = 3
 		y = 3
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_pirin_bases }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = {
@@ -876,7 +876,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = 3
 		y = 4
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_ilinden_preparations }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = {
@@ -895,7 +895,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = 3
 		y = 5
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_macedonia_rises }
 		available = {
 			owns_state = 106
@@ -918,7 +918,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = 7
 		y = 1
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_steps_forward }
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = {
@@ -937,7 +937,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = 7
 		y = 2
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_lost_provinces_office }
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_HISTORICAL }
 		ai_will_do = {
@@ -959,7 +959,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = 7
 		y = 3
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_craiova_talks }
 		available = {
 			owns_state = 77
@@ -981,7 +981,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = 7
 		y = 4
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_dobruja_returned }
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = {
@@ -998,7 +998,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = 7
 		y = 5
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_thracian_question }
 		available = {
 			owns_state = 184
@@ -1026,7 +1026,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = 10
 		y = 1
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_steps_forward }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
@@ -1044,7 +1044,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = 10
 		y = 2
-		cost = 10
+		cost = 5
 		prerequisite = { focus = bfx_tsar_armed_neutrality }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
@@ -1061,7 +1061,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = 10
 		y = 3
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_danube_line }
 		search_filters = { FOCUS_FILTER_MANPOWER }
 		ai_will_do = {
@@ -1083,7 +1083,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = 10
 		y = 4
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_mobilisation_plan }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
@@ -1100,7 +1100,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = 0
 		y = 6
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_auction_closes }
 		prerequisite = { focus = bfx_tsar_union_with_skopje focus = bfx_tsar_aegean_window }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -1149,7 +1149,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = -8
 		y = 8
-		cost = 10
+		cost = 8
 		prerequisite = { focus = bfx_tsar_sign_with_the_bidder }
 		available = {
 			OR = { date > 1941.4.1 any_state = { OR = { state = 106 state = 184 state = 731 state = 77 state = 341 } NOT = { is_owned_by = ROOT } controller = { is_in_faction_with = ROOT } } }
@@ -1193,7 +1193,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = -5
 		y = 8
-		cost = 10
+		cost = 5
 		prerequisite = { focus = bfx_tsar_sign_with_the_bidder }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
@@ -1219,7 +1219,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = -9
 		y = 9
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_partition_dividend }
 		search_filters = { FOCUS_FILTER_STABILITY }
 		ai_will_do = {
@@ -1237,7 +1237,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = -6
 		y = 9
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_partition_dividend }
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = {
@@ -1254,7 +1254,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = -3
 		y = 9
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_patrons_credit }
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = {
@@ -1326,7 +1326,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = -3
 		y = 10
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_bessarabian_bulgars }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_HISTORICAL }
 		ai_will_do = {
@@ -1369,7 +1369,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = -3
 		y = 11
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_change_sides_contingency }
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_POLITICAL }
 		ai_will_do = {
@@ -1389,7 +1389,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = -9
 		y = 12
-		cost = 10
+		cost = 8
 		prerequisite = { focus = bfx_tsar_greater_bulgaria }
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = {
@@ -1503,7 +1503,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = 3
 		y = 8
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_stands_alone }
 		available = {
 			OR = { is_in_faction = no is_faction_leader = yes }
@@ -1524,7 +1524,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = 6
 		y = 8
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_stands_alone }
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
@@ -1544,7 +1544,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = 9
 		y = 8
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_stands_alone }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
 		ai_will_do = {
@@ -1565,7 +1565,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = 3
 		y = 9
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_sofia_pact }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = {
@@ -1583,7 +1583,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = 6
 		y = 9
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_everyones_money }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
@@ -1601,7 +1601,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = 9
 		y = 9
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_albanian_protectorate }
 		search_filters = { FOCUS_FILTER_NAVY_XP }
 		ai_will_do = {
@@ -1623,7 +1623,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = 3
 		y = 10
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_revisionist_brothers }
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = {
@@ -1641,7 +1641,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = 6
 		y = 10
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_hegemon_army }
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = {
@@ -1660,7 +1660,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = 9
 		y = 10
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_durres_concession }
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = {
@@ -1679,7 +1679,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = 3
 		y = 11
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_ultimatum_belgrade }
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = {
@@ -1696,7 +1696,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = 6
 		y = 11
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_ultimatum_athens }
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = {
@@ -1714,7 +1714,7 @@ focus_tree = {
 		relative_position_id = bfx_tsar_steps_forward
 		x = 9
 		y = 11
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_tsar_ultimatum_bucharest }
 		search_filters = { FOCUS_FILTER_NAVY_XP }
 		ai_will_do = {
@@ -1812,7 +1812,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = -6
 		y = 1
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_legions_march }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_POLITICAL_CHARACTER }
 		ai_will_do = {
@@ -1836,7 +1836,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = 0
 		y = 1
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_legions_march }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = {
@@ -1858,7 +1858,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = 6
 		y = 1
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_legions_march }
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = {
@@ -1881,7 +1881,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = -9
 		y = 2
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_legionary_state }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = {
@@ -1910,7 +1910,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = -6
 		y = 2
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_legionary_state }
 		search_filters = { FOCUS_FILTER_MANPOWER }
 		ai_will_do = {
@@ -1928,7 +1928,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = -3
 		y = 2
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_legionary_state }
 		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = {
@@ -1945,7 +1945,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = -9
 		y = 3
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_purge_the_palace }
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
 		ai_will_do = {
@@ -1969,7 +1969,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = -6
 		y = 3
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_legionary_militia }
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
@@ -1991,7 +1991,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = -3
 		y = 3
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_brannik }
 		search_filters = { FOCUS_FILTER_MANPOWER }
 		ai_will_do = {
@@ -2013,7 +2013,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = -9
 		y = 4
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_legionary_courts }
 		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = {
@@ -2035,7 +2035,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = -6
 		y = 4
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_arms_drive }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
@@ -2053,7 +2053,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = -3
 		y = 4
-		cost = 10
+		cost = 5
 		prerequisite = { focus = bfx_fas_arms_drive }
 		prerequisite = { focus = bfx_fas_youth_battalions }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -2080,7 +2080,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = -7
 		y = 5
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_cult_of_the_fallen }
 		prerequisite = { focus = bfx_fas_shock_divisions }
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT }
@@ -2104,7 +2104,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = -3
 		y = 5
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_legion_war_economy }
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MANPOWER }
 		ai_will_do = {
@@ -2121,7 +2121,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = 0
 		y = 2
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_revolution_must_march }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
@@ -2143,7 +2143,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = 3
 		y = 2
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_revolution_must_march }
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = {
@@ -2168,7 +2168,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = 0
 		y = 3
-		cost = 10
+		cost = 8
 		prerequisite = { focus = bfx_fas_blitz_plan }
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = {
@@ -2199,7 +2199,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = 3
 		y = 3
-		cost = 10
+		cost = 8
 		prerequisite = { focus = bfx_fas_border_incidents }
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = {
@@ -2225,7 +2225,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = 0
 		y = 4
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_war_on_yugoslavia }
 		available = {
 			owns_state = 106
@@ -2253,7 +2253,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = 3
 		y = 4
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_war_on_greece }
 		available = {
 			owns_state = 184
@@ -2281,7 +2281,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = 2
 		y = 5
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_legionary_macedonia focus = bfx_fas_legionary_thrace }
 		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = {
@@ -2304,7 +2304,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = 6
 		y = 2
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_dobruja_ultimatum }
 		available = {
 			owns_state = 77
@@ -2326,7 +2326,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = 9
 		y = 2
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_dobruja_ultimatum }
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_ANNEXATION }
 		ai_will_do = {
@@ -2343,7 +2343,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = 8
 		y = 3
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_dobrujan_legion focus = bfx_fas_legionary_prefects }
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_MANPOWER }
 		ai_will_do = {
@@ -2361,7 +2361,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = 8
 		y = 4
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_settlers }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
@@ -2380,7 +2380,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = 8
 		y = 5
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_requisitions }
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_ANNEXATION }
 		ai_will_do = {
@@ -2398,7 +2398,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = 0
 		y = 6
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_victory_parades }
 		prerequisite = { focus = bfx_fas_the_new_man focus = bfx_fas_total_mobilisation focus = bfx_fas_compliance_drive }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -2442,7 +2442,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = -9
 		y = 8
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_into_the_axis }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = {
@@ -2460,7 +2460,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = -6
 		y = 8
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_into_the_axis }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
@@ -2478,7 +2478,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = -3
 		y = 8
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_into_the_axis }
 		search_filters = { FOCUS_FILTER_AIR_XP }
 		ai_will_do = {
@@ -2496,7 +2496,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = -7
 		y = 9
-		cost = 10
+		cost = 8
 		prerequisite = { focus = bfx_fas_anti_comintern }
 		prerequisite = { focus = bfx_fas_german_instructors }
 		available = {
@@ -2536,7 +2536,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = -3
 		y = 9
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_axis_air_bases }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
@@ -2554,7 +2554,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = -9
 		y = 10
-		cost = 10
+		cost = 8
 		prerequisite = { focus = bfx_fas_new_order }
 		available = {
 			GER = { has_war_with = SOV } is_in_faction_with = GER
@@ -2610,7 +2610,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = -3
 		y = 10
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_panzers_for_sofia }
 		search_filters = { FOCUS_FILTER_NAVY_XP }
 		ai_will_do = {
@@ -2632,7 +2632,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = -10
 		y = 11
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_crusade_east }
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = {
@@ -2653,7 +2653,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = -7
 		y = 11
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_crusade_east }
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = {
@@ -2670,7 +2670,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = -4
 		y = 11
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_legionary_greater_bulgaria }
 		prerequisite = { focus = bfx_fas_black_sea_squadron }
 		search_filters = { FOCUS_FILTER_NAVY_XP }
@@ -2693,7 +2693,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = -7
 		y = 12
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_budjak focus = bfx_fas_odessa_corridor }
 		prerequisite = { focus = bfx_fas_aegean_fleet }
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_ANNEXATION }
@@ -2712,7 +2712,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = -9
 		y = 13
-		cost = 10
+		cost = 8
 		prerequisite = { focus = bfx_fas_legionary_empire }
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = {
@@ -2740,7 +2740,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = -6
 		y = 13
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_legionary_empire }
 		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_MANPOWER }
 		ai_will_do = {
@@ -2803,7 +2803,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = 3
 		y = 8
-		cost = 10
+		cost = 5
 		prerequisite = { focus = bfx_fas_national_social_state }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
@@ -2829,7 +2829,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = 6
 		y = 8
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_national_social_state }
 		available = {
 			OR = { is_in_faction = no is_faction_leader = yes }
@@ -2851,7 +2851,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = 9
 		y = 8
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_national_social_state }
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = {
@@ -2876,7 +2876,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = 3
 		y = 9
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_corporatist_economy }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
@@ -2894,7 +2894,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = 6
 		y = 9
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_pact_of_iron }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = {
@@ -2912,7 +2912,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = 9
 		y = 9
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_rival_to_rome }
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_NAVY_XP }
 		ai_will_do = {
@@ -2933,7 +2933,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = 3
 		y = 10
-		cost = 10
+		cost = 8
 		prerequisite = { focus = bfx_fas_imperium_army }
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = {
@@ -2961,7 +2961,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = 6
 		y = 10
-		cost = 10
+		cost = 8
 		prerequisite = { focus = bfx_fas_budapest_axis }
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = {
@@ -2989,7 +2989,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = 9
 		y = 10
-		cost = 10
+		cost = 8
 		prerequisite = { focus = bfx_fas_adriatic_ambitions }
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = {
@@ -3037,7 +3037,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = 9
 		y = 11
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_war_for_albania }
 		search_filters = { FOCUS_FILTER_NAVY_XP }
 		ai_will_do = {
@@ -3059,7 +3059,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = 3
 		y = 12
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_bulgarian_imperium }
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_MANPOWER }
 		ai_will_do = {
@@ -3077,7 +3077,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = 6
 		y = 12
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_bulgarian_imperium }
 		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_MANPOWER }
 		ai_will_do = {
@@ -3095,7 +3095,7 @@ focus_tree = {
 		relative_position_id = bfx_fas_legions_march
 		x = 9
 		y = 12
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_fas_imperial_navy }
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_NAVY_XP }
 		ai_will_do = {
@@ -3132,7 +3132,7 @@ focus_tree = {
 		icon = GFX_focus_bfx_alt_old_fox_stirs
 		x = 20
 		y = 6
-		cost = 10
+		cost = 7
 		available = {
 			NOT = { has_completed_focus = bfx_fas_legions_march }
 		}
@@ -3173,7 +3173,7 @@ focus_tree = {
 		relative_position_id = bfx_alt_old_fox_stirs
 		x = 2
 		y = 1
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_alt_old_fox_stirs }
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		ai_will_do = {
@@ -3190,7 +3190,7 @@ focus_tree = {
 		relative_position_id = bfx_alt_old_fox_stirs
 		x = -1
 		y = 2
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_alt_burn_the_treaty }
 		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_MANPOWER }
 		ai_will_do = {
@@ -3209,7 +3209,7 @@ focus_tree = {
 		relative_position_id = bfx_alt_old_fox_stirs
 		x = 2
 		y = 2
-		cost = 10
+		cost = 5
 		prerequisite = { focus = bfx_alt_entomologist_tsar }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
@@ -3260,7 +3260,7 @@ focus_tree = {
 		relative_position_id = bfx_alt_old_fox_stirs
 		x = -3
 		y = 4
-		cost = 10
+		cost = 8
 		prerequisite = { focus = bfx_alt_third_empire }
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = {
@@ -3281,7 +3281,7 @@ focus_tree = {
 		relative_position_id = bfx_alt_old_fox_stirs
 		x = -4
 		y = 5
-		cost = 10
+		cost = 8
 		prerequisite = { focus = bfx_alt_simeons_borders }
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = {
@@ -3302,7 +3302,7 @@ focus_tree = {
 		relative_position_id = bfx_alt_old_fox_stirs
 		x = -1
 		y = 5
-		cost = 10
+		cost = 5
 		prerequisite = { focus = bfx_alt_simeons_borders }
 		search_filters = { FOCUS_FILTER_STABILITY }
 		ai_will_do = {
@@ -3320,7 +3320,7 @@ focus_tree = {
 		relative_position_id = bfx_alt_old_fox_stirs
 		x = -3
 		y = 6
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_alt_tsar_of_the_vlachs }
 		prerequisite = { focus = bfx_alt_restore_preslav }
 		search_filters = { FOCUS_FILTER_STABILITY }
@@ -3339,7 +3339,7 @@ focus_tree = {
 		relative_position_id = bfx_alt_old_fox_stirs
 		x = -3
 		y = 7
-		cost = 10
+		cost = 8
 		prerequisite = { focus = bfx_alt_coronation_at_tarnovo }
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = {
@@ -3410,7 +3410,7 @@ focus_tree = {
 		relative_position_id = bfx_alt_old_fox_stirs
 		x = 3
 		y = 4
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_alt_tsargrad }
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_POLITICAL }
 		ai_will_do = {
@@ -3455,7 +3455,7 @@ focus_tree = {
 		relative_position_id = bfx_alt_old_fox_stirs
 		x = 5
 		y = 5
-		cost = 10
+		cost = 8
 		prerequisite = { focus = bfx_alt_basileus }
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = {
@@ -3476,7 +3476,7 @@ focus_tree = {
 		relative_position_id = bfx_alt_old_fox_stirs
 		x = 3
 		y = 6
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_alt_hagia_sophia }
 		prerequisite = { focus = bfx_alt_restore_the_themes }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
@@ -3495,7 +3495,7 @@ focus_tree = {
 		relative_position_id = bfx_alt_old_fox_stirs
 		x = 3
 		y = 7
-		cost = 10
+		cost = 8
 		prerequisite = { focus = bfx_alt_varangian_guard }
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = {
@@ -3552,7 +3552,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = -9
 		y = 1
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_rose_and_leaf }
 		mutually_exclusive = { focus = bfx_eco_diversify }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -3572,7 +3572,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = -6
 		y = 1
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_rose_and_leaf }
 		mutually_exclusive = { focus = bfx_eco_german_clearing }
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY }
@@ -3591,7 +3591,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = 0
 		y = 1
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_rose_and_leaf }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
@@ -3609,7 +3609,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = 6
 		y = 1
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_rose_and_leaf }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
@@ -3627,7 +3627,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = 11
 		y = 1
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_rose_and_leaf }
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		ai_will_do = {
@@ -3645,7 +3645,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = -7
 		y = 2
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_german_clearing focus = bfx_eco_diversify }
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL }
 		ai_will_do = {
@@ -3663,7 +3663,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = -1
 		y = 2
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_pernik_coal }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
@@ -3682,7 +3682,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = 2
 		y = 2
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_pernik_coal }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
@@ -3704,7 +3704,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = 6
 		y = 2
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_bdz }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
@@ -3727,7 +3727,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = 11
 		y = 2
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_sofia_university }
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		ai_will_do = {
@@ -3744,7 +3744,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = -7
 		y = 3
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_tobacco_boom }
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
 		ai_will_do = {
@@ -3763,7 +3763,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = -1
 		y = 3
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_balkan_iron }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
@@ -3785,7 +3785,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = 2
 		y = 3
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_electrification }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
@@ -3803,7 +3803,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = 5
 		y = 3
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_main_line }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
@@ -3825,7 +3825,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = 8
 		y = 3
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_main_line }
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_NAVY_XP }
 		ai_will_do = {
@@ -3846,7 +3846,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = 11
 		y = 3
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_nadjakov_laboratory }
 		available = {
 			date > 1938.1.1
@@ -3867,7 +3867,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = -7
 		y = 4
-		cost = 10
+		cost = 5
 		prerequisite = { focus = bfx_eco_valley_of_roses }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
@@ -3888,7 +3888,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = -3
 		y = 4
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_kremikovtsi_steel }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
@@ -3910,7 +3910,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = 0
 		y = 4
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_kremikovtsi_steel }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
@@ -3932,7 +3932,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = 3
 		y = 4
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_iskar_dams }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
@@ -3954,7 +3954,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = 8
 		y = 4
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_black_sea_ports }
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MANPOWER }
 		ai_will_do = {
@@ -3979,7 +3979,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = 11
 		y = 4
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_bukhovo_uranium }
 		available = {
 			date > 1940.1.1
@@ -4000,7 +4000,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = -7
 		y = 5
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_hard_currency }
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL }
 		ai_will_do = {
@@ -4017,7 +4017,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = -1
 		y = 5
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_kazanlak_arsenal }
 		prerequisite = { focus = bfx_eco_sopot_works }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -4035,7 +4035,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = 3
 		y = 5
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_hydro_grid }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
@@ -4057,7 +4057,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = 8
 		y = 5
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_labour_brigades }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
@@ -4074,7 +4074,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = 11
 		y = 5
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_atomic_commission }
 		available = {
 			date > 1941.6.1
@@ -4094,7 +4094,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = -9
 		y = 6
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_ledger_of_trade }
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		ai_will_do = {
@@ -4111,7 +4111,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = -6
 		y = 6
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_ledger_of_trade }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
@@ -4133,7 +4133,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = -1
 		y = 6
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_state_arsenals }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
@@ -4155,7 +4155,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = 2
 		y = 6
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_chemical_combine }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
@@ -4173,7 +4173,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = 5
 		y = 6
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_chemical_combine }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
@@ -4191,7 +4191,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = 11
 		y = 6
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_reactor_project }
 		available = {
 			date > 1942.1.1
@@ -4211,7 +4211,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = -7
 		y = 7
-		cost = 10
+		cost = 5
 		prerequisite = { focus = bfx_eco_plovdiv_fair }
 		prerequisite = { focus = bfx_eco_export_drive }
 		search_filters = { FOCUS_FILTER_STABILITY }
@@ -4230,7 +4230,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = -3
 		y = 7
-		cost = 10
+		cost = 5
 		prerequisite = { focus = bfx_eco_war_economy }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
@@ -4256,7 +4256,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = 0
 		y = 7
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_war_economy }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
@@ -4278,7 +4278,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = 3
 		y = 7
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_tyulenovo_oil }
 		prerequisite = { focus = bfx_eco_synthetic_fuel }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -4297,7 +4297,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = 11
 		y = 7
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_kozloduy_reactor }
 		available = {
 			date > 1944.1.1
@@ -4318,7 +4318,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = -6
 		y = 8
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_eco_national_bank }
 		available = {
 			date > 1938.1.1
@@ -4338,7 +4338,7 @@ focus_tree = {
 		relative_position_id = bfx_eco_rose_and_leaf
 		x = -1
 		y = 8
-		cost = 10
+		cost = 5
 		prerequisite = { focus = bfx_eco_industrial_ring }
 		prerequisite = { focus = bfx_eco_dispersed_industry }
 		available = {
@@ -4396,7 +4396,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = -14
 		y = 1
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_mil_neuilly_army }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
@@ -4414,7 +4414,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = -11
 		y = 1
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_mil_neuilly_army }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
@@ -4432,7 +4432,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = -14
 		y = 2
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_mil_rhodope_rangers }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
@@ -4450,7 +4450,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = -11
 		y = 2
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_mil_chataldzha_lessons }
 		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_MILITARY_CHARACTER }
 		ai_will_do = {
@@ -4468,7 +4468,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = -14
 		y = 3
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_mil_mountain_doctrine }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
@@ -4486,7 +4486,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = -11
 		y = 3
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_mil_staff_academy }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
@@ -4503,7 +4503,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = -12
 		y = 4
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_mil_mountain_brigades }
 		prerequisite = { focus = bfx_mil_bayonet_tradition }
 		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_MILITARY_CHARACTER }
@@ -4522,7 +4522,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = -14
 		y = 5
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_mil_balkan_war_plan }
 		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_MILITARY_CHARACTER }
 		ai_will_do = {
@@ -4540,7 +4540,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = -11
 		y = 5
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_mil_balkan_war_plan }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
@@ -4557,7 +4557,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = -14
 		y = 6
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_mil_officer_corps }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
@@ -4580,7 +4580,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = -11
 		y = 6
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_mil_combined_arms }
 		available = {
 			has_country_flag = bfx_neuilly_ended
@@ -4601,7 +4601,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = -12
 		y = 7
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_mil_royal_guard }
 		prerequisite = { focus = bfx_mil_armoured_brigade }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
@@ -4620,7 +4620,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = -6
 		y = 1
-		cost = 10
+		cost = 5
 		prerequisite = { focus = bfx_mil_neuilly_army }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
@@ -4637,7 +4637,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = -8
 		y = 2
-		cost = 10
+		cost = 5
 		prerequisite = { focus = bfx_mil_small_arms }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
@@ -4654,7 +4654,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = -5
 		y = 2
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_mil_small_arms }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
@@ -4672,7 +4672,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = -8
 		y = 3
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_mil_mountain_guns }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
@@ -4689,7 +4689,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = -5
 		y = 3
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_mil_machine_guns }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
@@ -4707,7 +4707,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = -6
 		y = 4
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_mil_rifle_contracts }
 		prerequisite = { focus = bfx_mil_anti_tank }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
@@ -4726,7 +4726,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = -6
 		y = 5
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_mil_field_artillery }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
@@ -4743,7 +4743,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = -6
 		y = 6
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_mil_support_companies }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
@@ -4761,7 +4761,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = 0
 		y = 1
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_mil_neuilly_army }
 		search_filters = { FOCUS_FILTER_MANPOWER }
 		ai_will_do = {
@@ -4787,7 +4787,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = -2
 		y = 2
-		cost = 10
+		cost = 5
 		prerequisite = { focus = bfx_mil_reservists }
 		search_filters = { FOCUS_FILTER_MANPOWER }
 		ai_will_do = {
@@ -4809,7 +4809,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = 1
 		y = 2
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_mil_reservists }
 		search_filters = { FOCUS_FILTER_MANPOWER }
 		ai_will_do = {
@@ -4827,7 +4827,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = -2
 		y = 3
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_mil_macedonian_emigration }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
@@ -4844,7 +4844,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = 1
 		y = 3
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_mil_pomak_battalions }
 		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
@@ -4861,7 +4861,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = 0
 		y = 4
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_mil_veterans_1912 }
 		prerequisite = { focus = bfx_mil_womens_auxiliary }
 		available = {
@@ -4883,7 +4883,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = -2
 		y = 5
-		cost = 10
+		cost = 5
 		prerequisite = { focus = bfx_mil_universal_service }
 		search_filters = { FOCUS_FILTER_MANPOWER }
 		ai_will_do = {
@@ -4901,7 +4901,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = 1
 		y = 5
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_mil_universal_service }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
@@ -4920,7 +4920,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = 0
 		y = 6
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_mil_mobilisation_law }
 		prerequisite = { focus = bfx_mil_training_camps }
 		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_ARMY_XP }
@@ -4938,7 +4938,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = 6
 		y = 1
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_mil_neuilly_army }
 		search_filters = { FOCUS_FILTER_NAVY_XP }
 		ai_will_do = {
@@ -4956,7 +4956,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = 4
 		y = 2
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_nav_black_sea_flotilla }
 		search_filters = { FOCUS_FILTER_NAVY_XP }
 		ai_will_do = {
@@ -4978,7 +4978,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = 7
 		y = 2
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_nav_black_sea_flotilla }
 		search_filters = { FOCUS_FILTER_NAVY_XP }
 		ai_will_do = {
@@ -5000,7 +5000,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = 4
 		y = 3
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_nav_varna_naval_school }
 		search_filters = { FOCUS_FILTER_NAVY_XP }
 		ai_will_do = {
@@ -5026,7 +5026,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = 7
 		y = 3
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_nav_danube_flotilla }
 		search_filters = { FOCUS_FILTER_NAVY_XP }
 		ai_will_do = {
@@ -5043,7 +5043,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = 4
 		y = 4
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_nav_torpedo_squadrons }
 		search_filters = { FOCUS_FILTER_NAVY_XP }
 		ai_will_do = {
@@ -5060,7 +5060,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = 7
 		y = 4
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_nav_minelayers }
 		search_filters = { FOCUS_FILTER_NAVY_XP FOCUS_FILTER_AIR_XP }
 		ai_will_do = {
@@ -5078,7 +5078,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = 6
 		y = 5
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_nav_coastal_batteries }
 		prerequisite = { focus = bfx_nav_naval_aviation }
 		search_filters = { FOCUS_FILTER_NAVY_XP }
@@ -5097,7 +5097,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = 4
 		y = 6
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_nav_black_sea_raiders }
 		available = {
 			has_country_flag = bfx_neuilly_ended
@@ -5122,7 +5122,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = 7
 		y = 6
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_nav_black_sea_raiders }
 		available = {
 			has_country_flag = bfx_neuilly_ended
@@ -5147,7 +5147,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = 12
 		y = 1
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_mil_neuilly_army }
 		search_filters = { FOCUS_FILTER_AIR_XP }
 		ai_will_do = {
@@ -5173,7 +5173,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = 10
 		y = 2
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_air_aero_clubs }
 		search_filters = { FOCUS_FILTER_AIR_XP FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
@@ -5195,7 +5195,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = 13
 		y = 2
-		cost = 10
+		cost = 5
 		prerequisite = { focus = bfx_air_aero_clubs }
 		search_filters = { FOCUS_FILTER_AIR_XP }
 		ai_will_do = {
@@ -5212,7 +5212,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = 10
 		y = 3
-		cost = 10
+		cost = 5
 		prerequisite = { focus = bfx_air_dar_works }
 		search_filters = { FOCUS_FILTER_AIR_XP }
 		ai_will_do = {
@@ -5229,7 +5229,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = 13
 		y = 3
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_air_polish_fighters }
 		search_filters = { FOCUS_FILTER_AIR_XP }
 		ai_will_do = {
@@ -5247,7 +5247,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = 12
 		y = 4
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_air_avia_biplanes }
 		prerequisite = { focus = bfx_air_foreign_instructors }
 		available = {
@@ -5271,7 +5271,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = 10
 		y = 5
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_air_vazdushni_voyski }
 		search_filters = { FOCUS_FILTER_AIR_XP }
 		ai_will_do = {
@@ -5289,7 +5289,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = 13
 		y = 5
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_air_vazdushni_voyski }
 		search_filters = { FOCUS_FILTER_AIR_XP }
 		ai_will_do = {
@@ -5307,7 +5307,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = 10
 		y = 6
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_air_fighter_regiment }
 		search_filters = { FOCUS_FILTER_AIR_XP }
 		ai_will_do = {
@@ -5324,7 +5324,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = 13
 		y = 6
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_air_dornier_bombers }
 		search_filters = { FOCUS_FILTER_AIR_XP }
 		ai_will_do = {
@@ -5341,7 +5341,7 @@ focus_tree = {
 		relative_position_id = bfx_mil_neuilly_army
 		x = 12
 		y = 7
-		cost = 10
+		cost = 7
 		prerequisite = { focus = bfx_air_sofia_flak }
 		prerequisite = { focus = bfx_air_wings_over_mountains }
 		search_filters = { FOCUS_FILTER_AIR_XP FOCUS_FILTER_ARMY_XP }

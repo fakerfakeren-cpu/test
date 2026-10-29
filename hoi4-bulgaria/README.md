@@ -1,4 +1,4 @@
-# Bulgaria: The Tsar's Balance (`bfx_bulgaria` v3.0) — HOI4 1.19 mod
+# Bulgaria: The Tsar's Balance (`bfx_bulgaria` v3.1) — HOI4 1.19 mod
 
 A 250-focus tree for Tsar Boris III's Bulgaria, built as **two big paths that each split once**, plus a secret path:
 - **The Tsar's Way** expands by diplomacy, proxies and selling Bulgaria's alliance to the highest bidder (*the Bulgarian Auction*).
@@ -9,7 +9,7 @@ Shared mechanics: **Shackles of Neuilly** (covert rearmament against growing Bal
 Base game only (no DLC needed). The descriptor lists Road to 56 as a dependency, but the mod overrides no vanilla or R56 files.
 
 ## Install
-1. Unzip `bfx_bulgaria_v3.0.zip` into `Documents/Paradox Interactive/Hearts of Iron IV/mod/`, replacing any older
+1. Unzip `bfx_bulgaria_v3.1.zip` into `Documents/Paradox Interactive/Hearts of Iron IV/mod/`, replacing any older
    `bfx_bulgaria` folder and `bfx_bulgaria.mod`. You should have **both** `mod/bfx_bulgaria.mod` and `mod/bfx_bulgaria/`.
 2. Enable **Bulgaria: The Tsar's Balance** in the launcher playset, below Road to 56 if you use it.
 3. Start a **new** game (the mechanics are set up on game start, not on old saves).
