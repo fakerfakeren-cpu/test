@@ -656,7 +656,7 @@ def decisions():
 
     # ---------------- IMRO and the Macedonian uprising ----------------
     cat("bfx_imro_category", "generic_political_actions", "GFX_decision_cat_picture_macedonian_organizations",
-        "has_country_flag = bfx_imro_tolerated", "The Macedonian Uprising",
+        "has_country_flag = bfx_imro_tolerated NOT = { has_country_flag = bfx_macedonia_free } NOT = { owns_state = 106 }", "The Macedonian Uprising",
         "§YUnrest in Vardar Macedonia§!: [?bfx_macedonia_unrest|0] / 100. At §Y70§! IMRO can raise the §YIlinden banner§!: the province rises as the §YIndependent State of Macedonia§!, splitting off part of the Yugoslav army in a civil war.\n"
         "Feed the rising with volunteers, rifles and officers. If it survives §Y8 months§!, or Yugoslavia starts to collapse, Belgrade lets it go. "
         "Half a year after independence Skopje asks to join Bulgaria.\n\nUprising months: [?bfx_uprising_months|0]")

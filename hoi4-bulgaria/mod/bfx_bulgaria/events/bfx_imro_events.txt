@@ -125,15 +125,19 @@ country_event = {
 	desc = bfx_imro.30.d
 	picture = GFX_event_bfx_imro_uprising
 	is_triggered_only = yes
+	trigger = { any_country = { has_country_flag = bfx_imro_rebel_state } }
+	immediate = {
+		random_country = { limit = { has_country_flag = bfx_imro_rebel_state } save_event_target_as = bfx_macedonia }
+	}
 	option = {
 		name = bfx_imro.30.a
-		FROM = { every_owned_state = { add_core_of = ROOT } }
-		annex_country = { target = FROM transfer_troops = yes }
+		event_target:bfx_macedonia = { every_owned_state = { add_core_of = ROOT } }
+		annex_country = { target = event_target:bfx_macedonia transfer_troops = yes }
 		add_stability = 0.05
 	}
 	option = {
 		name = bfx_imro.30.b
-		puppet = FROM
+		puppet = event_target:bfx_macedonia
 		add_political_power = 50
 	}
 }

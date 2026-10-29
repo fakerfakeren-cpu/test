@@ -361,9 +361,11 @@ E("bfx_imro.20", "The Uprising Is Crushed",
 E("bfx_imro.30", "Skopje Asks for Union",
   "The government of the Independent State of Macedonia has voted, unanimously and with great emotion, to unite with Bulgaria.",
   "GFX_event_bfx_imro_uprising", [
-      opt("Unite! One Bulgarian people.", "FROM = { every_owned_state = { add_core_of = ROOT } }\nannex_country = { target = FROM transfer_troops = yes }\nadd_stability = 0.05"),
-      opt("Better as a loyal client state.", "puppet = FROM\nadd_political_power = 50"),
-  ])
+      opt("Unite! One Bulgarian people.", "event_target:bfx_macedonia = { every_owned_state = { add_core_of = ROOT } }\nannex_country = { target = event_target:bfx_macedonia transfer_troops = yes }\nadd_stability = 0.05"),
+      opt("Better as a loyal client state.", "puppet = event_target:bfx_macedonia\nadd_political_power = 50"),
+  ], trigger="any_country = { has_country_flag = bfx_imro_rebel_state }",
+  # the event is sent from Bulgaria's own scope, so FROM would be Bulgaria: find Skopje by its flag instead
+  immediate="random_country = { limit = { has_country_flag = bfx_imro_rebel_state } save_event_target_as = bfx_macedonia }")
 
 # ---------------------------------------------------------------- the secret path
 E("bfx_secret.1", "A Letter from Coburg",

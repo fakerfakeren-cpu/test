@@ -79,7 +79,8 @@ one-year truce with Belgrade (and Bulgaria's guarantee, if it recognised the ris
 rebels as winner; in a civil war the winner annexes the loser, so Yugoslavia was annexed. That white peace is gone. If Bulgaria is still at war with Yugoslavia then, it chooses:
 **white peace** with Yugoslavia and everyone fighting for it as ally or guarantor, or **keep marching** (claims on every Yugoslav state bordering
 Bulgaria or free Macedonia). Six months later Skopje asks to join: annex it (cores) or keep it as a client.
-If it is crushed, Bulgaria pays in stability and IMRO influence. Mihaylov leaves the Bulgarian cabinet to lead the new state.
+If it is crushed, Bulgaria pays in stability and IMRO influence (and can try again later).
+The *Macedonian Uprising* decision tab disappears once Macedonia is free or Vardar Macedonia is Bulgarian. Mihaylov leaves the Bulgarian cabinet to lead the new state.
 
 ## Mechanic 4: The Bulgarian Auction (Tsar's Way)
 * Berlin, London and Moscow each have a **bid** for Bulgaria (`bfx_bid_ger/eng/sov`, 0–100; start 15/10/5). *Receive the Envoys* opens the auction.
