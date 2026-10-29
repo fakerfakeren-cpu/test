@@ -150,6 +150,10 @@ def generate():
         out.append("\t}")
     out += ["}", ""]
     add_file("common/characters/bfx_BUL_characters.txt", "\n".join(out))
+    # sprites so set_country_leader_portrait can put our portraits on whoever holds the post
+    sprites = [f'\tSpriteType = {{\n\t\tname = "GFX_portrait_{cid}"\n\t\ttexturefile = "gfx/leaders/BUL/bfx_{pic}.dds"\n\t}}'
+               for cid, _, pic, roles, _ in CHARS if not isinstance(pic, tuple) and any(r["kind"] == "leader" for r in roles)]
+    add_file("interface/bfx_portraits.gfx", "spriteTypes = {\n" + "\n".join(sprites) + "\n}\n")
 
     tr = ["leader_traits = {"]
     for k, (name, mods, desc) in LEADER_TRAITS.items():

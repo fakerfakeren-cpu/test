@@ -13,6 +13,13 @@ country_event = {
 		retire_country_leader = yes
 		recruit_character = bfx_BUL_hristo_lukov
 		promote_character = bfx_BUL_hristo_lukov
+		if = {
+			limit = { NOT = { has_country_leader = { character = bfx_BUL_hristo_lukov ruling_only = yes } } }
+			set_country_leader_name = { name = "Hristo Lukov" }
+			set_country_leader_portrait = { portrait = GFX_portrait_bfx_BUL_hristo_lukov }
+			add_country_leader_trait = bfx_trait_legion_commander
+		}
+
 		set_country_flag = bfx_chancelleries_open
 		custom_effect_tooltip = bfx_tt_court_pm10_l10
 		hidden_effect = {
@@ -27,6 +34,13 @@ country_event = {
 		retire_country_leader = yes
 		recruit_character = bfx_BUL_hristo_lukov
 		promote_character = bfx_BUL_hristo_lukov
+		if = {
+			limit = { NOT = { has_country_leader = { character = bfx_BUL_hristo_lukov ruling_only = yes } } }
+			set_country_leader_name = { name = "Hristo Lukov" }
+			set_country_leader_portrait = { portrait = GFX_portrait_bfx_BUL_hristo_lukov }
+			add_country_leader_trait = bfx_trait_legion_commander
+		}
+
 		set_country_flag = bfx_chancelleries_open
 		start_civil_war = { ideology = neutrality size = 0.3 }
 		custom_effect_tooltip = bfx_tt_court_pm30_l15

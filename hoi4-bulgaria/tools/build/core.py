@@ -139,3 +139,18 @@ def neuilly(rearm=0, susp=0):
     		bfx_neuilly_recalc = yes
     	}}
     }}""")
+
+
+def make_leader(char, name, trait):
+    """Make `char` the country leader. In 1.19 the runtime recruit/promote did not always take (the next in line stayed
+    leader), so if `char` is not ruling afterwards the leader who is ruling gets his name, portrait and trait instead."""
+    return "\n" + ded(f"""
+    retire_country_leader = yes
+    recruit_character = {char}
+    promote_character = {char}
+    if = {{
+    	limit = {{ NOT = {{ has_country_leader = {{ character = {char} ruling_only = yes }} }} }}
+    	set_country_leader_name = {{ name = "{name}" }}
+    	set_country_leader_portrait = {{ portrait = GFX_portrait_{char} }}
+    	add_country_leader_trait = {trait}
+    }}""") + "\n"

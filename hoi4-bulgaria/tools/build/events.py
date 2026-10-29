@@ -1,5 +1,5 @@
 """All bfx events. Every option has a visible effect except where marked purely narrative (news)."""
-from core import add_file, loc, ded, neuilly
+from core import add_file, loc, ded, neuilly, make_leader
 
 EVENTS = {}  # namespace -> list of event text
 
@@ -179,10 +179,7 @@ E("bfx_court.14", "The Army Sulks",
 E("bfx_court.20", "The Tsar Is Dead",
   "28 August 1943. Tsar Boris III has died, days after a stormy meeting with Hitler. Rumours of poison are everywhere. His son Simeon is six years old. A regency council of Prince Kiril, Professor Filov and General Mihov takes over. In Coburg, an old man reads the telegram twice.",
   "GFX_report_event_bul_boris_death", [
-      opt("A Regency Council.", ded("""
-      retire_country_leader = yes
-      recruit_character = bfx_BUL_bogdan_filov
-      promote_character = bfx_BUL_bogdan_filov
+      opt("A Regency Council.", make_leader("bfx_BUL_bogdan_filov", "Bogdan Filov", "bfx_trait_regent") + ded("""
       clr_country_flag = bfx_boris_rules
       set_country_flag = bfx_boris_dead
       set_country_flag = bfx_secret_unlocked
@@ -272,20 +269,11 @@ E("bfx_fas.1", "The March on Sofia",
   "GFX_event_bfx_lukov_legion", [
       opt("The Tsar appoints General Lukov.", ded("""
       set_politics = { ruling_party = fascism elections_allowed = no }
-      retire_country_leader = yes
-      recruit_character = bfx_BUL_hristo_lukov
-      promote_character = bfx_BUL_hristo_lukov
-      set_country_flag = bfx_chancelleries_open
-      """) + "\n" + court(legion=10, palace=-10),
+      """) + make_leader("bfx_BUL_hristo_lukov", "Hristo Lukov", "bfx_trait_legion_commander") + "\nset_country_flag = bfx_chancelleries_open\n" + court(legion=10, palace=-10),
           trigger="OR = { check_variable = { bfx_inf_palace < 50 } check_variable = { bfx_inf_legion > 59 } }"),
       opt("The Palace Guard resists: civil war!", ded("""
       set_politics = { ruling_party = fascism elections_allowed = no }
-      retire_country_leader = yes
-      recruit_character = bfx_BUL_hristo_lukov
-      promote_character = bfx_BUL_hristo_lukov
-      set_country_flag = bfx_chancelleries_open
-      start_civil_war = { ideology = neutrality size = 0.3 }
-      """) + "\n" + court(legion=15, palace=-30),
+      """) + make_leader("bfx_BUL_hristo_lukov", "Hristo Lukov", "bfx_trait_legion_commander") + "\nset_country_flag = bfx_chancelleries_open\nstart_civil_war = { ideology = neutrality size = 0.3 }\n" + court(legion=15, palace=-30),
           trigger="NOT = { OR = { check_variable = { bfx_inf_palace < 50 } check_variable = { bfx_inf_legion > 59 } } }"),
   ])
 E("bfx_fas.2", "Shots on Ivan Asen II Street",
@@ -380,10 +368,7 @@ E("bfx_secret.1", "A Letter from Coburg",
 E("bfx_secret.10", "The Return of Ferdinand",
   "A special train from Coburg arrives at Sofia station: Ferdinand I, plumed, decorated and furious with everyone. He reminds the nation that he once nearly took Constantinople. By evening he is Tsar again.",
   "GFX_event_bfx_ferdinand_returns", [
-      opt("Long live Tsar Ferdinand!", ded("""
-      retire_country_leader = yes
-      recruit_character = bfx_BUL_ferdinand_i
-      promote_character = bfx_BUL_ferdinand_i
+      opt("Long live Tsar Ferdinand!", make_leader("bfx_BUL_ferdinand_i", "Ferdinand I", "bfx_trait_old_fox") + ded("""
       clr_country_flag = bfx_boris_rules
       add_ideas = bfx_ferdinand_restoration
       unlock_decision_category_tooltip = bfx_tsargrad_category

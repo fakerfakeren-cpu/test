@@ -485,9 +485,8 @@ focus_tree = {
 			modifier = { factor = 0 is_ai = yes has_country_flag = bfx_ai_fascist }
 		}
 		completion_reward = {
-			retire_country_leader = yes
-			recruit_character = bfx_BUL_boris_iii
-			promote_character = bfx_BUL_boris_iii
+			if = { limit = { NOT = { has_country_leader_with_trait = bfx_trait_engine_driver_tsar } } add_country_leader_trait = bfx_trait_engine_driver_tsar }
+			set_country_leader_portrait = { portrait = GFX_portrait_bfx_BUL_boris_iii }
 			set_country_flag = bfx_boris_rules
 			if = { limit = { has_idea = bfx_partyless_regime } swap_ideas = { remove_idea = bfx_partyless_regime add_idea = bfx_tsars_personal_regime } }
 			else = { add_ideas = bfx_tsars_personal_regime }

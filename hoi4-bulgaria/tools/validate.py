@@ -546,7 +546,7 @@ def main():
     ideas picture allowed removal_cost name portraits civilian army large small country_leader ideology traits expire
     advisor slot idea_token skill attack_skill defense_skill planning_skill logistics_skill field_marshal corps_commander
     leader_traits random opinion_modifiers value enable remove_trigger on_actions on_startup effect on_monthly_BUL
-    title desc is_triggered_only hidden tooltip trigger immediate option ai_chance base major add_namespace country_event news_event
+    title desc is_triggered_only hidden tooltip ruling_only portrait character trigger immediate option ai_chance base major add_namespace country_event news_event
     days days_re_enable fire_only_once visible complete_effect priority spriteTypes SpriteType spritetype texturefile
     effectFile animation animationmaskfile animationtexturefile animationrotation animationlooping animationtime
     animationdelay animationblendmode animationtype animationrotationoffset animationtexturescale legacy_lazy_load

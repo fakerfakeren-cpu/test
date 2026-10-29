@@ -191,6 +191,12 @@ country_event = {
 		retire_country_leader = yes
 		recruit_character = bfx_BUL_bogdan_filov
 		promote_character = bfx_BUL_bogdan_filov
+		if = {
+			limit = { NOT = { has_country_leader = { character = bfx_BUL_bogdan_filov ruling_only = yes } } }
+			set_country_leader_name = { name = "Bogdan Filov" }
+			set_country_leader_portrait = { portrait = GFX_portrait_bfx_BUL_bogdan_filov }
+			add_country_leader_trait = bfx_trait_regent
+		}
 		clr_country_flag = bfx_boris_rules
 		set_country_flag = bfx_boris_dead
 		set_country_flag = bfx_secret_unlocked
