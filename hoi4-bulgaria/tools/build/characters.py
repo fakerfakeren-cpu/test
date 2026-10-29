@@ -4,9 +4,6 @@ from core import add_file, loc
 # portrait: our generated file base name (gfx/leaders/BUL/bfx_<p>.dds + _small) or ("vanilla", "GFX_...") for a vanilla small sprite.
 # Biographies checked against standard references (see DESIGN.md).
 CHARS = [
-    ("bfx_BUL_boris_iii", "Boris III", "boris_iii",
-     [dict(kind="leader", ideology="despotism", traits=["bfx_trait_engine_driver_tsar"])],
-     "Tsar 1918–1943; personal regime from 1935; famous for 'walking between the raindrops'; died Aug 1943 after meeting Hitler."),
     ("bfx_BUL_ferdinand_i", "Ferdinand I", "ferdinand_i",
      [dict(kind="leader", ideology="despotism", traits=["bfx_trait_old_fox"])],
      "Prince 1887, Tsar 1908–1918; abdicated after WWI, lived in Coburg until 1948; noted botanist and entomologist."),

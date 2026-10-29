@@ -7,7 +7,7 @@ from focus_opening import CHANCELLERY_RULES
 B = "tsar"
 F("bfx_tsar_steps_forward", 17, 5, "The Tsar Steps Forward",
   "Boris stops pretending to be above politics and becomes politics. His weapons are patience, diplomacy and other people's armies. Rules out the Legionary path.",
-  "if = { limit = { NOT = { has_country_leader_with_trait = bfx_trait_engine_driver_tsar } } add_country_leader_trait = bfx_trait_engine_driver_tsar }\nset_country_leader_portrait = { portrait = GFX_portrait_bfx_BUL_boris_iii }\nset_country_flag = bfx_boris_rules\n" +
+  "if = { limit = { NOT = { has_country_leader_with_trait = bfx_trait_engine_driver_tsar } } add_country_leader_trait = bfx_trait_engine_driver_tsar }\nset_country_flag = bfx_boris_rules\n" +
   swap("bfx_partyless_regime", "bfx_tsars_personal_regime") + "\n" + court(palace=15, legion=-10),
   "GFX_focus_bfx_tsar_steps_forward", B, prereq=["bfx_hour_of_decision"], excl=["bfx_fas_legions_march"],
   ai="factor = 10\nmodifier = { factor = 10 has_country_flag = bfx_ai_tsar }\nmodifier = { factor = 0 is_ai = yes has_country_flag = bfx_ai_fascist }",

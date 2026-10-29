@@ -1,19 +1,4 @@
 characters = {
-	bfx_BUL_boris_iii = {
-		name = bfx_BUL_boris_iii
-		portraits = {
-			civilian = {
-				large = "gfx/leaders/BUL/bfx_boris_iii.dds"
-				small = "gfx/interface/ideas/bfx_boris_iii_small.dds"
-			}
-		}
-		country_leader = {
-			ideology = despotism
-			traits = { bfx_trait_engine_driver_tsar }
-			expire = "1965.1.1.1"
-			id = -1
-		}
-	}
 	bfx_BUL_ferdinand_i = {
 		name = bfx_BUL_ferdinand_i
 		portraits = {

@@ -7,12 +7,14 @@ import focus_tsar  # noqa: F401,E402
 import focus_legion  # noqa: F401,E402
 import focus_secret  # noqa: F401,E402
 
-_n = len(FOCUSES)
 import focus_eco_mil  # noqa: F401,E402
+import focus_compact  # noqa: E402
+focus_compact.compact(FOCUSES)  # merge linked industry/military focuses (all rewards kept)
 
 ECO_MIL_SHIFT = 4  # keeps the industry and military blocks clear of the Legion's right edge
-for _f in FOCUSES[_n:]:
-    _f["x"] += ECO_MIL_SHIFT
+for _f in FOCUSES:
+    if _f["block"] in ("eco", "mil"):
+        _f["x"] += ECO_MIL_SHIFT
 
 # ---- focus durations (cost x 7 days). Explicit costs set in a module are kept; the default 10 is replaced by a tier.
 PATH_BLOCKS = ("tsar", "fascist", "secret")
@@ -34,3 +36,5 @@ def _tier(f):
 for _f in FOCUSES:
     if _f["cost"] == 10:
         _f["cost"] = _tier(_f)
+        if _f.get("merged", 1) >= 3:
+            _f["cost"] = max(_f["cost"], 8)  # three focuses in one: 56 days

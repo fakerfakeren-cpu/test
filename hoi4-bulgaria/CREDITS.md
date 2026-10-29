@@ -8,7 +8,6 @@ pages automatically (shown as found) and should be double-checked before any pub
 
 | Person | Mod files | Source page | Licence |
 |---|---|---|---|
-| Boris III | `bfx_boris_iii.dds`, `bfx_boris_iii_small.dds` | https://commons.wikimedia.org/wiki/File:BASA-3K-7-342-28-Boris_III_of_Bulgaria.jpeg | Public domain (PD-1923) |
 | Ferdinand I | `bfx_ferdinand_i.dds`, `bfx_ferdinand_i_small.dds` | https://commons.wikimedia.org/wiki/File:Zar_Ferdinand_Bulgarien.jpg | Public domain (PD-anon-70-EU) |
 | Kimon Georgiev | `bfx_kimon_georgiev.dds`, `bfx_kimon_georgiev_small.dds` | https://commons.wikimedia.org/wiki/File:KG_001.tif | Commons page shows CC BY-SA 4.0 (attribution and share-alike apply to the derived portrait) |
 | Bogdan Filov | `bfx_bogdan_filov.dds`, `bfx_bogdan_filov_small.dds` | https://commons.wikimedia.org/wiki/File:Богдан_Филов.jpg | CC BY-SA 2.5 |
