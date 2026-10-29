@@ -106,7 +106,7 @@ F("bfx_tsar_lost_provinces_office", 22, 6, "The Lost Provinces Office",
   prereq=["bfx_tsar_steps_forward"], filters=(F_ANNEX,))
 F("bfx_tsar_craiova_talks", 22, 7, "Towards Craiova",
   "In September 1940 Romania returned Southern Dobruja under German pressure. Bulgaria asks early. Berlin's or Moscow's backing makes a yes far likelier; a refusal gives us a war goal.",
-  "if = { limit = { NOT = { owns_state = 77 } 77 = { owner = { save_event_target_as = bfx_dobruja_owner } } } event_target:bfx_dobruja_owner = { country_event = { id = bfx_dip.6 days = 2 } } }\n" + bid(ger=5, sov=5),
+  "if = { limit = { NOT = { owns_state = 77 } } 77 = { owner = { country_event = { id = bfx_dip.6 days = 2 } } } }\n" + bid(ger=5, sov=5),
   "GFX_focus_BUL_free_balkan_states", B, prereq=["bfx_tsar_lost_provinces_office"], filters=(F_ANNEX, F_HIST))
 F("bfx_tsar_dobruja_returned", 22, 8, "The Dobrujan Settlers",
   "Refugees from 1913 go home to Silistra and Dobrich. Core on Southern Dobrudja.",
@@ -114,7 +114,7 @@ F("bfx_tsar_dobruja_returned", 22, 8, "The Dobrujan Settlers",
   prereq=["bfx_tsar_craiova_talks"], available="owns_state = 77", filters=(F_ANNEX, F_MAN))
 F("bfx_tsar_thracian_question", 22, 9, "The Thracian Question",
   "Neuilly promised Bulgaria economic access to the Aegean and never delivered. Athens is asked to cede Western Thrace; a refusal gives us a war goal.",
-  "if = { limit = { NOT = { owns_state = 184 } 184 = { owner = { save_event_target_as = bfx_ultimatum_target } } } event_target:bfx_ultimatum_target = { country_event = { id = bfx_dip.10 days = 2 } } }",
+  "if = { limit = { NOT = { owns_state = 184 } } 184 = { owner = { country_event = { id = bfx_dip.10 days = 2 } } } }",
   "GFX_goal_generic_occupy_states_coastal", B, prereq=["bfx_tsar_dobruja_returned"], filters=(F_ANNEX,))
 F("bfx_tsar_aegean_window", 22, 10, "The Aegean Window",
   "Kavala, Xanthi and Alexandroupolis: Bulgaria's window on the Aegean. Core on Western Thrace; unlocks Integration.",

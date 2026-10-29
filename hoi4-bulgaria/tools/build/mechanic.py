@@ -285,8 +285,9 @@ def scripted_effects():
     			add_ideas = bfx_imro_fervour
     			add_manpower = 15000
     			add_equipment_to_stockpile = { type = infantry_equipment amount = 2000 }
-    			if = { limit = { has_government = fascism } recruit_character = bfx_MAC_ivan_mihaylov_f promote_character = bfx_MAC_ivan_mihaylov_f }
-    			else = { recruit_character = bfx_MAC_ivan_mihaylov_n promote_character = bfx_MAC_ivan_mihaylov_n }
+    			# a civil-war country cannot recruit predefined characters, so Mihaylov is created inside it
+    			if = { limit = { has_government = fascism } create_country_leader = { name = "Ivan Mihaylov" desc = bfx_mac_mihaylov_desc picture = "gfx/leaders/BUL/bfx_ivan_mihaylov.dds" expire = "1965.1.1" ideology = fascism_ideology traits = { bfx_trait_imro_vozhd } } }
+    			else = { create_country_leader = { name = "Ivan Mihaylov" desc = bfx_mac_mihaylov_desc picture = "gfx/leaders/BUL/bfx_ivan_mihaylov.dds" expire = "1965.1.1" ideology = despotism traits = { bfx_trait_imro_vozhd } } }
     		}
     	}
     	# Mihaylov leaves Sofia to lead the rising
@@ -369,6 +370,7 @@ def dynamic_modifiers():
     }
     """) + "\n")
     loc("bfx_legion_momentum", "Revolutionary Momentum", "court")
+    loc("bfx_mac_mihaylov_desc", "IMRO leader 1924–1934. In 1944 Germany offered him an independent Macedonia and he refused. This time he accepts.", "characters")
     loc("bfx_legion_momentum_desc", "Momentum [?bfx_momentum|0]/100. Grows at war, decays in peace. Spend it in the Revolutionary Momentum decisions.", "court")
     loc("bfx_covert_rearmament", "Covert Rearmament", "neuilly")
     loc("bfx_covert_rearmament_desc", "Offsets the Shackles of Neuilly in proportion to Covert Rearmament ([?bfx_rearm|0]/100). At 100 every penalty is cancelled.", "neuilly")

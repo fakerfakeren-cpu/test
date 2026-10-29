@@ -580,6 +580,16 @@ def main():
             if k not in allowed_keys:
                 err(f"{rel(p)}: unknown key '{k}' (not an effect/trigger/modifier in 1.19 script docs)")
 
+    # ---------- effect-only commands inside trigger blocks (the game rejects the whole condition)
+    trigger_ctx = {"limit", "trigger", "available", "visible", "allowed", "allow_branch", "bypass", "remove_trigger", "enable"}
+    effect_only = effects - triggers - structural
+    for p in data:
+        if "/interface/" in p:
+            continue
+        for k, op, v, path in walk(data[p]):
+            if k in effect_only and any(seg in trigger_ctx for seg in path if seg):
+                err(f"{rel(p)}: effect '{k}' used inside a trigger block ({'/'.join(s for s in path if s)})")
+
     # ---------- country tags exist
     known_tags = ref_set("country_tags.txt")
     for p in data:

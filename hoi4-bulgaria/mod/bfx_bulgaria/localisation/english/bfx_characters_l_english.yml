@@ -10,8 +10,6 @@
  bfx_BUL_kimon_georgiev_advisor:0 "Kimon Georgiev"
  bfx_BUL_ivan_mihaylov:0 "Ivan Mihaylov"
  bfx_BUL_ivan_mihaylov_advisor:0 "Ivan Mihaylov"
- bfx_MAC_ivan_mihaylov_f:0 "Ivan Mihaylov"
- bfx_MAC_ivan_mihaylov_n:0 "Ivan Mihaylov"
  bfx_BUL_aleksandar_tsankov:0 "Aleksandar Tsankov"
  bfx_BUL_aleksandar_tsankov_advisor:0 "Aleksandar Tsankov"
  bfx_BUL_ivan_dochev:0 "Ivan Dochev"
@@ -46,3 +44,4 @@
  bfx_adv_war_minister:0 "War Minister of 1941"
  bfx_adv_chief_of_staff:0 "Chief of the General Staff"
  bfx_adv_fighter_ace:0 "Ace of Sofia"
+ bfx_mac_mihaylov_desc:0 "IMRO leader 1924–1934. In 1944 Germany offered him an independent Macedonia and he refused. This time he accepts."

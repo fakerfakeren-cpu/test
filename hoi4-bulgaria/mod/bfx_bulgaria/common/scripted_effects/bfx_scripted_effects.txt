@@ -266,8 +266,9 @@ bfx_start_macedonian_uprising = {
 			add_ideas = bfx_imro_fervour
 			add_manpower = 15000
 			add_equipment_to_stockpile = { type = infantry_equipment amount = 2000 }
-			if = { limit = { has_government = fascism } recruit_character = bfx_MAC_ivan_mihaylov_f promote_character = bfx_MAC_ivan_mihaylov_f }
-			else = { recruit_character = bfx_MAC_ivan_mihaylov_n promote_character = bfx_MAC_ivan_mihaylov_n }
+			# a civil-war country cannot recruit predefined characters, so Mihaylov is created inside it
+			if = { limit = { has_government = fascism } create_country_leader = { name = "Ivan Mihaylov" desc = bfx_mac_mihaylov_desc picture = "gfx/leaders/BUL/bfx_ivan_mihaylov.dds" expire = "1965.1.1" ideology = fascism_ideology traits = { bfx_trait_imro_vozhd } } }
+			else = { create_country_leader = { name = "Ivan Mihaylov" desc = bfx_mac_mihaylov_desc picture = "gfx/leaders/BUL/bfx_ivan_mihaylov.dds" expire = "1965.1.1" ideology = despotism traits = { bfx_trait_imro_vozhd } } }
 		}
 	}
 	# Mihaylov leaves Sofia to lead the rising

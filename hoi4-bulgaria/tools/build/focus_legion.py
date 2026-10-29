@@ -31,7 +31,7 @@ F("bfx_fas_revolution_must_march", 34, 6, "The Revolution Must March",
   "GFX_focus_bfx_revolution_must_march", B, prereq=["bfx_fas_legions_march"], filters=(F_POL, F_WS))
 F("bfx_fas_dobruja_ultimatum", 38, 6, "The Dobruja Ultimatum",
   "Not a request: a deadline. The owner of Southern Dobruja is told to hand it over; refusal means a war goal.",
-  "add_state_claim = 77\nif = { limit = { NOT = { owns_state = 77 } 77 = { owner = { save_event_target_as = bfx_dobruja_owner } } } event_target:bfx_dobruja_owner = { country_event = { id = bfx_dip.6 days = 2 } } }\n" + momentum(5),
+  "add_state_claim = 77\nif = { limit = { NOT = { owns_state = 77 } } 77 = { owner = { country_event = { id = bfx_dip.6 days = 2 } } } }\n" + momentum(5),
   "GFX_focus_BUL_free_balkan_states", B, prereq=["bfx_fas_legions_march"], filters=(F_ANNEX,))
 
 # ---------------- the movement (x 28-32)

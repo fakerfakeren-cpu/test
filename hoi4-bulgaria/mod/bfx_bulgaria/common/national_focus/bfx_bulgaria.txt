@@ -944,7 +944,7 @@ focus_tree = {
 			factor = 10
 		}
 		completion_reward = {
-			if = { limit = { NOT = { owns_state = 77 } 77 = { owner = { save_event_target_as = bfx_dobruja_owner } } } event_target:bfx_dobruja_owner = { country_event = { id = bfx_dip.6 days = 2 } } }
+			if = { limit = { NOT = { owns_state = 77 } } 77 = { owner = { country_event = { id = bfx_dip.6 days = 2 } } } }
 			custom_effect_tooltip = bfx_tt_bid_g5_s5
 			hidden_effect = {
 				add_to_variable = { bfx_bid_ger = 5 } add_to_variable = { bfx_bid_sov = 5 }
@@ -988,7 +988,7 @@ focus_tree = {
 			factor = 10
 		}
 		completion_reward = {
-			if = { limit = { NOT = { owns_state = 184 } 184 = { owner = { save_event_target_as = bfx_ultimatum_target } } } event_target:bfx_ultimatum_target = { country_event = { id = bfx_dip.10 days = 2 } } }
+			if = { limit = { NOT = { owns_state = 184 } } 184 = { owner = { country_event = { id = bfx_dip.10 days = 2 } } } }
 		}
 	}
 
@@ -1866,7 +1866,7 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_state_claim = 77
-			if = { limit = { NOT = { owns_state = 77 } 77 = { owner = { save_event_target_as = bfx_dobruja_owner } } } event_target:bfx_dobruja_owner = { country_event = { id = bfx_dip.6 days = 2 } } }
+			if = { limit = { NOT = { owns_state = 77 } } 77 = { owner = { country_event = { id = bfx_dip.6 days = 2 } } } }
 			custom_effect_tooltip = bfx_tt_momentum_5
 			hidden_effect = {
 				add_to_variable = { bfx_momentum = 5 }
