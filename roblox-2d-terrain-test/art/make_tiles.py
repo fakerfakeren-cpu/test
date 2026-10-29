@@ -142,6 +142,18 @@ def main() -> None:
                     sheet.putpixel((col * TILE + x, row * TILE + y), COLORS[ch])
     sheet.save(OUT / "tiles.png")
 
+    # One 64x64 PNG per tile (8x nearest-neighbour), for the script's TILE_ASSETS table.
+    # Upscaled because tiny 8x8 uploads are awkward to see in the Asset Manager; the script
+    # samples them back down to the exact 8x8 pixels.
+    single = OUT / "single"
+    single.mkdir(exist_ok=True)
+    for row, tiles in enumerate(ROWS):
+        for col, (name, _) in enumerate(tiles):
+            if name in ("air", "no wall"):
+                continue
+            tile = sheet.crop((col * TILE, row * TILE, (col + 1) * TILE, (row + 1) * TILE))
+            tile.resize((64, 64), Image.NEAREST).save(single / f"{name.replace(' ', '_')}.png")
+
     zoom = 16
     big = sheet.resize((sheet.width * zoom, sheet.height * zoom), Image.NEAREST)
     preview = Image.new("RGBA", (big.width, big.height + 2 * 14), (235, 235, 240, 255))

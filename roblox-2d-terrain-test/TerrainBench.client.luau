@@ -23,6 +23,17 @@ local CONFIG = {
 	MARGIN = 1, -- ring of chunks kept loaded around the screen
 	UPLOADS_PER_FRAME = 4, -- full chunk uploads per frame (cycled by a button)
 	ATLAS_ASSET_ID = 0, -- uploaded tile sheet (layout in README); 0 = generated textures
+	-- One uploaded image per tile; overrides the sheet/generated texture. 0 = keep default.
+	-- Any square size works as long as it is a multiple of 8 (8x8, 16x16, 64x64...).
+	TILE_ASSETS = {
+		dirt = 0,
+		grass = 0,
+		stone = 0,
+		ore = 0,
+		torch = 0,
+		dirt_wall = 0,
+		stone_wall = 0,
+	},
 	LIGHT_HZ = 30, -- lightmap recomputes per second (cycled by a button)
 	LIGHT_PAD = 12, -- extra tiles computed around the screen so edge light is right
 	LIGHT_SKIPS_CHUNK_FRAME = false, -- true: never upload light and chunks in the same frame
@@ -181,6 +192,52 @@ local function sheetTile(col: number, row: number): buffer
 	return tex
 end
 
+-- Per-tile images from TILE_ASSETS, each sampled down to 8x8 with nearest-neighbour, so
+-- pixel art scaled up by a whole number before uploading comes back pixel-exact.
+local FG_NAMES = { [DIRT] = "dirt", [GRASS] = "grass", [STONE] = "stone", [ORE] = "ore", [TORCH] = "torch" }
+local WALL_NAMES = { [DIRT_WALL] = "dirt_wall", [STONE_WALL] = "stone_wall" }
+local tileOverrides: { [string]: buffer } = {}
+
+local function loadTileImage(name: string, assetId: number): string
+	local ok, image = pcall(function()
+		return AssetService:CreateEditableImageAsync(Content.fromAssetId(assetId))
+	end)
+	if not ok or not image then
+		return name .. " FAILED"
+	end
+	local size = image.Size
+	local pixels = image:ReadPixelsBuffer(Vector2.zero, size)
+	image:Destroy()
+	local tex = buffer.create(TILE_BYTES)
+	for py = 0, TILE_ART - 1 do
+		local sy = (py * size.Y) // TILE_ART
+		for px = 0, TILE_ART - 1 do
+			local sx = (px * size.X) // TILE_ART
+			buffer.writeu32(tex, (py * TILE_ART + px) * 4, buffer.readu32(pixels, (sy * size.X + sx) * 4))
+		end
+	end
+	tileOverrides[name] = tex
+	return name
+end
+
+do
+	local loaded = {}
+	for name, assetId in CONFIG.TILE_ASSETS do
+		if assetId ~= 0 then
+			table.insert(loaded, loadTileImage(name, assetId))
+		end
+	end
+	if #loaded > 0 then
+		tileSource ..= " + " .. table.concat(loaded, ", ")
+	end
+end
+
+local function applyOverrides(t: { [number]: buffer }, names: { [number]: string })
+	for id, name in names do
+		t[id] = tileOverrides[name] or t[id]
+	end
+end
+
 local function buildFgTextures(): { [number]: buffer }
 	local t = {}
 	if sheet then
@@ -238,6 +295,8 @@ end
 -- tint is an {r, g, b} multiplier; used by the flash test to make a visibly different atlas
 local function buildAtlas(tint: { number }): buffer
 	local fgTex, wallTex = buildFgTextures(), buildWallTextures()
+	applyOverrides(fgTex, FG_NAMES)
+	applyOverrides(wallTex, WALL_NAMES)
 	local atlas = buffer.create(FG_COUNT * WALL_COUNT * TILE_BYTES)
 	for f = 0, FG_COUNT - 1 do
 		for w = 0, WALL_COUNT - 1 do

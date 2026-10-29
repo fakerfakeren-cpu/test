@@ -41,6 +41,15 @@ The sheet is read into a buffer once and its EditableImage is destroyed right aw
 so it costs nothing against the image memory budget. The HUD's `tiles:` field shows whether
 the sheet loaded, or why it didn't.
 
+### Or one image per tile
+
+`art/single/` has one 64×64 PNG per tile: `dirt`, `grass`, `stone`, `ore`, `torch`,
+`dirt_wall` and `stone_wall`. They are the 8×8 tiles scaled up 8× with no smoothing. Upload each one,
+then put its asset ID in the matching entry of the `TILE_ASSETS` table at the top of the script.
+The script scales them back down to the exact 8×8 pixels. Any entry left at 0 keeps
+the sheet or generated texture, so you can replace tiles one at a time. A tile image can be any
+square size that is a multiple of 8. The HUD's `tiles:` field lists each one that loaded, or `<name> FAILED`.
+
 ## Controls
 
 - **Keyboard and mouse:** A/D move, Space jump, hold left mouse to dig, hold right mouse to place dirt, T places a torch.
