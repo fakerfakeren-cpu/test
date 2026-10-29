@@ -115,4 +115,16 @@ spriteTypes = {
 		name = "GFX_idea_bfx_black_sea_fleet"
 		texturefile = "gfx/interface/ideas/bfx_black_sea_fleet.dds"
 	}
+	SpriteType = {
+		name = "GFX_idea_bfx_momentum"
+		texturefile = "gfx/interface/ideas/bfx_momentum.dds"
+	}
+	SpriteType = {
+		name = "GFX_idea_bfx_fortress"
+		texturefile = "gfx/interface/ideas/bfx_fortress.dds"
+	}
+	SpriteType = {
+		name = "GFX_idea_bfx_storm"
+		texturefile = "gfx/interface/ideas/bfx_storm.dds"
+	}
 }

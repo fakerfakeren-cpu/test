@@ -1,23 +1,34 @@
-# DESIGN — Bulgaria: The Tsar's Balance (`bfx_bulgaria` v2)
+# DESIGN — Bulgaria: The Tsar's Balance (`bfx_bulgaria` v3)
 
 Target **Hearts of Iron IV 1.19.4** (`supported_version = "1.19.*"`), base game only, Road to 56 compatible.
 Generated from `tools/build/*.py` by `tools/write_docs.py`. The mod itself comes from the same data.
 
-## Scope (v2 rework)
-The mod is about the Bulgaria that existed: **Tsar Boris III's non-aligned kingdom** and the **Legionary (fascist) movement**
-that wanted to replace it, plus one **secret path**. The Communist and Agrarian/democratic paths from v1 were removed.
+## Scope (v3 restructure)
+Two big political paths instead of many small ones, each with its **own mechanic** and **one late split**, plus the secret path.
+v2 had four sub-branches that all marched on the same four neighbours; v3 makes the two paths differ in *how* Bulgaria expands:
+the Tsar by diplomacy, proxies and auctioning his alliance; the Legion by war, which it needs in order to survive.
 
 | Block | Focuses | What it does |
 |---|---|---|
 | Opening | 20 | 1936 crisis, Velchev trial, partyless regime, IMRO (crush or tolerate), Neuilly (Salonika vs. tear it up), the Italian Queen, **Open the Chancelleries** (factions, guarantees, volunteers and pacts for a non-aligned state) |
-| Tsar Boris | 40 | (a) *Walking Between the Raindrops*: Axis opportunist (Turkish pact, Craiova, Tripartite Pact, the Axis Partition, Outlands, Bessarabian Bulgarians, Eastern Front yes/no, Greater Bulgaria, Straits, San Stefano). (b) *The Balkan Hegemon*: own faction (Sofia Pact), Hungarian partner, Soviet pact, Albanian protectorate, four war plans (Yugoslavia, Greece, Romania, Turkey), client kings, Balkan Tsardom |
-| The Legions | 38 | Needs Legion influence 40. The March on Sofia (appointment or civil war). (a) *Lukov's Axis Legion*: Into the Axis, Balkan Blitz, New Order, Crusade in the East, Budjak, Odessa corridor, Thrace to the Bosporus. (b) *Tsankov's Imperium*: fascist but independent, Pact of Iron with Hungary, rival to Rome, wars for Macedonia, the Aegean, the Danube and the Straits, the Bulgarian Imperium |
+| The Tsar's Way | 59 | **Trunk** (5 columns side by side): the Court (muzzle the League, Simeon's birth, propaganda, the Tsar's men, royal arbitration); **the Bulgarian Auction** (receive the envoys, the German, British and Soviet offers, play them off, the Turkish pact, break the Entente, the auction closes); Macedonia by proxy (IMRO committees, Pirin bases, Ilinden, Macedonia rises, union with Skopje); Dobruja and the Aegean (Craiova, settlers, the Thracian ultimatum, the Aegean window); armed neutrality (Danube line, mobilisation, Fortress Bulgaria). **Split at the Crossroads of 1941**: (A1) *The Kingmaker*: sign with the highest bidder, the partition dividend, Outlands, Bessarabia, Eastern Front yes/no, **the Contingency Plan (Change Sides)**, Greater Bulgaria, San Stefano, Tsar of All the Bulgarians. (A2) *The Balkan Hegemon*: stand alone, the Sofia Pact, take everyone's money, Albanian protectorate, Hungary, **four ultimatums** (Belgrade, Athens, Bucharest, Ankara: cede or face a war goal), client kings, Black Sea dominion, Balkan Tsardom |
+| The Legionary Revolution | 60 | Needs Legion influence 40. The March on Sofia (appointment or civil war). **Trunk**: the movement (purge the Palace, militia, Brannik, Legionary courts, arms drive, shock divisions, war economy, total mobilisation); **the Revolution Must March** (starts Revolutionary Momentum; Plan Struma, border incidents, the wars for Skopje and the Struma valley, Legionary Macedonia and Thrace, victory parades); the new provinces (Dobruja ultimatum, prefects, soldier-settlers, requisitions, Bulgarisation). **Split at the Legion's Destiny**: (B1) *Lukov's Axis Crusade*: into the Axis, German instructors, Panzers for Sofia, the New Order, Crusade in the East, Budjak, Odessa corridor, Black Sea and Aegean fleets, the Legionary Empire, Thrace to the Bosporus. (B2) *Tsankov's Imperium*: no orders from Berlin, the Pact of Iron with Hungary, rival to Rome, wars for the Straits, the Danube and **Albania (against Italy if it holds it)**, the Imperial navy, a window on the Mediterranean, the Imperium on Three Seas |
 | Secret: the Coburg Restoration | 19 | Hidden (`allow_branch`) until Boris dies (Aug 1943+, random) or three letters from Coburg arrive. Ferdinand returns. (a) Third Bulgarian Empire: Simeon's borders, Tsar of the Vlachs, Tarnovo coronation, Kaloyan's revenge. (b) Tsargrad: Basileus, Hagia Sophia, the Themes, the Varangian Guard, Orthodox crusade, capital moved to Constantinople |
 | Industry | 41 | Tobacco and rose exports (3 stages), German clearing vs. diversification with a follow-up event, Pernik coal and Balkan iron, Kremikovtsi, Kazanlak and Sopot arsenals, electrification and the Iskar dams, railways, ports, roads, chemicals, Tyulenovo oil, synthetic fuel, fuel reserves, war economy. **Nuclear line**: Nadjakov's laboratory, Bukhovo uranium, Atomic Commission, reactor, the Kozloduy pile, the Rila device (date-gated 1938–1944) |
 | Military | 51 | Army doctrine 12 (mountain warfare, Chataldzha lessons, staff academy, bayonet tradition, armoured brigade), equipment 8, **manpower 9** (reservists, emigration volunteers, Rhodope battalions, veterans, women's auxiliary, universal service, mobilisation law, national army), navy 10, air 11 (PZL and Avia purchases, Dornier bombers, paratroopers) |
 
-Total **209 focuses**; plain stat bumps 16 (7%). Every exclusive choice says what it rules out.
+Total **250 focuses**; plain stat bumps 19 (7%). Every exclusive choice says what it rules out.
 Every focus has `search_filters` and `ai_will_do`.
+
+## How to reach each path
+* **Tsar's Way**: *The Hour of Decision* → *The Tsar Steps Forward*. Always available.
+* **Legionary Revolution**: *The Hour of Decision* → *The Legions March*, which needs **Legion influence 40+** (start: 20). Raise it with
+  *Patronise the Legions* (+10, every 60 days), the *Shadow Parties* opening focus (option "Let the Legions march", +15), the opening event option "Let the young nationalists organise" (+10),
+  war support above 50% and fascist popularity above 15% (+1 a month each).
+* **Secret (Coburg Restoration)**: appears on the left of the tree when `bfx_secret_unlocked` is set: either Tsar Boris dies (from August 1943,
+  25% a month while he rules, i.e. on the Tsar's Way) or the third *Letter from Coburg* arrives (random event, about 7% a month from 1937 while
+  not on the Legion path; after the first letter the decision *Answer the Letter from Coburg* adds one every 120 days). It is not available after
+  *The Legions March*.
 
 ## Realism and balance rules
 * **Cores only on historically Bulgarian lands**: Southern Dobrudja (77), Vardar Macedonia (106), Western Thrace (184), Edirne (341),
@@ -27,9 +38,10 @@ Every focus has `search_filters` and `ai_will_do`.
 * **Diplomacy works**: *Open the Chancelleries* (and the Legionary State) lift the non-aligned limits with `set_rule`. The *Sofia Chancellery*
   decisions propose non-aggression pacts (Turkey, Romania, Greece, Yugoslavia, USSR, Hungary, Italy), ask for guarantees (Germany, Italy, Britain, France),
   invite countries to your faction, give guarantees and demand Southern Dobruja. Several focuses do the same by event (Turkish pact 1941,
-  Craiova 1940, the Sobolev mission 1940, the Albanian protectorate, joining the Axis).
-* **Land by diplomacy**: Craiova returns Dobruja peacefully (much likelier with German backing). The Axis Partition hands over Macedonia and Thrace
-  when allies hold them (as in April 1941). Skopje can ask to join after the uprising.
+  Craiova 1940, the Albanian protectorate, joining the patron's alliance or the Axis, the Pact of Iron).
+* **Land by diplomacy**: Craiova returns Dobruja peacefully (much likelier with German backing). The Hegemon's ultimatums can win Macedonia,
+  Thrace and Edirne without a shot when the target is weak or already at war; a refusal gives a war goal instead. *The Partition Dividend* and
+  *The New Order* hand over Bulgarian lands that allies hold (as in April 1941). Skopje asks to join after a successful uprising.
 * Industry gives about one building per focus, two research slots at most in a playthrough, and the nuclear line is date-gated.
 
 ## Mechanic 1: Shackles of Neuilly (reworked)
@@ -61,6 +73,27 @@ rifles, mountain guns and *Officers on Leave*, recognise and guarantee the state
 8 months, or Yugoslavia starts to collapse, Belgrade makes peace. Six months later Skopje asks to join: annex it (cores) or keep it as a client.
 If it is crushed, Bulgaria pays in stability and IMRO influence.
 
+## Mechanic 4: The Bulgarian Auction (Tsar's Way)
+* Berlin, London and Moscow each have a **bid** for Bulgaria (`bfx_bid_ger/eng/sov`, 0–100; start 15/10/5). *Receive the Envoys* opens the auction.
+* Focuses raise bids (each power's offer +25, *Play Them Off* +10 to all, Craiova, the Turkish pact, breaking the Entente).
+* Decisions: *Flirt with Berlin/London/Moscow* (+12 to one, −4 to the other two), *Leak the Rival Offers* (+5 to all),
+  and **cash an instalment** now at the cost of the bid (Berlin: rifles and guns; London: a civilian factory; Moscow: army XP and guns).
+* While open, every bid falls by 1 a month. *The Auction Closes* makes the highest bidder our **patron** and pays its first instalment.
+* Kingmaker: *Sign with the Highest Bidder* joins the patron's faction (or gets its guarantee). *The Contingency Plan* unlocks **Change Sides**:
+  when our faction leader's surrender progress passes 25%, white-peace its enemies, leave, ask the strongest enemy faction leader to admit us
+  and declare war on the old patron (Bulgaria, September 1944).
+* Hegemon: *Take Everyone's Money* pays out every bid of 40 or more.
+
+## Mechanic 5: Revolutionary Momentum (Legionary Revolution)
+* Starts at 30 with *The Revolution Must March*. **+3 a month at war** (+4 on the crusade against the USSR), **−3 a month at peace**.
+* Drives the *Revolutionary Momentum* dynamic modifier: attack 0..+10%, war support −6..+14%, conscription 0..+8%, political power −9..+21%.
+* **Below 15**: *The Movement Fractures* (stability loss; find an enemy, buy peace, or let the Palace regain ground).
+  **Above 90**: *The Revolution Devours Its Children* (purge generals, unleash a storm offensive, or pay to rein it in). Both re-arm after recovery.
+* Spend it: *Storm Offensive* (−25: +15% attack, +10% breakthrough for 60 days), *Mass Levy* (−20: 25k manpower),
+  *Revolutionary Tribunals* (−15: 75 PP), *Legionary Requisitions* (−15: equipment). Gain it in peace: *Torchlight Rallies* (+8),
+  *Manufacture an Incident* (+15, world tension). Many Legion focuses also add momentum.
+* The point: the Legion cannot sit still. It needs a war roughly every year or it starts to come apart.
+
 ## Formables and colours
 | Cosmetic tag | Name | Map colour |
 |---|---|---|
@@ -82,17 +115,17 @@ Splitting provinces or states (for example exact San Stefano borders) means edit
 `history/states` files. That overrides vanilla files and breaks Road to 56 and every other map-touching mod, which this mod's rules forbid.
 Border realism therefore works at state level: historical cores, claims elsewhere, compliance-gated integration.
 
-## Events (41) and decisions (63)
+## Events (46) and decisions (77)
 Events cover the opening, Neuilly thresholds, the court crises and Boris's death, diplomacy answers (pacts, guarantees, invitations,
 Craiova, the Albanian protectorate, Axis entry), the March on Sofia and the attempt on Lukov, the uprising (news, peace, defeat, union),
-the Coburg letters, Ferdinand's return, Hagia Sophia and Tarnovo, and five random flavour events.
-Decision categories: Shackles of Neuilly, The Tsar's Balance, The Sofia Chancellery, The Macedonian Uprising, Integration, Tsargrad Propaganda.
+the Coburg letters, Ferdinand's return, Hagia Sophia and Tarnovo, the three ultimatums (Athens, Belgrade, Ankara), the two momentum crises, and five random flavour events.
+Decision categories: Shackles of Neuilly, The Tsar's Balance, The Bulgarian Auction, Revolutionary Momentum, The Sofia Chancellery, The Macedonian Uprising, Integration, Tsargrad Propaganda.
 
 ## AI
-On startup an AI Bulgaria rolls Tsar 72% (Raindrops 70% / Hegemon 30%) or Legions 28% (Axis 60% / Imperium 40%), and a 30% chance
+On startup an AI Bulgaria rolls Tsar 72% (Kingmaker 70% / Hegemon 30%) or Legions 28% (Axis Crusade 60% / Imperium 40%), and a 30% chance
 to take the secret path if it is revealed. Fascist AIs patronise the Legions until they reach 40. No game rule needed.
 
-## National spirits (77)
+## National spirits (81)
 | ID | Name | Modifiers |
 |---|---|---|
 | `bfx_neuilly_shackles` | Shackles of Neuilly | conscription_factor -0.3, army_org_factor -0.1, training_time_army_factor +0.25, air_accidents_factor +0.5, production_speed_dockyard_factor -0.25 |
@@ -172,6 +205,10 @@ to take the secret path if it is revealed. Fascist AIs patronise the Legions unt
 | `bfx_foreign_air_instructors` | Foreign Flight Instructors | air_training_xp_gain_factor +0.15, air_ace_generation_chance_factor +0.2 |
 | `bfx_sofia_air_defence` | Sofia Fighter Command | air_superiority_efficiency +0.05 |
 | `bfx_wings_over_the_mountains` | Wings over the Mountains | air_mission_efficiency +0.05, air_training_xp_gain_factor +0.1 |
+| `bfx_fortress_bulgaria` | Fortress Bulgaria | army_core_defence_factor +0.1, dig_in_speed_factor +0.25, max_dig_in +2 |
+| `bfx_shock_divisions` | Legionary Shock Divisions | army_attack_factor +0.05, breakthrough_factor +0.05 |
+| `bfx_storm_offensive` | Storm Offensive | army_attack_factor +0.15, breakthrough_factor +0.1, army_speed_factor +0.05 |
+| `bfx_legionary_prefects` | Legionary Prefects | compliance_growth +0.1, resistance_growth -0.15, stability_factor -0.02 |
 
 ## Characters (15)
 | ID | Name | Roles | Biography |
@@ -216,83 +253,124 @@ to take the secret path if it is revealed. Fascist AIs patronise the Legions unt
 | `bfx_hour_of_decision` | The Hour of Decision | 50,4 | bfx_elections_of_1938; bfx_shadow_legions | — | add_political_power = 50, custom_effect_tooltip = bfx_tt_hour_of_decision |
 | `bfx_open_the_chancelleries` | Open the Chancelleries | 55,4 | bfx_italian_queen | — | set_rule = { can_create_factions = yes can_join_factions = yes can_guarantee_other_ideologies = yes can_send_volunteers = yes can_only_justi |
 | `bfx_tsar_steps_forward` | The Tsar Steps Forward | 40,5 | bfx_hour_of_decision | bfx_fas_legions_march | retire_country_leader = yes, recruit_character = bfx_BUL_boris_iii, promote_character = bfx_BUL_boris_iii, set_country_flag = bfx_boris_rule |
-| `bfx_tsar_muzzle_the_league` | Muzzle the Military League | 38,6 | bfx_tsar_steps_forward | — | recruit_character = bfx_BUL_nikola_zhekov, custom_effect_tooltip = bfx_tt_court_p10_am15, add_to_variable = { bfx_inf_palace = 10 } add_to_v |
-| `bfx_tsar_propaganda_directorate` | The Directorate of Propaganda | 41,6 | bfx_tsar_steps_forward | — | add_war_support = 0.05, custom_effect_tooltip = bfx_tt_court_p5_lm5, add_to_variable = { bfx_inf_palace = 5 } add_to_variable = { bfx_inf_le |
-| `bfx_tsar_raindrops` | Walking Between the Raindrops | 34,7 | bfx_tsar_muzzle_the_league | bfx_tsar_stands_alone | add_ideas = bfx_raindrops_diplomacy, recruit_character = bfx_BUL_bogdan_filov, custom_effect_tooltip = bfx_tt_court_p5, add_to_variable = {  |
-| `bfx_tsar_berlin_credits` | Arms Credits from Berlin | 31,8 | bfx_tsar_raindrops | — | add_equipment_to_stockpile = { type = infantry_equipment amount = 1500 }, add_tech_bonus = { name = bfx_tsar_berlin_credits bonus = 0.5 uses |
-| `bfx_tsar_turkish_pact` | The Turkish Non-Aggression Pact | 34,8 | bfx_tsar_raindrops | — | custom_effect_tooltip = bfx_tt_turkish_nap |
-| `bfx_tsar_craiova` | Towards Craiova | 37,8 | bfx_tsar_raindrops | — | add_state_claim = 77, custom_effect_tooltip = bfx_tt_craiova |
-| `bfx_tsar_sign_the_pact` | Sign the Tripartite Pact | 31,9 | bfx_tsar_berlin_credits | — | add_ideas = bfx_axis_junior_partner |
-| `bfx_tsar_romes_blessing` | Rome's Blessing | 34,9 | bfx_tsar_turkish_pact | — | add_political_power = 25 |
-| `bfx_tsar_dobrujan_settlers` | The Dobrujan Settlers | 37,9 | bfx_tsar_craiova | — | 77 = { add_compliance = 20 }, add_manpower = 8000 |
-| `bfx_tsar_axis_partition` | The Axis Partition | 32,10 | bfx_tsar_sign_the_pact; bfx_tsar_romes_blessing | — | transfer_state = 106, transfer_state = 184, transfer_state = 731, 106 = { owner = { save_event_target_as = bfx_wg_target } }, create_wargoal |
-| `bfx_tsar_western_outlands` | The Western Outlands | 37,10 | bfx_tsar_dobrujan_settlers | — | add_state_claim = 106 |
-| `bfx_tsar_occupation_corps` | The Occupation Corps | 31,11 | bfx_tsar_axis_partition | — | add_ideas = bfx_occupation_corps |
-| `bfx_tsar_aegean_littoral` | The Aegean Littoral | 34,11 | bfx_tsar_axis_partition | — | add_state_claim = 184, add_state_claim = 731, 184 = { owner = { save_event_target_as = bfx_wg_target } }, create_wargoal = { type = take_sta |
-| `bfx_tsar_bessarabian_bulgars` | The Bulgarians of Bessarabia | 37,11 | bfx_tsar_western_outlands | — | add_claim_by = ROOT, add_state_claim = 971, add_war_support = 0.03 |
-| `bfx_tsar_no_eastern_front` | Not One Soldier for the Steppe | 31,12 | bfx_tsar_occupation_corps | bfx_tsar_crusade_east | add_ideas = bfx_no_eastern_front, custom_effect_tooltip = bfx_tt_court_p10, add_to_variable = { bfx_inf_palace = 10 }, bfx_court_recalc = ye |
-| `bfx_tsar_crusade_east` | The Crusade in the East | 34,12 | bfx_tsar_aegean_littoral | bfx_tsar_no_eastern_front | add_ideas = bfx_eastern_crusade, custom_effect_tooltip = bfx_tt_court_a10_l10, add_to_variable = { bfx_inf_army = 10 } add_to_variable = { b |
-| `bfx_tsar_greater_bulgaria` | Greater Bulgaria | 32,13 | bfx_tsar_no_eastern_front or bfx_tsar_crusade_east | — | set_cosmetic_tag = bfx_greater_bulgaria |
-| `bfx_tsar_straits_question` | The Straits Question | 31,14 | bfx_tsar_greater_bulgaria | — | add_state_claim = 341, add_state_claim = 797, 341 = { owner = { save_event_target_as = bfx_wg_target } }, create_wargoal = { type = take_sta |
-| `bfx_tsar_three_seas` | Bulgaria on Three Seas | 34,14 | bfx_tsar_greater_bulgaria | — | add_claim_by = ROOT |
-| `bfx_tsar_adrianople` | Return to Adrianople | 31,15 | bfx_tsar_straits_question | — | 341 = { add_compliance = 20 }, add_stability = 0.03 |
-| `bfx_tsar_san_stefano` | The Map of San Stefano | 34,15 | bfx_tsar_three_seas | — | set_cosmetic_tag = bfx_san_stefano_bulgaria, add_war_support = 0.05 |
-| `bfx_tsar_of_the_bulgarians` | Tsar of All the Bulgarians | 32,16 | bfx_tsar_adrianople; bfx_tsar_san_stefano | — | add_ideas = bfx_imperial_mandate, add_political_power = 150, army_experience = 50, custom_effect_tooltip = bfx_tt_court_p20, add_to_variable |
-| `bfx_tsar_stands_alone` | Bulgaria Stands Alone | 46,7 | bfx_tsar_propaganda_directorate | bfx_tsar_raindrops | add_ideas = bfx_balkan_hegemon, custom_effect_tooltip = bfx_tt_court_p5_a10, add_to_variable = { bfx_inf_palace = 5 } add_to_variable = { bf |
-| `bfx_tsar_sofia_pact` | The Sofia Pact | 43,8 | bfx_tsar_stands_alone | — | set_rule = { can_create_factions = yes can_join_factions = yes can_guarantee_other_ideologies = yes can_send_volunteers = yes can_only_justi |
-| `bfx_tsar_soviet_pact` | The Sobolev Mission | 46,8 | bfx_tsar_stands_alone | — | add_political_power = 25 |
-| `bfx_tsar_albanian_protectorate` | The Albanian Protectorate | 49,8 | bfx_tsar_stands_alone | — | add_claim_by = ROOT |
-| `bfx_tsar_revisionist_brothers` | Revisionist Brothers in Budapest | 43,9 | bfx_tsar_sofia_pact | — |  |
-| `bfx_tsar_hegemon_army` | The Hegemon's Army | 46,9 | bfx_tsar_soviet_pact | — | add_ideas = bfx_hegemon_army, army_experience = 25 |
-| `bfx_tsar_durres_concession` | The Durrës Concession | 49,9 | bfx_tsar_albanian_protectorate | — | navy_experience = 20, add_extra_state_shared_building_slots = 1, add_building_construction = { type = dockyard level = 1 instant_build = yes |
-| `bfx_tsar_war_plan_west` | War Plan West: Yugoslavia | 43,10 | bfx_tsar_revisionist_brothers | — | add_state_claim = 106 |
-| `bfx_tsar_war_plan_south` | War Plan South: Greece | 46,10 | bfx_tsar_hegemon_army | — | add_state_claim = 184, add_state_claim = 731, set_country_flag = bfx_integration_unlocked, unlock_decision_category_tooltip = bfx_integratio |
-| `bfx_tsar_war_plan_north` | War Plan North: Romania | 49,10 | bfx_tsar_durres_concession | — | add_state_claim = 77, add_state_claim = 971 |
-| `bfx_tsar_client_kings` | Client Kings | 43,11 | bfx_tsar_war_plan_west | — | add_ideas = bfx_client_kings |
-| `bfx_tsar_war_plan_east` | War Plan East: Turkey | 46,11 | bfx_tsar_war_plan_south | — | add_state_claim = 341, add_state_claim = 797 |
-| `bfx_tsar_danube_line` | The Danube Line | 49,11 | bfx_tsar_war_plan_north | — |  |
-| `bfx_tsar_balkan_tsardom` | The Balkan Tsardom | 46,12 | bfx_tsar_war_plan_east; bfx_tsar_client_kings | — | set_cosmetic_tag = bfx_balkan_tsardom |
-| `bfx_tsar_imperial_council` | The Imperial Council | 44,13 | bfx_tsar_balkan_tsardom | — | recruit_character = bfx_BUL_kimon_georgiev, add_political_power = 75 |
-| `bfx_tsar_black_sea_dominion` | Dominion of the Black Sea | 47,13 | bfx_tsar_balkan_tsardom; bfx_tsar_danube_line | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = dockyard level = 2 instant_build = yes }, navy_experience =  |
-| `bfx_tsar_master_of_the_peninsula` | Master of the Peninsula | 46,14 | bfx_tsar_imperial_council; bfx_tsar_black_sea_dominion | — | add_ideas = bfx_imperial_mandate, add_stability = 0.10, custom_effect_tooltip = bfx_tt_court_p20, add_to_variable = { bfx_inf_palace = 20 }, |
-| `bfx_fas_legions_march` | The Legions March | 61,5 | bfx_hour_of_decision | bfx_tsar_steps_forward | country_event = bfx_fas.1 |
-| `bfx_fas_legionary_state` | The Legionary State | 61,6 | bfx_fas_legions_march | — | add_ideas = bfx_legionary_state, recruit_character = bfx_BUL_ivan_dochev, custom_effect_tooltip = bfx_tt_court_pm15_l20, add_to_variable = { |
-| `bfx_fas_legionary_militia` | The Legionary Militia | 58,7 | bfx_fas_legionary_state | — | add_ideas = bfx_legionary_militia, add_manpower = 10000 |
-| `bfx_fas_brannik` | Found the Brannik | 64,7 | bfx_fas_legionary_state | — | add_ideas = bfx_brannik |
-| `bfx_fas_into_the_axis` | Into the Axis | 56,8 | bfx_fas_legionary_militia | bfx_fas_national_social_state | add_ideas = bfx_axis_junior_partner |
-| `bfx_fas_anti_comintern` | The Anti-Comintern Bulwark | 55,9 | bfx_fas_into_the_axis | — | add_ideas = bfx_anti_comintern |
-| `bfx_fas_german_instructors` | German Instructors | 58,9 | bfx_fas_into_the_axis | — | add_ideas = bfx_german_instructors, army_experience = 20 |
-| `bfx_fas_dobruja_ultimatum` | The Dobruja Ultimatum | 53,10 | bfx_fas_anti_comintern | — | add_state_claim = 77 |
-| `bfx_fas_balkan_blitz` | The Balkan Blitz | 56,10 | bfx_fas_anti_comintern; bfx_fas_german_instructors | — | 106 = { owner = { save_event_target_as = bfx_wg_target } }, create_wargoal = { type = take_state_focus target = event_target:bfx_wg_target g |
-| `bfx_fas_axis_air_bases` | Axis Air Bases | 59,10 | bfx_fas_german_instructors | — | capital_scope = { add_building_construction = { type = air_base level = 2 instant_build = yes } }, air_experience = 25 |
-| `bfx_fas_new_order` | The New Order in the Balkans | 56,11 | bfx_fas_balkan_blitz | — | transfer_state = 106, transfer_state = 184, transfer_state = 731, set_country_flag = bfx_integration_unlocked, unlock_decision_category_tool |
-| `bfx_fas_total_mobilisation` | Total Mobilisation | 59,11 | bfx_fas_axis_air_bases | — | add_ideas = bfx_total_mobilisation |
-| `bfx_fas_crusade_east` | Crusade in the East | 55,12 | bfx_fas_new_order | — | add_ideas = bfx_eastern_crusade, custom_effect_tooltip = bfx_tt_court_l10, add_to_variable = { bfx_inf_legion = 10 }, bfx_court_recalc = yes |
-| `bfx_fas_legionary_bulgaria` | Legionary Greater Bulgaria | 58,12 | bfx_fas_new_order; bfx_fas_total_mobilisation | — | set_cosmetic_tag = bfx_legionary_bulgaria, add_war_support = 0.05 |
-| `bfx_fas_budjak` | The Budjak Bulgarians | 53,13 | bfx_fas_crusade_east | — | add_claim_by = ROOT, add_state_claim = 971 |
-| `bfx_fas_odessa_corridor` | The Odessa Corridor | 56,13 | bfx_fas_crusade_east | — |  |
-| `bfx_fas_aegean_fleet` | The Aegean Fleet | 59,13 | bfx_fas_legionary_bulgaria | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = dockyard level = 2 instant_build = yes }, navy_experience =  |
-| `bfx_fas_legionary_empire` | The Legionary Empire | 56,14 | bfx_fas_budjak; bfx_fas_odessa_corridor; bfx_fas_aegean_fleet | — | add_ideas = bfx_imperial_mandate |
-| `bfx_fas_thrace_to_bosporus` | Thrace to the Bosporus | 55,15 | bfx_fas_legionary_empire | — | add_state_claim = 341, add_state_claim = 797, 341 = { owner = { save_event_target_as = bfx_wg_target } }, create_wargoal = { type = take_sta |
-| `bfx_fas_legion_of_st_george` | The Legion of St George | 58,15 | bfx_fas_legionary_empire | — | army_experience = 50, add_manpower = 25000 |
-| `bfx_fas_new_bulgarian_order` | The New Bulgarian Order | 56,16 | bfx_fas_thrace_to_bosporus; bfx_fas_legion_of_st_george | — | add_stability = 0.10, add_political_power = 150, custom_effect_tooltip = bfx_tt_court_l10, add_to_variable = { bfx_inf_legion = 10 }, bfx_co |
-| `bfx_fas_national_social_state` | The National Social State | 65,8 | bfx_fas_brannik | bfx_fas_into_the_axis | add_ideas = bfx_national_social_economy, recruit_character = bfx_BUL_aleksandar_tsankov |
-| `bfx_fas_corporatist_economy` | The Corporations | 64,9 | bfx_fas_national_social_state | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = industrial_complex level = 1 instant_build = yes }, add_extr |
-| `bfx_fas_pact_of_iron` | The Pact of Iron | 67,9 | bfx_fas_national_social_state | — | add_ideas = bfx_pact_of_iron |
-| `bfx_fas_imperium_army` | The Army of the Imperium | 64,10 | bfx_fas_corporatist_economy | — | add_ideas = bfx_imperium_army, add_tech_bonus = { name = bfx_fas_imperium_army bonus = 0.5 uses = 1 category = artillery } |
-| `bfx_fas_budapest_axis` | The Budapest-Sofia Axis | 67,10 | bfx_fas_pact_of_iron | — |  |
-| `bfx_fas_rival_to_rome` | A Rival to Rome | 70,10 | bfx_fas_pact_of_iron | — | add_claim_by = ROOT |
-| `bfx_fas_war_for_macedonia` | The War for Macedonia | 64,11 | bfx_fas_imperium_army | — | add_state_claim = 106 |
-| `bfx_fas_war_for_the_aegean` | The War for the Aegean | 67,11 | bfx_fas_imperium_army; bfx_fas_budapest_axis | — | add_state_claim = 184, add_state_claim = 731, set_country_flag = bfx_integration_unlocked, unlock_decision_category_tooltip = bfx_integratio |
-| `bfx_fas_adriatic_ambitions` | Adriatic Ambitions | 70,11 | bfx_fas_rival_to_rome | — | add_claim_by = ROOT, navy_experience = 15 |
-| `bfx_fas_war_for_the_danube` | The War for the Danube | 65,12 | bfx_fas_war_for_macedonia; bfx_fas_war_for_the_aegean | — | add_state_claim = 77, add_state_claim = 971, 77 = { owner = { save_event_target_as = bfx_wg_target } }, create_wargoal = { type = take_state |
-| `bfx_fas_war_for_the_straits` | The War for the Straits | 68,12 | bfx_fas_war_for_the_aegean; bfx_fas_adriatic_ambitions | — | add_state_claim = 341, add_state_claim = 797, 341 = { owner = { save_event_target_as = bfx_wg_target } }, create_wargoal = { type = take_sta |
-| `bfx_fas_bulgarian_imperium` | The Bulgarian Imperium | 67,13 | bfx_fas_war_for_the_danube; bfx_fas_war_for_the_straits | — | set_cosmetic_tag = bfx_bulgarian_imperium, add_war_support = 0.05 |
-| `bfx_fas_settle_new_provinces` | Settle the New Provinces | 65,14 | bfx_fas_bulgarian_imperium | — | add_ideas = bfx_occupation_corps |
-| `bfx_fas_imperial_navy` | The Imperial Navy | 68,14 | bfx_fas_bulgarian_imperium | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = dockyard level = 2 instant_build = yes }, navy_experience =  |
-| `bfx_fas_legions_of_the_imperium` | Legions of the Imperium | 65,15 | bfx_fas_settle_new_provinces | — | army_experience = 50, add_manpower = 20000 |
-| `bfx_fas_mediterranean_window` | A Window on the Mediterranean | 68,15 | bfx_fas_imperial_navy | — | add_state_claim = 187, navy_experience = 15 |
-| `bfx_fas_tsardom_of_three_seas` | The Imperium on Three Seas | 67,16 | bfx_fas_legions_of_the_imperium; bfx_fas_mediterranean_window | — | add_ideas = bfx_imperial_mandate, add_stability = 0.10, add_political_power = 150 |
+| `bfx_tsar_muzzle_the_league` | Muzzle the Military League | 29,6 | bfx_tsar_steps_forward | — | recruit_character = bfx_BUL_nikola_zhekov, custom_effect_tooltip = bfx_tt_court_p10_am15, add_to_variable = { bfx_inf_palace = 10 } add_to_v |
+| `bfx_tsar_heir_to_the_throne` | An Heir for the Throne | 29,7 | bfx_tsar_muzzle_the_league | — | add_stability = 0.05, custom_effect_tooltip = bfx_tt_court_p15, add_to_variable = { bfx_inf_palace = 15 }, bfx_court_recalc = yes |
+| `bfx_tsar_propaganda_directorate` | The Directorate of Propaganda | 29,8 | bfx_tsar_heir_to_the_throne | — | add_ideas = bfx_royal_propaganda, recruit_character = bfx_BUL_dobri_bozhilov, custom_effect_tooltip = bfx_tt_court_p5_lm5, add_to_variable = |
+| `bfx_tsar_the_tsars_men` | The Tsar's Men | 29,9 | bfx_tsar_propaganda_directorate | — | recruit_character = bfx_BUL_bogdan_filov, add_political_power = 75, custom_effect_tooltip = bfx_tt_court_p10, add_to_variable = { bfx_inf_pa |
+| `bfx_tsar_royal_arbitration` | The Royal Arbitration | 29,10 | bfx_tsar_the_tsars_men | — | add_stability = 0.05, custom_effect_tooltip = bfx_tt_court_p10_am5_lm5_im5, add_to_variable = { bfx_inf_palace = 10 } add_to_variable = { bf |
+| `bfx_tsar_receive_the_envoys` | Receive the Envoys | 37,6 | bfx_tsar_steps_forward | — | set_country_flag = bfx_bidding_open, unlock_decision_category_tooltip = bfx_auction_category, custom_effect_tooltip = bfx_tt_bid_g10_e5_s5,  |
+| `bfx_tsar_german_offer` | The German Offer | 34,7 | bfx_tsar_receive_the_envoys | — | custom_effect_tooltip = bfx_tt_bid_g25, add_to_variable = { bfx_bid_ger = 25 }, bfx_bids_recalc = yes, add_equipment_to_stockpile = { type = |
+| `bfx_tsar_british_offer` | The British Offer | 37,7 | bfx_tsar_receive_the_envoys | — | custom_effect_tooltip = bfx_tt_bid_e25, add_to_variable = { bfx_bid_eng = 25 }, bfx_bids_recalc = yes, add_political_power = 50 |
+| `bfx_tsar_soviet_offer` | The Sobolev Mission | 40,7 | bfx_tsar_receive_the_envoys | — | custom_effect_tooltip = bfx_tt_bid_s25, add_to_variable = { bfx_bid_sov = 25 }, bfx_bids_recalc = yes, add_tech_bonus = { name = bfx_tsar_so |
+| `bfx_tsar_play_them_off` | Play Them Against Each Other | 37,8 | bfx_tsar_german_offer or bfx_tsar_british_offer or bfx_tsar_soviet_offer | — | custom_effect_tooltip = bfx_tt_bid_g10_e10_s10, add_to_variable = { bfx_bid_ger = 10 } add_to_variable = { bfx_bid_eng = 10 } add_to_variabl |
+| `bfx_tsar_turkish_pact` | The Turkish Non-Aggression Pact | 35,9 | bfx_tsar_play_them_off | — | custom_effect_tooltip = bfx_tt_bid_e10, add_to_variable = { bfx_bid_eng = 10 }, bfx_bids_recalc = yes |
+| `bfx_tsar_break_the_entente` | Break the Balkan Entente | 38,9 | bfx_tsar_play_them_off | — | custom_effect_tooltip = bfx_tt_neuilly_r0_sm15, add_to_variable = { bfx_suspicion = -15 }, bfx_neuilly_recalc = yes, custom_effect_tooltip = |
+| `bfx_tsar_auction_closes` | The Auction Closes | 37,10 | bfx_tsar_turkish_pact; bfx_tsar_break_the_entente | — | set_country_flag = bfx_auction_closed, custom_effect_tooltip = bfx_tt_auction_closes |
+| `bfx_tsar_macedonian_committees` | The Macedonian Committees | 43,6 | bfx_tsar_steps_forward | — | set_country_flag = bfx_imro_tolerated, unlock_decision_category_tooltip = bfx_imro_category, add_to_variable = { bfx_macedonia_unrest = 15 } |
+| `bfx_tsar_pirin_bases` | Bases in the Pirin | 43,7 | bfx_tsar_macedonian_committees | — | add_to_variable = { bfx_macedonia_unrest = 15 }, custom_effect_tooltip = bfx_tt_unrest_focus_15, add_manpower = 3000 |
+| `bfx_tsar_ilinden_preparations` | Ilinden Preparations | 43,8 | bfx_tsar_pirin_bases | — | add_to_variable = { bfx_macedonia_unrest = 25 }, custom_effect_tooltip = bfx_tt_unrest_focus_25, custom_effect_tooltip = bfx_tt_court_i5, ad |
+| `bfx_tsar_macedonia_rises` | Macedonia Rises | 43,9 | bfx_tsar_ilinden_preparations | — | custom_effect_tooltip = bfx_tt_macedonia_rises, add_war_support = 0.05 |
+| `bfx_tsar_union_with_skopje` | Union with Skopje | 43,10 | bfx_tsar_macedonia_rises | — | 106 = { add_compliance = 25 }, set_country_flag = bfx_integration_unlocked, unlock_decision_category_tooltip = bfx_integration_category |
+| `bfx_tsar_lost_provinces_office` | The Lost Provinces Office | 47,6 | bfx_tsar_steps_forward | — | add_state_claim = 77, add_state_claim = 184, add_war_support = 0.03 |
+| `bfx_tsar_craiova_talks` | Towards Craiova | 47,7 | bfx_tsar_lost_provinces_office | — | custom_effect_tooltip = bfx_tt_bid_g5_s5, add_to_variable = { bfx_bid_ger = 5 } add_to_variable = { bfx_bid_sov = 5 }, bfx_bids_recalc = yes |
+| `bfx_tsar_dobruja_returned` | The Dobrujan Settlers | 47,8 | bfx_tsar_craiova_talks | — | 77 = { add_compliance = 20 }, add_manpower = 8000 |
+| `bfx_tsar_thracian_question` | The Thracian Question | 47,9 | bfx_tsar_dobruja_returned | — |  |
+| `bfx_tsar_aegean_window` | The Aegean Window | 47,10 | bfx_tsar_thracian_question | — | 184 = { add_compliance = 20 }, add_extra_state_shared_building_slots = 1, add_building_construction = { type = dockyard level = 1 instant_bu |
+| `bfx_tsar_armed_neutrality` | Armed Neutrality | 50,6 | bfx_tsar_steps_forward | — | army_experience = 10 |
+| `bfx_tsar_danube_line` | The Danube Line | 50,7 | bfx_tsar_armed_neutrality | — |  |
+| `bfx_tsar_mobilisation_plan` | Mobilisation Plan Sofia | 50,8 | bfx_tsar_danube_line | — | add_manpower = 15000, custom_effect_tooltip = bfx_tt_court_a5, add_to_variable = { bfx_inf_army = 5 }, bfx_court_recalc = yes |
+| `bfx_tsar_fortress_bulgaria` | Fortress Bulgaria | 50,9 | bfx_tsar_mobilisation_plan | — | add_ideas = bfx_fortress_bulgaria |
+| `bfx_tsar_crossroads` | The Crossroads of 1941 | 40,11 | bfx_tsar_auction_closes; bfx_tsar_union_with_skopje or bfx_tsar_aegean_window | — | add_political_power = 100, custom_effect_tooltip = bfx_tt_court_p10, add_to_variable = { bfx_inf_palace = 10 }, bfx_court_recalc = yes |
+| `bfx_tsar_sign_with_the_bidder` | Sign with the Highest Bidder | 34,12 | bfx_tsar_crossroads | bfx_tsar_stands_alone | add_ideas = bfx_raindrops_diplomacy, custom_effect_tooltip = bfx_tt_sign_bidder |
+| `bfx_tsar_partition_dividend` | The Partition Dividend | 32,13 | bfx_tsar_sign_with_the_bidder | — | transfer_state = 106, transfer_state = 184, transfer_state = 731, transfer_state = 77, transfer_state = 341, set_country_flag = bfx_integrat |
+| `bfx_tsar_patrons_credit` | The Patron's Credit | 35,13 | bfx_tsar_sign_with_the_bidder | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = industrial_complex level = 1 instant_build = yes }, add_extr |
+| `bfx_tsar_occupation_corps` | The Occupation Corps | 31,14 | bfx_tsar_partition_dividend | — | add_ideas = bfx_occupation_corps |
+| `bfx_tsar_western_outlands` | The Western Outlands | 34,14 | bfx_tsar_partition_dividend | — |  |
+| `bfx_tsar_bessarabian_bulgars` | The Bulgarians of Bessarabia | 37,14 | bfx_tsar_patrons_credit | — | add_claim_by = ROOT, add_state_claim = 971 |
+| `bfx_tsar_no_eastern_front` | Not One Soldier for the Steppe | 31,15 | bfx_tsar_occupation_corps | bfx_tsar_crusade_east | add_ideas = bfx_no_eastern_front, custom_effect_tooltip = bfx_tt_court_p10, add_to_variable = { bfx_inf_palace = 10 }, bfx_court_recalc = ye |
+| `bfx_tsar_crusade_east` | The Crusade in the East | 34,15 | bfx_tsar_western_outlands | bfx_tsar_no_eastern_front | add_ideas = bfx_eastern_crusade, custom_effect_tooltip = bfx_tt_court_a10_l10, add_to_variable = { bfx_inf_army = 10 } add_to_variable = { b |
+| `bfx_tsar_change_sides_contingency` | The Contingency Plan | 37,15 | bfx_tsar_bessarabian_bulgars | — | set_country_flag = bfx_change_sides_ready, custom_effect_tooltip = bfx_tt_change_sides |
+| `bfx_tsar_greater_bulgaria` | Greater Bulgaria | 32,16 | bfx_tsar_no_eastern_front or bfx_tsar_crusade_east | — | set_cosmetic_tag = bfx_greater_bulgaria |
+| `bfx_tsar_victors_table` | A Seat at the Victors' Table | 37,16 | bfx_tsar_change_sides_contingency | — | add_state_claim = 184, add_state_claim = 731, add_state_claim = 341, add_war_support = 0.05 |
+| `bfx_tsar_straits_question` | The Straits Question | 31,17 | bfx_tsar_greater_bulgaria | — | add_state_claim = 341, add_state_claim = 797, 341 = { owner = { save_event_target_as = bfx_wg_target } }, create_wargoal = { type = take_sta |
+| `bfx_tsar_san_stefano` | The Map of San Stefano | 34,17 | bfx_tsar_greater_bulgaria | — | set_cosmetic_tag = bfx_san_stefano_bulgaria |
+| `bfx_tsar_of_the_bulgarians` | Tsar of All the Bulgarians | 32,18 | bfx_tsar_straits_question; bfx_tsar_san_stefano | — | add_ideas = bfx_imperial_mandate, add_political_power = 150, army_experience = 50, custom_effect_tooltip = bfx_tt_court_p20, add_to_variable |
+| `bfx_tsar_the_kingmaker` | The Kingmaker | 37,18 | bfx_tsar_victors_table | — | add_stability = 0.10, add_political_power = 100 |
+| `bfx_tsar_stands_alone` | Bulgaria Stands Alone | 46,12 | bfx_tsar_crossroads | bfx_tsar_sign_with_the_bidder | add_ideas = bfx_balkan_hegemon, custom_effect_tooltip = bfx_tt_court_p5_a10, add_to_variable = { bfx_inf_palace = 5 } add_to_variable = { bf |
+| `bfx_tsar_sofia_pact` | The Sofia Pact | 43,13 | bfx_tsar_stands_alone | — | set_rule = { can_create_factions = yes can_join_factions = yes can_guarantee_other_ideologies = yes can_send_volunteers = yes can_only_justi |
+| `bfx_tsar_everyones_money` | Take Everyone's Money | 46,13 | bfx_tsar_stands_alone | — | custom_effect_tooltip = bfx_tt_everyones_money |
+| `bfx_tsar_albanian_protectorate` | The Albanian Protectorate | 49,13 | bfx_tsar_stands_alone | — | add_claim_by = ROOT |
+| `bfx_tsar_revisionist_brothers` | Revisionist Brothers in Budapest | 43,14 | bfx_tsar_sofia_pact | — |  |
+| `bfx_tsar_hegemon_army` | The Hegemon's Army | 46,14 | bfx_tsar_everyones_money | — | add_ideas = bfx_hegemon_army, army_experience = 25 |
+| `bfx_tsar_durres_concession` | The Durrës Concession | 49,14 | bfx_tsar_albanian_protectorate | — | navy_experience = 20, add_extra_state_shared_building_slots = 1, add_building_construction = { type = dockyard level = 1 instant_build = yes |
+| `bfx_tsar_ultimatum_belgrade` | The Ultimatum to Belgrade | 43,15 | bfx_tsar_revisionist_brothers | — | add_state_claim = 106 |
+| `bfx_tsar_ultimatum_athens` | The Ultimatum to Athens | 46,15 | bfx_tsar_hegemon_army | — | add_state_claim = 184, add_state_claim = 731 |
+| `bfx_tsar_ultimatum_bucharest` | The Ultimatum to Bucharest | 49,15 | bfx_tsar_durres_concession | — | add_state_claim = 77, add_state_claim = 971 |
+| `bfx_tsar_client_kings` | Client Kings | 43,16 | bfx_tsar_ultimatum_belgrade | — | add_ideas = bfx_client_kings |
+| `bfx_tsar_ultimatum_ankara` | The Ultimatum to Ankara | 46,16 | bfx_tsar_ultimatum_athens | — | add_state_claim = 341 |
+| `bfx_tsar_black_sea_dominion` | Dominion of the Black Sea | 49,16 | bfx_tsar_ultimatum_bucharest | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = dockyard level = 2 instant_build = yes }, navy_experience =  |
+| `bfx_tsar_balkan_tsardom` | The Balkan Tsardom | 44,17 | bfx_tsar_client_kings; bfx_tsar_ultimatum_ankara | — | set_cosmetic_tag = bfx_balkan_tsardom, set_country_flag = bfx_integration_unlocked, unlock_decision_category_tooltip = bfx_integration_categ |
+| `bfx_tsar_master_of_the_peninsula` | Master of the Peninsula | 46,18 | bfx_tsar_balkan_tsardom; bfx_tsar_black_sea_dominion | — | add_ideas = bfx_imperial_mandate, add_stability = 0.10, custom_effect_tooltip = bfx_tt_court_p20, add_to_variable = { bfx_inf_palace = 20 }, |
+| `bfx_fas_legions_march` | The Legions March | 65,5 | bfx_hour_of_decision | bfx_tsar_steps_forward | country_event = bfx_fas.1 |
+| `bfx_fas_legionary_state` | The Legionary State | 59,6 | bfx_fas_legions_march | — | add_ideas = bfx_legionary_state, recruit_character = bfx_BUL_ivan_dochev, custom_effect_tooltip = bfx_tt_court_pm15_l20, add_to_variable = { |
+| `bfx_fas_revolution_must_march` | The Revolution Must March | 65,6 | bfx_fas_legions_march | — | set_country_flag = bfx_momentum_active, set_variable = { bfx_momentum = 30 }, add_dynamic_modifier = { modifier = bfx_legion_momentum }, bfx |
+| `bfx_fas_dobruja_ultimatum` | The Dobruja Ultimatum | 71,6 | bfx_fas_legions_march | — | add_state_claim = 77, custom_effect_tooltip = bfx_tt_momentum_5, add_to_variable = { bfx_momentum = 5 }, bfx_momentum_recalc = yes |
+| `bfx_fas_purge_the_palace` | Purge the Palace | 56,7 | bfx_fas_legionary_state | — | add_political_power = 75, custom_effect_tooltip = bfx_tt_court_pm20_l10, add_to_variable = { bfx_inf_palace = -20 } add_to_variable = { bfx_ |
+| `bfx_fas_legionary_militia` | The Legionary Militia | 59,7 | bfx_fas_legionary_state | — | add_ideas = bfx_legionary_militia, add_manpower = 10000 |
+| `bfx_fas_brannik` | Found the Brannik | 62,7 | bfx_fas_legionary_state | — | add_ideas = bfx_brannik |
+| `bfx_fas_legionary_courts` | Legionary Courts | 56,8 | bfx_fas_purge_the_palace | — | add_stability = 0.05, set_country_flag = bfx_tribunals_open, custom_effect_tooltip = bfx_tt_tribunals, custom_effect_tooltip = bfx_tt_court_ |
+| `bfx_fas_arms_drive` | The Legion Arms Drive | 59,8 | bfx_fas_legionary_militia | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = arms_factory level = 1 instant_build = yes }, add_equipment_ |
+| `bfx_fas_youth_battalions` | Brannik Battalions | 62,8 | bfx_fas_brannik | — | add_manpower = 15000, custom_effect_tooltip = bfx_tt_momentum_5, add_to_variable = { bfx_momentum = 5 }, bfx_momentum_recalc = yes |
+| `bfx_fas_cult_of_the_fallen` | The Cult of the Fallen | 56,9 | bfx_fas_legionary_courts | — | add_war_support = 0.05, custom_effect_tooltip = bfx_tt_momentum_10, add_to_variable = { bfx_momentum = 10 }, bfx_momentum_recalc = yes |
+| `bfx_fas_shock_divisions` | Legionary Shock Divisions | 59,9 | bfx_fas_arms_drive | — | add_ideas = bfx_shock_divisions, army_experience = 15 |
+| `bfx_fas_legion_war_economy` | The Legion's War Economy | 62,9 | bfx_fas_arms_drive; bfx_fas_youth_battalions | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = arms_factory level = 1 instant_build = yes }, add_extra_stat |
+| `bfx_fas_the_new_man` | The New Bulgarian Man | 58,10 | bfx_fas_cult_of_the_fallen; bfx_fas_shock_divisions | — | add_stability = 0.05, add_war_support = 0.05, custom_effect_tooltip = bfx_tt_court_l10, add_to_variable = { bfx_inf_legion = 10 }, bfx_court |
+| `bfx_fas_total_mobilisation` | Total Mobilisation | 62,10 | bfx_fas_legion_war_economy | — | add_ideas = bfx_total_mobilisation |
+| `bfx_fas_blitz_plan` | Plan Struma | 65,7 | bfx_fas_revolution_must_march | — | army_experience = 25, custom_effect_tooltip = bfx_tt_momentum_5, add_to_variable = { bfx_momentum = 5 }, bfx_momentum_recalc = yes |
+| `bfx_fas_border_incidents` | Border Incidents | 68,7 | bfx_fas_revolution_must_march | — | add_state_claim = 106, add_state_claim = 184, set_country_flag = bfx_incidents_open, custom_effect_tooltip = bfx_tt_incidents, custom_effect |
+| `bfx_fas_war_on_yugoslavia` | March on Skopje | 65,8 | bfx_fas_blitz_plan | — | 106 = { owner = { save_event_target_as = bfx_wg_target } }, create_wargoal = { type = take_state_focus target = event_target:bfx_wg_target g |
+| `bfx_fas_war_on_greece` | Down the Struma Valley | 68,8 | bfx_fas_border_incidents | — | 184 = { owner = { save_event_target_as = bfx_wg_target } }, create_wargoal = { type = take_state_focus target = event_target:bfx_wg_target g |
+| `bfx_fas_legionary_macedonia` | Legionary Macedonia | 65,9 | bfx_fas_war_on_yugoslavia | — | 106 = { add_compliance = 20 }, set_country_flag = bfx_integration_unlocked, unlock_decision_category_tooltip = bfx_integration_category, cus |
+| `bfx_fas_legionary_thrace` | Legionary Thrace | 68,9 | bfx_fas_war_on_greece | — | 184 = { add_compliance = 20 }, add_extra_state_shared_building_slots = 1, add_building_construction = { type = dockyard level = 1 instant_bu |
+| `bfx_fas_victory_parades` | Victory Parades | 67,10 | bfx_fas_legionary_macedonia or bfx_fas_legionary_thrace | — | add_political_power = 75, add_war_support = 0.05, custom_effect_tooltip = bfx_tt_momentum_10, add_to_variable = { bfx_momentum = 10 }, bfx_m |
+| `bfx_fas_dobrujan_legion` | The Dobrujan Legion | 71,7 | bfx_fas_dobruja_ultimatum | — | 77 = { add_compliance = 20 }, add_manpower = 8000 |
+| `bfx_fas_legionary_prefects` | Legionary Prefects | 74,7 | bfx_fas_dobruja_ultimatum | — | add_ideas = bfx_legionary_prefects |
+| `bfx_fas_settlers` | Soldier-Settlers | 73,8 | bfx_fas_dobrujan_legion or bfx_fas_legionary_prefects | — | add_manpower = 5000 |
+| `bfx_fas_requisitions` | Legionary Requisitions | 73,9 | bfx_fas_settlers | — | set_country_flag = bfx_requisitions_open, custom_effect_tooltip = bfx_tt_requisitions, add_equipment_to_stockpile = { type = support_equipme |
+| `bfx_fas_compliance_drive` | The Bulgarisation Drive | 73,10 | bfx_fas_requisitions | — | add_stability = -0.03 |
+| `bfx_fas_legion_destiny` | The Legion's Destiny | 65,11 | bfx_fas_victory_parades; bfx_fas_the_new_man or bfx_fas_total_mobilisation or bfx_fas_compliance_drive | — | add_political_power = 100, custom_effect_tooltip = bfx_tt_momentum_10, add_to_variable = { bfx_momentum = 10 }, bfx_momentum_recalc = yes |
+| `bfx_fas_into_the_axis` | Into the Axis | 59,12 | bfx_fas_legion_destiny | bfx_fas_national_social_state | add_ideas = bfx_axis_junior_partner |
+| `bfx_fas_anti_comintern` | The Anti-Comintern Bulwark | 56,13 | bfx_fas_into_the_axis | — | add_ideas = bfx_anti_comintern |
+| `bfx_fas_german_instructors` | German Instructors | 59,13 | bfx_fas_into_the_axis | — | add_ideas = bfx_german_instructors, army_experience = 20 |
+| `bfx_fas_axis_air_bases` | Axis Air Bases | 62,13 | bfx_fas_into_the_axis | — | capital_scope = { add_building_construction = { type = air_base level = 2 instant_build = yes } }, air_experience = 25 |
+| `bfx_fas_new_order` | The New Order in the Balkans | 58,14 | bfx_fas_anti_comintern; bfx_fas_german_instructors | — | transfer_state = 106, transfer_state = 184, transfer_state = 731, transfer_state = 77, set_country_flag = bfx_integration_unlocked, unlock_d |
+| `bfx_fas_panzers_for_sofia` | Panzers for Sofia | 62,14 | bfx_fas_axis_air_bases | — | add_equipment_to_stockpile = { type = support_equipment amount = 200 }, add_tech_bonus = { name = bfx_fas_panzers_for_sofia bonus = 0.5 uses |
+| `bfx_fas_crusade_east` | Crusade in the East | 56,15 | bfx_fas_new_order | — | add_ideas = bfx_eastern_crusade, set_country_flag = bfx_crusade_declared, custom_effect_tooltip = bfx_tt_court_l10, add_to_variable = { bfx_ |
+| `bfx_fas_legionary_greater_bulgaria` | Legionary Greater Bulgaria | 59,15 | bfx_fas_new_order | — | set_cosmetic_tag = bfx_legionary_bulgaria, add_war_support = 0.05 |
+| `bfx_fas_black_sea_squadron` | The Black Sea Squadron | 62,15 | bfx_fas_panzers_for_sofia | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = dockyard level = 1 instant_build = yes }, navy_experience =  |
+| `bfx_fas_budjak` | The Budjak Bulgarians | 55,16 | bfx_fas_crusade_east | — | add_claim_by = ROOT, add_state_claim = 971 |
+| `bfx_fas_odessa_corridor` | The Odessa Corridor | 58,16 | bfx_fas_crusade_east | — |  |
+| `bfx_fas_aegean_fleet` | The Aegean Fleet | 61,16 | bfx_fas_legionary_greater_bulgaria; bfx_fas_black_sea_squadron | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = dockyard level = 1 instant_build = yes }, navy_experience =  |
+| `bfx_fas_legionary_empire` | The Legionary Empire | 58,17 | bfx_fas_budjak or bfx_fas_odessa_corridor; bfx_fas_aegean_fleet | — | add_ideas = bfx_imperial_mandate |
+| `bfx_fas_thrace_to_bosporus` | Thrace to the Bosporus | 56,18 | bfx_fas_legionary_empire | — | add_state_claim = 341, add_state_claim = 797, 341 = { owner = { save_event_target_as = bfx_wg_target } }, create_wargoal = { type = take_sta |
+| `bfx_fas_legion_of_st_george` | The Legion of St George | 59,18 | bfx_fas_legionary_empire | — | army_experience = 50, add_manpower = 25000 |
+| `bfx_fas_new_bulgarian_order` | The New Bulgarian Order | 58,19 | bfx_fas_thrace_to_bosporus; bfx_fas_legion_of_st_george | — | add_stability = 0.10, add_political_power = 150, custom_effect_tooltip = bfx_tt_court_l10, add_to_variable = { bfx_inf_legion = 10 }, bfx_co |
+| `bfx_fas_national_social_state` | The National Social State | 71,12 | bfx_fas_legion_destiny | bfx_fas_into_the_axis | add_ideas = bfx_national_social_economy, recruit_character = bfx_BUL_aleksandar_tsankov |
+| `bfx_fas_corporatist_economy` | The Corporations | 68,13 | bfx_fas_national_social_state | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = industrial_complex level = 1 instant_build = yes }, add_extr |
+| `bfx_fas_pact_of_iron` | The Pact of Iron | 71,13 | bfx_fas_national_social_state | — | add_ideas = bfx_pact_of_iron |
+| `bfx_fas_rival_to_rome` | A Rival to Rome | 74,13 | bfx_fas_national_social_state | — | add_claim_by = ROOT, custom_effect_tooltip = bfx_tt_momentum_5, add_to_variable = { bfx_momentum = 5 }, bfx_momentum_recalc = yes |
+| `bfx_fas_imperium_army` | The Army of the Imperium | 68,14 | bfx_fas_corporatist_economy | — | add_ideas = bfx_imperium_army, add_tech_bonus = { name = bfx_fas_imperium_army bonus = 0.5 uses = 1 category = artillery } |
+| `bfx_fas_budapest_axis` | The Budapest-Sofia Axis | 71,14 | bfx_fas_pact_of_iron | — |  |
+| `bfx_fas_adriatic_ambitions` | Adriatic Ambitions | 74,14 | bfx_fas_rival_to_rome | — | add_claim_by = ROOT, navy_experience = 15 |
+| `bfx_fas_war_for_the_straits` | The War for the Straits | 68,15 | bfx_fas_imperium_army | — | add_state_claim = 341, add_state_claim = 797, 341 = { owner = { save_event_target_as = bfx_wg_target } }, create_wargoal = { type = take_sta |
+| `bfx_fas_war_for_the_danube` | The War for the Danube | 71,15 | bfx_fas_budapest_axis | — | add_state_claim = 77, add_state_claim = 971, 77 = { owner = { save_event_target_as = bfx_wg_target } }, create_wargoal = { type = take_state |
+| `bfx_fas_war_for_albania` | The War for Albania | 74,15 | bfx_fas_adriatic_ambitions | — | custom_effect_tooltip = bfx_tt_momentum_10, add_to_variable = { bfx_momentum = 10 }, bfx_momentum_recalc = yes |
+| `bfx_fas_bulgarian_imperium` | The Bulgarian Imperium | 70,16 | bfx_fas_war_for_the_straits or bfx_fas_war_for_the_danube | — | set_cosmetic_tag = bfx_bulgarian_imperium, add_war_support = 0.05 |
+| `bfx_fas_imperial_navy` | The Imperial Navy | 74,16 | bfx_fas_war_for_albania | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = dockyard level = 2 instant_build = yes }, navy_experience =  |
+| `bfx_fas_settle_new_provinces` | Settle the New Provinces | 68,17 | bfx_fas_bulgarian_imperium | — | add_manpower = 10000 |
+| `bfx_fas_legions_of_the_imperium` | Legions of the Imperium | 71,17 | bfx_fas_bulgarian_imperium | — | army_experience = 50, add_manpower = 20000 |
+| `bfx_fas_mediterranean_window` | A Window on the Mediterranean | 74,17 | bfx_fas_imperial_navy | — | add_state_claim = 187, navy_experience = 15 |
+| `bfx_fas_tsardom_of_three_seas` | The Imperium on Three Seas | 71,18 | bfx_fas_legions_of_the_imperium; bfx_fas_mediterranean_window | — | add_ideas = bfx_imperial_mandate, add_stability = 0.10, add_political_power = 150 |
 | `bfx_alt_old_fox_stirs` | The Old Fox Returns | 20,6 | — | — | country_event = bfx_secret.10 |
 | `bfx_alt_burn_the_treaty` | Burn the Treaty on the Steps of Neuilly | 19,7 | bfx_alt_old_fox_stirs | — |  |
 | `bfx_alt_entomologist_tsar` | The Entomologist Tsar | 22,7 | bfx_alt_old_fox_stirs | — | add_ideas = bfx_royal_natural_history_institute |
@@ -312,95 +390,95 @@ to take the secret path if it is revealed. Fascist AIs patronise the Legions unt
 | `bfx_alt_varangian_guard` | The New Varangian Guard | 23,12 | bfx_alt_hagia_sophia; bfx_alt_restore_the_themes | — | army_experience = 40, add_manpower = 15000 |
 | `bfx_alt_orthodox_crusade` | The Orthodox Crusade | 23,13 | bfx_alt_varangian_guard | — | add_state_claim = 187, add_state_claim = 182 |
 | `bfx_alt_new_rome` | New Rome | 23,14 | bfx_alt_orthodox_crusade | — | add_ideas = bfx_imperial_mandate, add_stability = 0.05 |
-| `bfx_eco_rose_and_leaf` | The Rose and the Leaf | 86,0 | — | — | add_political_power = 30, set_country_flag = bfx_trade_question |
-| `bfx_eco_german_clearing` | The German Clearing Account | 77,1 | bfx_eco_rose_and_leaf | bfx_eco_diversify | add_ideas = bfx_german_clearing |
-| `bfx_eco_diversify` | Diversify the Buyers | 80,1 | bfx_eco_rose_and_leaf | bfx_eco_german_clearing | add_ideas = bfx_diversified_trade |
-| `bfx_eco_pernik_coal` | Pernik Coal | 86,1 | bfx_eco_rose_and_leaf | — | add_ideas = bfx_pernik_coal_works, capital_scope = { add_resource = { type = steel amount = 4 } } |
-| `bfx_eco_bdz` | Modernise the BDŽ | 92,1 | bfx_eco_rose_and_leaf | — | add_ideas = bfx_railway_age |
-| `bfx_eco_sofia_university` | Sofia University Institutes | 97,1 | bfx_eco_rose_and_leaf | — | add_tech_bonus = { name = bfx_eco_sofia_university bonus = 0.5 uses = 1 category = electronics }, add_tech_bonus = { name = bfx_eco_sofia_un |
-| `bfx_eco_tobacco_boom` | The Plovdiv Tobacco Boom | 79,2 | bfx_eco_german_clearing or bfx_eco_diversify | — |  |
-| `bfx_eco_balkan_iron` | Iron from the Balkan Range | 85,2 | bfx_eco_pernik_coal | — | capital_scope = { add_resource = { type = steel amount = 4 } } |
-| `bfx_eco_electrification` | Electrify the Plain | 88,2 | bfx_eco_pernik_coal | — | add_ideas = bfx_electrification, add_extra_state_shared_building_slots = 1, add_building_construction = { type = industrial_complex level =  |
-| `bfx_eco_main_line` | The Sofia–Varna Main Line | 92,2 | bfx_eco_bdz | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = industrial_complex level = 1 instant_build = yes } |
-| `bfx_eco_nadjakov_laboratory` | Nadjakov's Laboratory | 97,2 | bfx_eco_sofia_university | — | add_tech_bonus = { name = bfx_eco_nadjakov_laboratory bonus = 0.5 uses = 2 category = electronics } |
-| `bfx_eco_valley_of_roses` | The Valley of Roses | 79,3 | bfx_eco_tobacco_boom | — |  |
-| `bfx_eco_kremikovtsi_steel` | The Kremikovtsi Steelworks | 85,3 | bfx_eco_balkan_iron | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = arms_factory level = 1 instant_build = yes }, capital_scope  |
-| `bfx_eco_iskar_dams` | Dams on the Iskar | 88,3 | bfx_eco_electrification | — |  |
-| `bfx_eco_danube_ports` | The Danube Ports | 91,3 | bfx_eco_main_line | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = industrial_complex level = 1 instant_build = yes }, add_tech |
-| `bfx_eco_black_sea_ports` | Ports of Varna and Burgas | 94,3 | bfx_eco_main_line | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = dockyard level = 2 instant_build = yes } |
-| `bfx_eco_bukhovo_uranium` | The Bukhovo Deposits | 97,3 | bfx_eco_nadjakov_laboratory | — | capital_scope = { add_extra_state_shared_building_slots = 1 }, add_tech_bonus = { name = bfx_eco_bukhovo_uranium bonus = 0.5 uses = 1 catego |
-| `bfx_eco_hard_currency` | Hard Currency for Machines | 79,4 | bfx_eco_valley_of_roses | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = industrial_complex level = 1 instant_build = yes } |
-| `bfx_eco_kazanlak_arsenal` | The Kazanlak Arsenal | 83,4 | bfx_eco_kremikovtsi_steel | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = arms_factory level = 1 instant_build = yes }, add_tech_bonus |
-| `bfx_eco_sopot_works` | The Sopot Rifle Works | 86,4 | bfx_eco_kremikovtsi_steel | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = arms_factory level = 1 instant_build = yes }, add_tech_bonus |
-| `bfx_eco_hydro_grid` | The National Grid | 89,4 | bfx_eco_iskar_dams | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = industrial_complex level = 1 instant_build = yes }, add_tech |
-| `bfx_eco_labour_brigades` | The Labour Service Brigades | 94,4 | bfx_eco_black_sea_ports | — | add_ideas = bfx_trudovaks, custom_effect_tooltip = bfx_tt_neuilly_r6_s3, add_to_variable = { bfx_rearm = 6 } add_to_variable = { bfx_suspici |
-| `bfx_eco_atomic_commission` | The Atomic Commission | 97,4 | bfx_eco_bukhovo_uranium | — | add_ideas = bfx_atomic_commission, add_tech_bonus = { name = bfx_eco_atomic_commission bonus = 0.5 uses = 1 category = nuclear } |
-| `bfx_eco_ledger_of_trade` | The Ledger of Trade | 79,5 | bfx_eco_hard_currency | — | country_event = bfx.10 |
-| `bfx_eco_state_arsenals` | The State Arsenals | 85,5 | bfx_eco_kazanlak_arsenal; bfx_eco_sopot_works | — | add_ideas = bfx_state_arsenals |
-| `bfx_eco_chemical_combine` | The Chemical Combine | 89,5 | bfx_eco_hydro_grid | — | add_ideas = bfx_chemical_industry, add_extra_state_shared_building_slots = 1, add_building_construction = { type = industrial_complex level  |
-| `bfx_eco_road_network` | The Trans-Balkan Roads | 94,5 | bfx_eco_labour_brigades | — |  |
-| `bfx_eco_reactor_project` | The Reactor Project | 97,5 | bfx_eco_atomic_commission | — | add_tech_bonus = { name = bfx_eco_reactor_project bonus = 1.0 uses = 1 category = nuclear } |
-| `bfx_eco_plovdiv_fair` | The Plovdiv International Fair | 77,6 | bfx_eco_ledger_of_trade | — | add_tech_bonus = { name = bfx_eco_plovdiv_fair bonus = 0.5 uses = 2 category = industry } |
-| `bfx_eco_export_drive` | The Export Drive | 80,6 | bfx_eco_ledger_of_trade | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = industrial_complex level = 1 instant_build = yes }, add_poli |
-| `bfx_eco_war_economy` | The War Economy | 85,6 | bfx_eco_state_arsenals | — | add_ideas = bfx_war_economy, add_extra_state_shared_building_slots = 1, add_building_construction = { type = arms_factory level = 1 instant_ |
-| `bfx_eco_tyulenovo_oil` | Petroleum at Tyulenovo | 88,6 | bfx_eco_chemical_combine | — |  |
-| `bfx_eco_synthetic_fuel` | Synthetic Fuel from Lignite | 91,6 | bfx_eco_chemical_combine | — | capital_scope = { add_extra_state_shared_building_slots = 1 add_building_construction = { type = synthetic_refinery level = 1 instant_build  |
-| `bfx_eco_kozloduy_reactor` | The Kozloduy Pile | 97,6 | bfx_eco_reactor_project | — | capital_scope = { add_building_construction = { type = nuclear_reactor level = 1 instant_build = yes } } |
-| `bfx_eco_national_bank` | Reform the National Bank | 79,7 | bfx_eco_plovdiv_fair; bfx_eco_export_drive | — | add_stability = 0.05, add_political_power = 75 |
-| `bfx_eco_industrial_ring` | The Sofia Industrial Ring | 83,7 | bfx_eco_war_economy | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = industrial_complex level = 1 instant_build = yes }, add_extr |
-| `bfx_eco_dispersed_industry` | Dispersed Industry | 86,7 | bfx_eco_war_economy | — | add_ideas = bfx_dispersed_industry, add_extra_state_shared_building_slots = 1, add_building_construction = { type = arms_factory level = 1 i |
-| `bfx_eco_fuel_reserves` | Strategic Fuel Reserves | 89,7 | bfx_eco_tyulenovo_oil; bfx_eco_synthetic_fuel | — | capital_scope = { add_building_construction = { type = fuel_silo level = 1 instant_build = yes } }, add_tech_bonus = { name = bfx_eco_fuel_r |
-| `bfx_eco_rila_device` | The Rila Device | 97,7 | bfx_eco_kozloduy_reactor | — | add_tech_bonus = { name = bfx_eco_rila_device bonus = 1.0 uses = 2 category = nuclear }, add_war_support = 0.05 |
-| `bfx_eco_academy_of_sciences` | The Academy of Sciences | 80,8 | bfx_eco_national_bank | — | add_research_slot = 1 |
-| `bfx_eco_total_war_production` | Total War Production | 85,8 | bfx_eco_industrial_ring; bfx_eco_dispersed_industry | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = arms_factory level = 1 instant_build = yes }, add_extra_stat |
-| `bfx_mil_neuilly_army` | The Army Neuilly Built | 115,0 | — | — | army_experience = 10, custom_effect_tooltip = bfx_tt_neuilly_r5_s2, add_to_variable = { bfx_rearm = 5 } add_to_variable = { bfx_suspicion =  |
-| `bfx_mil_rhodope_rangers` | Rhodope Rangers | 101,1 | bfx_mil_neuilly_army | — | add_ideas = bfx_mountain_army, add_tech_bonus = { name = bfx_mil_rhodope_rangers bonus = 0.75 uses = 1 category = mountaineers_tech } |
-| `bfx_mil_chataldzha_lessons` | Lessons of Chataldzha | 104,1 | bfx_mil_neuilly_army | — | add_mastery_bonus = { bonus = 0.20 days = 365 name = bfx_mil_chataldzha_lessons folder = land }, army_experience = 15 |
-| `bfx_mil_mountain_doctrine` | Balkan Mountain Doctrine | 101,2 | bfx_mil_rhodope_rangers | — |  |
-| `bfx_mil_staff_academy` | The General Staff Academy | 104,2 | bfx_mil_chataldzha_lessons | — | add_ideas = bfx_general_staff_academy, recruit_character = bfx_BUL_konstantin_lukash |
-| `bfx_mil_mountain_brigades` | The Mountain Brigades | 101,3 | bfx_mil_mountain_doctrine | — | add_tech_bonus = { name = bfx_mil_mountain_brigades bonus = 0.5 uses = 1 category = mountaineers_tech }, army_experience = 15 |
-| `bfx_mil_bayonet_tradition` | The Bayonet Tradition | 104,3 | bfx_mil_staff_academy | — | add_ideas = bfx_bayonet_tradition |
-| `bfx_mil_balkan_war_plan` | The Balkan War Plan | 103,4 | bfx_mil_mountain_brigades; bfx_mil_bayonet_tradition | — | army_experience = 25, recruit_character = bfx_BUL_teodosi_daskalov |
-| `bfx_mil_officer_corps` | Expand the Officer Corps | 101,5 | bfx_mil_balkan_war_plan | — | army_experience = 20, recruit_character = bfx_BUL_vladimir_zaimov |
-| `bfx_mil_combined_arms` | Combined Arms | 104,5 | bfx_mil_balkan_war_plan | — | add_mastery_bonus = { bonus = 0.20 days = 365 name = bfx_mil_combined_arms folder = land } |
-| `bfx_mil_royal_guard` | The Royal Guard Division | 101,6 | bfx_mil_officer_corps | — | add_equipment_to_stockpile = { type = infantry_equipment amount = 1500 }, army_experience = 15, custom_effect_tooltip = bfx_tt_court_p5_a5,  |
-| `bfx_mil_armoured_brigade` | The Armoured Brigade | 104,6 | bfx_mil_combined_arms | — | add_tech_bonus = { name = bfx_mil_armoured_brigade bonus = 0.5 uses = 1 category = armor }, add_tech_bonus = { name = bfx_mil_armoured_motor |
-| `bfx_mil_mountain_blitz` | Blitzkrieg in the Mountains | 103,7 | bfx_mil_royal_guard; bfx_mil_armoured_brigade | — | add_mastery_bonus = { bonus = 0.25 days = 365 name = bfx_mil_mountain_blitz folder = land }, army_experience = 25 |
-| `bfx_mil_small_arms` | Small Arms Standardisation | 109,1 | bfx_mil_neuilly_army | — | add_tech_bonus = { name = bfx_mil_small_arms bonus = 0.5 uses = 1 category = infantry_weapons } |
-| `bfx_mil_mountain_guns` | Mountain Guns | 107,2 | bfx_mil_small_arms | — | add_tech_bonus = { name = bfx_mil_mountain_guns bonus = 0.5 uses = 1 category = artillery } |
-| `bfx_mil_machine_guns` | The Machine-Gun Companies | 110,2 | bfx_mil_small_arms | — | add_equipment_to_stockpile = { type = infantry_equipment amount = 1000 }, add_tech_bonus = { name = bfx_mil_machine_guns bonus = 0.5 uses =  |
-| `bfx_mil_rifle_contracts` | The Mauser Contracts | 107,3 | bfx_mil_mountain_guns | — | add_equipment_to_stockpile = { type = infantry_equipment amount = 2000 } |
-| `bfx_mil_anti_tank` | Anti-Tank Companies | 110,3 | bfx_mil_machine_guns | — | add_tech_bonus = { name = bfx_mil_anti_tank bonus = 0.5 uses = 1 category = artillery }, army_experience = 10 |
-| `bfx_mil_field_artillery` | The Field Artillery Regiments | 109,4 | bfx_mil_rifle_contracts; bfx_mil_anti_tank | — | add_equipment_to_stockpile = { type = artillery_equipment amount = 150 }, add_tech_bonus = { name = bfx_mil_field_artillery bonus = 0.5 uses |
-| `bfx_mil_support_companies` | Support Companies | 109,5 | bfx_mil_field_artillery | — | add_tech_bonus = { name = bfx_mil_support_companies bonus = 0.5 uses = 2 category = support_tech } |
-| `bfx_mil_supply_columns` | The Supply Columns | 109,6 | bfx_mil_support_companies | — | add_tech_bonus = { name = bfx_mil_supply_columns bonus = 0.5 uses = 1 category = motorized_equipment }, add_equipment_to_stockpile = { type  |
-| `bfx_mil_reservists` | The Reservist Associations | 115,1 | bfx_mil_neuilly_army | — | add_ideas = bfx_reservist_associations, add_manpower = 5000, custom_effect_tooltip = bfx_tt_neuilly_r4_s2, add_to_variable = { bfx_rearm = 4 |
-| `bfx_mil_macedonian_emigration` | Volunteers of the Emigration | 113,2 | bfx_mil_reservists | — | add_manpower = 12000, custom_effect_tooltip = bfx_tt_court_i5, add_to_variable = { bfx_inf_imro = 5 }, bfx_court_recalc = yes |
-| `bfx_mil_pomak_battalions` | The Rhodope Battalions | 116,2 | bfx_mil_reservists | — | add_manpower = 8000, add_tech_bonus = { name = bfx_mil_pomak_battalions bonus = 0.25 uses = 1 category = mountaineers_tech } |
-| `bfx_mil_veterans_1912` | Veterans of the Balkan Wars | 113,3 | bfx_mil_macedonian_emigration | — | add_ideas = bfx_veterans_of_1912 |
-| `bfx_mil_womens_auxiliary` | The Women's Auxiliary | 116,3 | bfx_mil_pomak_battalions | — | add_ideas = bfx_womens_auxiliary |
-| `bfx_mil_universal_service` | Universal Service, Openly | 115,4 | bfx_mil_veterans_1912; bfx_mil_womens_auxiliary | — | add_manpower = 25000, add_ideas = bfx_open_conscription |
-| `bfx_mil_mobilisation_law` | The Mobilisation Law | 113,5 | bfx_mil_universal_service | — | add_manpower = 15000, army_experience = 10 |
-| `bfx_mil_training_camps` | Training Camps in the Rhodopes | 116,5 | bfx_mil_universal_service | — | add_tech_bonus = { name = bfx_mil_training_camps bonus = 0.25 uses = 1 category = infantry_weapons }, army_experience = 15, add_manpower = 5 |
-| `bfx_mil_national_army` | The National Army | 115,6 | bfx_mil_mobilisation_law; bfx_mil_training_camps | — | add_ideas = bfx_national_army |
-| `bfx_nav_black_sea_flotilla` | The Black Sea Flotilla | 121,1 | bfx_mil_neuilly_army | — | add_ideas = bfx_black_sea_flotilla, navy_experience = 10 |
-| `bfx_nav_varna_naval_school` | The Varna Naval School | 119,2 | bfx_nav_black_sea_flotilla | — | navy_experience = 15, add_extra_state_shared_building_slots = 1, add_building_construction = { type = dockyard level = 1 instant_build = yes |
-| `bfx_nav_danube_flotilla` | The Danube Flotilla | 122,2 | bfx_nav_black_sea_flotilla | — | navy_experience = 10, add_extra_state_shared_building_slots = 1, add_building_construction = { type = dockyard level = 1 instant_build = yes |
-| `bfx_nav_torpedo_squadrons` | Torpedo Boat Squadrons | 119,3 | bfx_nav_varna_naval_school | — | custom_effect_tooltip = bfx_tt_neuilly_r4_s3, add_to_variable = { bfx_rearm = 4 } add_to_variable = { bfx_suspicion = 3 }, bfx_neuilly_recal |
-| `bfx_nav_minelayers` | The Varna Minefields | 122,3 | bfx_nav_danube_flotilla | — | add_ideas = bfx_minefields |
-| `bfx_nav_coastal_batteries` | Coastal Batteries at Galata | 119,4 | bfx_nav_torpedo_squadrons | — |  |
-| `bfx_nav_naval_aviation` | Naval Aviation | 122,4 | bfx_nav_minelayers | — | air_experience = 10, navy_experience = 10 |
-| `bfx_nav_black_sea_raiders` | Black Sea Raiders | 121,5 | bfx_nav_coastal_batteries; bfx_nav_naval_aviation | — | add_ideas = bfx_black_sea_raiders, navy_experience = 20 |
-| `bfx_nav_submarine_flotilla` | The Submarine Flotilla | 119,6 | bfx_nav_black_sea_raiders | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = dockyard level = 1 instant_build = yes }, navy_experience =  |
-| `bfx_nav_destroyer_squadron` | The Destroyer Squadron | 122,6 | bfx_nav_black_sea_raiders | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = dockyard level = 1 instant_build = yes }, navy_experience =  |
-| `bfx_air_aero_clubs` | Aero Clubs and Gliders | 127,1 | bfx_mil_neuilly_army | — | add_ideas = bfx_clandestine_aviation, air_experience = 10, custom_effect_tooltip = bfx_tt_neuilly_r6_s3, add_to_variable = { bfx_rearm = 6 } |
-| `bfx_air_dar_works` | The DAR Works at Bozhurishte | 125,2 | bfx_air_aero_clubs | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = arms_factory level = 1 instant_build = yes }, air_experience |
-| `bfx_air_polish_fighters` | PZL Fighters from Warsaw | 128,2 | bfx_air_aero_clubs | — | air_experience = 20 |
-| `bfx_air_avia_biplanes` | Avia Biplanes from Prague | 125,3 | bfx_air_dar_works | — | air_experience = 15 |
-| `bfx_air_foreign_instructors` | Foreign Instructors | 128,3 | bfx_air_polish_fighters | — | add_ideas = bfx_foreign_air_instructors, air_experience = 15 |
-| `bfx_air_vazdushni_voyski` | Proclaim the Vazdushni Voyski | 127,4 | bfx_air_avia_biplanes; bfx_air_foreign_instructors | — | capital_scope = { add_building_construction = { type = air_base level = 3 instant_build = yes } }, recruit_character = bfx_BUL_stoyan_stoyan |
-| `bfx_air_fighter_regiment` | The Fighter Regiment | 125,5 | bfx_air_vazdushni_voyski | — | add_ideas = bfx_sofia_air_defence, air_experience = 15 |
-| `bfx_air_dornier_bombers` | Dornier Bombers | 128,5 | bfx_air_vazdushni_voyski | — | air_experience = 20, add_tech_bonus = { name = bfx_air_dornier_bombers bonus = 0.25 uses = 1 category = industry } |
-| `bfx_air_sofia_flak` | Flak over Sofia | 125,6 | bfx_air_fighter_regiment | — | capital_scope = { add_building_construction = { type = anti_air_building level = 3 instant_build = yes } } |
-| `bfx_air_wings_over_mountains` | Wings over the Mountains | 128,6 | bfx_air_dornier_bombers | — | add_ideas = bfx_wings_over_the_mountains |
-| `bfx_air_paratroopers` | The Parachute Battalion | 127,7 | bfx_air_sofia_flak; bfx_air_wings_over_mountains | — | add_tech_bonus = { name = bfx_air_paratroopers bonus = 0.5 uses = 1 category = para_tech }, army_experience = 15 |
+| `bfx_eco_rose_and_leaf` | The Rose and the Leaf | 92,0 | — | — | add_political_power = 30, set_country_flag = bfx_trade_question |
+| `bfx_eco_german_clearing` | The German Clearing Account | 83,1 | bfx_eco_rose_and_leaf | bfx_eco_diversify | add_ideas = bfx_german_clearing |
+| `bfx_eco_diversify` | Diversify the Buyers | 86,1 | bfx_eco_rose_and_leaf | bfx_eco_german_clearing | add_ideas = bfx_diversified_trade |
+| `bfx_eco_pernik_coal` | Pernik Coal | 92,1 | bfx_eco_rose_and_leaf | — | add_ideas = bfx_pernik_coal_works, capital_scope = { add_resource = { type = steel amount = 4 } } |
+| `bfx_eco_bdz` | Modernise the BDŽ | 98,1 | bfx_eco_rose_and_leaf | — | add_ideas = bfx_railway_age |
+| `bfx_eco_sofia_university` | Sofia University Institutes | 103,1 | bfx_eco_rose_and_leaf | — | add_tech_bonus = { name = bfx_eco_sofia_university bonus = 0.5 uses = 1 category = electronics }, add_tech_bonus = { name = bfx_eco_sofia_un |
+| `bfx_eco_tobacco_boom` | The Plovdiv Tobacco Boom | 85,2 | bfx_eco_german_clearing or bfx_eco_diversify | — |  |
+| `bfx_eco_balkan_iron` | Iron from the Balkan Range | 91,2 | bfx_eco_pernik_coal | — | capital_scope = { add_resource = { type = steel amount = 4 } } |
+| `bfx_eco_electrification` | Electrify the Plain | 94,2 | bfx_eco_pernik_coal | — | add_ideas = bfx_electrification, add_extra_state_shared_building_slots = 1, add_building_construction = { type = industrial_complex level =  |
+| `bfx_eco_main_line` | The Sofia–Varna Main Line | 98,2 | bfx_eco_bdz | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = industrial_complex level = 1 instant_build = yes } |
+| `bfx_eco_nadjakov_laboratory` | Nadjakov's Laboratory | 103,2 | bfx_eco_sofia_university | — | add_tech_bonus = { name = bfx_eco_nadjakov_laboratory bonus = 0.5 uses = 2 category = electronics } |
+| `bfx_eco_valley_of_roses` | The Valley of Roses | 85,3 | bfx_eco_tobacco_boom | — |  |
+| `bfx_eco_kremikovtsi_steel` | The Kremikovtsi Steelworks | 91,3 | bfx_eco_balkan_iron | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = arms_factory level = 1 instant_build = yes }, capital_scope  |
+| `bfx_eco_iskar_dams` | Dams on the Iskar | 94,3 | bfx_eco_electrification | — |  |
+| `bfx_eco_danube_ports` | The Danube Ports | 97,3 | bfx_eco_main_line | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = industrial_complex level = 1 instant_build = yes }, add_tech |
+| `bfx_eco_black_sea_ports` | Ports of Varna and Burgas | 100,3 | bfx_eco_main_line | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = dockyard level = 2 instant_build = yes } |
+| `bfx_eco_bukhovo_uranium` | The Bukhovo Deposits | 103,3 | bfx_eco_nadjakov_laboratory | — | capital_scope = { add_extra_state_shared_building_slots = 1 }, add_tech_bonus = { name = bfx_eco_bukhovo_uranium bonus = 0.5 uses = 1 catego |
+| `bfx_eco_hard_currency` | Hard Currency for Machines | 85,4 | bfx_eco_valley_of_roses | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = industrial_complex level = 1 instant_build = yes } |
+| `bfx_eco_kazanlak_arsenal` | The Kazanlak Arsenal | 89,4 | bfx_eco_kremikovtsi_steel | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = arms_factory level = 1 instant_build = yes }, add_tech_bonus |
+| `bfx_eco_sopot_works` | The Sopot Rifle Works | 92,4 | bfx_eco_kremikovtsi_steel | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = arms_factory level = 1 instant_build = yes }, add_tech_bonus |
+| `bfx_eco_hydro_grid` | The National Grid | 95,4 | bfx_eco_iskar_dams | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = industrial_complex level = 1 instant_build = yes }, add_tech |
+| `bfx_eco_labour_brigades` | The Labour Service Brigades | 100,4 | bfx_eco_black_sea_ports | — | add_ideas = bfx_trudovaks, custom_effect_tooltip = bfx_tt_neuilly_r6_s3, add_to_variable = { bfx_rearm = 6 } add_to_variable = { bfx_suspici |
+| `bfx_eco_atomic_commission` | The Atomic Commission | 103,4 | bfx_eco_bukhovo_uranium | — | add_ideas = bfx_atomic_commission, add_tech_bonus = { name = bfx_eco_atomic_commission bonus = 0.5 uses = 1 category = nuclear } |
+| `bfx_eco_ledger_of_trade` | The Ledger of Trade | 85,5 | bfx_eco_hard_currency | — | country_event = bfx.10 |
+| `bfx_eco_state_arsenals` | The State Arsenals | 91,5 | bfx_eco_kazanlak_arsenal; bfx_eco_sopot_works | — | add_ideas = bfx_state_arsenals |
+| `bfx_eco_chemical_combine` | The Chemical Combine | 95,5 | bfx_eco_hydro_grid | — | add_ideas = bfx_chemical_industry, add_extra_state_shared_building_slots = 1, add_building_construction = { type = industrial_complex level  |
+| `bfx_eco_road_network` | The Trans-Balkan Roads | 100,5 | bfx_eco_labour_brigades | — |  |
+| `bfx_eco_reactor_project` | The Reactor Project | 103,5 | bfx_eco_atomic_commission | — | add_tech_bonus = { name = bfx_eco_reactor_project bonus = 1.0 uses = 1 category = nuclear } |
+| `bfx_eco_plovdiv_fair` | The Plovdiv International Fair | 83,6 | bfx_eco_ledger_of_trade | — | add_tech_bonus = { name = bfx_eco_plovdiv_fair bonus = 0.5 uses = 2 category = industry } |
+| `bfx_eco_export_drive` | The Export Drive | 86,6 | bfx_eco_ledger_of_trade | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = industrial_complex level = 1 instant_build = yes }, add_poli |
+| `bfx_eco_war_economy` | The War Economy | 91,6 | bfx_eco_state_arsenals | — | add_ideas = bfx_war_economy, add_extra_state_shared_building_slots = 1, add_building_construction = { type = arms_factory level = 1 instant_ |
+| `bfx_eco_tyulenovo_oil` | Petroleum at Tyulenovo | 94,6 | bfx_eco_chemical_combine | — |  |
+| `bfx_eco_synthetic_fuel` | Synthetic Fuel from Lignite | 97,6 | bfx_eco_chemical_combine | — | capital_scope = { add_extra_state_shared_building_slots = 1 add_building_construction = { type = synthetic_refinery level = 1 instant_build  |
+| `bfx_eco_kozloduy_reactor` | The Kozloduy Pile | 103,6 | bfx_eco_reactor_project | — | capital_scope = { add_building_construction = { type = nuclear_reactor level = 1 instant_build = yes } } |
+| `bfx_eco_national_bank` | Reform the National Bank | 85,7 | bfx_eco_plovdiv_fair; bfx_eco_export_drive | — | add_stability = 0.05, add_political_power = 75 |
+| `bfx_eco_industrial_ring` | The Sofia Industrial Ring | 89,7 | bfx_eco_war_economy | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = industrial_complex level = 1 instant_build = yes }, add_extr |
+| `bfx_eco_dispersed_industry` | Dispersed Industry | 92,7 | bfx_eco_war_economy | — | add_ideas = bfx_dispersed_industry, add_extra_state_shared_building_slots = 1, add_building_construction = { type = arms_factory level = 1 i |
+| `bfx_eco_fuel_reserves` | Strategic Fuel Reserves | 95,7 | bfx_eco_tyulenovo_oil; bfx_eco_synthetic_fuel | — | capital_scope = { add_building_construction = { type = fuel_silo level = 1 instant_build = yes } }, add_tech_bonus = { name = bfx_eco_fuel_r |
+| `bfx_eco_rila_device` | The Rila Device | 103,7 | bfx_eco_kozloduy_reactor | — | add_tech_bonus = { name = bfx_eco_rila_device bonus = 1.0 uses = 2 category = nuclear }, add_war_support = 0.05 |
+| `bfx_eco_academy_of_sciences` | The Academy of Sciences | 86,8 | bfx_eco_national_bank | — | add_research_slot = 1 |
+| `bfx_eco_total_war_production` | Total War Production | 91,8 | bfx_eco_industrial_ring; bfx_eco_dispersed_industry | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = arms_factory level = 1 instant_build = yes }, add_extra_stat |
+| `bfx_mil_neuilly_army` | The Army Neuilly Built | 121,0 | — | — | army_experience = 10, custom_effect_tooltip = bfx_tt_neuilly_r5_s2, add_to_variable = { bfx_rearm = 5 } add_to_variable = { bfx_suspicion =  |
+| `bfx_mil_rhodope_rangers` | Rhodope Rangers | 107,1 | bfx_mil_neuilly_army | — | add_ideas = bfx_mountain_army, add_tech_bonus = { name = bfx_mil_rhodope_rangers bonus = 0.75 uses = 1 category = mountaineers_tech } |
+| `bfx_mil_chataldzha_lessons` | Lessons of Chataldzha | 110,1 | bfx_mil_neuilly_army | — | add_mastery_bonus = { bonus = 0.20 days = 365 name = bfx_mil_chataldzha_lessons folder = land }, army_experience = 15 |
+| `bfx_mil_mountain_doctrine` | Balkan Mountain Doctrine | 107,2 | bfx_mil_rhodope_rangers | — |  |
+| `bfx_mil_staff_academy` | The General Staff Academy | 110,2 | bfx_mil_chataldzha_lessons | — | add_ideas = bfx_general_staff_academy, recruit_character = bfx_BUL_konstantin_lukash |
+| `bfx_mil_mountain_brigades` | The Mountain Brigades | 107,3 | bfx_mil_mountain_doctrine | — | add_tech_bonus = { name = bfx_mil_mountain_brigades bonus = 0.5 uses = 1 category = mountaineers_tech }, army_experience = 15 |
+| `bfx_mil_bayonet_tradition` | The Bayonet Tradition | 110,3 | bfx_mil_staff_academy | — | add_ideas = bfx_bayonet_tradition |
+| `bfx_mil_balkan_war_plan` | The Balkan War Plan | 109,4 | bfx_mil_mountain_brigades; bfx_mil_bayonet_tradition | — | army_experience = 25, recruit_character = bfx_BUL_teodosi_daskalov |
+| `bfx_mil_officer_corps` | Expand the Officer Corps | 107,5 | bfx_mil_balkan_war_plan | — | army_experience = 20, recruit_character = bfx_BUL_vladimir_zaimov |
+| `bfx_mil_combined_arms` | Combined Arms | 110,5 | bfx_mil_balkan_war_plan | — | add_mastery_bonus = { bonus = 0.20 days = 365 name = bfx_mil_combined_arms folder = land } |
+| `bfx_mil_royal_guard` | The Royal Guard Division | 107,6 | bfx_mil_officer_corps | — | add_equipment_to_stockpile = { type = infantry_equipment amount = 1500 }, army_experience = 15, custom_effect_tooltip = bfx_tt_court_p5_a5,  |
+| `bfx_mil_armoured_brigade` | The Armoured Brigade | 110,6 | bfx_mil_combined_arms | — | add_tech_bonus = { name = bfx_mil_armoured_brigade bonus = 0.5 uses = 1 category = armor }, add_tech_bonus = { name = bfx_mil_armoured_motor |
+| `bfx_mil_mountain_blitz` | Blitzkrieg in the Mountains | 109,7 | bfx_mil_royal_guard; bfx_mil_armoured_brigade | — | add_mastery_bonus = { bonus = 0.25 days = 365 name = bfx_mil_mountain_blitz folder = land }, army_experience = 25 |
+| `bfx_mil_small_arms` | Small Arms Standardisation | 115,1 | bfx_mil_neuilly_army | — | add_tech_bonus = { name = bfx_mil_small_arms bonus = 0.5 uses = 1 category = infantry_weapons } |
+| `bfx_mil_mountain_guns` | Mountain Guns | 113,2 | bfx_mil_small_arms | — | add_tech_bonus = { name = bfx_mil_mountain_guns bonus = 0.5 uses = 1 category = artillery } |
+| `bfx_mil_machine_guns` | The Machine-Gun Companies | 116,2 | bfx_mil_small_arms | — | add_equipment_to_stockpile = { type = infantry_equipment amount = 1000 }, add_tech_bonus = { name = bfx_mil_machine_guns bonus = 0.5 uses =  |
+| `bfx_mil_rifle_contracts` | The Mauser Contracts | 113,3 | bfx_mil_mountain_guns | — | add_equipment_to_stockpile = { type = infantry_equipment amount = 2000 } |
+| `bfx_mil_anti_tank` | Anti-Tank Companies | 116,3 | bfx_mil_machine_guns | — | add_tech_bonus = { name = bfx_mil_anti_tank bonus = 0.5 uses = 1 category = artillery }, army_experience = 10 |
+| `bfx_mil_field_artillery` | The Field Artillery Regiments | 115,4 | bfx_mil_rifle_contracts; bfx_mil_anti_tank | — | add_equipment_to_stockpile = { type = artillery_equipment amount = 150 }, add_tech_bonus = { name = bfx_mil_field_artillery bonus = 0.5 uses |
+| `bfx_mil_support_companies` | Support Companies | 115,5 | bfx_mil_field_artillery | — | add_tech_bonus = { name = bfx_mil_support_companies bonus = 0.5 uses = 2 category = support_tech } |
+| `bfx_mil_supply_columns` | The Supply Columns | 115,6 | bfx_mil_support_companies | — | add_tech_bonus = { name = bfx_mil_supply_columns bonus = 0.5 uses = 1 category = motorized_equipment }, add_equipment_to_stockpile = { type  |
+| `bfx_mil_reservists` | The Reservist Associations | 121,1 | bfx_mil_neuilly_army | — | add_ideas = bfx_reservist_associations, add_manpower = 5000, custom_effect_tooltip = bfx_tt_neuilly_r4_s2, add_to_variable = { bfx_rearm = 4 |
+| `bfx_mil_macedonian_emigration` | Volunteers of the Emigration | 119,2 | bfx_mil_reservists | — | add_manpower = 12000, custom_effect_tooltip = bfx_tt_court_i5, add_to_variable = { bfx_inf_imro = 5 }, bfx_court_recalc = yes |
+| `bfx_mil_pomak_battalions` | The Rhodope Battalions | 122,2 | bfx_mil_reservists | — | add_manpower = 8000, add_tech_bonus = { name = bfx_mil_pomak_battalions bonus = 0.25 uses = 1 category = mountaineers_tech } |
+| `bfx_mil_veterans_1912` | Veterans of the Balkan Wars | 119,3 | bfx_mil_macedonian_emigration | — | add_ideas = bfx_veterans_of_1912 |
+| `bfx_mil_womens_auxiliary` | The Women's Auxiliary | 122,3 | bfx_mil_pomak_battalions | — | add_ideas = bfx_womens_auxiliary |
+| `bfx_mil_universal_service` | Universal Service, Openly | 121,4 | bfx_mil_veterans_1912; bfx_mil_womens_auxiliary | — | add_manpower = 25000, add_ideas = bfx_open_conscription |
+| `bfx_mil_mobilisation_law` | The Mobilisation Law | 119,5 | bfx_mil_universal_service | — | add_manpower = 15000, army_experience = 10 |
+| `bfx_mil_training_camps` | Training Camps in the Rhodopes | 122,5 | bfx_mil_universal_service | — | add_tech_bonus = { name = bfx_mil_training_camps bonus = 0.25 uses = 1 category = infantry_weapons }, army_experience = 15, add_manpower = 5 |
+| `bfx_mil_national_army` | The National Army | 121,6 | bfx_mil_mobilisation_law; bfx_mil_training_camps | — | add_ideas = bfx_national_army |
+| `bfx_nav_black_sea_flotilla` | The Black Sea Flotilla | 127,1 | bfx_mil_neuilly_army | — | add_ideas = bfx_black_sea_flotilla, navy_experience = 10 |
+| `bfx_nav_varna_naval_school` | The Varna Naval School | 125,2 | bfx_nav_black_sea_flotilla | — | navy_experience = 15, add_extra_state_shared_building_slots = 1, add_building_construction = { type = dockyard level = 1 instant_build = yes |
+| `bfx_nav_danube_flotilla` | The Danube Flotilla | 128,2 | bfx_nav_black_sea_flotilla | — | navy_experience = 10, add_extra_state_shared_building_slots = 1, add_building_construction = { type = dockyard level = 1 instant_build = yes |
+| `bfx_nav_torpedo_squadrons` | Torpedo Boat Squadrons | 125,3 | bfx_nav_varna_naval_school | — | custom_effect_tooltip = bfx_tt_neuilly_r4_s3, add_to_variable = { bfx_rearm = 4 } add_to_variable = { bfx_suspicion = 3 }, bfx_neuilly_recal |
+| `bfx_nav_minelayers` | The Varna Minefields | 128,3 | bfx_nav_danube_flotilla | — | add_ideas = bfx_minefields |
+| `bfx_nav_coastal_batteries` | Coastal Batteries at Galata | 125,4 | bfx_nav_torpedo_squadrons | — |  |
+| `bfx_nav_naval_aviation` | Naval Aviation | 128,4 | bfx_nav_minelayers | — | air_experience = 10, navy_experience = 10 |
+| `bfx_nav_black_sea_raiders` | Black Sea Raiders | 127,5 | bfx_nav_coastal_batteries; bfx_nav_naval_aviation | — | add_ideas = bfx_black_sea_raiders, navy_experience = 20 |
+| `bfx_nav_submarine_flotilla` | The Submarine Flotilla | 125,6 | bfx_nav_black_sea_raiders | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = dockyard level = 1 instant_build = yes }, navy_experience =  |
+| `bfx_nav_destroyer_squadron` | The Destroyer Squadron | 128,6 | bfx_nav_black_sea_raiders | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = dockyard level = 1 instant_build = yes }, navy_experience =  |
+| `bfx_air_aero_clubs` | Aero Clubs and Gliders | 133,1 | bfx_mil_neuilly_army | — | add_ideas = bfx_clandestine_aviation, air_experience = 10, custom_effect_tooltip = bfx_tt_neuilly_r6_s3, add_to_variable = { bfx_rearm = 6 } |
+| `bfx_air_dar_works` | The DAR Works at Bozhurishte | 131,2 | bfx_air_aero_clubs | — | add_extra_state_shared_building_slots = 1, add_building_construction = { type = arms_factory level = 1 instant_build = yes }, air_experience |
+| `bfx_air_polish_fighters` | PZL Fighters from Warsaw | 134,2 | bfx_air_aero_clubs | — | air_experience = 20 |
+| `bfx_air_avia_biplanes` | Avia Biplanes from Prague | 131,3 | bfx_air_dar_works | — | air_experience = 15 |
+| `bfx_air_foreign_instructors` | Foreign Instructors | 134,3 | bfx_air_polish_fighters | — | add_ideas = bfx_foreign_air_instructors, air_experience = 15 |
+| `bfx_air_vazdushni_voyski` | Proclaim the Vazdushni Voyski | 133,4 | bfx_air_avia_biplanes; bfx_air_foreign_instructors | — | capital_scope = { add_building_construction = { type = air_base level = 3 instant_build = yes } }, recruit_character = bfx_BUL_stoyan_stoyan |
+| `bfx_air_fighter_regiment` | The Fighter Regiment | 131,5 | bfx_air_vazdushni_voyski | — | add_ideas = bfx_sofia_air_defence, air_experience = 15 |
+| `bfx_air_dornier_bombers` | Dornier Bombers | 134,5 | bfx_air_vazdushni_voyski | — | air_experience = 20, add_tech_bonus = { name = bfx_air_dornier_bombers bonus = 0.25 uses = 1 category = industry } |
+| `bfx_air_sofia_flak` | Flak over Sofia | 131,6 | bfx_air_fighter_regiment | — | capital_scope = { add_building_construction = { type = anti_air_building level = 3 instant_build = yes } } |
+| `bfx_air_wings_over_mountains` | Wings over the Mountains | 134,6 | bfx_air_dornier_bombers | — | add_ideas = bfx_wings_over_the_mountains |
+| `bfx_air_paratroopers` | The Parachute Battalion | 133,7 | bfx_air_sofia_flak; bfx_air_wings_over_mountains | — | add_tech_bonus = { name = bfx_air_paratroopers bonus = 0.5 uses = 1 category = para_tech }, army_experience = 15 |

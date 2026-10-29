@@ -14,6 +14,22 @@ bfx_court_category = {
 	priority = 100
 }
 
+bfx_auction_category = {
+	icon = generic_foreign_policy
+	picture = GFX_decision_cat_picture_balkan_faction
+	allowed = { original_tag = BUL }
+	visible = { OR = { has_country_flag = bfx_bidding_open has_country_flag = bfx_change_sides_ready } }
+	priority = 100
+}
+
+bfx_momentum_category = {
+	icon = military_operation
+	picture = GFX_decision_cat_picture_reforming_our_armed_forces
+	allowed = { original_tag = BUL }
+	visible = { has_country_flag = bfx_momentum_active }
+	priority = 100
+}
+
 bfx_diplomacy_category = {
 	icon = generic_foreign_policy
 	picture = GFX_decision_cat_picture_balkan_faction

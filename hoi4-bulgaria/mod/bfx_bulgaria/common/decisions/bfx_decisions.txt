@@ -281,6 +281,252 @@ bfx_court_category = {
 	}
 }
 
+bfx_auction_category = {
+	bfx_auction_flirt_ger = {
+		icon = generic_political_discourse
+		cost = 25
+		days_re_enable = 60
+		visible = { has_country_flag = bfx_bidding_open NOT = { has_country_flag = bfx_auction_closed } }
+		available = { always = yes }
+		complete_effect = {
+			custom_effect_tooltip = bfx_tt_bid_g12_em4_sm4
+			hidden_effect = {
+				add_to_variable = { bfx_bid_ger = 12 } add_to_variable = { bfx_bid_eng = -4 } add_to_variable = { bfx_bid_sov = -4 }
+				bfx_bids_recalc = yes
+			}
+		}
+		ai_will_do = { factor = 2
+	modifier = { factor = 3 has_country_flag = bfx_ai_tsar_kingmaker } }
+	}
+	bfx_auction_flirt_eng = {
+		icon = generic_political_discourse
+		cost = 25
+		days_re_enable = 60
+		visible = { has_country_flag = bfx_bidding_open NOT = { has_country_flag = bfx_auction_closed } }
+		available = { always = yes }
+		complete_effect = {
+			custom_effect_tooltip = bfx_tt_bid_gm4_e12_sm4
+			hidden_effect = {
+				add_to_variable = { bfx_bid_ger = -4 } add_to_variable = { bfx_bid_eng = 12 } add_to_variable = { bfx_bid_sov = -4 }
+				bfx_bids_recalc = yes
+			}
+		}
+		ai_will_do = { factor = 2 }
+	}
+	bfx_auction_flirt_sov = {
+		icon = generic_political_discourse
+		cost = 25
+		days_re_enable = 60
+		visible = { has_country_flag = bfx_bidding_open NOT = { has_country_flag = bfx_auction_closed } }
+		available = { always = yes }
+		complete_effect = {
+			custom_effect_tooltip = bfx_tt_bid_gm4_em4_s12
+			hidden_effect = {
+				add_to_variable = { bfx_bid_ger = -4 } add_to_variable = { bfx_bid_eng = -4 } add_to_variable = { bfx_bid_sov = 12 }
+				bfx_bids_recalc = yes
+			}
+		}
+		ai_will_do = { factor = 2 }
+	}
+	bfx_auction_leak = {
+		icon = generic_operation
+		cost = 50
+		days_re_enable = 120
+		visible = { has_country_flag = bfx_bidding_open NOT = { has_country_flag = bfx_auction_closed } }
+		available = { always = yes }
+		complete_effect = {
+			custom_effect_tooltip = bfx_tt_bid_g5_e5_s5
+			hidden_effect = {
+				add_to_variable = { bfx_bid_ger = 5 } add_to_variable = { bfx_bid_eng = 5 } add_to_variable = { bfx_bid_sov = 5 }
+				bfx_bids_recalc = yes
+			}
+		}
+		ai_will_do = { factor = 2 }
+	}
+	bfx_auction_cash_ger = {
+		icon = generic_army_support
+		cost = 10
+		days_re_enable = 120
+		visible = { has_country_flag = bfx_bidding_open NOT = { has_country_flag = bfx_auction_closed } }
+		available = { check_variable = { bfx_bid_ger > 14 } }
+		complete_effect = {
+			custom_effect_tooltip = bfx_tt_bid_gm15
+			hidden_effect = {
+				add_to_variable = { bfx_bid_ger = -15 }
+				bfx_bids_recalc = yes
+			}
+			add_equipment_to_stockpile = { type = infantry_equipment amount = 1200 }
+			add_equipment_to_stockpile = { type = artillery_equipment amount = 24 }
+		}
+		ai_will_do = { factor = 1 }
+	}
+	bfx_auction_cash_eng = {
+		icon = generic_construction
+		cost = 10
+		days_re_enable = 180
+		visible = { has_country_flag = bfx_bidding_open NOT = { has_country_flag = bfx_auction_closed } }
+		available = { check_variable = { bfx_bid_eng > 19 } }
+		complete_effect = {
+			custom_effect_tooltip = bfx_tt_bid_em20
+			hidden_effect = {
+				add_to_variable = { bfx_bid_eng = -20 }
+				bfx_bids_recalc = yes
+			}
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+		}
+		ai_will_do = { factor = 1 }
+	}
+	bfx_auction_cash_sov = {
+		icon = generic_tank
+		cost = 10
+		days_re_enable = 120
+		visible = { has_country_flag = bfx_bidding_open NOT = { has_country_flag = bfx_auction_closed } }
+		available = { check_variable = { bfx_bid_sov > 14 } }
+		complete_effect = {
+			custom_effect_tooltip = bfx_tt_bid_sm15
+			hidden_effect = {
+				add_to_variable = { bfx_bid_sov = -15 }
+				bfx_bids_recalc = yes
+			}
+			army_experience = 15
+			add_equipment_to_stockpile = { type = artillery_equipment amount = 40 }
+		}
+		ai_will_do = { factor = 1 }
+	}
+	bfx_change_sides = {
+		icon = generic_break_treaty
+		cost = 75
+		fire_only_once = yes
+		visible = { has_country_flag = bfx_change_sides_ready is_in_faction = yes is_faction_leader = no NOT = { has_country_flag = bfx_changed_sides } }
+		available = { has_war = yes any_country = { is_faction_leader = yes is_in_faction_with = ROOT surrender_progress > 0.25 } }
+		complete_effect = {
+			random_country = { limit = { is_faction_leader = yes is_in_faction_with = ROOT } save_event_target_as = bfx_old_patron }
+			random_country = { limit = { is_faction_leader = yes has_war_with = ROOT } save_event_target_as = bfx_new_patron }
+			every_country = { limit = { has_war_with = ROOT } white_peace = { tag = ROOT } }
+			leave_faction = yes
+			if = { limit = { has_event_target = bfx_new_patron } event_target:bfx_new_patron = { country_event = { id = bfx_dip.8 days = 1 } } }
+			if = { limit = { has_event_target = bfx_old_patron } declare_war_on = { target = event_target:bfx_old_patron type = annex_everything } }
+			add_stability = -0.05
+			set_country_flag = bfx_changed_sides
+			custom_effect_tooltip = bfx_tt_change_sides_effect
+		}
+		ai_will_do = { factor = 1
+	modifier = { factor = 20 any_country = { is_faction_leader = yes is_in_faction_with = ROOT surrender_progress > 0.4 } } }
+	}
+}
+
+bfx_momentum_category = {
+	bfx_mom_storm_offensive = {
+		icon = generic_military
+		cost = 25
+		days_re_enable = 90
+		visible = { always = yes }
+		available = { has_war = yes check_variable = { bfx_momentum > 24 } }
+		complete_effect = {
+			custom_effect_tooltip = bfx_tt_momentum_m25
+			hidden_effect = {
+				add_to_variable = { bfx_momentum = -25 }
+				bfx_momentum_recalc = yes
+			}
+			add_timed_idea = { idea = bfx_storm_offensive days = 60 }
+		}
+		ai_will_do = { factor = 5
+	modifier = { factor = 3 check_variable = { bfx_momentum > 70 } } }
+	}
+	bfx_mom_mass_levy = {
+		icon = generic_army_support
+		cost = 25
+		days_re_enable = 120
+		visible = { always = yes }
+		available = { check_variable = { bfx_momentum > 19 } }
+		complete_effect = {
+			custom_effect_tooltip = bfx_tt_momentum_m20
+			hidden_effect = {
+				add_to_variable = { bfx_momentum = -20 }
+				bfx_momentum_recalc = yes
+			}
+			add_manpower = 25000
+		}
+		ai_will_do = { factor = 2
+	modifier = { factor = 4 check_variable = { bfx_momentum > 75 } } }
+	}
+	bfx_mom_tribunals = {
+		icon = generic_arrest
+		cost = 0
+		days_re_enable = 90
+		visible = { has_country_flag = bfx_tribunals_open }
+		available = { check_variable = { bfx_momentum > 14 } }
+		complete_effect = {
+			custom_effect_tooltip = bfx_tt_momentum_m15
+			hidden_effect = {
+				add_to_variable = { bfx_momentum = -15 }
+				bfx_momentum_recalc = yes
+			}
+			add_political_power = 75
+			add_stability = -0.02
+		}
+		ai_will_do = { factor = 1
+	modifier = { factor = 5 check_variable = { bfx_momentum > 80 } } }
+	}
+	bfx_mom_requisitions = {
+		icon = generic_industry
+		cost = 10
+		days_re_enable = 90
+		visible = { has_country_flag = bfx_requisitions_open }
+		available = { check_variable = { bfx_momentum > 14 } }
+		complete_effect = {
+			custom_effect_tooltip = bfx_tt_momentum_m15
+			hidden_effect = {
+				add_to_variable = { bfx_momentum = -15 }
+				bfx_momentum_recalc = yes
+			}
+			add_equipment_to_stockpile = { type = infantry_equipment amount = 2000 }
+			add_equipment_to_stockpile = { type = support_equipment amount = 100 }
+		}
+		ai_will_do = { factor = 1
+	modifier = { factor = 5 check_variable = { bfx_momentum > 80 } } }
+	}
+	bfx_mom_torchlight = {
+		icon = generic_political_rally
+		cost = 30
+		days_re_enable = 60
+		visible = { always = yes }
+		available = { has_war = no }
+		complete_effect = {
+			custom_effect_tooltip = bfx_tt_momentum_8
+			hidden_effect = {
+				add_to_variable = { bfx_momentum = 8 }
+				bfx_momentum_recalc = yes
+			}
+			add_war_support = 0.02
+		}
+		ai_will_do = { factor = 2
+	modifier = { factor = 5 check_variable = { bfx_momentum < 25 } } }
+	}
+	bfx_mom_incident = {
+		icon = generic_assassination
+		cost = 40
+		days_re_enable = 120
+		visible = { has_country_flag = bfx_incidents_open }
+		available = { always = yes }
+		complete_effect = {
+			custom_effect_tooltip = bfx_tt_momentum_15
+			hidden_effect = {
+				add_to_variable = { bfx_momentum = 15 }
+				bfx_momentum_recalc = yes
+			}
+			add_named_threat = { threat = 2 name = bfx_threat_incident }
+			add_war_support = 0.03
+		}
+		ai_will_do = { factor = 2
+	modifier = { factor = 5 check_variable = { bfx_momentum < 25 } } }
+	}
+}
+
 bfx_diplomacy_category = {
 	bfx_dip_nap_tur = {
 		icon = generic_political_discourse

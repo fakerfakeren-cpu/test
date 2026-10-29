@@ -128,6 +128,10 @@ bfx_startup = {
 	set_variable = { bfx_inf_army = 45 }
 	set_variable = { bfx_inf_legion = 20 }
 	set_variable = { bfx_inf_imro = 35 }
+	set_variable = { bfx_bid_ger = 15 }
+	set_variable = { bfx_bid_eng = 10 }
+	set_variable = { bfx_bid_sov = 5 }
+	set_variable = { bfx_momentum = 0 }
 	add_ideas = { bfx_neuilly_shackles bfx_imro_state_within_state bfx_military_league_intrigue bfx_tobacco_monoculture }
 	add_dynamic_modifier = { modifier = bfx_covert_rearmament }
 	add_dynamic_modifier = { modifier = bfx_court_balance }
@@ -136,7 +140,7 @@ bfx_startup = {
 	if = {
 		limit = { is_ai = yes }
 		random_list = {
-			72 = { set_country_flag = bfx_ai_tsar random_list = { 70 = { set_country_flag = bfx_ai_tsar_axis } 30 = { set_country_flag = bfx_ai_tsar_hegemon } } }
+			72 = { set_country_flag = bfx_ai_tsar random_list = { 70 = { set_country_flag = bfx_ai_tsar_kingmaker } 30 = { set_country_flag = bfx_ai_tsar_hegemon } } }
 			28 = { set_country_flag = bfx_ai_fascist random_list = { 60 = { set_country_flag = bfx_ai_fascist_axis } 40 = { set_country_flag = bfx_ai_fascist_imperium } } }
 		}
 		random_list = {
@@ -164,6 +168,25 @@ bfx_monthly = {
 	if = { limit = { has_country_flag = bfx_imro_tolerated } add_to_variable = { bfx_inf_imro = 1 } }
 	if = { limit = { has_country_flag = bfx_imro_crushed } subtract_from_variable = { bfx_inf_imro = 2 } }
 	bfx_court_recalc = yes
+	# The Bulgarian Auction: interest fades while the auction is open
+	if = {
+		limit = { has_country_flag = bfx_bidding_open NOT = { has_country_flag = bfx_auction_closed } }
+		subtract_from_variable = { bfx_bid_ger = 1 }
+		subtract_from_variable = { bfx_bid_eng = 1 }
+		subtract_from_variable = { bfx_bid_sov = 1 }
+		bfx_bids_recalc = yes
+	}
+	# Revolutionary Momentum: +3 a month at war (+1 more on the crusade against the USSR), -3 at peace
+	if = {
+		limit = { has_country_flag = bfx_momentum_active }
+		if = {
+			limit = { has_war = yes }
+			add_to_variable = { bfx_momentum = 3 }
+			if = { limit = { has_country_flag = bfx_crusade_declared has_war_with = SOV } add_to_variable = { bfx_momentum = 1 } }
+		}
+		else = { subtract_from_variable = { bfx_momentum = 3 } }
+		bfx_momentum_recalc = yes
+	}
 	# The death of Tsar Boris (historically 28 August 1943)
 	if = {
 		limit = { has_country_flag = bfx_boris_rules date > 1943.8.1 NOT = { has_country_flag = bfx_boris_dead } }
@@ -199,6 +222,34 @@ bfx_monthly = {
 		2 = { country_event = bfx_flav.4 }
 		2 = { country_event = bfx_flav.5 }
 	}
+}
+
+# ---------------------------------------------------------------- the Bulgarian Auction (Tsar's Way)
+bfx_bids_recalc = {
+	clamp_variable = { var = bfx_bid_ger min = 0 max = 100 }
+	clamp_variable = { var = bfx_bid_eng min = 0 max = 100 }
+	clamp_variable = { var = bfx_bid_sov min = 0 max = 100 }
+}
+
+# ---------------------------------------------------------------- Revolutionary Momentum (Legionary Revolution)
+bfx_momentum_recalc = {
+	clamp_variable = { var = bfx_momentum min = 0 max = 100 }
+	# attack 0..+10%, war support -6%..+14%, conscription 0..+8%, political power -9%..+21%
+	set_variable = { bfx_mm_attack = bfx_momentum }
+	multiply_variable = { bfx_mm_attack = 0.001 }
+	set_variable = { bfx_mm_ws = bfx_momentum }
+	subtract_from_variable = { bfx_mm_ws = 30 }
+	multiply_variable = { bfx_mm_ws = 0.002 }
+	set_variable = { bfx_mm_cons = bfx_momentum }
+	multiply_variable = { bfx_mm_cons = 0.0008 }
+	set_variable = { bfx_mm_pp = bfx_momentum }
+	subtract_from_variable = { bfx_mm_pp = 30 }
+	multiply_variable = { bfx_mm_pp = 0.003 }
+	force_update_dynamic_modifier = yes
+	if = { limit = { check_variable = { bfx_momentum < 15 } NOT = { has_country_flag = bfx_momentum_low } } set_country_flag = bfx_momentum_low country_event = { id = bfx_fas.10 days = 2 } }
+	if = { limit = { check_variable = { bfx_momentum > 25 } has_country_flag = bfx_momentum_low } clr_country_flag = bfx_momentum_low }
+	if = { limit = { check_variable = { bfx_momentum > 89 } NOT = { has_country_flag = bfx_momentum_high } } set_country_flag = bfx_momentum_high country_event = { id = bfx_fas.11 days = 2 } }
+	if = { limit = { check_variable = { bfx_momentum < 75 } has_country_flag = bfx_momentum_high } clr_country_flag = bfx_momentum_high }
 }
 
 # ---------------------------------------------------------------- the Macedonian uprising

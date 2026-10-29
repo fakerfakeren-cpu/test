@@ -20,3 +20,13 @@ bfx_court_balance = {
 	conscription_factor = bfx_cb_cons
 	justify_war_goal_time = bfx_cb_justify
 }
+
+bfx_legion_momentum = {
+	icon = GFX_idea_bfx_momentum
+	enable = { always = yes }
+	remove_trigger = { NOT = { has_country_flag = bfx_momentum_active } }
+	army_attack_factor = bfx_mm_attack
+	war_support_factor = bfx_mm_ws
+	conscription_factor = bfx_mm_cons
+	political_power_factor = bfx_mm_pp
+}

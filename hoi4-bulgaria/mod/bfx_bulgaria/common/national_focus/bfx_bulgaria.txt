@@ -6,7 +6,7 @@ focus_tree = {
 	}
 	default = no
 	reset_on_civilwar = no
-	continuous_focus_position = { x = 50 y = 2700 }
+	continuous_focus_position = { x = 50 y = 3150 }
 	initial_show_position = { focus = bfx_tsars_dilemma }
 
 	focus = {
@@ -502,7 +502,7 @@ focus_tree = {
 		id = bfx_tsar_muzzle_the_league
 		icon = GFX_goal_generic_army_doctrines
 		relative_position_id = bfx_tsar_steps_forward
-		x = -2
+		x = -11
 		y = 1
 		cost = 10
 		prerequisite = { focus = bfx_tsar_steps_forward }
@@ -523,69 +523,206 @@ focus_tree = {
 	}
 
 	focus = {
+		id = bfx_tsar_heir_to_the_throne
+		icon = GFX_focus_bfx_tsar_of_the_bulgarians
+		relative_position_id = bfx_tsar_steps_forward
+		x = -11
+		y = 2
+		cost = 10
+		prerequisite = { focus = bfx_tsar_muzzle_the_league }
+		available = {
+			date > 1937.6.1
+		}
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_HISTORICAL }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_stability = 0.05
+			custom_effect_tooltip = bfx_tt_court_p15
+			hidden_effect = {
+				add_to_variable = { bfx_inf_palace = 15 }
+				bfx_court_recalc = yes
+			}
+		}
+	}
+
+	focus = {
 		id = bfx_tsar_propaganda_directorate
 		icon = GFX_goal_generic_propaganda
 		relative_position_id = bfx_tsar_steps_forward
-		x = 1
-		y = 1
+		x = -11
+		y = 3
 		cost = 10
-		prerequisite = { focus = bfx_tsar_steps_forward }
+		prerequisite = { focus = bfx_tsar_heir_to_the_throne }
 		search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_POLITICAL_CHARACTER }
 		ai_will_do = {
 			factor = 10
 		}
 		completion_reward = {
-			add_war_support = 0.05
+			add_ideas = bfx_royal_propaganda
+			recruit_character = bfx_BUL_dobri_bozhilov
 			custom_effect_tooltip = bfx_tt_court_p5_lm5
 			hidden_effect = {
 				add_to_variable = { bfx_inf_palace = 5 } add_to_variable = { bfx_inf_legion = -5 }
 				bfx_court_recalc = yes
 			}
-			recruit_character = bfx_BUL_dobri_bozhilov
 		}
 	}
 
 	focus = {
-		id = bfx_tsar_raindrops
-		icon = GFX_focus_bfx_tsar_raindrops
+		id = bfx_tsar_the_tsars_men
+		icon = GFX_goal_generic_political_pressure
 		relative_position_id = bfx_tsar_steps_forward
-		x = -6
-		y = 2
+		x = -11
+		y = 4
 		cost = 10
-		prerequisite = { focus = bfx_tsar_muzzle_the_league }
-		mutually_exclusive = { focus = bfx_tsar_stands_alone }
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_HISTORICAL }
+		prerequisite = { focus = bfx_tsar_propaganda_directorate }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_POLITICAL_CHARACTER }
 		ai_will_do = {
-			factor = 20
-			modifier = { factor = 0 is_ai = yes NOT = { has_country_flag = bfx_ai_tsar_axis } }
+			factor = 10
 		}
 		completion_reward = {
-			add_ideas = bfx_raindrops_diplomacy
 			recruit_character = bfx_BUL_bogdan_filov
-			custom_effect_tooltip = bfx_tt_court_p5
+			add_political_power = 75
+			custom_effect_tooltip = bfx_tt_court_p10
 			hidden_effect = {
-				add_to_variable = { bfx_inf_palace = 5 }
+				add_to_variable = { bfx_inf_palace = 10 }
 				bfx_court_recalc = yes
 			}
 		}
 	}
 
 	focus = {
-		id = bfx_tsar_berlin_credits
-		icon = GFX_goal_generic_military_deal
+		id = bfx_tsar_royal_arbitration
+		icon = GFX_focus_bfx_tsars_balance
 		relative_position_id = bfx_tsar_steps_forward
-		x = -9
-		y = 3
+		x = -11
+		y = 5
 		cost = 10
-		prerequisite = { focus = bfx_tsar_raindrops }
-		search_filters = { FOCUS_FILTER_ARMY_XP }
+		prerequisite = { focus = bfx_tsar_the_tsars_men }
+		search_filters = { FOCUS_FILTER_STABILITY }
 		ai_will_do = {
 			factor = 10
 		}
 		completion_reward = {
-			add_equipment_to_stockpile = { type = infantry_equipment amount = 1500 }
-			add_tech_bonus = { name = bfx_tsar_berlin_credits bonus = 0.5 uses = 1 category = artillery }
-			if = { limit = { country_exists = GER } GER = { add_opinion_modifier = { target = ROOT modifier = bfx_om_axis_courtship } } }
+			add_stability = 0.05
+			custom_effect_tooltip = bfx_tt_court_p10_am5_lm5_im5
+			hidden_effect = {
+				add_to_variable = { bfx_inf_palace = 10 } add_to_variable = { bfx_inf_army = -5 } add_to_variable = { bfx_inf_legion = -5 } add_to_variable = { bfx_inf_imro = -5 }
+				bfx_court_recalc = yes
+			}
+		}
+	}
+
+	focus = {
+		id = bfx_tsar_receive_the_envoys
+		icon = GFX_focus_bfx_auction
+		relative_position_id = bfx_tsar_steps_forward
+		x = -3
+		y = 1
+		cost = 10
+		prerequisite = { focus = bfx_tsar_steps_forward }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			set_country_flag = bfx_bidding_open
+			unlock_decision_category_tooltip = bfx_auction_category
+			custom_effect_tooltip = bfx_tt_bid_g10_e5_s5
+			hidden_effect = {
+				add_to_variable = { bfx_bid_ger = 10 } add_to_variable = { bfx_bid_eng = 5 } add_to_variable = { bfx_bid_sov = 5 }
+				bfx_bids_recalc = yes
+			}
+		}
+	}
+
+	focus = {
+		id = bfx_tsar_german_offer
+		icon = GFX_goal_generic_military_deal
+		relative_position_id = bfx_tsar_steps_forward
+		x = -6
+		y = 2
+		cost = 10
+		prerequisite = { focus = bfx_tsar_receive_the_envoys }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ARMY_XP }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			custom_effect_tooltip = bfx_tt_bid_g25
+			hidden_effect = {
+				add_to_variable = { bfx_bid_ger = 25 }
+				bfx_bids_recalc = yes
+			}
+			add_equipment_to_stockpile = { type = infantry_equipment amount = 1000 }
+		}
+	}
+
+	focus = {
+		id = bfx_tsar_british_offer
+		icon = GFX_goal_generic_improve_relations
+		relative_position_id = bfx_tsar_steps_forward
+		x = -3
+		y = 2
+		cost = 10
+		prerequisite = { focus = bfx_tsar_receive_the_envoys }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			custom_effect_tooltip = bfx_tt_bid_e25
+			hidden_effect = {
+				add_to_variable = { bfx_bid_eng = 25 }
+				bfx_bids_recalc = yes
+			}
+			add_political_power = 50
+		}
+	}
+
+	focus = {
+		id = bfx_tsar_soviet_offer
+		icon = GFX_focus_bfx_handshake
+		relative_position_id = bfx_tsar_steps_forward
+		x = 0
+		y = 2
+		cost = 10
+		prerequisite = { focus = bfx_tsar_receive_the_envoys }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_HISTORICAL }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			custom_effect_tooltip = bfx_tt_bid_s25
+			hidden_effect = {
+				add_to_variable = { bfx_bid_sov = 25 }
+				bfx_bids_recalc = yes
+			}
+			add_tech_bonus = { name = bfx_tsar_soviet_offer bonus = 0.5 uses = 1 category = artillery }
+		}
+	}
+
+	focus = {
+		id = bfx_tsar_play_them_off
+		icon = GFX_goal_generic_dangerous_deal
+		relative_position_id = bfx_tsar_steps_forward
+		x = -3
+		y = 3
+		cost = 10
+		prerequisite = { focus = bfx_tsar_german_offer focus = bfx_tsar_british_offer focus = bfx_tsar_soviet_offer }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			custom_effect_tooltip = bfx_tt_bid_g10_e10_s10
+			hidden_effect = {
+				add_to_variable = { bfx_bid_ger = 10 } add_to_variable = { bfx_bid_eng = 10 } add_to_variable = { bfx_bid_sov = 10 }
+				bfx_bids_recalc = yes
+			}
+			add_political_power = 50
 		}
 	}
 
@@ -593,84 +730,237 @@ focus_tree = {
 		id = bfx_tsar_turkish_pact
 		icon = GFX_focus_bfx_handshake
 		relative_position_id = bfx_tsar_steps_forward
-		x = -6
-		y = 3
+		x = -5
+		y = 4
 		cost = 10
-		prerequisite = { focus = bfx_tsar_raindrops }
+		prerequisite = { focus = bfx_tsar_play_them_off }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_HISTORICAL }
 		ai_will_do = {
 			factor = 10
 		}
 		completion_reward = {
 			if = { limit = { country_exists = TUR NOT = { has_war_with = TUR } } TUR = { country_event = { id = bfx_dip.1 days = 2 } } }
-			custom_effect_tooltip = bfx_tt_turkish_nap
+			custom_effect_tooltip = bfx_tt_bid_e10
+			hidden_effect = {
+				add_to_variable = { bfx_bid_eng = 10 }
+				bfx_bids_recalc = yes
+			}
 		}
 	}
 
 	focus = {
-		id = bfx_tsar_craiova
-		icon = GFX_focus_BUL_free_balkan_states
+		id = bfx_tsar_break_the_entente
+		icon = GFX_goal_generic_political_pressure
 		relative_position_id = bfx_tsar_steps_forward
-		x = -3
-		y = 3
-		cost = 10
-		prerequisite = { focus = bfx_tsar_raindrops }
-		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_HISTORICAL }
-		ai_will_do = {
-			factor = 10
-		}
-		completion_reward = {
-			add_state_claim = 77
-			if = { limit = { NOT = { owns_state = 77 } 77 = { owner = { save_event_target_as = bfx_dobruja_owner } } } event_target:bfx_dobruja_owner = { country_event = { id = bfx_dip.6 days = 2 } } }
-			custom_effect_tooltip = bfx_tt_craiova
-		}
-	}
-
-	focus = {
-		id = bfx_tsar_sign_the_pact
-		icon = GFX_goal_tripartite_pact
-		relative_position_id = bfx_tsar_steps_forward
-		x = -9
+		x = -2
 		y = 4
 		cost = 10
-		prerequisite = { focus = bfx_tsar_berlin_credits }
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_HISTORICAL }
-		ai_will_do = {
-			factor = 10
-		}
-		completion_reward = {
-			if = { limit = { is_in_faction = no country_exists = GER GER = { is_faction_leader = yes } } GER = { country_event = { id = bfx_dip.8 days = 2 } } }
-			else_if = { limit = { is_in_faction = no } set_rule = { can_create_factions = yes } create_faction = bfx_faction_balkan_axis }
-			add_ideas = bfx_axis_junior_partner
-		}
-	}
-
-	focus = {
-		id = bfx_tsar_romes_blessing
-		icon = GFX_goal_generic_alliance
-		relative_position_id = bfx_tsar_steps_forward
-		x = -6
-		y = 4
-		cost = 10
-		prerequisite = { focus = bfx_tsar_turkish_pact }
+		prerequisite = { focus = bfx_tsar_play_them_off }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = {
 			factor = 10
 		}
 		completion_reward = {
-			if = { limit = { country_exists = ITA NOT = { has_war_with = ITA } } ITA = { country_event = { id = bfx_dip.4 days = 2 } } }
-			add_political_power = 25
+			every_country = { limit = { OR = { tag = GRE tag = YUG tag = TUR tag = ROM } } add_opinion_modifier = { target = ROOT modifier = bfx_om_balkan_courtship } }
+			if = {
+				limit = { NOT = { has_country_flag = bfx_neuilly_ended } }
+				custom_effect_tooltip = bfx_tt_neuilly_r0_sm15
+				hidden_effect = {
+					add_to_variable = { bfx_suspicion = -15 }
+					bfx_neuilly_recalc = yes
+				}
+			}
+			custom_effect_tooltip = bfx_tt_bid_g10
+			hidden_effect = {
+				add_to_variable = { bfx_bid_ger = 10 }
+				bfx_bids_recalc = yes
+			}
 		}
 	}
 
 	focus = {
-		id = bfx_tsar_dobrujan_settlers
-		icon = GFX_goal_generic_national_unity
+		id = bfx_tsar_auction_closes
+		icon = GFX_focus_bfx_auction
 		relative_position_id = bfx_tsar_steps_forward
 		x = -3
+		y = 5
+		cost = 10
+		prerequisite = { focus = bfx_tsar_turkish_pact }
+		prerequisite = { focus = bfx_tsar_break_the_entente }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			set_country_flag = bfx_auction_closed
+			if = { limit = { check_variable = { bfx_bid_ger > bfx_bid_eng } check_variable = { bfx_bid_ger > bfx_bid_sov } } set_country_flag = bfx_patron_ger add_equipment_to_stockpile = { type = infantry_equipment amount = 3000 } add_equipment_to_stockpile = { type = artillery_equipment amount = 100 } }
+			else_if = { limit = { check_variable = { bfx_bid_eng > bfx_bid_sov } } set_country_flag = bfx_patron_eng random_owned_controlled_state = { 	limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes } } 	add_extra_state_shared_building_slots = 1 	add_building_construction = { type = industrial_complex level = 1 instant_build = yes } } random_owned_controlled_state = { 	limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes } } 	add_extra_state_shared_building_slots = 1 	add_building_construction = { type = industrial_complex level = 1 instant_build = yes } } }
+			else = { set_country_flag = bfx_patron_sov army_experience = 30 add_equipment_to_stockpile = { type = artillery_equipment amount = 150 } }
+			custom_effect_tooltip = bfx_tt_auction_closes
+		}
+	}
+
+	focus = {
+		id = bfx_tsar_macedonian_committees
+		icon = GFX_focus_BUL_support_macedonian_organizations
+		relative_position_id = bfx_tsar_steps_forward
+		x = 3
+		y = 1
+		cost = 10
+		prerequisite = { focus = bfx_tsar_steps_forward }
+		available = {
+			NOT = { has_country_flag = bfx_imro_crushed }
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			set_country_flag = bfx_imro_tolerated
+			unlock_decision_category_tooltip = bfx_imro_category
+			add_to_variable = { bfx_macedonia_unrest = 15 }
+			custom_effect_tooltip = bfx_tt_unrest_focus_15
+			custom_effect_tooltip = bfx_tt_court_i10
+			hidden_effect = {
+				add_to_variable = { bfx_inf_imro = 10 }
+				bfx_court_recalc = yes
+			}
+		}
+	}
+
+	focus = {
+		id = bfx_tsar_pirin_bases
+		icon = GFX_focus_AFG_mountain_training
+		relative_position_id = bfx_tsar_steps_forward
+		x = 3
+		y = 2
+		cost = 10
+		prerequisite = { focus = bfx_tsar_macedonian_committees }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_MANPOWER }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_to_variable = { bfx_macedonia_unrest = 15 }
+			custom_effect_tooltip = bfx_tt_unrest_focus_15
+			add_manpower = 3000
+		}
+	}
+
+	focus = {
+		id = bfx_tsar_ilinden_preparations
+		icon = GFX_goal_generic_special_forces
+		relative_position_id = bfx_tsar_steps_forward
+		x = 3
+		y = 3
+		cost = 10
+		prerequisite = { focus = bfx_tsar_pirin_bases }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_to_variable = { bfx_macedonia_unrest = 25 }
+			custom_effect_tooltip = bfx_tt_unrest_focus_25
+			custom_effect_tooltip = bfx_tt_court_i5
+			hidden_effect = {
+				add_to_variable = { bfx_inf_imro = 5 }
+				bfx_court_recalc = yes
+			}
+		}
+	}
+
+	focus = {
+		id = bfx_tsar_macedonia_rises
+		icon = GFX_focus_BUL_the_fate_of_the_balkans
+		relative_position_id = bfx_tsar_steps_forward
+		x = 3
 		y = 4
 		cost = 10
-		prerequisite = { focus = bfx_tsar_craiova }
+		prerequisite = { focus = bfx_tsar_ilinden_preparations }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			if = { limit = { check_variable = { bfx_macedonia_unrest > 69 } 106 = { is_owned_by = YUG } YUG = { has_civil_war = no } NOT = { has_country_flag = bfx_uprising_active } NOT = { has_country_flag = bfx_macedonia_free } } bfx_start_macedonian_uprising = yes }
+			custom_effect_tooltip = bfx_tt_macedonia_rises
+			add_war_support = 0.05
+		}
+	}
+
+	focus = {
+		id = bfx_tsar_union_with_skopje
+		icon = GFX_goal_generic_national_unity
+		relative_position_id = bfx_tsar_steps_forward
+		x = 3
+		y = 5
+		cost = 10
+		prerequisite = { focus = bfx_tsar_macedonia_rises }
+		available = {
+			owns_state = 106
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			if = { limit = { owns_state = 106 } add_state_core = 106 }
+			106 = { add_compliance = 25 }
+			set_country_flag = bfx_integration_unlocked
+			unlock_decision_category_tooltip = bfx_integration_category
+		}
+	}
+
+	focus = {
+		id = bfx_tsar_lost_provinces_office
+		icon = GFX_goal_generic_more_territorial_claims
+		relative_position_id = bfx_tsar_steps_forward
+		x = 7
+		y = 1
+		cost = 10
+		prerequisite = { focus = bfx_tsar_steps_forward }
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_state_claim = 77
+			add_state_claim = 184
+			add_war_support = 0.03
+		}
+	}
+
+	focus = {
+		id = bfx_tsar_craiova_talks
+		icon = GFX_focus_BUL_free_balkan_states
+		relative_position_id = bfx_tsar_steps_forward
+		x = 7
+		y = 2
+		cost = 10
+		prerequisite = { focus = bfx_tsar_lost_provinces_office }
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_HISTORICAL }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			if = { limit = { NOT = { owns_state = 77 } 77 = { owner = { save_event_target_as = bfx_dobruja_owner } } } event_target:bfx_dobruja_owner = { country_event = { id = bfx_dip.6 days = 2 } } }
+			custom_effect_tooltip = bfx_tt_bid_g5_s5
+			hidden_effect = {
+				add_to_variable = { bfx_bid_ger = 5 } add_to_variable = { bfx_bid_sov = 5 }
+				bfx_bids_recalc = yes
+			}
+		}
+	}
+
+	focus = {
+		id = bfx_tsar_dobruja_returned
+		icon = GFX_focus_bfx_bessarabian_bulgars
+		relative_position_id = bfx_tsar_steps_forward
+		x = 7
+		y = 3
+		cost = 10
+		prerequisite = { focus = bfx_tsar_craiova_talks }
 		available = {
 			owns_state = 77
 		}
@@ -686,16 +976,183 @@ focus_tree = {
 	}
 
 	focus = {
-		id = bfx_tsar_axis_partition
+		id = bfx_tsar_thracian_question
+		icon = GFX_goal_generic_occupy_states_coastal
+		relative_position_id = bfx_tsar_steps_forward
+		x = 7
+		y = 4
+		cost = 10
+		prerequisite = { focus = bfx_tsar_dobruja_returned }
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			if = { limit = { NOT = { owns_state = 184 } 184 = { owner = { save_event_target_as = bfx_ultimatum_target } } } event_target:bfx_ultimatum_target = { country_event = { id = bfx_dip.10 days = 2 } } }
+		}
+	}
+
+	focus = {
+		id = bfx_tsar_aegean_window
+		icon = GFX_goal_generic_construct_naval_dockyard
+		relative_position_id = bfx_tsar_steps_forward
+		x = 7
+		y = 5
+		cost = 10
+		prerequisite = { focus = bfx_tsar_thracian_question }
+		available = {
+			owns_state = 184
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_NAVY_XP }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			if = { limit = { owns_state = 184 } add_state_core = 184 }
+			184 = { add_compliance = 20 }
+			random_owned_controlled_state = {
+				limit = { is_coastal = yes free_building_slots = { building = dockyard size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = dockyard level = 1 instant_build = yes }
+			}
+			set_country_flag = bfx_integration_unlocked
+			unlock_decision_category_tooltip = bfx_integration_category
+		}
+	}
+
+	focus = {
+		id = bfx_tsar_armed_neutrality
+		icon = GFX_goal_generic_defence
+		relative_position_id = bfx_tsar_steps_forward
+		x = 10
+		y = 1
+		cost = 10
+		prerequisite = { focus = bfx_tsar_steps_forward }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			every_owned_state = { limit = { is_controlled_by = ROOT any_neighbor_state = { NOT = { is_owned_by = ROOT } } } add_building_construction = { type = bunker level = 1 instant_build = yes province = { all_provinces = yes limit_to_border = yes } } }
+			army_experience = 10
+		}
+	}
+
+	focus = {
+		id = bfx_tsar_danube_line
+		icon = GFX_goal_generic_fortify_city
+		relative_position_id = bfx_tsar_steps_forward
+		x = 10
+		y = 2
+		cost = 10
+		prerequisite = { focus = bfx_tsar_armed_neutrality }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			every_owned_state = { limit = { is_controlled_by = ROOT any_neighbor_state = { NOT = { is_owned_by = ROOT } } } add_building_construction = { type = bunker level = 1 instant_build = yes province = { all_provinces = yes limit_to_border = yes } } }
+		}
+	}
+
+	focus = {
+		id = bfx_tsar_mobilisation_plan
+		icon = GFX_goal_generic_position_armies
+		relative_position_id = bfx_tsar_steps_forward
+		x = 10
+		y = 3
+		cost = 10
+		prerequisite = { focus = bfx_tsar_danube_line }
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_manpower = 15000
+			custom_effect_tooltip = bfx_tt_court_a5
+			hidden_effect = {
+				add_to_variable = { bfx_inf_army = 5 }
+				bfx_court_recalc = yes
+			}
+		}
+	}
+
+	focus = {
+		id = bfx_tsar_fortress_bulgaria
+		icon = GFX_focus_bfx_fortress_bulgaria
+		relative_position_id = bfx_tsar_steps_forward
+		x = 10
+		y = 4
+		cost = 10
+		prerequisite = { focus = bfx_tsar_mobilisation_plan }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_ideas = bfx_fortress_bulgaria
+		}
+	}
+
+	focus = {
+		id = bfx_tsar_crossroads
+		icon = GFX_focus_bfx_tsars_balance
+		relative_position_id = bfx_tsar_steps_forward
+		x = 0
+		y = 6
+		cost = 10
+		prerequisite = { focus = bfx_tsar_auction_closes }
+		prerequisite = { focus = bfx_tsar_union_with_skopje focus = bfx_tsar_aegean_window }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_political_power = 100
+			custom_effect_tooltip = bfx_tt_court_p10
+			hidden_effect = {
+				add_to_variable = { bfx_inf_palace = 10 }
+				bfx_court_recalc = yes
+			}
+		}
+	}
+
+	focus = {
+		id = bfx_tsar_sign_with_the_bidder
+		icon = GFX_focus_bfx_tsar_raindrops
+		relative_position_id = bfx_tsar_steps_forward
+		x = -6
+		y = 7
+		cost = 10
+		prerequisite = { focus = bfx_tsar_crossroads }
+		mutually_exclusive = { focus = bfx_tsar_stands_alone }
+		available = {
+			is_in_faction = no
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_HISTORICAL }
+		ai_will_do = {
+			factor = 20
+			modifier = { factor = 0 is_ai = yes NOT = { has_country_flag = bfx_ai_tsar_kingmaker } }
+		}
+		completion_reward = {
+			if = { limit = { has_country_flag = bfx_patron_ger country_exists = GER } GER = { if = { limit = { is_faction_leader = yes } country_event = { id = bfx_dip.8 days = 2 } } else = { give_guarantee = ROOT } } }
+			else_if = { limit = { has_country_flag = bfx_patron_eng country_exists = ENG } ENG = { if = { limit = { is_faction_leader = yes } country_event = { id = bfx_dip.8 days = 2 } } else = { give_guarantee = ROOT } } }
+			else_if = { limit = { has_country_flag = bfx_patron_sov country_exists = SOV } SOV = { if = { limit = { is_faction_leader = yes } country_event = { id = bfx_dip.8 days = 2 } } else = { give_guarantee = ROOT } } }
+			add_ideas = bfx_raindrops_diplomacy
+			custom_effect_tooltip = bfx_tt_sign_bidder
+		}
+	}
+
+	focus = {
+		id = bfx_tsar_partition_dividend
 		icon = GFX_focus_BUL_the_fate_of_the_balkans
 		relative_position_id = bfx_tsar_steps_forward
 		x = -8
-		y = 5
+		y = 8
 		cost = 10
-		prerequisite = { focus = bfx_tsar_sign_the_pact }
-		prerequisite = { focus = bfx_tsar_romes_blessing }
+		prerequisite = { focus = bfx_tsar_sign_with_the_bidder }
 		available = {
-			OR = { date > 1941.4.1 106 = { controller = { OR = { tag = ROOT is_in_faction_with = ROOT } } } 184 = { controller = { OR = { tag = ROOT is_in_faction_with = ROOT } } } 731 = { controller = { OR = { tag = ROOT is_in_faction_with = ROOT } } } }
+			OR = { date > 1941.4.1 any_state = { OR = { state = 106 state = 184 state = 731 state = 77 state = 341 } NOT = { is_owned_by = ROOT } controller = { is_in_faction_with = ROOT } } }
 		}
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_HISTORICAL }
 		ai_will_do = {
@@ -714,33 +1171,45 @@ focus_tree = {
 				limit = { 731 = { NOT = { is_owned_by = ROOT } controller = { OR = { tag = ROOT is_in_faction_with = ROOT } } } }
 				transfer_state = 731
 			}
+			if = {
+				limit = { 77 = { NOT = { is_owned_by = ROOT } controller = { OR = { tag = ROOT is_in_faction_with = ROOT } } } }
+				transfer_state = 77
+			}
+			if = {
+				limit = { 341 = { NOT = { is_owned_by = ROOT } controller = { OR = { tag = ROOT is_in_faction_with = ROOT } } } }
+				transfer_state = 341
+			}
 			if = { limit = { owns_state = 106 } add_state_core = 106 }
 			if = { limit = { owns_state = 184 } add_state_core = 184 }
-			if = {
-				limit = { NOT = { owns_state = 106 } }
-				106 = { owner = { save_event_target_as = bfx_wg_target } }
-				create_wargoal = { type = take_state_focus target = event_target:bfx_wg_target generator = { 106 } }
-			}
+			if = { limit = { owns_state = 77 } add_state_core = 77 }
 			set_country_flag = bfx_integration_unlocked
 			unlock_decision_category_tooltip = bfx_integration_category
 		}
 	}
 
 	focus = {
-		id = bfx_tsar_western_outlands
-		icon = GFX_goal_generic_more_territorial_claims
+		id = bfx_tsar_patrons_credit
+		icon = GFX_goal_generic_construct_mil_factory
 		relative_position_id = bfx_tsar_steps_forward
-		x = -3
-		y = 5
+		x = -5
+		y = 8
 		cost = 10
-		prerequisite = { focus = bfx_tsar_dobrujan_settlers }
-		search_filters = { FOCUS_FILTER_ANNEXATION }
+		prerequisite = { focus = bfx_tsar_sign_with_the_bidder }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
 			factor = 10
 		}
 		completion_reward = {
-			every_state = { limit = { OR = { is_core_of = YUG is_core_of = SER } any_neighbor_state = { is_owned_by = ROOT } NOT = { is_owned_by = ROOT } NOT = { is_claimed_by = ROOT } } add_claim_by = ROOT }
-			add_state_claim = 106
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = arms_factory size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
 		}
 	}
 
@@ -749,9 +1218,9 @@ focus_tree = {
 		icon = GFX_goal_generic_occupy_states_ongoing_war
 		relative_position_id = bfx_tsar_steps_forward
 		x = -9
-		y = 6
+		y = 9
 		cost = 10
-		prerequisite = { focus = bfx_tsar_axis_partition }
+		prerequisite = { focus = bfx_tsar_partition_dividend }
 		search_filters = { FOCUS_FILTER_STABILITY }
 		ai_will_do = {
 			factor = 10
@@ -763,25 +1232,19 @@ focus_tree = {
 	}
 
 	focus = {
-		id = bfx_tsar_aegean_littoral
-		icon = GFX_goal_generic_occupy_states_coastal
+		id = bfx_tsar_western_outlands
+		icon = GFX_goal_generic_more_territorial_claims
 		relative_position_id = bfx_tsar_steps_forward
 		x = -6
-		y = 6
+		y = 9
 		cost = 10
-		prerequisite = { focus = bfx_tsar_axis_partition }
+		prerequisite = { focus = bfx_tsar_partition_dividend }
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = {
 			factor = 10
 		}
 		completion_reward = {
-			add_state_claim = 184
-			add_state_claim = 731
-			if = {
-				limit = { NOT = { owns_state = 184 } }
-				184 = { owner = { save_event_target_as = bfx_wg_target } }
-				create_wargoal = { type = take_state_focus target = event_target:bfx_wg_target generator = { 184 } }
-			}
+			every_state = { limit = { OR = { is_core_of = YUG is_core_of = SER } any_neighbor_state = { is_owned_by = ROOT } NOT = { is_owned_by = ROOT } NOT = { is_claimed_by = ROOT } } add_claim_by = ROOT }
 		}
 	}
 
@@ -790,9 +1253,9 @@ focus_tree = {
 		icon = GFX_focus_bfx_bessarabian_bulgars
 		relative_position_id = bfx_tsar_steps_forward
 		x = -3
-		y = 6
+		y = 9
 		cost = 10
-		prerequisite = { focus = bfx_tsar_western_outlands }
+		prerequisite = { focus = bfx_tsar_patrons_credit }
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = {
 			factor = 10
@@ -803,7 +1266,6 @@ focus_tree = {
 				add_claim_by = ROOT
 			}
 			add_state_claim = 971
-			add_war_support = 0.03
 		}
 	}
 
@@ -812,7 +1274,7 @@ focus_tree = {
 		icon = GFX_goal_generic_neutrality_focus
 		relative_position_id = bfx_tsar_steps_forward
 		x = -9
-		y = 7
+		y = 10
 		cost = 10
 		prerequisite = { focus = bfx_tsar_occupation_corps }
 		mutually_exclusive = { focus = bfx_tsar_crusade_east }
@@ -827,7 +1289,6 @@ focus_tree = {
 				add_to_variable = { bfx_inf_palace = 10 }
 				bfx_court_recalc = yes
 			}
-			if = { limit = { country_exists = SOV NOT = { has_war_with = SOV } } SOV = { country_event = { id = bfx_dip.1 days = 2 } } }
 		}
 	}
 
@@ -836,12 +1297,12 @@ focus_tree = {
 		icon = GFX_focus_bfx_crusade_east
 		relative_position_id = bfx_tsar_steps_forward
 		x = -6
-		y = 7
+		y = 10
 		cost = 10
-		prerequisite = { focus = bfx_tsar_aegean_littoral }
+		prerequisite = { focus = bfx_tsar_western_outlands }
 		mutually_exclusive = { focus = bfx_tsar_no_eastern_front }
 		available = {
-			GER = { has_war_with = SOV }
+			GER = { has_war_with = SOV } is_in_faction_with = GER
 		}
 		search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_ANNEXATION }
 		ai_will_do = {
@@ -860,11 +1321,29 @@ focus_tree = {
 	}
 
 	focus = {
+		id = bfx_tsar_change_sides_contingency
+		icon = GFX_goal_generic_dangerous_deal
+		relative_position_id = bfx_tsar_steps_forward
+		x = -3
+		y = 10
+		cost = 10
+		prerequisite = { focus = bfx_tsar_bessarabian_bulgars }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_HISTORICAL }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			set_country_flag = bfx_change_sides_ready
+			custom_effect_tooltip = bfx_tt_change_sides
+		}
+	}
+
+	focus = {
 		id = bfx_tsar_greater_bulgaria
 		icon = GFX_focus_bfx_greater_bulgaria
 		relative_position_id = bfx_tsar_steps_forward
 		x = -8
-		y = 8
+		y = 11
 		cost = 10
 		prerequisite = { focus = bfx_tsar_no_eastern_front focus = bfx_tsar_crusade_east }
 		available = {
@@ -885,11 +1364,31 @@ focus_tree = {
 	}
 
 	focus = {
+		id = bfx_tsar_victors_table
+		icon = GFX_goal_generic_major_alliance
+		relative_position_id = bfx_tsar_steps_forward
+		x = -3
+		y = 11
+		cost = 10
+		prerequisite = { focus = bfx_tsar_change_sides_contingency }
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_state_claim = 184
+			add_state_claim = 731
+			add_state_claim = 341
+			add_war_support = 0.05
+		}
+	}
+
+	focus = {
 		id = bfx_tsar_straits_question
 		icon = GFX_focus_BUL_supremacy_on_the_bosporus
 		relative_position_id = bfx_tsar_steps_forward
 		x = -9
-		y = 9
+		y = 12
 		cost = 10
 		prerequisite = { focus = bfx_tsar_greater_bulgaria }
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
@@ -908,56 +1407,13 @@ focus_tree = {
 	}
 
 	focus = {
-		id = bfx_tsar_three_seas
-		icon = GFX_focus_bfx_tsar_three_seas
-		relative_position_id = bfx_tsar_steps_forward
-		x = -6
-		y = 9
-		cost = 10
-		prerequisite = { focus = bfx_tsar_greater_bulgaria }
-		search_filters = { FOCUS_FILTER_ANNEXATION }
-		ai_will_do = {
-			factor = 10
-		}
-		completion_reward = {
-			every_state = {
-				limit = { OR = { is_core_of = ALB } NOT = { is_core_of = ROOT } NOT = { is_claimed_by = ROOT } }
-				add_claim_by = ROOT
-			}
-			if = { limit = { owns_state = 731 731 = { compliance > 40 } } add_state_core = 731 }
-		}
-	}
-
-	focus = {
-		id = bfx_tsar_adrianople
-		icon = GFX_goal_generic_fortify_city
-		relative_position_id = bfx_tsar_steps_forward
-		x = -9
-		y = 10
-		cost = 10
-		prerequisite = { focus = bfx_tsar_straits_question }
-		available = {
-			owns_state = 341
-		}
-		search_filters = { FOCUS_FILTER_ANNEXATION }
-		ai_will_do = {
-			factor = 10
-		}
-		completion_reward = {
-			if = { limit = { owns_state = 341 } add_state_core = 341 }
-			341 = { add_compliance = 20 }
-			add_stability = 0.03
-		}
-	}
-
-	focus = {
 		id = bfx_tsar_san_stefano
 		icon = GFX_focus_bfx_san_stefano
 		relative_position_id = bfx_tsar_steps_forward
 		x = -6
-		y = 10
+		y = 12
 		cost = 10
-		prerequisite = { focus = bfx_tsar_three_seas }
+		prerequisite = { focus = bfx_tsar_greater_bulgaria }
 		available = {
 			owns_state = 106 owns_state = 184 owns_state = 77
 		}
@@ -968,7 +1424,7 @@ focus_tree = {
 		completion_reward = {
 			set_cosmetic_tag = bfx_san_stefano_bulgaria
 			every_owned_state = { limit = { NOT = { is_core_of = ROOT } } add_compliance = 15 }
-			add_war_support = 0.05
+			if = { limit = { owns_state = 731 731 = { compliance > 40 } } add_state_core = 731 }
 		}
 	}
 
@@ -977,15 +1433,16 @@ focus_tree = {
 		icon = GFX_focus_bfx_tsar_of_the_bulgarians
 		relative_position_id = bfx_tsar_steps_forward
 		x = -8
-		y = 11
+		y = 13
 		cost = 10
-		prerequisite = { focus = bfx_tsar_adrianople }
+		prerequisite = { focus = bfx_tsar_straits_question }
 		prerequisite = { focus = bfx_tsar_san_stefano }
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
 		ai_will_do = {
 			factor = 10
 		}
 		completion_reward = {
+			if = { limit = { owns_state = 341 } add_state_core = 341 }
 			add_ideas = bfx_imperial_mandate
 			add_political_power = 150
 			army_experience = 50
@@ -998,14 +1455,33 @@ focus_tree = {
 	}
 
 	focus = {
+		id = bfx_tsar_the_kingmaker
+		icon = GFX_focus_bfx_master_of_the_peninsula
+		relative_position_id = bfx_tsar_steps_forward
+		x = -3
+		y = 13
+		cost = 10
+		prerequisite = { focus = bfx_tsar_victors_table }
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_stability = 0.10
+			add_political_power = 100
+			every_owned_state = { limit = { NOT = { is_core_of = ROOT } } add_compliance = 10 }
+		}
+	}
+
+	focus = {
 		id = bfx_tsar_stands_alone
 		icon = GFX_focus_bfx_tsar_stands_alone
 		relative_position_id = bfx_tsar_steps_forward
 		x = 6
-		y = 2
+		y = 7
 		cost = 10
-		prerequisite = { focus = bfx_tsar_propaganda_directorate }
-		mutually_exclusive = { focus = bfx_tsar_raindrops }
+		prerequisite = { focus = bfx_tsar_crossroads }
+		mutually_exclusive = { focus = bfx_tsar_sign_with_the_bidder }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = {
 			factor = 20
@@ -1026,7 +1502,7 @@ focus_tree = {
 		icon = GFX_goal_generic_alliance
 		relative_position_id = bfx_tsar_steps_forward
 		x = 3
-		y = 3
+		y = 8
 		cost = 10
 		prerequisite = { focus = bfx_tsar_stands_alone }
 		available = {
@@ -1043,20 +1519,22 @@ focus_tree = {
 	}
 
 	focus = {
-		id = bfx_tsar_soviet_pact
-		icon = GFX_focus_bfx_handshake
+		id = bfx_tsar_everyones_money
+		icon = GFX_goal_generic_trade
 		relative_position_id = bfx_tsar_steps_forward
 		x = 6
-		y = 3
+		y = 8
 		cost = 10
 		prerequisite = { focus = bfx_tsar_stands_alone }
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_HISTORICAL }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
 			factor = 10
 		}
 		completion_reward = {
-			if = { limit = { country_exists = SOV NOT = { has_war_with = SOV } } SOV = { country_event = { id = bfx_dip.1 days = 2 } } }
-			add_political_power = 25
+			if = { limit = { check_variable = { bfx_bid_ger > 39 } } add_equipment_to_stockpile = { type = infantry_equipment amount = 2000 } }
+			if = { limit = { check_variable = { bfx_bid_sov > 39 } } add_equipment_to_stockpile = { type = artillery_equipment amount = 100 } }
+			if = { limit = { check_variable = { bfx_bid_eng > 39 } } random_owned_controlled_state = { 	limit = { free_building_slots = { building = industrial_complex size > 0 include_locked = yes } } 	add_extra_state_shared_building_slots = 1 	add_building_construction = { type = industrial_complex level = 1 instant_build = yes } } }
+			custom_effect_tooltip = bfx_tt_everyones_money
 		}
 	}
 
@@ -1065,7 +1543,7 @@ focus_tree = {
 		icon = GFX_goal_generic_military_sphere
 		relative_position_id = bfx_tsar_steps_forward
 		x = 9
-		y = 3
+		y = 8
 		cost = 10
 		prerequisite = { focus = bfx_tsar_stands_alone }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
@@ -1086,7 +1564,7 @@ focus_tree = {
 		icon = GFX_goal_generic_improve_relations
 		relative_position_id = bfx_tsar_steps_forward
 		x = 3
-		y = 4
+		y = 9
 		cost = 10
 		prerequisite = { focus = bfx_tsar_sofia_pact }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -1104,9 +1582,9 @@ focus_tree = {
 		icon = GFX_focus_BUL_prussia_of_the_balkans
 		relative_position_id = bfx_tsar_steps_forward
 		x = 6
-		y = 4
+		y = 9
 		cost = 10
-		prerequisite = { focus = bfx_tsar_soviet_pact }
+		prerequisite = { focus = bfx_tsar_everyones_money }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
 			factor = 10
@@ -1122,7 +1600,7 @@ focus_tree = {
 		icon = GFX_goal_generic_construct_naval_dockyard
 		relative_position_id = bfx_tsar_steps_forward
 		x = 9
-		y = 4
+		y = 9
 		cost = 10
 		prerequisite = { focus = bfx_tsar_albanian_protectorate }
 		search_filters = { FOCUS_FILTER_NAVY_XP }
@@ -1136,16 +1614,15 @@ focus_tree = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = { type = dockyard level = 1 instant_build = yes }
 			}
-			if = { limit = { ALB = { is_subject_of = ROOT } } ALB = { add_opinion_modifier = { target = ROOT modifier = bfx_om_diplomatic_courtesy } } }
 		}
 	}
 
 	focus = {
-		id = bfx_tsar_war_plan_west
+		id = bfx_tsar_ultimatum_belgrade
 		icon = GFX_goal_generic_major_war
 		relative_position_id = bfx_tsar_steps_forward
 		x = 3
-		y = 5
+		y = 10
 		cost = 10
 		prerequisite = { focus = bfx_tsar_revisionist_brothers }
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
@@ -1154,16 +1631,16 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_state_claim = 106
-			if = { limit = { country_exists = YUG NOT = { is_in_faction_with = YUG } NOT = { has_war_with = YUG } } create_wargoal = { type = annex_everything target = YUG } }
+			if = { limit = { NOT = { owns_state = 106 } 106 = { owner = { NOT = { is_in_faction_with = ROOT } } } } 106 = { owner = { country_event = { id = bfx_dip.11 days = 2 } } } }
 		}
 	}
 
 	focus = {
-		id = bfx_tsar_war_plan_south
+		id = bfx_tsar_ultimatum_athens
 		icon = GFX_goal_generic_territory_or_war
 		relative_position_id = bfx_tsar_steps_forward
 		x = 6
-		y = 5
+		y = 10
 		cost = 10
 		prerequisite = { focus = bfx_tsar_hegemon_army }
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
@@ -1173,18 +1650,16 @@ focus_tree = {
 		completion_reward = {
 			add_state_claim = 184
 			add_state_claim = 731
-			if = { limit = { 184 = { owner = { NOT = { tag = ROOT } } } } 184 = { owner = { save_event_target_as = bfx_wg_target } } create_wargoal = { type = take_state_focus target = event_target:bfx_wg_target generator = { 184 731 } } }
-			set_country_flag = bfx_integration_unlocked
-			unlock_decision_category_tooltip = bfx_integration_category
+			if = { limit = { NOT = { owns_state = 184 } 184 = { owner = { NOT = { is_in_faction_with = ROOT } } } } 184 = { owner = { country_event = { id = bfx_dip.10 days = 2 } } } }
 		}
 	}
 
 	focus = {
-		id = bfx_tsar_war_plan_north
+		id = bfx_tsar_ultimatum_bucharest
 		icon = GFX_goal_generic_occupy_start_war
 		relative_position_id = bfx_tsar_steps_forward
 		x = 9
-		y = 5
+		y = 10
 		cost = 10
 		prerequisite = { focus = bfx_tsar_durres_concession }
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
@@ -1194,7 +1669,7 @@ focus_tree = {
 		completion_reward = {
 			add_state_claim = 77
 			add_state_claim = 971
-			if = { limit = { 77 = { owner = { NOT = { tag = ROOT } } } } 77 = { owner = { save_event_target_as = bfx_wg_target } } create_wargoal = { type = take_state_focus target = event_target:bfx_wg_target generator = { 77 971 } } }
+			if = { limit = { NOT = { owns_state = 77 } 77 = { owner = { NOT = { is_in_faction_with = ROOT } } } } 77 = { owner = { country_event = { id = bfx_dip.6 days = 2 } } } }
 		}
 	}
 
@@ -1203,9 +1678,9 @@ focus_tree = {
 		icon = GFX_goal_generic_military_sphere
 		relative_position_id = bfx_tsar_steps_forward
 		x = 3
-		y = 6
+		y = 11
 		cost = 10
-		prerequisite = { focus = bfx_tsar_war_plan_west }
+		prerequisite = { focus = bfx_tsar_ultimatum_belgrade }
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = {
 			factor = 10
@@ -1216,38 +1691,42 @@ focus_tree = {
 	}
 
 	focus = {
-		id = bfx_tsar_war_plan_east
+		id = bfx_tsar_ultimatum_ankara
 		icon = GFX_focus_BUL_supremacy_on_the_bosporus
 		relative_position_id = bfx_tsar_steps_forward
 		x = 6
-		y = 6
+		y = 11
 		cost = 10
-		prerequisite = { focus = bfx_tsar_war_plan_south }
+		prerequisite = { focus = bfx_tsar_ultimatum_athens }
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = {
 			factor = 10
 		}
 		completion_reward = {
 			add_state_claim = 341
-			add_state_claim = 797
-			if = { limit = { 341 = { owner = { NOT = { tag = ROOT } } } } 341 = { owner = { save_event_target_as = bfx_wg_target } } create_wargoal = { type = take_state_focus target = event_target:bfx_wg_target generator = { 341 797 } } }
+			if = { limit = { NOT = { owns_state = 341 } 341 = { owner = { NOT = { is_in_faction_with = ROOT } } } } 341 = { owner = { country_event = { id = bfx_dip.12 days = 2 } } } }
 		}
 	}
 
 	focus = {
-		id = bfx_tsar_danube_line
-		icon = GFX_goal_generic_defence
+		id = bfx_tsar_black_sea_dominion
+		icon = GFX_goal_generic_build_navy
 		relative_position_id = bfx_tsar_steps_forward
 		x = 9
-		y = 6
+		y = 11
 		cost = 10
-		prerequisite = { focus = bfx_tsar_war_plan_north }
-		search_filters = { FOCUS_FILTER_ARMY_XP }
+		prerequisite = { focus = bfx_tsar_ultimatum_bucharest }
+		search_filters = { FOCUS_FILTER_NAVY_XP }
 		ai_will_do = {
 			factor = 10
 		}
 		completion_reward = {
-			every_owned_state = { limit = { is_controlled_by = ROOT any_neighbor_state = { NOT = { is_owned_by = ROOT } } } add_building_construction = { type = bunker level = 2 instant_build = yes province = { all_provinces = yes limit_to_border = yes } } }
+			random_owned_controlled_state = {
+				limit = { is_coastal = yes free_building_slots = { building = dockyard size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = dockyard level = 2 instant_build = yes }
+			}
+			navy_experience = 25
 		}
 	}
 
@@ -1255,11 +1734,11 @@ focus_tree = {
 		id = bfx_tsar_balkan_tsardom
 		icon = GFX_focus_bfx_balkan_tsardom
 		relative_position_id = bfx_tsar_steps_forward
-		x = 6
-		y = 7
+		x = 4
+		y = 12
 		cost = 10
-		prerequisite = { focus = bfx_tsar_war_plan_east }
 		prerequisite = { focus = bfx_tsar_client_kings }
+		prerequisite = { focus = bfx_tsar_ultimatum_ankara }
 		available = {
 			OR = { owns_state = 106 owns_state = 184 owns_state = 341 }
 		}
@@ -1275,49 +1754,8 @@ focus_tree = {
 			set_cosmetic_tag = bfx_balkan_tsardom
 			if = { limit = { has_idea = bfx_tsars_personal_regime } swap_ideas = { remove_idea = bfx_tsars_personal_regime add_idea = bfx_tsar_unifier } }
 			else = { add_ideas = bfx_tsar_unifier }
-		}
-	}
-
-	focus = {
-		id = bfx_tsar_imperial_council
-		icon = GFX_goal_generic_political_pressure
-		relative_position_id = bfx_tsar_steps_forward
-		x = 4
-		y = 8
-		cost = 10
-		prerequisite = { focus = bfx_tsar_balkan_tsardom }
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_POLITICAL_CHARACTER }
-		ai_will_do = {
-			factor = 10
-		}
-		completion_reward = {
-			recruit_character = bfx_BUL_kimon_georgiev
-			every_owned_state = { limit = { NOT = { is_core_of = ROOT } } add_compliance = 15 }
-			add_political_power = 75
-		}
-	}
-
-	focus = {
-		id = bfx_tsar_black_sea_dominion
-		icon = GFX_goal_generic_build_navy
-		relative_position_id = bfx_tsar_steps_forward
-		x = 7
-		y = 8
-		cost = 10
-		prerequisite = { focus = bfx_tsar_balkan_tsardom }
-		prerequisite = { focus = bfx_tsar_danube_line }
-		search_filters = { FOCUS_FILTER_NAVY_XP FOCUS_FILTER_ANNEXATION }
-		ai_will_do = {
-			factor = 10
-		}
-		completion_reward = {
-			random_owned_controlled_state = {
-				limit = { is_coastal = yes free_building_slots = { building = dockyard size > 0 include_locked = yes } }
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = { type = dockyard level = 2 instant_build = yes }
-			}
-			navy_experience = 25
-			add_state_claim = 971
+			set_country_flag = bfx_integration_unlocked
+			unlock_decision_category_tooltip = bfx_integration_category
 		}
 	}
 
@@ -1326,9 +1764,9 @@ focus_tree = {
 		icon = GFX_focus_bfx_master_of_the_peninsula
 		relative_position_id = bfx_tsar_steps_forward
 		x = 6
-		y = 9
+		y = 13
 		cost = 10
-		prerequisite = { focus = bfx_tsar_imperial_council }
+		prerequisite = { focus = bfx_tsar_balkan_tsardom }
 		prerequisite = { focus = bfx_tsar_black_sea_dominion }
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_ANNEXATION }
 		ai_will_do = {
@@ -1349,7 +1787,7 @@ focus_tree = {
 	focus = {
 		id = bfx_fas_legions_march
 		icon = GFX_focus_bfx_legions_march
-		x = 61
+		x = 65
 		y = 5
 		cost = 10
 		prerequisite = { focus = bfx_hour_of_decision }
@@ -1372,7 +1810,7 @@ focus_tree = {
 		id = bfx_fas_legionary_state
 		icon = GFX_focus_bfx_legionary_state
 		relative_position_id = bfx_fas_legions_march
-		x = 0
+		x = -6
 		y = 1
 		cost = 10
 		prerequisite = { focus = bfx_fas_legions_march }
@@ -1393,10 +1831,84 @@ focus_tree = {
 	}
 
 	focus = {
+		id = bfx_fas_revolution_must_march
+		icon = GFX_focus_bfx_revolution_must_march
+		relative_position_id = bfx_fas_legions_march
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = bfx_fas_legions_march }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			set_country_flag = bfx_momentum_active
+			set_variable = { bfx_momentum = 30 }
+			add_dynamic_modifier = { modifier = bfx_legion_momentum }
+			bfx_momentum_recalc = yes
+			unlock_decision_category_tooltip = bfx_momentum_category
+			custom_effect_tooltip = bfx_tt_momentum_start
+		}
+	}
+
+	focus = {
+		id = bfx_fas_dobruja_ultimatum
+		icon = GFX_focus_BUL_free_balkan_states
+		relative_position_id = bfx_fas_legions_march
+		x = 6
+		y = 1
+		cost = 10
+		prerequisite = { focus = bfx_fas_legions_march }
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_state_claim = 77
+			if = { limit = { NOT = { owns_state = 77 } 77 = { owner = { save_event_target_as = bfx_dobruja_owner } } } event_target:bfx_dobruja_owner = { country_event = { id = bfx_dip.6 days = 2 } } }
+			custom_effect_tooltip = bfx_tt_momentum_5
+			hidden_effect = {
+				add_to_variable = { bfx_momentum = 5 }
+				bfx_momentum_recalc = yes
+			}
+		}
+	}
+
+	focus = {
+		id = bfx_fas_purge_the_palace
+		icon = GFX_goal_generic_political_pressure
+		relative_position_id = bfx_fas_legions_march
+		x = -9
+		y = 2
+		cost = 10
+		prerequisite = { focus = bfx_fas_legionary_state }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_political_power = 75
+			if = { limit = { has_idea = bfx_partyless_regime } swap_ideas = { remove_idea = bfx_partyless_regime add_idea = bfx_legionary_state } }
+			else = { add_political_power = 25 }
+			custom_effect_tooltip = bfx_tt_court_pm20_l10
+			hidden_effect = {
+				add_to_variable = { bfx_inf_palace = -20 } add_to_variable = { bfx_inf_legion = 10 }
+				bfx_court_recalc = yes
+			}
+			custom_effect_tooltip = bfx_tt_momentum_5
+			hidden_effect = {
+				add_to_variable = { bfx_momentum = 5 }
+				bfx_momentum_recalc = yes
+			}
+		}
+	}
+
+	focus = {
 		id = bfx_fas_legionary_militia
 		icon = GFX_goal_generic_allies_build_infantry
 		relative_position_id = bfx_fas_legions_march
-		x = -3
+		x = -6
 		y = 2
 		cost = 10
 		prerequisite = { focus = bfx_fas_legionary_state }
@@ -1414,7 +1926,7 @@ focus_tree = {
 		id = bfx_fas_brannik
 		icon = GFX_focus_BUL_found_the_brannik
 		relative_position_id = bfx_fas_legions_march
-		x = 3
+		x = -3
 		y = 2
 		cost = 10
 		prerequisite = { focus = bfx_fas_legionary_state }
@@ -1428,13 +1940,489 @@ focus_tree = {
 	}
 
 	focus = {
-		id = bfx_fas_into_the_axis
-		icon = GFX_focus_bfx_into_the_axis
+		id = bfx_fas_legionary_courts
+		icon = GFX_goal_generic_secret_weapon
 		relative_position_id = bfx_fas_legions_march
-		x = -5
+		x = -9
+		y = 3
+		cost = 10
+		prerequisite = { focus = bfx_fas_purge_the_palace }
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_stability = 0.05
+			set_country_flag = bfx_tribunals_open
+			custom_effect_tooltip = bfx_tt_tribunals
+			custom_effect_tooltip = bfx_tt_court_pm5_l5
+			hidden_effect = {
+				add_to_variable = { bfx_inf_palace = -5 } add_to_variable = { bfx_inf_legion = 5 }
+				bfx_court_recalc = yes
+			}
+		}
+	}
+
+	focus = {
+		id = bfx_fas_arms_drive
+		icon = GFX_goal_generic_construct_mil_factory
+		relative_position_id = bfx_fas_legions_march
+		x = -6
 		y = 3
 		cost = 10
 		prerequisite = { focus = bfx_fas_legionary_militia }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_ARMY_XP }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = arms_factory size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+			add_equipment_to_stockpile = { type = infantry_equipment amount = 1500 }
+		}
+	}
+
+	focus = {
+		id = bfx_fas_youth_battalions
+		icon = GFX_goal_generic_axis_build_infantry
+		relative_position_id = bfx_fas_legions_march
+		x = -3
+		y = 3
+		cost = 10
+		prerequisite = { focus = bfx_fas_brannik }
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_manpower = 15000
+			custom_effect_tooltip = bfx_tt_momentum_5
+			hidden_effect = {
+				add_to_variable = { bfx_momentum = 5 }
+				bfx_momentum_recalc = yes
+			}
+		}
+	}
+
+	focus = {
+		id = bfx_fas_cult_of_the_fallen
+		icon = GFX_goal_generic_propaganda
+		relative_position_id = bfx_fas_legions_march
+		x = -9
+		y = 4
+		cost = 10
+		prerequisite = { focus = bfx_fas_legionary_courts }
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_war_support = 0.05
+			custom_effect_tooltip = bfx_tt_momentum_10
+			hidden_effect = {
+				add_to_variable = { bfx_momentum = 10 }
+				bfx_momentum_recalc = yes
+			}
+		}
+	}
+
+	focus = {
+		id = bfx_fas_shock_divisions
+		icon = GFX_goal_generic_special_forces
+		relative_position_id = bfx_fas_legions_march
+		x = -6
+		y = 4
+		cost = 10
+		prerequisite = { focus = bfx_fas_arms_drive }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_ideas = bfx_shock_divisions
+			army_experience = 15
+		}
+	}
+
+	focus = {
+		id = bfx_fas_legion_war_economy
+		icon = GFX_goal_generic_production
+		relative_position_id = bfx_fas_legions_march
+		x = -3
+		y = 4
+		cost = 10
+		prerequisite = { focus = bfx_fas_arms_drive }
+		prerequisite = { focus = bfx_fas_youth_battalions }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = arms_factory size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = arms_factory size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+		}
+	}
+
+	focus = {
+		id = bfx_fas_the_new_man
+		icon = GFX_goal_generic_national_unity
+		relative_position_id = bfx_fas_legions_march
+		x = -7
+		y = 5
+		cost = 10
+		prerequisite = { focus = bfx_fas_cult_of_the_fallen }
+		prerequisite = { focus = bfx_fas_shock_divisions }
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_war_support = 0.05
+			custom_effect_tooltip = bfx_tt_court_l10
+			hidden_effect = {
+				add_to_variable = { bfx_inf_legion = 10 }
+				bfx_court_recalc = yes
+			}
+		}
+	}
+
+	focus = {
+		id = bfx_fas_total_mobilisation
+		icon = GFX_goal_generic_production
+		relative_position_id = bfx_fas_legions_march
+		x = -3
+		y = 5
+		cost = 10
+		prerequisite = { focus = bfx_fas_legion_war_economy }
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MANPOWER }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_ideas = bfx_total_mobilisation
+		}
+	}
+
+	focus = {
+		id = bfx_fas_blitz_plan
+		icon = GFX_goal_generic_army_doctrines
+		relative_position_id = bfx_fas_legions_march
+		x = 0
+		y = 2
+		cost = 10
+		prerequisite = { focus = bfx_fas_revolution_must_march }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			army_experience = 25
+			custom_effect_tooltip = bfx_tt_momentum_5
+			hidden_effect = {
+				add_to_variable = { bfx_momentum = 5 }
+				bfx_momentum_recalc = yes
+			}
+		}
+	}
+
+	focus = {
+		id = bfx_fas_border_incidents
+		icon = GFX_goal_generic_occupy_start_war
+		relative_position_id = bfx_fas_legions_march
+		x = 3
+		y = 2
+		cost = 10
+		prerequisite = { focus = bfx_fas_revolution_must_march }
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_state_claim = 106
+			add_state_claim = 184
+			set_country_flag = bfx_incidents_open
+			custom_effect_tooltip = bfx_tt_incidents
+			custom_effect_tooltip = bfx_tt_momentum_10
+			hidden_effect = {
+				add_to_variable = { bfx_momentum = 10 }
+				bfx_momentum_recalc = yes
+			}
+		}
+	}
+
+	focus = {
+		id = bfx_fas_war_on_yugoslavia
+		icon = GFX_goal_generic_major_war
+		relative_position_id = bfx_fas_legions_march
+		x = 0
+		y = 3
+		cost = 10
+		prerequisite = { focus = bfx_fas_blitz_plan }
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			if = {
+				limit = { 106 = { owner = { NOT = { tag = ROOT } NOT = { is_in_faction_with = ROOT } } } }
+				106 = { owner = { save_event_target_as = bfx_wg_target } }
+				create_wargoal = { type = take_state_focus target = event_target:bfx_wg_target generator = { 106 } }
+			}
+			custom_effect_tooltip = bfx_tt_court_a10
+			hidden_effect = {
+				add_to_variable = { bfx_inf_army = 10 }
+				bfx_court_recalc = yes
+			}
+			custom_effect_tooltip = bfx_tt_momentum_10
+			hidden_effect = {
+				add_to_variable = { bfx_momentum = 10 }
+				bfx_momentum_recalc = yes
+			}
+		}
+	}
+
+	focus = {
+		id = bfx_fas_war_on_greece
+		icon = GFX_goal_generic_territory_or_war
+		relative_position_id = bfx_fas_legions_march
+		x = 3
+		y = 3
+		cost = 10
+		prerequisite = { focus = bfx_fas_border_incidents }
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			if = {
+				limit = { 184 = { owner = { NOT = { tag = ROOT } NOT = { is_in_faction_with = ROOT } } } }
+				184 = { owner = { save_event_target_as = bfx_wg_target } }
+				create_wargoal = { type = take_state_focus target = event_target:bfx_wg_target generator = { 184 731 } }
+			}
+			custom_effect_tooltip = bfx_tt_momentum_10
+			hidden_effect = {
+				add_to_variable = { bfx_momentum = 10 }
+				bfx_momentum_recalc = yes
+			}
+		}
+	}
+
+	focus = {
+		id = bfx_fas_legionary_macedonia
+		icon = GFX_focus_BUL_bulgarian_administration_of_the_balkans
+		relative_position_id = bfx_fas_legions_march
+		x = 0
+		y = 4
+		cost = 10
+		prerequisite = { focus = bfx_fas_war_on_yugoslavia }
+		available = {
+			owns_state = 106
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			if = { limit = { owns_state = 106 } add_state_core = 106 }
+			106 = { add_compliance = 20 }
+			set_country_flag = bfx_integration_unlocked
+			unlock_decision_category_tooltip = bfx_integration_category
+			custom_effect_tooltip = bfx_tt_momentum_10
+			hidden_effect = {
+				add_to_variable = { bfx_momentum = 10 }
+				bfx_momentum_recalc = yes
+			}
+		}
+	}
+
+	focus = {
+		id = bfx_fas_legionary_thrace
+		icon = GFX_goal_generic_occupy_states_coastal
+		relative_position_id = bfx_fas_legions_march
+		x = 3
+		y = 4
+		cost = 10
+		prerequisite = { focus = bfx_fas_war_on_greece }
+		available = {
+			owns_state = 184
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_NAVY_XP }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			if = { limit = { owns_state = 184 } add_state_core = 184 }
+			184 = { add_compliance = 20 }
+			random_owned_controlled_state = {
+				limit = { is_coastal = yes free_building_slots = { building = dockyard size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = dockyard level = 1 instant_build = yes }
+			}
+			set_country_flag = bfx_integration_unlocked
+			unlock_decision_category_tooltip = bfx_integration_category
+		}
+	}
+
+	focus = {
+		id = bfx_fas_victory_parades
+		icon = GFX_goal_generic_propaganda
+		relative_position_id = bfx_fas_legions_march
+		x = 2
+		y = 5
+		cost = 10
+		prerequisite = { focus = bfx_fas_legionary_macedonia focus = bfx_fas_legionary_thrace }
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_political_power = 75
+			add_war_support = 0.05
+			custom_effect_tooltip = bfx_tt_momentum_10
+			hidden_effect = {
+				add_to_variable = { bfx_momentum = 10 }
+				bfx_momentum_recalc = yes
+			}
+		}
+	}
+
+	focus = {
+		id = bfx_fas_dobrujan_legion
+		icon = GFX_focus_bfx_bessarabian_bulgars
+		relative_position_id = bfx_fas_legions_march
+		x = 6
+		y = 2
+		cost = 10
+		prerequisite = { focus = bfx_fas_dobruja_ultimatum }
+		available = {
+			owns_state = 77
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_MANPOWER }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			if = { limit = { owns_state = 77 } add_state_core = 77 }
+			77 = { add_compliance = 20 }
+			add_manpower = 8000
+		}
+	}
+
+	focus = {
+		id = bfx_fas_legionary_prefects
+		icon = GFX_goal_generic_occupy_states_ongoing_war
+		relative_position_id = bfx_fas_legions_march
+		x = 9
+		y = 2
+		cost = 10
+		prerequisite = { focus = bfx_fas_dobruja_ultimatum }
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_ANNEXATION }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_ideas = bfx_legionary_prefects
+		}
+	}
+
+	focus = {
+		id = bfx_fas_settlers
+		icon = GFX_goal_generic_construct_infrastructure
+		relative_position_id = bfx_fas_legions_march
+		x = 8
+		y = 3
+		cost = 10
+		prerequisite = { focus = bfx_fas_dobrujan_legion focus = bfx_fas_legionary_prefects }
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_MANPOWER }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			every_owned_state = { limit = { NOT = { is_core_of = ROOT } } add_compliance = 10 }
+			add_manpower = 5000
+		}
+	}
+
+	focus = {
+		id = bfx_fas_requisitions
+		icon = GFX_goal_generic_trade
+		relative_position_id = bfx_fas_legions_march
+		x = 8
+		y = 4
+		cost = 10
+		prerequisite = { focus = bfx_fas_settlers }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			set_country_flag = bfx_requisitions_open
+			custom_effect_tooltip = bfx_tt_requisitions
+			add_equipment_to_stockpile = { type = support_equipment amount = 300 }
+		}
+	}
+
+	focus = {
+		id = bfx_fas_compliance_drive
+		icon = GFX_goal_generic_national_unity
+		relative_position_id = bfx_fas_legions_march
+		x = 8
+		y = 5
+		cost = 10
+		prerequisite = { focus = bfx_fas_requisitions }
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_ANNEXATION }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			every_owned_state = { limit = { NOT = { is_core_of = ROOT } } add_compliance = 15 }
+			add_stability = -0.03
+		}
+	}
+
+	focus = {
+		id = bfx_fas_legion_destiny
+		icon = GFX_focus_bfx_legions_march
+		relative_position_id = bfx_fas_legions_march
+		x = 0
+		y = 6
+		cost = 10
+		prerequisite = { focus = bfx_fas_victory_parades }
+		prerequisite = { focus = bfx_fas_the_new_man focus = bfx_fas_total_mobilisation focus = bfx_fas_compliance_drive }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_political_power = 100
+			custom_effect_tooltip = bfx_tt_momentum_10
+			hidden_effect = {
+				add_to_variable = { bfx_momentum = 10 }
+				bfx_momentum_recalc = yes
+			}
+		}
+	}
+
+	focus = {
+		id = bfx_fas_into_the_axis
+		icon = GFX_focus_bfx_into_the_axis
+		relative_position_id = bfx_fas_legions_march
+		x = -6
+		y = 7
+		cost = 10
+		prerequisite = { focus = bfx_fas_legion_destiny }
 		mutually_exclusive = { focus = bfx_fas_national_social_state }
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = {
@@ -1452,8 +2440,8 @@ focus_tree = {
 		id = bfx_fas_anti_comintern
 		icon = GFX_goal_anti_comintern_pact
 		relative_position_id = bfx_fas_legions_march
-		x = -6
-		y = 4
+		x = -9
+		y = 8
 		cost = 10
 		prerequisite = { focus = bfx_fas_into_the_axis }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
@@ -1470,8 +2458,8 @@ focus_tree = {
 		id = bfx_fas_german_instructors
 		icon = GFX_goal_generic_army_doctrines
 		relative_position_id = bfx_fas_legions_march
-		x = -3
-		y = 4
+		x = -6
+		y = 8
 		cost = 10
 		prerequisite = { focus = bfx_fas_into_the_axis }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
@@ -1485,63 +2473,13 @@ focus_tree = {
 	}
 
 	focus = {
-		id = bfx_fas_dobruja_ultimatum
-		icon = GFX_focus_BUL_free_balkan_states
-		relative_position_id = bfx_fas_legions_march
-		x = -8
-		y = 5
-		cost = 10
-		prerequisite = { focus = bfx_fas_anti_comintern }
-		search_filters = { FOCUS_FILTER_ANNEXATION }
-		ai_will_do = {
-			factor = 10
-		}
-		completion_reward = {
-			add_state_claim = 77
-			if = { limit = { NOT = { owns_state = 77 } 77 = { owner = { save_event_target_as = bfx_dobruja_owner } } } event_target:bfx_dobruja_owner = { country_event = { id = bfx_dip.6 days = 2 } } }
-		}
-	}
-
-	focus = {
-		id = bfx_fas_balkan_blitz
-		icon = GFX_goal_generic_major_war
-		relative_position_id = bfx_fas_legions_march
-		x = -5
-		y = 5
-		cost = 10
-		prerequisite = { focus = bfx_fas_anti_comintern }
-		prerequisite = { focus = bfx_fas_german_instructors }
-		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
-		ai_will_do = {
-			factor = 10
-		}
-		completion_reward = {
-			if = {
-				limit = { 106 = { owner = { NOT = { tag = ROOT } NOT = { is_in_faction_with = ROOT } } } }
-				106 = { owner = { save_event_target_as = bfx_wg_target } }
-				create_wargoal = { type = take_state_focus target = event_target:bfx_wg_target generator = { 106 } }
-			}
-			if = {
-				limit = { 184 = { owner = { NOT = { tag = ROOT } NOT = { is_in_faction_with = ROOT } } } }
-				184 = { owner = { save_event_target_as = bfx_wg_target } }
-				create_wargoal = { type = take_state_focus target = event_target:bfx_wg_target generator = { 184 731 } }
-			}
-			custom_effect_tooltip = bfx_tt_court_a10_l5
-			hidden_effect = {
-				add_to_variable = { bfx_inf_army = 10 } add_to_variable = { bfx_inf_legion = 5 }
-				bfx_court_recalc = yes
-			}
-		}
-	}
-
-	focus = {
 		id = bfx_fas_axis_air_bases
 		icon = GFX_goal_generic_build_airforce
 		relative_position_id = bfx_fas_legions_march
-		x = -2
-		y = 5
+		x = -3
+		y = 8
 		cost = 10
-		prerequisite = { focus = bfx_fas_german_instructors }
+		prerequisite = { focus = bfx_fas_into_the_axis }
 		search_filters = { FOCUS_FILTER_AIR_XP }
 		ai_will_do = {
 			factor = 10
@@ -1554,14 +2492,15 @@ focus_tree = {
 
 	focus = {
 		id = bfx_fas_new_order
-		icon = GFX_focus_BUL_bulgarian_administration_of_the_balkans
+		icon = GFX_focus_BUL_the_fate_of_the_balkans
 		relative_position_id = bfx_fas_legions_march
-		x = -5
-		y = 6
+		x = -7
+		y = 9
 		cost = 10
-		prerequisite = { focus = bfx_fas_balkan_blitz }
+		prerequisite = { focus = bfx_fas_anti_comintern }
+		prerequisite = { focus = bfx_fas_german_instructors }
 		available = {
-			OR = { date > 1941.4.1 106 = { controller = { OR = { tag = ROOT is_in_faction_with = ROOT } } } 184 = { controller = { OR = { tag = ROOT is_in_faction_with = ROOT } } } }
+			OR = { date > 1941.4.1 any_state = { OR = { state = 106 state = 184 state = 731 state = 77 } NOT = { is_owned_by = ROOT } controller = { is_in_faction_with = ROOT } } }
 		}
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = {
@@ -1580,6 +2519,10 @@ focus_tree = {
 				limit = { 731 = { NOT = { is_owned_by = ROOT } controller = { OR = { tag = ROOT is_in_faction_with = ROOT } } } }
 				transfer_state = 731
 			}
+			if = {
+				limit = { 77 = { NOT = { is_owned_by = ROOT } controller = { OR = { tag = ROOT is_in_faction_with = ROOT } } } }
+				transfer_state = 77
+			}
 			if = { limit = { owns_state = 106 } add_state_core = 106 }
 			if = { limit = { owns_state = 184 } add_state_core = 184 }
 			set_country_flag = bfx_integration_unlocked
@@ -1588,19 +2531,20 @@ focus_tree = {
 	}
 
 	focus = {
-		id = bfx_fas_total_mobilisation
-		icon = GFX_goal_generic_production
+		id = bfx_fas_panzers_for_sofia
+		icon = GFX_goal_generic_army_tanks
 		relative_position_id = bfx_fas_legions_march
-		x = -2
-		y = 6
+		x = -3
+		y = 9
 		cost = 10
 		prerequisite = { focus = bfx_fas_axis_air_bases }
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_MANPOWER }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = {
 			factor = 10
 		}
 		completion_reward = {
-			add_ideas = bfx_total_mobilisation
+			add_equipment_to_stockpile = { type = support_equipment amount = 200 }
+			add_tech_bonus = { name = bfx_fas_panzers_for_sofia bonus = 0.5 uses = 2 category = armor }
 		}
 	}
 
@@ -1608,12 +2552,12 @@ focus_tree = {
 		id = bfx_fas_crusade_east
 		icon = GFX_focus_bfx_crusade_east
 		relative_position_id = bfx_fas_legions_march
-		x = -6
-		y = 7
+		x = -9
+		y = 10
 		cost = 10
 		prerequisite = { focus = bfx_fas_new_order }
 		available = {
-			GER = { has_war_with = SOV }
+			GER = { has_war_with = SOV } is_in_faction_with = GER
 		}
 		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = {
@@ -1621,24 +2565,29 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_ideas = bfx_eastern_crusade
+			set_country_flag = bfx_crusade_declared
 			if = { limit = { country_exists = SOV NOT = { has_war_with = SOV } } declare_war_on = { target = SOV type = annex_everything } }
 			custom_effect_tooltip = bfx_tt_court_l10
 			hidden_effect = {
 				add_to_variable = { bfx_inf_legion = 10 }
 				bfx_court_recalc = yes
 			}
+			custom_effect_tooltip = bfx_tt_momentum_15
+			hidden_effect = {
+				add_to_variable = { bfx_momentum = 15 }
+				bfx_momentum_recalc = yes
+			}
 		}
 	}
 
 	focus = {
-		id = bfx_fas_legionary_bulgaria
+		id = bfx_fas_legionary_greater_bulgaria
 		icon = GFX_focus_bfx_greater_bulgaria
 		relative_position_id = bfx_fas_legions_march
-		x = -3
-		y = 7
+		x = -6
+		y = 10
 		cost = 10
 		prerequisite = { focus = bfx_fas_new_order }
-		prerequisite = { focus = bfx_fas_total_mobilisation }
 		available = {
 			OR = { owns_state = 106 owns_state = 184 }
 		}
@@ -1656,11 +2605,33 @@ focus_tree = {
 	}
 
 	focus = {
+		id = bfx_fas_black_sea_squadron
+		icon = GFX_goal_generic_build_navy
+		relative_position_id = bfx_fas_legions_march
+		x = -3
+		y = 10
+		cost = 10
+		prerequisite = { focus = bfx_fas_panzers_for_sofia }
+		search_filters = { FOCUS_FILTER_NAVY_XP }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = { is_coastal = yes free_building_slots = { building = dockyard size > 0 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = dockyard level = 1 instant_build = yes }
+			}
+			navy_experience = 20
+		}
+	}
+
+	focus = {
 		id = bfx_fas_budjak
 		icon = GFX_focus_bfx_bessarabian_bulgars
 		relative_position_id = bfx_fas_legions_march
-		x = -8
-		y = 8
+		x = -10
+		y = 11
 		cost = 10
 		prerequisite = { focus = bfx_fas_crusade_east }
 		search_filters = { FOCUS_FILTER_ANNEXATION }
@@ -1680,8 +2651,8 @@ focus_tree = {
 		id = bfx_fas_odessa_corridor
 		icon = GFX_goal_generic_occupy_states_coastal
 		relative_position_id = bfx_fas_legions_march
-		x = -5
-		y = 8
+		x = -7
+		y = 11
 		cost = 10
 		prerequisite = { focus = bfx_fas_crusade_east }
 		search_filters = { FOCUS_FILTER_ANNEXATION }
@@ -1695,12 +2666,13 @@ focus_tree = {
 
 	focus = {
 		id = bfx_fas_aegean_fleet
-		icon = GFX_goal_generic_build_navy
+		icon = GFX_goal_generic_navy_cruiser
 		relative_position_id = bfx_fas_legions_march
-		x = -2
-		y = 8
+		x = -4
+		y = 11
 		cost = 10
-		prerequisite = { focus = bfx_fas_legionary_bulgaria }
+		prerequisite = { focus = bfx_fas_legionary_greater_bulgaria }
+		prerequisite = { focus = bfx_fas_black_sea_squadron }
 		search_filters = { FOCUS_FILTER_NAVY_XP }
 		ai_will_do = {
 			factor = 10
@@ -1709,9 +2681,9 @@ focus_tree = {
 			random_owned_controlled_state = {
 				limit = { is_coastal = yes free_building_slots = { building = dockyard size > 0 include_locked = yes } }
 				add_extra_state_shared_building_slots = 1
-				add_building_construction = { type = dockyard level = 2 instant_build = yes }
+				add_building_construction = { type = dockyard level = 1 instant_build = yes }
 			}
-			navy_experience = 25
+			navy_experience = 15
 		}
 	}
 
@@ -1719,11 +2691,10 @@ focus_tree = {
 		id = bfx_fas_legionary_empire
 		icon = GFX_focus_BUL_the_third_bulgarian_empire
 		relative_position_id = bfx_fas_legions_march
-		x = -5
-		y = 9
+		x = -7
+		y = 12
 		cost = 10
-		prerequisite = { focus = bfx_fas_budjak }
-		prerequisite = { focus = bfx_fas_odessa_corridor }
+		prerequisite = { focus = bfx_fas_budjak focus = bfx_fas_odessa_corridor }
 		prerequisite = { focus = bfx_fas_aegean_fleet }
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_ANNEXATION }
 		ai_will_do = {
@@ -1739,8 +2710,8 @@ focus_tree = {
 		id = bfx_fas_thrace_to_bosporus
 		icon = GFX_focus_BUL_supremacy_on_the_bosporus
 		relative_position_id = bfx_fas_legions_march
-		x = -6
-		y = 10
+		x = -9
+		y = 13
 		cost = 10
 		prerequisite = { focus = bfx_fas_legionary_empire }
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
@@ -1755,6 +2726,11 @@ focus_tree = {
 				341 = { owner = { save_event_target_as = bfx_wg_target } }
 				create_wargoal = { type = take_state_focus target = event_target:bfx_wg_target generator = { 341 797 } }
 			}
+			custom_effect_tooltip = bfx_tt_momentum_10
+			hidden_effect = {
+				add_to_variable = { bfx_momentum = 10 }
+				bfx_momentum_recalc = yes
+			}
 		}
 	}
 
@@ -1762,8 +2738,8 @@ focus_tree = {
 		id = bfx_fas_legion_of_st_george
 		icon = GFX_goal_generic_special_forces
 		relative_position_id = bfx_fas_legions_march
-		x = -3
-		y = 10
+		x = -6
+		y = 13
 		cost = 10
 		prerequisite = { focus = bfx_fas_legionary_empire }
 		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_MANPOWER }
@@ -1780,8 +2756,8 @@ focus_tree = {
 		id = bfx_fas_new_bulgarian_order
 		icon = GFX_focus_bfx_new_bulgarian_order
 		relative_position_id = bfx_fas_legions_march
-		x = -5
-		y = 11
+		x = -7
+		y = 14
 		cost = 10
 		prerequisite = { focus = bfx_fas_thrace_to_bosporus }
 		prerequisite = { focus = bfx_fas_legion_of_st_george }
@@ -1805,10 +2781,10 @@ focus_tree = {
 		id = bfx_fas_national_social_state
 		icon = GFX_focus_bfx_iron_imperium
 		relative_position_id = bfx_fas_legions_march
-		x = 4
-		y = 3
+		x = 6
+		y = 7
 		cost = 10
-		prerequisite = { focus = bfx_fas_brannik }
+		prerequisite = { focus = bfx_fas_legion_destiny }
 		mutually_exclusive = { focus = bfx_fas_into_the_axis }
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
 		ai_will_do = {
@@ -1826,7 +2802,7 @@ focus_tree = {
 		icon = GFX_goal_generic_construct_military
 		relative_position_id = bfx_fas_legions_march
 		x = 3
-		y = 4
+		y = 8
 		cost = 10
 		prerequisite = { focus = bfx_fas_national_social_state }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -1852,7 +2828,7 @@ focus_tree = {
 		icon = GFX_goal_generic_alliance
 		relative_position_id = bfx_fas_legions_march
 		x = 6
-		y = 4
+		y = 8
 		cost = 10
 		prerequisite = { focus = bfx_fas_national_social_state }
 		available = {
@@ -1870,11 +2846,36 @@ focus_tree = {
 	}
 
 	focus = {
+		id = bfx_fas_rival_to_rome
+		icon = GFX_goal_generic_demand_territory
+		relative_position_id = bfx_fas_legions_march
+		x = 9
+		y = 8
+		cost = 10
+		prerequisite = { focus = bfx_fas_national_social_state }
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			every_state = {
+				limit = { OR = { is_core_of = ALB } NOT = { is_core_of = ROOT } NOT = { is_claimed_by = ROOT } }
+				add_claim_by = ROOT
+			}
+			custom_effect_tooltip = bfx_tt_momentum_5
+			hidden_effect = {
+				add_to_variable = { bfx_momentum = 5 }
+				bfx_momentum_recalc = yes
+			}
+		}
+	}
+
+	focus = {
 		id = bfx_fas_imperium_army
 		icon = GFX_goal_generic_army_artillery
 		relative_position_id = bfx_fas_legions_march
 		x = 3
-		y = 5
+		y = 9
 		cost = 10
 		prerequisite = { focus = bfx_fas_corporatist_economy }
 		search_filters = { FOCUS_FILTER_ARMY_XP }
@@ -1892,7 +2893,7 @@ focus_tree = {
 		icon = GFX_goal_generic_improve_relations
 		relative_position_id = bfx_fas_legions_march
 		x = 6
-		y = 5
+		y = 9
 		cost = 10
 		prerequisite = { focus = bfx_fas_pact_of_iron }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -1906,72 +2907,11 @@ focus_tree = {
 	}
 
 	focus = {
-		id = bfx_fas_rival_to_rome
-		icon = GFX_goal_generic_demand_territory
-		relative_position_id = bfx_fas_legions_march
-		x = 9
-		y = 5
-		cost = 10
-		prerequisite = { focus = bfx_fas_pact_of_iron }
-		search_filters = { FOCUS_FILTER_ANNEXATION }
-		ai_will_do = {
-			factor = 10
-		}
-		completion_reward = {
-			every_state = {
-				limit = { OR = { is_core_of = ALB } NOT = { is_core_of = ROOT } NOT = { is_claimed_by = ROOT } }
-				add_claim_by = ROOT
-			}
-			if = { limit = { country_exists = ALB NOT = { is_in_faction_with = ALB } NOT = { has_war_with = ALB } } create_wargoal = { type = annex_everything target = ALB } }
-		}
-	}
-
-	focus = {
-		id = bfx_fas_war_for_macedonia
-		icon = GFX_goal_generic_major_war
-		relative_position_id = bfx_fas_legions_march
-		x = 3
-		y = 6
-		cost = 10
-		prerequisite = { focus = bfx_fas_imperium_army }
-		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
-		ai_will_do = {
-			factor = 10
-		}
-		completion_reward = {
-			add_state_claim = 106
-			if = { limit = { country_exists = YUG NOT = { is_in_faction_with = YUG } NOT = { has_war_with = YUG } } create_wargoal = { type = annex_everything target = YUG } }
-		}
-	}
-
-	focus = {
-		id = bfx_fas_war_for_the_aegean
-		icon = GFX_goal_generic_territory_or_war
-		relative_position_id = bfx_fas_legions_march
-		x = 6
-		y = 6
-		cost = 10
-		prerequisite = { focus = bfx_fas_imperium_army }
-		prerequisite = { focus = bfx_fas_budapest_axis }
-		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
-		ai_will_do = {
-			factor = 10
-		}
-		completion_reward = {
-			add_state_claim = 184
-			add_state_claim = 731
-			if = { limit = { country_exists = GRE NOT = { is_in_faction_with = GRE } NOT = { has_war_with = GRE } } create_wargoal = { type = annex_everything target = GRE } }
-			set_country_flag = bfx_integration_unlocked
-			unlock_decision_category_tooltip = bfx_integration_category
-		}
-	}
-
-	focus = {
 		id = bfx_fas_adriatic_ambitions
 		icon = GFX_goal_generic_occupy_states_coastal
 		relative_position_id = bfx_fas_legions_march
 		x = 9
-		y = 6
+		y = 9
 		cost = 10
 		prerequisite = { focus = bfx_fas_rival_to_rome }
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_NAVY_XP }
@@ -1988,38 +2928,13 @@ focus_tree = {
 	}
 
 	focus = {
-		id = bfx_fas_war_for_the_danube
-		icon = GFX_goal_generic_occupy_start_war
-		relative_position_id = bfx_fas_legions_march
-		x = 4
-		y = 7
-		cost = 10
-		prerequisite = { focus = bfx_fas_war_for_macedonia }
-		prerequisite = { focus = bfx_fas_war_for_the_aegean }
-		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
-		ai_will_do = {
-			factor = 10
-		}
-		completion_reward = {
-			add_state_claim = 77
-			add_state_claim = 971
-			if = {
-				limit = { 77 = { owner = { NOT = { tag = ROOT } NOT = { is_in_faction_with = ROOT } } } }
-				77 = { owner = { save_event_target_as = bfx_wg_target } }
-				create_wargoal = { type = take_state_focus target = event_target:bfx_wg_target generator = { 77 971 } }
-			}
-		}
-	}
-
-	focus = {
 		id = bfx_fas_war_for_the_straits
 		icon = GFX_focus_BUL_supremacy_on_the_bosporus
 		relative_position_id = bfx_fas_legions_march
-		x = 7
-		y = 7
+		x = 3
+		y = 10
 		cost = 10
-		prerequisite = { focus = bfx_fas_war_for_the_aegean }
-		prerequisite = { focus = bfx_fas_adriatic_ambitions }
+		prerequisite = { focus = bfx_fas_imperium_army }
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = {
 			factor = 10
@@ -2032,6 +2947,62 @@ focus_tree = {
 				341 = { owner = { save_event_target_as = bfx_wg_target } }
 				create_wargoal = { type = take_state_focus target = event_target:bfx_wg_target generator = { 341 797 } }
 			}
+			custom_effect_tooltip = bfx_tt_momentum_10
+			hidden_effect = {
+				add_to_variable = { bfx_momentum = 10 }
+				bfx_momentum_recalc = yes
+			}
+		}
+	}
+
+	focus = {
+		id = bfx_fas_war_for_the_danube
+		icon = GFX_goal_generic_occupy_start_war
+		relative_position_id = bfx_fas_legions_march
+		x = 6
+		y = 10
+		cost = 10
+		prerequisite = { focus = bfx_fas_budapest_axis }
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_state_claim = 77
+			add_state_claim = 971
+			if = {
+				limit = { 77 = { owner = { NOT = { tag = ROOT } NOT = { is_in_faction_with = ROOT } } } }
+				77 = { owner = { save_event_target_as = bfx_wg_target } }
+				create_wargoal = { type = take_state_focus target = event_target:bfx_wg_target generator = { 77 971 } }
+			}
+			custom_effect_tooltip = bfx_tt_momentum_10
+			hidden_effect = {
+				add_to_variable = { bfx_momentum = 10 }
+				bfx_momentum_recalc = yes
+			}
+		}
+	}
+
+	focus = {
+		id = bfx_fas_war_for_albania
+		icon = GFX_goal_generic_major_war
+		relative_position_id = bfx_fas_legions_march
+		x = 9
+		y = 10
+		cost = 10
+		prerequisite = { focus = bfx_fas_adriatic_ambitions }
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			if = { limit = { country_exists = ALB ALB = { is_subject = no } } if = { limit = { country_exists = ALB NOT = { is_in_faction_with = ALB } NOT = { has_war_with = ALB } } create_wargoal = { type = annex_everything target = ALB } } }
+			else_if = { limit = { country_exists = ITA any_state = { is_core_of = ALB is_owned_by = ITA } NOT = { has_war_with = ITA } } create_wargoal = { type = take_state_focus target = ITA generator = { 44 } } }
+			custom_effect_tooltip = bfx_tt_momentum_10
+			hidden_effect = {
+				add_to_variable = { bfx_momentum = 10 }
+				bfx_momentum_recalc = yes
+			}
 		}
 	}
 
@@ -2039,13 +3010,12 @@ focus_tree = {
 		id = bfx_fas_bulgarian_imperium
 		icon = GFX_focus_bfx_iron_imperium
 		relative_position_id = bfx_fas_legions_march
-		x = 6
-		y = 8
+		x = 5
+		y = 11
 		cost = 10
-		prerequisite = { focus = bfx_fas_war_for_the_danube }
-		prerequisite = { focus = bfx_fas_war_for_the_straits }
+		prerequisite = { focus = bfx_fas_war_for_the_straits focus = bfx_fas_war_for_the_danube }
 		available = {
-			OR = { owns_state = 106 owns_state = 184 owns_state = 341 }
+			OR = { owns_state = 77 owns_state = 341 owns_state = 971 }
 		}
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = {
@@ -2062,31 +3032,13 @@ focus_tree = {
 	}
 
 	focus = {
-		id = bfx_fas_settle_new_provinces
-		icon = GFX_goal_generic_occupy_states_ongoing_war
-		relative_position_id = bfx_fas_legions_march
-		x = 4
-		y = 9
-		cost = 10
-		prerequisite = { focus = bfx_fas_bulgarian_imperium }
-		search_filters = { FOCUS_FILTER_STABILITY }
-		ai_will_do = {
-			factor = 10
-		}
-		completion_reward = {
-			add_ideas = bfx_occupation_corps
-			every_owned_state = { limit = { NOT = { is_core_of = ROOT } } add_compliance = 15 }
-		}
-	}
-
-	focus = {
 		id = bfx_fas_imperial_navy
 		icon = GFX_goal_generic_navy_battleship
 		relative_position_id = bfx_fas_legions_march
-		x = 7
-		y = 9
+		x = 9
+		y = 11
 		cost = 10
-		prerequisite = { focus = bfx_fas_bulgarian_imperium }
+		prerequisite = { focus = bfx_fas_war_for_albania }
 		search_filters = { FOCUS_FILTER_NAVY_XP }
 		ai_will_do = {
 			factor = 10
@@ -2102,13 +3054,31 @@ focus_tree = {
 	}
 
 	focus = {
+		id = bfx_fas_settle_new_provinces
+		icon = GFX_goal_generic_occupy_states_ongoing_war
+		relative_position_id = bfx_fas_legions_march
+		x = 3
+		y = 12
+		cost = 10
+		prerequisite = { focus = bfx_fas_bulgarian_imperium }
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_MANPOWER }
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			every_owned_state = { limit = { NOT = { is_core_of = ROOT } } add_compliance = 15 }
+			add_manpower = 10000
+		}
+	}
+
+	focus = {
 		id = bfx_fas_legions_of_the_imperium
 		icon = GFX_goal_generic_axis_build_infantry
 		relative_position_id = bfx_fas_legions_march
-		x = 4
-		y = 10
+		x = 6
+		y = 12
 		cost = 10
-		prerequisite = { focus = bfx_fas_settle_new_provinces }
+		prerequisite = { focus = bfx_fas_bulgarian_imperium }
 		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_MANPOWER }
 		ai_will_do = {
 			factor = 10
@@ -2123,8 +3093,8 @@ focus_tree = {
 		id = bfx_fas_mediterranean_window
 		icon = GFX_goal_generic_navy_cruiser
 		relative_position_id = bfx_fas_legions_march
-		x = 7
-		y = 10
+		x = 9
+		y = 12
 		cost = 10
 		prerequisite = { focus = bfx_fas_imperial_navy }
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_NAVY_XP }
@@ -2142,7 +3112,7 @@ focus_tree = {
 		icon = GFX_focus_bfx_tsar_three_seas
 		relative_position_id = bfx_fas_legions_march
 		x = 6
-		y = 11
+		y = 13
 		cost = 10
 		prerequisite = { focus = bfx_fas_legions_of_the_imperium }
 		prerequisite = { focus = bfx_fas_mediterranean_window }
@@ -2563,7 +3533,7 @@ focus_tree = {
 	focus = {
 		id = bfx_eco_rose_and_leaf
 		icon = GFX_focus_bfx_eco_rose_and_leaf
-		x = 86
+		x = 92
 		y = 0
 		cost = 7
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -3395,7 +4365,7 @@ focus_tree = {
 	focus = {
 		id = bfx_mil_neuilly_army
 		icon = GFX_goal_generic_army_doctrines
-		x = 115
+		x = 121
 		y = 0
 		cost = 7
 		search_filters = { FOCUS_FILTER_ARMY_XP }

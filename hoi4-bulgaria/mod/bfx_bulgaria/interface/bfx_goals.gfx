@@ -143,4 +143,16 @@ spriteTypes = {
 		name = "GFX_focus_bfx_parachute"
 		texturefile = "gfx/interface/goals/bfx_parachute.dds"
 	}
+	SpriteType = {
+		name = "GFX_focus_bfx_revolution_must_march"
+		texturefile = "gfx/interface/goals/bfx_revolution_must_march.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_auction"
+		texturefile = "gfx/interface/goals/bfx_auction.dds"
+	}
+	SpriteType = {
+		name = "GFX_focus_bfx_fortress_bulgaria"
+		texturefile = "gfx/interface/goals/bfx_fortress_bulgaria.dds"
+	}
 }

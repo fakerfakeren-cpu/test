@@ -21,26 +21,37 @@ idea_rows = "\n".join(f"| `{i[0]}` | {i[3]} | {', '.join(f'{k} {v:+g}' for k, v 
 char_rows = "\n".join(f"| `{c[0]}` | {c[1]} | {', '.join(r['kind'] + (' (' + r.get('ideology', r.get('slot', '')) + ')' if r.get('ideology') or r.get('slot') else '') for r in c[3])} | {c[4]} |" for c in characters.CHARS)
 cos_rows = "\n".join(f"| `{k}` | {v[0]} | rgb{v[3]} |" for k, v in mechanic.COSMETIC.items())
 
-text = f"""# DESIGN — Bulgaria: The Tsar's Balance (`bfx_bulgaria` v2)
+text = f"""# DESIGN — Bulgaria: The Tsar's Balance (`bfx_bulgaria` v3)
 
 Target **Hearts of Iron IV 1.19.4** (`supported_version = "1.19.*"`), base game only, Road to 56 compatible.
 Generated from `tools/build/*.py` by `tools/write_docs.py`. The mod itself comes from the same data.
 
-## Scope (v2 rework)
-The mod is about the Bulgaria that existed: **Tsar Boris III's non-aligned kingdom** and the **Legionary (fascist) movement**
-that wanted to replace it, plus one **secret path**. The Communist and Agrarian/democratic paths from v1 were removed.
+## Scope (v3 restructure)
+Two big political paths instead of many small ones, each with its **own mechanic** and **one late split**, plus the secret path.
+v2 had four sub-branches that all marched on the same four neighbours; v3 makes the two paths differ in *how* Bulgaria expands:
+the Tsar by diplomacy, proxies and auctioning his alliance; the Legion by war, which it needs in order to survive.
 
 | Block | Focuses | What it does |
 |---|---|---|
 | Opening | {blocks['opening']} | 1936 crisis, Velchev trial, partyless regime, IMRO (crush or tolerate), Neuilly (Salonika vs. tear it up), the Italian Queen, **Open the Chancelleries** (factions, guarantees, volunteers and pacts for a non-aligned state) |
-| Tsar Boris | {blocks['tsar']} | (a) *Walking Between the Raindrops*: Axis opportunist (Turkish pact, Craiova, Tripartite Pact, the Axis Partition, Outlands, Bessarabian Bulgarians, Eastern Front yes/no, Greater Bulgaria, Straits, San Stefano). (b) *The Balkan Hegemon*: own faction (Sofia Pact), Hungarian partner, Soviet pact, Albanian protectorate, four war plans (Yugoslavia, Greece, Romania, Turkey), client kings, Balkan Tsardom |
-| The Legions | {blocks['fascist']} | Needs Legion influence 40. The March on Sofia (appointment or civil war). (a) *Lukov's Axis Legion*: Into the Axis, Balkan Blitz, New Order, Crusade in the East, Budjak, Odessa corridor, Thrace to the Bosporus. (b) *Tsankov's Imperium*: fascist but independent, Pact of Iron with Hungary, rival to Rome, wars for Macedonia, the Aegean, the Danube and the Straits, the Bulgarian Imperium |
+| The Tsar's Way | {blocks['tsar']} | **Trunk** (5 columns side by side): the Court (muzzle the League, Simeon's birth, propaganda, the Tsar's men, royal arbitration); **the Bulgarian Auction** (receive the envoys, the German, British and Soviet offers, play them off, the Turkish pact, break the Entente, the auction closes); Macedonia by proxy (IMRO committees, Pirin bases, Ilinden, Macedonia rises, union with Skopje); Dobruja and the Aegean (Craiova, settlers, the Thracian ultimatum, the Aegean window); armed neutrality (Danube line, mobilisation, Fortress Bulgaria). **Split at the Crossroads of 1941**: (A1) *The Kingmaker*: sign with the highest bidder, the partition dividend, Outlands, Bessarabia, Eastern Front yes/no, **the Contingency Plan (Change Sides)**, Greater Bulgaria, San Stefano, Tsar of All the Bulgarians. (A2) *The Balkan Hegemon*: stand alone, the Sofia Pact, take everyone's money, Albanian protectorate, Hungary, **four ultimatums** (Belgrade, Athens, Bucharest, Ankara: cede or face a war goal), client kings, Black Sea dominion, Balkan Tsardom |
+| The Legionary Revolution | {blocks['fascist']} | Needs Legion influence 40. The March on Sofia (appointment or civil war). **Trunk**: the movement (purge the Palace, militia, Brannik, Legionary courts, arms drive, shock divisions, war economy, total mobilisation); **the Revolution Must March** (starts Revolutionary Momentum; Plan Struma, border incidents, the wars for Skopje and the Struma valley, Legionary Macedonia and Thrace, victory parades); the new provinces (Dobruja ultimatum, prefects, soldier-settlers, requisitions, Bulgarisation). **Split at the Legion's Destiny**: (B1) *Lukov's Axis Crusade*: into the Axis, German instructors, Panzers for Sofia, the New Order, Crusade in the East, Budjak, Odessa corridor, Black Sea and Aegean fleets, the Legionary Empire, Thrace to the Bosporus. (B2) *Tsankov's Imperium*: no orders from Berlin, the Pact of Iron with Hungary, rival to Rome, wars for the Straits, the Danube and **Albania (against Italy if it holds it)**, the Imperial navy, a window on the Mediterranean, the Imperium on Three Seas |
 | Secret: the Coburg Restoration | {blocks['secret']} | Hidden (`allow_branch`) until Boris dies (Aug 1943+, random) or three letters from Coburg arrive. Ferdinand returns. (a) Third Bulgarian Empire: Simeon's borders, Tsar of the Vlachs, Tarnovo coronation, Kaloyan's revenge. (b) Tsargrad: Basileus, Hagia Sophia, the Themes, the Varangian Guard, Orthodox crusade, capital moved to Constantinople |
 | Industry | {blocks['eco']} | Tobacco and rose exports (3 stages), German clearing vs. diversification with a follow-up event, Pernik coal and Balkan iron, Kremikovtsi, Kazanlak and Sopot arsenals, electrification and the Iskar dams, railways, ports, roads, chemicals, Tyulenovo oil, synthetic fuel, fuel reserves, war economy. **Nuclear line**: Nadjakov's laboratory, Bukhovo uranium, Atomic Commission, reactor, the Kozloduy pile, the Rila device (date-gated 1938–1944) |
 | Military | {blocks['mil']} | Army doctrine 12 (mountain warfare, Chataldzha lessons, staff academy, bayonet tradition, armoured brigade), equipment 8, **manpower 9** (reservists, emigration volunteers, Rhodope battalions, veterans, women's auxiliary, universal service, mobilisation law, national army), navy 10, air 11 (PZL and Avia purchases, Dornier bombers, paratroopers) |
 
 Total **{len(F)} focuses**; plain stat bumps {stat} ({100 * stat // len(F)}%). Every exclusive choice says what it rules out.
 Every focus has `search_filters` and `ai_will_do`.
+
+## How to reach each path
+* **Tsar's Way**: *The Hour of Decision* → *The Tsar Steps Forward*. Always available.
+* **Legionary Revolution**: *The Hour of Decision* → *The Legions March*, which needs **Legion influence 40+** (start: 20). Raise it with
+  *Patronise the Legions* (+10, every 60 days), the *Shadow Parties* opening focus (option "Let the Legions march", +15), the opening event option "Let the young nationalists organise" (+10),
+  war support above 50% and fascist popularity above 15% (+1 a month each).
+* **Secret (Coburg Restoration)**: appears on the left of the tree when `bfx_secret_unlocked` is set: either Tsar Boris dies (from August 1943,
+  25% a month while he rules, i.e. on the Tsar's Way) or the third *Letter from Coburg* arrives (random event, about 7% a month from 1937 while
+  not on the Legion path; after the first letter the decision *Answer the Letter from Coburg* adds one every 120 days). It is not available after
+  *The Legions March*.
 
 ## Realism and balance rules
 * **Cores only on historically Bulgarian lands**: Southern Dobrudja (77), Vardar Macedonia (106), Western Thrace (184), Edirne (341),
@@ -50,9 +61,10 @@ Every focus has `search_filters` and `ai_will_do`.
 * **Diplomacy works**: *Open the Chancelleries* (and the Legionary State) lift the non-aligned limits with `set_rule`. The *Sofia Chancellery*
   decisions propose non-aggression pacts (Turkey, Romania, Greece, Yugoslavia, USSR, Hungary, Italy), ask for guarantees (Germany, Italy, Britain, France),
   invite countries to your faction, give guarantees and demand Southern Dobruja. Several focuses do the same by event (Turkish pact 1941,
-  Craiova 1940, the Sobolev mission 1940, the Albanian protectorate, joining the Axis).
-* **Land by diplomacy**: Craiova returns Dobruja peacefully (much likelier with German backing). The Axis Partition hands over Macedonia and Thrace
-  when allies hold them (as in April 1941). Skopje can ask to join after the uprising.
+  Craiova 1940, the Albanian protectorate, joining the patron's alliance or the Axis, the Pact of Iron).
+* **Land by diplomacy**: Craiova returns Dobruja peacefully (much likelier with German backing). The Hegemon's ultimatums can win Macedonia,
+  Thrace and Edirne without a shot when the target is weak or already at war; a refusal gives a war goal instead. *The Partition Dividend* and
+  *The New Order* hand over Bulgarian lands that allies hold (as in April 1941). Skopje asks to join after a successful uprising.
 * Industry gives about one building per focus, two research slots at most in a playthrough, and the nuclear line is date-gated.
 
 ## Mechanic 1: Shackles of Neuilly (reworked)
@@ -84,6 +96,27 @@ rifles, mountain guns and *Officers on Leave*, recognise and guarantee the state
 8 months, or Yugoslavia starts to collapse, Belgrade makes peace. Six months later Skopje asks to join: annex it (cores) or keep it as a client.
 If it is crushed, Bulgaria pays in stability and IMRO influence.
 
+## Mechanic 4: The Bulgarian Auction (Tsar's Way)
+* Berlin, London and Moscow each have a **bid** for Bulgaria (`bfx_bid_ger/eng/sov`, 0–100; start 15/10/5). *Receive the Envoys* opens the auction.
+* Focuses raise bids (each power's offer +25, *Play Them Off* +10 to all, Craiova, the Turkish pact, breaking the Entente).
+* Decisions: *Flirt with Berlin/London/Moscow* (+12 to one, −4 to the other two), *Leak the Rival Offers* (+5 to all),
+  and **cash an instalment** now at the cost of the bid (Berlin: rifles and guns; London: a civilian factory; Moscow: army XP and guns).
+* While open, every bid falls by 1 a month. *The Auction Closes* makes the highest bidder our **patron** and pays its first instalment.
+* Kingmaker: *Sign with the Highest Bidder* joins the patron's faction (or gets its guarantee). *The Contingency Plan* unlocks **Change Sides**:
+  when our faction leader's surrender progress passes 25%, white-peace its enemies, leave, ask the strongest enemy faction leader to admit us
+  and declare war on the old patron (Bulgaria, September 1944).
+* Hegemon: *Take Everyone's Money* pays out every bid of 40 or more.
+
+## Mechanic 5: Revolutionary Momentum (Legionary Revolution)
+* Starts at 30 with *The Revolution Must March*. **+3 a month at war** (+4 on the crusade against the USSR), **−3 a month at peace**.
+* Drives the *Revolutionary Momentum* dynamic modifier: attack 0..+10%, war support −6..+14%, conscription 0..+8%, political power −9..+21%.
+* **Below 15**: *The Movement Fractures* (stability loss; find an enemy, buy peace, or let the Palace regain ground).
+  **Above 90**: *The Revolution Devours Its Children* (purge generals, unleash a storm offensive, or pay to rein it in). Both re-arm after recovery.
+* Spend it: *Storm Offensive* (−25: +15% attack, +10% breakthrough for 60 days), *Mass Levy* (−20: 25k manpower),
+  *Revolutionary Tribunals* (−15: 75 PP), *Legionary Requisitions* (−15: equipment). Gain it in peace: *Torchlight Rallies* (+8),
+  *Manufacture an Incident* (+15, world tension). Many Legion focuses also add momentum.
+* The point: the Legion cannot sit still. It needs a war roughly every year or it starts to come apart.
+
 ## Formables and colours
 | Cosmetic tag | Name | Map colour |
 |---|---|---|
@@ -100,11 +133,11 @@ Border realism therefore works at state level: historical cores, claims elsewher
 ## Events ({n_events}) and decisions ({n_dec})
 Events cover the opening, Neuilly thresholds, the court crises and Boris's death, diplomacy answers (pacts, guarantees, invitations,
 Craiova, the Albanian protectorate, Axis entry), the March on Sofia and the attempt on Lukov, the uprising (news, peace, defeat, union),
-the Coburg letters, Ferdinand's return, Hagia Sophia and Tarnovo, and five random flavour events.
-Decision categories: Shackles of Neuilly, The Tsar's Balance, The Sofia Chancellery, The Macedonian Uprising, Integration, Tsargrad Propaganda.
+the Coburg letters, Ferdinand's return, Hagia Sophia and Tarnovo, the three ultimatums (Athens, Belgrade, Ankara), the two momentum crises, and five random flavour events.
+Decision categories: Shackles of Neuilly, The Tsar's Balance, The Bulgarian Auction, Revolutionary Momentum, The Sofia Chancellery, The Macedonian Uprising, Integration, Tsargrad Propaganda.
 
 ## AI
-On startup an AI Bulgaria rolls Tsar 72% (Raindrops 70% / Hegemon 30%) or Legions 28% (Axis 60% / Imperium 40%), and a 30% chance
+On startup an AI Bulgaria rolls Tsar 72% (Kingmaker 70% / Hegemon 30%) or Legions 28% (Axis Crusade 60% / Imperium 40%), and a 30% chance
 to take the secret path if it is revealed. Fascist AIs patronise the Legions until they reach 40. No game rule needed.
 
 ## National spirits ({len(ideas.IDEAS)})

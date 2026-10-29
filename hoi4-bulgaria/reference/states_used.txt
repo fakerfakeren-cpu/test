@@ -12,3 +12,4 @@
 797	Istanbul	HOI4 wiki Bulgarian focus tree + Byzantium formable
 182	Crete	HOI4 wiki Byzantium formable (Crete (182)) + vanilla mirror 2019
 187	Aegean Islands	HOI4 wiki Byzantium formable (Aegean Islands (187)) + vanilla mirror 2019
+44	Albania	vanilla history/states mirror (2019): 44-Albania.txt, id=44

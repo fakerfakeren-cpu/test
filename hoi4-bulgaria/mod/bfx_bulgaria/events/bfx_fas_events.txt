@@ -61,3 +61,82 @@ country_event = {
 		add_war_support = 0.05
 	}
 }
+
+country_event = {
+	id = bfx_fas.10
+	title = bfx_fas.10.t
+	desc = bfx_fas.10.d
+	picture = GFX_report_event_bul_partisans_plovdiv
+	is_triggered_only = yes
+	option = {
+		name = bfx_fas.10.a
+		add_stability = -0.05
+		add_named_threat = { threat = 2 name = bfx_threat_incident }
+		custom_effect_tooltip = bfx_tt_momentum_15
+		hidden_effect = {
+			add_to_variable = { bfx_momentum = 15 }
+			bfx_momentum_recalc = yes
+		}
+	}
+	option = {
+		name = bfx_fas.10.b
+		add_stability = -0.03
+		add_political_power = -75
+		custom_effect_tooltip = bfx_tt_momentum_10
+		hidden_effect = {
+			add_to_variable = { bfx_momentum = 10 }
+			bfx_momentum_recalc = yes
+		}
+	}
+	option = {
+		name = bfx_fas.10.c
+		add_stability = -0.05
+		custom_effect_tooltip = bfx_tt_court_p10_lm10
+		hidden_effect = {
+			add_to_variable = { bfx_inf_palace = 10 } add_to_variable = { bfx_inf_legion = -10 }
+			bfx_court_recalc = yes
+		}
+	}
+}
+
+country_event = {
+	id = bfx_fas.11
+	title = bfx_fas.11.t
+	desc = bfx_fas.11.d
+	picture = GFX_event_bfx_lukov_legion
+	is_triggered_only = yes
+	option = {
+		name = bfx_fas.11.a
+		army_experience = -25
+		add_stability = -0.03
+		custom_effect_tooltip = bfx_tt_court_am15_l5
+		hidden_effect = {
+			add_to_variable = { bfx_inf_army = -15 } add_to_variable = { bfx_inf_legion = 5 }
+			bfx_court_recalc = yes
+		}
+		custom_effect_tooltip = bfx_tt_momentum_m30
+		hidden_effect = {
+			add_to_variable = { bfx_momentum = -30 }
+			bfx_momentum_recalc = yes
+		}
+	}
+	option = {
+		name = bfx_fas.11.b
+		add_timed_idea = { idea = bfx_storm_offensive days = 60 }
+		add_stability = -0.05
+		custom_effect_tooltip = bfx_tt_momentum_m20
+		hidden_effect = {
+			add_to_variable = { bfx_momentum = -20 }
+			bfx_momentum_recalc = yes
+		}
+	}
+	option = {
+		name = bfx_fas.11.c
+		add_political_power = -100
+		custom_effect_tooltip = bfx_tt_momentum_m25
+		hidden_effect = {
+			add_to_variable = { bfx_momentum = -25 }
+			bfx_momentum_recalc = yes
+		}
+	}
+}

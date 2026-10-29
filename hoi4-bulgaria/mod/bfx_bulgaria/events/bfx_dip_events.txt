@@ -179,7 +179,86 @@ country_event = {
 	option = {
 		name = bfx_dip.9.a
 		set_rule = { can_create_factions = yes }
-		if = { limit = { is_in_faction = no } create_faction = bfx_faction_balkan_axis }
+		if = { limit = { is_in_faction = no has_government = fascism } create_faction = bfx_faction_balkan_axis }
+		else_if = { limit = { is_in_faction = no } create_faction = bfx_faction_sofia_pact }
 		add_war_support = 0.03
+	}
+}
+
+country_event = {
+	id = bfx_dip.10
+	title = bfx_dip.10.t
+	desc = bfx_dip.10.d
+	picture = GFX_report_event_bul_troops_dobrudja
+	is_triggered_only = yes
+	option = {
+		name = bfx_dip.10.a
+		ai_chance = {
+			base = 10
+			modifier = { factor = 3 has_war = yes }
+			modifier = { factor = 3 is_in_faction = no FROM = { is_in_faction = yes } }
+			modifier = { factor = 2 FROM = { has_army_size = { size > 30 } } NOT = { has_army_size = { size > 20 } } }
+			modifier = { factor = 0 is_major = yes }
+		}
+		FROM = { transfer_state = 184 country_event = { id = bfx_dip.2 days = 1 } }
+	}
+	option = {
+		name = bfx_dip.10.b
+		ai_chance = {
+			base = 90
+		}
+		FROM = { create_wargoal = { type = take_state_focus target = ROOT generator = { 184 731 } } country_event = { id = bfx_dip.3 days = 1 } }
+	}
+}
+
+country_event = {
+	id = bfx_dip.11
+	title = bfx_dip.11.t
+	desc = bfx_dip.11.d
+	picture = GFX_report_event_bul_troops_dobrudja
+	is_triggered_only = yes
+	option = {
+		name = bfx_dip.11.a
+		ai_chance = {
+			base = 10
+			modifier = { factor = 3 has_war = yes }
+			modifier = { factor = 3 is_in_faction = no FROM = { is_in_faction = yes } }
+			modifier = { factor = 2 FROM = { has_army_size = { size > 30 } } NOT = { has_army_size = { size > 20 } } }
+			modifier = { factor = 0 is_major = yes }
+		}
+		FROM = { transfer_state = 106 country_event = { id = bfx_dip.2 days = 1 } }
+	}
+	option = {
+		name = bfx_dip.11.b
+		ai_chance = {
+			base = 90
+		}
+		FROM = { create_wargoal = { type = take_state_focus target = ROOT generator = { 106 } } country_event = { id = bfx_dip.3 days = 1 } }
+	}
+}
+
+country_event = {
+	id = bfx_dip.12
+	title = bfx_dip.12.t
+	desc = bfx_dip.12.d
+	picture = GFX_report_event_bul_troops_dobrudja
+	is_triggered_only = yes
+	option = {
+		name = bfx_dip.12.a
+		ai_chance = {
+			base = 10
+			modifier = { factor = 3 has_war = yes }
+			modifier = { factor = 3 is_in_faction = no FROM = { is_in_faction = yes } }
+			modifier = { factor = 2 FROM = { has_army_size = { size > 30 } } NOT = { has_army_size = { size > 20 } } }
+			modifier = { factor = 0 is_major = yes }
+		}
+		FROM = { transfer_state = 341 country_event = { id = bfx_dip.2 days = 1 } }
+	}
+	option = {
+		name = bfx_dip.12.b
+		ai_chance = {
+			base = 90
+		}
+		FROM = { create_wargoal = { type = take_state_focus target = ROOT generator = { 341 } } country_event = { id = bfx_dip.3 days = 1 } }
 	}
 }

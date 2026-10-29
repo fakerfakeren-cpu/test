@@ -1,54 +1,62 @@
-# Bulgaria: The Tsar's Balance (`bfx_bulgaria` v2.0) — HOI4 1.19 mod
+# Bulgaria: The Tsar's Balance (`bfx_bulgaria` v3.0) — HOI4 1.19 mod
 
-A 209-focus tree for Tsar Boris III's Bulgaria and the Legionary movement that wanted to replace it, plus a secret path.
-Three mechanics: **Shackles of Neuilly** (covert rearmament against growing Balkan suspicion), **The Tsar's Balance**
-(Crown, Army, Legions and IMRO competing for power, with coups, crises and Boris's death) and **The Macedonian Uprising**
-(IMRO raises a real civil war in Yugoslav Macedonia that you feed, then absorb).
-Base game only (no DLC needed). Works with or without Road to 56.
+A 250-focus tree for Tsar Boris III's Bulgaria, built as **two big paths that each split once**, plus a secret path:
+- **The Tsar's Way** expands by diplomacy, proxies and selling Bulgaria's alliance to the highest bidder (*the Bulgarian Auction*).
+- **The Legionary Revolution** expands by war, and needs war to survive (*Revolutionary Momentum*).
+
+Shared mechanics: **Shackles of Neuilly** (covert rearmament against growing Balkan suspicion), **The Tsar's Balance**
+(Crown, Army, Legions and IMRO competing for power) and **The Macedonian Uprising** (IMRO raises a real civil war in Yugoslav Macedonia).
+Base game only (no DLC needed). The descriptor lists Road to 56 as a dependency, but the mod overrides no vanilla or R56 files.
 
 ## Install
-1. Unzip `bfx_bulgaria_v2.0.zip` into `Documents/Paradox Interactive/Hearts of Iron IV/mod/`, replacing any older
+1. Unzip `bfx_bulgaria_v3.0.zip` into `Documents/Paradox Interactive/Hearts of Iron IV/mod/`, replacing any older
    `bfx_bulgaria` folder and `bfx_bulgaria.mod`. You should have **both** `mod/bfx_bulgaria.mod` and `mod/bfx_bulgaria/`.
 2. Enable **Bulgaria: The Tsar's Balance** in the launcher playset, below Road to 56 if you use it.
 3. Start a **new** game (the mechanics are set up on game start, not on old saves).
 
+## The paths
+**The Tsar's Way** (*The Tsar Steps Forward*). Five trunk columns side by side: the Court, the Bulgarian Auction, Macedonia by proxy
+(IMRO and the uprising), Dobruja and the Aegean (Craiova, the Thracian ultimatum), and armed neutrality (Fortress Bulgaria). They meet at
+*The Crossroads of 1941*:
+- *The Kingmaker*: join the highest bidder, collect the partition dividend, and keep a door open to **change sides** when your patron starts losing.
+- *The Balkan Hegemon*: no patron. Run your own Sofia Pact, take everyone's money, and send **ultimatums** to Belgrade, Athens, Bucharest and Ankara:
+  cede the province, or face a war goal.
+
+**The Legionary Revolution** (*The Legions March*, needs Legion influence 40+). The trunk takes power, mobilises and fights the first wars for
+Macedonia and Thrace. From *The Revolution Must March*, **Momentum** rises at war and decays in peace: spend it on storm offensives, levies and
+purges, or the movement fractures (below 15) or devours itself (above 90). It splits at *The Legion's Destiny*:
+- *Lukov's Axis Crusade*: Berlin's ally. The New Order, Panzers for Sofia, the war in the East, Budjak and Odessa, the Black Sea, and the Bosporus.
+- *Tsankov's Imperium*: answers to nobody. The Pact of Iron with Hungary, wars for the Straits, the Danube and Albania (against Italy if it holds it), and three seas.
+
+**Secret: the Coburg Restoration.** It appears on the far left when Tsar Boris dies (from August 1943, Tsar's Way only) or when the third
+*Letter from Coburg* arrives. The letters are a random event, about 7% a month from 1937; after the first one, the decision
+*Answer the Letter from Coburg* speeds them up. The secret path is closed once the Legions march. Old Ferdinand returns:
+proclaim the Third Bulgarian Empire, or march on Tsargrad.
+
 ## Test checklist (please report back)
 1. Steam → HOI4 → Properties → Launch options: add `-debug`.
-2. Start 1936 as Bulgaria. Check:
-   - the focus tree name;
-   - the national spirits, including *Shackles of Neuilly*, *Covert Rearmament* and *The Tsar's Balance*;
-   - the decision tabs *Shackles of Neuilly* and *The Tsar's Balance*, which should show live numbers.
-3. Console (`~`):
-   - `event bfx.1`
-   - `event bfx_court.11` (Legion march)
-   - `event bfx_court.20` (Boris dies; the secret branch should appear)
-   - `focus.autocomplete`, then click through a path
-   - `observe` to watch the AI.
-4. **Uprising test**:
-   1. Take *Tolerate IMRO*.
-   2. Run the raid decisions until unrest reaches 70, or use the console to finish their timers.
-   3. Click *Raise the Ilinden Banner*.
-   4. Check that Yugoslavia gets a civil war and a red-lion *Independent State of Macedonia* appears.
-5. **Formable colour test**: complete *Greater Bulgaria* (Tsar path) and see whether the map colour changes.
-6. Paste every `bfx` line from `Documents/Paradox Interactive/Hearts of Iron IV/logs/error.log` back to me.
-
-## The paths
-**Tsar Boris III.** Boris steps forward, muzzles the Military League and chooses how to be aggressive.
-- *Walking Between the Raindrops*: the historical opportunist. A pact with Turkey, Southern Dobruja returned at Craiova, the Tripartite Pact,
-  then the Axis Partition hands over Macedonia and Thrace. After that come the Western Outlands and the Bessarabian Bulgarians, the choice to stay out
-  of the Eastern Front or join it, Greater Bulgaria, the Straits, and finally San Stefano.
-- *The Balkan Hegemon*: no patrons. Your own Sofia Pact with Hungary, a pact with Moscow, an Albanian protectorate, then four war plans against
-  Yugoslavia, Greece, Romania and Turkey, client kings and the Tsardom of the Balkans.
-
-**The Legions.** Push the Legions' influence to 40, then march on Sofia: the Tsar appoints General Lukov, or the Palace Guard fights a civil war.
-- *Lukov's Axis Legion*: full Axis partner, the Balkan Blitz, the New Order, the crusade in the East, Budjak and the Odessa corridor, and on to the Bosporus.
-- *Tsankov's Imperium*: fascist but answering to nobody. The Pact of Iron with Hungary, rivalry with Rome over Albania, and wars for Macedonia,
-  the Aegean, the Danube and the Straits, ending as the Bulgarian Imperium.
-
-**Secret: the Coburg Restoration.** Hidden until Tsar Boris dies (from August 1943) or three letters arrive from Coburg. Old Ferdinand
-returns. Proclaim the Third Bulgarian Empire and chase Simeon's borders to a coronation at Tarnovo, or march on Tsargrad, sing mass in Hagia Sophia,
-restore the Byzantine themes and move the capital to Constantinople.
+2. Start 1936 as Bulgaria. Check the tree name, the spirits (*Shackles of Neuilly*, *Covert Rearmament*, *The Tsar's Balance*) and the decision tabs.
+3. **Tsar test**:
+   1. Use `focus.autocomplete` up to *Receive the Envoys*.
+   2. The *Bulgarian Auction* tab should show three live numbers. Flirt with Berlin and check the numbers move.
+   3. Complete *The Auction Closes* and check you get the right patron's reward.
+4. **Change Sides test**:
+   1. Take the Kingmaker branch, join Germany, and complete *The Contingency Plan*.
+   2. In 1944, or once Germany's surrender progress passes 25%, click *Change Sides*.
+   3. Report what happens: do you leave the Axis, get peace, get an invitation, and end up at war with Germany?
+5. **Legion test**:
+   1. Raise the Legions to 40: pick "Let the Legions march" in *The Shadow Parties* event (+15) and use *Patronise the Legions* (+10 each). Then take *The Legions March*.
+   2. After *The Revolution Must March*, the *Revolutionary Momentum* tab and the modifier should appear.
+   3. Watch momentum fall at peace and rise at war.
+6. **Uprising test**:
+   1. Take *Tolerate IMRO* (opening) and then *The Macedonian Committees* (Tsar).
+   2. Push unrest to 70, then click *Raise the Ilinden Banner*.
+   3. Check that Yugoslavia gets a civil war and a red-lion *Independent State of Macedonia* appears.
+7. **Secret test**: run `event bfx_court.20` (Boris dies). *The Old Fox Returns* should appear on the far left.
+8. **Formable colour test**: complete *Greater Bulgaria* (Kingmaker) or *The Balkan Tsardom* (Hegemon) and see whether the map colour changes.
+9. Paste every `bfx` line from `Documents/Paradox Interactive/Hearts of Iron IV/logs/error.log` back to me.
 
 ## Rebuilding
 `python3 tools/make_portraits.py <names>` → `python3 tools/build_mod.py` → `python3 tools/validate.py` → `python3 tools/write_docs.py`.
+The generator is `tools/build/*.py` (one module per path: `focus_opening`, `focus_tsar`, `focus_legion`, `focus_secret`, `focus_eco_mil`).
 See `DESIGN.md` for every focus, spirit, character and rule.

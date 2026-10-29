@@ -744,5 +744,44 @@ ideas = {
 				air_training_xp_gain_factor = 0.1
 			}
 		}
+		bfx_fortress_bulgaria = {
+			picture = bfx_fortress
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				army_core_defence_factor = 0.1
+				dig_in_speed_factor = 0.25
+				max_dig_in = 2
+			}
+		}
+		bfx_shock_divisions = {
+			picture = bfx_storm
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				army_attack_factor = 0.05
+				breakthrough_factor = 0.05
+			}
+		}
+		bfx_storm_offensive = {
+			picture = bfx_storm
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				army_attack_factor = 0.15
+				breakthrough_factor = 0.1
+				army_speed_factor = 0.05
+			}
+		}
+		bfx_legionary_prefects = {
+			picture = bfx_occupation_corps
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				compliance_growth = 0.1
+				resistance_growth = -0.15
+				stability_factor = -0.02
+			}
+		}
 	}
 }

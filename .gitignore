@@ -25,3 +25,7 @@ __pycache__/
 *.pyc
 hoi4-bulgaria/tools/out/
 __pycache__/
+
+# the mod generator lives in hoi4-bulgaria/tools/build (the generic "build" rule above would hide it)
+!hoi4-bulgaria/tools/build/
+hoi4-bulgaria/tools/build/__pycache__/
