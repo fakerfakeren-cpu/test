@@ -91,7 +91,7 @@ F("bfx_tsar_ilinden_preparations", 19, 8, "Ilinden Preparations",
   "GFX_goal_generic_special_forces", B, prereq=["bfx_tsar_pirin_bases"], filters=(F_POL,))
 F("bfx_tsar_macedonia_rises", 19, 9, "Macedonia Rises",
   "If Yugoslavia still holds Macedonia and unrest is high enough (70+), the province rises at once. The rising can still be launched later from the decision.",
-  "if = { limit = { check_variable = { bfx_macedonia_unrest > 69 } 106 = { is_owned_by = YUG } YUG = { has_civil_war = no } NOT = { has_country_flag = bfx_uprising_active } NOT = { has_country_flag = bfx_macedonia_free } } bfx_start_macedonian_uprising = yes }\n" +
+  "if = { limit = { check_variable = { bfx_macedonia_unrest > 69 } 106 = { is_owned_by = YUG } YUG = { has_civil_war = no } NOT = { has_country_flag = bfx_uprising_active } NOT = { has_country_flag = bfx_macedonia_free } NOT = { has_country_flag = bfx_uprising_crushed } } bfx_start_macedonian_uprising = yes }\n" +
   tt("bfx_tt_macedonia_rises", "If unrest is §Y70+§! and Yugoslavia holds Macedonia: the §YIndependent State of Macedonia§! rises in civil war.") + "\nadd_war_support = 0.05",
   "GFX_focus_BUL_the_fate_of_the_balkans", B, prereq=["bfx_tsar_ilinden_preparations"], filters=(F_POL, F_WS))
 F("bfx_tsar_union_with_skopje", 19, 10, "Union with Skopje",

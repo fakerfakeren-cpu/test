@@ -42,7 +42,7 @@ bfx_imro_category = {
 	icon = generic_political_actions
 	picture = GFX_decision_cat_picture_macedonian_organizations
 	allowed = { original_tag = BUL }
-	visible = { has_country_flag = bfx_imro_tolerated NOT = { has_country_flag = bfx_macedonia_free } NOT = { owns_state = 106 } }
+	visible = { has_country_flag = bfx_imro_tolerated NOT = { has_country_flag = bfx_macedonia_free } NOT = { has_country_flag = bfx_uprising_crushed } NOT = { owns_state = 106 } }
 	priority = 100
 }
 

@@ -882,7 +882,7 @@ focus_tree = {
 			factor = 10
 		}
 		completion_reward = {
-			if = { limit = { check_variable = { bfx_macedonia_unrest > 69 } 106 = { is_owned_by = YUG } YUG = { has_civil_war = no } NOT = { has_country_flag = bfx_uprising_active } NOT = { has_country_flag = bfx_macedonia_free } } bfx_start_macedonian_uprising = yes }
+			if = { limit = { check_variable = { bfx_macedonia_unrest > 69 } 106 = { is_owned_by = YUG } YUG = { has_civil_war = no } NOT = { has_country_flag = bfx_uprising_active } NOT = { has_country_flag = bfx_macedonia_free } NOT = { has_country_flag = bfx_uprising_crushed } } bfx_start_macedonian_uprising = yes }
 			custom_effect_tooltip = bfx_tt_macedonia_rises
 			add_war_support = 0.05
 		}

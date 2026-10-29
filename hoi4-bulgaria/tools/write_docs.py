@@ -64,7 +64,7 @@ Every focus has `search_filters` and `ai_will_do`.
   Serbia and Romania 65%, Anatolia 70%, the Pontic coast 75%. They cost political power and a little stability, and can be repeated as compliance rises.
 * **Diplomacy works**: *Open the Chancelleries* (and the Legionary State) lift the non-aligned limits with `set_rule`. The *Sofia Chancellery*
   decisions propose non-aggression pacts (Turkey, Romania, Greece, Yugoslavia, USSR, Hungary, Italy), ask for guarantees (Germany, Italy, Britain, France),
-  invite countries to your faction, give guarantees and demand Southern Dobruja. Several focuses do the same by event (Turkish pact 1941,
+  invite countries to your faction, give guarantees and demand Southern Dobruja. **Each proposal can be made once**: a refusal closes that door. Several focuses do the same by event (Turkish pact 1941,
   Craiova 1940, the Albanian protectorate, joining the patron's alliance or the Axis, the Pact of Iron).
 * **Land by diplomacy**: Craiova returns Dobruja peacefully (much likelier with German backing). The Hegemon's ultimatums can win Macedonia,
   Thrace and Edirne without a shot when the target is weak or already at war; a refusal gives a war goal instead. *The Partition Dividend* and
@@ -104,7 +104,7 @@ one-year truce with Belgrade (and Bulgaria's guarantee, if it recognised the ris
 rebels as winner; in a civil war the winner annexes the loser, so Yugoslavia was annexed. That white peace is gone. If Bulgaria is still at war with Yugoslavia then, it chooses:
 **white peace** with Yugoslavia and everyone fighting for it as ally or guarantor, or **keep marching** (claims on every Yugoslav state bordering
 Bulgaria or free Macedonia). Six months later Skopje asks to join: annex it (cores) or keep it as a client.
-If it is crushed, Bulgaria pays in stability and IMRO influence (and can try again later).
+If it is crushed, Bulgaria pays in stability and IMRO influence. There is only one rising.
 The *Macedonian Uprising* decision tab disappears once Macedonia is free or Vardar Macedonia is Bulgarian. Mihaylov leaves the Bulgarian cabinet to lead the new state.
 
 ## Mechanic 4: The Bulgarian Auction (Tsar's Way)

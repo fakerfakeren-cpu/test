@@ -531,7 +531,7 @@ bfx_diplomacy_category = {
 	bfx_dip_nap_tur = {
 		icon = generic_political_discourse
 		cost = 25
-		days_re_enable = 180
+		fire_only_once = yes
 		visible = { country_exists = TUR NOT = { is_in_faction_with = TUR } }
 		available = { NOT = { has_war_with = TUR } }
 		complete_effect = {
@@ -542,7 +542,7 @@ bfx_diplomacy_category = {
 	bfx_dip_nap_rom = {
 		icon = generic_political_discourse
 		cost = 25
-		days_re_enable = 180
+		fire_only_once = yes
 		visible = { country_exists = ROM NOT = { is_in_faction_with = ROM } }
 		available = { NOT = { has_war_with = ROM } }
 		complete_effect = {
@@ -553,7 +553,7 @@ bfx_diplomacy_category = {
 	bfx_dip_nap_gre = {
 		icon = generic_political_discourse
 		cost = 25
-		days_re_enable = 180
+		fire_only_once = yes
 		visible = { country_exists = GRE NOT = { is_in_faction_with = GRE } }
 		available = { NOT = { has_war_with = GRE } }
 		complete_effect = {
@@ -564,7 +564,7 @@ bfx_diplomacy_category = {
 	bfx_dip_nap_yug = {
 		icon = generic_political_discourse
 		cost = 25
-		days_re_enable = 180
+		fire_only_once = yes
 		visible = { country_exists = YUG NOT = { is_in_faction_with = YUG } }
 		available = { NOT = { has_war_with = YUG } }
 		complete_effect = {
@@ -575,7 +575,7 @@ bfx_diplomacy_category = {
 	bfx_dip_nap_sov = {
 		icon = generic_political_discourse
 		cost = 25
-		days_re_enable = 180
+		fire_only_once = yes
 		visible = { country_exists = SOV NOT = { is_in_faction_with = SOV } }
 		available = { NOT = { has_war_with = SOV } }
 		complete_effect = {
@@ -586,7 +586,7 @@ bfx_diplomacy_category = {
 	bfx_dip_nap_hun = {
 		icon = generic_political_discourse
 		cost = 25
-		days_re_enable = 180
+		fire_only_once = yes
 		visible = { country_exists = HUN NOT = { is_in_faction_with = HUN } }
 		available = { NOT = { has_war_with = HUN } }
 		complete_effect = {
@@ -597,7 +597,7 @@ bfx_diplomacy_category = {
 	bfx_dip_nap_ita = {
 		icon = generic_political_discourse
 		cost = 25
-		days_re_enable = 180
+		fire_only_once = yes
 		visible = { country_exists = ITA NOT = { is_in_faction_with = ITA } }
 		available = { NOT = { has_war_with = ITA } }
 		complete_effect = {
@@ -608,7 +608,7 @@ bfx_diplomacy_category = {
 	bfx_dip_guarantee_ger = {
 		icon = generic_political_address
 		cost = 25
-		days_re_enable = 180
+		fire_only_once = yes
 		visible = { country_exists = GER }
 		available = { NOT = { has_war_with = GER } }
 		complete_effect = {
@@ -619,7 +619,7 @@ bfx_diplomacy_category = {
 	bfx_dip_guarantee_ita = {
 		icon = generic_political_address
 		cost = 25
-		days_re_enable = 180
+		fire_only_once = yes
 		visible = { country_exists = ITA }
 		available = { NOT = { has_war_with = ITA } }
 		complete_effect = {
@@ -630,7 +630,7 @@ bfx_diplomacy_category = {
 	bfx_dip_guarantee_eng = {
 		icon = generic_political_address
 		cost = 25
-		days_re_enable = 180
+		fire_only_once = yes
 		visible = { country_exists = ENG }
 		available = { NOT = { has_war_with = ENG } }
 		complete_effect = {
@@ -641,7 +641,7 @@ bfx_diplomacy_category = {
 	bfx_dip_guarantee_fra = {
 		icon = generic_political_address
 		cost = 25
-		days_re_enable = 180
+		fire_only_once = yes
 		visible = { country_exists = FRA }
 		available = { NOT = { has_war_with = FRA } }
 		complete_effect = {
@@ -652,7 +652,7 @@ bfx_diplomacy_category = {
 	bfx_dip_invite_hun = {
 		icon = generic_form_nation
 		cost = 25
-		days_re_enable = 180
+		fire_only_once = yes
 		visible = { is_faction_leader = yes country_exists = HUN }
 		available = { HUN = { is_in_faction = no } NOT = { has_war_with = HUN } }
 		complete_effect = {
@@ -663,7 +663,7 @@ bfx_diplomacy_category = {
 	bfx_dip_invite_rom = {
 		icon = generic_form_nation
 		cost = 25
-		days_re_enable = 180
+		fire_only_once = yes
 		visible = { is_faction_leader = yes country_exists = ROM }
 		available = { ROM = { is_in_faction = no } NOT = { has_war_with = ROM } }
 		complete_effect = {
@@ -674,7 +674,7 @@ bfx_diplomacy_category = {
 	bfx_dip_invite_gre = {
 		icon = generic_form_nation
 		cost = 25
-		days_re_enable = 180
+		fire_only_once = yes
 		visible = { is_faction_leader = yes country_exists = GRE }
 		available = { GRE = { is_in_faction = no } NOT = { has_war_with = GRE } }
 		complete_effect = {
@@ -685,7 +685,7 @@ bfx_diplomacy_category = {
 	bfx_dip_invite_yug = {
 		icon = generic_form_nation
 		cost = 25
-		days_re_enable = 180
+		fire_only_once = yes
 		visible = { is_faction_leader = yes country_exists = YUG }
 		available = { YUG = { is_in_faction = no } NOT = { has_war_with = YUG } }
 		complete_effect = {
@@ -696,7 +696,7 @@ bfx_diplomacy_category = {
 	bfx_dip_invite_tur = {
 		icon = generic_form_nation
 		cost = 25
-		days_re_enable = 180
+		fire_only_once = yes
 		visible = { is_faction_leader = yes country_exists = TUR }
 		available = { TUR = { is_in_faction = no } NOT = { has_war_with = TUR } }
 		complete_effect = {
@@ -707,7 +707,7 @@ bfx_diplomacy_category = {
 	bfx_dip_invite_alb = {
 		icon = generic_form_nation
 		cost = 25
-		days_re_enable = 180
+		fire_only_once = yes
 		visible = { is_faction_leader = yes country_exists = ALB }
 		available = { ALB = { is_in_faction = no } NOT = { has_war_with = ALB } }
 		complete_effect = {
@@ -773,7 +773,7 @@ bfx_diplomacy_category = {
 	bfx_dip_demand_dobruja = {
 		icon = generic_break_treaty
 		cost = 50
-		days_re_enable = 365
+		fire_only_once = yes
 		visible = { NOT = { owns_state = 77 } }
 		available = { 77 = { owner = { NOT = { is_in_faction_with = ROOT } NOT = { has_war_with = ROOT } } } }
 		complete_effect = {
@@ -837,7 +837,7 @@ bfx_imro_category = {
 	bfx_imro_ilinden = {
 		icon = generic_ignite_civil_war
 		cost = 100
-		days_re_enable = 365
+		fire_only_once = yes
 		visible = { always = yes }
 		available = { NOT = { has_country_flag = bfx_uprising_active } NOT = { has_country_flag = bfx_macedonia_free } NOT = { owns_state = 106 } 106 = { is_owned_by = YUG } check_variable = { bfx_macedonia_unrest > 69 } YUG = { has_civil_war = no } }
 		complete_effect = {

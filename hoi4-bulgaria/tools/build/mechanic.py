@@ -624,7 +624,7 @@ def decisions():
     # ---------------- Diplomacy ----------------
     cat("bfx_diplomacy_category", "generic_foreign_policy", "GFX_decision_cat_picture_balkan_faction",
         "has_country_flag = bfx_chancelleries_open", "The Sofia Chancellery",
-        "Non-aggression pacts, guarantees, alliances and demands. Each proposal is sent as an event; the other side may refuse.")
+        "Non-aggression pacts, guarantees, alliances and demands. Each proposal is sent as an event and §Ycan be made only once§!: if the other side refuses, that door is closed.")
     D = "bfx_diplomacy_category"
     names = {"TUR": "Turkey", "ROM": "Romania", "GRE": "Greece", "YUG": "Yugoslavia", "SOV": "the Soviet Union", "HUN": "Hungary",
              "ITA": "Italy", "GER": "Germany", "ENG": "Britain", "FRA": "France", "ALB": "Albania"}
@@ -633,18 +633,18 @@ def decisions():
             f"A non-aggression pact with {names[t]}: one frontier fewer to watch.", "generic_political_discourse", 25,
             f"{t} = {{ country_event = {{ id = bfx_dip.1 days = 2 }} }}",
             visible=f"country_exists = {t} NOT = {{ is_in_faction_with = {t} }}", available=f"NOT = {{ has_war_with = {t} }}",
-            days_re_enable=180, ai="factor = 1")
+            fire_once=True, ai="factor = 1")
     for t in ("GER", "ITA", "ENG", "FRA"):
         dec(D, f"bfx_dip_guarantee_{t.lower()}", f"Ask {names[t]} for a Guarantee",
             f"A great-power guarantee makes a small kingdom expensive to invade.", "generic_political_address", 25,
             f"{t} = {{ country_event = {{ id = bfx_dip.4 days = 2 }} }}",
-            visible=f"country_exists = {t}", available=f"NOT = {{ has_war_with = {t} }}", days_re_enable=180, ai="factor = 1")
+            visible=f"country_exists = {t}", available=f"NOT = {{ has_war_with = {t} }}", fire_once=True, ai="factor = 1")
     for t in ("HUN", "ROM", "GRE", "YUG", "TUR", "ALB"):
         dec(D, f"bfx_dip_invite_{t.lower()}", f"Invite {names[t]} to Our Alliance",
             f"{names[t]} is invited to join our faction.", "generic_form_nation", 25,
             f"{t} = {{ country_event = {{ id = bfx_dip.5 days = 2 }} }}",
             visible=f"is_faction_leader = yes country_exists = {t}", available=f"{t} = {{ is_in_faction = no }} NOT = {{ has_war_with = {t} }}",
-            days_re_enable=180, ai="factor = 2")
+            fire_once=True, ai="factor = 2")
     for t in ("ALB", "HUN", "GRE", "ROM", "YUG"):
         dec(D, f"bfx_dip_give_guarantee_{t.lower()}", f"Guarantee {names[t]}",
             f"Bulgaria promises to defend {names[t]}, and expects gratitude.", "generic_protection", 15, f"give_guarantee = {t}",
@@ -652,11 +652,11 @@ def decisions():
     dec(D, "bfx_dip_demand_dobruja", "Demand Southern Dobruja", "Ask, firmly, for the Quadrilateral. A refusal gives us a war goal.",
         "generic_break_treaty", 50, "add_state_claim = 77\n77 = { owner = { country_event = { id = bfx_dip.6 days = 2 } } }",
         visible="NOT = { owns_state = 77 }", available="77 = { owner = { NOT = { is_in_faction_with = ROOT } NOT = { has_war_with = ROOT } } }",
-        days_re_enable=365, ai="factor = 2")
+        fire_once=True, ai="factor = 2")
 
     # ---------------- IMRO and the Macedonian uprising ----------------
     cat("bfx_imro_category", "generic_political_actions", "GFX_decision_cat_picture_macedonian_organizations",
-        "has_country_flag = bfx_imro_tolerated NOT = { has_country_flag = bfx_macedonia_free } NOT = { owns_state = 106 }", "The Macedonian Uprising",
+        "has_country_flag = bfx_imro_tolerated NOT = { has_country_flag = bfx_macedonia_free } NOT = { has_country_flag = bfx_uprising_crushed } NOT = { owns_state = 106 }", "The Macedonian Uprising",
         "§YUnrest in Vardar Macedonia§!: [?bfx_macedonia_unrest|0] / 100. At §Y70§! IMRO can raise the §YIlinden banner§!: the province rises as the §YIndependent State of Macedonia§!, splitting off part of the Yugoslav army in a civil war.\n"
         "Feed the rising with volunteers, rifles and officers. If it survives §Y8 months§!, or Yugoslavia starts to collapse, Belgrade lets it go. "
         "Half a year after independence Skopje asks to join Bulgaria.\n\nUprising months: [?bfx_uprising_months|0]")
@@ -680,7 +680,7 @@ def decisions():
         "St Elijah's Day, 1903: IMRO rose and was crushed. This time Bulgaria is waiting across the border. Vardar Macedonia rises as the Independent State of Macedonia.",
         "generic_ignite_civil_war", 100, "bfx_start_macedonian_uprising = yes\n" + court(imro=10) + "\n" + neuilly(0, 20),
         available=no_rising + " check_variable = { bfx_macedonia_unrest > 69 } YUG = { has_civil_war = no }",
-        days_re_enable=365, ai="factor = 10")
+        fire_once=True, ai="factor = 10")
     rebel = "any_country = { has_country_flag = bfx_imro_rebel_state }"
     act = f"has_country_flag = bfx_uprising_active {rebel}"
     dec(M, "bfx_uprising_volunteers", "Send Komitadji Volunteers", "Young men from the emigration cross the Osogovo passes.",
