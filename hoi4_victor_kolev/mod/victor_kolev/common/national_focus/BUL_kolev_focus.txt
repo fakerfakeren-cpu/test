@@ -1,0 +1,1816 @@
+focus_tree = {
+	id = BUL_kolev_focus_tree
+	country = {
+		factor = 0
+		modifier = { add = 1000 tag = BUL }
+	}
+	default = no
+	reset_on_civilwar = no
+	initial_show_position = { focus = BUL_kv_new_chairman }
+	continuous_focus_position = { x = 50 y = 1700 }
+
+	focus = {
+		id = BUL_kv_defy_neuilly
+		icon = GFX_goal_generic_army_doctrines
+		x = 4
+		y = 0
+		cost = 10
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			remove_ideas = BUL_kv_shadow_of_neuilly
+			add_war_support = 0.05
+			army_experience = 10
+		}
+	}
+	focus = {
+		id = BUL_kv_shield_of_the_balkans
+		icon = GFX_goal_generic_small_arms
+		x = 2
+		y = 1
+		cost = 10
+		prerequisite = { focus = BUL_kv_defy_neuilly }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_tech_bonus = { name = BUL_kv_shield_of_the_balkans bonus = 0.5 uses = 1 category = infantry_weapons }
+		}
+	}
+	focus = {
+		id = BUL_kv_danube_artillery
+		icon = GFX_goal_generic_army_artillery
+		x = 5
+		y = 1
+		cost = 10
+		prerequisite = { focus = BUL_kv_defy_neuilly }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_tech_bonus = { name = BUL_kv_danube_artillery bonus = 0.5 uses = 1 category = artillery }
+		}
+	}
+	focus = {
+		id = BUL_kv_rhodope_mountaineers
+		icon = GFX_goal_generic_special_forces
+		x = 1
+		y = 2
+		cost = 10
+		prerequisite = { focus = BUL_kv_shield_of_the_balkans }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			army_experience = 15
+			add_tech_bonus = { name = BUL_kv_rhodope_mountaineers bonus = 0.5 uses = 1 category = support_tech }
+		}
+	}
+	focus = {
+		id = BUL_kv_rearm_the_army
+		icon = GFX_goal_generic_allies_build_infantry
+		x = 3
+		y = 2
+		cost = 10
+		prerequisite = { focus = BUL_kv_shield_of_the_balkans }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 2000 producer = BUL }
+			add_equipment_to_stockpile = { type = support_equipment_1 amount = 200 producer = BUL }
+		}
+	}
+	focus = {
+		id = BUL_kv_motorize_the_army
+		icon = GFX_goal_generic_army_motorized
+		x = 5
+		y = 2
+		cost = 10
+		prerequisite = { focus = BUL_kv_danube_artillery }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_tech_bonus = { name = BUL_kv_motorize_the_army bonus = 0.5 uses = 1 category = motorized_equipment }
+		}
+	}
+	focus = {
+		id = BUL_kv_lessons_of_the_balkan_wars
+		icon = GFX_goal_generic_army_doctrines
+		x = 2
+		y = 3
+		cost = 10
+		prerequisite = { focus = BUL_kv_rhodope_mountaineers focus = BUL_kv_rearm_the_army }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_tech_bonus = { name = BUL_kv_lessons_of_the_balkan_wars bonus = 0.5 uses = 1 category = land_doctrine }
+		}
+	}
+	focus = {
+		id = BUL_kv_bulgarian_armour
+		icon = GFX_goal_generic_army_tanks
+		x = 5
+		y = 3
+		cost = 10
+		prerequisite = { focus = BUL_kv_motorize_the_army }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_tech_bonus = { name = BUL_kv_bulgarian_armour bonus = 0.5 uses = 2 category = armor }
+		}
+	}
+	focus = {
+		id = BUL_kv_conscription_reform
+		icon = GFX_goal_generic_allies_build_infantry
+		x = 1
+		y = 4
+		cost = 10
+		prerequisite = { focus = BUL_kv_lessons_of_the_balkan_wars }
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = BUL_kv_conscription_reform
+		}
+	}
+	focus = {
+		id = BUL_kv_officer_academy
+		icon = GFX_goal_generic_army_doctrines
+		x = 3
+		y = 4
+		cost = 10
+		prerequisite = { focus = BUL_kv_lessons_of_the_balkan_wars }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = BUL_kv_officer_academy
+		}
+	}
+	focus = {
+		id = BUL_kv_tank_school
+		icon = GFX_goal_generic_army_tanks
+		x = 5
+		y = 4
+		cost = 10
+		prerequisite = { focus = BUL_kv_bulgarian_armour }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_tech_bonus = { name = BUL_kv_tank_school bonus = 0.5 uses = 1 category = armor }
+			army_experience = 10
+		}
+	}
+	focus = {
+		id = BUL_kv_special_detachments
+		icon = GFX_goal_generic_special_forces
+		x = 0
+		y = 5
+		cost = 10
+		prerequisite = { focus = BUL_kv_conscription_reform }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_tech_bonus = { name = BUL_kv_special_detachments bonus = 0.5 uses = 1 category = support_tech }
+			army_experience = 10
+		}
+	}
+	focus = {
+		id = BUL_kv_border_fortifications
+		icon = GFX_goal_generic_defence
+		x = 2
+		y = 5
+		cost = 10
+		prerequisite = { focus = BUL_kv_conscription_reform }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = BUL_kv_border_forts
+		}
+	}
+	focus = {
+		id = BUL_kv_mechanized_divisions
+		icon = GFX_goal_generic_army_motorized
+		x = 5
+		y = 5
+		cost = 10
+		prerequisite = { focus = BUL_kv_tank_school }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_tech_bonus = { name = BUL_kv_mechanized_divisions bonus = 0.5 uses = 1 category = motorized_equipment }
+			add_tech_bonus = { name = BUL_kv_mechanized_divisions bonus = 0.5 uses = 1 category = armor }
+		}
+	}
+	focus = {
+		id = BUL_kv_balkan_war_doctrine
+		icon = GFX_goal_generic_army_doctrines
+		x = 3
+		y = 6
+		cost = 10
+		prerequisite = { focus = BUL_kv_border_fortifications focus = BUL_kv_officer_academy }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_tech_bonus = { name = BUL_kv_balkan_war_doctrine bonus = 0.5 uses = 2 category = land_doctrine }
+		}
+	}
+	focus = {
+		id = BUL_kv_concentrated_firepower
+		icon = GFX_goal_generic_army_artillery2
+		x = 5
+		y = 6
+		cost = 10
+		prerequisite = { focus = BUL_kv_mechanized_divisions }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_tech_bonus = { name = BUL_kv_concentrated_firepower bonus = 0.5 uses = 2 category = artillery }
+		}
+	}
+	focus = {
+		id = BUL_kv_army_of_the_chairman
+		icon = GFX_goal_generic_position_armies
+		x = 4
+		y = 7
+		cost = 10
+		prerequisite = { focus = BUL_kv_balkan_war_doctrine }
+		prerequisite = { focus = BUL_kv_concentrated_firepower }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			army_experience = 25
+			add_war_support = 0.05
+			add_tech_bonus = { name = BUL_kv_army_of_the_chairman bonus = 0.5 uses = 1 category = land_doctrine }
+		}
+	}
+	focus = {
+		id = BUL_kv_air_corps
+		icon = GFX_goal_generic_build_airforce
+		x = 8
+		y = 0
+		cost = 10
+		search_filters = { FOCUS_FILTER_AIR_XP }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			air_experience = 25
+			capital_scope = { add_building_construction = { type = air_base level = 2 instant_build = yes } }
+		}
+	}
+	focus = {
+		id = BUL_kv_fighter_programme
+		icon = GFX_goal_generic_air_fighter
+		x = 7
+		y = 1
+		cost = 10
+		prerequisite = { focus = BUL_kv_air_corps }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_tech_bonus = { name = BUL_kv_fighter_programme bonus = 0.5 uses = 1 category = air_equipment }
+		}
+	}
+	focus = {
+		id = BUL_kv_close_air_support
+		icon = GFX_goal_generic_air_bomber
+		x = 9
+		y = 1
+		cost = 10
+		prerequisite = { focus = BUL_kv_air_corps }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_tech_bonus = { name = BUL_kv_close_air_support bonus = 0.5 uses = 1 category = air_equipment }
+		}
+	}
+	focus = {
+		id = BUL_kv_bozhurishte_works
+		icon = GFX_goal_generic_air_production
+		x = 8
+		y = 2
+		cost = 10
+		prerequisite = { focus = BUL_kv_fighter_programme focus = BUL_kv_close_air_support }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {  free_building_slots = { building = arms_factory size > 1 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+			add_tech_bonus = { name = BUL_kv_bozhurishte_works bonus = 0.5 uses = 1 category = air_equipment }
+		}
+	}
+	focus = {
+		id = BUL_kv_air_doctrine
+		icon = GFX_goal_generic_air_doctrine
+		x = 7
+		y = 3
+		cost = 10
+		prerequisite = { focus = BUL_kv_bozhurishte_works }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_tech_bonus = { name = BUL_kv_air_doctrine bonus = 0.5 uses = 2 category = air_doctrine }
+		}
+	}
+	focus = {
+		id = BUL_kv_radar_network
+		icon = GFX_goal_generic_radar
+		x = 9
+		y = 3
+		cost = 10
+		prerequisite = { focus = BUL_kv_bozhurishte_works }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_tech_bonus = { name = BUL_kv_radar_network bonus = 0.5 uses = 1 category = electronics }
+			capital_scope = { add_building_construction = { type = radar_station level = 1 instant_build = yes } }
+		}
+	}
+	focus = {
+		id = BUL_kv_air_defence
+		icon = GFX_goal_generic_air_fighter
+		x = 7
+		y = 4
+		cost = 10
+		prerequisite = { focus = BUL_kv_air_doctrine }
+		search_filters = { FOCUS_FILTER_AIR_XP }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			capital_scope = { add_building_construction = { type = anti_air_building level = 2 instant_build = yes } }
+			air_experience = 10
+		}
+	}
+	focus = {
+		id = BUL_kv_aces_of_the_balkans
+		icon = GFX_goal_generic_air_fighter
+		x = 9
+		y = 4
+		cost = 10
+		prerequisite = { focus = BUL_kv_radar_network }
+		search_filters = { FOCUS_FILTER_AIR_XP }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			air_experience = 30
+		}
+	}
+	focus = {
+		id = BUL_kv_wings_over_sofia
+		icon = GFX_goal_generic_air_production
+		x = 8
+		y = 5
+		cost = 10
+		prerequisite = { focus = BUL_kv_air_defence }
+		prerequisite = { focus = BUL_kv_aces_of_the_balkans }
+		search_filters = { FOCUS_FILTER_AIR_XP }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			air_experience = 25
+			add_tech_bonus = { name = BUL_kv_wings_over_sofia bonus = 0.5 uses = 2 category = air_equipment }
+		}
+	}
+	focus = {
+		id = BUL_kv_black_sea_fleet
+		icon = GFX_goal_generic_build_navy
+		x = 2
+		y = 9
+		cost = 10
+		search_filters = { FOCUS_FILTER_NAVY_XP }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			navy_experience = 25
+			random_owned_controlled_state = {
+				limit = { is_coastal = yes free_building_slots = { building = dockyard size > 1 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = dockyard level = 1 instant_build = yes }
+			}
+		}
+	}
+	focus = {
+		id = BUL_kv_varna_shipyards
+		icon = GFX_goal_generic_construct_naval_dockyard
+		x = 1
+		y = 10
+		cost = 10
+		prerequisite = { focus = BUL_kv_black_sea_fleet }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = { is_coastal = yes free_building_slots = { building = dockyard size > 1 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = dockyard level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { is_coastal = yes free_building_slots = { building = dockyard size > 1 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = dockyard level = 1 instant_build = yes }
+			}
+		}
+	}
+	focus = {
+		id = BUL_kv_submarine_flotilla
+		icon = GFX_goal_generic_navy_submarine
+		x = 3
+		y = 10
+		cost = 10
+		prerequisite = { focus = BUL_kv_black_sea_fleet }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_tech_bonus = { name = BUL_kv_submarine_flotilla bonus = 0.5 uses = 1 category = naval_equipment }
+		}
+	}
+	focus = {
+		id = BUL_kv_coastal_defence
+		icon = GFX_goal_generic_navy_doctrines_tactics
+		x = 1
+		y = 11
+		cost = 10
+		prerequisite = { focus = BUL_kv_varna_shipyards }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_tech_bonus = { name = BUL_kv_coastal_defence bonus = 0.5 uses = 1 category = naval_doctrine }
+		}
+	}
+	focus = {
+		id = BUL_kv_torpedo_boats
+		icon = GFX_goal_generic_navy_cruiser
+		x = 3
+		y = 11
+		cost = 10
+		prerequisite = { focus = BUL_kv_submarine_flotilla }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_tech_bonus = { name = BUL_kv_torpedo_boats bonus = 0.5 uses = 1 category = naval_equipment }
+		}
+	}
+	focus = {
+		id = BUL_kv_masters_of_the_black_sea
+		icon = GFX_goal_generic_navy_battleship
+		x = 2
+		y = 12
+		cost = 10
+		prerequisite = { focus = BUL_kv_coastal_defence }
+		prerequisite = { focus = BUL_kv_torpedo_boats }
+		search_filters = { FOCUS_FILTER_NAVY_XP }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			navy_experience = 50
+			add_tech_bonus = { name = BUL_kv_masters_of_the_black_sea bonus = 0.5 uses = 1 category = naval_doctrine }
+		}
+	}
+	focus = {
+		id = BUL_kv_economic_council
+		icon = GFX_goal_generic_production
+		x = 15
+		y = 0
+		cost = 5
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_political_power = 50
+		}
+	}
+	focus = {
+		id = BUL_kv_infrastructure_drive
+		icon = GFX_goal_generic_construct_infrastructure
+		x = 13
+		y = 1
+		cost = 10
+		prerequisite = { focus = BUL_kv_economic_council }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = infrastructure size > 0 } }
+				add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = infrastructure size > 0 } }
+				add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+			}
+		}
+	}
+	focus = {
+		id = BUL_kv_agrarian_reform
+		icon = GFX_goal_generic_consumer_goods
+		x = 17
+		y = 1
+		cost = 10
+		prerequisite = { focus = BUL_kv_economic_council }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			swap_ideas = { remove_idea = BUL_kv_agrarian_economy add_idea = BUL_kv_agrarian_economy_2 }
+		}
+	}
+	focus = {
+		id = BUL_kv_sofia_industrial_zone
+		icon = GFX_goal_generic_construct_civ_factory
+		x = 12
+		y = 2
+		cost = 10
+		prerequisite = { focus = BUL_kv_infrastructure_drive }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {  free_building_slots = { building = industrial_complex size > 1 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = {  free_building_slots = { building = industrial_complex size > 1 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+		}
+	}
+	focus = {
+		id = BUL_kv_danube_railways
+		icon = GFX_goal_generic_construct_infrastructure
+		x = 14
+		y = 2
+		cost = 10
+		prerequisite = { focus = BUL_kv_infrastructure_drive }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = infrastructure size > 0 } }
+				add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = infrastructure size > 0 } }
+				add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+			}
+			add_stability = 0.02
+		}
+	}
+	focus = {
+		id = BUL_kv_cooperative_farms
+		icon = GFX_goal_generic_consumer_goods
+		x = 17
+		y = 2
+		cost = 10
+		prerequisite = { focus = BUL_kv_agrarian_reform }
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_stability = 0.03
+			add_manpower = 5000
+		}
+	}
+	focus = {
+		id = BUL_kv_kazanlak_arms_works
+		icon = GFX_goal_generic_construct_mil_factory
+		x = 12
+		y = 3
+		cost = 10
+		prerequisite = { focus = BUL_kv_sofia_industrial_zone }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {  free_building_slots = { building = arms_factory size > 1 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = {  free_building_slots = { building = arms_factory size > 1 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+		}
+	}
+	focus = {
+		id = BUL_kv_danube_ports
+		icon = GFX_goal_generic_construct_naval_dockyard
+		x = 14
+		y = 3
+		cost = 10
+		prerequisite = { focus = BUL_kv_danube_railways }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = { is_coastal = yes free_building_slots = { building = dockyard size > 1 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = dockyard level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = infrastructure size > 0 } }
+				add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+			}
+		}
+	}
+	focus = {
+		id = BUL_kv_mechanized_agriculture
+		icon = GFX_goal_generic_production2
+		x = 17
+		y = 3
+		cost = 10
+		prerequisite = { focus = BUL_kv_cooperative_farms }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			remove_ideas = BUL_kv_agrarian_economy_2
+			random_owned_controlled_state = {
+				limit = {  free_building_slots = { building = industrial_complex size > 1 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+		}
+	}
+	focus = {
+		id = BUL_kv_research_institute
+		icon = GFX_goal_generic_scientific_exchange
+		x = 11
+		y = 4
+		cost = 10
+		prerequisite = { focus = BUL_kv_sofia_industrial_zone }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+	focus = {
+		id = BUL_kv_expand_the_arsenal
+		icon = GFX_goal_generic_construct_mil_factory
+		x = 13
+		y = 4
+		cost = 10
+		prerequisite = { focus = BUL_kv_kazanlak_arms_works }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {  free_building_slots = { building = arms_factory size > 1 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = {  free_building_slots = { building = arms_factory size > 1 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+		}
+	}
+	focus = {
+		id = BUL_kv_survey_the_rhodopes
+		icon = GFX_goal_generic_production2
+		x = 16
+		y = 4
+		cost = 10
+		prerequisite = { focus = BUL_kv_danube_ports focus = BUL_kv_mechanized_agriculture }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_political_power = 25
+			add_tech_bonus = { name = BUL_kv_survey_the_rhodopes bonus = 0.25 uses = 1 category = industry }
+		}
+	}
+	focus = {
+		id = BUL_kv_technical_schools
+		icon = GFX_goal_generic_research
+		x = 11
+		y = 5
+		cost = 10
+		prerequisite = { focus = BUL_kv_research_institute }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_tech_bonus = { name = BUL_kv_technical_schools bonus = 0.5 uses = 2 category = industry }
+		}
+	}
+	focus = {
+		id = BUL_kv_electrification
+		icon = GFX_goal_generic_radar
+		x = 13
+		y = 5
+		cost = 10
+		prerequisite = { focus = BUL_kv_expand_the_arsenal }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_tech_bonus = { name = BUL_kv_electrification bonus = 0.5 uses = 1 category = electronics }
+		}
+	}
+	focus = {
+		id = BUL_kv_rhodope_mines
+		icon = GFX_goal_generic_production
+		x = 15
+		y = 5
+		cost = 10
+		prerequisite = { focus = BUL_kv_survey_the_rhodopes }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_resource = { type = chromium amount = 6 state = 48 }
+		}
+	}
+	focus = {
+		id = BUL_kv_pernik_steel
+		icon = GFX_goal_generic_production
+		x = 17
+		y = 5
+		cost = 10
+		prerequisite = { focus = BUL_kv_survey_the_rhodopes }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_resource = { type = steel amount = 8 state = 801 }
+		}
+	}
+	focus = {
+		id = BUL_kv_first_kolev_plan
+		icon = GFX_goal_generic_construct_civ_factory
+		x = 12
+		y = 6
+		cost = 10
+		prerequisite = { focus = BUL_kv_technical_schools }
+		prerequisite = { focus = BUL_kv_electrification }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {  free_building_slots = { building = industrial_complex size > 1 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = {  free_building_slots = { building = industrial_complex size > 1 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+		}
+	}
+	focus = {
+		id = BUL_kv_synthetic_fuel
+		icon = GFX_goal_generic_secret_weapon
+		x = 15
+		y = 6
+		cost = 10
+		prerequisite = { focus = BUL_kv_rhodope_mines }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_tech_bonus = { name = BUL_kv_synthetic_fuel bonus = 0.75 uses = 1 category = synth_resources }
+			add_resource = { type = oil amount = 4 state = 212 }
+		}
+	}
+	focus = {
+		id = BUL_kv_tobacco_exports
+		icon = GFX_goal_generic_trade
+		x = 17
+		y = 6
+		cost = 10
+		prerequisite = { focus = BUL_kv_pernik_steel }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = BUL_kv_tobacco_exports
+		}
+	}
+	focus = {
+		id = BUL_kv_sofia_university
+		icon = GFX_goal_generic_scientific_exchange
+		x = 11
+		y = 7
+		cost = 10
+		prerequisite = { focus = BUL_kv_first_kolev_plan }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+	focus = {
+		id = BUL_kv_second_kolev_plan
+		icon = GFX_goal_generic_construct_mil_factory
+		x = 13
+		y = 7
+		cost = 10
+		prerequisite = { focus = BUL_kv_first_kolev_plan }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {  free_building_slots = { building = arms_factory size > 1 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = {  free_building_slots = { building = arms_factory size > 1 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = {  free_building_slots = { building = industrial_complex size > 1 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+		}
+	}
+	focus = {
+		id = BUL_kv_construction_brigades
+		icon = GFX_goal_generic_construct_infrastructure
+		x = 16
+		y = 7
+		cost = 10
+		prerequisite = { focus = BUL_kv_synthetic_fuel focus = BUL_kv_tobacco_exports }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = BUL_kv_construction_brigades
+		}
+	}
+	focus = {
+		id = BUL_kv_industrial_independence
+		icon = GFX_goal_generic_production2
+		x = 12
+		y = 8
+		cost = 10
+		prerequisite = { focus = BUL_kv_sofia_university }
+		prerequisite = { focus = BUL_kv_second_kolev_plan }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = BUL_kv_industrial_independence
+		}
+	}
+	focus = {
+		id = BUL_kv_radio_industry
+		icon = GFX_goal_generic_radar
+		x = 14
+		y = 8
+		cost = 10
+		prerequisite = { focus = BUL_kv_second_kolev_plan }
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_tech_bonus = { name = BUL_kv_radio_industry bonus = 0.5 uses = 2 category = electronics }
+		}
+	}
+	focus = {
+		id = BUL_kv_balkan_tiger
+		icon = GFX_goal_generic_production
+		x = 13
+		y = 9
+		cost = 10
+		prerequisite = { focus = BUL_kv_industrial_independence }
+		prerequisite = { focus = BUL_kv_radio_industry }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {  free_building_slots = { building = industrial_complex size > 1 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = {  free_building_slots = { building = industrial_complex size > 1 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = {  free_building_slots = { building = arms_factory size > 1 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = {  free_building_slots = { building = arms_factory size > 1 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+		}
+	}
+	focus = {
+		id = BUL_kv_new_chairman
+		icon = GFX_goal_generic_political_pressure
+		x = 31
+		y = 0
+		cost = 5
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_political_power = 50
+			add_stability = 0.03
+		}
+	}
+	focus = {
+		id = BUL_kv_national_renewal
+		icon = GFX_goal_generic_propaganda
+		x = 29
+		y = 1
+		cost = 10
+		prerequisite = { focus = BUL_kv_new_chairman }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			set_party_name = { ideology = neutrality long_name = BUL_kv_party_long name = BUL_kv_party }
+			add_popularity = { ideology = neutrality popularity = 0.1 }
+			add_political_power = 50
+		}
+	}
+	focus = {
+		id = BUL_kv_understanding_with_the_tsar
+		icon = GFX_goal_generic_neutrality_focus
+		x = 33
+		y = 1
+		cost = 10
+		prerequisite = { focus = BUL_kv_new_chairman }
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_stability = 0.05
+			add_war_support = 0.03
+		}
+	}
+	focus = {
+		id = BUL_kv_end_factional_strife
+		icon = GFX_goal_generic_national_unity
+		x = 31
+		y = 2
+		cost = 10
+		prerequisite = { focus = BUL_kv_national_renewal }
+		prerequisite = { focus = BUL_kv_understanding_with_the_tsar }
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			remove_ideas = BUL_kv_factional_strife
+			add_stability = 0.05
+		}
+	}
+	focus = {
+		id = BUL_kv_sofia_charter
+		icon = GFX_goal_support_democracy
+		x = 22
+		y = 3
+		cost = 10
+		prerequisite = { focus = BUL_kv_end_factional_strife }
+		mutually_exclusive = { focus = BUL_kv_kolev_doctrine focus = BUL_kv_iron_chairman focus = BUL_kv_red_chairman }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 2 }
+		completion_reward = {
+			add_popularity = { ideology = democratic popularity = 0.15 }
+			add_political_power = 50
+		}
+	}
+	focus = {
+		id = BUL_kv_free_elections
+		icon = GFX_goal_support_democracy
+		x = 22
+		y = 4
+		cost = 10
+		prerequisite = { focus = BUL_kv_sofia_charter }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			set_politics = { ruling_party = democratic elections_allowed = yes }
+			promote_character = BUL_victor_kolev
+			add_stability = 0.05
+		}
+	}
+	focus = {
+		id = BUL_kv_balkan_entente_revival
+		icon = GFX_goal_generic_improve_relations
+		x = 21
+		y = 5
+		cost = 10
+		prerequisite = { focus = BUL_kv_free_elections }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			every_neighbor_country = {
+				add_opinion_modifier = { target = ROOT modifier = BUL_kv_balkan_friendship }
+				ROOT = { add_opinion_modifier = { target = PREV modifier = BUL_kv_balkan_friendship } }
+			}
+		}
+	}
+	focus = {
+		id = BUL_kv_civil_liberties
+		icon = GFX_goal_generic_propaganda
+		x = 23
+		y = 5
+		cost = 10
+		prerequisite = { focus = BUL_kv_free_elections }
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_stability = 0.05
+			add_popularity = { ideology = democratic popularity = 0.1 }
+		}
+	}
+	focus = {
+		id = BUL_kv_western_investment
+		icon = GFX_goal_generic_construct_civ_factory
+		x = 21
+		y = 6
+		cost = 10
+		prerequisite = { focus = BUL_kv_balkan_entente_revival }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {  free_building_slots = { building = industrial_complex size > 1 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = {  free_building_slots = { building = industrial_complex size > 1 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+		}
+	}
+	focus = {
+		id = BUL_kv_rule_of_law
+		icon = GFX_goal_generic_national_unity
+		x = 23
+		y = 6
+		cost = 10
+		prerequisite = { focus = BUL_kv_civil_liberties }
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = BUL_kv_rule_of_law
+		}
+	}
+	focus = {
+		id = BUL_kv_join_the_allies
+		icon = GFX_goal_generic_major_alliance
+		x = 21
+		y = 7
+		cost = 10
+		prerequisite = { focus = BUL_kv_western_investment }
+		mutually_exclusive = { focus = BUL_kv_balkan_commonwealth }
+		available = {
+			is_in_faction = no
+			ENG = { is_faction_leader = yes }
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			ENG = { add_to_faction = ROOT }
+		}
+	}
+	focus = {
+		id = BUL_kv_balkan_commonwealth
+		icon = GFX_goal_generic_major_alliance
+		x = 23
+		y = 7
+		cost = 10
+		prerequisite = { focus = BUL_kv_rule_of_law }
+		mutually_exclusive = { focus = BUL_kv_join_the_allies }
+		available = {
+			is_in_faction = no
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 2 }
+		completion_reward = {
+			create_faction = BUL_kv_faction_commonwealth
+		}
+	}
+	focus = {
+		id = BUL_kv_commonwealth_invitations
+		icon = GFX_goal_generic_improve_relations
+		x = 23
+		y = 8
+		cost = 10
+		prerequisite = { focus = BUL_kv_balkan_commonwealth }
+		available = {
+			is_faction_leader = yes
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			every_neighbor_country = {
+				limit = { is_in_faction = no is_major = no  }
+				country_event = { id = kolev.20 days = 1 }
+			}
+		}
+	}
+	focus = {
+		id = BUL_kv_arsenal_of_the_balkans
+		icon = GFX_goal_generic_construct_mil_factory
+		x = 22
+		y = 9
+		cost = 10
+		prerequisite = { focus = BUL_kv_join_the_allies focus = BUL_kv_commonwealth_invitations }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {  free_building_slots = { building = arms_factory size > 1 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = {  free_building_slots = { building = arms_factory size > 1 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+			add_tech_bonus = { name = BUL_kv_arsenal_of_the_balkans bonus = 0.5 uses = 1 category = industry }
+		}
+	}
+	focus = {
+		id = BUL_kv_kolev_doctrine
+		icon = GFX_goal_generic_neutrality_focus
+		x = 28
+		y = 3
+		cost = 10
+		prerequisite = { focus = BUL_kv_end_factional_strife }
+		mutually_exclusive = { focus = BUL_kv_sofia_charter focus = BUL_kv_iron_chairman focus = BUL_kv_red_chairman }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 4 }
+		completion_reward = {
+			add_popularity = { ideology = neutrality popularity = 0.1 }
+			add_political_power = 75
+		}
+	}
+	focus = {
+		id = BUL_kv_armed_neutrality
+		icon = GFX_goal_generic_defence
+		x = 27
+		y = 4
+		cost = 10
+		prerequisite = { focus = BUL_kv_kolev_doctrine }
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = BUL_kv_armed_neutrality
+		}
+	}
+	focus = {
+		id = BUL_kv_chairmans_council
+		icon = GFX_goal_generic_political_pressure
+		x = 29
+		y = 4
+		cost = 10
+		prerequisite = { focus = BUL_kv_kolev_doctrine }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = BUL_kv_chairmans_rule
+		}
+	}
+	focus = {
+		id = BUL_kv_mountain_fortress
+		icon = GFX_goal_generic_fortify_city
+		x = 27
+		y = 5
+		cost = 10
+		prerequisite = { focus = BUL_kv_armed_neutrality }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			army_experience = 15
+			add_tech_bonus = { name = BUL_kv_mountain_fortress bonus = 0.5 uses = 1 category = land_doctrine }
+		}
+	}
+	focus = {
+		id = BUL_kv_plebiscite_of_trust
+		icon = GFX_goal_generic_propaganda
+		x = 29
+		y = 5
+		cost = 10
+		prerequisite = { focus = BUL_kv_chairmans_council }
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_stability = 0.08
+			add_popularity = { ideology = neutrality popularity = 0.1 }
+		}
+	}
+	focus = {
+		id = BUL_kv_balkan_accord
+		icon = GFX_goal_generic_major_alliance
+		x = 28
+		y = 6
+		cost = 10
+		prerequisite = { focus = BUL_kv_mountain_fortress }
+		prerequisite = { focus = BUL_kv_plebiscite_of_trust }
+		available = {
+			is_in_faction = no
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			create_faction = BUL_kv_faction_accord
+		}
+	}
+	focus = {
+		id = BUL_kv_accord_invitations
+		icon = GFX_goal_generic_improve_relations
+		x = 27
+		y = 7
+		cost = 10
+		prerequisite = { focus = BUL_kv_balkan_accord }
+		available = {
+			is_faction_leader = yes
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			every_neighbor_country = {
+				limit = { is_in_faction = no is_major = no  }
+				country_event = { id = kolev.20 days = 1 }
+			}
+		}
+	}
+	focus = {
+		id = BUL_kv_guarantee_the_peninsula
+		icon = GFX_goal_generic_defence
+		x = 29
+		y = 7
+		cost = 10
+		prerequisite = { focus = BUL_kv_balkan_accord }
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			every_neighbor_country = {
+				limit = { is_major = no }
+				ROOT = { give_guarantee = PREV }
+			}
+		}
+	}
+	focus = {
+		id = BUL_kv_doctrine_fulfilled
+		icon = GFX_goal_generic_national_unity
+		x = 28
+		y = 8
+		cost = 10
+		prerequisite = { focus = BUL_kv_accord_invitations }
+		prerequisite = { focus = BUL_kv_guarantee_the_peninsula }
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			swap_ideas = { remove_idea = BUL_kv_armed_neutrality add_idea = BUL_kv_kolev_doctrine_idea }
+		}
+	}
+	focus = {
+		id = BUL_kv_lion_of_the_balkans
+		icon = GFX_goal_generic_position_armies
+		x = 28
+		y = 9
+		cost = 10
+		prerequisite = { focus = BUL_kv_doctrine_fulfilled }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			army_experience = 25
+			add_tech_bonus = { name = BUL_kv_lion_of_the_balkans bonus = 0.5 uses = 1 category = land_doctrine }
+			add_tech_bonus = { name = BUL_kv_lion_of_the_balkans bonus = 0.5 uses = 1 category = infantry_weapons }
+		}
+	}
+	focus = {
+		id = BUL_kv_iron_chairman
+		icon = GFX_goal_support_fascism
+		x = 34
+		y = 3
+		cost = 10
+		prerequisite = { focus = BUL_kv_end_factional_strife }
+		mutually_exclusive = { focus = BUL_kv_sofia_charter focus = BUL_kv_kolev_doctrine focus = BUL_kv_red_chairman }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 2 }
+		completion_reward = {
+			add_popularity = { ideology = fascism popularity = 0.15 }
+			add_war_support = 0.05
+		}
+	}
+	focus = {
+		id = BUL_kv_emergency_powers
+		icon = GFX_goal_support_fascism
+		x = 33
+		y = 4
+		cost = 10
+		prerequisite = { focus = BUL_kv_iron_chairman }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			set_politics = { ruling_party = fascism elections_allowed = no }
+			promote_character = BUL_victor_kolev
+			add_stability = 0.03
+		}
+	}
+	focus = {
+		id = BUL_kv_chairmans_legion
+		icon = GFX_goal_generic_propaganda
+		x = 35
+		y = 4
+		cost = 10
+		prerequisite = { focus = BUL_kv_iron_chairman }
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = BUL_kv_chairmans_legion
+		}
+	}
+	focus = {
+		id = BUL_kv_purge_zveno_officers
+		icon = GFX_goal_generic_political_pressure
+		x = 33
+		y = 5
+		cost = 10
+		prerequisite = { focus = BUL_kv_emergency_powers }
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			army_experience = 15
+			add_stability = 0.03
+		}
+	}
+	focus = {
+		id = BUL_kv_militarize_the_youth
+		icon = GFX_goal_generic_allies_build_infantry
+		x = 35
+		y = 5
+		cost = 10
+		prerequisite = { focus = BUL_kv_chairmans_legion }
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_manpower = 15000
+			add_war_support = 0.05
+		}
+	}
+	focus = {
+		id = BUL_kv_san_stefano_rhetoric
+		icon = GFX_goal_generic_territory_or_war
+		x = 34
+		y = 6
+		cost = 10
+		prerequisite = { focus = BUL_kv_purge_zveno_officers }
+		prerequisite = { focus = BUL_kv_militarize_the_youth }
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_war_support = 0.1
+			add_popularity = { ideology = fascism popularity = 0.1 }
+		}
+	}
+	focus = {
+		id = BUL_kv_join_the_axis
+		icon = GFX_goal_generic_major_alliance
+		x = 33
+		y = 7
+		cost = 10
+		prerequisite = { focus = BUL_kv_san_stefano_rhetoric }
+		mutually_exclusive = { focus = BUL_kv_third_empire_alone }
+		available = {
+			is_in_faction = no
+			GER = { is_faction_leader = yes }
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			GER = { add_to_faction = ROOT }
+		}
+	}
+	focus = {
+		id = BUL_kv_third_empire_alone
+		icon = GFX_goal_generic_major_alliance
+		x = 35
+		y = 7
+		cost = 10
+		prerequisite = { focus = BUL_kv_san_stefano_rhetoric }
+		mutually_exclusive = { focus = BUL_kv_join_the_axis }
+		available = {
+			is_in_faction = no
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 2 }
+		completion_reward = {
+			create_faction = BUL_kv_faction_san_stefano
+		}
+	}
+	focus = {
+		id = BUL_kv_war_production
+		icon = GFX_goal_generic_production
+		x = 34
+		y = 8
+		cost = 10
+		prerequisite = { focus = BUL_kv_join_the_axis focus = BUL_kv_third_empire_alone }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = BUL_kv_war_production
+		}
+	}
+	focus = {
+		id = BUL_kv_third_bulgarian_empire
+		icon = GFX_goal_generic_territory_or_war
+		x = 34
+		y = 9
+		cost = 10
+		prerequisite = { focus = BUL_kv_war_production }
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = BUL_kv_third_empire
+		}
+	}
+	focus = {
+		id = BUL_kv_red_chairman
+		icon = GFX_goal_support_communism
+		x = 40
+		y = 3
+		cost = 10
+		prerequisite = { focus = BUL_kv_end_factional_strife }
+		mutually_exclusive = { focus = BUL_kv_sofia_charter focus = BUL_kv_kolev_doctrine focus = BUL_kv_iron_chairman }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_popularity = { ideology = communism popularity = 0.15 }
+			add_political_power = 50
+		}
+	}
+	focus = {
+		id = BUL_kv_popular_front
+		icon = GFX_goal_support_communism
+		x = 39
+		y = 4
+		cost = 10
+		prerequisite = { focus = BUL_kv_red_chairman }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			set_politics = { ruling_party = communism elections_allowed = no }
+			promote_character = BUL_victor_kolev
+			add_stability = 0.03
+		}
+	}
+	focus = {
+		id = BUL_kv_land_to_the_peasants
+		icon = GFX_goal_generic_consumer_goods
+		x = 41
+		y = 4
+		cost = 10
+		prerequisite = { focus = BUL_kv_red_chairman }
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_stability = 0.05
+			add_popularity = { ideology = communism popularity = 0.1 }
+		}
+	}
+	focus = {
+		id = BUL_kv_red_five_year_plan
+		icon = GFX_goal_generic_production
+		x = 39
+		y = 5
+		cost = 10
+		prerequisite = { focus = BUL_kv_popular_front }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {  free_building_slots = { building = industrial_complex size > 1 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = {  free_building_slots = { building = arms_factory size > 1 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+		}
+	}
+	focus = {
+		id = BUL_kv_peoples_army
+		icon = GFX_goal_generic_allies_build_infantry
+		x = 41
+		y = 5
+		cost = 10
+		prerequisite = { focus = BUL_kv_land_to_the_peasants }
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = BUL_kv_peoples_army
+		}
+	}
+	focus = {
+		id = BUL_kv_moscow_embassy
+		icon = GFX_goal_generic_improve_relations
+		x = 40
+		y = 6
+		cost = 10
+		prerequisite = { focus = BUL_kv_red_five_year_plan }
+		prerequisite = { focus = BUL_kv_peoples_army }
+		available = {
+			country_exists = SOV
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			SOV = { add_opinion_modifier = { target = ROOT modifier = BUL_kv_balkan_friendship } }
+			add_political_power = 50
+		}
+	}
+	focus = {
+		id = BUL_kv_join_the_comintern
+		icon = GFX_goal_generic_major_alliance
+		x = 39
+		y = 7
+		cost = 10
+		prerequisite = { focus = BUL_kv_moscow_embassy }
+		mutually_exclusive = { focus = BUL_kv_balkan_soviet_union }
+		available = {
+			is_in_faction = no
+			SOV = { is_faction_leader = yes }
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			SOV = { add_to_faction = ROOT }
+		}
+	}
+	focus = {
+		id = BUL_kv_balkan_soviet_union
+		icon = GFX_goal_generic_major_alliance
+		x = 41
+		y = 7
+		cost = 10
+		prerequisite = { focus = BUL_kv_moscow_embassy }
+		mutually_exclusive = { focus = BUL_kv_join_the_comintern }
+		available = {
+			is_in_faction = no
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			create_faction = BUL_kv_faction_balkan_soviet
+		}
+	}
+	focus = {
+		id = BUL_kv_export_the_revolution
+		icon = GFX_goal_support_communism
+		x = 40
+		y = 8
+		cost = 10
+		prerequisite = { focus = BUL_kv_join_the_comintern focus = BUL_kv_balkan_soviet_union }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			every_neighbor_country = {
+				add_popularity = { ideology = communism popularity = 0.1 }
+			}
+		}
+	}
+	focus = {
+		id = BUL_kv_red_heavy_industry
+		icon = GFX_goal_generic_construct_mil_factory
+		x = 40
+		y = 9
+		cost = 10
+		prerequisite = { focus = BUL_kv_export_the_revolution }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {  free_building_slots = { building = arms_factory size > 1 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = {  free_building_slots = { building = arms_factory size > 1 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+		}
+	}
+	focus = {
+		id = BUL_kv_chairmans_legacy
+		icon = GFX_goal_generic_national_unity
+		x = 31
+		y = 10
+		cost = 10
+		prerequisite = { focus = BUL_kv_arsenal_of_the_balkans focus = BUL_kv_lion_of_the_balkans focus = BUL_kv_third_bulgarian_empire focus = BUL_kv_red_heavy_industry }
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_stability = 0.1
+			add_war_support = 0.05
+			add_political_power = 100
+		}
+	}
+	focus = {
+		id = BUL_kv_chairmans_diplomacy
+		icon = GFX_goal_generic_improve_relations
+		x = 47
+		y = 0
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_political_power = 50
+		}
+	}
+	focus = {
+		id = BUL_kv_good_neighbour_policy
+		icon = GFX_goal_generic_improve_relations
+		x = 45
+		y = 1
+		cost = 10
+		prerequisite = { focus = BUL_kv_chairmans_diplomacy }
+		mutually_exclusive = { focus = BUL_kv_revisionist_agenda }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 2 }
+		completion_reward = {
+			every_neighbor_country = {
+				add_opinion_modifier = { target = ROOT modifier = BUL_kv_balkan_friendship }
+				ROOT = { add_opinion_modifier = { target = PREV modifier = BUL_kv_balkan_friendship } }
+			}
+			add_stability = 0.03
+		}
+	}
+	focus = {
+		id = BUL_kv_revisionist_agenda
+		icon = GFX_goal_generic_territory_or_war
+		x = 49
+		y = 1
+		cost = 10
+		prerequisite = { focus = BUL_kv_chairmans_diplomacy }
+		mutually_exclusive = { focus = BUL_kv_good_neighbour_policy }
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_war_support = 0.05
+			add_political_power = 25
+		}
+	}
+	focus = {
+		id = BUL_kv_yugoslav_rail_link
+		icon = GFX_goal_generic_trade
+		x = 44
+		y = 2
+		cost = 10
+		prerequisite = { focus = BUL_kv_good_neighbour_policy }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = infrastructure size > 0 } }
+				add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = {  free_building_slots = { building = industrial_complex size > 1 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+		}
+	}
+	focus = {
+		id = BUL_kv_turkish_friendship
+		icon = GFX_goal_generic_improve_relations
+		x = 46
+		y = 2
+		cost = 10
+		prerequisite = { focus = BUL_kv_good_neighbour_policy }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			if = { limit = { country_exists = TUR } TUR = { add_opinion_modifier = { target = ROOT modifier = BUL_kv_balkan_friendship } } }
+			add_stability = 0.02
+		}
+	}
+	focus = {
+		id = BUL_kv_non_aggression
+		icon = GFX_goal_generic_neutrality_focus
+		x = 45
+		y = 3
+		cost = 10
+		prerequisite = { focus = BUL_kv_yugoslav_rail_link }
+		prerequisite = { focus = BUL_kv_turkish_friendship }
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = BUL_kv_good_neighbour
+		}
+	}
+	focus = {
+		id = BUL_kv_balkan_common_market
+		icon = GFX_goal_generic_trade
+		x = 45
+		y = 4
+		cost = 10
+		prerequisite = { focus = BUL_kv_non_aggression }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {  free_building_slots = { building = industrial_complex size > 1 include_locked = yes } }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+			add_tech_bonus = { name = BUL_kv_balkan_common_market bonus = 0.5 uses = 1 category = industry }
+		}
+	}
+	focus = {
+		id = BUL_kv_press_our_claims
+		icon = GFX_goal_generic_demand_territory
+		x = 49
+		y = 2
+		cost = 10
+		prerequisite = { focus = BUL_kv_revisionist_agenda }
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			every_state = {
+				limit = {
+					NOT = { is_owned_by = ROOT }
+					any_neighbor_state = { is_owned_by = ROOT }
+					OR = {
+						AND = { is_owned_by = ROM is_coastal = yes }
+						is_owned_by = GRE
+						AND = { is_owned_by = YUG any_neighbor_state = { is_owned_by = GRE } }
+					}
+				}
+				add_claim_by = ROOT
+			}
+		}
+	}
+	focus = {
+		id = BUL_kv_demand_dobruja
+		icon = GFX_goal_generic_demand_territory
+		x = 48
+		y = 3
+		cost = 10
+		prerequisite = { focus = BUL_kv_press_our_claims }
+		available = {
+			country_exists = ROM
+			has_war = no
+			ROM = { any_owned_state = { is_claimed_by = ROOT } }
+		}
+		bypass = {
+			NOT = { ROM = { any_owned_state = { is_claimed_by = ROOT } } }
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			ROM = { country_event = { id = kolev.10 days = 1 } }
+		}
+	}
+	focus = {
+		id = BUL_kv_demand_thrace
+		icon = GFX_goal_generic_demand_territory
+		x = 50
+		y = 3
+		cost = 10
+		prerequisite = { focus = BUL_kv_press_our_claims }
+		available = {
+			country_exists = GRE
+			has_war = no
+			GRE = { any_owned_state = { is_claimed_by = ROOT } }
+		}
+		bypass = {
+			NOT = { GRE = { any_owned_state = { is_claimed_by = ROOT } } }
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			GRE = { country_event = { id = kolev.10 days = 1 } }
+		}
+	}
+	focus = {
+		id = BUL_kv_demand_macedonia
+		icon = GFX_goal_generic_demand_territory
+		x = 49
+		y = 4
+		cost = 10
+		prerequisite = { focus = BUL_kv_demand_dobruja focus = BUL_kv_demand_thrace }
+		available = {
+			country_exists = YUG
+			has_war = no
+			YUG = { any_owned_state = { is_claimed_by = ROOT } }
+		}
+		bypass = {
+			NOT = { YUG = { any_owned_state = { is_claimed_by = ROOT } } }
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			YUG = { country_event = { id = kolev.10 days = 1 } }
+		}
+	}
+	focus = {
+		id = BUL_kv_integrate_the_lands
+		icon = GFX_goal_generic_national_unity
+		x = 49
+		y = 5
+		cost = 10
+		prerequisite = { focus = BUL_kv_demand_macedonia }
+		available = {
+			any_owned_state = { is_claimed_by = ROOT NOT = { is_core_of = ROOT } }
+		}
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			every_owned_state = {
+				limit = { is_claimed_by = ROOT NOT = { is_core_of = ROOT } }
+				add_core_of = ROOT
+			}
+		}
+	}
+}

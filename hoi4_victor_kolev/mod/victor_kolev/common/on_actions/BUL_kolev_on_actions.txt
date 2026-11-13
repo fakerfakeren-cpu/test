@@ -1,0 +1,20 @@
+on_actions = {
+	on_startup = {
+		effect = {
+			if = {
+				limit = { NOT = { has_global_flag = BUL_kv_initialised } country_exists = BUL }
+				set_global_flag = BUL_kv_initialised
+				BUL = {
+					recruit_character = BUL_victor_kolev
+					promote_character = BUL_victor_kolev
+					set_party_name = { ideology = neutrality long_name = BUL_kv_party_long name = BUL_kv_party }
+					add_ideas = BUL_kv_factional_strife
+					add_ideas = BUL_kv_shadow_of_neuilly
+					add_ideas = BUL_kv_agrarian_economy
+					load_focus_tree = { tree = BUL_kolev_focus_tree keep_completed = no }
+					country_event = { id = kolev.1 days = 1 }
+				}
+			}
+		}
+	}
+}

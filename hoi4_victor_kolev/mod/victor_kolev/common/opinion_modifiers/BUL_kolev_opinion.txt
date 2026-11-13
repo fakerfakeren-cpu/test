@@ -1,0 +1,5 @@
+opinion_modifiers = {
+	BUL_kv_balkan_friendship = {
+		value = 30
+	}
+}

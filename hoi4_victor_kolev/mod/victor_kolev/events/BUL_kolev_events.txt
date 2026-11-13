@@ -1,0 +1,113 @@
+add_namespace = kolev
+
+# Opening event
+country_event = {
+	id = kolev.1
+	title = kolev.1.t
+	desc = kolev.1.d
+	picture = GFX_report_event_generic_rally_1
+	is_triggered_only = yes
+	option = {
+		name = kolev.1.a
+		add_political_power = 25
+	}
+}
+
+# Territorial demand, received by the target. FROM = the demanding country.
+country_event = {
+	id = kolev.10
+	title = kolev.10.t
+	desc = kolev.10.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+	option = {
+		name = kolev.10.a
+		ai_chance = {
+			base = 15
+			modifier = { factor = 0 is_in_faction = yes }
+			modifier = { factor = 3 FROM = { is_in_faction = yes } }
+			modifier = { factor = 2 has_war = yes }
+		}
+		every_owned_state = {
+			limit = { is_claimed_by = FROM }
+			FROM = { transfer_state = PREV }
+		}
+		FROM = { country_event = { id = kolev.11 days = 1 } }
+	}
+	option = {
+		name = kolev.10.b
+		ai_chance = { base = 85 }
+		add_war_support = 0.05
+		FROM = { country_event = { id = kolev.12 days = 1 } }
+	}
+}
+
+# They gave in
+country_event = {
+	id = kolev.11
+	title = kolev.11.t
+	desc = kolev.11.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+	option = {
+		name = kolev.11.a
+		add_stability = 0.05
+		add_war_support = 0.05
+	}
+}
+
+# They refused. FROM = the refusing country.
+country_event = {
+	id = kolev.12
+	title = kolev.12.t
+	desc = kolev.12.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+	option = {
+		name = kolev.12.a
+		ai_chance = { base = 70 }
+		create_wargoal = { type = annex_everything target = FROM }
+	}
+	option = {
+		name = kolev.12.b
+		ai_chance = { base = 30 }
+		add_stability = 0.03
+		add_political_power = 50
+	}
+}
+
+# Faction invitation, received by the invitee. FROM = the faction leader.
+country_event = {
+	id = kolev.20
+	title = kolev.20.t
+	desc = kolev.20.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+	option = {
+		name = kolev.20.a
+		ai_chance = {
+			base = 35
+			modifier = { factor = 0 is_in_faction = yes }
+			modifier = { factor = 2 has_opinion = { target = FROM value > 40 } }
+			modifier = { factor = 0.3 NOT = { has_government = FROM } }
+		}
+		trigger = { is_in_faction = no }
+		FROM = { add_to_faction = ROOT }
+		FROM = { country_event = { id = kolev.21 days = 1 } }
+	}
+	option = {
+		name = kolev.20.b
+		ai_chance = { base = 65 }
+	}
+}
+
+country_event = {
+	id = kolev.21
+	title = kolev.21.t
+	desc = kolev.21.d
+	picture = GFX_report_event_generic_sign_treaty1
+	is_triggered_only = yes
+	option = {
+		name = kolev.21.a
+	}
+}

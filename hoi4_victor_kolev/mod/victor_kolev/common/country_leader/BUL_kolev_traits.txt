@@ -1,0 +1,21 @@
+leader_traits = {
+	BUL_kv_young_chairman = {
+		random = no
+		political_power_factor = 0.10
+		stability_factor = 0.05
+	}
+	BUL_kv_man_of_the_people = {
+		random = no
+		stability_factor = 0.10
+	}
+	BUL_kv_iron_will = {
+		random = no
+		war_support_factor = 0.10
+		army_attack_factor = 0.03
+	}
+	BUL_kv_red_reformer = {
+		random = no
+		production_speed_buildings_factor = 0.05
+		stability_factor = 0.03
+	}
+}

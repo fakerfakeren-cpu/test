@@ -1,0 +1,39 @@
+characters = {
+	BUL_victor_kolev = {
+		name = BUL_victor_kolev
+		portraits = {
+			civilian = {
+				large = "gfx/leaders/BUL/BUL_victor_kolev.dds"
+				small = "gfx/leaders/BUL/BUL_victor_kolev_small.dds"
+			}
+		}
+		country_leader = {
+			desc = BUL_victor_kolev_desc
+			ideology = despotism
+			expire = "1975.1.1.1"
+			id = -1
+			traits = { BUL_kv_young_chairman }
+		}
+		country_leader = {
+			desc = BUL_victor_kolev_desc
+			ideology = liberalism
+			expire = "1975.1.1.1"
+			id = -1
+			traits = { BUL_kv_young_chairman BUL_kv_man_of_the_people }
+		}
+		country_leader = {
+			desc = BUL_victor_kolev_desc
+			ideology = fascism_ideology
+			expire = "1975.1.1.1"
+			id = -1
+			traits = { BUL_kv_young_chairman BUL_kv_iron_will }
+		}
+		country_leader = {
+			desc = BUL_victor_kolev_desc
+			ideology = leninism
+			expire = "1975.1.1.1"
+			id = -1
+			traits = { BUL_kv_young_chairman BUL_kv_red_reformer }
+		}
+	}
+}
