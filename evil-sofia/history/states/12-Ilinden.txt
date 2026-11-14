@@ -7,7 +7,7 @@ state = {
 	history = {
 		owner = ILN
 		add_core_of = ILN
-		victory_points = { 12 5 }
+		victory_points = { 18 5 }
 		buildings = {
 			infrastructure = 4
 			industrial_complex = 2
@@ -15,6 +15,6 @@ state = {
 	}
 
 	provinces = {
-		12
+		18
 	}
 }

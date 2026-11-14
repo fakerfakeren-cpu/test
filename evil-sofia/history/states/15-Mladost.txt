@@ -7,7 +7,7 @@ state = {
 	history = {
 		owner = MLA
 		add_core_of = MLA
-		victory_points = { 15 5 }
+		victory_points = { 24 5 }
 		buildings = {
 			infrastructure = 4
 			industrial_complex = 1
@@ -15,6 +15,6 @@ state = {
 	}
 
 	provinces = {
-		15
+		24 25
 	}
 }

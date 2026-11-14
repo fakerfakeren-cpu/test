@@ -7,13 +7,13 @@ state = {
 	history = {
 		owner = VRB
 		add_core_of = VRB
-		victory_points = { 21 5 }
+		victory_points = { 62 5 }
 		buildings = {
 			infrastructure = 3
 		}
 	}
 
 	provinces = {
-		21
+		62 63 64 65
 	}
 }

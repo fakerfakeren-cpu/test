@@ -1,7 +1,9 @@
 # Evil Sofia (HOI4 total-conversion mod)
 
 The map is Sofia, Bulgaria. Each of the 24 city districts is a country.
-Right now every district is **one province and one state**. Splitting districts into several provinces comes next.
+Every district is **one state**. The bigger districts are split automatically into several provinces of
+roughly equal size, because HOI4 has problems with very large provinces. These splits are placeholders; they will be replaced
+with real neighbourhoods later.
 
 ![political preview](preview/political_preview.png)
 
@@ -42,13 +44,13 @@ If a border is wrong, paint the mask with the correct value using any editor tha
 | 11 | KRP | Krasna Polyana | 23 | PNC | Pancharevo |
 | 12 | ILN | Ilinden | 24 | BNK | Bankya |
 
-Province ID = state ID = district number. The 43 provinces outside the city are impassable lakes ("The Void").
+State ID = district number. The provinces outside the city are impassable lakes ("The Void").
 Sofia has no sea, so there are no navies.
 
 ## Not tested in game yet
 
 These files were generated without a copy of HOI4 to test against. The following parts are the most likely to need fixing:
 - `map/terrain.bmp`, `map/trees.bmp` and `map/cities.bmp` are blank placeholders. Gameplay terrain is set in `definition.csv`; these files only change how the map looks.
-- `map/world_normal.bmp` and `map/terrain/colormap_rgb_cityemissivemask_a.dds` use guessed formats.
+- `map/world_normal.bmp` uses a guessed format. There is no custom colour map yet, so the vanilla one is stretched over the city.
 - Vanilla focus trees, events and AI files still refer to vanilla countries and states. Expect a long `error.log`.
 - `supported_version` is `1.*`, so the launcher accepts any 1.x game version.

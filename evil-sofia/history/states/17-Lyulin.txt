@@ -7,7 +7,7 @@ state = {
 	history = {
 		owner = LYU
 		add_core_of = LYU
-		victory_points = { 17 5 }
+		victory_points = { 27 5 }
 		buildings = {
 			infrastructure = 4
 			industrial_complex = 1
@@ -15,6 +15,6 @@ state = {
 	}
 
 	provinces = {
-		17
+		27 28
 	}
 }

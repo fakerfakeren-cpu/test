@@ -16,7 +16,10 @@ from scipy import ndimage as ndi
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 W = H = 3072          # HOI4 needs both sides to be multiples of 256
-MARGIN = 200          # lake ring around the city, in map pixels
+MARGIN = 300          # lake ring around the city, in map pixels
+# Province size limits. HOI4 misbehaves with huge provinces; vanilla ones are rarely over ~200px across.
+LAND_TARGET, LAND_MAX_BOX = 30000, 256    # target pixels per land province, max bounding box side
+LAKE_TARGET, LAKE_MAX_BOX = 60000, 320
 SEA_LEVEL = 94        # heightmap values below this render as water
 RNG = np.random.default_rng(1944)
 
@@ -99,37 +102,87 @@ if holes.any():
     dist = dist[idx[0], idx[1]]
 city = dist > 0
 
-# ---------------------------------------------------------------- lakes outside the city
-# Voronoi cells of random seeds, so no single water province is enormous.
-small = 192
-outside_small = np.asarray(Image.fromarray((~city).astype(np.uint8) * 255).resize((small, small), Image.NEAREST)) > 0
-seed_img = np.zeros((small, small), np.int32)
-cand = np.argwhere(outside_small)
-for i, (y, x) in enumerate(cand[RNG.choice(len(cand), 40, replace=False)], 1):
-    seed_img[y, x] = i
-idx = ndi.distance_transform_edt(seed_img == 0, return_distances=False, return_indices=True)
-vor = np.asarray(Image.fromarray(seed_img[idx[0], idx[1]].astype(np.uint8)).resize((W, H), Image.NEAREST)).astype(np.int32)
+# ---------------------------------------------------------------- split districts and the void into provinces
+def kmeans_labels(pts, n, iters=15):
+    sample = pts[RNG.choice(len(pts), min(len(pts), 20000), replace=False)]
+    cen = sample[RNG.choice(len(sample), n, replace=False)].copy()
+    for _ in range(iters):
+        a = ((sample[:, None, :] - cen[None, :, :]) ** 2).sum(-1).argmin(1)
+        for j in range(n):
+            if (a == j).any():
+                cen[j] = sample[a == j].mean(0)
+    lab = np.empty(len(pts), np.int32)
+    for i in range(0, len(pts), 100000):
+        chunk = pts[i:i + 100000]
+        lab[i:i + 100000] = ((chunk[:, None, :] - cen[None, :, :]) ** 2).sum(-1).argmin(1)
+    return lab
+
+
+def make_contiguous(local, sub):
+    """Each cell keeps only its largest piece; stray pieces join the nearest cell."""
+    for _ in range(3):
+        for j in range(1, local.max() + 1):
+            cl, n = ndi.label(local == j)
+            if n > 1:
+                keep = np.bincount(cl.ravel())[1:].argmax() + 1
+                local[(cl > 0) & (cl != keep)] = 0
+        holes = sub & (local == 0)
+        if not holes.any():
+            break
+        idx = ndi.distance_transform_edt(local == 0, return_distances=False, return_indices=True)
+        local[holes] = local[idx[0], idx[1]][holes]
+    return local
+
+
+def split(mask, target, max_box):
+    ys, xs = np.nonzero(mask)
+    by, bx = ys.min(), xs.min()
+    sub = mask[by:ys.max() + 1, bx:xs.max() + 1]
+    pts = np.argwhere(sub).astype(np.float32)
+    n = max(1, int(np.ceil(len(pts) / target)))
+    while True:
+        local = np.zeros(sub.shape, np.int32)
+        local[sub] = (kmeans_labels(pts, n) + 1) if n > 1 else 1
+        local = make_contiguous(local, sub)
+        worst = max(max(z.stop - z.start for z in b) for b in ndi.find_objects(local) if b is not None)
+        if worst <= max_box or n > 400:
+            return local, by, bx
+        n += max(1, n // 5)
+
 
 prov = np.zeros((H, W), np.int32)
-prov[city] = dist[city]
-next_id = 25
-lake_ids = []
-for v in range(1, 41):
-    cl, n = ndi.label((vor == v) & ~city)
-    for c in range(1, n + 1):
-        piece = cl == c
-        if piece.sum() < 3000:
-            prov[piece] = -1  # merged into a neighbour below
+prov_district = {}        # province id -> district number (0 = lake)
+state_provs = {}          # district number -> [province ids], capital first
+next_id = 1
+for k in DISTRICTS:
+    m = dist == k
+    local, by, bx = split(m, LAND_TARGET, LAND_MAX_BOX)
+    view = prov[by:by + local.shape[0], bx:bx + local.shape[1]]
+    # capital = the cell holding the district's most interior pixel
+    dt = ndi.distance_transform_edt(m)
+    cy, cx = np.unravel_index(dt.argmax(), dt.shape)
+    cap = int(local[cy - by, cx - bx])
+    state_provs[k] = []
+    for j in [cap] + [j for j in range(1, local.max() + 1) if j != cap]:
+        if not (local == j).any():
             continue
-        prov[piece] = next_id
-        lake_ids.append(next_id)
+        view[local == j] = next_id
+        prov_district[next_id] = k
+        state_provs[k].append(next_id)
         next_id += 1
-if (prov == -1).any():
-    m = prov == -1
-    idx = ndi.distance_transform_edt(m | city, return_distances=False, return_indices=True)
-    filled = prov[idx[0], idx[1]]
-    prov[m] = filled[m]
+local, by, bx = split(~city, LAKE_TARGET, LAKE_MAX_BOX)
+view = prov[by:by + local.shape[0], bx:bx + local.shape[1]]
+lake_ids = []
+for j in range(1, local.max() + 1):
+    if not (local == j).any():
+        continue
+    view[local == j] = next_id
+    prov_district[next_id] = 0
+    lake_ids.append(next_id)
+    next_id += 1
 n_prov = next_id - 1
+land_ids = [p for p in prov_district if prov_district[p]]
+capital = {k: v[0] for k, v in state_provs.items()}
 
 # ---------------------------------------------------------------- provinces.bmp + definition.csv
 used = set()
@@ -156,8 +209,8 @@ for a, b in ((prov[:, :-1], prov[:, 1:]), (prov[:-1, :], prov[1:, :])):
 lines = ["0;0;0;0;land;false;unknown;0"]
 for p in range(1, n_prov + 1):
     r, g, b = colors[p]
-    if p in DISTRICTS:
-        lines.append(f"{p};{r};{g};{b};land;false;{DISTRICTS[p][3]};1")
+    if prov_district[p]:
+        lines.append(f"{p};{r};{g};{b};land;false;{DISTRICTS[prov_district[p]][3]};1")
     else:
         lines.append(f"{p};{r};{g};{b};lake;false;lakes;0")
 write("map/definition.csv", "\n".join(lines) + "\n")
@@ -218,19 +271,7 @@ indexed(rivers, river_pal).save(out("map/rivers.bmp"))
 tw_t, th_t = round(W * 1650 / 5632), round(H * 564 / 2048)  # vanilla trees.bmp ratio
 indexed(np.zeros((th_t, tw_t)), gray).save(out("map/trees.bmp"))
 
-# ---------------------------------------------------------------- colormap (terrain tint + city lights in alpha)
-cm_size = 1536
-tint = np.zeros((H, W, 3), np.float32)
-lowland = np.array([118, 128, 86], np.float32)
-upland = np.array([96, 92, 74], np.float32)
-t = np.clip((hm - 105) / 90, 0, 1)[..., None]
-tint[:] = lowland * (1 - t) + upland * t
-urban = np.isin(prov, [k for k, v in DISTRICTS.items() if v[3] == "urban"])
-tint[urban] = tint[urban] * 0.55 + np.array([140, 132, 120]) * 0.45
-alpha = (urban * 140).astype(np.uint8)
-rgba = np.dstack([tint.clip(0, 255).astype(np.uint8), alpha])
-Image.fromarray(rgba, "RGBA").resize((cm_size, cm_size), Image.BILINEAR).save(
-    out("map/terrain/colormap_rgb_cityemissivemask_a.dds"))
+# No custom colormap: the vanilla one is stretched over the map until we paint our own.
 
 # ---------------------------------------------------------------- centroids (HOI4 world coords: z counts up from the bottom)
 cent = {}
@@ -273,13 +314,14 @@ write("map/positions.txt", "")
 write("map/continent.txt", "continents = {\n" + "".join(f"\t{c}\n" for c in ("europe", "north_america", "south_america", "australia", "africa", "asia", "middle_east")) + "}\n")
 write("map/adjacencies.csv", "From;To;Type;Through;start_x;start_y;stop_x;stop_y;adjacency_rule_name;Comment\n-1;-1;;-1;-1;-1;-1;-1;-1\n")
 write("map/adjacency_rules.txt", "")
-write("map/airports.txt", "".join(f"{k}={{{k} }}\n" for k in DISTRICTS))
-write("map/rocketsites.txt", "".join(f"{k}={{{k} }}\n" for k in DISTRICTS))
-write("map/supply_nodes.txt", "".join(f"1 {k}\n" for k in DISTRICTS))
+write("map/airports.txt", "".join(f"{k}={{{capital[k]} }}\n" for k in DISTRICTS))
+write("map/rocketsites.txt", "".join(f"{k}={{{capital[k]} }}\n" for k in DISTRICTS))
+write("map/supply_nodes.txt", "".join(f"1 {capital[k]}\n" for k in DISTRICTS))
 # Model positions. Rough placements spread inside each district; fine-tune later with the nudger.
-def spots(p, n):
-    py, px = np.nonzero(prov == p)
-    inner = ndi.binary_erosion(prov == p, iterations=6)[py, px]
+def spots(k, n):
+    m = dist == k
+    py, px = np.nonzero(m)
+    inner = ndi.binary_erosion(m, iterations=6)[py, px]
     if inner.sum() >= n:
         py, px = py[inner], px[inner]
     pick = RNG.choice(len(px), n, replace=len(px) < n)
@@ -300,26 +342,26 @@ for k in DISTRICTS:
             bl.append(f"{k};{b};{pos(x, y)};{RNG.uniform(0, 6.28):.2f};0")
 write("map/buildings.txt", "\n".join(bl) + "\n")
 us = []
-for k in DISTRICTS:
-    cx, cy = cent[k]
+for p in land_ids:
+    cx, cy = cent[p]
     for t in range(22):
-        us.append(f"{k};{t};{pos(cx, cy)};0.00;0.00")
+        us.append(f"{p};{t};{pos(cx, cy)};0.00;0.00")
 write("map/unitstacks.txt", "\n".join(us) + "\n")
 
 # Railways: spanning tree over land neighbours, starting in Sredets.
-land_adj = {k: set() for k in DISTRICTS}
+land_adj = {p: set() for p in land_ids}
 for a, b in adj:
-    if a in DISTRICTS and b in DISTRICTS:
+    if prov_district.get(a) and prov_district.get(b):
         land_adj[a].add(b)
         land_adj[b].add(a)
-seen, queue, rails = {1}, [1], []
+seen, queue, rails = {capital[1]}, [capital[1]], []
 while queue:
     a = queue.pop(0)
     for b in sorted(land_adj[a]):
         if b not in seen:
             seen.add(b)
             queue.append(b)
-            rails.append(f"{3 if a <= 12 and b <= 12 else 2} 2 {a} {b}")
+            rails.append(f"{3 if prov_district[a] <= 12 and prov_district[b] <= 12 else 2} 2 {a} {b}")
 write("map/railways.txt", "\n".join(rails) + "\n")
 
 # Supply areas (the game still ships map/supplyareas). One area for the whole city.
@@ -334,10 +376,10 @@ write("map/supplyareas/1-Sofia.txt", f"""supply_area = {{
 """)
 
 # Strategic regions: each lake joins the region of the nearest district.
-region_of = {k: v[6] for k, v in DISTRICTS.items()}
+region_of = {p: DISTRICTS[prov_district[p]][6] for p in land_ids}
 for p in lake_ids:
     lx, ly = cent[p]
-    nearest = min(DISTRICTS, key=lambda k: (cent[k][0] - lx) ** 2 + (cent[k][1] - ly) ** 2)
+    nearest = min(land_ids, key=lambda q: (cent[q][0] - lx) ** 2 + (cent[q][1] - ly) ** 2)
     region_of[p] = region_of[nearest]
 
 # Sofia monthly climate: (min temp, max temp, no_phenomenon, rain_light, rain_heavy, snow, blizzard, mud)
@@ -371,7 +413,7 @@ for rid, rname in REGIONS.items():
 \t}}
 }}
 """)
-    x, h, z = world(min((p for p in provs if p in DISTRICTS)))
+    x, h, z = world(min(p for p in provs if prov_district[p]))
     wpos.append(f"{rid};{x:.2f};{h:.2f};{z:.2f};small")
 write("map/weatherpositions.txt", "\n".join(wpos) + "\n")
 
@@ -399,14 +441,14 @@ for k, (tag, name, adj_, terr, cat, pop, reg) in DISTRICTS.items():
 \thistory = {{
 \t\towner = {tag}
 \t\tadd_core_of = {tag}
-\t\tvictory_points = {{ {k} {VICTORY_POINTS.get(k, 5)} }}
+\t\tvictory_points = {{ {capital[k]} {VICTORY_POINTS.get(k, 5)} }}
 \t\tbuildings = {{
 \t\t\t{bld}
 \t\t}}
 \t}}
 
 \tprovinces = {{
-\t\t{k}
+\t\t{' '.join(map(str, state_provs[k]))}
 \t}}
 }}
 """)
@@ -439,7 +481,7 @@ set_popularities = {{
 """)
     bookmark_countries.append(f"\t\t\t{tag} = {{ }}")
     loc += [f' {tag}:0 "{name}"', f' {tag}_DEF:0 "{name}"', f' {tag}_ADJ:0 "{adj_}"',
-            f' STATE_{k}:0 "{name}"', f' VICTORY_POINTS_{k}:0 "{name}"']
+            f' STATE_{k}:0 "{name}"', f' VICTORY_POINTS_{capital[k]}:0 "{name}"']
     # Placeholder flags: three horizontal stripes in the country colour.
     dark = (r // 2, g // 2, b // 2)
     for folder, size in (("", (82, 52)), ("medium/", (41, 26)), ("small/", (10, 7))):
@@ -480,11 +522,15 @@ write("common/bookmarks/the_fall_of_sofia.txt", f"""bookmarks = {{
 prev = np.zeros((H, W, 3), np.uint8)
 prev[:] = (40, 52, 70)
 for k in DISTRICTS:
-    prev[prov == k] = country_color(k)
+    prev[dist == k] = country_color(k)
+pb = np.zeros((H, W), bool)
+pb[:, 1:] |= prov[:, 1:] != prov[:, :-1]
+pb[1:, :] |= prov[1:, :] != prov[:-1, :]
+prev[pb & city] = (prev[pb & city] * 0.6).astype(np.uint8)
 border = np.zeros((H, W), bool)
-border[:, 1:] |= prov[:, 1:] != prov[:, :-1]
-border[1:, :] |= prov[1:, :] != prov[:-1, :]
-border = ndi.binary_dilation(border & np.isin(prov, list(DISTRICTS)), iterations=2)
+border[:, 1:] |= dist[:, 1:] != dist[:, :-1]
+border[1:, :] |= dist[1:, :] != dist[:-1, :]
+border = ndi.binary_dilation(border, iterations=2)
 prev[border] = (20, 20, 20)
 lake_border = np.zeros((H, W), bool)
 lake_border[:, 1:] |= (prov[:, 1:] != prov[:, :-1]) & ~city[:, 1:] & ~city[:, :-1]
@@ -498,11 +544,11 @@ try:
 except OSError:
     font = big = ImageFont.load_default()
 for k, v in DISTRICTS.items():
-    x, y = cent[k][0] / 2, cent[k][1] / 2
-    label = v[1] if (prov == k).sum() > 60000 else str(k)
+    x, y = cent[capital[k]][0] * 1536 / W, cent[capital[k]][1] * 1536 / H
+    label = v[1] if (dist == k).sum() > 60000 else str(k)
     d.text((x, y), label, fill="white", font=font, anchor="mm", stroke_width=3, stroke_fill="black")
 d.text((40, 40), "EVIL SOFIA", fill=(220, 60, 60), font=big, stroke_width=3, stroke_fill="black")
 pim.save(out("preview/political_preview.png"))
 Image.fromarray(heightmap).resize((768, 768)).save(out("preview/heightmap_preview.png"))
 
-print(f"map {W}x{H}, {len(DISTRICTS)} land provinces, {len(lake_ids)} lake provinces, {len(rails)} rail links")
+print(f"map {W}x{H}, {len(DISTRICTS)} states, {len(land_ids)} land provinces, {len(lake_ids)} lake provinces, {len(rails)} rail links")
