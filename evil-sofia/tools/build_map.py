@@ -181,7 +181,16 @@ for j in range(1, local.max() + 1):
     lake_ids.append(next_id)
     next_id += 1
 n_prov = next_id - 1
-land_ids = [p for p in prov_district if prov_district[p]]
+
+# HOI4 rejects "X crossings": 2x2 pixel blocks where four different provinces meet.
+for _ in range(10):
+    a, b, c_, d = prov[1:, :-1], prov[1:, 1:], prov[:-1, :-1], prov[:-1, 1:]
+    xc = (a != b) & (a != c_) & (a != d) & (b != c_) & (b != d) & (c_ != d)
+    if not xc.any():
+        break
+    for y, x in np.argwhere(xc):
+        prov[y + 1, x + 1] = prov[y + 1, x]  # bottom-right pixel joins its left neighbour
+land_ids =[p for p in prov_district if prov_district[p]]
 capital = {k: v[0] for k, v in state_provs.items()}
 
 # ---------------------------------------------------------------- provinces.bmp + definition.csv

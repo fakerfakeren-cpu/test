@@ -7,13 +7,13 @@ state = {
 	history = {
 		owner = BNK
 		add_core_of = BNK
-		victory_points = { 122 5 }
+		victory_points = { 135 5 }
 		buildings = {
 			infrastructure = 3
 		}
 	}
 
 	provinces = {
-		122 123 124 125 126
+		135 136 137 138 139
 	}
 }

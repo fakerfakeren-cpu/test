@@ -15,6 +15,6 @@ state = {
 	}
 
 	provinces = {
-		16 17
+		16
 	}
 }
