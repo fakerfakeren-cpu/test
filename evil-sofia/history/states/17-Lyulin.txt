@@ -1,0 +1,20 @@
+state = {
+	id = 17
+	name = "STATE_17"
+	manpower = 114000
+	state_category = city
+
+	history = {
+		owner = LYU
+		add_core_of = LYU
+		victory_points = { 17 5 }
+		buildings = {
+			infrastructure = 4
+			industrial_complex = 1
+		}
+	}
+
+	provinces = {
+		17
+	}
+}

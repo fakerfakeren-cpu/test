@@ -1,0 +1,19 @@
+state = {
+	id = 20
+	name = "STATE_20"
+	manpower = 52000
+	state_category = town
+
+	history = {
+		owner = OVK
+		add_core_of = OVK
+		victory_points = { 20 5 }
+		buildings = {
+			infrastructure = 3
+		}
+	}
+
+	provinces = {
+		20
+	}
+}

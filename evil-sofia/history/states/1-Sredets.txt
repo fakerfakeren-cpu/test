@@ -1,0 +1,20 @@
+state = {
+	id = 1
+	name = "STATE_1"
+	manpower = 32000
+	state_category = megalopolis
+
+	history = {
+		owner = SRD
+		add_core_of = SRD
+		victory_points = { 1 30 }
+		buildings = {
+			infrastructure = 5
+			industrial_complex = 3
+		}
+	}
+
+	provinces = {
+		1
+	}
+}

@@ -1,0 +1,19 @@
+state = {
+	id = 22
+	name = "STATE_22"
+	manpower = 27000
+	state_category = rural
+
+	history = {
+		owner = NIS
+		add_core_of = NIS
+		victory_points = { 22 5 }
+		buildings = {
+			infrastructure = 3
+		}
+	}
+
+	provinces = {
+		22
+	}
+}

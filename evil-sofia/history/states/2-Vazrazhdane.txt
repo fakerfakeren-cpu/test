@@ -1,0 +1,20 @@
+state = {
+	id = 2
+	name = "STATE_2"
+	manpower = 37000
+	state_category = metropolis
+
+	history = {
+		owner = VAZ
+		add_core_of = VAZ
+		victory_points = { 2 10 }
+		buildings = {
+			infrastructure = 5
+			industrial_complex = 2
+		}
+	}
+
+	provinces = {
+		2
+	}
+}

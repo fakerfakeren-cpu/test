@@ -1,0 +1,39 @@
+bookmarks = {
+	bookmark = {
+		name = "EVIL_SOFIA_START_NAME"
+		desc = "EVIL_SOFIA_START_DESC"
+		date = 1936.1.1.12
+		picture = "GFX_select_date_1936"
+		default_country = "SRD"
+		default = yes
+
+			SRD = { }
+			VAZ = { }
+			OBR = { }
+			KRS = { }
+			SRK = { }
+			POD = { }
+			SLA = { }
+			IZG = { }
+			LOZ = { }
+			TRD = { }
+			KRP = { }
+			ILN = { }
+			NAD = { }
+			ISK = { }
+			MLA = { }
+			STU = { }
+			LYU = { }
+			KRE = { }
+			VIT = { }
+			OVK = { }
+			VRB = { }
+			NIS = { }
+			PNC = { }
+			BNK = { }
+
+		effect = {
+			randomize_weather = 22345
+		}
+	}
+}

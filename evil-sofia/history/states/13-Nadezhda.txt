@@ -1,0 +1,20 @@
+state = {
+	id = 13
+	name = "STATE_13"
+	manpower = 67000
+	state_category = city
+
+	history = {
+		owner = NAD
+		add_core_of = NAD
+		victory_points = { 13 5 }
+		buildings = {
+			infrastructure = 4
+			industrial_complex = 1
+		}
+	}
+
+	provinces = {
+		13
+	}
+}

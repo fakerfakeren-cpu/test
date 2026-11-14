@@ -1,0 +1,19 @@
+state = {
+	id = 19
+	name = "STATE_19"
+	manpower = 61000
+	state_category = town
+
+	history = {
+		owner = VIT
+		add_core_of = VIT
+		victory_points = { 19 5 }
+		buildings = {
+			infrastructure = 3
+		}
+	}
+
+	provinces = {
+		19
+	}
+}

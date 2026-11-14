@@ -1,0 +1,20 @@
+state = {
+	id = 16
+	name = "STATE_16"
+	manpower = 71000
+	state_category = city
+
+	history = {
+		owner = STU
+		add_core_of = STU
+		victory_points = { 16 5 }
+		buildings = {
+			infrastructure = 4
+			industrial_complex = 1
+		}
+	}
+
+	provinces = {
+		16
+	}
+}

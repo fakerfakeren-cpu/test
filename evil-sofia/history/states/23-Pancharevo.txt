@@ -1,0 +1,19 @@
+state = {
+	id = 23
+	name = "STATE_23"
+	manpower = 28000
+	state_category = rural
+
+	history = {
+		owner = PNC
+		add_core_of = PNC
+		victory_points = { 23 5 }
+		buildings = {
+			infrastructure = 3
+		}
+	}
+
+	provinces = {
+		23
+	}
+}
