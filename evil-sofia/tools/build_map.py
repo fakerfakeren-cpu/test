@@ -276,9 +276,35 @@ write("map/adjacency_rules.txt", "")
 write("map/airports.txt", "".join(f"{k}={{{k} }}\n" for k in DISTRICTS))
 write("map/rocketsites.txt", "".join(f"{k}={{{k} }}\n" for k in DISTRICTS))
 write("map/supply_nodes.txt", "".join(f"1 {k}\n" for k in DISTRICTS))
-# Positions the in-game nudger fills in (Generate Missing). Left empty on purpose.
-write("map/buildings.txt", "")
-write("map/unitstacks.txt", "")
+# Model positions. Rough placements spread inside each district; fine-tune later with the nudger.
+def spots(p, n):
+    py, px = np.nonzero(prov == p)
+    inner = ndi.binary_erosion(prov == p, iterations=6)[py, px]
+    if inner.sum() >= n:
+        py, px = py[inner], px[inner]
+    pick = RNG.choice(len(px), n, replace=len(px) < n)
+    return [(int(px[i]), int(py[i])) for i in pick]
+
+
+def pos(x, y):
+    return f"{x:.2f};{heightmap[y, x] / 10.0:.2f};{H - 1 - y:.2f}"
+
+
+BUILDING_SLOTS = {"arms_factory": 6, "industrial_complex": 6, "air_base": 1, "supply_node": 1,
+                  "anti_air_building": 3, "synthetic_refinery": 1, "fuel_silo": 1, "radar_station": 1,
+                  "nuclear_reactor": 1, "rocket_site": 1, "bunker": 1}
+bl = []
+for k in DISTRICTS:
+    for b, n in BUILDING_SLOTS.items():
+        for x, y in spots(k, n):
+            bl.append(f"{k};{b};{pos(x, y)};{RNG.uniform(0, 6.28):.2f};0")
+write("map/buildings.txt", "\n".join(bl) + "\n")
+us = []
+for k in DISTRICTS:
+    cx, cy = cent[k]
+    for t in range(22):
+        us.append(f"{k};{t};{pos(cx, cy)};0.00;0.00")
+write("map/unitstacks.txt", "\n".join(us) + "\n")
 
 # Railways: spanning tree over land neighbours, starting in Sredets.
 land_adj = {k: set() for k in DISTRICTS}
@@ -295,6 +321,17 @@ while queue:
             queue.append(b)
             rails.append(f"{3 if a <= 12 and b <= 12 else 2} 2 {a} {b}")
 write("map/railways.txt", "\n".join(rails) + "\n")
+
+# Supply areas (the game still ships map/supplyareas). One area for the whole city.
+write("map/supplyareas/1-Sofia.txt", f"""supply_area = {{
+\tid = 1
+\tname = "SUPPLYAREA_1"
+\tvalue = 10
+\tstates = {{
+\t\t{' '.join(map(str, DISTRICTS))}
+\t}}
+}}
+""")
 
 # Strategic regions: each lake joins the region of the nearest district.
 region_of = {k: v[6] for k, v in DISTRICTS.items()}
@@ -413,6 +450,7 @@ set_popularities = {{
         flag.save(out(f"gfx/flags/{folder}{tag}.tga"))
 for rid, rname in REGIONS.items():
     loc.append(f' STRATEGICREGION_{rid}:0 "{rname}"')
+loc.append(' SUPPLYAREA_1:0 "Sofia"')
 for p in lake_ids:
     loc.append(f' VICTORY_POINTS_{p}:0 "The Void"')
 # Separate file: vanilla tags stay registered (they own no states, so they never appear),

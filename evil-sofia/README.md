@@ -12,7 +12,7 @@ Right now every district is **one province and one state**. Splitting districts 
    `path="mod/evil-sofia"` to it.
 3. Turn the mod on in the launcher. The first time, start the game with `-debug` so errors show up.
 4. In game, open the console and type `nudge`. Click **Generate** to create the
-   building and unit positions (`map/buildings.txt`, `map/unitstacks.txt` start out empty), then save.
+   building and unit positions (`map/buildings.txt` and `map/unitstacks.txt` only have rough placements), then save.
 
 ## How the map is made
 
