@@ -257,16 +257,11 @@ tree_definition = "trees.bmp"
 continent = "continent.txt"
 adjacency_rules = "adjacency_rules.txt"
 adjacencies = "adjacencies.csv"
-climate = "weatherpositions.txt"
-
-# Lakes are impassable water without navies; there is no sea in Sofia.
-lakes = {{
-\t{' '.join(map(str, lake_ids))}
-}}
 
 tree = {{ 3 4 7 10 }}
 """)
-write("map/continent.txt", "continents = {\n\tsofia\n}\n")
+# Keep the vanilla continent names: portraits and AI files refer to them. Sofia counts as europe (index 1).
+write("map/continent.txt", "continents = {\n" + "".join(f"\t{c}\n" for c in ("europe", "north_america", "south_america", "australia", "africa", "asia", "middle_east")) + "}\n")
 write("map/adjacencies.csv", "From;To;Type;Through;start_x;start_y;stop_x;stop_y;adjacency_rule_name;Comment\n-1;-1;;-1;-1;-1;-1;-1;-1\n")
 write("map/adjacency_rules.txt", "")
 write("map/airports.txt", "".join(f"{k}={{{k} }}\n" for k in DISTRICTS))
@@ -335,7 +330,7 @@ for rid, rname in REGIONS.items():
 write("map/weatherpositions.txt", "\n".join(wpos) + "\n")
 
 # ---------------------------------------------------------------- states, countries, localisation
-loc = ["l_english:", ' sofia:0 "Sofia"', ' EVIL_SOFIA_START_NAME:0 "The Fall of Sofia"',
+loc = ["l_english:", ' EVIL_SOFIA_START_NAME:0 "The Fall of Sofia"',
        ' EVIL_SOFIA_START_DESC:0 "The city council has collapsed. Twenty-four districts, twenty-four warlords. Only one will rule Sofia."']
 tags_txt = []
 bookmark_countries = []
@@ -411,7 +406,9 @@ for rid, rname in REGIONS.items():
     loc.append(f' STRATEGICREGION_{rid}:0 "{rname}"')
 for p in lake_ids:
     loc.append(f' VICTORY_POINTS_{p}:0 "The Void"')
-write("common/country_tags/00_countries.txt", "\n".join(tags_txt) + "\n")
+# Separate file: vanilla tags stay registered (they own no states, so they never appear),
+# which keeps vanilla scripts that mention GER, SOV etc. parsing cleanly.
+write("common/country_tags/evil_sofia_countries.txt", "\n".join(tags_txt) + "\n")
 write("localisation/english/evil_sofia_l_english.yml", "\n".join(loc) + "\n", bom=True)
 
 write("common/bookmarks/the_fall_of_sofia.txt", f"""bookmarks = {{
