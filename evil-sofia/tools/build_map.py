@@ -51,7 +51,6 @@ DISTRICTS = {
     24: ("BNK", "Bankya", "Bankyan", "hills", "rural", 13000, 4),
 }
 REGIONS = {1: "Downtown", 2: "Northern Sofia", 3: "Eastern Sofia", 4: "Western Sofia"}
-VICTORY_POINTS = {1: 30, 2: 10, 3: 10}  # anything else gets 5
 
 
 def out(path):
@@ -61,7 +60,10 @@ def out(path):
 
 
 def write(path, text, bom=False):
-    with open(out(path), "w", encoding="utf-8-sig" if bom else "utf-8", newline="\n") as f:
+    # CRLF line endings: with plain LF the game silently drops the continent column of
+    # definition.csv, every land province then fails the "must have a continent" map check,
+    # and the game stops with "Failed to load the map".
+    with open(out(path), "w", encoding="utf-8-sig" if bom else "utf-8", newline="\r\n") as f:
         f.write(text)
 
 
@@ -134,12 +136,14 @@ def make_contiguous(local, sub):
     return local
 
 
-def split(mask, target, max_box):
+def split(mask, target, max_box, min_cell=None):
     ys, xs = np.nonzero(mask)
     by, bx = ys.min(), xs.min()
     sub = mask[by:ys.max() + 1, bx:xs.max() + 1]
     pts = np.argwhere(sub).astype(np.float32)
     n = max(1, int(np.ceil(len(pts) / target)))
+    if min_cell:
+        n = max(n, min(4, len(pts) // min_cell))
     while True:
         local = np.zeros(sub.shape, np.int32)
         local[sub] = (kmeans_labels(pts, n) + 1) if n > 1 else 1
@@ -156,7 +160,7 @@ state_provs = {}          # district number -> [province ids], capital first
 next_id = 1
 for k in DISTRICTS:
     m = dist == k
-    local, by, bx = split(m, LAND_TARGET, LAND_MAX_BOX)
+    local, by, bx = split(m, LAND_TARGET, LAND_MAX_BOX, min_cell=1200)
     view = prov[by:by + local.shape[0], bx:bx + local.shape[1]]
     # capital = the cell holding the district's most interior pixel
     dt = ndi.distance_transform_edt(m)
@@ -190,8 +194,119 @@ for _ in range(10):
         break
     for y, x in np.argwhere(xc):
         prov[y + 1, x + 1] = prov[y + 1, x]  # bottom-right pixel joins its left neighbour
-land_ids =[p for p in prov_district if prov_district[p]]
-capital = {k: v[0] for k, v in state_provs.items()}
+land_ids = [p for p in prov_district if prov_district[p]]
+
+# ---------------------------------------------------------------- centroids (HOI4 world coords: z counts up from the bottom)
+cent = {}
+for p, sl in enumerate(ndi.find_objects(prov), 1):
+    if sl is None:
+        continue
+    py, px = np.nonzero(prov[sl] == p)
+    py, px = py + sl[0].start, px + sl[1].start
+    i = np.argmin((py - py.mean()) ** 2 + (px - px.mean()) ** 2)  # a pixel near the centre, always inside
+    cent[p] = (int(px[i]), int(py[i]))
+
+# ---------------------------------------------------------------- cities
+# Victory points named after real neighbourhoods, streets and villages, biggest first.
+# The first name of each district is its capital. Coordinates are approximate (lat, lon).
+NAMES = {
+    1: [("Vitosha Boulevard", 42.6895, 23.3195), ("Graf Ignatiev", 42.6905, 23.3290),
+        ("Borisova Gradina", 42.6835, 23.3405), ("Slaveykov Square", 42.6935, 23.3245)],
+    2: [("Vazrazhdane Square", 42.6975, 23.3075), ("Zona B-5", 42.6915, 23.3050),
+        ("Zona B-18", 42.7005, 23.3010), ("Zhenski Pazar", 42.7010, 23.3165)],
+    3: [("Oborishte", 42.6975, 23.3420), ("Doctor's Garden", 42.6930, 23.3355),
+        ("Zaimov Park", 42.7010, 23.3380), ("Eagles' Bridge", 42.6905, 23.3390)],
+    4: [("Krasno Selo", 42.6805, 23.2870), ("Hipodruma", 42.6850, 23.2935), ("Borovo", 42.6720, 23.2850),
+        ("Belite Brezi", 42.6770, 23.2960), ("Lagera", 42.6860, 23.3000), ("Buxton", 42.6720, 23.2700)],
+    5: [("Banishora", 42.7135, 23.3140), ("Orlandovtsi", 42.7340, 23.3310), ("Fondovi Zhilishta", 42.7210, 23.3200),
+        ("Malashevtsi", 42.7170, 23.3450), ("Benkovski", 42.7360, 23.3150)],
+    6: [("Poduyane", 42.7050, 23.3540), ("Hadzhi Dimitar", 42.7100, 23.3560), ("Levski", 42.7120, 23.3750),
+        ("Suhata Reka", 42.7040, 23.3690), ("Gerena", 42.6970, 23.3680)],
+    7: [("Slatina", 42.6850, 23.3720), ("Geo Milev", 42.6800, 23.3610), ("Reduta", 42.6900, 23.3560)],
+    8: [("Izgrev", 42.6740, 23.3500), ("Iztok", 42.6690, 23.3460), ("Dianabad", 42.6680, 23.3560)],
+    9: [("Lozenets", 42.6750, 23.3250), ("Krastova Vada", 42.6560, 23.3130), ("Hladilnika", 42.6620, 23.3170),
+        ("South Park", 42.6730, 23.3110)],
+    10: [("Ivan Vazov", 42.6800, 23.3080), ("Strelbishte", 42.6720, 23.2960), ("Gotse Delchev", 42.6690, 23.3020),
+         ("Manastirski Livadi", 42.6620, 23.2990)],
+    11: [("Krasna Polyana", 42.7000, 23.2870), ("Fakulteta", 42.6920, 23.2800), ("Razsadnika", 42.7040, 23.2930),
+         ("Zapaden Park", 42.7060, 23.2700)],
+    12: [("Ilinden", 42.7100, 23.2960), ("Zaharna Fabrika", 42.7140, 23.2880), ("Sveta Troitsa", 42.7060, 23.3030)],
+    13: [("Nadezhda", 42.7310, 23.3020), ("Svoboda", 42.7230, 23.2920), ("Tolstoy", 42.7240, 23.2810),
+         ("Trebich", 42.7720, 23.2960)],
+    14: [("Druzhba", 42.6650, 23.3950), ("Druzhba 2", 42.6530, 23.4070), ("Dimitar Milenkov", 42.6800, 23.4370)],
+    15: [("Mladost", 42.6500, 23.3750), ("Mladost 4", 42.6290, 23.3820), ("Business Park", 42.6260, 23.3770),
+         ("Gorublyane", 42.6390, 23.4020)],
+    16: [("Studentski Grad", 42.6500, 23.3450), ("Darvenitsa", 42.6600, 23.3490), ("Musagenitsa", 42.6570, 23.3600),
+         ("Malinova Dolina", 42.6350, 23.3550)],
+    17: [("Lyulin", 42.7140, 23.2550), ("Lyulin 10", 42.7060, 23.2340), ("Filipovtsi", 42.7230, 23.2620),
+         ("Lyulin 3", 42.7180, 23.2440)],
+    18: [("Kremikovtsi", 42.7900, 23.5000), ("Botunets", 42.7520, 23.4730), ("Chelopechene", 42.7300, 23.4580),
+         ("The Steelworks", 42.7560, 23.5090), ("Gorni Bogrov", 42.7350, 23.5600), ("Dolni Bogrov", 42.7140, 23.5250),
+         ("Yana", 42.7600, 23.5800), ("Seslavtsi", 42.7680, 23.4560)],
+    19: [("Boyana", 42.6430, 23.2670), ("Dragalevtsi", 42.6280, 23.3080), ("Simeonovo", 42.6260, 23.3420),
+         ("Knyazhevo", 42.6590, 23.2400), ("Pavlovo", 42.6670, 23.2700), ("Vladaya", 42.6460, 23.2010),
+         ("Marchaevo", 42.6230, 23.1960), ("Kinotsentara", 42.6340, 23.2560), ("Aleko", 42.5850, 23.2900)],
+    20: [("Ovcha Kupel", 42.6800, 23.2570), ("Gorna Banya", 42.6760, 23.2380), ("Suhodol", 42.6720, 23.2180),
+         ("Ovcha Kupel 2", 42.6880, 23.2440)],
+    21: [("Vrabnitsa", 42.7370, 23.2780), ("Obelya", 42.7430, 23.2880), ("Moderno Predgradie", 42.7320, 23.2620),
+         ("Mramor", 42.7650, 23.2560), ("Volyak", 42.7560, 23.2380)],
+    22: [("Novi Iskar", 42.8170, 23.3500), ("Kurilo", 42.8290, 23.3630), ("Kubratovo", 42.7860, 23.3680),
+         ("Svetovrachene", 42.7910, 23.3920), ("Negovan", 42.7610, 23.4060), ("Mirovyane", 42.8410, 23.3880),
+         ("Balsha", 42.8560, 23.3070), ("Vlado Trichkov", 42.8730, 23.3670), ("Gnilyane", 42.8380, 23.4040),
+         ("Dobroslavtsi", 42.8040, 23.2830), ("Lokorsko", 42.7980, 23.4300), ("Podgumer", 42.7920, 23.3240)],
+    23: [("Pancharevo", 42.5960, 23.4140), ("Kazichene", 42.6620, 23.4650), ("German", 42.6170, 23.3870),
+         ("Bistritsa", 42.5850, 23.3620), ("Zheleznitsa", 42.5410, 23.3680), ("Lozen", 42.6000, 23.4880),
+         ("Kokalyane", 42.5670, 23.4290), ("Pancharevo Lake", 42.5800, 23.4250), ("Dolni Pasarel", 42.5440, 23.4950),
+         ("Plana", 42.4720, 23.4340)],
+    24: [("Bankya", 42.7080, 23.1460), ("Ivanyane", 42.7050, 23.1640), ("Klisura", 42.6930, 23.0960),
+         ("Verdikal", 42.7250, 23.1120), ("Mihaylovo", 42.6860, 23.0700)],
+}
+CAPITAL_VP = {1: 30, 2: 15, 3: 15}   # other capitals get 10, other cities 3
+
+# Fit lat/lon onto districts_mask.png: start from a rough fit (Sredets ~ pixel 312,312, 13.7 px/km)
+# and nudge it so as many places as possible land inside their own district.
+full_mask = np.asarray(Image.open(os.path.join(ROOT, "tools", "districts_mask.png")).convert("L"))
+places = [(k, nm, la, lo) for k, lst in NAMES.items() for nm, la, lo in lst]
+pk = np.array([q[0] for q in places])
+pla = np.array([q[2] for q in places])
+plo = np.array([q[3] for q in places])
+best_fit = (-1, 0, 0, 1.0)
+for sc in np.arange(0.85, 1.16, 0.025):
+    bx_ = 312 + (plo - 23.3215) * 1119 * sc
+    by_ = 312 - (pla - 42.6966) * 1521 * sc
+    for dx in range(-25, 26):
+        for dy in range(-25, 26):
+            xi = np.clip(np.round(bx_ + dx).astype(int), 0, full_mask.shape[1] - 1)
+            yi = np.clip(np.round(by_ + dy).astype(int), 0, full_mask.shape[0] - 1)
+            hits = int((full_mask[yi, xi] == pk).sum())
+            if hits > best_fit[0] or (hits == best_fit[0] and abs(dx) + abs(dy) < abs(best_fit[1]) + abs(best_fit[2])):
+                best_fit = (hits, dx, dy, sc)
+hits, fdx, fdy, fsc = best_fit
+print(f"city placement: {hits}/{len(places)} places inside their own district")
+
+
+def place_px(lat, lon):
+    sx = 312 + fdx + (lon - 23.3215) * 1119 * fsc
+    sy = 312 + fdy - (lat - 42.6966) * 1521 * fsc
+    return ox + (sx - x0) * scale, oy + (sy - y0) * scale
+
+
+vp = {}            # province id -> (name, victory points)
+capital = {}
+for k, provs in state_provs.items():
+    free = list(provs)
+    for i, (nm, la, lo) in enumerate(NAMES[k]):
+        if not free:
+            break
+        px_, py_ = place_px(la, lo)
+        p = min(free, key=lambda q: (cent[q][0] - px_) ** 2 + (cent[q][1] - py_) ** 2)
+        free.remove(p)
+        if i == 0:
+            capital[k] = p
+            vp[p] = (nm, CAPITAL_VP.get(k, 10))
+        else:
+            vp[p] = (nm, 3)
+    state_provs[k] = [capital[k]] + [p for p in provs if p != capital[k]]
 
 # ---------------------------------------------------------------- provinces.bmp + definition.csv
 used = set()
@@ -282,16 +397,6 @@ tw_t, th_t = round(W * 1650 / 5632), round(H * 564 / 2048)  # vanilla trees.bmp 
 indexed(np.zeros((th_t, tw_t)), gray).save(out("map/trees.bmp"))
 
 # No custom colormap: the vanilla one is stretched over the map until we paint our own.
-
-# ---------------------------------------------------------------- centroids (HOI4 world coords: z counts up from the bottom)
-cent = {}
-for p in range(1, n_prov + 1):
-    py, px = np.nonzero(prov == p)
-    # pick the province pixel closest to the centroid, so it is always inside
-    my, mx = py.mean(), px.mean()
-    i = np.argmin((py - my) ** 2 + (px - mx) ** 2)
-    cent[p] = (int(px[i]), int(py[i]))
-
 
 def world(p):
     x, y = cent[p]
@@ -437,6 +542,7 @@ for k, (tag, name, adj_, terr, cat, pop, reg) in DISTRICTS.items():
         bld += f"\n\t\t\tindustrial_complex = {civ}"
     if mil:
         bld += f"\n\t\t\tarms_factory = {mil}"
+    vp_lines = "\n".join(f"\t\tvictory_points = {{ {p} {vp[p][1]} }}" for p in state_provs[k] if p in vp)
     write(f"history/states/{k}-{name.replace(' ', '_')}.txt", f"""state = {{
 \tid = {k}
 \tname = "STATE_{k}"
@@ -446,7 +552,7 @@ for k, (tag, name, adj_, terr, cat, pop, reg) in DISTRICTS.items():
 \thistory = {{
 \t\towner = {tag}
 \t\tadd_core_of = {tag}
-\t\tvictory_points = {{ {capital[k]} {VICTORY_POINTS.get(k, 5)} }}
+{vp_lines}
 \t\tbuildings = {{
 \t\t\t{bld}
 \t\t}}
@@ -486,7 +592,8 @@ set_popularities = {{
 """)
     bookmark_countries.append(f"\t\t\t{tag} = {{ }}")
     loc += [f' {tag}:0 "{name}"', f' {tag}_DEF:0 "{name}"', f' {tag}_ADJ:0 "{adj_}"',
-            f' STATE_{k}:0 "{name}"', f' VICTORY_POINTS_{capital[k]}:0 "{name}"']
+            f' STATE_{k}:0 "{name}"']
+    loc += [f' VICTORY_POINTS_{p}:0 "{vp[p][0]}"' for p in state_provs[k] if p in vp]
     # Placeholder flags: three horizontal stripes in the country colour.
     dark = (r // 2, g // 2, b // 2)
     for folder, size in (("", (82, 52)), ("medium/", (41, 26)), ("small/", (10, 7))):
@@ -498,8 +605,6 @@ set_popularities = {{
 for rid, rname in REGIONS.items():
     loc.append(f' STRATEGICREGION_{rid}:0 "{rname}"')
 loc.append(' SUPPLYAREA_1:0 "Sofia"')
-for p in lake_ids:
-    loc.append(f' VICTORY_POINTS_{p}:0 "The Void"')
 # Separate file: vanilla tags stay registered (they own no states, so they never appear),
 # which keeps vanilla scripts that mention GER, SOV etc. parsing cleanly.
 write("common/country_tags/evil_sofia_countries.txt", "\n".join(tags_txt) + "\n")
@@ -554,6 +659,24 @@ for k, v in DISTRICTS.items():
     d.text((x, y), label, fill="white", font=font, anchor="mm", stroke_width=3, stroke_fill="black")
 d.text((40, 40), "EVIL SOFIA", fill=(220, 60, 60), font=big, stroke_width=3, stroke_fill="black")
 pim.save(out("preview/political_preview.png"))
+ys_, xs_ = np.nonzero(city)
+cy0, cy1, cx0, cx1 = max(ys_.min() - 20, 0), min(ys_.max() + 20, H), max(xs_.min() - 20, 0), min(xs_.max() + 20, W)
+cim = Image.fromarray(prev[cy0:cy1, cx0:cx1])
+d2 = ImageDraw.Draw(cim)
+try:
+    small_f = ImageFont.truetype("DejaVuSans-Bold.ttf", 13)
+    cap_f = ImageFont.truetype("DejaVuSans-Bold.ttf", 16)
+except OSError:
+    small_f = cap_f = ImageFont.load_default()
+for p, (nm, val) in vp.items():
+    x, y = cent[p][0] - cx0, cent[p][1] - cy0
+    is_cap = val >= 10
+    r_ = 6 if is_cap else 4
+    d2.ellipse([x - r_, y - r_, x + r_, y + r_], fill=(255, 215, 0) if is_cap else (255, 255, 255), outline="black", width=2)
+    d2.text((x, y - r_ - 2), nm, fill=(255, 235, 120) if is_cap else "white", font=cap_f if is_cap else small_f,
+            anchor="mb", stroke_width=3, stroke_fill="black")
+cim.save(out("preview/cities_preview.png"))
 Image.fromarray(heightmap).resize((W // 6, H // 6)).save(out("preview/heightmap_preview.png"))
 
+print(f"{len(vp)} cities")
 print(f"map {W}x{H}, {len(DISTRICTS)} states, {len(land_ids)} land provinces, {len(lake_ids)} lake provinces, {len(rails)} rail links")

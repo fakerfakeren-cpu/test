@@ -7,13 +7,16 @@ state = {
 	history = {
 		owner = VIT
 		add_core_of = VIT
-		victory_points = { 30 5 }
+		victory_points = { 72 10 }
+		victory_points = { 73 3 }
+		victory_points = { 74 3 }
+		victory_points = { 75 3 }
 		buildings = {
 			infrastructure = 3
 		}
 	}
 
 	provinces = {
-		30 31 32 33
+		72 73 74 75
 	}
 }

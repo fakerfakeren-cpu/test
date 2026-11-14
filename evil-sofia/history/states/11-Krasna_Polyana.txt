@@ -7,7 +7,10 @@ state = {
 	history = {
 		owner = KRP
 		add_core_of = KRP
-		victory_points = { 11 5 }
+		victory_points = { 37 10 }
+		victory_points = { 34 3 }
+		victory_points = { 35 3 }
+		victory_points = { 36 3 }
 		buildings = {
 			infrastructure = 4
 			industrial_complex = 2
@@ -15,6 +18,6 @@ state = {
 	}
 
 	provinces = {
-		11
+		37 34 35 36
 	}
 }

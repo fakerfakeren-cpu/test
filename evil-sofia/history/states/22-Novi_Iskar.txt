@@ -7,13 +7,19 @@ state = {
 	history = {
 		owner = NIS
 		add_core_of = NIS
-		victory_points = { 38 5 }
+		victory_points = { 89 10 }
+		victory_points = { 84 3 }
+		victory_points = { 85 3 }
+		victory_points = { 86 3 }
+		victory_points = { 87 3 }
+		victory_points = { 88 3 }
+		victory_points = { 90 3 }
 		buildings = {
 			infrastructure = 3
 		}
 	}
 
 	provinces = {
-		38 39 40 41 42 43 44
+		89 84 85 86 87 88 90
 	}
 }

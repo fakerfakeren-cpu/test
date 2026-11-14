@@ -12,7 +12,8 @@ with real neighbourhoods later.
 1. Copy this `evil-sofia` folder into `Documents/Paradox Interactive/Hearts of Iron IV/mod/`.
 2. Copy `descriptor.mod` next to it, rename the copy to `evil_sofia.mod`, and add the line
    `path="mod/evil-sofia"` to it.
-3. Turn the mod on in the launcher. The first time, start the game with `-debug` so errors show up.
+3. Turn the mod on in the launcher. While testing, add `-debug` to the game's launch options (Steam → Hearts of
+   Iron IV → Properties → Launch options): in debug mode a map error is logged instead of stopping the game.
 4. Building positions in `map/buildings.txt` are rough placements; unit positions are left to the game.
    Fine-tune both in game with the `nudge` console command.
 
@@ -21,8 +22,14 @@ with real neighbourhoods later.
 These follow a working 1.16 total-conversion map mod (MappaMundi):
 - The map is 5632x2048, the same size as vanilla, so vanilla textures, ambient objects and the map frame still fit.
 - Every province is under 320 pixels across, and no state is taller or wider than half the map.
-- Vanilla folders that point at real-world states are replaced with empty ones:
-  events, decisions, on_actions, AI strategies, history/general (see `descriptor.mod`).
+- Vanilla AI strategies point at real-world states, so `common/ai_strategy` is replaced with an empty folder.
+- **Every file is written with Windows (CRLF) line endings.** With plain LF line endings, HOI4 drops the
+  continent column of `map/definition.csv`, every land province fails the "must belong to a continent"
+  map check, and starting a game stops with *"Failed to load the map"*. `.gitattributes` keeps git from
+  converting them.
+- Each district has several provinces with a named city (victory point) in each: neighbourhoods, streets
+  and villages, with the biggest as the capital. The names and their rough coordinates are the `NAMES`
+  table in `tools/build_map.py`; `preview/cities_preview.png` shows where they ended up.
 
 ## How the map is made
 

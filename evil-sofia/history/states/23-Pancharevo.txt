@@ -7,13 +7,22 @@ state = {
 	history = {
 		owner = PNC
 		add_core_of = PNC
-		victory_points = { 45 5 }
+		victory_points = { 103 10 }
+		victory_points = { 91 3 }
+		victory_points = { 92 3 }
+		victory_points = { 94 3 }
+		victory_points = { 96 3 }
+		victory_points = { 99 3 }
+		victory_points = { 100 3 }
+		victory_points = { 101 3 }
+		victory_points = { 102 3 }
+		victory_points = { 105 3 }
 		buildings = {
 			infrastructure = 3
 		}
 	}
 
 	provinces = {
-		45 46 47 48 49 50 51 52 53 54 55 56 57 58 59
+		103 91 92 93 94 95 96 97 98 99 100 101 102 104 105
 	}
 }
