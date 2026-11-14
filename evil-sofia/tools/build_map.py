@@ -248,8 +248,10 @@ def world(p):
 
 
 # ---------------------------------------------------------------- default.map & misc map files
-write("map/default.map", f"""definitions = "definition.csv"
+# Same keys as vanilla default.map (game build of 2026-11-05). Missing keys crash the game.
+write("map/default.map", """definitions = "definition.csv"
 provinces = "provinces.bmp"
+positions = "positions.txt"
 terrain = "terrain.bmp"
 rivers = "rivers.bmp"
 heightmap = "heightmap.bmp"
@@ -257,9 +259,16 @@ tree_definition = "trees.bmp"
 continent = "continent.txt"
 adjacency_rules = "adjacency_rules.txt"
 adjacencies = "adjacencies.csv"
+#climate = "climate.txt"
+ambient_object = "ambient_object.txt"
+seasons = "seasons.txt"
 
-tree = {{ 3 4 7 10 }}
+# Define which indices in trees.bmp palette which should count as trees for automatic terrain assignment
+tree = { 3 4 7 10 }
 """)
+# Vanilla ambient objects sit at world-map coordinates far outside a 3072x3072 map; start with none.
+write("map/ambient_object.txt", "")
+write("map/positions.txt", "")
 # Keep the vanilla continent names: portraits and AI files refer to them. Sofia counts as europe (index 1).
 write("map/continent.txt", "continents = {\n" + "".join(f"\t{c}\n" for c in ("europe", "north_america", "south_america", "australia", "africa", "asia", "middle_east")) + "}\n")
 write("map/adjacencies.csv", "From;To;Type;Through;start_x;start_y;stop_x;stop_y;adjacency_rule_name;Comment\n-1;-1;;-1;-1;-1;-1;-1;-1\n")
