@@ -5,7 +5,7 @@ tags={
 	"Total Conversion"
 }
 name="Evil Sofia"
-supported_version="1.16.*"
+supported_version="1.*"
 replace_path="history/states"
 replace_path="history/countries"
 replace_path="history/units"

@@ -51,4 +51,4 @@ These files were generated without a copy of HOI4 to test against. The following
 - `map/terrain.bmp`, `map/trees.bmp` and `map/cities.bmp` are blank placeholders. Gameplay terrain is set in `definition.csv`; these files only change how the map looks.
 - `map/world_normal.bmp` and `map/terrain/colormap_rgb_cityemissivemask_a.dds` use guessed formats.
 - Vanilla focus trees, events and AI files still refer to vanilla countries and states. Expect a long `error.log`.
-- `supported_version` is set to `1.16.*`. Change it to match your game version.
+- `supported_version` is `1.*`, so the launcher accepts any 1.x game version.
