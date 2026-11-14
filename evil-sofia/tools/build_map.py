@@ -15,8 +15,8 @@ from PIL import Image, ImageDraw, ImageFont
 from scipy import ndimage as ndi
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-W = H = 3072          # HOI4 needs both sides to be multiples of 256
-MARGIN = 300          # lake ring around the city, in map pixels
+W, H = 5632, 2048     # same size as the vanilla map (working custom maps keep the 2048 height)
+MARGIN = 200          # lake ring around the city, in map pixels
 # Province size limits. HOI4 misbehaves with huge provinces; vanilla ones are rarely over ~200px across.
 LAND_TARGET, LAND_MAX_BOX = 30000, 256    # target pixels per land province, max bounding box side
 LAKE_TARGET, LAKE_MAX_BOX = 60000, 320
@@ -270,7 +270,8 @@ def indexed(arr, palette):
 
 gray = [v for i in range(256) for v in (i, i, i)]
 # terrain.bmp only picks ground textures; gameplay terrain comes from definition.csv.
-indexed(np.zeros((H, W)), gray).save(out("map/terrain.bmp"))
+# Palette indices follow vanilla common/terrain: 0 = plains, 14 = lakes.
+indexed(np.where(city, 0, 14), gray).save(out("map/terrain.bmp"))
 indexed(np.zeros((H, W)), gray).save(out("map/cities.bmp"))
 river_pal = gray[:]
 river_pal[254 * 3:254 * 3 + 3] = [122, 122, 122]
@@ -316,8 +317,7 @@ seasons = "seasons.txt"
 # Define which indices in trees.bmp palette which should count as trees for automatic terrain assignment
 tree = { 3 4 7 10 }
 """)
-# Vanilla ambient objects sit at world-map coordinates far outside a 3072x3072 map; start with none.
-write("map/ambient_object.txt", "")
+# The map is vanilla-sized, so the vanilla ambient_object.txt (map frame etc.) is used as-is.
 write("map/positions.txt", "")
 # Keep the vanilla continent names: portraits and AI files refer to them. Sofia counts as europe (index 1).
 write("map/continent.txt", "continents = {\n" + "".join(f"\t{c}\n" for c in ("europe", "north_america", "south_america", "australia", "africa", "asia", "middle_east")) + "}\n")
@@ -350,12 +350,8 @@ for k in DISTRICTS:
         for x, y in spots(k, n):
             bl.append(f"{k};{b};{pos(x, y)};{RNG.uniform(0, 6.28):.2f};0")
 write("map/buildings.txt", "\n".join(bl) + "\n")
-us = []
-for p in land_ids:
-    cx, cy = cent[p]
-    for t in range(22):
-        us.append(f"{p};{t};{pos(cx, cy)};0.00;0.00")
-write("map/unitstacks.txt", "\n".join(us) + "\n")
+# Unit positions are left to the game (working total conversions ship this file nearly empty).
+write("map/unitstacks.txt", "")
 
 # Railways: spanning tree over land neighbours, starting in Sredets.
 land_adj = {p: set() for p in land_ids}
@@ -545,7 +541,7 @@ lake_border = np.zeros((H, W), bool)
 lake_border[:, 1:] |= (prov[:, 1:] != prov[:, :-1]) & ~city[:, 1:] & ~city[:, :-1]
 lake_border[1:, :] |= (prov[1:, :] != prov[:-1, :]) & ~city[1:, :] & ~city[:-1, :]
 prev[lake_border] = (60, 75, 98)
-pim = Image.fromarray(prev).resize((1536, 1536), Image.LANCZOS)
+pim = Image.fromarray(prev).resize((W // 3, H // 3), Image.LANCZOS)
 d = ImageDraw.Draw(pim)
 try:
     font = ImageFont.truetype("DejaVuSans-Bold.ttf", 15)
@@ -553,11 +549,11 @@ try:
 except OSError:
     font = big = ImageFont.load_default()
 for k, v in DISTRICTS.items():
-    x, y = cent[capital[k]][0] * 1536 / W, cent[capital[k]][1] * 1536 / H
+    x, y = cent[capital[k]][0] / 3, cent[capital[k]][1] / 3
     label = v[1] if (dist == k).sum() > 60000 else str(k)
     d.text((x, y), label, fill="white", font=font, anchor="mm", stroke_width=3, stroke_fill="black")
 d.text((40, 40), "EVIL SOFIA", fill=(220, 60, 60), font=big, stroke_width=3, stroke_fill="black")
 pim.save(out("preview/political_preview.png"))
-Image.fromarray(heightmap).resize((768, 768)).save(out("preview/heightmap_preview.png"))
+Image.fromarray(heightmap).resize((W // 6, H // 6)).save(out("preview/heightmap_preview.png"))
 
 print(f"map {W}x{H}, {len(DISTRICTS)} states, {len(land_ids)} land provinces, {len(lake_ids)} lake provinces, {len(rails)} rail links")

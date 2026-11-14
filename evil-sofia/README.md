@@ -13,8 +13,16 @@ with real neighbourhoods later.
 2. Copy `descriptor.mod` next to it, rename the copy to `evil_sofia.mod`, and add the line
    `path="mod/evil-sofia"` to it.
 3. Turn the mod on in the launcher. The first time, start the game with `-debug` so errors show up.
-4. In game, open the console and type `nudge`. Click **Generate** to create the
-   building and unit positions (`map/buildings.txt` and `map/unitstacks.txt` only have rough placements), then save.
+4. Building positions in `map/buildings.txt` are rough placements; unit positions are left to the game.
+   Fine-tune both in game with the `nudge` console command.
+
+## Layout choices that keep the game happy
+
+These follow a working 1.16 total-conversion map mod (MappaMundi):
+- The map is 5632x2048, the same size as vanilla, so vanilla textures, ambient objects and the map frame still fit.
+- Every province is under 320 pixels across, and no state is taller or wider than half the map.
+- Vanilla folders that point at real-world states are replaced with empty ones:
+  events, decisions, on_actions, AI strategies, history/general (see `descriptor.mod`).
 
 ## How the map is made
 
