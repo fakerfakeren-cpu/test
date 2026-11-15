@@ -7,30 +7,102 @@ bookmarks = {
 		default_country = "SRD"
 		default = yes
 
-			SRD = { }
-			VAZ = { }
-			OBR = { }
-			KRS = { }
-			SRK = { }
-			POD = { }
-			SLA = { }
-			IZG = { }
-			LOZ = { }
-			TRD = { }
-			KRP = { }
-			ILN = { }
-			NAD = { }
-			ISK = { }
-			MLA = { }
-			STU = { }
-			LYU = { }
-			KRE = { }
-			VIT = { }
-			OVK = { }
-			VRB = { }
-			NIS = { }
-			PNC = { }
-			BNK = { }
+			SRD = {
+				history = "EVIL_SOFIA_START_DESC"
+				ideology = neutrality
+			}
+			VAZ = {
+				history = "EVIL_SOFIA_START_DESC"
+				ideology = neutrality
+			}
+			OBR = {
+				history = "EVIL_SOFIA_START_DESC"
+				ideology = neutrality
+			}
+			KRS = {
+				history = "EVIL_SOFIA_START_DESC"
+				ideology = neutrality
+			}
+			SRK = {
+				history = "EVIL_SOFIA_START_DESC"
+				ideology = neutrality
+			}
+			POD = {
+				history = "EVIL_SOFIA_START_DESC"
+				ideology = neutrality
+			}
+			SLA = {
+				history = "EVIL_SOFIA_START_DESC"
+				ideology = neutrality
+			}
+			IZG = {
+				history = "EVIL_SOFIA_START_DESC"
+				ideology = neutrality
+			}
+			LOZ = {
+				history = "EVIL_SOFIA_START_DESC"
+				ideology = neutrality
+			}
+			TRD = {
+				history = "EVIL_SOFIA_START_DESC"
+				ideology = neutrality
+			}
+			KRP = {
+				history = "EVIL_SOFIA_START_DESC"
+				ideology = neutrality
+			}
+			ILN = {
+				history = "EVIL_SOFIA_START_DESC"
+				ideology = neutrality
+			}
+			NAD = {
+				history = "EVIL_SOFIA_START_DESC"
+				ideology = neutrality
+			}
+			ISK = {
+				history = "EVIL_SOFIA_START_DESC"
+				ideology = neutrality
+			}
+			MLA = {
+				history = "EVIL_SOFIA_START_DESC"
+				ideology = neutrality
+			}
+			STU = {
+				history = "EVIL_SOFIA_START_DESC"
+				ideology = neutrality
+			}
+			LYU = {
+				history = "EVIL_SOFIA_START_DESC"
+				ideology = neutrality
+			}
+			KRE = {
+				history = "EVIL_SOFIA_START_DESC"
+				ideology = neutrality
+			}
+			VIT = {
+				history = "EVIL_SOFIA_START_DESC"
+				ideology = neutrality
+			}
+			OVK = {
+				history = "EVIL_SOFIA_START_DESC"
+				ideology = neutrality
+			}
+			VRB = {
+				history = "EVIL_SOFIA_START_DESC"
+				ideology = neutrality
+			}
+			NIS = {
+				history = "EVIL_SOFIA_START_DESC"
+				ideology = neutrality
+			}
+			PNC = {
+				history = "EVIL_SOFIA_START_DESC"
+				ideology = neutrality
+			}
+			BNK = {
+				history = "EVIL_SOFIA_START_DESC"
+				ideology = neutrality
+			}
 
 		effect = {
 			randomize_weather = 22345

@@ -24,3 +24,4 @@ run-data
 __pycache__/
 *.pyc
 dist/
+evil-sofia/tools/geodata/

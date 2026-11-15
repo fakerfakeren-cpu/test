@@ -16,15 +16,18 @@ Engine rules this script follows (measured in game on HOI4 1.19, see README):
 """
 import colorsys
 import os
+import struct
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 from scipy import ndimage as ndi
+from scipy.sparse import coo_matrix
+from scipy.sparse.csgraph import dijkstra
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-W, H = 2048, 1024     # small canvas: the whole city fits on screen when zoomed out
-MARGIN = 100          # water ring around the city; keeps every state under half the map height
-LAND_TARGET, LAND_MAX_BOX, LAND_MIN_CELL = 3000, 100, 300   # px per land province, max box side, min split
-LAKE_TARGET, LAKE_MAX_BOX = 8000, 100
+W, H = 5632, 2048     # vanilla map size: the camera, the map frame and vanilla textures are made for it
+CITY_HEIGHT = 1150    # height of the city on the map in pixels; around it is the real land around Sofia
+LAND_TARGET, LAND_MAX_BOX, LAND_MIN_CELL = 5000, 150, 400   # px per land province, max box side, min split
+LAKE_TARGET, LAKE_MAX_BOX = 18000, 150
 SEA_LEVEL = 94        # heightmap values below this render as water
 RNG = np.random.default_rng(1944)
 
@@ -113,21 +116,6 @@ NAMES = {
 }
 CAPITAL_VP = {1: 30, 2: 15, 3: 15}   # other capitals get 10, other cities 3
 
-# Mountains: elliptical massifs (lat, lon, radius lat, radius lon, extra height, hill/forest/mountain cut-offs
-# on the 0..1 "how far up the massif" scale; None = that class does not occur).
-MOUNTAINS = [
-    ("Vitosha", 42.560, 23.285, 0.075, 0.120, 150, 0.05, 0.25, 0.55),
-    ("Lyulin", 42.655, 23.150, 0.035, 0.070, 70, 0.00, 0.30, None),
-    ("Lozen mountain", 42.555, 23.515, 0.050, 0.090, 110, 0.05, 0.30, 0.60),
-    ("Plana", 42.470, 23.430, 0.045, 0.100, 100, 0.05, 0.25, 0.50),
-]
-NORTH_FOOTHILLS_LAT = 42.830          # Stara Planina foothills start here and rise northwards
-PARKS = [  # (name, lat, lon, radius in km)
-    ("Borisova Gradina", 42.6825, 23.3400, 0.75), ("South Park", 42.6715, 23.3085, 0.55),
-    ("West Park", 42.7030, 23.2750, 0.60), ("North Park", 42.7340, 23.3080, 0.50),
-    ("Loven Park", 42.6555, 23.3445, 0.40), ("Vrana Park", 42.6640, 23.4330, 0.60),
-    ("Kambanite Park", 42.6290, 23.3390, 0.40),
-]
 # Rivers: (name, rivers.bmp width index, waypoints). The first one is the main river; the others end where
 # they first touch a river drawn before them (tributaries).
 RIVERS = [
@@ -142,8 +130,9 @@ RIVERS = [
     ("Boyanska", 3, [(42.600, 23.255), (42.640, 23.268), (42.665, 23.272), (42.680, 23.278)]),
 ]
 CLASS_NAMES = ["plains", "forest", "hills", "mountain"]
-TERRAIN_BMP_INDEX = {0: 0, 1: 1, 2: 17, 3: 6}   # vanilla terrain.bmp palette: plains, forest, hills, mountain
-LAKE_BMP_INDEX = 14
+# terrain.bmp palette indices of vanilla common/terrain/00_terrain.txt (ground textures)
+TEX_PLAINS, TEX_FIELDS, TEX_FOREST, TEX_FOREST_HIGH, TEX_HILLS = 0, 5, 1, 4, 17
+TEX_ROCK, TEX_SNOW, TEX_MARSH, TEX_CITY, TEX_LAKE = 6, 16, 9, 13, 14
 
 # Leaders and generals: one of each per country (first name, surname).
 FIRST = ["Krum", "Asen", "Boris", "Kaloyan", "Simeon", "Petar", "Ivan", "Todor", "Stoyan", "Hristo", "Vasil", "Lyuben",
@@ -184,7 +173,7 @@ full_mask = np.asarray(Image.open(os.path.join(ROOT, "tools", "districts_mask.pn
 ys, xs = np.nonzero(full_mask)
 y0, y1, x0, x1 = ys.min(), ys.max() + 1, xs.min(), xs.max() + 1
 src = full_mask[y0:y1, x0:x1]
-scale = min((W - 2 * MARGIN) / src.shape[1], (H - 2 * MARGIN) / src.shape[0])
+scale = CITY_HEIGHT / src.shape[0]
 tw, th = int(src.shape[1] * scale), int(src.shape[0] * scale)
 ox, oy = (W - tw) // 2, (H - th) // 2
 
@@ -242,36 +231,41 @@ LON = 23.3215 + (x0 + (gx - ox) / scale - 312 - fdx) / (1119 * fsc)
 LAT = 42.6966 - (y0 + (gy - oy) / scale - 312 - fdy) / (1521 * fsc)
 KM_PER_PX = 1 / (13.7 * fsc * scale)
 
-# ---------------------------------------------------------------- terrain classes (0 plains, 1 forest, 2 hills, 3 mountain)
+# ---------------------------------------------------------------- real elevation and land cover
+# tools/fetch_geodata.py downloads them: AWS Terrain Tiles (metres) and ESA WorldCover 2021 (classes:
+# 10 trees, 20 shrubs, 30 grass, 40 crops, 50 built-up, 60 bare, 70 snow, 80 water, 90 wetland).
+geo = np.load(os.path.join(ROOT, "tools", "geodata", "sofia_geodata.npz"))
+g_lat_min, g_lat_max, g_lon_min, g_lon_max, g_res = geo["bounds"]
+gi = (g_lat_max - LAT) / g_res - 0.5
+gj = (LON - g_lon_min) / g_res - 0.5
+ELEV = ndi.map_coordinates(geo["elevation"].astype(np.float32), [gi, gj], order=1, mode="nearest")
+LC = ndi.map_coordinates(geo["landcover"], [gi, gj], order=0, mode="nearest")
+del gi, gj
+M_PER_PX = KM_PER_PX * 1000
+ELEV_S = ndi.gaussian_filter(ELEV, 1.0)
+slope_y, slope_x = np.gradient(ELEV_S, M_PER_PX)
+SLOPE = np.hypot(slope_x, slope_y)
+TREES = LC == 10
+BUILT = LC == 50
+WATER = ndi.binary_opening(LC == 80, iterations=2)     # lakes and reservoirs, not thin river lines
+MOUNT = (ELEV > 1400) | (SLOPE > 0.40)
+HILL = (ELEV > 850) | (SLOPE > 0.15)
+print(f"geodata: elevation {ELEV.min():.0f}-{ELEV.max():.0f} m, {M_PER_PX:.0f} m per map pixel")
+
+# gameplay class per pixel: 0 plains, 1 forest, 2 hills, 3 mountain; built-up areas stay plains
 cls = np.zeros((H, W), np.uint8)
-elev = np.zeros((H, W), np.float32)
+cls[HILL] = 2
+cls[TREES] = 1
+cls[MOUNT] = 3
+cls[BUILT & ~MOUNT] = 0
 
-
-def smooth_noise(sigma):
-    n_ = ndi.gaussian_filter(RNG.normal(0, 1, (H // 4, W // 4)).astype(np.float32), sigma)
-    n_ /= np.abs(n_).max() + 1e-6
-    return np.asarray(Image.fromarray(n_).resize((W, H), Image.BICUBIC))
-
-
-ragged = 0.6 * smooth_noise(3) + 0.4 * smooth_noise(1.2)   # makes mountain and forest edges irregular
-for name, la, lo, rla, rlo, peak, t_hill, t_forest, t_mount in MOUNTAINS:
-    e = 1 - ((LAT - la) / rla) ** 2 - ((LON - lo) / rlo) ** 2 + 0.22 * ragged
-    elev += peak * np.clip(e, 0, 1) ** 1.2
-    if t_hill is not None:
-        cls[(e > t_hill) & (cls < 2)] = 2
-    if t_forest is not None:
-        cls[(e > t_forest) & (cls != 3)] = 1
-    if t_mount is not None:
-        cls[e > t_mount] = 3
-t = (LAT - NORTH_FOOTHILLS_LAT) / 0.06 + 0.45 * ragged
-elev += 60 * np.clip(t, 0, 1.3)
-cls[(t > 0) & (cls == 0)] = 2
-cls[(t > 0.5) & (cls != 3)] = 1
-cls[t > 0.95] = 3
-for name, la, lo, r in PARKS:
-    px_, py_ = place_px(la, lo)
-    cls[(gx - px_) ** 2 + (gy - py_) ** 2 <= (r / KM_PER_PX) ** 2] = 1
-cls[~city] = 0
+# Big real lakes and reservoirs inside the city (the Iskar reservoir) become impassable lake provinces.
+cl_, n_ = ndi.label(WATER & city)
+sizes_ = np.bincount(cl_.ravel())
+big_water = np.isin(cl_, [j for j in range(1, n_ + 1) if sizes_[j] >= 1500])
+dist[big_water] = 0
+city = dist > 0
+print(f"big lakes inside the city: {int(big_water.sum())} px")
 
 # ---------------------------------------------------------------- split districts and the void into provinces
 def kmeans_labels(pts, n, iters=15):
@@ -340,7 +334,7 @@ for k in DISTRICTS:
             next_id += 1
 
 # The void around the city: impassable lakes, split on a 2x coarser grid, then cleaned at full resolution.
-F = 2
+F = 4
 void = ~city
 small_void = void[::F, ::F]
 local_s, sby, sbx = split(small_void, LAKE_TARGET / F ** 2, LAKE_MAX_BOX // F - 3)
@@ -422,14 +416,21 @@ for p, sl in enumerate(prov_slices, 1):
 prov_terrain = {}
 for p in land_ids:
     sl = prov_slices[p - 1]
-    c = cls[sl][prov[sl] == p]
-    share = np.bincount(c, minlength=4) / len(c)
-    if share[3] >= 0.35:
+    m = prov[sl] == p
+    mount = MOUNT[sl][m].mean()
+    built = BUILT[sl][m].mean()
+    forest = (TREES[sl] & ~MOUNT[sl])[m].mean()
+    hills = (HILL[sl] & ~MOUNT[sl])[m].mean()
+    if mount >= 0.35:
         prov_terrain[p] = "mountain"
-    elif share[1] >= 0.35:
+    elif built >= 0.30:
+        prov_terrain[p] = "plains"          # where the houses are
+    elif forest >= 0.50:
         prov_terrain[p] = "forest"
-    elif share[1] + share[2] + share[3] >= 0.5:
+    elif hills >= 0.40:
         prov_terrain[p] = "hills"
+    elif forest >= 0.35:
+        prov_terrain[p] = "forest"
     else:
         prov_terrain[p] = "plains"
 
@@ -479,25 +480,39 @@ for p in range(1, n_prov + 1):
         lines.append(f"{p};{r};{g};{b};lake;false;lakes;0")
 write("map/definition.csv", "\n".join(lines) + "\n")
 
-# ---------------------------------------------------------------- heightmap
-noise = ndi.gaussian_filter(RNG.normal(0, 1, (H // 8, W // 8)).astype(np.float32), 3)
-noise = np.asarray(Image.fromarray(noise / (np.abs(noise).max() + 1e-6)).resize((W, H), Image.BICUBIC))
-land_h = np.clip(104 + 3 * noise + elev, 99, 250)
-shore = ndi.distance_transform_edt(city).astype(np.float32)
-blend = np.clip(shore / 6.0, 0, 1)
-heightmap = np.where(city, 80 + (land_h - 80) * np.maximum(blend, 0.6), 80)
-heightmap = ndi.gaussian_filter(heightmap, 1.5).astype(np.uint8)
-heightmap[city] = np.maximum(heightmap[city], SEA_LEVEL + 4)
+# ---------------------------------------------------------------- heightmap and normal map from the real elevation
+# 96 is the lowest land value; 300 m -> 96, 2700 m and above -> 251, compressed so lowland relief shows.
+E0, E1 = 300.0, 2700.0
+height_f = 96 + 155 * np.clip((ELEV_S - E0) / (E1 - E0), 0, 1) ** 0.75
+heightmap = np.clip(np.round(ndi.gaussian_filter(height_f, 0.8)), 96, 255).astype(np.uint8)
+heightmap[WATER] = 92                          # real lakes and reservoirs render as water
 Image.fromarray(heightmap, "L").save(out("map/heightmap.bmp"))
 
-# normal map (half size)
-hm = heightmap.astype(np.float32)
-gyy, gxx = np.gradient(ndi.gaussian_filter(hm, 1.5))
-nrm = np.dstack([-gxx * 0.6, -gyy * 0.6, np.ones_like(hm)])
+# Normal map (half size) from the real slopes, exaggerated so hills and valleys read clearly. Red = east,
+# green = north, blue = up (Paradox map shaders read the normal map as .rbg).
+EXAG = 3.0
+nrm = np.dstack([-slope_x * EXAG, slope_y * EXAG, np.ones((H, W), np.float32)])
 nrm /= np.linalg.norm(nrm, axis=2, keepdims=True)
-Image.fromarray(((nrm * 0.5 + 0.5) * 255).astype(np.uint8), "RGB").resize((W // 2, H // 2), Image.BILINEAR) \
-    .save(out("map/world_normal.bmp"))
+nrm_img = ((nrm * 0.5 + 0.5) * 255).clip(0, 255).astype(np.uint8)
+Image.fromarray(nrm_img, "RGB").resize((W // 2, H // 2), Image.BOX).save(out("map/world_normal.bmp"))
+del nrm
 
+
+def write_dds_bgra(path, rgba):
+    """Uncompressed A8R8G8B8 DDS with one mip level, the same layout as vanilla's colour map."""
+    h_, w_ = rgba.shape[:2]
+    header = struct.pack("<4s7I44s8I5I", b"DDS ", 124, 0x2100F, h_, w_, w_ * 4, 1, 1, bytes(44),
+                         32, 0x41, 0, 32, 0x00FF0000, 0x0000FF00, 0x000000FF, 0xFF000000, 0x1000, 0, 0, 0, 0)
+    with open(out(path), "wb") as f:
+        f.write(header)
+        f.write(rgba[..., [2, 1, 0, 3]].tobytes())
+
+
+# Colour map: neutral grey (no tint) so the ground textures show as they are, instead of vanilla's world
+# colours stretched over Sofia; alpha (night city lights) off.
+cmap = np.zeros((H // 2, W // 2, 4), np.uint8)
+cmap[..., :3] = 128
+write_dds_bgra("map/terrain/colormap_rgb_cityemissivemask_a.dds", cmap)
 
 # ---------------------------------------------------------------- indexed bitmaps
 def indexed(arr, palette):
@@ -507,19 +522,37 @@ def indexed(arr, palette):
 
 
 gray = [v for i in range(256) for v in (i, i, i)]
-tmap = np.full((H, W), LAKE_BMP_INDEX, np.uint8)
-for c_, idx_ in TERRAIN_BMP_INDEX.items():
-    tmap[city & (cls == c_)] = idx_
+tmap = np.full((H, W), TEX_PLAINS, np.uint8)
+tmap[LC == 40] = TEX_FIELDS
+tmap[HILL] = TEX_HILLS
+tmap[TREES] = TEX_FOREST
+tmap[TREES & (ELEV > 1100)] = TEX_FOREST_HIGH
+tmap[MOUNT & ~TREES] = TEX_ROCK
+tmap[(ELEV > 2500) & ~TREES] = TEX_SNOW
+tmap[LC == 90] = TEX_MARSH
+tmap[BUILT & ~MOUNT] = TEX_PLAINS      # whole built-up areas with houses made the game lag
+tmap[WATER] = TEX_LAKE
+for p, (nm, val) in vp.items():        # houses around every city instead
+    cx_, cy_ = cent[p]
+    r_ = 8 if val >= 10 else 5
+    sl = (slice(max(cy_ - r_, 0), cy_ + r_ + 1), slice(max(cx_ - r_, 0), cx_ + r_ + 1))
+    yy_, xx_ = np.mgrid[sl]
+    houses = ((xx_ - cx_) ** 2 + (yy_ - cy_) ** 2 <= r_ * r_) & (prov[sl] == p) & ~WATER[sl]
+    tmap[sl][houses] = TEX_CITY
 indexed(tmap, gray).save(out("map/terrain.bmp"))
 indexed(np.zeros((H, W)), gray).save(out("map/cities.bmp"))
 
-# trees.bmp (vanilla ratio 1650x600 for 5632x2048): tree palette indices 3 and 4 count as trees
+# trees.bmp (1650x600 for the vanilla-sized map): palette indices 3 and 4 are trees
 tw_t, th_t = round(W * 1650 / 5632), round(H * 600 / 2048)
-forest_small = np.asarray(Image.fromarray((city & (cls == 1)).astype(np.uint8) * 255).resize((tw_t, th_t), Image.BILINEAR)) > 100
-mount_small = np.asarray(Image.fromarray((city & (cls == 3)).astype(np.uint8) * 255).resize((tw_t, th_t), Image.BILINEAR)) > 160
+frac = np.asarray(Image.fromarray(TREES.astype(np.float32)).resize((tw_t, th_t), Image.BOX))
+high = np.asarray(Image.fromarray((ELEV > 1100).astype(np.float32)).resize((tw_t, th_t), Image.BOX))
+# Tree models cost performance: dense ones in and right around the city, a light sprinkle further out.
+near = np.asarray(Image.fromarray((ndi.distance_transform_edt(~city) < 120).astype(np.float32))
+                  .resize((tw_t, th_t), Image.BOX)) > 0.5
+keep = np.where(near, frac > 0.5, (frac > 0.7) & (RNG.random((th_t, tw_t)) < 0.25))
 trees = np.zeros((th_t, tw_t), np.uint8)
-trees[forest_small] = 4
-trees[mount_small & (RNG.random((th_t, tw_t)) < 0.35)] = 3
+trees[keep] = 4
+trees[keep & (high > 0.5)] = 3
 indexed(trees, gray).save(out("map/trees.bmp"))
 
 # rivers.bmp: 255 land, 254 water, 0 source, 1 joins another river, 3..11 river width
@@ -527,23 +560,42 @@ river = np.full((H, W), 255, np.uint8)
 river[~city] = 254
 
 
-def path4(pts):
-    """Pixels of a polyline, 4-connected (rivers must not connect only diagonally)."""
+ELEV_R = ndi.gaussian_filter(ELEV, 3.0)
+
+
+def valley_path(a, b, pad=40):
+    """4-connected cheapest path from a to b, where climbing above the local valley floor is expensive."""
+    (xa, ya), (xb, yb) = [(int(round(v[0])), int(round(v[1]))) for v in (a, b)]
+    bx0, bx1 = max(min(xa, xb) - pad, 0), min(max(xa, xb) + pad, W - 1)
+    by0, by1 = max(min(ya, yb) - pad, 0), min(max(ya, yb) + pad, H - 1)
+    e = ELEV_R[by0:by1 + 1, bx0:bx1 + 1]
+    hh, ww = e.shape
+    cost = 1.0 + ((e - e.min()) / 15.0) ** 1.5
+    idx = np.arange(hh * ww).reshape(hh, ww)
+    pairs = [(idx[:, :-1], idx[:, 1:], (cost[:, :-1] + cost[:, 1:]) / 2),
+             (idx[:-1, :], idx[1:, :], (cost[:-1, :] + cost[1:, :]) / 2)]
+    rows = np.concatenate([q for a_, b_, c_ in pairs for q in (a_.ravel(), b_.ravel())])
+    cols = np.concatenate([q for a_, b_, c_ in pairs for q in (b_.ravel(), a_.ravel())])
+    wts = np.concatenate([q for a_, b_, c_ in pairs for q in (c_.ravel(), c_.ravel())])
+    graph = coo_matrix((wts, (rows, cols)), shape=(hh * ww, hh * ww)).tocsr()
+    s_i, d_i = (ya - by0) * ww + (xa - bx0), (yb - by0) * ww + (xb - bx0)
+    _, pred = dijkstra(graph, indices=s_i, return_predecessors=True)
+    path, cur = [], d_i
+    while cur != s_i and cur >= 0:
+        path.append((cur % ww + bx0, cur // ww + by0))
+        cur = pred[cur]
+    path.append((xa, ya))
+    return path[::-1]
+
+
+def river_course(waypoints):
+    pts = [place_px(la, lo) for la, lo in waypoints]
     res = []
-    for (xa, ya), (xb, yb) in zip(pts, pts[1:]):
-        xa, ya, xb, yb = int(round(xa)), int(round(ya)), int(round(xb)), int(round(yb))
-        n = max(abs(xb - xa), abs(yb - ya), 1)
-        prev = None
-        for i in range(n + 1):
-            x = int(round(xa + (xb - xa) * i / n))
-            y = int(round(ya + (yb - ya) * i / n))
-            if prev and prev[0] != x and prev[1] != y:
-                res.append((x, prev[1]))
-            if not res or res[-1] != (x, y):
-                res.append((x, y))
-            prev = (x, y)
+    for a, b in zip(pts, pts[1:]):
+        seg = valley_path(a, b)
+        res += seg if not res else seg[1:]
     out_, seen = [], {}
-    for q in res:   # cut out any loop the polyline makes
+    for q in res:   # cut out any loop
         if q in seen:
             del out_[seen[q] + 1:]
             seen = {v: i for i, v in enumerate(out_)}
@@ -560,19 +612,6 @@ def path4(pts):
                 break
         i += 1
     return out_
-
-
-def meander(waypoints, wiggle=0.25):
-    """Map-pixel waypoints with gentle bends between the given points."""
-    pts = [place_px(la, lo) for la, lo in waypoints]
-    res = [pts[0]]
-    for (xa, ya), (xb, yb) in zip(pts, pts[1:]):
-        nx, ny = -(yb - ya), xb - xa
-        for f in (1 / 3, 2 / 3):
-            off = wiggle * RNG.uniform(-1, 1)
-            res.append((xa + (xb - xa) * f + nx * off * 0.3, ya + (yb - ya) * f + ny * off * 0.3))
-        res.append((xb, yb))
-    return res
 
 
 river_mask = np.zeros((H, W), bool)
@@ -602,7 +641,7 @@ def junction_ok(base, seq):
 
 
 for ri, (rname, width, waypoints) in enumerate(RIVERS):
-    pix = path4(meander(waypoints))
+    pix = river_course(waypoints)
     on_land = [city[y, x] if 0 <= x < W and 0 <= y < H else False for x, y in pix]
     if ri == 0:   # main river: its longest stretch on land
         runs, cur = [], []
@@ -683,7 +722,25 @@ seasons = "seasons.txt"
 # Define which indices in trees.bmp palette which should count as trees for automatic terrain assignment
 tree = { 3 4 7 10 }
 """)
-write("map/ambient_object.txt", "")   # vanilla ambient objects are placed for the 5632x2048 world map
+cxm, cym = ox + tw / 2, oy + th / 2           # middle of the city in map pixels
+write("common/defines/zz_evil_sofia_defines.lua", f"""-- Evil Sofia: defines for a city-sized map. Only keys the game already has are changed.
+local function set(tbl, ns, key, value)
+	if tbl ~= nil and tbl[ns] ~= nil and tbl[ns][key] ~= nil then
+		tbl[ns][key] = value
+	end
+end
+-- One map pixel is about {M_PER_PX:.0f} m in reality; 1.5 km per pixel keeps unit movement close to vanilla pacing.
+set(NDefines, "NGame", "MAP_SCALE_PIXEL_TO_KM", 1.5)
+-- The main menu camera looks at the city.
+for _, tbl in ipairs({{NDefines, NDefines_Graphics}}) do
+	set(tbl, "NFrontend", "CAMERA_LOOKAT_X", {cxm:.1f})
+	set(tbl, "NFrontend", "CAMERA_LOOKAT_Z", {H - cym:.1f})
+	set(tbl, "NFrontend", "CAMERA_START_X", {cxm:.1f})
+	set(tbl, "NFrontend", "CAMERA_START_Z", {H - cym - 120:.1f})
+	set(tbl, "NFrontend", "CAMERA_END_X", {cxm:.1f})
+	set(tbl, "NFrontend", "CAMERA_END_Z", {H - cym - 120:.1f})
+end
+""")
 write("map/positions.txt", "")
 # Keep the vanilla continent names: portraits and AI files refer to them. Sofia counts as europe (index 1).
 write("map/continent.txt", "continents = {\n" + "".join(f"\t{c}\n" for c in ("europe", "north_america", "south_america", "australia", "africa", "asia", "middle_east")) + "}\n")
@@ -928,7 +985,7 @@ recruit_character = {tag}_general
 \tsurnames = {{ {' '.join(SURNAMES)} }}
 \tcallsigns = {{ Vitosha Iskar Lion Eagle Hawk Falcon Wolf Bear }}
 }}""")
-    bookmark_countries.append(f"\t\t\t{tag} = {{ }}")
+    bookmark_countries.append(f"\t\t\t{tag} = {{\n\t\t\t\thistory = \"EVIL_SOFIA_START_DESC\"\n\t\t\t\tideology = neutrality\n\t\t\t}}")
     loc += [f' {tag}:0 "{name}"', f' {tag}_DEF:0 "{name}"', f' {tag}_ADJ:0 "{adj_}"',
             f' STATE_{k}:0 "{name}"', f' {tag}_leader:0 "{leader[0]} {leader[1]}"',
             f' {tag}_general:0 "{general[0]} {general[1]}"']
@@ -1004,15 +1061,23 @@ political = np.zeros((H, W, 3), np.uint8)
 political[:] = (40, 52, 70)
 for k in DISTRICTS:
     political[dist == k] = country_color(k)
-preview(political, "preview/cities_preview.png")
-terrain_rgb = np.zeros((H, W, 3), np.uint8)
-terrain_rgb[:] = (40, 52, 70)
-for c_, col_ in {0: (196, 186, 132), 1: (56, 120, 52), 2: (150, 128, 78), 3: (120, 110, 110)}.items():
-    terrain_rgb[city & (cls == c_)] = col_
-preview(terrain_rgb, "preview/terrain_preview.png")
+preview(political, "preview/cities_preview.png", scale_up=1)
+shade = np.clip(0.55 + 0.45 * ((-slope_x + slope_y) * EXAG * 0.7), 0.25, 1.2)[..., None]
+terrain_rgb = np.zeros((H, W, 3), np.float32)
+terrain_rgb[:] = (196, 186, 132)
+terrain_rgb[tmap == TEX_FIELDS] = (210, 196, 120)
+terrain_rgb[np.isin(tmap, [TEX_FOREST, TEX_FOREST_HIGH])] = (56, 120, 52)
+terrain_rgb[tmap == TEX_HILLS] = (160, 140, 90)
+terrain_rgb[tmap == TEX_ROCK] = (130, 120, 115)
+terrain_rgb[tmap == TEX_SNOW] = (235, 235, 240)
+terrain_rgb[tmap == TEX_CITY] = (200, 60, 50)
+terrain_rgb[WATER] = (60, 110, 190)
+terrain_rgb = (terrain_rgb * shade).clip(0, 255)
+terrain_rgb[~city] = terrain_rgb[~city] * 0.55
+preview(terrain_rgb.astype(np.uint8), "preview/terrain_preview.png", scale_up=1)
 whole = political.copy()
 whole[border] = (20, 20, 20)
-pim = Image.fromarray(whole)
+pim = Image.fromarray(whole).resize((W // 2, H // 2), Image.BOX)
 d = ImageDraw.Draw(pim)
 d.text((30, 25), "EVIL SOFIA", fill=(220, 60, 60), font=big, stroke_width=3, stroke_fill="black")
 pim.save(out("preview/political_preview.png"))

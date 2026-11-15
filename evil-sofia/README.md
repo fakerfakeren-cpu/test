@@ -22,10 +22,15 @@ street or village. The splits are placeholders until they are redrawn along real
 
 These follow a working 1.16 total-conversion map mod (MappaMundi) and engine rules measured in game on HOI4 1.19
 by the Hoi4_world_map project (github.com/derprito64bit/Hoi4_world_map):
-- The map is 2048x1024, so the whole city fits on screen when zoomed out. The vanilla ambient objects
-  (map frame and decorations) are placed for the 5632x2048 world map, so `map/ambient_object.txt` is empty.
-- Every province is at most 100 pixels across. The engine logs "TOO LARGE BOX" and misplaces unit models for
-  provinces taller than about 174 px on the vanilla map (the limit may scale with the map size).
+- The map is 5632x2048, the vanilla size: the camera limits, the map frame (vanilla ambient objects) and the
+  water textures are made for it. The city is 1150 px tall in the middle; around it is the real land around
+  Sofia (Vitosha, Lyulin, the Balkan foothills, Plana, the Iskar reservoir) as impassable lake provinces.
+- `common/defines/zz_evil_sofia_defines.lua` sets `MAP_SCALE_PIXEL_TO_KM` to 1.5 (one pixel is really ~47 m)
+  so movement takes about as long as in vanilla, and points the main-menu camera at the city.
+- `map/terrain/colormap_rgb_cityemissivemask_a.dds` is neutral grey: vanilla's world colour map stretched over
+  Sofia looked wrong, and grey leaves the ground textures untinted.
+- Every province is at most 150 pixels across. The engine logs "TOO LARGE BOX" and misplaces unit models for
+  provinces taller than about 174 px on the vanilla map.
 - `map/buildings.txt` uses the HOI4 1.19 building position types, in vanilla's numbers: per state 6 arms
   factories, 6 civilian factories, 3 anti-air, and one each of air base, refinery, radar, fuel silo,
   stronghold network, nuclear reactor and rocket site; per land province a bunker, a supply node and a
@@ -42,23 +47,32 @@ by the Hoi4_world_map project (github.com/derprito64bit/Hoi4_world_map):
 - Each district has several provinces with a named city (victory point) in each: neighbourhoods, streets
   and villages, with the biggest as the capital. The names and their rough coordinates are the `NAMES`
   table in `tools/build_map.py`; `preview/cities_preview.png` shows where they ended up.
-- Terrain follows the real geography (tables `MOUNTAINS`, `PARKS`, `RIVERS` in `tools/build_map.py`):
-  built-up areas are plains; parks (Borisova Gradina, South Park, West Park, ...) are forest; Vitosha, Lyulin,
-  the Lozen mountain, Plana and the Balkan foothills in the north are mountains, forest and hills. A province's
-  gameplay terrain is its roughest terrain covering at least 35 % of it. No city-building texture is used: it
-  spawns thousands of house models and made the game lag.
-- Rivers: the Iskar, Perlovska, Vladayska and Boyanska, 1 px wide and 4-connected, each with one source pixel;
-  tributaries end in a flow-in pixel touching the river they join.
+- Terrain comes from real data (`tools/fetch_geodata.py`): elevation from the AWS Terrain Tiles (SRTM-based) and
+  land cover from ESA WorldCover 2021. The heightmap and the normal map follow the real relief (the normal map
+  exaggerates slopes 3x so hills read clearly); tree cover gives forest textures and tree models (parks
+  included); high or steep ground is rock, above 2500 m snow; built-up areas are plain ground with a small patch
+  of houses (city texture) around each named city. Whole built-up areas with houses made the game lag.
+- Gameplay terrain per province: mountain if 35 % is mountain, plains if 30 % is built-up, forest if 50 % is tree
+  cover, hills if 40 % is hilly, else plains.
+- The Iskar reservoir and other big lakes inside the city are impassable lake provinces.
+- Rivers (Iskar, Perlovska, Vladayska, Boyanska) follow the real valleys: the cheapest path over the elevation
+  between rough waypoints. 1 px wide, 4-connected, one source each, flow-in pixel where a tributary joins.
 - Characters: `common/characters/<TAG>.txt` gives every country a leader (despotism) and a corps commander;
   `common/names/evil_sofia_names.txt` gives the game Bulgarian names for the characters it generates itself.
 
 ## How the map is made
 
-`tools/districts_mask.png` is the source. It is grayscale, and each pixel's value is the district number (1–24); 0 means outside the city.
+Real geography: run `python3 tools/fetch_geodata.py` once. It downloads about 175 MB into `tools/geodata/cache/`
+and writes `tools/geodata/sofia_geodata.npz` (not committed). Data: ESA WorldCover 2021, CC BY 4.0
+(© ESA WorldCover project, contains modified Copernicus Sentinel data 2021); AWS Terrain Tiles (Mapzen,
+SRTM and other public sources).
+
+`tools/districts_mask.png` is the source for the districts. It is grayscale, and each pixel's value is the district number (1–24); 0 means outside the city.
 `tools/build_map.py` reads it and writes every map, state, country and localisation file:
 
 ```bash
-pip install numpy pillow scipy
+pip install numpy pillow scipy tifffile
+python3 tools/fetch_geodata.py
 python3 tools/build_map.py
 ```
 
@@ -86,6 +100,6 @@ Sofia has no sea, so there are no navies.
 ## Known gaps
 
 - No armies yet: countries have no divisions, technologies or equipment.
-- `map/cities.bmp` is blank and there is no custom colour map, so the vanilla one is stretched over the city.
+- `map/cities.bmp` is blank (all city models use the default city group).
 - Vanilla focus trees and events still refer to vanilla countries and states; they never fire for the districts.
 - `supported_version` is `1.*`, so the launcher accepts any 1.x game version.

@@ -7,21 +7,21 @@ state = {
 	history = {
 		owner = VIT
 		add_core_of = VIT
-		victory_points = { 81 10 }
-		victory_points = { 80 3 }
-		victory_points = { 82 3 }
-		victory_points = { 83 3 }
-		victory_points = { 84 3 }
-		victory_points = { 85 3 }
-		victory_points = { 86 3 }
-		victory_points = { 87 3 }
-		victory_points = { 89 3 }
+		victory_points = { 97 10 }
+		victory_points = { 88 3 }
+		victory_points = { 90 3 }
+		victory_points = { 91 3 }
+		victory_points = { 92 3 }
+		victory_points = { 93 3 }
+		victory_points = { 94 3 }
+		victory_points = { 96 3 }
+		victory_points = { 98 3 }
 		buildings = {
 			infrastructure = 3
 		}
 	}
 
 	provinces = {
-		81 80 82 83 84 85 86 87 88 89
+		97 88 89 90 91 92 93 94 95 96 98 99
 	}
 }

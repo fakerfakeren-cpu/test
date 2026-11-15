@@ -7,9 +7,9 @@ state = {
 	history = {
 		owner = SLA
 		add_core_of = SLA
-		victory_points = { 20 10 }
-		victory_points = { 18 3 }
-		victory_points = { 21 3 }
+		victory_points = { 24 10 }
+		victory_points = { 22 3 }
+		victory_points = { 23 3 }
 		buildings = {
 			infrastructure = 4
 			industrial_complex = 2
@@ -17,6 +17,6 @@ state = {
 	}
 
 	provinces = {
-		20 18 19 21
+		24 21 22 23
 	}
 }
