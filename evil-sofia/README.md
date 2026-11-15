@@ -99,7 +99,9 @@ Sofia has no sea, so there are no navies.
 
 ## Known gaps
 
-- No armies yet: countries have no divisions, technologies or equipment.
+- Armies are minimal: every district starts with basic infantry, support, artillery and train technology,
+  a "City Guard" template (4 infantry battalions), 1-3 divisions in its capital (one per 40,000 people, rounded
+  up) and 500 infantry equipment in stock.
 - `map/cities.bmp` is blank (all city models use the default city group).
 - Vanilla focus trees and events still refer to vanilla countries and states; they never fire for the districts.
 - `supported_version` is `1.*`, so the launcher accepts any 1.x game version.

@@ -887,7 +887,7 @@ write("map/weatherpositions.txt", "\n".join(wpos) + "\n")
 # ---------------------------------------------------------------- states, countries, characters, localisation
 loc = ["l_english:", ' EVIL_SOFIA_START_NAME:0 "The Fall of Sofia"',
        ' EVIL_SOFIA_START_DESC:0 "The city council has collapsed. Twenty-four districts, twenty-four warlords. Only one will rule Sofia."']
-tags_txt, bookmark_countries, name_lists = [], [], []
+tags_txt, bookmark_countries, name_lists, colors_txt = [], [], [], []
 for k, (tag, name, adj_, cat, pop, reg) in DISTRICTS.items():
     infra = 5 if cat in ("megalopolis", "metropolis") else 4 if cat in ("large_city", "city") else 3
     civ = {"megalopolis": 3, "metropolis": 2, "large_city": 2, "city": 1}.get(cat, 0)
@@ -974,7 +974,54 @@ set_popularities = {{
 
 recruit_character = {tag}_leader
 recruit_character = {tag}_general
+
+oob = "{tag}_1936"
+
+# A basic 1936 start like vanilla minor nations: no country starts without technology or an army.
+set_technology = {{
+	infantry_weapons = 1
+	infantry_weapons1 = 1
+	tech_support = 1
+	tech_engineers = 1
+	tech_recon = 1
+	gw_artillery = 1
+	basic_train = 1
+}}
 """)
+    n_div = 1 + pop // 40000
+    divisions = "\n".join(f"""\tdivision = {{
+\t\tname = "{i + 1}{'st' if i == 0 else 'nd' if i == 1 else 'rd' if i == 2 else 'th'} {name} Guard"
+\t\tlocation = {capital[k]}
+\t\tdivision_template = "City Guard"
+\t\tstart_experience_factor = 0.2
+\t\tstart_equipment_factor = 1.0
+\t}}""" for i in range(n_div))
+    write(f"history/units/{tag}_1936.txt", f"""division_template = {{
+\tname = "City Guard"
+\tregiments = {{
+\t\tinfantry = {{ x = 0 y = 0 }}
+\t\tinfantry = {{ x = 0 y = 1 }}
+\t\tinfantry = {{ x = 1 y = 0 }}
+\t\tinfantry = {{ x = 1 y = 1 }}
+\t}}
+}}
+
+units = {{
+{divisions}
+}}
+
+instant_effect = {{
+\tadd_equipment_to_stockpile = {{
+\t\ttype = infantry_equipment_1
+\t\tamount = 500
+\t\tproducer = {tag}
+\t}}
+}}
+""")
+    colors_txt.append(f"""{tag} = {{
+\tcolor = rgb {{ {r} {g} {b} }}
+\tcolor_ui = rgb {{ {min(r + 30, 255)} {min(g + 30, 255)} {min(b + 30, 255)} }}
+}}""")
     name_lists.append(f"""{tag} = {{
 \tmale = {{
 \t\tnames = {{ {' '.join(FIRST)} }}
@@ -1004,6 +1051,9 @@ loc.append(' SUPPLYAREA_1:0 "Sofia"')
 # which keeps vanilla scripts that mention GER, SOV etc. parsing cleanly.
 write("common/country_tags/evil_sofia_countries.txt", "\n".join(tags_txt) + "\n")
 write("common/names/evil_sofia_names.txt", "\n".join(name_lists) + "\n")
+# Map and interface colours. This replaces vanilla's colors.txt; vanilla countries still have the colour in
+# their own country file and never appear on this map.
+write("common/countries/colors.txt", "\n".join(colors_txt) + "\n")
 write("localisation/english/evil_sofia_l_english.yml", "\n".join(loc) + "\n", bom=True)
 write("common/bookmarks/the_fall_of_sofia.txt", f"""bookmarks = {{
 \tbookmark = {{
