@@ -1,11 +1,11 @@
 # Evil Sofia (HOI4 total-conversion mod)
 
 The map is Sofia, Bulgaria. Each of the 24 city districts is a country.
-Every district is **one state**. The bigger districts are split automatically into several provinces of
-roughly equal size, because HOI4 has problems with very large provinces. These splits are placeholders; they will be replaced
-with real neighbourhoods later.
+Every district is **one state** and one country, with a leader and a general. The districts are split
+automatically into provinces of roughly equal size; each province has a city named after a real neighbourhood,
+street or village. The splits are placeholders until they are redrawn along real neighbourhoods.
 
-![political preview](preview/political_preview.png)
+![terrain and cities](preview/terrain_preview.png)
 
 ## Install (for testing)
 
@@ -22,9 +22,10 @@ with real neighbourhoods later.
 
 These follow a working 1.16 total-conversion map mod (MappaMundi) and engine rules measured in game on HOI4 1.19
 by the Hoi4_world_map project (github.com/derprito64bit/Hoi4_world_map):
-- The map is 5632x2048, the same size as vanilla, so vanilla textures, ambient objects and the map frame still fit.
-- Every province is at most 170 pixels across. On a vanilla-sized map the engine logs "TOO LARGE BOX" and
-  misplaces unit models for provinces taller than about 174 px.
+- The map is 2048x1024, so the whole city fits on screen when zoomed out. The vanilla ambient objects
+  (map frame and decorations) are placed for the 5632x2048 world map, so `map/ambient_object.txt` is empty.
+- Every province is at most 100 pixels across. The engine logs "TOO LARGE BOX" and misplaces unit models for
+  provinces taller than about 174 px on the vanilla map (the limit may scale with the map size).
 - `map/buildings.txt` uses the HOI4 1.19 building position types, in vanilla's numbers: per state 6 arms
   factories, 6 civilian factories, 3 anti-air, and one each of air base, refinery, radar, fuel silo,
   stronghold network, nuclear reactor and rocket site; per land province a bunker, a supply node and a
@@ -41,6 +42,15 @@ by the Hoi4_world_map project (github.com/derprito64bit/Hoi4_world_map):
 - Each district has several provinces with a named city (victory point) in each: neighbourhoods, streets
   and villages, with the biggest as the capital. The names and their rough coordinates are the `NAMES`
   table in `tools/build_map.py`; `preview/cities_preview.png` shows where they ended up.
+- Terrain follows the real geography (tables `MOUNTAINS`, `PARKS`, `RIVERS` in `tools/build_map.py`):
+  built-up areas are plains; parks (Borisova Gradina, South Park, West Park, ...) are forest; Vitosha, Lyulin,
+  the Lozen mountain, Plana and the Balkan foothills in the north are mountains, forest and hills. A province's
+  gameplay terrain is its roughest terrain covering at least 35 % of it. No city-building texture is used: it
+  spawns thousands of house models and made the game lag.
+- Rivers: the Iskar, Perlovska, Vladayska and Boyanska, 1 px wide and 4-connected, each with one source pixel;
+  tributaries end in a flow-in pixel touching the river they join.
+- Characters: `common/characters/<TAG>.txt` gives every country a leader (despotism) and a corps commander;
+  `common/names/evil_sofia_names.txt` gives the game Bulgarian names for the characters it generates itself.
 
 ## How the map is made
 
@@ -73,10 +83,9 @@ If a border is wrong, paint the mask with the correct value using any editor tha
 State ID = district number. The provinces outside the city are impassable lakes ("The Void").
 Sofia has no sea, so there are no navies.
 
-## Not tested in game yet
+## Known gaps
 
-These files were generated without a copy of HOI4 to test against. The following parts are the most likely to need fixing:
-- `map/terrain.bmp`, `map/trees.bmp` and `map/cities.bmp` are blank placeholders. Gameplay terrain is set in `definition.csv`; these files only change how the map looks.
-- `map/world_normal.bmp` uses a guessed format. There is no custom colour map yet, so the vanilla one is stretched over the city.
-- Vanilla focus trees, events and AI files still refer to vanilla countries and states. Expect a long `error.log`.
+- No armies yet: countries have no divisions, technologies or equipment.
+- `map/cities.bmp` is blank and there is no custom colour map, so the vanilla one is stretched over the city.
+- Vanilla focus trees and events still refer to vanilla countries and states; they never fire for the districts.
 - `supported_version` is `1.*`, so the launcher accepts any 1.x game version.

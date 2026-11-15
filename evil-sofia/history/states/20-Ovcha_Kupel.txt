@@ -7,16 +7,16 @@ state = {
 	history = {
 		owner = OVK
 		add_core_of = OVK
-		victory_points = { 95 10 }
-		victory_points = { 94 3 }
-		victory_points = { 96 3 }
-		victory_points = { 97 3 }
+		victory_points = { 90 10 }
+		victory_points = { 91 3 }
+		victory_points = { 92 3 }
+		victory_points = { 93 3 }
 		buildings = {
 			infrastructure = 3
 		}
 	}
 
 	provinces = {
-		95 94 96 97
+		90 91 92 93
 	}
 }

@@ -1,0 +1,22 @@
+characters = {
+	PNC_leader = {
+		name = PNC_leader
+		country_leader = {
+			ideology = despotism
+			expire = "1965.1.1.1"
+			id = -1
+		}
+	}
+	PNC_general = {
+		name = PNC_general
+		corps_commander = {
+			traits = { }
+			skill = 3
+			attack_skill = 3
+			defense_skill = 2
+			planning_skill = 2
+			logistics_skill = 2
+			legacy_id = -1
+		}
+	}
+}

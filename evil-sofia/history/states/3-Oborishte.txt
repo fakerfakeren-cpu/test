@@ -8,7 +8,6 @@ state = {
 		owner = OBR
 		add_core_of = OBR
 		victory_points = { 5 15 }
-		victory_points = { 6 3 }
 		buildings = {
 			infrastructure = 5
 			industrial_complex = 2
@@ -16,6 +15,6 @@ state = {
 	}
 
 	provinces = {
-		5 6
+		5
 	}
 }

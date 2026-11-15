@@ -7,10 +7,10 @@ state = {
 	history = {
 		owner = MLA
 		add_core_of = MLA
-		victory_points = { 50 10 }
+		victory_points = { 49 10 }
+		victory_points = { 47 3 }
 		victory_points = { 48 3 }
-		victory_points = { 49 3 }
-		victory_points = { 51 3 }
+		victory_points = { 50 3 }
 		buildings = {
 			infrastructure = 4
 			industrial_complex = 1
@@ -18,6 +18,6 @@ state = {
 	}
 
 	provinces = {
-		50 48 49 51
+		49 47 48 50
 	}
 }

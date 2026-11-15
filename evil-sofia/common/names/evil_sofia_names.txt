@@ -1,0 +1,240 @@
+SRD = {
+	male = {
+		names = { Krum Asen Boris Kaloyan Simeon Petar Ivan Todor Stoyan Hristo Vasil Lyuben Georgi Dimitar Nikola Atanas Kiril Angel Rumen Plamen Ognyan Bozhidar Radoslav Zhivko Stefan Yordan Mihail Lazar Konstantin Velizar Tsvetan Emil Rayko Sava Pavel Trayko Kosta Vladimir Dobri Spas Grigor Anton Valentin Svetoslav Yasen Momchil Zlatko Iliya }
+	}
+	female = {
+		names = { Maria Elena Ivanka Yordanka Rositsa Desislava Vesela Teodora Milena Radka Stefka Tsvetana Gergana Kalina Nevena Zornitsa }
+	}
+	surnames = { Ivanov Petrov Georgiev Dimitrov Nikolov Stoyanov Todorov Hristov Vasilev Angelov Atanasov Kirilov Popov Kolev Marinov Yordanov Iliev Mihaylov Kostov Pavlov Stefanov Lazarov Radev Zhelev Bonev Tsvetkov Kamenov Dobrev Spasov Grigorov Antonov Valchev Penev Slavov Rusev Tonchev Genov Velchev Ganev Yankov Draganov Bogdanov Ruskov Simeonov Tasev Uzunov Vulkov Zahariev }
+	callsigns = { Vitosha Iskar Lion Eagle Hawk Falcon Wolf Bear }
+}
+VAZ = {
+	male = {
+		names = { Krum Asen Boris Kaloyan Simeon Petar Ivan Todor Stoyan Hristo Vasil Lyuben Georgi Dimitar Nikola Atanas Kiril Angel Rumen Plamen Ognyan Bozhidar Radoslav Zhivko Stefan Yordan Mihail Lazar Konstantin Velizar Tsvetan Emil Rayko Sava Pavel Trayko Kosta Vladimir Dobri Spas Grigor Anton Valentin Svetoslav Yasen Momchil Zlatko Iliya }
+	}
+	female = {
+		names = { Maria Elena Ivanka Yordanka Rositsa Desislava Vesela Teodora Milena Radka Stefka Tsvetana Gergana Kalina Nevena Zornitsa }
+	}
+	surnames = { Ivanov Petrov Georgiev Dimitrov Nikolov Stoyanov Todorov Hristov Vasilev Angelov Atanasov Kirilov Popov Kolev Marinov Yordanov Iliev Mihaylov Kostov Pavlov Stefanov Lazarov Radev Zhelev Bonev Tsvetkov Kamenov Dobrev Spasov Grigorov Antonov Valchev Penev Slavov Rusev Tonchev Genov Velchev Ganev Yankov Draganov Bogdanov Ruskov Simeonov Tasev Uzunov Vulkov Zahariev }
+	callsigns = { Vitosha Iskar Lion Eagle Hawk Falcon Wolf Bear }
+}
+OBR = {
+	male = {
+		names = { Krum Asen Boris Kaloyan Simeon Petar Ivan Todor Stoyan Hristo Vasil Lyuben Georgi Dimitar Nikola Atanas Kiril Angel Rumen Plamen Ognyan Bozhidar Radoslav Zhivko Stefan Yordan Mihail Lazar Konstantin Velizar Tsvetan Emil Rayko Sava Pavel Trayko Kosta Vladimir Dobri Spas Grigor Anton Valentin Svetoslav Yasen Momchil Zlatko Iliya }
+	}
+	female = {
+		names = { Maria Elena Ivanka Yordanka Rositsa Desislava Vesela Teodora Milena Radka Stefka Tsvetana Gergana Kalina Nevena Zornitsa }
+	}
+	surnames = { Ivanov Petrov Georgiev Dimitrov Nikolov Stoyanov Todorov Hristov Vasilev Angelov Atanasov Kirilov Popov Kolev Marinov Yordanov Iliev Mihaylov Kostov Pavlov Stefanov Lazarov Radev Zhelev Bonev Tsvetkov Kamenov Dobrev Spasov Grigorov Antonov Valchev Penev Slavov Rusev Tonchev Genov Velchev Ganev Yankov Draganov Bogdanov Ruskov Simeonov Tasev Uzunov Vulkov Zahariev }
+	callsigns = { Vitosha Iskar Lion Eagle Hawk Falcon Wolf Bear }
+}
+KRS = {
+	male = {
+		names = { Krum Asen Boris Kaloyan Simeon Petar Ivan Todor Stoyan Hristo Vasil Lyuben Georgi Dimitar Nikola Atanas Kiril Angel Rumen Plamen Ognyan Bozhidar Radoslav Zhivko Stefan Yordan Mihail Lazar Konstantin Velizar Tsvetan Emil Rayko Sava Pavel Trayko Kosta Vladimir Dobri Spas Grigor Anton Valentin Svetoslav Yasen Momchil Zlatko Iliya }
+	}
+	female = {
+		names = { Maria Elena Ivanka Yordanka Rositsa Desislava Vesela Teodora Milena Radka Stefka Tsvetana Gergana Kalina Nevena Zornitsa }
+	}
+	surnames = { Ivanov Petrov Georgiev Dimitrov Nikolov Stoyanov Todorov Hristov Vasilev Angelov Atanasov Kirilov Popov Kolev Marinov Yordanov Iliev Mihaylov Kostov Pavlov Stefanov Lazarov Radev Zhelev Bonev Tsvetkov Kamenov Dobrev Spasov Grigorov Antonov Valchev Penev Slavov Rusev Tonchev Genov Velchev Ganev Yankov Draganov Bogdanov Ruskov Simeonov Tasev Uzunov Vulkov Zahariev }
+	callsigns = { Vitosha Iskar Lion Eagle Hawk Falcon Wolf Bear }
+}
+SRK = {
+	male = {
+		names = { Krum Asen Boris Kaloyan Simeon Petar Ivan Todor Stoyan Hristo Vasil Lyuben Georgi Dimitar Nikola Atanas Kiril Angel Rumen Plamen Ognyan Bozhidar Radoslav Zhivko Stefan Yordan Mihail Lazar Konstantin Velizar Tsvetan Emil Rayko Sava Pavel Trayko Kosta Vladimir Dobri Spas Grigor Anton Valentin Svetoslav Yasen Momchil Zlatko Iliya }
+	}
+	female = {
+		names = { Maria Elena Ivanka Yordanka Rositsa Desislava Vesela Teodora Milena Radka Stefka Tsvetana Gergana Kalina Nevena Zornitsa }
+	}
+	surnames = { Ivanov Petrov Georgiev Dimitrov Nikolov Stoyanov Todorov Hristov Vasilev Angelov Atanasov Kirilov Popov Kolev Marinov Yordanov Iliev Mihaylov Kostov Pavlov Stefanov Lazarov Radev Zhelev Bonev Tsvetkov Kamenov Dobrev Spasov Grigorov Antonov Valchev Penev Slavov Rusev Tonchev Genov Velchev Ganev Yankov Draganov Bogdanov Ruskov Simeonov Tasev Uzunov Vulkov Zahariev }
+	callsigns = { Vitosha Iskar Lion Eagle Hawk Falcon Wolf Bear }
+}
+POD = {
+	male = {
+		names = { Krum Asen Boris Kaloyan Simeon Petar Ivan Todor Stoyan Hristo Vasil Lyuben Georgi Dimitar Nikola Atanas Kiril Angel Rumen Plamen Ognyan Bozhidar Radoslav Zhivko Stefan Yordan Mihail Lazar Konstantin Velizar Tsvetan Emil Rayko Sava Pavel Trayko Kosta Vladimir Dobri Spas Grigor Anton Valentin Svetoslav Yasen Momchil Zlatko Iliya }
+	}
+	female = {
+		names = { Maria Elena Ivanka Yordanka Rositsa Desislava Vesela Teodora Milena Radka Stefka Tsvetana Gergana Kalina Nevena Zornitsa }
+	}
+	surnames = { Ivanov Petrov Georgiev Dimitrov Nikolov Stoyanov Todorov Hristov Vasilev Angelov Atanasov Kirilov Popov Kolev Marinov Yordanov Iliev Mihaylov Kostov Pavlov Stefanov Lazarov Radev Zhelev Bonev Tsvetkov Kamenov Dobrev Spasov Grigorov Antonov Valchev Penev Slavov Rusev Tonchev Genov Velchev Ganev Yankov Draganov Bogdanov Ruskov Simeonov Tasev Uzunov Vulkov Zahariev }
+	callsigns = { Vitosha Iskar Lion Eagle Hawk Falcon Wolf Bear }
+}
+SLA = {
+	male = {
+		names = { Krum Asen Boris Kaloyan Simeon Petar Ivan Todor Stoyan Hristo Vasil Lyuben Georgi Dimitar Nikola Atanas Kiril Angel Rumen Plamen Ognyan Bozhidar Radoslav Zhivko Stefan Yordan Mihail Lazar Konstantin Velizar Tsvetan Emil Rayko Sava Pavel Trayko Kosta Vladimir Dobri Spas Grigor Anton Valentin Svetoslav Yasen Momchil Zlatko Iliya }
+	}
+	female = {
+		names = { Maria Elena Ivanka Yordanka Rositsa Desislava Vesela Teodora Milena Radka Stefka Tsvetana Gergana Kalina Nevena Zornitsa }
+	}
+	surnames = { Ivanov Petrov Georgiev Dimitrov Nikolov Stoyanov Todorov Hristov Vasilev Angelov Atanasov Kirilov Popov Kolev Marinov Yordanov Iliev Mihaylov Kostov Pavlov Stefanov Lazarov Radev Zhelev Bonev Tsvetkov Kamenov Dobrev Spasov Grigorov Antonov Valchev Penev Slavov Rusev Tonchev Genov Velchev Ganev Yankov Draganov Bogdanov Ruskov Simeonov Tasev Uzunov Vulkov Zahariev }
+	callsigns = { Vitosha Iskar Lion Eagle Hawk Falcon Wolf Bear }
+}
+IZG = {
+	male = {
+		names = { Krum Asen Boris Kaloyan Simeon Petar Ivan Todor Stoyan Hristo Vasil Lyuben Georgi Dimitar Nikola Atanas Kiril Angel Rumen Plamen Ognyan Bozhidar Radoslav Zhivko Stefan Yordan Mihail Lazar Konstantin Velizar Tsvetan Emil Rayko Sava Pavel Trayko Kosta Vladimir Dobri Spas Grigor Anton Valentin Svetoslav Yasen Momchil Zlatko Iliya }
+	}
+	female = {
+		names = { Maria Elena Ivanka Yordanka Rositsa Desislava Vesela Teodora Milena Radka Stefka Tsvetana Gergana Kalina Nevena Zornitsa }
+	}
+	surnames = { Ivanov Petrov Georgiev Dimitrov Nikolov Stoyanov Todorov Hristov Vasilev Angelov Atanasov Kirilov Popov Kolev Marinov Yordanov Iliev Mihaylov Kostov Pavlov Stefanov Lazarov Radev Zhelev Bonev Tsvetkov Kamenov Dobrev Spasov Grigorov Antonov Valchev Penev Slavov Rusev Tonchev Genov Velchev Ganev Yankov Draganov Bogdanov Ruskov Simeonov Tasev Uzunov Vulkov Zahariev }
+	callsigns = { Vitosha Iskar Lion Eagle Hawk Falcon Wolf Bear }
+}
+LOZ = {
+	male = {
+		names = { Krum Asen Boris Kaloyan Simeon Petar Ivan Todor Stoyan Hristo Vasil Lyuben Georgi Dimitar Nikola Atanas Kiril Angel Rumen Plamen Ognyan Bozhidar Radoslav Zhivko Stefan Yordan Mihail Lazar Konstantin Velizar Tsvetan Emil Rayko Sava Pavel Trayko Kosta Vladimir Dobri Spas Grigor Anton Valentin Svetoslav Yasen Momchil Zlatko Iliya }
+	}
+	female = {
+		names = { Maria Elena Ivanka Yordanka Rositsa Desislava Vesela Teodora Milena Radka Stefka Tsvetana Gergana Kalina Nevena Zornitsa }
+	}
+	surnames = { Ivanov Petrov Georgiev Dimitrov Nikolov Stoyanov Todorov Hristov Vasilev Angelov Atanasov Kirilov Popov Kolev Marinov Yordanov Iliev Mihaylov Kostov Pavlov Stefanov Lazarov Radev Zhelev Bonev Tsvetkov Kamenov Dobrev Spasov Grigorov Antonov Valchev Penev Slavov Rusev Tonchev Genov Velchev Ganev Yankov Draganov Bogdanov Ruskov Simeonov Tasev Uzunov Vulkov Zahariev }
+	callsigns = { Vitosha Iskar Lion Eagle Hawk Falcon Wolf Bear }
+}
+TRD = {
+	male = {
+		names = { Krum Asen Boris Kaloyan Simeon Petar Ivan Todor Stoyan Hristo Vasil Lyuben Georgi Dimitar Nikola Atanas Kiril Angel Rumen Plamen Ognyan Bozhidar Radoslav Zhivko Stefan Yordan Mihail Lazar Konstantin Velizar Tsvetan Emil Rayko Sava Pavel Trayko Kosta Vladimir Dobri Spas Grigor Anton Valentin Svetoslav Yasen Momchil Zlatko Iliya }
+	}
+	female = {
+		names = { Maria Elena Ivanka Yordanka Rositsa Desislava Vesela Teodora Milena Radka Stefka Tsvetana Gergana Kalina Nevena Zornitsa }
+	}
+	surnames = { Ivanov Petrov Georgiev Dimitrov Nikolov Stoyanov Todorov Hristov Vasilev Angelov Atanasov Kirilov Popov Kolev Marinov Yordanov Iliev Mihaylov Kostov Pavlov Stefanov Lazarov Radev Zhelev Bonev Tsvetkov Kamenov Dobrev Spasov Grigorov Antonov Valchev Penev Slavov Rusev Tonchev Genov Velchev Ganev Yankov Draganov Bogdanov Ruskov Simeonov Tasev Uzunov Vulkov Zahariev }
+	callsigns = { Vitosha Iskar Lion Eagle Hawk Falcon Wolf Bear }
+}
+KRP = {
+	male = {
+		names = { Krum Asen Boris Kaloyan Simeon Petar Ivan Todor Stoyan Hristo Vasil Lyuben Georgi Dimitar Nikola Atanas Kiril Angel Rumen Plamen Ognyan Bozhidar Radoslav Zhivko Stefan Yordan Mihail Lazar Konstantin Velizar Tsvetan Emil Rayko Sava Pavel Trayko Kosta Vladimir Dobri Spas Grigor Anton Valentin Svetoslav Yasen Momchil Zlatko Iliya }
+	}
+	female = {
+		names = { Maria Elena Ivanka Yordanka Rositsa Desislava Vesela Teodora Milena Radka Stefka Tsvetana Gergana Kalina Nevena Zornitsa }
+	}
+	surnames = { Ivanov Petrov Georgiev Dimitrov Nikolov Stoyanov Todorov Hristov Vasilev Angelov Atanasov Kirilov Popov Kolev Marinov Yordanov Iliev Mihaylov Kostov Pavlov Stefanov Lazarov Radev Zhelev Bonev Tsvetkov Kamenov Dobrev Spasov Grigorov Antonov Valchev Penev Slavov Rusev Tonchev Genov Velchev Ganev Yankov Draganov Bogdanov Ruskov Simeonov Tasev Uzunov Vulkov Zahariev }
+	callsigns = { Vitosha Iskar Lion Eagle Hawk Falcon Wolf Bear }
+}
+ILN = {
+	male = {
+		names = { Krum Asen Boris Kaloyan Simeon Petar Ivan Todor Stoyan Hristo Vasil Lyuben Georgi Dimitar Nikola Atanas Kiril Angel Rumen Plamen Ognyan Bozhidar Radoslav Zhivko Stefan Yordan Mihail Lazar Konstantin Velizar Tsvetan Emil Rayko Sava Pavel Trayko Kosta Vladimir Dobri Spas Grigor Anton Valentin Svetoslav Yasen Momchil Zlatko Iliya }
+	}
+	female = {
+		names = { Maria Elena Ivanka Yordanka Rositsa Desislava Vesela Teodora Milena Radka Stefka Tsvetana Gergana Kalina Nevena Zornitsa }
+	}
+	surnames = { Ivanov Petrov Georgiev Dimitrov Nikolov Stoyanov Todorov Hristov Vasilev Angelov Atanasov Kirilov Popov Kolev Marinov Yordanov Iliev Mihaylov Kostov Pavlov Stefanov Lazarov Radev Zhelev Bonev Tsvetkov Kamenov Dobrev Spasov Grigorov Antonov Valchev Penev Slavov Rusev Tonchev Genov Velchev Ganev Yankov Draganov Bogdanov Ruskov Simeonov Tasev Uzunov Vulkov Zahariev }
+	callsigns = { Vitosha Iskar Lion Eagle Hawk Falcon Wolf Bear }
+}
+NAD = {
+	male = {
+		names = { Krum Asen Boris Kaloyan Simeon Petar Ivan Todor Stoyan Hristo Vasil Lyuben Georgi Dimitar Nikola Atanas Kiril Angel Rumen Plamen Ognyan Bozhidar Radoslav Zhivko Stefan Yordan Mihail Lazar Konstantin Velizar Tsvetan Emil Rayko Sava Pavel Trayko Kosta Vladimir Dobri Spas Grigor Anton Valentin Svetoslav Yasen Momchil Zlatko Iliya }
+	}
+	female = {
+		names = { Maria Elena Ivanka Yordanka Rositsa Desislava Vesela Teodora Milena Radka Stefka Tsvetana Gergana Kalina Nevena Zornitsa }
+	}
+	surnames = { Ivanov Petrov Georgiev Dimitrov Nikolov Stoyanov Todorov Hristov Vasilev Angelov Atanasov Kirilov Popov Kolev Marinov Yordanov Iliev Mihaylov Kostov Pavlov Stefanov Lazarov Radev Zhelev Bonev Tsvetkov Kamenov Dobrev Spasov Grigorov Antonov Valchev Penev Slavov Rusev Tonchev Genov Velchev Ganev Yankov Draganov Bogdanov Ruskov Simeonov Tasev Uzunov Vulkov Zahariev }
+	callsigns = { Vitosha Iskar Lion Eagle Hawk Falcon Wolf Bear }
+}
+ISK = {
+	male = {
+		names = { Krum Asen Boris Kaloyan Simeon Petar Ivan Todor Stoyan Hristo Vasil Lyuben Georgi Dimitar Nikola Atanas Kiril Angel Rumen Plamen Ognyan Bozhidar Radoslav Zhivko Stefan Yordan Mihail Lazar Konstantin Velizar Tsvetan Emil Rayko Sava Pavel Trayko Kosta Vladimir Dobri Spas Grigor Anton Valentin Svetoslav Yasen Momchil Zlatko Iliya }
+	}
+	female = {
+		names = { Maria Elena Ivanka Yordanka Rositsa Desislava Vesela Teodora Milena Radka Stefka Tsvetana Gergana Kalina Nevena Zornitsa }
+	}
+	surnames = { Ivanov Petrov Georgiev Dimitrov Nikolov Stoyanov Todorov Hristov Vasilev Angelov Atanasov Kirilov Popov Kolev Marinov Yordanov Iliev Mihaylov Kostov Pavlov Stefanov Lazarov Radev Zhelev Bonev Tsvetkov Kamenov Dobrev Spasov Grigorov Antonov Valchev Penev Slavov Rusev Tonchev Genov Velchev Ganev Yankov Draganov Bogdanov Ruskov Simeonov Tasev Uzunov Vulkov Zahariev }
+	callsigns = { Vitosha Iskar Lion Eagle Hawk Falcon Wolf Bear }
+}
+MLA = {
+	male = {
+		names = { Krum Asen Boris Kaloyan Simeon Petar Ivan Todor Stoyan Hristo Vasil Lyuben Georgi Dimitar Nikola Atanas Kiril Angel Rumen Plamen Ognyan Bozhidar Radoslav Zhivko Stefan Yordan Mihail Lazar Konstantin Velizar Tsvetan Emil Rayko Sava Pavel Trayko Kosta Vladimir Dobri Spas Grigor Anton Valentin Svetoslav Yasen Momchil Zlatko Iliya }
+	}
+	female = {
+		names = { Maria Elena Ivanka Yordanka Rositsa Desislava Vesela Teodora Milena Radka Stefka Tsvetana Gergana Kalina Nevena Zornitsa }
+	}
+	surnames = { Ivanov Petrov Georgiev Dimitrov Nikolov Stoyanov Todorov Hristov Vasilev Angelov Atanasov Kirilov Popov Kolev Marinov Yordanov Iliev Mihaylov Kostov Pavlov Stefanov Lazarov Radev Zhelev Bonev Tsvetkov Kamenov Dobrev Spasov Grigorov Antonov Valchev Penev Slavov Rusev Tonchev Genov Velchev Ganev Yankov Draganov Bogdanov Ruskov Simeonov Tasev Uzunov Vulkov Zahariev }
+	callsigns = { Vitosha Iskar Lion Eagle Hawk Falcon Wolf Bear }
+}
+STU = {
+	male = {
+		names = { Krum Asen Boris Kaloyan Simeon Petar Ivan Todor Stoyan Hristo Vasil Lyuben Georgi Dimitar Nikola Atanas Kiril Angel Rumen Plamen Ognyan Bozhidar Radoslav Zhivko Stefan Yordan Mihail Lazar Konstantin Velizar Tsvetan Emil Rayko Sava Pavel Trayko Kosta Vladimir Dobri Spas Grigor Anton Valentin Svetoslav Yasen Momchil Zlatko Iliya }
+	}
+	female = {
+		names = { Maria Elena Ivanka Yordanka Rositsa Desislava Vesela Teodora Milena Radka Stefka Tsvetana Gergana Kalina Nevena Zornitsa }
+	}
+	surnames = { Ivanov Petrov Georgiev Dimitrov Nikolov Stoyanov Todorov Hristov Vasilev Angelov Atanasov Kirilov Popov Kolev Marinov Yordanov Iliev Mihaylov Kostov Pavlov Stefanov Lazarov Radev Zhelev Bonev Tsvetkov Kamenov Dobrev Spasov Grigorov Antonov Valchev Penev Slavov Rusev Tonchev Genov Velchev Ganev Yankov Draganov Bogdanov Ruskov Simeonov Tasev Uzunov Vulkov Zahariev }
+	callsigns = { Vitosha Iskar Lion Eagle Hawk Falcon Wolf Bear }
+}
+LYU = {
+	male = {
+		names = { Krum Asen Boris Kaloyan Simeon Petar Ivan Todor Stoyan Hristo Vasil Lyuben Georgi Dimitar Nikola Atanas Kiril Angel Rumen Plamen Ognyan Bozhidar Radoslav Zhivko Stefan Yordan Mihail Lazar Konstantin Velizar Tsvetan Emil Rayko Sava Pavel Trayko Kosta Vladimir Dobri Spas Grigor Anton Valentin Svetoslav Yasen Momchil Zlatko Iliya }
+	}
+	female = {
+		names = { Maria Elena Ivanka Yordanka Rositsa Desislava Vesela Teodora Milena Radka Stefka Tsvetana Gergana Kalina Nevena Zornitsa }
+	}
+	surnames = { Ivanov Petrov Georgiev Dimitrov Nikolov Stoyanov Todorov Hristov Vasilev Angelov Atanasov Kirilov Popov Kolev Marinov Yordanov Iliev Mihaylov Kostov Pavlov Stefanov Lazarov Radev Zhelev Bonev Tsvetkov Kamenov Dobrev Spasov Grigorov Antonov Valchev Penev Slavov Rusev Tonchev Genov Velchev Ganev Yankov Draganov Bogdanov Ruskov Simeonov Tasev Uzunov Vulkov Zahariev }
+	callsigns = { Vitosha Iskar Lion Eagle Hawk Falcon Wolf Bear }
+}
+KRE = {
+	male = {
+		names = { Krum Asen Boris Kaloyan Simeon Petar Ivan Todor Stoyan Hristo Vasil Lyuben Georgi Dimitar Nikola Atanas Kiril Angel Rumen Plamen Ognyan Bozhidar Radoslav Zhivko Stefan Yordan Mihail Lazar Konstantin Velizar Tsvetan Emil Rayko Sava Pavel Trayko Kosta Vladimir Dobri Spas Grigor Anton Valentin Svetoslav Yasen Momchil Zlatko Iliya }
+	}
+	female = {
+		names = { Maria Elena Ivanka Yordanka Rositsa Desislava Vesela Teodora Milena Radka Stefka Tsvetana Gergana Kalina Nevena Zornitsa }
+	}
+	surnames = { Ivanov Petrov Georgiev Dimitrov Nikolov Stoyanov Todorov Hristov Vasilev Angelov Atanasov Kirilov Popov Kolev Marinov Yordanov Iliev Mihaylov Kostov Pavlov Stefanov Lazarov Radev Zhelev Bonev Tsvetkov Kamenov Dobrev Spasov Grigorov Antonov Valchev Penev Slavov Rusev Tonchev Genov Velchev Ganev Yankov Draganov Bogdanov Ruskov Simeonov Tasev Uzunov Vulkov Zahariev }
+	callsigns = { Vitosha Iskar Lion Eagle Hawk Falcon Wolf Bear }
+}
+VIT = {
+	male = {
+		names = { Krum Asen Boris Kaloyan Simeon Petar Ivan Todor Stoyan Hristo Vasil Lyuben Georgi Dimitar Nikola Atanas Kiril Angel Rumen Plamen Ognyan Bozhidar Radoslav Zhivko Stefan Yordan Mihail Lazar Konstantin Velizar Tsvetan Emil Rayko Sava Pavel Trayko Kosta Vladimir Dobri Spas Grigor Anton Valentin Svetoslav Yasen Momchil Zlatko Iliya }
+	}
+	female = {
+		names = { Maria Elena Ivanka Yordanka Rositsa Desislava Vesela Teodora Milena Radka Stefka Tsvetana Gergana Kalina Nevena Zornitsa }
+	}
+	surnames = { Ivanov Petrov Georgiev Dimitrov Nikolov Stoyanov Todorov Hristov Vasilev Angelov Atanasov Kirilov Popov Kolev Marinov Yordanov Iliev Mihaylov Kostov Pavlov Stefanov Lazarov Radev Zhelev Bonev Tsvetkov Kamenov Dobrev Spasov Grigorov Antonov Valchev Penev Slavov Rusev Tonchev Genov Velchev Ganev Yankov Draganov Bogdanov Ruskov Simeonov Tasev Uzunov Vulkov Zahariev }
+	callsigns = { Vitosha Iskar Lion Eagle Hawk Falcon Wolf Bear }
+}
+OVK = {
+	male = {
+		names = { Krum Asen Boris Kaloyan Simeon Petar Ivan Todor Stoyan Hristo Vasil Lyuben Georgi Dimitar Nikola Atanas Kiril Angel Rumen Plamen Ognyan Bozhidar Radoslav Zhivko Stefan Yordan Mihail Lazar Konstantin Velizar Tsvetan Emil Rayko Sava Pavel Trayko Kosta Vladimir Dobri Spas Grigor Anton Valentin Svetoslav Yasen Momchil Zlatko Iliya }
+	}
+	female = {
+		names = { Maria Elena Ivanka Yordanka Rositsa Desislava Vesela Teodora Milena Radka Stefka Tsvetana Gergana Kalina Nevena Zornitsa }
+	}
+	surnames = { Ivanov Petrov Georgiev Dimitrov Nikolov Stoyanov Todorov Hristov Vasilev Angelov Atanasov Kirilov Popov Kolev Marinov Yordanov Iliev Mihaylov Kostov Pavlov Stefanov Lazarov Radev Zhelev Bonev Tsvetkov Kamenov Dobrev Spasov Grigorov Antonov Valchev Penev Slavov Rusev Tonchev Genov Velchev Ganev Yankov Draganov Bogdanov Ruskov Simeonov Tasev Uzunov Vulkov Zahariev }
+	callsigns = { Vitosha Iskar Lion Eagle Hawk Falcon Wolf Bear }
+}
+VRB = {
+	male = {
+		names = { Krum Asen Boris Kaloyan Simeon Petar Ivan Todor Stoyan Hristo Vasil Lyuben Georgi Dimitar Nikola Atanas Kiril Angel Rumen Plamen Ognyan Bozhidar Radoslav Zhivko Stefan Yordan Mihail Lazar Konstantin Velizar Tsvetan Emil Rayko Sava Pavel Trayko Kosta Vladimir Dobri Spas Grigor Anton Valentin Svetoslav Yasen Momchil Zlatko Iliya }
+	}
+	female = {
+		names = { Maria Elena Ivanka Yordanka Rositsa Desislava Vesela Teodora Milena Radka Stefka Tsvetana Gergana Kalina Nevena Zornitsa }
+	}
+	surnames = { Ivanov Petrov Georgiev Dimitrov Nikolov Stoyanov Todorov Hristov Vasilev Angelov Atanasov Kirilov Popov Kolev Marinov Yordanov Iliev Mihaylov Kostov Pavlov Stefanov Lazarov Radev Zhelev Bonev Tsvetkov Kamenov Dobrev Spasov Grigorov Antonov Valchev Penev Slavov Rusev Tonchev Genov Velchev Ganev Yankov Draganov Bogdanov Ruskov Simeonov Tasev Uzunov Vulkov Zahariev }
+	callsigns = { Vitosha Iskar Lion Eagle Hawk Falcon Wolf Bear }
+}
+NIS = {
+	male = {
+		names = { Krum Asen Boris Kaloyan Simeon Petar Ivan Todor Stoyan Hristo Vasil Lyuben Georgi Dimitar Nikola Atanas Kiril Angel Rumen Plamen Ognyan Bozhidar Radoslav Zhivko Stefan Yordan Mihail Lazar Konstantin Velizar Tsvetan Emil Rayko Sava Pavel Trayko Kosta Vladimir Dobri Spas Grigor Anton Valentin Svetoslav Yasen Momchil Zlatko Iliya }
+	}
+	female = {
+		names = { Maria Elena Ivanka Yordanka Rositsa Desislava Vesela Teodora Milena Radka Stefka Tsvetana Gergana Kalina Nevena Zornitsa }
+	}
+	surnames = { Ivanov Petrov Georgiev Dimitrov Nikolov Stoyanov Todorov Hristov Vasilev Angelov Atanasov Kirilov Popov Kolev Marinov Yordanov Iliev Mihaylov Kostov Pavlov Stefanov Lazarov Radev Zhelev Bonev Tsvetkov Kamenov Dobrev Spasov Grigorov Antonov Valchev Penev Slavov Rusev Tonchev Genov Velchev Ganev Yankov Draganov Bogdanov Ruskov Simeonov Tasev Uzunov Vulkov Zahariev }
+	callsigns = { Vitosha Iskar Lion Eagle Hawk Falcon Wolf Bear }
+}
+PNC = {
+	male = {
+		names = { Krum Asen Boris Kaloyan Simeon Petar Ivan Todor Stoyan Hristo Vasil Lyuben Georgi Dimitar Nikola Atanas Kiril Angel Rumen Plamen Ognyan Bozhidar Radoslav Zhivko Stefan Yordan Mihail Lazar Konstantin Velizar Tsvetan Emil Rayko Sava Pavel Trayko Kosta Vladimir Dobri Spas Grigor Anton Valentin Svetoslav Yasen Momchil Zlatko Iliya }
+	}
+	female = {
+		names = { Maria Elena Ivanka Yordanka Rositsa Desislava Vesela Teodora Milena Radka Stefka Tsvetana Gergana Kalina Nevena Zornitsa }
+	}
+	surnames = { Ivanov Petrov Georgiev Dimitrov Nikolov Stoyanov Todorov Hristov Vasilev Angelov Atanasov Kirilov Popov Kolev Marinov Yordanov Iliev Mihaylov Kostov Pavlov Stefanov Lazarov Radev Zhelev Bonev Tsvetkov Kamenov Dobrev Spasov Grigorov Antonov Valchev Penev Slavov Rusev Tonchev Genov Velchev Ganev Yankov Draganov Bogdanov Ruskov Simeonov Tasev Uzunov Vulkov Zahariev }
+	callsigns = { Vitosha Iskar Lion Eagle Hawk Falcon Wolf Bear }
+}
+BNK = {
+	male = {
+		names = { Krum Asen Boris Kaloyan Simeon Petar Ivan Todor Stoyan Hristo Vasil Lyuben Georgi Dimitar Nikola Atanas Kiril Angel Rumen Plamen Ognyan Bozhidar Radoslav Zhivko Stefan Yordan Mihail Lazar Konstantin Velizar Tsvetan Emil Rayko Sava Pavel Trayko Kosta Vladimir Dobri Spas Grigor Anton Valentin Svetoslav Yasen Momchil Zlatko Iliya }
+	}
+	female = {
+		names = { Maria Elena Ivanka Yordanka Rositsa Desislava Vesela Teodora Milena Radka Stefka Tsvetana Gergana Kalina Nevena Zornitsa }
+	}
+	surnames = { Ivanov Petrov Georgiev Dimitrov Nikolov Stoyanov Todorov Hristov Vasilev Angelov Atanasov Kirilov Popov Kolev Marinov Yordanov Iliev Mihaylov Kostov Pavlov Stefanov Lazarov Radev Zhelev Bonev Tsvetkov Kamenov Dobrev Spasov Grigorov Antonov Valchev Penev Slavov Rusev Tonchev Genov Velchev Ganev Yankov Draganov Bogdanov Ruskov Simeonov Tasev Uzunov Vulkov Zahariev }
+	callsigns = { Vitosha Iskar Lion Eagle Hawk Falcon Wolf Bear }
+}

@@ -7,10 +7,10 @@ state = {
 	history = {
 		owner = NAD
 		add_core_of = NAD
-		victory_points = { 41 10 }
+		victory_points = { 42 10 }
+		victory_points = { 39 3 }
 		victory_points = { 40 3 }
-		victory_points = { 42 3 }
-		victory_points = { 43 3 }
+		victory_points = { 41 3 }
 		buildings = {
 			infrastructure = 4
 			industrial_complex = 1
@@ -18,6 +18,6 @@ state = {
 	}
 
 	provinces = {
-		41 40 42 43
+		42 39 40 41
 	}
 }

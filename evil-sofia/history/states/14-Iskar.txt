@@ -7,9 +7,9 @@ state = {
 	history = {
 		owner = ISK
 		add_core_of = ISK
-		victory_points = { 47 10 }
+		victory_points = { 45 10 }
+		victory_points = { 43 3 }
 		victory_points = { 44 3 }
-		victory_points = { 45 3 }
 		buildings = {
 			infrastructure = 4
 			industrial_complex = 1
@@ -17,6 +17,6 @@ state = {
 	}
 
 	provinces = {
-		47 44 45 46
+		45 43 44 46
 	}
 }

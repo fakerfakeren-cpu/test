@@ -8,9 +8,9 @@ state = {
 		owner = STU
 		add_core_of = STU
 		victory_points = { 54 10 }
+		victory_points = { 51 3 }
 		victory_points = { 52 3 }
 		victory_points = { 53 3 }
-		victory_points = { 55 3 }
 		buildings = {
 			infrastructure = 4
 			industrial_complex = 1
@@ -18,6 +18,6 @@ state = {
 	}
 
 	provinces = {
-		54 52 53 55
+		54 51 52 53
 	}
 }

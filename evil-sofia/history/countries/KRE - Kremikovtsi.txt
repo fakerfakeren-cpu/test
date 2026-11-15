@@ -16,3 +16,6 @@ set_popularities = {
 	communism = 0
 	neutrality = 100
 }
+
+recruit_character = KRE_leader
+recruit_character = KRE_general

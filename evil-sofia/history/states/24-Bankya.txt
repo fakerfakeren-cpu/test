@@ -7,16 +7,17 @@ state = {
 	history = {
 		owner = BNK
 		add_core_of = BNK
-		victory_points = { 167 10 }
-		victory_points = { 164 3 }
-		victory_points = { 165 3 }
-		victory_points = { 166 3 }
+		victory_points = { 150 10 }
+		victory_points = { 148 3 }
+		victory_points = { 149 3 }
+		victory_points = { 151 3 }
+		victory_points = { 152 3 }
 		buildings = {
 			infrastructure = 3
 		}
 	}
 
 	provinces = {
-		167 164 165 166
+		150 148 149 151 152
 	}
 }

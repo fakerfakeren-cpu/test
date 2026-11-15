@@ -16,3 +16,6 @@ set_popularities = {
 	communism = 0
 	neutrality = 100
 }
+
+recruit_character = BNK_leader
+recruit_character = BNK_general
