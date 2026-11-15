@@ -7,19 +7,24 @@ state = {
 	history = {
 		owner = NIS
 		add_core_of = NIS
-		victory_points = { 89 10 }
-		victory_points = { 84 3 }
-		victory_points = { 85 3 }
-		victory_points = { 86 3 }
-		victory_points = { 87 3 }
-		victory_points = { 88 3 }
-		victory_points = { 90 3 }
+		victory_points = { 119 10 }
+		victory_points = { 102 3 }
+		victory_points = { 103 3 }
+		victory_points = { 105 3 }
+		victory_points = { 106 3 }
+		victory_points = { 107 3 }
+		victory_points = { 108 3 }
+		victory_points = { 110 3 }
+		victory_points = { 111 3 }
+		victory_points = { 113 3 }
+		victory_points = { 115 3 }
+		victory_points = { 120 3 }
 		buildings = {
 			infrastructure = 3
 		}
 	}
 
 	provinces = {
-		89 84 85 86 87 88 90
+		119 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 120
 	}
 }

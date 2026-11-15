@@ -18,8 +18,10 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 W, H = 5632, 2048     # same size as the vanilla map (working custom maps keep the 2048 height)
 MARGIN = 200          # lake ring around the city, in map pixels
 # Province size limits. HOI4 misbehaves with huge provinces; vanilla ones are rarely over ~200px across.
-LAND_TARGET, LAND_MAX_BOX = 30000, 256    # target pixels per land province, max bounding box side
-LAKE_TARGET, LAKE_MAX_BOX = 60000, 320
+# HOI4 logs "TOO LARGE BOX" (and misplaces unit models) when a province is taller than ~174 px
+# or wider than ~600 px on the vanilla-sized map; vanilla's tallest province is 173 px.
+LAND_TARGET, LAND_MAX_BOX = 30000, 170    # target pixels per land province, max bounding box side
+LAKE_TARGET, LAKE_MAX_BOX = 20000, 160
 SEA_LEVEL = 94        # heightmap values below this render as water
 RNG = np.random.default_rng(1944)
 
@@ -174,16 +176,61 @@ for k in DISTRICTS:
         prov_district[next_id] = k
         state_provs[k].append(next_id)
         next_id += 1
-local, by, bx = split(~city, LAKE_TARGET, LAKE_MAX_BOX)
-view = prov[by:by + local.shape[0], bx:bx + local.shape[1]]
+F = 4
+void = ~city
+small_void = void[::F, ::F]
+local_s, sby, sbx = split(small_void, LAKE_TARGET / F ** 2, LAKE_MAX_BOX // F - 2)
+lab_s = np.zeros(small_void.shape, np.int32)
+lab_s[sby:sby + local_s.shape[0], sbx:sbx + local_s.shape[1]] = local_s
+lab = np.repeat(np.repeat(lab_s, F, 0), F, 1)[:H, :W].copy()
+lab[~void] = 0
+for _ in range(6):
+    holes = void & (lab == 0)
+    if holes.any():
+        idx = ndi.distance_transform_edt(lab == 0, return_distances=False, return_indices=True)
+        lab[holes] = lab[idx[0], idx[1]][holes]
+    # keep each lake's largest piece; merge stray pieces and slivers under 200 px into a neighbour
+    changed = False
+    for j, sl in enumerate(ndi.find_objects(lab), 1):
+        if sl is None:
+            continue
+        cl, n = ndi.label(lab[sl] == j)
+        sizes = np.bincount(cl.ravel())
+        keep = sizes[1:].argmax() + 1
+        drop = (cl > 0) & ((cl != keep) | (sizes[keep] < 200))
+        if drop.any():
+            lab[sl][drop] = 0
+            changed = True
+    if not changed and not (void & (lab == 0)).any():
+        break
+holes = void & (lab == 0)
+if holes.any():
+    idx = ndi.distance_transform_edt(lab == 0, return_distances=False, return_indices=True)
+    lab[holes] = lab[idx[0], idx[1]][holes]
 lake_ids = []
-for j in range(1, local.max() + 1):
-    if not (local == j).any():
+for j, sl in enumerate(ndi.find_objects(lab), 1):
+    if sl is None:
         continue
-    view[local == j] = next_id
+    view = prov[sl]
+    view[lab[sl] == j] = next_id
     prov_district[next_id] = 0
     lake_ids.append(next_id)
     next_id += 1
+# Merging slivers can stretch a lake past the size limit; split those again.
+lake_slices = ndi.find_objects(prov)
+for q in list(lake_ids):
+    sl = lake_slices[q - 1]
+    if max(sl[0].stop - sl[0].start, sl[1].stop - sl[1].start) <= LAKE_MAX_BOX:
+        continue
+    m = prov[sl] == q
+    local, by, bx = split(m, m.sum() / 2, LAKE_MAX_BOX)
+    view = prov[sl][by:by + local.shape[0], bx:bx + local.shape[1]]
+    for j in range(2, local.max() + 1):
+        if (local == j).any():
+            view[local == j] = next_id
+            prov_district[next_id] = 0
+            lake_ids.append(next_id)
+            next_id += 1
 n_prov = next_id - 1
 
 # HOI4 rejects "X crossings": 2x2 pixel blocks where four different provinces meet.
@@ -386,14 +433,18 @@ def indexed(arr, palette):
 gray = [v for i in range(256) for v in (i, i, i)]
 # terrain.bmp only picks ground textures; gameplay terrain comes from definition.csv.
 # Palette indices follow vanilla common/terrain: 0 = plains, 14 = lakes.
-indexed(np.where(city, 0, 14), gray).save(out("map/terrain.bmp"))
+TERRAIN_INDEX = {"plains": 0, "mountain": 6, "urban": 13, "hills": 17}
+tmap = np.full((H, W), 14, np.uint8)
+for k, v in DISTRICTS.items():
+    tmap[dist == k] = TERRAIN_INDEX[v[3]]
+indexed(tmap, gray).save(out("map/terrain.bmp"))
 indexed(np.zeros((H, W)), gray).save(out("map/cities.bmp"))
 river_pal = gray[:]
 river_pal[254 * 3:254 * 3 + 3] = [122, 122, 122]
 river_pal[255 * 3:255 * 3 + 3] = [255, 255, 255]
 rivers = np.where(city, 255, 254)
 indexed(rivers, river_pal).save(out("map/rivers.bmp"))
-tw_t, th_t = round(W * 1650 / 5632), round(H * 564 / 2048)  # vanilla trees.bmp ratio
+tw_t, th_t = round(W * 1650 / 5632), round(H * 600 / 2048)  # vanilla 1.19 trees.bmp is 1650x600
 indexed(np.zeros((th_t, tw_t)), gray).save(out("map/trees.bmp"))
 
 # No custom colormap: the vanilla one is stretched over the map until we paint our own.
@@ -428,8 +479,7 @@ write("map/positions.txt", "")
 write("map/continent.txt", "continents = {\n" + "".join(f"\t{c}\n" for c in ("europe", "north_america", "south_america", "australia", "africa", "asia", "middle_east")) + "}\n")
 write("map/adjacencies.csv", "From;To;Type;Through;start_x;start_y;stop_x;stop_y;adjacency_rule_name;Comment\n-1;-1;;-1;-1;-1;-1;-1;-1\n")
 write("map/adjacency_rules.txt", "")
-write("map/airports.txt", "".join(f"{k}={{{capital[k]} }}\n" for k in DISTRICTS))
-write("map/rocketsites.txt", "".join(f"{k}={{{capital[k]} }}\n" for k in DISTRICTS))
+# 1.19 has no airports.txt / rocketsites.txt: air base and rocket site positions are buildings.txt lines.
 write("map/supply_nodes.txt", "".join(f"1 {capital[k]}\n" for k in DISTRICTS))
 # Model positions. Rough placements spread inside each district; fine-tune later with the nudger.
 def spots(k, n):
@@ -446,17 +496,37 @@ def pos(x, y):
     return f"{x:.2f};{heightmap[y, x] / 10.0:.2f};{H - 1 - y:.2f}"
 
 
-BUILDING_SLOTS = {"arms_factory": 6, "industrial_complex": 6, "air_base": 1, "supply_node": 1,
-                  "anti_air_building": 3, "synthetic_refinery": 1, "fuel_silo": 1, "radar_station": 1,
-                  "nuclear_reactor": 1, "rocket_site": 1, "bunker": 1}
+# Same building position types and counts as vanilla 1.19 buildings.txt. A state without an air base,
+# rocket site or gun emplacement position is a fatal map error ("no air base site / rocket site /
+# gun emplacement defined for state X").
+STATE_BUILDINGS = {"arms_factory": 6, "industrial_complex": 6, "anti_air_building": 3, "air_base": 1,
+                   "synthetic_refinery": 1, "radar_station": 1, "fuel_silo": 1, "stronghold_network": 1,
+                   "nuclear_reactor_spawn": 1, "rocket_site_spawn": 1}
+PROVINCE_BUILDINGS = ("bunker", "supply_node", "special_project_facility_spawn")
+prov_slices = ndi.find_objects(prov)
+
+
+def province_spots(p, n):
+    sl = prov_slices[p - 1]
+    m = prov[sl] == p
+    inner = ndi.binary_erosion(m, iterations=3)
+    py, px = np.nonzero(inner if inner.sum() >= n else m)
+    pick = RNG.choice(len(px), n, replace=len(px) < n)
+    return [(int(px[i]) + sl[1].start, int(py[i]) + sl[0].start) for i in pick]
+
+
 bl = []
 for k in DISTRICTS:
-    for b, n in BUILDING_SLOTS.items():
+    for b, n in STATE_BUILDINGS.items():
         for x, y in spots(k, n):
             bl.append(f"{k};{b};{pos(x, y)};{RNG.uniform(0, 6.28):.2f};0")
+    for p in state_provs[k]:
+        for b, (x, y) in zip(PROVINCE_BUILDINGS, province_spots(p, len(PROVINCE_BUILDINGS))):
+            bl.append(f"{k};{b};{pos(x, y)};{RNG.uniform(0, 6.28):.2f};0")
 write("map/buildings.txt", "\n".join(bl) + "\n")
-# Unit positions are left to the game (working total conversions ship this file nearly empty).
-write("map/unitstacks.txt", "")
+# Unit stacks: type 38 is the victory point (city) marker; put it in the middle of every land province.
+# Unit model positions (other types) are optional and placed by the game.
+write("map/unitstacks.txt", "".join(f"{p};38;{pos(*cent[p])};0.00;0.00\n" for p in land_ids))
 
 # Railways: spanning tree over land neighbours, starting in Sredets.
 land_adj = {p: set() for p in land_ids}
@@ -491,6 +561,37 @@ for p in lake_ids:
     lx, ly = cent[p]
     nearest = min(land_ids, key=lambda q: (cent[q][0] - lx) ** 2 + (cent[q][1] - ly) ** 2)
     region_of[p] = region_of[nearest]
+
+def region_centre_unsafe(members):
+    """HOI4 snaps each member box to a 2-px grid (y counted from the bottom), averages the box centres
+    and, when that point is in no member box, divides by (mean.x - centre of the union box): zero there
+    crashes the game while loading (INT_DIVIDE_BY_ZERO)."""
+    sl_all = ndi.find_objects(prov)
+    boxes = []
+    for q in members:
+        sl = sl_all[q - 1]
+        xmin, xmax = sl[1].start, sl[1].stop - 1
+        yb_min, yb_max = H - sl[0].stop, H - 1 - sl[0].start
+        boxes.append((2 * (xmin // 2), 2 * (xmax // 2 + 1), 2 * (yb_min // 2), 2 * (yb_max // 2 + 1)))
+    mx = sum((b[0] + b[1]) // 2 for b in boxes) // len(boxes)
+    my = sum((b[2] + b[3]) // 2 for b in boxes) // len(boxes)
+    if any(b[0] + 1 <= mx < b[1] - 1 and b[2] + 1 <= my < b[3] - 1 for b in boxes):
+        return False
+    rx0, rx1 = min(b[0] for b in boxes), max(b[1] for b in boxes)
+    return abs(mx - (rx0 + (rx1 - rx0) / 2)) < 2
+
+
+for rid in REGIONS:
+    for _ in range(50):
+        members = [p for p, r in region_of.items() if r == rid]
+        if not region_centre_unsafe(members):
+            break
+        # hand the region's outermost lake to the next region and try again
+        lakes_here = [p for p in members if not prov_district[p]]
+        far = max(lakes_here, key=lambda q: (cent[q][0] - W / 2) ** 2 + (cent[q][1] - H / 2) ** 2)
+        region_of[far] = rid % len(REGIONS) + 1
+    else:
+        raise SystemExit(f"strategic region {rid} keeps failing the region-centre check")
 
 # Sofia monthly climate: (min temp, max temp, no_phenomenon, rain_light, rain_heavy, snow, blizzard, mud)
 CLIMATE = [(-6, 3, .45, .05, 0, .35, .05, .10), (-4, 6, .45, .08, 0, .30, .02, .15),

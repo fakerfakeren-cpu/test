@@ -13,15 +13,26 @@ with real neighbourhoods later.
 2. Copy `descriptor.mod` next to it, rename the copy to `evil_sofia.mod`, and add the line
    `path="mod/evil-sofia"` to it.
 3. Turn the mod on in the launcher. While testing, add `-debug` to the game's launch options (Steam → Hearts of
-   Iron IV → Properties → Launch options): in debug mode a map error is logged instead of stopping the game.
+   Iron IV → Properties → Launch options). **Without `-debug` the game never writes map errors to `error.log`**;
+   it only shows "Failed to load the map". With it, the errors are logged and most of them stop being fatal.
 4. Building positions in `map/buildings.txt` are rough placements; unit positions are left to the game.
    Fine-tune both in game with the `nudge` console command.
 
 ## Layout choices that keep the game happy
 
-These follow a working 1.16 total-conversion map mod (MappaMundi):
+These follow a working 1.16 total-conversion map mod (MappaMundi) and engine rules measured in game on HOI4 1.19
+by the Hoi4_world_map project (github.com/derprito64bit/Hoi4_world_map):
 - The map is 5632x2048, the same size as vanilla, so vanilla textures, ambient objects and the map frame still fit.
-- Every province is under 320 pixels across, and no state is taller or wider than half the map.
+- Every province is at most 170 pixels across. On a vanilla-sized map the engine logs "TOO LARGE BOX" and
+  misplaces unit models for provinces taller than about 174 px.
+- `map/buildings.txt` uses the HOI4 1.19 building position types, in vanilla's numbers: per state 6 arms
+  factories, 6 civilian factories, 3 anti-air, and one each of air base, refinery, radar, fuel silo,
+  stronghold network, nuclear reactor and rocket site; per land province a bunker, a supply node and a
+  special project facility. A state without an air base, rocket site or gun emplacement position is a fatal
+  map error. `airports.txt` and `rocketsites.txt` no longer exist in 1.19 and are not generated.
+- `map/unitstacks.txt` has a victory point (city) marker, type 38, in the middle of every land province.
+- Every strategic region passes the engine's region-centre rule (a region whose averaged box centre falls
+  outside all its provinces, exactly on the middle column, crashes the game with a divide-by-zero).
 - Vanilla AI strategies point at real-world states, so `common/ai_strategy` is replaced with an empty folder.
 - **Every file is written with Windows (CRLF) line endings.** With plain LF line endings, HOI4 drops the
   continent column of `map/definition.csv`, every land province fails the "must belong to a continent"
