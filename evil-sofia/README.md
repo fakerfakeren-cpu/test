@@ -39,7 +39,12 @@ by the Hoi4_world_map project (github.com/derprito64bit/Hoi4_world_map):
 - `map/unitstacks.txt` has a victory point (city) marker, type 38, in the middle of every land province.
 - Every strategic region passes the engine's region-centre rule (a region whose averaged box centre falls
   outside all its provinces, exactly on the middle column, crashes the game with a divide-by-zero).
-- Vanilla AI strategies point at real-world states, so `common/ai_strategy` is replaced with an empty folder.
+- Vanilla on_actions, events and decisions are written for the world map and its countries, so they are replaced
+  (`replace_path`) by `common/on_actions/evil_sofia_on_actions.txt`, which only writes checkpoints to `game.log`
+  ("Evil Sofia checkpoint 1/2/3"); the `log` effect works without `-debug`. Vanilla AI strategies are kept: an
+  empty AI strategy folder is the kind of missing database the HOI4 wiki's troubleshooting page warns about.
+- One small sea province (a 96x96 corner of the map, its own naval strategic region) so the naval systems have
+  something to work with; vanilla always has sea.
 - **Every file is written with Windows (CRLF) line endings.** With plain LF line endings, HOI4 drops the
   continent column of `map/definition.csv`, every land province fails the "must belong to a continent"
   map check, and starting a game stops with *"Failed to load the map"*. `.gitattributes` keeps git from

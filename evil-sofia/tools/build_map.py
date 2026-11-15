@@ -59,6 +59,8 @@ DISTRICTS = {
     24: ("BNK", "Bankya", "Bankyan", "rural", 13000, 4),
 }
 REGIONS = {1: "Downtown", 2: "Northern Sofia", 3: "Eastern Sofia", 4: "Western Sofia"}
+SEA_REGION = (5, "Edge of the World")   # one small sea in the map corner: vanilla always has sea provinces
+SEA_BOX = 96
 
 # ---------------------------------------------------------------- geography (approximate lat, lon)
 # Cities (victory points): neighbourhoods, streets and villages, biggest first; the first is the capital.
@@ -335,7 +337,9 @@ for k in DISTRICTS:
 
 # The void around the city: impassable lakes, split on a 2x coarser grid, then cleaned at full resolution.
 F = 4
-void = ~city
+sea_mask = np.zeros((H, W), bool)
+sea_mask[:SEA_BOX, :SEA_BOX] = True        # top-left corner, far away from the city
+void = ~city & ~sea_mask
 small_void = void[::F, ::F]
 local_s, sby, sbx = split(small_void, LAKE_TARGET / F ** 2, LAKE_MAX_BOX // F - 3)
 lab_s = np.zeros(small_void.shape, np.int32)
@@ -387,6 +391,10 @@ for q in list(lake_ids):          # merging slivers can stretch a lake past the 
             prov_district[next_id] = 0
             lake_ids.append(next_id)
             next_id += 1
+prov[sea_mask] = next_id
+prov_district[next_id] = -1                # -1 = sea
+sea_id = next_id
+next_id += 1
 n_prov = next_id - 1
 
 # HOI4 rejects "X crossings": 2x2 pixel blocks where four different provinces meet. The map wraps
@@ -399,7 +407,7 @@ for _ in range(10):
         break
     for y, x in np.argwhere(xc):
         prov[y + 1, x] = prov[y, x]  # bottom-left pixel joins the one above (never across the seam)
-land_ids = [p for p in prov_district if prov_district[p]]
+land_ids = [p for p, d in prov_district.items() if d > 0]
 prov_slices = ndi.find_objects(prov)
 
 # centroids (a pixel near the middle, always inside the province)
@@ -474,8 +482,10 @@ for a, b in ((prov[:, :-1], prov[:, 1:]), (prov[:-1, :], prov[1:, :])):
 lines = ["0;0;0;0;land;false;unknown;0"]
 for p in range(1, n_prov + 1):
     r, g, b = colors[p]
-    if prov_district[p]:
+    if prov_district[p] > 0:
         lines.append(f"{p};{r};{g};{b};land;false;{prov_terrain[p]};1")
+    elif prov_district[p] < 0:
+        lines.append(f"{p};{r};{g};{b};sea;false;ocean;0")
     else:
         lines.append(f"{p};{r};{g};{b};lake;false;lakes;0")
 write("map/definition.csv", "\n".join(lines) + "\n")
@@ -486,6 +496,7 @@ E0, E1 = 300.0, 2700.0
 height_f = 96 + 155 * np.clip((ELEV_S - E0) / (E1 - E0), 0, 1) ** 0.75
 heightmap = np.clip(np.round(ndi.gaussian_filter(height_f, 0.8)), 96, 255).astype(np.uint8)
 heightmap[WATER] = 92                          # real lakes and reservoirs render as water
+heightmap[sea_mask] = 89
 Image.fromarray(heightmap, "L").save(out("map/heightmap.bmp"))
 
 # Normal map (half size) from the real slopes, exaggerated so hills and valleys read clearly. Red = east,
@@ -532,6 +543,7 @@ tmap[(ELEV > 2500) & ~TREES] = TEX_SNOW
 tmap[LC == 90] = TEX_MARSH
 tmap[BUILT & ~MOUNT] = TEX_PLAINS      # whole built-up areas with houses made the game lag
 tmap[WATER] = TEX_LAKE
+tmap[sea_mask] = 15                    # ocean
 for p, (nm, val) in vp.items():        # houses around every city instead
     cx_, cy_ = cent[p]
     r_ = 8 if val >= 10 else 5
@@ -553,6 +565,7 @@ keep = np.where(near, frac > 0.5, (frac > 0.7) & (RNG.random((th_t, tw_t)) < 0.2
 trees = np.zeros((th_t, tw_t), np.uint8)
 trees[keep] = 4
 trees[keep & (high > 0.5)] = 3
+trees[:SEA_BOX * th_t // H + 1, :SEA_BOX * tw_t // W + 1] = 0
 indexed(trees, gray).save(out("map/trees.bmp"))
 
 # rivers.bmp: 255 land, 254 water, 0 source, 1 joins another river, 3..11 river width
@@ -789,7 +802,7 @@ write("map/unitstacks.txt", "".join(f"{p};38;{pos(*cent[p])};0.00;0.00\n" for p 
 # Railways: spanning tree over land neighbours, starting in Sredets.
 land_adj = {p: set() for p in land_ids}
 for a, b in adj:
-    if prov_district.get(a) and prov_district.get(b):
+    if prov_district.get(a, 0) > 0 and prov_district.get(b, 0) > 0:
         land_adj[a].add(b)
         land_adj[b].add(a)
 seen, queue, rails = {capital[1]}, [capital[1]], []
@@ -814,6 +827,7 @@ write("map/supplyareas/1-Sofia.txt", f"""supply_area = {{
 
 # Strategic regions: each lake joins the region of the nearest district.
 region_of = {p: DISTRICTS[prov_district[p]][5] for p in land_ids}
+region_of[sea_id] = SEA_REGION[0]
 for p in lake_ids:
     lx, ly = cent[p]
     nearest = min(land_ids, key=lambda q: (cent[q][0] - lx) ** 2 + (cent[q][1] - ly) ** 2)
@@ -843,7 +857,7 @@ for rid in REGIONS:
         members = [p for p, r in region_of.items() if r == rid]
         if not region_centre_unsafe(members):
             break
-        lakes_here = [p for p in members if not prov_district[p]]
+        lakes_here = [p for p in members if prov_district[p] == 0]
         far = max(lakes_here, key=lambda q: (cent[q][0] - W / 2) ** 2 + (cent[q][1] - H / 2) ** 2)
         region_of[far] = rid % len(REGIONS) + 1
     else:
@@ -867,27 +881,29 @@ for mo, (tmin, tmax, nop, rl, rh, sn, bz, mud) in enumerate(CLIMATE):
 \t\t}}""")
 weather_txt = "\n".join(weather)
 wpos = []
-for rid, rname in REGIONS.items():
+for rid, rname in list(REGIONS.items()) + [SEA_REGION]:
     provs = sorted(p for p, r in region_of.items() if r == rid)
+    naval = "\n\tnaval_terrain = water_deep_ocean" if rid == SEA_REGION[0] else ""
     write(f"map/strategicregions/{rid}-{rname.replace(' ', '_')}.txt", f"""strategic_region = {{
 \tid = {rid}
 \tname = "STRATEGICREGION_{rid}"
 \tprovinces = {{
 \t\t{' '.join(map(str, provs))}
-\t}}
+\t}}{naval}
 \tweather = {{
 {weather_txt}
 \t}}
 }}
 """)
-    x, h, z = world(min(p for p in provs if prov_district[p]))
+    land_in = [p for p in provs if prov_district[p] > 0]
+    x, h, z = world(min(land_in) if land_in else provs[0])
     wpos.append(f"{rid};{x:.2f};{h:.2f};{z:.2f};small")
 write("map/weatherpositions.txt", "\n".join(wpos) + "\n")
 
 # ---------------------------------------------------------------- states, countries, characters, localisation
 loc = ["l_english:", ' EVIL_SOFIA_START_NAME:0 "The Fall of Sofia"',
        ' EVIL_SOFIA_START_DESC:0 "The city council has collapsed. Twenty-four districts, twenty-four warlords. Only one will rule Sofia."']
-tags_txt, bookmark_countries, name_lists, colors_txt = [], [], [], []
+tags_txt, bookmark_countries, name_lists = [], [], []
 for k, (tag, name, adj_, cat, pop, reg) in DISTRICTS.items():
     infra = 5 if cat in ("megalopolis", "metropolis") else 4 if cat in ("large_city", "city") else 3
     civ = {"megalopolis": 3, "metropolis": 2, "large_city": 2, "city": 1}.get(cat, 0)
@@ -1018,10 +1034,6 @@ instant_effect = {{
 \t}}
 }}
 """)
-    colors_txt.append(f"""{tag} = {{
-\tcolor = rgb {{ {r} {g} {b} }}
-\tcolor_ui = rgb {{ {min(r + 30, 255)} {min(g + 30, 255)} {min(b + 30, 255)} }}
-}}""")
     name_lists.append(f"""{tag} = {{
 \tmale = {{
 \t\tnames = {{ {' '.join(FIRST)} }}
@@ -1044,17 +1056,33 @@ instant_effect = {{
         d.rectangle([0, 0, size[0], size[1] // 3], fill=dark + (255,))
         d.rectangle([0, size[1] - size[1] // 3, size[0], size[1]], fill=dark + (255,))
         flag.save(out(f"gfx/flags/{folder}{tag}.tga"))
-for rid, rname in REGIONS.items():
+for rid, rname in list(REGIONS.items()) + [SEA_REGION]:
     loc.append(f' STRATEGICREGION_{rid}:0 "{rname}"')
 loc.append(' SUPPLYAREA_1:0 "Sofia"')
 # Separate file: vanilla tags stay registered (they own no states, so they never appear),
 # which keeps vanilla scripts that mention GER, SOV etc. parsing cleanly.
 write("common/country_tags/evil_sofia_countries.txt", "\n".join(tags_txt) + "\n")
 write("common/names/evil_sofia_names.txt", "\n".join(name_lists) + "\n")
-# Map and interface colours. This replaces vanilla's colors.txt; vanilla countries still have the colour in
-# their own country file and never appear on this map.
-write("common/countries/colors.txt", "\n".join(colors_txt) + "\n")
+
 write("localisation/english/evil_sofia_l_english.yml", "\n".join(loc) + "\n", bom=True)
+# Vanilla on_actions, events and decisions are written for the world map and its countries; they are
+# replaced (descriptor.mod) by this file, which only writes checkpoints to game.log.
+write("common/on_actions/evil_sofia_on_actions.txt", """on_actions = {
+\ton_startup = {
+\t\teffect = {
+\t\t\tlog = "Evil Sofia checkpoint 2: on_startup ran"
+\t\t}
+\t}
+\ton_monthly = {
+\t\teffect = {
+\t\t\tif = {
+\t\t\t\tlimit = { tag = SRD }
+\t\t\t\tlog = "Evil Sofia checkpoint 3: a month has passed"
+\t\t\t}
+\t\t}
+\t}
+}
+""")
 write("common/bookmarks/the_fall_of_sofia.txt", f"""bookmarks = {{
 \tbookmark = {{
 \t\tname = "EVIL_SOFIA_START_NAME"
@@ -1068,6 +1096,7 @@ write("common/bookmarks/the_fall_of_sofia.txt", f"""bookmarks = {{
 
 \t\teffect = {{
 \t\t\trandomize_weather = 22345
+\t\t\tlog = "Evil Sofia checkpoint 1: bookmark effect ran"
 \t\t}}
 \t}}
 }}

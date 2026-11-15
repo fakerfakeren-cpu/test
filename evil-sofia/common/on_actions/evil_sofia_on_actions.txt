@@ -1,0 +1,15 @@
+on_actions = {
+	on_startup = {
+		effect = {
+			log = "Evil Sofia checkpoint 2: on_startup ran"
+		}
+	}
+	on_monthly = {
+		effect = {
+			if = {
+				limit = { tag = SRD }
+				log = "Evil Sofia checkpoint 3: a month has passed"
+			}
+		}
+	}
+}

@@ -106,6 +106,7 @@ bookmarks = {
 
 		effect = {
 			randomize_weather = 22345
+			log = "Evil Sofia checkpoint 1: bookmark effect ran"
 		}
 	}
 }
