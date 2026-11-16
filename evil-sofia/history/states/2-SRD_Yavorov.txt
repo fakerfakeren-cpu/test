@@ -1,8 +1,8 @@
 state = {
 	id = 2
 	name = "EVIL_SOFIA_STATE_2"
-	manpower = 4300
-	state_category = town
+	manpower = 2237000
+	state_category = large_town
 
 	history = {
 		owner = SRD
@@ -14,6 +14,6 @@ state = {
 	}
 
 	provinces = {
-		2
+		2 3
 	}
 }

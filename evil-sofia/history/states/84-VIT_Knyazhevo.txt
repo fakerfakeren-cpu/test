@@ -1,7 +1,7 @@
 state = {
 	id = 84
 	name = "EVIL_SOFIA_STATE_84"
-	manpower = 5600
+	manpower = 830000
 	state_category = pastoral
 
 	history = {

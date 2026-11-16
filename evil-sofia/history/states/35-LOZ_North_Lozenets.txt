@@ -1,7 +1,7 @@
 state = {
 	id = 35
 	name = "EVIL_SOFIA_STATE_35"
-	manpower = 8800
+	manpower = 938000
 	state_category = city
 
 	history = {

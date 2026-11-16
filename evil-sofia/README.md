@@ -88,6 +88,10 @@ by the Hoi4_world_map project (github.com/derprito64bit/Hoi4_world_map):
   carries the country's name; every other state is named after its main neighbourhood or village. A
   neighbourhood split between two districts gives "West Lozenets"-style names; a state with no named place is
   called after the nearest one and its land ("Bistritsa Heights", "Yana Fields", "Lozyata Woods").
+- **Population** (state manpower): each state's share of its district's real population (shared out by
+  built-up land), multiplied by a random number from 100 to 200 per state, so the districts can raise armies
+  of a real war's size: about 186 million people in all, from 2.2 million (Bankya) to 18.6 million (Mladost).
+  The multipliers come from a fixed seed, so every build gives the same numbers.
 - **Victory points**: country capitals 30 (Sredets), 15 (Vazrazhdane, Oborishte) or 10; the main place of every
   other state 3; every other housing estate, quarter and village 1.
 - **Localisation keys are unique to the mod** (`EVIL_SOFIA_STATE_<id>`, `EVIL_SOFIA_REGION_<id>`) and the file is

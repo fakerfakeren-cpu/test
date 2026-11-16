@@ -1,15 +1,15 @@
 state = {
 	id = 18
 	name = "EVIL_SOFIA_STATE_18"
-	manpower = 13600
+	manpower = 2068000
 	state_category = large_city
 
 	history = {
 		owner = POD
 		add_core_of = POD
-		victory_points = { 49 10 }
-		victory_points = { 48 1 }
-		victory_points = { 56 1 }
+		victory_points = { 50 10 }
+		victory_points = { 49 1 }
+		victory_points = { 57 1 }
 		buildings = {
 			infrastructure = 4
 			industrial_complex = 2
@@ -17,6 +17,6 @@ state = {
 	}
 
 	provinces = {
-		49 48 56
+		50 49 57
 	}
 }

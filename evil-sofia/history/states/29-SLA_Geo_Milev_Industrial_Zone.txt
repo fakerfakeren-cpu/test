@@ -1,20 +1,19 @@
 state = {
-	id = 25
-	name = "EVIL_SOFIA_STATE_25"
-	manpower = 6400
+	id = 29
+	name = "EVIL_SOFIA_STATE_29"
+	manpower = 1100000
 	state_category = city
 
 	history = {
 		owner = SLA
 		add_core_of = SLA
-		victory_points = { 63 3 }
-		victory_points = { 76 1 }
+		victory_points = { 79 3 }
 		buildings = {
 			infrastructure = 4
 		}
 	}
 
 	provinces = {
-		63 76
+		79 66 78
 	}
 }

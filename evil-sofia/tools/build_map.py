@@ -96,7 +96,8 @@ CAPITALS = {1: (42.6895, 23.3195), 2: (42.6975, 23.3075), 3: (42.6975, 23.3420),
             21: (42.7370, 23.2780), 22: (42.8170, 23.3500), 23: (42.5960, 23.4140), 24: (42.7080, 23.1460)}
 # Capital neighbourhood where the district name does not give it away (district: neighbourhood name).
 CAPITAL_NAMES = {6: "Hadzhi Dimitar"}
-CAPITAL_VP = {1: 30, 2: 15, 3: 15}   # other country capitals get 10, other state capitals 3, other places 1
+CAPITAL_VP = {1: 30, 2: 15, 3: 15}
+POP_RNG = np.random.default_rng(1300)  # state population multipliers (100-200), separate from the map's RNG   # other country capitals get 10, other state capitals 3, other places 1
 
 # Rivers: (name, rivers.bmp width index, waypoints). The first one is the main river; the others end where
 # they first touch a river drawn before them (tributaries).
@@ -337,9 +338,9 @@ def kv_shares():
 
 # Neighbourhoods spread over several districts with no clear majority, and where they really belong.
 KV_HOME_OVERRIDES = {"City Centre": 1, "Poduyane": 3}
-# Neighbourhoods the hand-traced district lines put in the wrong district (Yavorov is in Slatina, Krastova Vada
-# in Lozenets): they join their real district whole.
-KV_DISTRICT_FIXES = {"Yavorov": 7, "Krastova Vada": 9}
+# Neighbourhoods the hand-traced district lines split or put in the wrong district: they join their real
+# district whole (Yavorov is in Sredets, Krastova Vada in Lozenets).
+KV_DISTRICT_FIXES = {"Yavorov": 1, "Krastova Vada": 9}
 # The part of a neighbourhood in another district that goes by its own name there: (name, district) -> name.
 KV_PIECE_NAMES = {("Poduyane", 7): "Reduta"}
 # The districts were traced by hand from a district map, so their lines are approximate. Inside the city they
@@ -1473,7 +1474,10 @@ for k, (tag, name, adj_, cat, pop) in DISTRICTS.items():
     mine = [st for st in states if st["district"] == k]
     weights = [st["built"] + 0.1 * st["area"] for st in mine]
     for st, w_ in zip(mine, weights):
-        st["manpower"] = max(500, int(round(pop * w_ / sum(weights), -2)))
+        # The real population of the state's share of the district, times a random 100-200 per state, so the
+        # districts can raise armies of a real war's size. Its own generator keeps the numbers fixed per build.
+        st["pop_factor"] = int(POP_RNG.integers(100, 201))
+        st["manpower"] = int(round(max(500, pop * w_ / sum(weights)) * st["pop_factor"], -3))
 industry_state = {}
 for k in (18,):   # the Kremikovtsi steelworks: the state with the most industrial-zone land
     mine = [st for st in states if st["district"] == k]
