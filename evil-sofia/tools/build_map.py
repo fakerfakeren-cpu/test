@@ -764,7 +764,7 @@ for k in DISTRICTS:
     pgraph = coo_matrix((wts, (rows, cols)), shape=(len(plist), len(plist))).tocsr()
     pd = dijkstra(pgraph, directed=False)
     pd[~np.isfinite(pd)] = 1e9
-    n_states = int(np.clip(round(len(plist) / PROVINCES_PER_STATE[size_class(k)]), 2, 12))
+    n_states = int(np.clip(round(len(plist) / PROVINCES_PER_STATE[size_class(k)]), 3 if len(plist) >= 9 else 2, 12))
     # the capital: the neighbourhood the district is named after ("Mladost 1" for Mladost), else the housing
     # estate, quarter or village nearest to the district's real centre
     cx_, cy_ = place_px(*CAPITALS[k])

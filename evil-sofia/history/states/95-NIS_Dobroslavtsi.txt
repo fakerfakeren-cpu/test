@@ -1,19 +1,20 @@
 state = {
-	id = 90
-	name = "EVIL_SOFIA_STATE_90"
-	manpower = 2600
+	id = 95
+	name = "EVIL_SOFIA_STATE_95"
+	manpower = 2900
 	state_category = rural
 
 	history = {
 		owner = NIS
 		add_core_of = NIS
-		victory_points = { 310 3 }
+		victory_points = { 321 3 }
+		victory_points = { 322 1 }
 		buildings = {
 			infrastructure = 3
 		}
 	}
 
 	provinces = {
-		310 339 341 342
+		321 322 333 349 350
 	}
 }

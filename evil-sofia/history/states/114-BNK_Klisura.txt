@@ -1,20 +1,19 @@
 state = {
 	id = 114
 	name = "EVIL_SOFIA_STATE_114"
-	manpower = 3100
-	state_category = rural
+	manpower = 2900
+	state_category = pastoral
 
 	history = {
 		owner = BNK
 		add_core_of = BNK
-		victory_points = { 448 3 }
-		victory_points = { 439 1 }
+		victory_points = { 440 3 }
 		buildings = {
 			infrastructure = 3
 		}
 	}
 
 	provinces = {
-		448 439 441 445
+		440 443 447 450 453
 	}
 }

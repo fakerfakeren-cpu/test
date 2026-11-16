@@ -1,19 +1,19 @@
 state = {
-	id = 92
-	name = "EVIL_SOFIA_STATE_92"
+	id = 98
+	name = "EVIL_SOFIA_STATE_98"
 	manpower = 1700
 	state_category = pastoral
 
 	history = {
 		owner = NIS
 		add_core_of = NIS
-		victory_points = { 302 3 }
+		victory_points = { 318 3 }
 		buildings = {
 			infrastructure = 3
 		}
 	}
 
 	provinces = {
-		302 327 330 337 345
+		318 311 316 317 347 348
 	}
 }
