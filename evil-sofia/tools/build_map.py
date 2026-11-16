@@ -512,18 +512,26 @@ del nrm
 def write_dds_bgra(path, rgba):
     """Uncompressed A8R8G8B8 DDS with one mip level, the same layout as vanilla's colour map."""
     h_, w_ = rgba.shape[:2]
-    header = struct.pack("<4s7I44s8I5I", b"DDS ", 124, 0x2100F, h_, w_, w_ * 4, 1, 1, bytes(44),
+    header = struct.pack("<4s7I44s8I5I", b"DDS ", 124, 0x100F, h_, w_, w_ * 4, 0, 0, bytes(44),
                          32, 0x41, 0, 32, 0x00FF0000, 0x0000FF00, 0x000000FF, 0xFF000000, 0x1000, 0, 0, 0, 0)
     with open(out(path), "wb") as f:
         f.write(header)
         f.write(rgba[..., [2, 1, 0, 3]].tobytes())
 
 
-# Colour map: neutral grey (no tint) so the ground textures show as they are, instead of vanilla's world
-# colours stretched over Sofia; alpha (night city lights) off.
-cmap = np.zeros((H // 2, W // 2, 4), np.uint8)
-cmap[..., :3] = 128
-write_dds_bgra("map/terrain/colormap_rgb_cityemissivemask_a.dds", cmap)
+# Map-shaped textures. Vanilla's are paintings of the Earth, so they are replaced with one colour each,
+# sampled from the stock files: ground tint, fog of war / water shine, and the three water colour maps.
+def solid_dds(path, size, rgba):
+    img = np.zeros((size[1], size[0], 4), np.uint8)
+    img[...] = rgba
+    write_dds_bgra(path, img)
+
+
+solid_dds("map/terrain/colormap_rgb_cityemissivemask_a.dds", (W // 2, H // 2), (78, 86, 62, 0))
+solid_dds("map/terrain/fow_rgb_waterspec_a.dds", (W // 2, H // 2), (131, 132, 131, 27))
+for level in range(3):
+    solid_dds(f"map/terrain/colormap_water_{level}.dds", (W // 2 ** (level + 1), H // 2 ** (level + 1)),
+              (20, 28, 63, 255))
 
 # ---------------------------------------------------------------- indexed bitmaps
 def indexed(arr, palette):
@@ -552,7 +560,11 @@ for p, (nm, val) in vp.items():        # houses around every city instead
     houses = ((xx_ - cx_) ** 2 + (yy_ - cy_) ** 2 <= r_ * r_) & (prov[sl] == p) & ~WATER[sl]
     tmap[sl][houses] = TEX_CITY
 indexed(tmap, gray).save(out("map/terrain.bmp"))
-indexed(np.zeros((H, W)), gray).save(out("map/cities.bmp"))
+# cities.bmp picks the city model group: 0 would be asia_city (a few buildings scattered over the whole map),
+# 4 is no group at all, 15 the western cities group, used for the house patches.
+cities_idx = np.full((H, W), 4, np.uint8)
+cities_idx[tmap == TEX_CITY] = 15
+indexed(cities_idx, gray).save(out("map/cities.bmp"))
 
 # trees.bmp (1650x600 for the vanilla-sized map): palette indices 3 and 4 are trees
 tw_t, th_t = round(W * 1650 / 5632), round(H * 600 / 2048)
@@ -796,8 +808,17 @@ for k in DISTRICTS:
         for b, (x, y) in zip(PROVINCE_BUILDINGS, province_spots(p, len(PROVINCE_BUILDINGS))):
             bl.append(f"{k};{b};{pos(x, y)};{RNG.uniform(0, 6.28):.2f};0")
 write("map/buildings.txt", "\n".join(bl) + "\n")
-# Unit stacks: type 38 is the victory point (city) marker; unit model positions are placed by the game.
-write("map/unitstacks.txt", "".join(f"{p};38;{pos(*cent[p])};0.00;0.00\n" for p in land_ids))
+# Unit-counter anchors. At match start the engine looks up a set of anchors for every land and sea province
+# and dereferences them without checking; a missing one is a crash with no log line. These are the sets the
+# stock unitstacks.txt supplies: 0 standstill, 1-2 moving, 9 attacking, 10 defending, 21-23 regrouping,
+# 11-12 and 30-31 disembarking, 38 the victory point. Lakes have none, as in vanilla.
+LAND_STACKS = (0, 1, 2, 9, 10, 21, 22, 23, 38)
+SEA_STACKS = (0, 1, 2, 9, 10, 11, 12, 21, 22, 23, 30, 31, 38)
+stack_lines = []
+for p in land_ids + [sea_id]:
+    for slot in (LAND_STACKS if p != sea_id else SEA_STACKS):
+        stack_lines.append(f"{p};{slot};{pos(*cent[p])};0.00;0.30")
+write("map/unitstacks.txt", "\n".join(stack_lines) + "\n")
 
 # Railways: spanning tree over land neighbours, starting in Sredets.
 land_adj = {p: set() for p in land_ids}
@@ -1065,6 +1086,22 @@ write("common/country_tags/evil_sofia_countries.txt", "\n".join(tags_txt) + "\n"
 write("common/names/evil_sofia_names.txt", "\n".join(name_lists) + "\n")
 
 write("localisation/english/evil_sofia_l_english.yml", "\n".join(loc) + "\n", bom=True)
+# The stock tutorial names state 550 and provinces 5010, 5091 and 12766, and the in-game hint loader looks
+# them up at every match start, tutorial or not: on this map that is a null lookup and a crash. It cannot be
+# empty either (the loader then reads element -1), so it is one block that names no state or province.
+write("tutorial/tutorial.txt", """tutorial = {
+\twindow = "tutorial_screen_1"
+\tuse_mil_fac = { textbox = "obj_1" }
+}
+""")
+# Minimap widgets: vanilla's are pictures of the Earth. These show the city, the land around it and water.
+minimap = np.zeros((H, W, 4), np.uint8)
+minimap[...] = (60, 72, 50, 255)
+minimap[city] = (86, 104, 70, 255)
+minimap[WATER | sea_mask] = (32, 52, 84, 255)
+for path_, size_ in (("gfx/minimap/minimap.dds", (268, 97)), ("gfx/interface/minimap.dds", (268, 98))):
+    write_dds_bgra(path_, np.asarray(Image.fromarray(minimap).resize(size_, Image.BOX)))
+
 # Vanilla on_actions, events and decisions are written for the world map and its countries; they are
 # replaced (descriptor.mod) by this file, which only writes checkpoints to game.log.
 write("common/on_actions/evil_sofia_on_actions.txt", """on_actions = {

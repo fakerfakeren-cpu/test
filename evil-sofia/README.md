@@ -36,7 +36,15 @@ by the Hoi4_world_map project (github.com/derprito64bit/Hoi4_world_map):
   stronghold network, nuclear reactor and rocket site; per land province a bunker, a supply node and a
   special project facility. A state without an air base, rocket site or gun emplacement position is a fatal
   map error. `airports.txt` and `rocketsites.txt` no longer exist in 1.19 and are not generated.
-- `map/unitstacks.txt` has a victory point (city) marker, type 38, in the middle of every land province.
+- `map/unitstacks.txt` gives every land province the 9 unit-counter anchors and the sea province the 13 that the
+  stock file supplies (0, 1, 2, 9, 10, 21, 22, 23, 38; sea also 11, 12, 30, 31). At match start the engine looks
+  these up and dereferences them unchecked; with only the victory-point anchor the game crashed 2 s after Start.
+- `tutorial/tutorial.txt` is replaced by one block that names no state or province: the stock one names state 550
+  and provinces 5010, 5091, 12766, and the hint loader resolves them at every match start (another crash).
+- Map-shaped textures (colour map, fog of war, water colour maps, both minimap widgets) are replaced: vanilla's are
+  pictures of the Earth. `cities.bmp` uses index 4 (no city group) except the house patches (15, western cities).
+- Most of these engine facts come from the HOI4-AI project (github.com/noahsabaj/HOI4-AI), which read them out of
+  crash dumps and verified a generated map that starts and runs a match on 1.19.
 - Every strategic region passes the engine's region-centre rule (a region whose averaged box centre falls
   outside all its provinces, exactly on the middle column, crashes the game with a divide-by-zero).
 - Vanilla on_actions, events and decisions are written for the world map and its countries, so they are replaced

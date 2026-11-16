@@ -1,0 +1,4 @@
+tutorial = {
+	window = "tutorial_screen_1"
+	use_mil_fac = { textbox = "obj_1" }
+}
