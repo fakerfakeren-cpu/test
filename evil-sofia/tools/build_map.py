@@ -94,6 +94,8 @@ CAPITALS = {1: (42.6895, 23.3195), 2: (42.6975, 23.3075), 3: (42.6975, 23.3420),
             13: (42.7310, 23.3020), 14: (42.6650, 23.3950), 15: (42.6500, 23.3750), 16: (42.6500, 23.3450),
             17: (42.7140, 23.2550), 18: (42.7900, 23.5000), 19: (42.6430, 23.2670), 20: (42.6800, 23.2570),
             21: (42.7370, 23.2780), 22: (42.8170, 23.3500), 23: (42.5960, 23.4140), 24: (42.7080, 23.1460)}
+# Capital neighbourhood where the district name does not give it away (district: neighbourhood name).
+CAPITAL_NAMES = {6: "Hadzhi Dimitar"}
 CAPITAL_VP = {1: 30, 2: 15, 3: 15}   # other country capitals get 10, other state capitals 3, other places 1
 
 # Rivers: (name, rivers.bmp width index, waypoints). The first one is the main river; the others end where
@@ -210,7 +212,7 @@ LANDMARKS = [("Vitosha Boulevard", 42.6895, 23.3195), ("Graf Ignatiev", 42.6905,
              ("Central Station", 42.7115, 23.3215), ("Zhenski Pazar", 42.7010, 23.3165),
              ("Vazrazhdane Square", 42.6975, 23.3075), ("Doctor's Garden", 42.6930, 23.3355),
              ("Eagles' Bridge", 42.6905, 23.3390), ("Zaimov Park", 42.7010, 23.3380), ("NDK", 42.6845, 23.3190),
-             ("Reduta", 42.6900, 23.3560), ("Gerena", 42.6970, 23.3680), ("Malashevtsi", 42.7170, 23.3450),
+             ("Gerena", 42.6970, 23.3680), ("Malashevtsi", 42.7170, 23.3450),
              ("Musagenitsa", 42.6570, 23.3600), ("Business Park", 42.6260, 23.3770), ("Pavlovo", 42.6670, 23.2700),
              ("Kopitoto", 42.6370, 23.2400), ("Zlatni Mostove", 42.6056, 23.2364), ("Aleko", 42.5835, 23.2918),
              ("Cherni Vrah", 42.5639, 23.2778), ("The Steelworks", 42.7560, 23.5090), ("Plana", 42.4720, 23.4340)]
@@ -334,14 +336,21 @@ def kv_shares():
 
 
 # Neighbourhoods spread over several districts with no clear majority, and where they really belong.
-KV_HOME_OVERRIDES = {"City Centre": 1}
+KV_HOME_OVERRIDES = {"City Centre": 1, "Poduyane": 3}
+# Neighbourhoods the hand-traced district lines put in the wrong district (Yavorov is in Slatina, Krastova Vada
+# in Lozenets): they join their real district whole.
+KV_DISTRICT_FIXES = {"Yavorov": 7, "Krastova Vada": 9}
+# The part of a neighbourhood in another district that goes by its own name there: (name, district) -> name.
+KV_PIECE_NAMES = {("Poduyane", 7): "Reduta"}
 # The districts were traced by hand from a district map, so their lines are approximate. Inside the city they
 # now follow the real neighbourhood edges: a neighbourhood that lies mostly (60 %+) in one traced district joins
 # that district whole. The traced line stays only where a neighbourhood really is split between districts.
 kv_home, kv_total, _yy, _xx, _kv = kv_shares()
 snap = np.zeros(int(KVR.max()) + 1, np.int32)
 for kvid_, (dd, n_) in kv_home.items():
-    if n_ >= 0.6 * kv_total[kvid_]:
+    if kv_info[kvid_][0] in KV_DISTRICT_FIXES:
+        snap[kvid_] = KV_DISTRICT_FIXES[kv_info[kvid_][0]]
+    elif n_ >= 0.6 * kv_total[kvid_]:
         snap[kvid_] = dd
 _to = snap[_kv]
 dist[_yy[_to > 0], _xx[_to > 0]] = _to[_to > 0]
@@ -639,7 +648,9 @@ def refine(lab_, m, cost, built, names, kinds, origin, sizes_):
                 continue
             sizes = np.bincount(cl.ravel())
             main = int(sizes[1:].argmax()) + 1
-            pieces = [c for c in range(1, n + 1) if c != main] + ([main] if sizes[main] < smallest else [])
+            # a named housing estate, quarter or village stays a province down to 100 px (Lyulin Centre)
+            keep_from = 100 if names.get(j) and kinds.get(j) in RESIDENTIAL else smallest
+            pieces = [c for c in range(1, n + 1) if c != main] + ([main] if sizes[main] < keep_from else [])
             for c in pieces:
                 piece = cl == c
                 ring = ndi.binary_dilation(piece) & ~piece & m[pad] & (sub != j) & (sub > 0)
@@ -691,9 +702,11 @@ for k in DISTRICTS:
             lab_[cl == c] = j
             names[j], kinds[j], origin[j] = None, kv_info[kvid][1], kvid
             nm = kv_info[kvid][0]
-            if nm and kv_home[kvid][0] == k and sizes[c] == sizes[1:].max():
+            if nm and (nm, k) in KV_PIECE_NAMES and sizes[c] == sizes[1:].max():
+                names[j] = KV_PIECE_NAMES[(nm, k)]
+            elif nm and kv_home[kvid][0] == k and sizes[c] == sizes[1:].max():
                 names[j] = nm
-            elif nm and sizes[c] >= smallest and kv_info[kvid][1] in RESIDENTIAL + ("4", "5.1", "5.2"):
+            elif nm and sizes[c] >= smallest and kv_info[kvid][1] in RESIDENTIAL + ("3", "4", "5.1", "5.2"):
                 pcy, pcx = np.argwhere(cl == c).mean(0) + (sl[0].start, sl[1].start)
                 dy, dx = pcy - KV_CY[kvid], pcx - KV_CX[kvid]
                 side = ("East" if dx > 0 else "West") if abs(dx) > abs(dy) else ("South" if dy > 0 else "North")
@@ -771,7 +784,12 @@ for k in DISTRICTS:
     cap_local = np.array((cy_ - sl[0].start, cx_ - sl[1].start))
     dname = DISTRICTS[k][1]
     homes = [p for p in plist if prov_name[p] and prov_kvtype[p] in RESIDENTIAL and p not in prov_partial]
-    cands = [p for p in homes if prov_name[p] == dname or prov_name[p].startswith(dname + " ")] or homes or plist
+    def named_as(test):
+        return [p for p in homes if test(prov_name[p])]
+
+    cands = (named_as(lambda n: n == CAPITAL_NAMES.get(k)) or named_as(lambda n: n == dname)
+             or named_as(lambda n: n == dname + " Centre") or named_as(lambda n: n == dname + " 1")
+             or named_as(lambda n: n.startswith(dname + " ")) or homes or plist)
     first = min(cands, key=lambda q: np.hypot(*(cents[q] - cap_local)))
     weight = {p: (1.6 if prov_name[p] and prov_kvtype[p] in RESIDENTIAL else 1.2 if prov_name[p] else 1.0)
               * (1 + builtp[p] / 400) for p in plist}
@@ -851,34 +869,41 @@ def state_sum(st, arr):
 # A state with no named place is named after the nearest one and its land ("Bistritsa Heights").
 named_all = [p for p in prov_name if prov_name[p] and p not in prov_partial
              and prov_kvtype[p] in RESIDENTIAL + ("4", "5.1", "5.2")]
-used_names = set()
+used_names = {}          # state name -> district
 for st in sorted(states, key=lambda s: not s["country_capital"]):
     k = st["district"]
+    country = DISTRICTS[k][1]
+
+    def variants(nm, quarter=False):
+        """The name itself, or when another state has it: "X Quarter" in the same country, "X (Country)"."""
+        if nm not in used_names:
+            return [nm]
+        return ([f"{nm} Quarter"] if quarter and used_names[nm] == k else []) + [f"{nm} ({country})"]
+
     if st["country_capital"]:
-        options = [DISTRICTS[k][1]]
+        options = [country]
     else:
         options = []
         for p in st["provinces"]:
             if prov_name[p]:
-                options.append(prov_name[p])
-                if prov_kvtype[p] == "1" and p not in prov_partial:
-                    options.append(prov_name[p] + " Quarter")
+                options += variants(prov_name[p], prov_kvtype[p] == "1" and p not in prov_partial)
         area_ = state_sum(st, P_AREA)
         elev_, forest_ = state_sum(st, P_ELEV) / area_, state_sum(st, P_TREES) / area_
         built_ = state_sum(st, P_BUILT) / area_
-        land_ = ("Quarter" if built_ > 0.35 else "Heights" if elev_ > 1100 else "Woods" if forest_ > 0.5
-                 else "Hills" if elev_ > 750 else "Fields")
+        industry_ = sum(P_AREA[p] for p in st["provinces"] if prov_kvtype[p] == "2") / area_
+        land_ = ("Industrial Zone" if industry_ > 0.5 else "Quarter" if built_ > 0.35 else "Heights" if elev_ > 1100
+                 else "Woods" if forest_ > 0.5 else "Hills" if elev_ > 750 else "Fields")
         cy_ = sum(P_CY[p] * P_AREA[p] for p in st["provinces"]) / area_
         cx_ = sum(P_CX[p] * P_AREA[p] for p in st["provinces"]) / area_
         near = sorted((p for p in named_all if prov_district[p] == k and p not in st["provinces"]),
                       key=lambda p: np.hypot(P_CY[p] - cy_, P_CX[p] - cx_))
         options += [f"{prov_name[p].removesuffix(' Villas')} {land_}" for p in near[:4]]
-        options += [f"{DISTRICTS[k][1]} {land_}"]
+        options += [f"{country} {land_}"]
     name_ = next((o for o in options if o not in used_names), None)
     if name_ is None:
         base = options[0]
         name_ = next(f"{base} {r}" for r in ("II", "III", "IV", "V", "VI", "VII", "VIII") if f"{base} {r}" not in used_names)
-    used_names.add(name_)
+    used_names[name_] = k
     st["name"] = name_
 print(f"{next_id - 1} land provinces in {len(states)} states")
 
@@ -1068,6 +1093,15 @@ for st in states:
     for p in st["provinces"][1:]:
         if prov_name[p] and prov_kvtype[p] in RESIDENTIAL:
             vp[p] = (prov_name[p], 1)
+# A city name used in two countries (three quarters are called Izgrev): the lesser ones get their country's name.
+_by_name = {}
+for p, (nm, v) in vp.items():
+    _by_name.setdefault(nm, []).append(p)
+for nm, ps in _by_name.items():
+    ps.sort(key=lambda p: (-vp[p][1], p))
+    for p in ps[1:]:
+        if prov_district[p] != prov_district[ps[0]]:
+            vp[p] = (f"{nm} ({DISTRICTS[prov_district[p]][1]})", vp[p][1])
 
 # ---------------------------------------------------------------- provinces.bmp + definition.csv
 used = set()

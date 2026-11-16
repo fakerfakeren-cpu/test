@@ -11,14 +11,14 @@ division_template = {
 units = {
 	division = {
 		name = "1st Vrabnitsa Guard"
-		location = 295
+		location = 298
 		division_template = "City Guard"
 		start_experience_factor = 0.2
 		start_equipment_factor = 1.0
 	}
 	division = {
 		name = "2nd Vrabnitsa Guard"
-		location = 295
+		location = 298
 		division_template = "City Guard"
 		start_experience_factor = 0.2
 		start_equipment_factor = 1.0

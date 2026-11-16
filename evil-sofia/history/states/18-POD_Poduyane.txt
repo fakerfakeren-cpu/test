@@ -8,8 +8,8 @@ state = {
 		owner = POD
 		add_core_of = POD
 		victory_points = { 49 10 }
-		victory_points = { 50 1 }
-		victory_points = { 57 1 }
+		victory_points = { 48 1 }
+		victory_points = { 56 1 }
 		buildings = {
 			infrastructure = 4
 			industrial_complex = 2
@@ -17,6 +17,6 @@ state = {
 	}
 
 	provinces = {
-		49 50 57
+		49 48 56
 	}
 }

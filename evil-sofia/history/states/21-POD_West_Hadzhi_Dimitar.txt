@@ -1,0 +1,19 @@
+state = {
+	id = 21
+	name = "EVIL_SOFIA_STATE_21"
+	manpower = 16100
+	state_category = city
+
+	history = {
+		owner = POD
+		add_core_of = POD
+		victory_points = { 58 3 }
+		buildings = {
+			infrastructure = 4
+		}
+	}
+
+	provinces = {
+		58 53 54
+	}
+}

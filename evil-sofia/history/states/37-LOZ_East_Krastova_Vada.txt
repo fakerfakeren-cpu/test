@@ -1,0 +1,19 @@
+state = {
+	id = 37
+	name = "EVIL_SOFIA_STATE_37"
+	manpower = 13200
+	state_category = city
+
+	history = {
+		owner = LOZ
+		add_core_of = LOZ
+		victory_points = { 97 3 }
+		buildings = {
+			infrastructure = 4
+		}
+	}
+
+	provinces = {
+		97 88 101
+	}
+}

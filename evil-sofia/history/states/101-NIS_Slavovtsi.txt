@@ -1,0 +1,20 @@
+state = {
+	id = 101
+	name = "EVIL_SOFIA_STATE_101"
+	manpower = 2200
+	state_category = rural
+
+	history = {
+		owner = NIS
+		add_core_of = NIS
+		victory_points = { 312 3 }
+		victory_points = { 311 1 }
+		buildings = {
+			infrastructure = 3
+		}
+	}
+
+	provinces = {
+		312 311 344
+	}
+}

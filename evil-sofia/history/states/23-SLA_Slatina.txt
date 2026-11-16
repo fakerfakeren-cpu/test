@@ -1,15 +1,15 @@
 state = {
 	id = 23
 	name = "EVIL_SOFIA_STATE_23"
-	manpower = 16900
+	manpower = 16300
 	state_category = large_city
 
 	history = {
 		owner = SLA
 		add_core_of = SLA
-		victory_points = { 63 10 }
-		victory_points = { 65 1 }
-		victory_points = { 78 1 }
+		victory_points = { 62 10 }
+		victory_points = { 64 1 }
+		victory_points = { 77 1 }
 		buildings = {
 			infrastructure = 4
 			industrial_complex = 2
@@ -17,6 +17,6 @@ state = {
 	}
 
 	provinces = {
-		63 65 66 78
+		62 64 65 77
 	}
 }

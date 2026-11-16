@@ -1,0 +1,19 @@
+state = {
+	id = 88
+	name = "EVIL_SOFIA_STATE_88"
+	manpower = 13800
+	state_category = rural
+
+	history = {
+		owner = OVK
+		add_core_of = OVK
+		victory_points = { 282 3 }
+		buildings = {
+			infrastructure = 3
+		}
+	}
+
+	provinces = {
+		282 281 286 289
+	}
+}

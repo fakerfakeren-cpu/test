@@ -1,0 +1,21 @@
+state = {
+	id = 51
+	name = "EVIL_SOFIA_STATE_51"
+	manpower = 10000
+	state_category = large_town
+
+	history = {
+		owner = NAD
+		add_core_of = NAD
+		victory_points = { 139 3 }
+		victory_points = { 131 1 }
+		victory_points = { 137 1 }
+		buildings = {
+			infrastructure = 4
+		}
+	}
+
+	provinces = {
+		139 131 133 137
+	}
+}

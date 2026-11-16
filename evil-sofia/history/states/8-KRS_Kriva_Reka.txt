@@ -7,14 +7,14 @@ state = {
 	history = {
 		owner = KRS
 		add_core_of = KRS
-		victory_points = { 17 3 }
-		victory_points = { 14 1 }
+		victory_points = { 16 3 }
+		victory_points = { 13 1 }
 		buildings = {
 			infrastructure = 4
 		}
 	}
 
 	provinces = {
-		17 14
+		16 13
 	}
 }

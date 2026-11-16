@@ -7,14 +7,14 @@ state = {
 	history = {
 		owner = VAZ
 		add_core_of = VAZ
-		victory_points = { 9 3 }
-		victory_points = { 6 1 }
+		victory_points = { 8 3 }
+		victory_points = { 5 1 }
 		buildings = {
 			infrastructure = 5
 		}
 	}
 
 	provinces = {
-		9 6
+		8 5
 	}
 }
