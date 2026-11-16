@@ -1,0 +1,24 @@
+state = {
+	id = 60
+	name = "EVIL_SOFIA_STATE_60"
+	manpower = 32300
+	state_category = city
+
+	history = {
+		owner = LYU
+		add_core_of = LYU
+		victory_points = { 186 10 }
+		victory_points = { 182 1 }
+		victory_points = { 183 1 }
+		victory_points = { 184 1 }
+		victory_points = { 187 1 }
+		buildings = {
+			infrastructure = 4
+			industrial_complex = 1
+		}
+	}
+
+	provinces = {
+		186 182 183 184 187
+	}
+}

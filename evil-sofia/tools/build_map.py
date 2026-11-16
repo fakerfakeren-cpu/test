@@ -1,122 +1,100 @@
 #!/usr/bin/env python3
-"""Build the Evil Sofia HOI4 map from tools/districts_mask.png.
+"""Build the Evil Sofia HOI4 map.
 
-districts_mask.png is an 8-bit grayscale image where each pixel value is the
-district number (1-24, see DISTRICTS below) and 0 is "outside the city".
-Edit that image (or the tables below) and re-run this script to regenerate
-every map file. Requires: pip install numpy pillow scipy
+Sources (see README):
+  tools/districts_mask.png          the 24 districts, traced from a district map (pixel value = district)
+  tools/geodata/kvartali.geojson    Sofia's 310 official neighbourhoods (provinces and state names)
+  tools/geodata/sofia_geodata.npz   real elevation and land cover (python3 tools/fetch_geodata.py)
 
-Usage:  python3 tools/build_map.py        (run from the evil-sofia/ folder)
+Each district is a country. Its provinces are the real neighbourhoods inside it; land that belongs to no
+neighbourhood (fields, forest, mountain) joins the nearest one along the terrain, and pieces that are too big
+are split along the terrain too, so no border is a straight-sided polygon. Neighbouring provinces are grouped
+into several states per country.
+
+Usage:  python3 tools/build_map.py        (run from the evil-sofia/ folder; needs numpy pillow scipy)
 
 Engine rules this script follows (measured in game on HOI4 1.19, see README):
 - every file is written with CRLF line endings (definition.csv needs them)
 - provinces stay small (TOO LARGE BOX), no four-province pixel corners
-- buildings.txt uses the 1.19 position types and vanilla counts
+- buildings.txt and unitstacks.txt hold the full stock sets of placements and anchors
 - every strategic region passes the region-centre divide-by-zero check
 """
 import colorsys
+import heapq
+import json
 import os
+import re
+import shutil
 import struct
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 from scipy import ndimage as ndi
 from scipy.sparse import coo_matrix
 from scipy.sparse.csgraph import dijkstra
+from scipy.spatial import cKDTree
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 W, H = 5632, 2048     # vanilla map size: the camera, the map frame and vanilla textures are made for it
 CITY_HEIGHT = 1150    # height of the city on the map in pixels; around it is the real land around Sofia
-LAND_TARGET, LAND_MAX_BOX, LAND_MIN_CELL = 5000, 150, 400   # px per land province, max box side, min split
-LAKE_TARGET, LAKE_MAX_BOX = 18000, 150
-SEA_LEVEL = 94        # heightmap values below this render as water
+MAX_BOX = 140         # province bounding box limit in px (the engine's "TOO LARGE BOX" starts at ~174 px tall)
+LAKE_TARGET, LAKE_MAX_BOX = 12000, 150
+SEA_LEVEL = 94
 RNG = np.random.default_rng(1944)
 
-# id: (TAG, name, adjective, state_category, approx. population, strategic region)
+# id: (TAG, name, adjective, state category of the capital state, approx. population)
 DISTRICTS = {
-    1: ("SRD", "Sredets", "Sredetsian", "megalopolis", 32000, 1),
-    2: ("VAZ", "Vazrazhdane", "Vazrazhdanian", "metropolis", 37000, 1),
-    3: ("OBR", "Oborishte", "Oborishtian", "metropolis", 32000, 1),
-    4: ("KRS", "Krasno Selo", "Krasnoselian", "large_city", 72000, 1),
-    5: ("SRK", "Serdika", "Serdikan", "large_city", 52000, 2),
-    6: ("POD", "Poduyane", "Poduyanian", "large_city", 75000, 2),
-    7: ("SLA", "Slatina", "Slatinian", "large_city", 67000, 2),
-    8: ("IZG", "Izgrev", "Izgrevian", "large_city", 33000, 1),
-    9: ("LOZ", "Lozenets", "Lozenetsian", "large_city", 50000, 1),
-    10: ("TRD", "Triaditsa", "Triaditsan", "large_city", 63000, 1),
-    11: ("KRP", "Krasna Polyana", "Krasnopolyanian", "large_city", 59000, 1),
-    12: ("ILN", "Ilinden", "Ilindenian", "large_city", 33000, 1),
-    13: ("NAD", "Nadezhda", "Nadezhdan", "city", 67000, 2),
-    14: ("ISK", "Iskar", "Iskarian", "city", 64000, 3),
-    15: ("MLA", "Mladost", "Mladostian", "city", 103000, 3),
-    16: ("STU", "Studentski", "Studentskian", "city", 71000, 3),
-    17: ("LYU", "Lyulin", "Lyulinian", "city", 114000, 4),
-    18: ("KRE", "Kremikovtsi", "Kremikovtsian", "large_town", 23000, 2),
-    19: ("VIT", "Vitosha", "Vitoshan", "town", 61000, 4),
-    20: ("OVK", "Ovcha Kupel", "Ovchakupelian", "town", 52000, 4),
-    21: ("VRB", "Vrabnitsa", "Vrabnitsan", "town", 47000, 4),
-    22: ("NIS", "Novi Iskar", "Noviiskarian", "rural", 27000, 2),
-    23: ("PNC", "Pancharevo", "Pancharevian", "rural", 28000, 3),
-    24: ("BNK", "Bankya", "Bankyan", "rural", 13000, 4),
+    1: ("SRD", "Sredets", "Sredetsian", "megalopolis", 32000),
+    2: ("VAZ", "Vazrazhdane", "Vazrazhdanian", "metropolis", 37000),
+    3: ("OBR", "Oborishte", "Oborishtian", "metropolis", 32000),
+    4: ("KRS", "Krasno Selo", "Krasnoselian", "large_city", 72000),
+    5: ("SRK", "Serdika", "Serdikan", "large_city", 52000),
+    6: ("POD", "Poduyane", "Poduyanian", "large_city", 75000),
+    7: ("SLA", "Slatina", "Slatinian", "large_city", 67000),
+    8: ("IZG", "Izgrev", "Izgrevian", "large_city", 33000),
+    9: ("LOZ", "Lozenets", "Lozenetsian", "large_city", 50000),
+    10: ("TRD", "Triaditsa", "Triaditsan", "large_city", 63000),
+    11: ("KRP", "Krasna Polyana", "Krasnopolyanian", "large_city", 59000),
+    12: ("ILN", "Ilinden", "Ilindenian", "large_city", 33000),
+    13: ("NAD", "Nadezhda", "Nadezhdan", "city", 67000),
+    14: ("ISK", "Iskar", "Iskarian", "city", 64000),
+    15: ("MLA", "Mladost", "Mladostian", "city", 103000),
+    16: ("STU", "Studentski", "Studentskian", "city", 71000),
+    17: ("LYU", "Lyulin", "Lyulinian", "city", 114000),
+    18: ("KRE", "Kremikovtsi", "Kremikovtsian", "large_town", 23000),
+    19: ("VIT", "Vitosha", "Vitoshan", "town", 61000),
+    20: ("OVK", "Ovcha Kupel", "Ovchakupelian", "town", 52000),
+    21: ("VRB", "Vrabnitsa", "Vrabnitsan", "town", 47000),
+    22: ("NIS", "Novi Iskar", "Noviiskarian", "rural", 27000),
+    23: ("PNC", "Pancharevo", "Pancharevian", "rural", 28000),
+    24: ("BNK", "Bankya", "Bankyan", "rural", 13000),
 }
-REGIONS = {1: "Downtown", 2: "Northern Sofia", 3: "Eastern Sofia", 4: "Western Sofia"}
-SEA_REGION = (5, "Edge of the World")   # one small sea in the map corner: vanilla always has sea provinces
+# Province size by kind of district: (target px, largest px, smallest px). 1 km^2 is about 450 px.
+SIZES = {"inner": (380, 650, 100), "middle": (1100, 1800, 180), "outer": (2600, 4200, 300)}
+PROVINCES_PER_STATE = {"inner": 3.0, "middle": 3.5, "outer": 4.5}
+
+
+def size_class(k):
+    return "inner" if k <= 12 else "middle" if k <= 17 else "outer"
+
+
+# Strategic regions (air zones and weather): (id, name, districts). Pancharevo is split north/south.
+REGION_DEFS = [(1, "Old Town", [1, 2, 3, 12]), (2, "Southern Quarters", [4, 8, 9, 10]),
+               (3, "Western Quarters", [11, 17, 20]), (4, "Northern Quarters", [5, 6, 13]),
+               (5, "Eastern Quarters", [7, 14, 15, 16]), (6, "Vitosha", [19]), (7, "Bankya Hills", [24]),
+               (8, "Vrabnitsa Plain", [21]), (9, "Novi Iskar", [22]), (10, "Kremikovtsi", [18]),
+               (11, "Pancharevo", []), (12, "Upper Iskar", [23])]
+PANCHAREVO_NORTH_REGION = 11
+SEA_REGION = (13, "Edge of the World")   # one small sea in the map corner: vanilla always has sea provinces
 SEA_BOX = 96
 
-# ---------------------------------------------------------------- geography (approximate lat, lon)
-# Cities (victory points): neighbourhoods, streets and villages, biggest first; the first is the capital.
-NAMES = {
-    1: [("Vitosha Boulevard", 42.6895, 23.3195), ("Graf Ignatiev", 42.6905, 23.3290),
-        ("Borisova Gradina", 42.6835, 23.3405), ("Slaveykov Square", 42.6935, 23.3245)],
-    2: [("Vazrazhdane Square", 42.6975, 23.3075), ("Zona B-5", 42.6915, 23.3050),
-        ("Zona B-18", 42.7005, 23.3010), ("Zhenski Pazar", 42.7010, 23.3165)],
-    3: [("Oborishte", 42.6975, 23.3420), ("Doctor's Garden", 42.6930, 23.3355),
-        ("Zaimov Park", 42.7010, 23.3380), ("Eagles' Bridge", 42.6905, 23.3390)],
-    4: [("Krasno Selo", 42.6805, 23.2870), ("Hipodruma", 42.6850, 23.2935), ("Borovo", 42.6720, 23.2850),
-        ("Belite Brezi", 42.6770, 23.2960), ("Lagera", 42.6860, 23.3000), ("Buxton", 42.6720, 23.2700)],
-    5: [("Banishora", 42.7135, 23.3140), ("Orlandovtsi", 42.7340, 23.3310), ("Fondovi Zhilishta", 42.7210, 23.3200),
-        ("Malashevtsi", 42.7170, 23.3450), ("Benkovski", 42.7360, 23.3150)],
-    6: [("Poduyane", 42.7050, 23.3540), ("Hadzhi Dimitar", 42.7100, 23.3560), ("Levski", 42.7120, 23.3750),
-        ("Suhata Reka", 42.7040, 23.3690), ("Gerena", 42.6970, 23.3680)],
-    7: [("Slatina", 42.6850, 23.3720), ("Geo Milev", 42.6800, 23.3610), ("Reduta", 42.6900, 23.3560)],
-    8: [("Izgrev", 42.6740, 23.3500), ("Iztok", 42.6690, 23.3460), ("Dianabad", 42.6680, 23.3560)],
-    9: [("Lozenets", 42.6750, 23.3250), ("Krastova Vada", 42.6560, 23.3130), ("Hladilnika", 42.6620, 23.3170),
-        ("South Park", 42.6730, 23.3110)],
-    10: [("Ivan Vazov", 42.6800, 23.3080), ("Strelbishte", 42.6720, 23.2960), ("Gotse Delchev", 42.6690, 23.3020),
-         ("Manastirski Livadi", 42.6620, 23.2990)],
-    11: [("Krasna Polyana", 42.7000, 23.2870), ("Fakulteta", 42.6920, 23.2800), ("Razsadnika", 42.7040, 23.2930),
-         ("Zapaden Park", 42.7060, 23.2700)],
-    12: [("Ilinden", 42.7100, 23.2960), ("Zaharna Fabrika", 42.7140, 23.2880), ("Sveta Troitsa", 42.7060, 23.3030)],
-    13: [("Nadezhda", 42.7310, 23.3020), ("Svoboda", 42.7230, 23.2920), ("Tolstoy", 42.7240, 23.2810),
-         ("Trebich", 42.7720, 23.2960)],
-    14: [("Druzhba", 42.6650, 23.3950), ("Druzhba 2", 42.6530, 23.4070), ("Dimitar Milenkov", 42.6800, 23.4370)],
-    15: [("Mladost", 42.6500, 23.3750), ("Mladost 4", 42.6290, 23.3820), ("Business Park", 42.6260, 23.3770),
-         ("Gorublyane", 42.6390, 23.4020)],
-    16: [("Studentski Grad", 42.6500, 23.3450), ("Darvenitsa", 42.6600, 23.3490), ("Musagenitsa", 42.6570, 23.3600),
-         ("Malinova Dolina", 42.6350, 23.3550)],
-    17: [("Lyulin", 42.7140, 23.2550), ("Lyulin 10", 42.7060, 23.2340), ("Filipovtsi", 42.7230, 23.2620),
-         ("Lyulin 3", 42.7180, 23.2440)],
-    18: [("Kremikovtsi", 42.7900, 23.5000), ("Botunets", 42.7520, 23.4730), ("Chelopechene", 42.7300, 23.4580),
-         ("The Steelworks", 42.7560, 23.5090), ("Gorni Bogrov", 42.7350, 23.5600), ("Dolni Bogrov", 42.7140, 23.5250),
-         ("Yana", 42.7600, 23.5800), ("Seslavtsi", 42.7680, 23.4560)],
-    19: [("Boyana", 42.6430, 23.2670), ("Dragalevtsi", 42.6280, 23.3080), ("Simeonovo", 42.6260, 23.3420),
-         ("Knyazhevo", 42.6590, 23.2400), ("Pavlovo", 42.6670, 23.2700), ("Vladaya", 42.6460, 23.2010),
-         ("Marchaevo", 42.6230, 23.1960), ("Kinotsentara", 42.6340, 23.2560), ("Aleko", 42.5850, 23.2900)],
-    20: [("Ovcha Kupel", 42.6800, 23.2570), ("Gorna Banya", 42.6760, 23.2380), ("Suhodol", 42.6720, 23.2180),
-         ("Ovcha Kupel 2", 42.6880, 23.2440)],
-    21: [("Vrabnitsa", 42.7370, 23.2780), ("Obelya", 42.7430, 23.2880), ("Moderno Predgradie", 42.7320, 23.2620),
-         ("Mramor", 42.7650, 23.2560), ("Volyak", 42.7560, 23.2380)],
-    22: [("Novi Iskar", 42.8170, 23.3500), ("Kurilo", 42.8290, 23.3630), ("Kubratovo", 42.7860, 23.3680),
-         ("Svetovrachene", 42.7910, 23.3920), ("Negovan", 42.7610, 23.4060), ("Mirovyane", 42.8410, 23.3880),
-         ("Balsha", 42.8560, 23.3070), ("Vlado Trichkov", 42.8730, 23.3670), ("Gnilyane", 42.8380, 23.4040),
-         ("Dobroslavtsi", 42.8040, 23.2830), ("Lokorsko", 42.7980, 23.4300), ("Podgumer", 42.7920, 23.3240)],
-    23: [("Pancharevo", 42.5960, 23.4140), ("Kazichene", 42.6620, 23.4650), ("German", 42.6170, 23.3870),
-         ("Bistritsa", 42.5850, 23.3620), ("Zheleznitsa", 42.5410, 23.3680), ("Lozen", 42.6000, 23.4880),
-         ("Kokalyane", 42.5670, 23.4290), ("Pancharevo Lake", 42.5800, 23.4250), ("Dolni Pasarel", 42.5440, 23.4950),
-         ("Plana", 42.4720, 23.4340)],
-    24: [("Bankya", 42.7080, 23.1460), ("Ivanyane", 42.7050, 23.1640), ("Klisura", 42.6930, 23.0960),
-         ("Verdikal", 42.7250, 23.1120), ("Mihaylovo", 42.6860, 23.0700)],
-}
-CAPITAL_VP = {1: 30, 2: 15, 3: 15}   # other capitals get 10, other cities 3
+# Where each country's capital is (lat, lon); the neighbourhood there becomes the capital province.
+CAPITALS = {1: (42.6895, 23.3195), 2: (42.6975, 23.3075), 3: (42.6975, 23.3420), 4: (42.6805, 23.2870),
+            5: (42.7135, 23.3140), 6: (42.7050, 23.3540), 7: (42.6850, 23.3720), 8: (42.6740, 23.3500),
+            9: (42.6750, 23.3250), 10: (42.6800, 23.3080), 11: (42.7000, 23.2870), 12: (42.7100, 23.2960),
+            13: (42.7310, 23.3020), 14: (42.6650, 23.3950), 15: (42.6500, 23.3750), 16: (42.6500, 23.3450),
+            17: (42.7140, 23.2550), 18: (42.7900, 23.5000), 19: (42.6430, 23.2670), 20: (42.6800, 23.2570),
+            21: (42.7370, 23.2780), 22: (42.8170, 23.3500), 23: (42.5960, 23.4140), 24: (42.7080, 23.1460)}
+CAPITAL_VP = {1: 30, 2: 15, 3: 15}   # other country capitals get 10, other state capitals 3, other places 1
 
 # Rivers: (name, rivers.bmp width index, waypoints). The first one is the main river; the others end where
 # they first touch a river drawn before them (tributaries).
@@ -131,7 +109,6 @@ RIVERS = [
                       (42.705, 23.318), (42.725, 23.335), (42.750, 23.350), (42.780, 23.365), (42.805, 23.370)]),
     ("Boyanska", 3, [(42.600, 23.255), (42.640, 23.268), (42.665, 23.272), (42.680, 23.278)]),
 ]
-CLASS_NAMES = ["plains", "forest", "hills", "mountain"]
 # terrain.bmp palette indices of vanilla common/terrain/00_terrain.txt (ground textures)
 TEX_PLAINS, TEX_FIELDS, TEX_FOREST, TEX_FOREST_HIGH, TEX_HILLS = 0, 5, 1, 4, 17
 TEX_ROCK, TEX_SNOW, TEX_MARSH, TEX_CITY, TEX_LAKE = 6, 16, 9, 13, 14
@@ -149,6 +126,11 @@ SURNAMES = ["Ivanov", "Petrov", "Georgiev", "Dimitrov", "Nikolov", "Stoyanov", "
             "Draganov", "Bogdanov", "Ruskov", "Simeonov", "Tasev", "Uzunov", "Vulkov", "Zahariev"]
 FEMALE = ["Maria", "Elena", "Ivanka", "Yordanka", "Rositsa", "Desislava", "Vesela", "Teodora", "Milena", "Radka",
           "Stefka", "Tsvetana", "Gergana", "Kalina", "Nevena", "Zornitsa"]
+
+
+# Folders whose files are named after states and regions: cleared first, so no stale file survives a rebuild.
+for folder in ("history/states", "map/strategicregions", "map/supplyareas"):
+    shutil.rmtree(os.path.join(ROOT, folder), ignore_errors=True)
 
 
 def out(path):
@@ -170,6 +152,70 @@ def country_color(i):
     return int(r * 255), int(g * 255), int(b * 255)
 
 
+# ---------------------------------------------------------------- neighbourhood names
+CYR = dict(zip("АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЬЮЯ",
+               ["A", "B", "V", "G", "D", "E", "ZH", "Z", "I", "Y", "K", "L", "M", "N", "O", "P", "R", "S", "T", "U",
+                "F", "H", "TS", "CH", "SH", "SHT", "A", "Y", "YU", "YA"]))
+# Names that are cut short in the source data, or that read better translated.
+KV_NAMES = {
+    "ЦЕНТЪР": "City Centre", "ЖИЛИЩНА ГРУПА - ЗООПАРК": "Zoo Estate", "ЖИЛИЩНА ГРУПА ЮЖЕН ПАРК": "South Park Estate",
+    "ЖК. ЛЮЛИН - ЦЕНТЪР": "Lyulin Centre", "ЛЕТИЩЕ СОФИЯ": "Sofia Airport", "7-МИ  11-ТИ КИЛОМЕТЪР": "7th-11th Kilometre",
+    "СКЛАДОВО-ПРОИЗВОДСТВЕНА ЗО": None, "---": None, "": None,
+    "ЗАПАДЕН ПАРК": "West Park", "СЕВЕРЕН ПАРК": "North Park", "ЮЖЕН ПАРК": "South Park", "ЗООПАРК": "Sofia Zoo",
+    "ПАРК БОРИСОВА ГРАДИНА": "Borisova Gradina", "ПАРК БОТАНИЧЕСКА ГРАДИНА": "Botanical Garden",
+    "ПАРК ЦЕНТРАЛНИ СОФИЙСКИ ГР": "Central Cemetery", "ПАРК МАЛАШЕВСКИ ГРОБИЩА": "Malashevtsi Cemetery",
+    "РЕЗИДЕНЦИЯ БОЯНА": "Boyana Residence", "М. НАЦИОНАЛЕН КИНОЦЕНТЪР": "National Film Centre",
+    "В.З. АМЕРИКАНСКИ КОЛЕЖ": "American College", "В.З. ПАСАРЕЛСКО ЕЗЕРО": "Pasarel Lake",
+    "В.З. ДРАГАЛЕВЦИ ЛИФТА": "Dragalevtsi Lift", "В.З. ВРАНА-ЛОЗЕН ТРИЪГЪЛНИК": "Vrana-Lozen Triangle",
+    "В.З. КИНОЦЕНТЪРА III ЧАСТ": "Kinotsentara 3",
+}
+LOCAL_PREFIXES = ("ЖК. ", "КВ. ", "В.З. ", "М. ", "С. ", "ГР. ", "МАХ. ")
+
+
+def translit(text):
+    """Bulgarian (official streamlined system), title case: 'МЛАДОСТ 1' -> 'Mladost 1'."""
+    words = []
+    for w in text.upper().split():
+        if w.endswith("ИЯ"):
+            w = w[:-2] + "IA"          # София -> Sofia
+        latin = "".join(CYR.get(ch, ch) for ch in w)
+        words.append(latin.capitalize() if latin.isalpha() else latin.title())
+    return " ".join(words)
+
+
+def kvartal_name(props):
+    raw = (props.get("kvname") or "").strip()
+    if raw in KV_NAMES:
+        return KV_NAMES[raw]
+    name, villas = raw, raw.startswith("В.З. ")
+    for pre in LOCAL_PREFIXES:
+        if name.startswith(pre):
+            name = name[len(pre):].strip()
+    name = name.replace("СВ. ", "СВЕТИ ").replace(" - ", "-").replace("- ", "-")
+    for bg, en in (("ПРОМИШЛЕНА ЗОНА ", " Industrial Zone"), ("НПЗ ", " Industrial Zone"), ("ПАРК ", " Park"),
+                   ("МАХАЛА ", " Mahala"), ("ЗОНА ", "Zone ")):
+        if name.startswith(bg):
+            rest = translit(name[len(bg):])
+            return en + rest if en.endswith(" ") else rest + en
+    for bg, en in (("-ИЗТОК", " East"), ("-СЕВЕР", " North"), ("-ЮГ", " South")):
+        if name.endswith(bg):
+            return translit(name[:-len(bg)]) + en + (" Villas" if villas else "")
+    return translit(name) + (" Villas" if villas else "")
+
+
+# Landmarks that name provinces no neighbourhood name reaches (pieces of big neighbourhoods, mountain land).
+LANDMARKS = [("Vitosha Boulevard", 42.6895, 23.3195), ("Graf Ignatiev", 42.6905, 23.3290),
+             ("Slaveykov Square", 42.6935, 23.3245), ("Sveta Nedelya", 42.6967, 23.3212),
+             ("Alexander Nevsky", 42.6959, 23.3328), ("Lions' Bridge", 42.7040, 23.3240),
+             ("Central Station", 42.7115, 23.3215), ("Zhenski Pazar", 42.7010, 23.3165),
+             ("Vazrazhdane Square", 42.6975, 23.3075), ("Doctor's Garden", 42.6930, 23.3355),
+             ("Eagles' Bridge", 42.6905, 23.3390), ("Zaimov Park", 42.7010, 23.3380), ("NDK", 42.6845, 23.3190),
+             ("Reduta", 42.6900, 23.3560), ("Gerena", 42.6970, 23.3680), ("Malashevtsi", 42.7170, 23.3450),
+             ("Musagenitsa", 42.6570, 23.3600), ("Business Park", 42.6260, 23.3770), ("Pavlovo", 42.6670, 23.2700),
+             ("Kopitoto", 42.6370, 23.2400), ("Zlatni Mostove", 42.6056, 23.2364), ("Aleko", 42.5835, 23.2918),
+             ("Cherni Vrah", 42.5639, 23.2778), ("The Steelworks", 42.7560, 23.5090), ("Plana", 42.4720, 23.4340)]
+
+
 # ---------------------------------------------------------------- districts
 full_mask = np.asarray(Image.open(os.path.join(ROOT, "tools", "districts_mask.png")).convert("L"))
 ys, xs = np.nonzero(full_mask)
@@ -178,9 +224,7 @@ src = full_mask[y0:y1, x0:x1]
 scale = CITY_HEIGHT / src.shape[0]
 tw, th = int(src.shape[1] * scale), int(src.shape[0] * scale)
 ox, oy = (W - tw) // 2, (H - th) // 2
-
-# Smooth upscale: blur each district's mask, resize, take the strongest one per pixel.
-best = np.full((th, tw), -1.0, np.float32)
+best = np.full((th, tw), -1.0, np.float32)   # smooth upscale: strongest blurred district mask wins
 lab = np.zeros((th, tw), np.int32)
 for k in range(0, 25):
     m = ndi.gaussian_filter((src == k).astype(np.float32), 0.8)
@@ -189,49 +233,134 @@ for k in range(0, 25):
     best[sel], lab[sel] = m[sel], k
 dist = np.zeros((H, W), np.int32)
 dist[oy:oy + th, ox:ox + tw] = lab
-for k in DISTRICTS:   # keep the largest piece of each district
-    cl, n = ndi.label(dist == k)
-    if n > 1:
-        keep = np.bincount(cl.ravel())[1:].argmax() + 1
-        dist[(cl > 0) & (cl != keep)] = -1
-holes = dist == -1
-if holes.any():
-    idx = ndi.distance_transform_edt(holes, return_distances=False, return_indices=True)
-    dist = dist[idx[0], idx[1]]
+
+
+def tidy_districts(d):
+    """Keep the largest piece of each district; stray pieces join the district around them."""
+    d = d.copy()
+    for k in DISTRICTS:
+        cl, n = ndi.label(d == k)
+        if n > 1:
+            keep = np.bincount(cl.ravel())[1:].argmax() + 1
+            d[(cl > 0) & (cl != keep)] = -1
+    holes_ = d == -1
+    if holes_.any():
+        idx_ = ndi.distance_transform_edt(d <= 0, return_distances=False, return_indices=True)
+        d[holes_] = d[idx_[0], idx_[1]][holes_]
+    return d
+
+
+dist = tidy_districts(dist)
 city = dist > 0
 
 # ---------------------------------------------------------------- georeference (lat/lon <-> map pixels)
-# Rough fit (Sredets ~ pixel 312,312 of the mask, 13.7 px/km), nudged so as many named places as possible
-# land inside their own district.
-places = [(k, la, lo) for k, lst in NAMES.items() for _, la, lo in lst]
-pk = np.array([q[0] for q in places])
-pla = np.array([q[1] for q in places])
-plo = np.array([q[2] for q in places])
-best_fit = (-1, 0, 0, 1.0)
-for sc in np.arange(0.85, 1.16, 0.025):
-    bx_ = 312 + (plo - 23.3215) * 1119 * sc
-    by_ = 312 - (pla - 42.6966) * 1521 * sc
-    for dx in range(-25, 26):
-        for dy in range(-25, 26):
-            xi = np.clip(np.round(bx_ + dx).astype(int), 0, full_mask.shape[1] - 1)
-            yi = np.clip(np.round(by_ + dy).astype(int), 0, full_mask.shape[0] - 1)
-            hits = int((full_mask[yi, xi] == pk).sum())
-            if hits > best_fit[0] or (hits == best_fit[0] and abs(dx) + abs(dy) < abs(best_fit[1]) + abs(best_fit[2])):
-                best_fit = (hits, dx, dy, sc)
-hits, fdx, fdy, fsc = best_fit
-print(f"georeference: {hits}/{len(places)} named places inside their own district")
+# Fitted so that the official neighbourhoods, taken together, cover the traced city outline as well as
+# possible: mask_x = 312 + dx + (lon - 23.3215) * 1119 * sx, mask_y = 312 + dy - (lat - 42.6966) * 1521 * sy.
+KV = json.load(open(os.path.join(ROOT, "tools", "geodata", "kvartali.geojson"), encoding="utf-8"))["features"]
+
+
+def kv_outline(sx, sy, dx, dy):
+    img = Image.new("L", full_mask.shape[::-1], 0)
+    d_ = ImageDraw.Draw(img)
+    for f in KV:
+        for poly in f["geometry"]["coordinates"]:
+            d_.polygon([(312 + dx + (lo - 23.3215) * 1119 * sx, 312 + dy - (la - 42.6966) * 1521 * sy)
+                        for lo, la in poly[0]], fill=255)
+    return np.asarray(img) > 0
+
+
+def overlap(params):
+    u = kv_outline(*params)
+    return (u & (full_mask > 0)).sum() / (u | (full_mask > 0)).sum()
+
+
+fit = [0.95, 0.95, -16.0, -11.0]
+score = overlap(fit)
+for step in ((0.01, 0.01, 2, 2), (0.005, 0.005, 1, 1)):
+    improved = True
+    while improved:
+        improved = False
+        for i in range(4):
+            for sign in (-1, 1):
+                trial = list(fit)
+                trial[i] += sign * step[i]
+                s_ = overlap(trial)
+                if s_ > score + 1e-6:
+                    fit, score, improved = trial, s_, True
+GSX, GSY, GDX, GDY = fit
+print(f"georeference: neighbourhoods cover the district outline at {score:.3f} overlap")
 
 
 def place_px(lat, lon):
-    sx = 312 + fdx + (lon - 23.3215) * 1119 * fsc
-    sy = 312 + fdy - (lat - 42.6966) * 1521 * fsc
-    return ox + (sx - x0) * scale, oy + (sy - y0) * scale
+    sx_ = 312 + GDX + (lon - 23.3215) * 1119 * GSX
+    sy_ = 312 + GDY - (lat - 42.6966) * 1521 * GSY
+    return ox + (sx_ - x0) * scale, oy + (sy_ - y0) * scale
 
+
+# ---------------------------------------------------------------- neighbourhoods on the map
+def ring_area(ring):
+    a = np.asarray(ring, np.float64)
+    return abs(np.dot(a[:, 0], np.roll(a[:, 1], 1)) - np.dot(a[:, 1], np.roll(a[:, 0], 1))) / 2
+
+
+kv_raster = Image.new("I", (W, H), 0)
+dr = ImageDraw.Draw(kv_raster)
+kv_info = {}
+order = sorted(range(len(KV)), key=lambda i: -sum(ring_area(p[0]) for p in KV[i]["geometry"]["coordinates"]))
+for i in order:   # biggest first, so a neighbourhood inside another one stays on top
+    f = KV[i]
+    if f["properties"].get("type_kv") == "0":
+        continue      # "rest of the municipality": land that belongs to no neighbourhood
+    kv_info[i + 1] = (kvartal_name(f["properties"]), f["properties"].get("type_kv"))
+    for poly in f["geometry"]["coordinates"]:
+        dr.polygon([place_px(la, lo) for lo, la in poly[0]], fill=i + 1)
+KVR = np.asarray(kv_raster, dtype=np.int32)
+del kv_raster, dr
+RESIDENTIAL = ("1", "6")              # housing estates, quarters, villages and towns
+
+
+def kv_shares():
+    """For each neighbourhood: the district holding most of it {kvid: (district, px)}, its size inside the
+    city, and the pixels it covers there."""
+    yy_, xx_ = np.nonzero((KVR > 0) & (dist > 0))
+    kv_, d_ = KVR[yy_, xx_], dist[yy_, xx_]
+    cnt_ = np.bincount(kv_.astype(np.int64) * 32 + d_)
+    home = {}
+    for code in np.nonzero(cnt_)[0]:
+        kvid_, dd = divmod(int(code), 32)
+        if cnt_[code] > home.get(kvid_, (0, 0))[1]:
+            home[kvid_] = (dd, int(cnt_[code]))
+    return home, np.bincount(kv_), yy_, xx_, kv_
+
+
+# Neighbourhoods spread over several districts with no clear majority, and where they really belong.
+KV_HOME_OVERRIDES = {"City Centre": 1}
+# The districts were traced by hand from a district map, so their lines are approximate. Inside the city they
+# now follow the real neighbourhood edges: a neighbourhood that lies mostly (60 %+) in one traced district joins
+# that district whole. The traced line stays only where a neighbourhood really is split between districts.
+kv_home, kv_total, _yy, _xx, _kv = kv_shares()
+snap = np.zeros(int(KVR.max()) + 1, np.int32)
+for kvid_, (dd, n_) in kv_home.items():
+    if n_ >= 0.6 * kv_total[kvid_]:
+        snap[kvid_] = dd
+_to = snap[_kv]
+dist[_yy[_to > 0], _xx[_to > 0]] = _to[_to > 0]
+dist = tidy_districts(dist)
+city = dist > 0
+kv_home, kv_total, _yy, _xx, _kv = kv_shares()
+for kvid_, (nm_, t_) in kv_info.items():
+    if nm_ in KV_HOME_OVERRIDES and kvid_ in kv_home:
+        kv_home[kvid_] = (KV_HOME_OVERRIDES[nm_], kv_home[kvid_][1])
+_n = np.maximum(np.bincount(_kv), 1)
+KV_CY, KV_CX = np.bincount(_kv, weights=_yy) / _n, np.bincount(_kv, weights=_xx) / _n
+print(f"districts: {sum(n_ for _, n_ in kv_home.values()) / len(_kv):.3f} of neighbourhood land lies in its home district")
+del _yy, _xx, _kv, _n, _to
 
 gy, gx = np.mgrid[0:H, 0:W].astype(np.float32)
-LON = 23.3215 + (x0 + (gx - ox) / scale - 312 - fdx) / (1119 * fsc)
-LAT = 42.6966 - (y0 + (gy - oy) / scale - 312 - fdy) / (1521 * fsc)
-KM_PER_PX = 1 / (13.7 * fsc * scale)
+LON = 23.3215 + (x0 + (gx - ox) / scale - 312 - GDX) / (1119 * GSX)
+LAT = 42.6966 - (y0 + (gy - oy) / scale - 312 - GDY) / (1521 * GSY)
+KM_PER_PX = 1 / (13.7 * (GSX + GSY) / 2 * scale)
+del gy, gx
 
 # ---------------------------------------------------------------- real elevation and land cover
 # tools/fetch_geodata.py downloads them: AWS Terrain Tiles (metres) and ESA WorldCover 2021 (classes:
@@ -242,7 +371,7 @@ gi = (g_lat_max - LAT) / g_res - 0.5
 gj = (LON - g_lon_min) / g_res - 0.5
 ELEV = ndi.map_coordinates(geo["elevation"].astype(np.float32), [gi, gj], order=1, mode="nearest")
 LC = ndi.map_coordinates(geo["landcover"], [gi, gj], order=0, mode="nearest")
-del gi, gj
+del gi, gj, LAT, LON
 M_PER_PX = KM_PER_PX * 1000
 ELEV_S = ndi.gaussian_filter(ELEV, 1.0)
 slope_y, slope_x = np.gradient(ELEV_S, M_PER_PX)
@@ -254,98 +383,535 @@ MOUNT = (ELEV > 1400) | (SLOPE > 0.40)
 HILL = (ELEV > 850) | (SLOPE > 0.15)
 print(f"geodata: elevation {ELEV.min():.0f}-{ELEV.max():.0f} m, {M_PER_PX:.0f} m per map pixel")
 
-# gameplay class per pixel: 0 plains, 1 forest, 2 hills, 3 mountain; built-up areas stay plains
-cls = np.zeros((H, W), np.uint8)
-cls[HILL] = 2
-cls[TREES] = 1
-cls[MOUNT] = 3
-cls[BUILT & ~MOUNT] = 0
-
 # Big real lakes and reservoirs inside the city (the Iskar reservoir) become impassable lake provinces.
 cl_, n_ = ndi.label(WATER & city)
 sizes_ = np.bincount(cl_.ravel())
 big_water = np.isin(cl_, [j for j in range(1, n_ + 1) if sizes_[j] >= 1500])
 dist[big_water] = 0
 city = dist > 0
-print(f"big lakes inside the city: {int(big_water.sum())} px")
 
-# ---------------------------------------------------------------- split districts and the void into provinces
-def kmeans_labels(pts, n, iters=15):
-    sample = pts[RNG.choice(len(pts), min(len(pts), 20000), replace=False)]
-    cen = sample[RNG.choice(len(sample), n, replace=False)].copy()
-    for _ in range(iters):
-        a = ((sample[:, None, :] - cen[None, :, :]) ** 2).sum(-1).argmin(1)
+# ---------------------------------------------------------------- rivers (they also guide province borders)
+river = np.full((H, W), 255, np.uint8)         # rivers.bmp: 255 land, 254 water, 0 source, 1 joins, 3..11 width
+river[~city] = 254
+ELEV_R = ndi.gaussian_filter(ELEV, 3.0)
+
+
+def valley_path(a, b, pad=40):
+    """4-connected cheapest path from a to b, where climbing above the local valley floor is expensive."""
+    (xa, ya), (xb, yb) = [(int(round(v[0])), int(round(v[1]))) for v in (a, b)]
+    bx0, bx1 = max(min(xa, xb) - pad, 0), min(max(xa, xb) + pad, W - 1)
+    by0, by1 = max(min(ya, yb) - pad, 0), min(max(ya, yb) + pad, H - 1)
+    e = ELEV_R[by0:by1 + 1, bx0:bx1 + 1]
+    hh, ww = e.shape
+    cost = 1.0 + ((e - e.min()) / 15.0) ** 1.5
+    ix = np.arange(hh * ww).reshape(hh, ww)
+    pairs = [(ix[:, :-1], ix[:, 1:], (cost[:, :-1] + cost[:, 1:]) / 2),
+             (ix[:-1, :], ix[1:, :], (cost[:-1, :] + cost[1:, :]) / 2)]
+    rows = np.concatenate([q for a_, b_, c_ in pairs for q in (a_.ravel(), b_.ravel())])
+    cols = np.concatenate([q for a_, b_, c_ in pairs for q in (b_.ravel(), a_.ravel())])
+    wts = np.concatenate([q for a_, b_, c_ in pairs for q in (c_.ravel(), c_.ravel())])
+    graph = coo_matrix((wts, (rows, cols)), shape=(hh * ww, hh * ww)).tocsr()
+    s_i, d_i = (ya - by0) * ww + (xa - bx0), (yb - by0) * ww + (xb - bx0)
+    _, pred = dijkstra(graph, indices=s_i, return_predecessors=True)
+    path, cur = [], d_i
+    while cur != s_i and cur >= 0:
+        path.append((cur % ww + bx0, cur // ww + by0))
+        cur = pred[cur]
+    path.append((xa, ya))
+    return path[::-1]
+
+
+def river_course(waypoints):
+    pts = [place_px(la, lo) for la, lo in waypoints]
+    res = []
+    for a, b in zip(pts, pts[1:]):
+        seg = valley_path(a, b)
+        res += seg if not res else seg[1:]
+    out_, seen = [], {}
+    for q in res:   # cut out any loop
+        if q in seen:
+            del out_[seen[q] + 1:]
+            seen = {v: i for i, v in enumerate(out_)}
+            continue
+        seen[q] = len(out_)
+        out_.append(q)
+    i = 0           # 1 px wide: if it touches itself further along, skip the detour in between
+    while i < len(out_):
+        xi, yi = out_[i]
+        for j in range(len(out_) - 1, i + 1, -1):
+            if abs(out_[j][0] - xi) + abs(out_[j][1] - yi) == 1:
+                del out_[i + 1:j]
+                break
+        i += 1
+    return out_
+
+
+river_mask = np.zeros((H, W), bool)
+
+
+def n4(x, y):
+    return [(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)]
+
+
+def junction_ok(base, seq):
+    """seq = new tributary pixels; the last one is the flow-in pixel that touches the river."""
+    taken = set(base)
+    for i_, (x, y) in enumerate(seq):
+        if not (0 < x < W - 1 and 0 < y < H - 1) or not city[y, x] or river_mask[y, x] or (x, y) in taken:
+            return False
+        if sum(river_mask[yy, xx] for xx, yy in n4(x, y)) != (1 if i_ == len(seq) - 1 else 0):
+            return False
+        taken.add((x, y))
+    for x, y in seq:   # no 2x2 block of river pixels around the new ones
+        for ddx in (-1, 0):
+            for ddy in (-1, 0):
+                cells = [(x + ddx + a_, y + ddy + b_) for a_ in (0, 1) for b_ in (0, 1)]
+                if all(river_mask[cy_, cx_] or (cx_, cy_) in taken for cx_, cy_ in cells):
+                    return False
+    return True
+
+
+for ri, (rname, width, waypoints) in enumerate(RIVERS):
+    pix = river_course(waypoints)
+    on_land = [city[y, x] if 0 <= x < W and 0 <= y < H else False for x, y in pix]
+    joins = False
+    if ri == 0:   # main river: its longest stretch on land
+        runs, cur = [], []
+        for q, ok in zip(pix, on_land):
+            if ok:
+                cur.append(q)
+            elif cur:
+                runs.append(cur)
+                cur = []
+        if cur:
+            runs.append(cur)
+        course = max(runs, key=len)
+    else:         # tributary: from its source until it reaches a river already drawn
+        course = []
+        for q, ok in zip(pix, on_land):
+            if not ok:
+                break
+            x, y = q
+            if river_mask[max(y - 1, 0):y + 2, max(x - 1, 0):x + 2].any():
+                for back in range(0, 12):
+                    base = course[:len(course) - back] if back else list(course)
+                    start = course[len(course) - back] if back else q
+                    options = [[start]]
+                    for n1 in n4(*start):
+                        options.append([start, n1])
+                        options += [[start, n1, n2] for n2 in n4(*n1) if n2 != start]
+                    good = next((seq for seq in options if junction_ok(base, seq)), None)
+                    if good:
+                        course = base + good
+                        joins = True
+                        break
+                if not joins:   # no clean junction: end the river just before it would touch
+                    course = course[:-2]
+                break
+            course.append(q)
+    if len(course) < 5:
+        continue
+    for i, (x, y) in enumerate(course):
+        river[y, x] = 0 if i == 0 else (1 if joins and i == len(course) - 1 else width)
+        river_mask[y, x] = True
+
+# ---------------------------------------------------------------- cost of crossing the land
+# Provinces and states grow outwards from real neighbourhoods; where growth fronts meet becomes a border.
+# Rivers, steep slopes and edges between built-up land, forest and fields slow growth, so borders settle on
+# them, and fractal noise makes them wander like real boundaries instead of straight polygon edges.
+cy0_, cy1_ = np.nonzero(city.any(1))[0][[0, -1]]
+cx0_, cx1_ = np.nonzero(city.any(0))[0][[0, -1]]
+CB = (slice(cy0_ - 4, cy1_ + 5), slice(cx0_ - 4, cx1_ + 5))   # bounding box of the city
+noise = np.zeros(city[CB].shape, np.float32)
+for sigma, amp in ((2.0, 0.45), (6.0, 0.35), (16.0, 0.20)):
+    n_ = ndi.gaussian_filter(RNG.normal(0, 1, noise.shape).astype(np.float32), sigma)
+    noise += amp * n_ / (np.abs(n_).max() + 1e-6)
+noise = (noise - noise.min()) / (noise.max() - noise.min())
+edges = np.zeros(noise.shape, np.float32)
+for mask_ in (BUILT[CB], TREES[CB]):
+    sm = ndi.gaussian_filter(mask_.astype(np.float32), 1.5)
+    gy_, gx_ = np.gradient(sm)
+    edges += np.hypot(gx_, gy_)
+COST = np.zeros((H, W), np.float32)
+COST[CB] = (1.0 + 2.5 * noise + 15.0 * np.clip(SLOPE[CB], 0, 1) + 6.0 * (edges / (edges.max() + 1e-6))
+            + 8.0 * ndi.binary_dilation(river_mask[CB], iterations=1))
+del noise, edges
+
+
+def grow(mask, labels, cost):
+    """Fill the zero pixels of `labels` inside `mask` with the label whose growth front reaches them first
+    (multi-source shortest paths over an 8-connected pixel graph weighted by `cost`)."""
+    n = int(mask.sum())
+    ix = -np.ones(mask.shape, np.int64)
+    ix[mask] = np.arange(n)
+    rows, cols, wts = [], [], []
+    hh, ww = mask.shape
+    for dy, dx, f in ((0, 1, 1.0), (1, 0, 1.0), (1, 1, 1.4142), (1, -1, 1.4142)):
+        a_ = (slice(0, hh - dy), slice(max(0, -dx), ww - max(0, dx)))
+        b_ = (slice(dy, hh), slice(max(0, dx), ww - max(0, -dx) if dx < 0 else ww))
+        both = mask[a_] & mask[b_]
+        rows.append(ix[a_][both])
+        cols.append(ix[b_][both])
+        wts.append(((cost[a_][both] + cost[b_][both]) / 2 * f).astype(np.float64))
+    graph = coo_matrix((np.concatenate(wts), (np.concatenate(rows), np.concatenate(cols))), shape=(n, n)).tocsr()
+    flat = labels[mask]
+    seeds = np.flatnonzero(flat > 0)
+    if len(seeds) == 0:
+        return labels
+    _, _, srcs = dijkstra(graph, directed=False, indices=seeds, min_only=True, return_predecessors=True)
+    filled = flat.copy()
+    reach = srcs >= 0
+    filled[reach] = flat[srcs[reach]]
+    out_ = labels.copy()
+    out_[mask] = filled
+    gaps = mask & (out_ == 0)                  # cut off from every seed: nearest label
+    if gaps.any():
+        idx_ = ndi.distance_transform_edt(out_ == 0, return_distances=False, return_indices=True)
+        out_[gaps] = out_[idx_[0], idx_[1]][gaps]
+    return out_
+
+
+def split_organic(mask, n, cost):
+    """Split `mask` into n parts that grow from well-spread seeds along the terrain (labels 1..n)."""
+    pts = np.argwhere(mask).astype(np.float32)
+    cen = pts[RNG.choice(len(pts), n, replace=False)]
+    for _ in range(12):   # k-means on coordinates only places the seeds
+        a = ((pts[:, None, :] - cen[None, :, :]) ** 2).sum(-1).argmin(1)
         for j in range(n):
             if (a == j).any():
-                cen[j] = sample[a == j].mean(0)
-    labels = np.empty(len(pts), np.int32)
-    for i in range(0, len(pts), 100000):
-        chunk = pts[i:i + 100000]
-        labels[i:i + 100000] = ((chunk[:, None, :] - cen[None, :, :]) ** 2).sum(-1).argmin(1)
-    return labels
+                cen[j] = pts[a == j].mean(0)
+    labels = np.zeros(mask.shape, np.int32)
+    for j, (cy_, cx_) in enumerate(cen, 1):
+        q = np.argmin(((pts - (cy_, cx_)) ** 2).sum(1))
+        labels[int(pts[q][0]), int(pts[q][1])] = j
+    return grow(mask, labels, cost)
 
 
-def make_contiguous(local, sub):
-    """Each cell keeps only its largest piece; stray pieces join the nearest cell."""
-    for _ in range(3):
-        for j in range(1, local.max() + 1):
-            cl, n = ndi.label(local == j)
-            if n > 1:
-                keep = np.bincount(cl.ravel())[1:].argmax() + 1
-                local[(cl > 0) & (cl != keep)] = 0
-        holes_ = sub & (local == 0)
-        if not holes_.any():
+def border_counts(lab_):
+    """{(a, b): shared edge length} for neighbouring labels > 0."""
+    pairs = {}
+    for a_, b_ in ((lab_[:, :-1], lab_[:, 1:]), (lab_[:-1, :], lab_[1:, :])):
+        m_ = (a_ != b_) & (a_ > 0) & (b_ > 0)
+        for x_, y_ in zip(a_[m_].tolist(), b_[m_].tolist()):
+            key = (min(x_, y_), max(x_, y_))
+            pairs[key] = pairs.get(key, 0) + 1
+    return pairs
+
+
+
+# ---------------------------------------------------------------- provinces and states, district by district
+landmark_px = [(nm, *place_px(la, lo)) for nm, la, lo in LANDMARKS]
+
+
+def refine(lab_, m, cost, built, names, kinds, origin, sizes_):
+    """Split pieces that are too big (or too long for the engine) along the terrain, then merge slivers and
+    stray bits into the neighbour they share the longest border with; repeat until nothing changes.
+    sizes_ = (target, largest, smallest) px; built-up land in an outer district uses the middle sizes."""
+    target, largest, smallest = sizes_
+    nl = int(lab_.max())
+    for _ in range(12):
+        changed = False
+        for j, bb in enumerate(ndi.find_objects(lab_), 1):
+            if bb is None:
+                continue
+            pm = lab_[bb] == j
+            area = int(pm.sum())
+            b_ = built[bb][pm].mean()      # dense city: smaller provinces, open land: bigger ones
+            mid = SIZES["middle"]
+            t_, l_ = ((min(target, mid[0]), min(largest, mid[1])) if b_ >= 0.4 else
+                      (max(target, mid[0]), max(largest, mid[1])) if b_ < 0.15 else (target, largest))
+            if area <= l_ and max(bb[0].stop - bb[0].start, bb[1].stop - bb[1].start) <= MAX_BOX:
+                continue
+            n = max(2, int(np.ceil(area / t_)))
+            parts = split_organic(pm, n, cost[bb])
+            for part in range(2, n + 1):
+                nl += 1
+                lab_[bb][parts == part] = nl
+                names[nl], kinds[nl], origin[nl] = None, kinds.get(j), origin.get(j)
+            changed = True
+        for j, bb in enumerate(ndi.find_objects(lab_), 1):
+            if bb is None:
+                continue
+            pad = (slice(max(bb[0].start - 1, 0), bb[0].stop + 1), slice(max(bb[1].start - 1, 0), bb[1].stop + 1))
+            sub = lab_[pad]
+            cl, n = ndi.label(sub == j)
+            if n == 0:
+                continue
+            sizes = np.bincount(cl.ravel())
+            main = int(sizes[1:].argmax()) + 1
+            pieces = [c for c in range(1, n + 1) if c != main] + ([main] if sizes[main] < smallest else [])
+            for c in pieces:
+                piece = cl == c
+                ring = ndi.binary_dilation(piece) & ~piece & m[pad] & (sub != j) & (sub > 0)
+                if not ring.any():
+                    continue
+                py_, px_ = np.nonzero(piece)
+                py_, px_ = py_ + pad[0].start, px_ + pad[1].start
+                best_t, best_n = None, 0
+                for t, cnt in zip(*np.unique(sub[ring], return_counts=True)):
+                    ty_, tx_ = np.nonzero(lab_ == t)   # the merged province must still fit the engine's box
+                    h_ = max(ty_.max(), py_.max()) - min(ty_.min(), py_.min()) + 1
+                    w_ = max(tx_.max(), px_.max()) - min(tx_.min(), px_.min()) + 1
+                    if max(h_, w_) <= MAX_BOX and cnt > best_n:
+                        best_t, best_n = int(t), cnt
+                if best_t is None:
+                    continue
+                sub[piece] = best_t
+                if c == main and names.get(j) and not names.get(best_t):
+                    names[best_t], kinds[best_t] = names[j], kinds.get(j)
+                changed = True
+        if not changed:
             break
-        idx_ = ndi.distance_transform_edt(local == 0, return_distances=False, return_indices=True)
-        local[holes_] = local[idx_[0], idx_[1]][holes_]
-    return local
-
-
-def split(mask, target, max_box, min_cell=None):
-    ys_, xs_ = np.nonzero(mask)
-    by, bx = ys_.min(), xs_.min()
-    sub = mask[by:ys_.max() + 1, bx:xs_.max() + 1]
-    pts = np.argwhere(sub).astype(np.float32)
-    n = max(1, int(np.ceil(len(pts) / target)))
-    if min_cell:
-        n = max(n, min(4, len(pts) // min_cell))
-    while True:
-        local = np.zeros(sub.shape, np.int32)
-        local[sub] = (kmeans_labels(pts, n) + 1) if n > 1 else 1
-        local = make_contiguous(local, sub)
-        worst = max(max(z.stop - z.start for z in b) for b in ndi.find_objects(local) if b is not None)
-        if worst <= max_box or n > 400:
-            return local, by, bx
-        n += max(1, n // 5)
+    return lab_
 
 
 prov = np.zeros((H, W), np.int32)
-prov_district = {}        # province id -> district number (0 = lake)
-state_provs = {}          # district number -> [province ids], capital first
+prov_district, prov_name, prov_kvtype, prov_partial = {}, {}, {}, set()
+states = []           # [{"district", "provinces" (main province first), "name", "country_capital"}]
 next_id = 1
 for k in DISTRICTS:
-    m = dist == k
-    local, by, bx = split(m, LAND_TARGET, LAND_MAX_BOX, min_cell=LAND_MIN_CELL)
-    view = prov[by:by + local.shape[0], bx:bx + local.shape[1]]
-    state_provs[k] = []
-    for j in range(1, local.max() + 1):
-        if (local == j).any():
-            view[local == j] = next_id
-            prov_district[next_id] = k
-            state_provs[k].append(next_id)
-            next_id += 1
+    target, largest, smallest = SIZES[size_class(k)]
+    dm = dist == k
+    ys_, xs_ = np.nonzero(dm)
+    sl = (slice(ys_.min() - 1, ys_.max() + 2), slice(xs_.min() - 1, xs_.max() + 2))
+    m = dm[sl]
+    cost = COST[sl]
+    kv = np.where(m, KVR[sl], 0)
+    # 1. pieces of the real neighbourhoods inside the district. A neighbourhood keeps its plain name in the
+    #    district that holds most of it; a sizeable piece elsewhere is called after its side ("West Lozenets").
+    lab_ = np.zeros(m.shape, np.int32)
+    names, kinds, partial, origin = {}, {}, set(), {}
+    for kvid in np.unique(kv[kv > 0]):
+        cl, n = ndi.label(kv == kvid)
+        sizes = np.bincount(cl.ravel())
+        for c in range(1, n + 1):
+            if sizes[c] < 40:
+                continue
+            j = int(lab_.max()) + 1
+            lab_[cl == c] = j
+            names[j], kinds[j], origin[j] = None, kv_info[kvid][1], kvid
+            nm = kv_info[kvid][0]
+            if nm and kv_home[kvid][0] == k and sizes[c] == sizes[1:].max():
+                names[j] = nm
+            elif nm and sizes[c] >= smallest and kv_info[kvid][1] in RESIDENTIAL + ("4", "5.1", "5.2"):
+                pcy, pcx = np.argwhere(cl == c).mean(0) + (sl[0].start, sl[1].start)
+                dy, dx = pcy - KV_CY[kvid], pcx - KV_CX[kvid]
+                side = ("East" if dx > 0 else "West") if abs(dx) > abs(dy) else ("South" if dy > 0 else "North")
+                names[j] = f"{side} {nm}"
+                partial.add(j)
+    if lab_.max() == 0:
+        lab_ = split_organic(m, max(2, int(m.sum() // target)), cost)
+    # 2. land that belongs to no neighbourhood (fields, forest, mountain) joins the nearest one along the terrain
+    lab_ = grow(m, lab_, cost)
+    # 3. right sizes, organic borders
+    lab_ = refine(lab_, m, cost, BUILT[sl], names, kinds, origin, SIZES[size_class(k)])
+    ids = [j for j, bb in enumerate(ndi.find_objects(lab_), 1) if bb is not None]
+    if len(ids) < 2:   # every country gets at least two states, so at least two provinces
+        parts = split_organic(lab_ == ids[0], 2, cost)
+        j = int(lab_.max()) + 1
+        lab_[parts == 2] = j
+        names[j], kinds[j] = None, kinds.get(ids[0])
+        ids.append(j)
+    lut_ = np.zeros(int(lab_.max()) + 1, np.int32)
+    for j in ids:
+        lut_[j] = next_id
+        prov_district[next_id] = k
+        prov_name[next_id] = names.get(j)
+        prov_kvtype[next_id] = kinds.get(j)
+        if j in partial and names.get(j):
+            prov_partial.add(next_id)
+        next_id += 1
+    glab = lut_[lab_]
+    prov[sl][m] = glab[m]
+    for nm, lx, ly in landmark_px:   # a landmark beats no name and beats a "West Lozenets" kind of name
+        yy, xx = int(round(ly)) - sl[0].start, int(round(lx)) - sl[1].start
+        if 0 <= yy < m.shape[0] and 0 <= xx < m.shape[1] and glab[yy, xx] > 0:
+            q = int(glab[yy, xx])
+            if not prov_name[q] or q in prov_partial:
+                prov_name[q] = nm
+                prov_partial.discard(q)
+    # unnamed built-up pieces of a split housing estate or quarter are named after their side of it
+    for j in ids:
+        q, kvid = int(lut_[j]), origin.get(j)
+        if prov_name[q] or kvid is None or kv_info[kvid][1] != "1" or not kv_info[kvid][0]:
+            continue
+        pm = glab == q
+        if BUILT[sl][pm].mean() < 0.3:
+            continue
+        pcy, pcx = np.argwhere(pm).mean(0) + (sl[0].start, sl[1].start)
+        dy, dx = pcy - KV_CY[kvid], pcx - KV_CX[kvid]
+        side = ("East" if dx > 0 else "West") if abs(dx) > abs(dy) else ("South" if dy > 0 else "North")
+        nm = f"{side} {kv_info[kvid][0]}"
+        if nm not in prov_name.values():
+            prov_name[q] = nm
+            prov_partial.add(q)
+    # 4. states: neighbouring provinces grouped around the main neighbourhoods. Seeds: the capital, then again
+    #    and again the province farthest (through the province graph) from every seed so far, favouring named,
+    #    built-up places. States grow from their seeds, a big state more slowly than a small one, and every seed
+    #    but the capital moves to the middle of its state a few times: compact states of similar size.
+    plist = [int(lut_[j]) for j in ids]
+    cents = {p: np.argwhere(glab == p).mean(0) for p in plist}
+    builtp = {p: float(BUILT[sl][glab == p].sum()) for p in plist}
+    nb = border_counts(glab)
+    nbl = {p: set() for p in plist}
+    for a, b in nb:
+        nbl[a].add(b)
+        nbl[b].add(a)
+    idx_of = {p: i for i, p in enumerate(plist)}
+    rows = [idx_of[a] for a, b in nb] + [idx_of[b] for a, b in nb]
+    cols = [idx_of[b] for a, b in nb] + [idx_of[a] for a, b in nb]
+    wts = [float(np.hypot(*(cents[a] - cents[b]))) + 1 for a, b in nb] * 2
+    pgraph = coo_matrix((wts, (rows, cols)), shape=(len(plist), len(plist))).tocsr()
+    pd = dijkstra(pgraph, directed=False)
+    pd[~np.isfinite(pd)] = 1e9
+    n_states = int(np.clip(round(len(plist) / PROVINCES_PER_STATE[size_class(k)]), 2, 12))
+    # the capital: the neighbourhood the district is named after ("Mladost 1" for Mladost), else the housing
+    # estate, quarter or village nearest to the district's real centre
+    cx_, cy_ = place_px(*CAPITALS[k])
+    cap_local = np.array((cy_ - sl[0].start, cx_ - sl[1].start))
+    dname = DISTRICTS[k][1]
+    homes = [p for p in plist if prov_name[p] and prov_kvtype[p] in RESIDENTIAL and p not in prov_partial]
+    cands = [p for p in homes if prov_name[p] == dname or prov_name[p].startswith(dname + " ")] or homes or plist
+    first = min(cands, key=lambda q: np.hypot(*(cents[q] - cap_local)))
+    weight = {p: (1.6 if prov_name[p] and prov_kvtype[p] in RESIDENTIAL else 1.2 if prov_name[p] else 1.0)
+              * (1 + builtp[p] / 400) for p in plist}
+    seeds = [first]
+    while len(seeds) < n_states:
+        dmin = pd[[idx_of[s] for s in seeds]].min(0)
+        seeds.append(max((p for p in plist if p not in seeds), key=lambda p: dmin[idx_of[p]] * weight[p] ** 0.35))
+    per_state = len(plist) / n_states
 
-# The void around the city: impassable lakes, split on a 2x coarser grid, then cleaned at full resolution.
-F = 4
+    def grow_states(seeds_):
+        owner_, size_, heap = {s: s for s in seeds_}, {s: 1 for s in seeds_}, []
+
+        def push(s, q):
+            d_ = pd[idx_of[s], idx_of[q]]
+            heapq.heappush(heap, (d_ * (1 + size_[s] / per_state) ** 2, d_, s, q, size_[s]))
+
+        for s in seeds_:
+            for q in nbl[s]:
+                if q not in owner_:
+                    push(s, q)
+        while heap:
+            _, d_, s, q, sz = heapq.heappop(heap)
+            if q in owner_:
+                continue
+            if sz != size_[s]:      # the state grew since: queue again at its current size
+                push(s, q)
+                continue
+            owner_[q] = s
+            size_[s] += 1
+            for r in nbl[q]:
+                if r not in owner_:
+                    push(s, r)
+        for p in plist:             # cut off from every seed: nearest one
+            owner_.setdefault(p, min(seeds_, key=lambda s: pd[idx_of[s], idx_of[p]]))
+        return owner_
+
+    for _ in range(6):
+        owner = grow_states(seeds)
+        moved = [first]
+        for s in seeds[1:]:
+            members = [p for p in plist if owner[p] == s]
+            mi = [idx_of[q] for q in members]
+            moved.append(min(members, key=lambda q: pd[idx_of[q], mi].sum()))
+        if moved == seeds:
+            break
+        seeds = moved
+    owner = grow_states(seeds)
+
+    def importance(p):
+        t = prov_kvtype[p]
+        return (2 if t in RESIDENTIAL else 1 if t in ("4", "5.1", "5.2") else 0, p not in prov_partial, builtp[p])
+
+    for s in seeds:   # the state's main place: its most important named place
+        members = [p for p in plist if owner[p] == s]
+        named = [p for p in members if prov_name[p]]
+        main = s if s == first or not named else max(named, key=lambda p: (importance(p), p == s))
+        states.append({"district": k, "provinces": [main] + [p for p in members if p != main],
+                       "country_capital": s == first})
+
+# Per-province sums for the rest of the script: pixel count, centre, elevation, forest and built-up land.
+_yy, _xx = np.nonzero(prov)
+_pv = prov[_yy, _xx]
+P_AREA = np.bincount(_pv, minlength=next_id).astype(np.float64)
+P_CY = np.bincount(_pv, weights=_yy, minlength=next_id) / np.maximum(P_AREA, 1)
+P_CX = np.bincount(_pv, weights=_xx, minlength=next_id) / np.maximum(P_AREA, 1)
+P_ELEV = np.bincount(_pv, weights=ELEV[_yy, _xx], minlength=next_id)
+P_TREES = np.bincount(_pv, weights=TREES[_yy, _xx], minlength=next_id)
+P_BUILT = np.bincount(_pv, weights=BUILT[_yy, _xx], minlength=next_id)
+del _yy, _xx, _pv
+
+
+def state_sum(st, arr):
+    return float(sum(arr[p] for p in st["provinces"]))
+
+
+# State names: the capital state carries the country's name, the others the name of their main place.
+# A state with no named place is named after the nearest one and its land ("Bistritsa Heights").
+named_all = [p for p in prov_name if prov_name[p] and p not in prov_partial
+             and prov_kvtype[p] in RESIDENTIAL + ("4", "5.1", "5.2")]
+used_names = set()
+for st in sorted(states, key=lambda s: not s["country_capital"]):
+    k = st["district"]
+    if st["country_capital"]:
+        options = [DISTRICTS[k][1]]
+    else:
+        options = []
+        for p in st["provinces"]:
+            if prov_name[p]:
+                options.append(prov_name[p])
+                if prov_kvtype[p] == "1" and p not in prov_partial:
+                    options.append(prov_name[p] + " Quarter")
+        area_ = state_sum(st, P_AREA)
+        elev_, forest_ = state_sum(st, P_ELEV) / area_, state_sum(st, P_TREES) / area_
+        built_ = state_sum(st, P_BUILT) / area_
+        land_ = ("Quarter" if built_ > 0.35 else "Heights" if elev_ > 1100 else "Woods" if forest_ > 0.5
+                 else "Hills" if elev_ > 750 else "Fields")
+        cy_ = sum(P_CY[p] * P_AREA[p] for p in st["provinces"]) / area_
+        cx_ = sum(P_CX[p] * P_AREA[p] for p in st["provinces"]) / area_
+        near = sorted((p for p in named_all if prov_district[p] == k and p not in st["provinces"]),
+                      key=lambda p: np.hypot(P_CY[p] - cy_, P_CX[p] - cx_))
+        options += [f"{prov_name[p].removesuffix(' Villas')} {land_}" for p in near[:4]]
+        options += [f"{DISTRICTS[k][1]} {land_}"]
+    name_ = next((o for o in options if o not in used_names), None)
+    if name_ is None:
+        base = options[0]
+        name_ = next(f"{base} {r}" for r in ("II", "III", "IV", "V", "VI", "VII", "VIII") if f"{base} {r}" not in used_names)
+    used_names.add(name_)
+    st["name"] = name_
+print(f"{next_id - 1} land provinces in {len(states)} states")
+
+# ---------------------------------------------------------------- the land around the city: impassable lakes
 sea_mask = np.zeros((H, W), bool)
 sea_mask[:SEA_BOX, :SEA_BOX] = True        # top-left corner, far away from the city
 void = ~city & ~sea_mask
+# The land around the city is cut into impassable lake provinces the same way as the city: they grow from
+# well-spread seeds over the real terrain with a noisy cost, at half resolution to keep the build quick.
+F = 2
 small_void = void[::F, ::F]
-local_s, sby, sbx = split(small_void, LAKE_TARGET / F ** 2, LAKE_MAX_BOX // F - 3)
-lab_s = np.zeros(small_void.shape, np.int32)
-lab_s[sby:sby + local_s.shape[0], sbx:sbx + local_s.shape[1]] = local_s
-lab = np.repeat(np.repeat(lab_s, F, 0), F, 1)[:H, :W].copy()
+_pts = np.argwhere(small_void).astype(np.float32)
+_sample = _pts[RNG.choice(len(_pts), 60000, replace=False)]
+_cen = _sample[RNG.choice(len(_sample), int(round(len(_pts) * F * F / LAKE_TARGET)), replace=False)].copy()
+for _ in range(12):
+    _a = cKDTree(_cen).query(_sample, workers=-1)[1]
+    for j in range(len(_cen)):
+        if (_a == j).any():
+            _cen[j] = _sample[_a == j].mean(0)
+_seed = np.unique(cKDTree(_pts).query(_cen, workers=-1)[1])
+lab_c = np.zeros(small_void.shape, np.int32)
+lab_c[_pts[_seed, 0].astype(int), _pts[_seed, 1].astype(int)] = np.arange(1, len(_seed) + 1)
+_noise = np.zeros(small_void.shape, np.float32)
+for sigma, amp in ((1.5, 0.30), (5.0, 0.40), (14.0, 0.30)):
+    n_ = ndi.gaussian_filter(RNG.normal(0, 1, _noise.shape).astype(np.float32), sigma, mode="wrap")
+    _noise += amp * n_ / (np.abs(n_).max() + 1e-6)
+_noise = (_noise - _noise.min()) / (_noise.max() - _noise.min())
+cost_void_c = 1.0 + 8.0 * _noise ** 2 + 15.0 * np.clip(SLOPE[::F, ::F], 0, 1)
+lab_c = grow(small_void, lab_c, cost_void_c)
+COST_VOID = np.repeat(np.repeat(cost_void_c, F, 0), F, 1)[:H, :W]
+lab = np.repeat(np.repeat(lab_c, F, 0), F, 1)[:H, :W].copy()
 lab[~void] = 0
+del _pts, _sample, _cen, _a, _seed, _noise, lab_c, cost_void_c
 for _ in range(6):
     holes = void & (lab == 0)
     if holes.any():
@@ -372,42 +938,77 @@ lake_ids = []
 for j, sl in enumerate(ndi.find_objects(lab), 1):
     if sl is None:
         continue
-    view = prov[sl]
-    view[lab[sl] == j] = next_id
+    prov[sl][lab[sl] == j] = next_id
     prov_district[next_id] = 0
     lake_ids.append(next_id)
     next_id += 1
-lake_slices = ndi.find_objects(prov)
-for q in list(lake_ids):          # merging slivers can stretch a lake past the size limit; split those again
-    sl = lake_slices[q - 1]
-    if max(sl[0].stop - sl[0].start, sl[1].stop - sl[1].start) <= LAKE_MAX_BOX:
-        continue
-    m = prov[sl] == q
-    local, by, bx = split(m, m.sum() / 2, LAKE_MAX_BOX)
-    view = prov[sl][by:by + local.shape[0], bx:bx + local.shape[1]]
-    for j in range(2, local.max() + 1):
-        if (local == j).any():
-            view[local == j] = next_id
-            prov_district[next_id] = 0
-            lake_ids.append(next_id)
-            next_id += 1
+for _ in range(5):                 # a lake too big for the engine is split in two along the terrain
+    lake_slices = ndi.find_objects(prov)
+    too_big = [q for q in lake_ids if max(z.stop - z.start for z in lake_slices[q - 1]) > LAKE_MAX_BOX]
+    if not too_big:
+        break
+    for q in too_big:
+        sl = lake_slices[q - 1]
+        m = prov[sl] == q
+        parts = split_organic(m, 2, COST_VOID[sl])
+        prov[sl][parts == 2] = next_id
+        prov_district[next_id] = 0
+        lake_ids.append(next_id)
+        next_id += 1
 prov[sea_mask] = next_id
 prov_district[next_id] = -1                # -1 = sea
 sea_id = next_id
 next_id += 1
 n_prov = next_id - 1
 
-# HOI4 rejects "X crossings": 2x2 pixel blocks where four different provinces meet. The map wraps
-# around horizontally, so the last column also forms blocks with the first one.
-for _ in range(10):
-    pw_ = np.concatenate([prov, prov[:, :1]], axis=1)
-    a, b, c_, d = pw_[1:, :-1], pw_[1:, 1:], pw_[:-1, :-1], pw_[:-1, 1:]
-    xc = (a != b) & (a != c_) & (a != d) & (b != c_) & (b != d) & (c_ != d)
-    if not xc.any():
+
+
+def fix_x_crossings():
+    """HOI4 rejects "X crossings": 2x2 pixel blocks where four different provinces meet. The map wraps
+    around horizontally, so the last column also forms blocks with the first one."""
+    found = False
+    for _ in range(10):
+        pw_ = np.concatenate([prov, prov[:, :1]], axis=1)
+        a, b, c_, d = pw_[1:, :-1], pw_[1:, 1:], pw_[:-1, :-1], pw_[:-1, 1:]
+        xc = (a != b) & (a != c_) & (a != d) & (b != c_) & (b != d) & (c_ != d)
+        if not xc.any():
+            break
+        found = True
+        for y, x in np.argwhere(xc):
+            prov[y + 1, x] = prov[y, x]  # bottom-left pixel joins the one above (never across the seam)
+    return found
+
+
+def join_stray_pieces():
+    """Every province must be one piece: a stray bit joins the neighbour of the same kind (same district,
+    or lake to lake) it shares the longest border with."""
+    found = False
+    for q, sl in enumerate(ndi.find_objects(prov), 1):
+        if sl is None:
+            continue
+        pad = (slice(max(sl[0].start - 1, 0), sl[0].stop + 1), slice(max(sl[1].start - 1, 0), sl[1].stop + 1))
+        sub = prov[pad]
+        cl, n = ndi.label(sub == q)
+        if n < 2:
+            continue
+        found = True
+        main = np.bincount(cl.ravel())[1:].argmax() + 1
+        for c in range(1, n + 1):
+            if c == main:
+                continue
+            piece = cl == c
+            ring = sub[ndi.binary_dilation(piece) & ~piece & (sub != q)]
+            same = ring[np.array([prov_district.get(int(r)) == prov_district[q] for r in ring], bool)]
+            pool = same if same.size else ring
+            if pool.size:
+                sub[piece] = np.bincount(pool).argmax()
+    return found
+
+
+for _ in range(5):
+    if not (fix_x_crossings() | join_stray_pieces()):
         break
-    for y, x in np.argwhere(xc):
-        prov[y + 1, x] = prov[y, x]  # bottom-left pixel joins the one above (never across the seam)
-land_ids = [p for p, d in prov_district.items() if d > 0]
+land_ids = [p for p, d_ in prov_district.items() if d_ > 0]
 prov_slices = ndi.find_objects(prov)
 
 # centroids (a pixel near the middle, always inside the province)
@@ -442,21 +1043,31 @@ for p in land_ids:
     else:
         prov_terrain[p] = "plains"
 
-# ---------------------------------------------------------------- cities
+# ---------------------------------------------------------------- states: ids, capitals, cities
+states.sort(key=lambda s: (s["district"], not s["country_capital"]))
+state_of = {}
+for sid, st in enumerate(states, 1):
+    st["id"] = sid
+    for p in st["provinces"]:
+        state_of[p] = sid
+state_lut = np.zeros(n_prov + 1, np.int32)
+for st in states:
+    state_lut[st["provinces"]] = st["id"]
+state_map = state_lut[prov]
+state_slices = ndi.find_objects(state_map)
+country_capital_state = {st["district"]: st["id"] for st in states if st["country_capital"]}
+capital = {st["district"]: st["provinces"][0] for st in states if st["country_capital"]}
 vp = {}            # province id -> (name, victory points)
-capital = {}
-for k, provs in state_provs.items():
-    free = list(provs)
-    for i, (nm, la, lo) in enumerate(NAMES[k]):
-        if not free:
-            break
-        px_, py_ = place_px(la, lo)
-        p = min(free, key=lambda q: (cent[q][0] - px_) ** 2 + (cent[q][1] - py_) ** 2)
-        free.remove(p)
-        vp[p] = (nm, CAPITAL_VP.get(k, 10) if i == 0 else 3)
-        if i == 0:
-            capital[k] = p
-    state_provs[k] = [capital[k]] + [p for p in provs if p != capital[k]]
+for st in states:
+    k = st["district"]
+    cap = st["provinces"][0]
+    city_name = prov_name[cap] or st["name"]
+    if not st["country_capital"] and st["name"].startswith(city_name + " "):
+        city_name = st["name"]          # "Kremikovtsi Quarter": told apart from the country's capital
+    vp[cap] = (city_name, CAPITAL_VP.get(k, 10) if st["country_capital"] else 3)
+    for p in st["provinces"][1:]:
+        if prov_name[p] and prov_kvtype[p] in RESIDENTIAL:
+            vp[p] = (prov_name[p], 1)
 
 # ---------------------------------------------------------------- provinces.bmp + definition.csv
 used = set()
@@ -495,6 +1106,7 @@ write("map/definition.csv", "\n".join(lines) + "\n")
 E0, E1 = 300.0, 2700.0
 height_f = 96 + 155 * np.clip((ELEV_S - E0) / (E1 - E0), 0, 1) ** 0.75
 heightmap = np.clip(np.round(ndi.gaussian_filter(height_f, 0.8)), 96, 255).astype(np.uint8)
+del height_f
 heightmap[WATER] = 92                          # real lakes and reservoirs render as water
 heightmap[sea_mask] = 89
 Image.fromarray(heightmap, "L").save(out("map/heightmap.bmp"))
@@ -506,11 +1118,11 @@ nrm = np.dstack([-slope_x * EXAG, slope_y * EXAG, np.ones((H, W), np.float32)])
 nrm /= np.linalg.norm(nrm, axis=2, keepdims=True)
 nrm_img = ((nrm * 0.5 + 0.5) * 255).clip(0, 255).astype(np.uint8)
 Image.fromarray(nrm_img, "RGB").resize((W // 2, H // 2), Image.BOX).save(out("map/world_normal.bmp"))
-del nrm
+del nrm, nrm_img
 
 
 def write_dds_bgra(path, rgba):
-    """Uncompressed A8R8G8B8 DDS with one mip level, the same layout as vanilla's colour map."""
+    """Uncompressed A8R8G8B8 DDS without mipmaps (the layout of a generated map verified to run on 1.19)."""
     h_, w_ = rgba.shape[:2]
     header = struct.pack("<4s7I44s8I5I", b"DDS ", 124, 0x100F, h_, w_, w_ * 4, 0, 0, bytes(44),
                          32, 0x41, 0, 32, 0x00FF0000, 0x0000FF00, 0x000000FF, 0xFF000000, 0x1000, 0, 0, 0, 0)
@@ -519,19 +1131,20 @@ def write_dds_bgra(path, rgba):
         f.write(rgba[..., [2, 1, 0, 3]].tobytes())
 
 
-# Map-shaped textures. Vanilla's are paintings of the Earth, so they are replaced with one colour each,
-# sampled from the stock files: ground tint, fog of war / water shine, and the three water colour maps.
 def solid_dds(path, size, rgba):
     img = np.zeros((size[1], size[0], 4), np.uint8)
     img[...] = rgba
     write_dds_bgra(path, img)
 
 
+# Map-shaped textures. Vanilla's are paintings of the Earth, so they are replaced with one colour each,
+# sampled from the stock files: ground tint, fog of war / water shine, and the three water colour maps.
 solid_dds("map/terrain/colormap_rgb_cityemissivemask_a.dds", (W // 2, H // 2), (78, 86, 62, 0))
 solid_dds("map/terrain/fow_rgb_waterspec_a.dds", (W // 2, H // 2), (131, 132, 131, 27))
 for level in range(3):
     solid_dds(f"map/terrain/colormap_water_{level}.dds", (W // 2 ** (level + 1), H // 2 ** (level + 1)),
               (20, 28, 63, 255))
+
 
 # ---------------------------------------------------------------- indexed bitmaps
 def indexed(arr, palette):
@@ -554,7 +1167,7 @@ tmap[WATER] = TEX_LAKE
 tmap[sea_mask] = 15                    # ocean
 for p, (nm, val) in vp.items():        # houses around every city instead
     cx_, cy_ = cent[p]
-    r_ = 8 if val >= 10 else 5
+    r_ = 8 if val >= 10 else 6 if val >= 3 else 4
     sl = (slice(max(cy_ - r_, 0), cy_ + r_ + 1), slice(max(cx_ - r_, 0), cx_ + r_ + 1))
     yy_, xx_ = np.mgrid[sl]
     houses = ((xx_ - cx_) ** 2 + (yy_ - cy_) ** 2 <= r_ * r_) & (prov[sl] == p) & ~WATER[sl]
@@ -580,144 +1193,12 @@ trees[keep & (high > 0.5)] = 3
 trees[:SEA_BOX * th_t // H + 1, :SEA_BOX * tw_t // W + 1] = 0
 indexed(trees, gray).save(out("map/trees.bmp"))
 
-# rivers.bmp: 255 land, 254 water, 0 source, 1 joins another river, 3..11 river width
-river = np.full((H, W), 255, np.uint8)
-river[~city] = 254
-
-
-ELEV_R = ndi.gaussian_filter(ELEV, 3.0)
-
-
-def valley_path(a, b, pad=40):
-    """4-connected cheapest path from a to b, where climbing above the local valley floor is expensive."""
-    (xa, ya), (xb, yb) = [(int(round(v[0])), int(round(v[1]))) for v in (a, b)]
-    bx0, bx1 = max(min(xa, xb) - pad, 0), min(max(xa, xb) + pad, W - 1)
-    by0, by1 = max(min(ya, yb) - pad, 0), min(max(ya, yb) + pad, H - 1)
-    e = ELEV_R[by0:by1 + 1, bx0:bx1 + 1]
-    hh, ww = e.shape
-    cost = 1.0 + ((e - e.min()) / 15.0) ** 1.5
-    idx = np.arange(hh * ww).reshape(hh, ww)
-    pairs = [(idx[:, :-1], idx[:, 1:], (cost[:, :-1] + cost[:, 1:]) / 2),
-             (idx[:-1, :], idx[1:, :], (cost[:-1, :] + cost[1:, :]) / 2)]
-    rows = np.concatenate([q for a_, b_, c_ in pairs for q in (a_.ravel(), b_.ravel())])
-    cols = np.concatenate([q for a_, b_, c_ in pairs for q in (b_.ravel(), a_.ravel())])
-    wts = np.concatenate([q for a_, b_, c_ in pairs for q in (c_.ravel(), c_.ravel())])
-    graph = coo_matrix((wts, (rows, cols)), shape=(hh * ww, hh * ww)).tocsr()
-    s_i, d_i = (ya - by0) * ww + (xa - bx0), (yb - by0) * ww + (xb - bx0)
-    _, pred = dijkstra(graph, indices=s_i, return_predecessors=True)
-    path, cur = [], d_i
-    while cur != s_i and cur >= 0:
-        path.append((cur % ww + bx0, cur // ww + by0))
-        cur = pred[cur]
-    path.append((xa, ya))
-    return path[::-1]
-
-
-def river_course(waypoints):
-    pts = [place_px(la, lo) for la, lo in waypoints]
-    res = []
-    for a, b in zip(pts, pts[1:]):
-        seg = valley_path(a, b)
-        res += seg if not res else seg[1:]
-    out_, seen = [], {}
-    for q in res:   # cut out any loop
-        if q in seen:
-            del out_[seen[q] + 1:]
-            seen = {v: i for i, v in enumerate(out_)}
-            continue
-        seen[q] = len(out_)
-        out_.append(q)
-    # a river must stay 1 px wide: if it touches itself further along, skip the detour in between
-    i = 0
-    while i < len(out_):
-        xi, yi = out_[i]
-        for j in range(len(out_) - 1, i + 1, -1):
-            if abs(out_[j][0] - xi) + abs(out_[j][1] - yi) == 1:
-                del out_[i + 1:j]
-                break
-        i += 1
-    return out_
-
-
-river_mask = np.zeros((H, W), bool)
-
-
-def n4(x, y):
-    return [(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)]
-
-
-def junction_ok(base, seq):
-    """seq = new tributary pixels; the last one is the flow-in pixel that touches the river."""
-    taken = set(base)
-    for i_, (x, y) in enumerate(seq):
-        if not (0 < x < W - 1 and 0 < y < H - 1) or not city[y, x] or river_mask[y, x] or (x, y) in taken:
-            return False
-        touching = sum(river_mask[yy, xx] for xx, yy in n4(x, y))
-        if touching != (1 if i_ == len(seq) - 1 else 0):
-            return False
-        taken.add((x, y))
-    for x, y in seq:   # no 2x2 block of river pixels around the new ones
-        for ddx in (-1, 0):
-            for ddy in (-1, 0):
-                cells = [(x + ddx + a_, y + ddy + b_) for a_ in (0, 1) for b_ in (0, 1)]
-                if all(river_mask[cy_, cx_] or (cx_, cy_) in taken for cx_, cy_ in cells):
-                    return False
-    return True
-
-
-for ri, (rname, width, waypoints) in enumerate(RIVERS):
-    pix = river_course(waypoints)
-    on_land = [city[y, x] if 0 <= x < W and 0 <= y < H else False for x, y in pix]
-    if ri == 0:   # main river: its longest stretch on land
-        runs, cur = [], []
-        for q, ok in zip(pix, on_land):
-            if ok:
-                cur.append(q)
-            elif cur:
-                runs.append(cur)
-                cur = []
-        if cur:
-            runs.append(cur)
-        course = max(runs, key=len)
-        joins = False
-    else:         # tributary: from its source until it reaches a river already drawn
-        course, joins = [], False
-        for i, (q, ok) in enumerate(zip(pix, on_land)):
-            if not ok:
-                break
-            x, y = q
-            if river_mask[max(y - 1, 0):y + 2, max(x - 1, 0):x + 2].any():
-                # join with a single flow-in pixel that touches exactly one river pixel and makes no 2x2 block
-                for back in range(0, 12):
-                    base = course[:len(course) - back] if back else list(course)
-                    start = course[len(course) - back] if back else q
-                    options = [[start]]
-                    for n1 in n4(*start):
-                        options.append([start, n1])
-                        options += [[start, n1, n2] for n2 in n4(*n1) if n2 != start]
-                    good = next((seq for seq in options if junction_ok(base, seq)), None)
-                    if good:
-                        course = base + good
-                        joins = True
-                        break
-                if not joins:   # no clean junction: end the river just before it would touch
-                    course = course[:-2]
-                break
-            course.append(q)
-    if len(course) < 5:
-        print(f"river {rname}: skipped (too short on land)")
-        continue
-    for i, (x, y) in enumerate(course):
-        river[y, x] = 0 if i == 0 else (1 if joins and i == len(course) - 1 else width)
-        river_mask[y, x] = True
 river_pal = gray[:]
 river_pal[0:3] = [0, 255, 0]
 river_pal[3:6] = [255, 0, 0]
 river_pal[254 * 3:254 * 3 + 3] = [122, 122, 122]
 river_pal[255 * 3:255 * 3 + 3] = [255, 255, 255]
 indexed(river, river_pal).save(out("map/rivers.bmp"))
-blocks = river_mask[:-1, :-1] & river_mask[1:, :-1] & river_mask[:-1, 1:] & river_mask[1:, 1:]
-print(f"rivers: {int(river_mask.sum())} px, {int((river == 0).sum())} sources, {int(blocks.sum())} thick spots")
 
 
 # ---------------------------------------------------------------- default.map & misc map files
@@ -750,20 +1231,20 @@ tree = { 3 4 7 10 }
 cxm, cym = ox + tw / 2, oy + th / 2           # middle of the city in map pixels
 write("common/defines/zz_evil_sofia_defines.lua", f"""-- Evil Sofia: defines for a city-sized map. Only keys the game already has are changed.
 local function set(tbl, ns, key, value)
-	if tbl ~= nil and tbl[ns] ~= nil and tbl[ns][key] ~= nil then
-		tbl[ns][key] = value
-	end
+\tif tbl ~= nil and tbl[ns] ~= nil and tbl[ns][key] ~= nil then
+\t\ttbl[ns][key] = value
+\tend
 end
 -- One map pixel is about {M_PER_PX:.0f} m in reality; 1.5 km per pixel keeps unit movement close to vanilla pacing.
 set(NDefines, "NGame", "MAP_SCALE_PIXEL_TO_KM", 1.5)
 -- The main menu camera looks at the city.
 for _, tbl in ipairs({{NDefines, NDefines_Graphics}}) do
-	set(tbl, "NFrontend", "CAMERA_LOOKAT_X", {cxm:.1f})
-	set(tbl, "NFrontend", "CAMERA_LOOKAT_Z", {H - cym:.1f})
-	set(tbl, "NFrontend", "CAMERA_START_X", {cxm:.1f})
-	set(tbl, "NFrontend", "CAMERA_START_Z", {H - cym - 120:.1f})
-	set(tbl, "NFrontend", "CAMERA_END_X", {cxm:.1f})
-	set(tbl, "NFrontend", "CAMERA_END_Z", {H - cym - 120:.1f})
+\tset(tbl, "NFrontend", "CAMERA_LOOKAT_X", {cxm:.1f})
+\tset(tbl, "NFrontend", "CAMERA_LOOKAT_Z", {H - cym:.1f})
+\tset(tbl, "NFrontend", "CAMERA_START_X", {cxm:.1f})
+\tset(tbl, "NFrontend", "CAMERA_START_Z", {H - cym - 120:.1f})
+\tset(tbl, "NFrontend", "CAMERA_END_X", {cxm:.1f})
+\tset(tbl, "NFrontend", "CAMERA_END_Z", {H - cym - 120:.1f})
 end
 """)
 write("map/positions.txt", "")
@@ -771,17 +1252,18 @@ write("map/positions.txt", "")
 write("map/continent.txt", "continents = {\n" + "".join(f"\t{c}\n" for c in ("europe", "north_america", "south_america", "australia", "africa", "asia", "middle_east")) + "}\n")
 write("map/adjacencies.csv", "From;To;Type;Through;start_x;start_y;stop_x;stop_y;adjacency_rule_name;Comment\n-1;-1;;-1;-1;-1;-1;-1;-1\n")
 write("map/adjacency_rules.txt", "")
-write("map/supply_nodes.txt", "".join(f"1 {capital[k]}\n" for k in DISTRICTS))
+# supply hubs: every country capital, plus the capitals of large outlying states
+hubs = sorted(set(capital.values()) | {st["provinces"][0] for st in states if len(st["provinces"]) >= 5})
+write("map/supply_nodes.txt", "".join(f"1 {p}\n" for p in hubs))
 
 
-def spots(k, n):
-    m = dist == k
-    py, px = np.nonzero(m)
-    inner = ndi.binary_erosion(m, iterations=3)[py, px]
-    if inner.sum() >= n:
-        py, px = py[inner], px[inner]
+def state_spots(st, n):
+    sl = state_slices[st["id"] - 1]
+    m = state_map[sl] == st["id"]
+    inner = ndi.binary_erosion(m, iterations=2)
+    py, px = np.nonzero(inner if inner.sum() >= n else m)
     pick = RNG.choice(len(px), n, replace=len(px) < n)
-    return [(int(px[i]), int(py[i])) for i in pick]
+    return [(int(px[i]) + sl[1].start, int(py[i]) + sl[0].start) for i in pick]
 
 
 def province_spots(p, n):
@@ -800,13 +1282,13 @@ STATE_BUILDINGS = {"arms_factory": 6, "industrial_complex": 6, "anti_air_buildin
                    "nuclear_reactor_spawn": 1, "rocket_site_spawn": 1}
 PROVINCE_BUILDINGS = ("bunker", "supply_node", "special_project_facility_spawn")
 bl = []
-for k in DISTRICTS:
+for st in states:
     for b, n in STATE_BUILDINGS.items():
-        for x, y in spots(k, n):
-            bl.append(f"{k};{b};{pos(x, y)};{RNG.uniform(0, 6.28):.2f};0")
-    for p in state_provs[k]:
+        for x, y in state_spots(st, n):
+            bl.append(f"{st['id']};{b};{pos(x, y)};{RNG.uniform(0, 6.28):.2f};0")
+    for p in st["provinces"]:
         for b, (x, y) in zip(PROVINCE_BUILDINGS, province_spots(p, len(PROVINCE_BUILDINGS))):
-            bl.append(f"{k};{b};{pos(x, y)};{RNG.uniform(0, 6.28):.2f};0")
+            bl.append(f"{st['id']};{b};{pos(x, y)};{RNG.uniform(0, 6.28):.2f};0")
 write("map/buildings.txt", "\n".join(bl) + "\n")
 # Unit-counter anchors. At match start the engine looks up a set of anchors for every land and sea province
 # and dereferences them without checking; a missing one is a crash with no log line. These are the sets the
@@ -838,21 +1320,38 @@ write("map/railways.txt", "\n".join(rails) + "\n")
 
 write("map/supplyareas/1-Sofia.txt", f"""supply_area = {{
 \tid = 1
-\tname = "SUPPLYAREA_1"
+\tname = "EVIL_SOFIA_SUPPLY_AREA"
 \tvalue = 10
 \tstates = {{
-\t\t{' '.join(map(str, DISTRICTS))}
+\t\t{' '.join(str(st['id']) for st in states)}
 \t}}
 }}
 """)
 
-# Strategic regions: each lake joins the region of the nearest district.
-region_of = {p: DISTRICTS[prov_district[p]][5] for p in land_ids}
+# Strategic regions: by district, Pancharevo split north/south; each lake joins the nearest land region.
+REGIONS = {rid: name for rid, name, _ in REGION_DEFS}
+district_region = {k: rid for rid, _, ds in REGION_DEFS for k in ds}
+pan_states = [st for st in states if st["district"] == 23]
+pan_mid = np.median([np.mean([cent[p][1] for p in st["provinces"]]) for st in pan_states])
+region_of = {}
+for st in states:
+    rid = district_region[st["district"]]
+    if st["district"] == 23 and np.mean([cent[p][1] for p in st["provinces"]]) < pan_mid:
+        rid = PANCHAREVO_NORTH_REGION
+    st["region"] = rid
+    for p in st["provinces"]:
+        region_of[p] = rid
 region_of[sea_id] = SEA_REGION[0]
+empty = [rid for rid in REGIONS if rid not in region_of.values()]
+if empty:
+    raise SystemExit(f"strategic regions without land: {empty}")
+nbrs = {p: set() for p in range(1, n_prov + 1)}
+for a, b in adj:
+    nbrs[a].add(b)
+    nbrs[b].add(a)
+land_pts = np.array([cent[p] for p in land_ids])
 for p in lake_ids:
-    lx, ly = cent[p]
-    nearest = min(land_ids, key=lambda q: (cent[q][0] - lx) ** 2 + (cent[q][1] - ly) ** 2)
-    region_of[p] = region_of[nearest]
+    region_of[p] = region_of[land_ids[int(np.argmin(((land_pts - cent[p]) ** 2).sum(1)))]]
 
 
 def region_centre_unsafe(members):
@@ -874,13 +1373,21 @@ def region_centre_unsafe(members):
 
 
 for rid in REGIONS:
-    for _ in range(50):
+    for _ in range(80):
         members = [p for p, r in region_of.items() if r == rid]
         if not region_centre_unsafe(members):
             break
         lakes_here = [p for p in members if prov_district[p] == 0]
-        far = max(lakes_here, key=lambda q: (cent[q][0] - W / 2) ** 2 + (cent[q][1] - H / 2) ** 2)
-        region_of[far] = rid % len(REGIONS) + 1
+        if lakes_here:
+            far = max(lakes_here, key=lambda q: (cent[q][0] - W / 2) ** 2 + (cent[q][1] - H / 2) ** 2)
+            region_of[far] = (rid % len(REGIONS)) + 1
+            continue
+        # no lake to hand over: give a border state to the neighbouring region instead
+        st_, to = next((st, region_of[q]) for st in states if st["region"] == rid for p in st["provinces"]
+                       for q in nbrs[p] if prov_district.get(q, 0) > 0 and region_of[q] != rid)
+        st_["region"] = to
+        for p in st_["provinces"]:
+            region_of[p] = to
     else:
         raise SystemExit(f"strategic region {rid} keeps failing the region-centre check")
 
@@ -907,7 +1414,7 @@ for rid, rname in list(REGIONS.items()) + [SEA_REGION]:
     naval = "\n\tnaval_terrain = water_deep_ocean" if rid == SEA_REGION[0] else ""
     write(f"map/strategicregions/{rid}-{rname.replace(' ', '_')}.txt", f"""strategic_region = {{
 \tid = {rid}
-\tname = "STRATEGICREGION_{rid}"
+\tname = "EVIL_SOFIA_REGION_{rid}"
 \tprovinces = {{
 \t\t{' '.join(map(str, provs))}
 \t}}{naval}
@@ -922,25 +1429,50 @@ for rid, rname in list(REGIONS.items()) + [SEA_REGION]:
 write("map/weatherpositions.txt", "\n".join(wpos) + "\n")
 
 # ---------------------------------------------------------------- states, countries, characters, localisation
+# Every key is unique to the mod (vanilla's STATE_1, STRATEGICREGION_1... would win otherwise), and the file
+# goes into localisation/english/replace, which also beats vanilla's VICTORY_POINTS_<province> names.
 loc = ["l_english:", ' EVIL_SOFIA_START_NAME:0 "The Fall of Sofia"',
        ' EVIL_SOFIA_START_DESC:0 "The city council has collapsed. Twenty-four districts, twenty-four warlords. Only one will rule Sofia."']
-tags_txt, bookmark_countries, name_lists = [], [], []
-for k, (tag, name, adj_, cat, pop, reg) in DISTRICTS.items():
-    infra = 5 if cat in ("megalopolis", "metropolis") else 4 if cat in ("large_city", "city") else 3
-    civ = {"megalopolis": 3, "metropolis": 2, "large_city": 2, "city": 1}.get(cat, 0)
-    mil = 3 if tag == "KRE" else 0
-    steel = "\n\tresources = { steel = 12 }" if tag == "KRE" else ""
+for st in states:
+    st["built"], st["area"] = state_sum(st, P_BUILT), state_sum(st, P_AREA)
+for k, (tag, name, adj_, cat, pop) in DISTRICTS.items():
+    mine = [st for st in states if st["district"] == k]
+    weights = [st["built"] + 0.1 * st["area"] for st in mine]
+    for st, w_ in zip(mine, weights):
+        st["manpower"] = max(500, int(round(pop * w_ / sum(weights), -2)))
+industry_state = {}
+for k in (18,):   # the Kremikovtsi steelworks: the state with the most industrial-zone land
+    mine = [st for st in states if st["district"] == k]
+    industry_state[k] = max(mine, key=lambda st: sum(P_AREA[p] for p in st["provinces"] if prov_kvtype[p] == "2")
+                            + st["built"] * 0.01)["id"]
+for st in states:
+    k = st["district"]
+    tag, name, adj_, cat, pop = DISTRICTS[k]
+    urban = st["built"] / max(st["area"], 1)
+    if st["country_capital"]:
+        category = cat
+    else:
+        category = ("city" if urban >= 0.55 else "large_town" if urban >= 0.30 else "town" if urban >= 0.12
+                    else "rural" if urban >= 0.04 else "pastoral")
+    infra = 5 if cat in ("megalopolis", "metropolis") else 4 if urban >= 0.3 else 3
     bld = f"infrastructure = {infra}"
-    if civ:
-        bld += f"\n\t\t\tindustrial_complex = {civ}"
-    if mil:
-        bld += f"\n\t\t\tarms_factory = {mil}"
-    vp_lines = "\n".join(f"\t\tvictory_points = {{ {p} {vp[p][1]} }}" for p in state_provs[k] if p in vp)
-    write(f"history/states/{k}-{name.replace(' ', '_')}.txt", f"""state = {{
-\tid = {k}
-\tname = "STATE_{k}"
-\tmanpower = {pop}
-\tstate_category = {cat}{steel}
+    if st["country_capital"]:
+        civ = {"megalopolis": 3, "metropolis": 2, "large_city": 2, "city": 1}.get(cat, 0)
+        if civ:
+            bld += f"\n\t\t\tindustrial_complex = {civ}"
+    extra = ""
+    if industry_state.get(k) == st["id"]:
+        bld += "\n\t\t\tarms_factory = 3"
+        extra = "\n\tresources = { steel = 12 }"
+        if category in ("town", "rural", "pastoral"):
+            category = "large_town"      # room for the steelworks' factories
+    vp_lines = "\n".join(f"\t\tvictory_points = {{ {p} {vp[p][1]} }}" for p in st["provinces"] if p in vp)
+    file_name = re.sub(r"[^A-Za-z0-9_-]", "", st["name"].replace(" ", "_"))
+    write(f"history/states/{st['id']}-{tag}_{file_name}.txt", f"""state = {{
+\tid = {st['id']}
+\tname = "EVIL_SOFIA_STATE_{st['id']}"
+\tmanpower = {st['manpower']}
+\tstate_category = {category}{extra}
 
 \thistory = {{
 \t\towner = {tag}
@@ -952,10 +1484,15 @@ for k, (tag, name, adj_, cat, pop, reg) in DISTRICTS.items():
 \t}}
 
 \tprovinces = {{
-\t\t{' '.join(map(str, state_provs[k]))}
+\t\t{' '.join(map(str, st['provinces']))}
 \t}}
 }}
 """)
+    loc.append(f' EVIL_SOFIA_STATE_{st["id"]}:0 "{st["name"]}"')
+    loc += [f' VICTORY_POINTS_{p}:0 "{vp[p][0]}"' for p in st["provinces"] if p in vp]
+
+tags_txt, bookmark_countries, name_lists = [], [], []
+for k, (tag, name, adj_, cat, pop) in DISTRICTS.items():
     r, g, b = country_color(k)
     file_name = name.replace(" ", "_")
     write(f"common/countries/{file_name}.txt", f"""graphical_culture = eastern_european_gfx
@@ -964,7 +1501,6 @@ graphical_culture_2d = eastern_european_2d
 color = {{ {r} {g} {b} }}
 """)
     tags_txt.append(f'{tag} = "countries/{file_name}.txt"')
-    # one country leader and one general per country
     leader = (FIRST[2 * (k - 1)], SURNAMES[2 * (k - 1)])
     general = (FIRST[2 * (k - 1) + 1], SURNAMES[2 * (k - 1) + 1])
     write(f"common/characters/{tag}.txt", f"""characters = {{
@@ -990,7 +1526,7 @@ color = {{ {r} {g} {b} }}
 \t}}
 }}
 """)
-    write(f"history/countries/{tag} - {name}.txt", f"""capital = {k}
+    write(f"history/countries/{tag} - {name}.txt", f"""capital = {country_capital_state[k]}
 
 set_research_slots = 2
 set_stability = 0.5
@@ -1016,13 +1552,13 @@ oob = "{tag}_1936"
 
 # A basic 1936 start like vanilla minor nations: no country starts without technology or an army.
 set_technology = {{
-	infantry_weapons = 1
-	infantry_weapons1 = 1
-	tech_support = 1
-	tech_engineers = 1
-	tech_recon = 1
-	gw_artillery = 1
-	basic_train = 1
+\tinfantry_weapons = 1
+\tinfantry_weapons1 = 1
+\ttech_support = 1
+\ttech_engineers = 1
+\ttech_recon = 1
+\tgw_artillery = 1
+\tbasic_train = 1
 }}
 """)
     n_div = 1 + pop // 40000
@@ -1067,9 +1603,7 @@ instant_effect = {{
 }}""")
     bookmark_countries.append(f"\t\t\t{tag} = {{\n\t\t\t\thistory = \"EVIL_SOFIA_START_DESC\"\n\t\t\t\tideology = neutrality\n\t\t\t}}")
     loc += [f' {tag}:0 "{name}"', f' {tag}_DEF:0 "{name}"', f' {tag}_ADJ:0 "{adj_}"',
-            f' STATE_{k}:0 "{name}"', f' {tag}_leader:0 "{leader[0]} {leader[1]}"',
-            f' {tag}_general:0 "{general[0]} {general[1]}"']
-    loc += [f' VICTORY_POINTS_{p}:0 "{vp[p][0]}"' for p in state_provs[k] if p in vp]
+            f' {tag}_leader:0 "{leader[0]} {leader[1]}"', f' {tag}_general:0 "{general[0]} {general[1]}"']
     dark = (r // 2, g // 2, b // 2)    # placeholder flags: three stripes in the country colour
     for folder, size in (("", (82, 52)), ("medium/", (41, 26)), ("small/", (10, 7))):
         flag = Image.new("RGBA", size, (r, g, b, 255))
@@ -1078,14 +1612,15 @@ instant_effect = {{
         d.rectangle([0, size[1] - size[1] // 3, size[0], size[1]], fill=dark + (255,))
         flag.save(out(f"gfx/flags/{folder}{tag}.tga"))
 for rid, rname in list(REGIONS.items()) + [SEA_REGION]:
-    loc.append(f' STRATEGICREGION_{rid}:0 "{rname}"')
-loc.append(' SUPPLYAREA_1:0 "Sofia"')
+    loc.append(f' EVIL_SOFIA_REGION_{rid}:0 "{rname}"')
+loc.append(' EVIL_SOFIA_SUPPLY_AREA:0 "Sofia"')
 # Separate file: vanilla tags stay registered (they own no states, so they never appear),
 # which keeps vanilla scripts that mention GER, SOV etc. parsing cleanly.
 write("common/country_tags/evil_sofia_countries.txt", "\n".join(tags_txt) + "\n")
 write("common/names/evil_sofia_names.txt", "\n".join(name_lists) + "\n")
-
-write("localisation/english/evil_sofia_l_english.yml", "\n".join(loc) + "\n", bom=True)
+write("localisation/english/replace/evil_sofia_l_english.yml", "\n".join(loc) + "\n", bom=True)
+if os.path.exists(out("localisation/english/evil_sofia_l_english.yml")):
+    os.remove(out("localisation/english/evil_sofia_l_english.yml"))
 # The stock tutorial names state 550 and provinces 5010, 5091 and 12766, and the in-game hint loader looks
 # them up at every match start, tutorial or not: on this map that is a null lookup and a crash. It cannot be
 # empty either (the loader then reads element -1), so it is one block that names no state or province.
@@ -1101,6 +1636,7 @@ minimap[city] = (86, 104, 70, 255)
 minimap[WATER | sea_mask] = (32, 52, 84, 255)
 for path_, size_ in (("gfx/minimap/minimap.dds", (268, 97)), ("gfx/interface/minimap.dds", (268, 98))):
     write_dds_bgra(path_, np.asarray(Image.fromarray(minimap).resize(size_, Image.BOX)))
+del minimap
 
 # Vanilla on_actions, events and decisions are written for the world map and its countries; they are
 # replaced (descriptor.mod) by this file, which only writes checkpoints to game.log.
@@ -1141,43 +1677,53 @@ write("common/bookmarks/the_fall_of_sofia.txt", f"""bookmarks = {{
 
 # ---------------------------------------------------------------- previews for humans
 try:
-    font = ImageFont.truetype("DejaVuSans-Bold.ttf", 12)
+    font = ImageFont.truetype("DejaVuSans-Bold.ttf", 11)
     cap_f = ImageFont.truetype("DejaVuSans-Bold.ttf", 14)
     big = ImageFont.truetype("DejaVuSans-Bold.ttf", 30)
 except OSError:
     font = cap_f = big = ImageFont.load_default()
 ys_, xs_ = np.nonzero(city)
 cy0, cy1, cx0, cx1 = max(ys_.min() - 15, 0), min(ys_.max() + 15, H), max(xs_.min() - 15, 0), min(xs_.max() + 15, W)
-pb = np.zeros((H, W), bool)
-pb[:, 1:] |= prov[:, 1:] != prov[:, :-1]
-pb[1:, :] |= prov[1:, :] != prov[:-1, :]
-border = np.zeros((H, W), bool)
-border[:, 1:] |= dist[:, 1:] != dist[:, :-1]
-border[1:, :] |= dist[1:, :] != dist[:-1, :]
 
 
-def preview(base, path, scale_up=2):
+def edge_mask(a):
+    e = np.zeros((H, W), bool)
+    e[:, 1:] |= a[:, 1:] != a[:, :-1]
+    e[1:, :] |= a[1:, :] != a[:-1, :]
+    return e
+
+
+pb, sb, cb = edge_mask(prov), edge_mask(state_map), edge_mask(dist)
+
+
+def preview(base, path, labels="vp"):
     img = base.copy()
-    img[pb & city] = (img[pb & city] * 0.6).astype(np.uint8)
-    img[border] = (20, 20, 20)
+    img[pb & city] = (img[pb & city] * 0.75).astype(np.uint8)
+    img[sb & city] = (img[sb & city] * 0.35).astype(np.uint8)
+    img[ndi.binary_dilation(cb, iterations=1)] = (15, 15, 15)
     img[river_mask] = (40, 110, 230)
-    im_ = Image.fromarray(img[cy0:cy1, cx0:cx1]).resize(((cx1 - cx0) * scale_up, (cy1 - cy0) * scale_up), Image.NEAREST)
+    im_ = Image.fromarray(img[cy0:cy1, cx0:cx1])
     d_ = ImageDraw.Draw(im_)
-    for p, (nm, val) in vp.items():
-        x, y = (cent[p][0] - cx0) * scale_up, (cent[p][1] - cy0) * scale_up
-        is_cap = val >= 10
-        r_ = 5 if is_cap else 3
-        d_.ellipse([x - r_, y - r_, x + r_, y + r_], fill=(255, 215, 0) if is_cap else (255, 255, 255), outline="black")
-        d_.text((x, y - r_ - 1), nm, fill=(255, 235, 120) if is_cap else "white", font=cap_f if is_cap else font,
-                anchor="mb", stroke_width=2, stroke_fill="black")
+    if labels == "vp":
+        for p, (nm, val) in vp.items():
+            if val < 3:
+                continue
+            x, y = cent[p][0] - cx0, cent[p][1] - cy0
+            is_cap = val >= 10
+            r_ = 4 if is_cap else 2
+            d_.ellipse([x - r_, y - r_, x + r_, y + r_], fill=(255, 215, 0) if is_cap else (255, 255, 255), outline="black")
+            d_.text((x, y - r_ - 1), nm, fill=(255, 235, 120) if is_cap else "white", font=cap_f if is_cap else font,
+                    anchor="mb", stroke_width=2, stroke_fill="black")
     im_.save(out(path))
 
 
 political = np.zeros((H, W, 3), np.uint8)
 political[:] = (40, 52, 70)
-for k in DISTRICTS:
-    political[dist == k] = country_color(k)
-preview(political, "preview/cities_preview.png", scale_up=1)
+for st in states:   # each state a shade of its country's colour
+    r, g, b = country_color(st["district"])
+    f_ = 0.80 + 0.35 * ((st["id"] * 0.618) % 1.0)
+    political[state_map == st["id"]] = (min(int(r * f_), 255), min(int(g * f_), 255), min(int(b * f_), 255))
+preview(political, "preview/states_preview.png")
 shade = np.clip(0.55 + 0.45 * ((-slope_x + slope_y) * EXAG * 0.7), 0.25, 1.2)[..., None]
 terrain_rgb = np.zeros((H, W, 3), np.float32)
 terrain_rgb[:] = (196, 186, 132)
@@ -1190,14 +1736,15 @@ terrain_rgb[tmap == TEX_CITY] = (200, 60, 50)
 terrain_rgb[WATER] = (60, 110, 190)
 terrain_rgb = (terrain_rgb * shade).clip(0, 255)
 terrain_rgb[~city] = terrain_rgb[~city] * 0.55
-preview(terrain_rgb.astype(np.uint8), "preview/terrain_preview.png", scale_up=1)
+preview(terrain_rgb.astype(np.uint8), "preview/terrain_preview.png")
 whole = political.copy()
-whole[border] = (20, 20, 20)
+whole[cb] = (20, 20, 20)
 pim = Image.fromarray(whole).resize((W // 2, H // 2), Image.BOX)
 d = ImageDraw.Draw(pim)
 d.text((30, 25), "EVIL SOFIA", fill=(220, 60, 60), font=big, stroke_width=3, stroke_fill="black")
 pim.save(out("preview/political_preview.png"))
 
-terr_count = {t_: sum(1 for p in land_ids if prov_terrain[p] == t_) for t_ in CLASS_NAMES}
-print(f"{len(vp)} cities; province terrain {terr_count}")
-print(f"map {W}x{H}, {len(DISTRICTS)} states, {len(land_ids)} land provinces, {len(lake_ids)} lake provinces, {len(rails)} rail links")
+terr_count = {t_: sum(1 for p in land_ids if prov_terrain[p] == t_) for t_ in ("plains", "forest", "hills", "mountain")}
+per_country = [sum(1 for st in states if st["district"] == k) for k in DISTRICTS]
+print(f"{len(vp)} cities; {len(states)} states ({min(per_country)}-{max(per_country)} per country); terrain {terr_count}")
+print(f"map {W}x{H}, {len(land_ids)} land provinces, {len(lake_ids)} lake provinces, {len(REGIONS) + 1} strategic regions")

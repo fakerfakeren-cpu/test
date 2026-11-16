@@ -11,14 +11,14 @@ division_template = {
 units = {
 	division = {
 		name = "1st Iskar Guard"
-		location = 48
+		location = 152
 		division_template = "City Guard"
 		start_experience_factor = 0.2
 		start_equipment_factor = 1.0
 	}
 	division = {
 		name = "2nd Iskar Guard"
-		location = 48
+		location = 152
 		division_template = "City Guard"
 		start_experience_factor = 0.2
 		start_equipment_factor = 1.0

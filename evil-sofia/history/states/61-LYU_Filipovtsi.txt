@@ -1,0 +1,19 @@
+state = {
+	id = 61
+	name = "EVIL_SOFIA_STATE_61"
+	manpower = 8200
+	state_category = pastoral
+
+	history = {
+		owner = LYU
+		add_core_of = LYU
+		victory_points = { 181 3 }
+		buildings = {
+			infrastructure = 3
+		}
+	}
+
+	provinces = {
+		181 188
+	}
+}

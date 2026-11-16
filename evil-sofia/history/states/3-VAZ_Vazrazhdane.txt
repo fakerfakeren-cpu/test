@@ -1,0 +1,22 @@
+state = {
+	id = 3
+	name = "EVIL_SOFIA_STATE_3"
+	manpower = 14400
+	state_category = metropolis
+
+	history = {
+		owner = VAZ
+		add_core_of = VAZ
+		victory_points = { 7 15 }
+		victory_points = { 5 1 }
+		victory_points = { 8 1 }
+		buildings = {
+			infrastructure = 5
+			industrial_complex = 2
+		}
+	}
+
+	provinces = {
+		7 5 8
+	}
+}

@@ -8,7 +8,8 @@ Writes tools/geodata/sofia_geodata.npz with two arrays on one regular lat/lon gr
 Data: ESA WorldCover 2021 (CC BY 4.0, (c) ESA WorldCover project / Copernicus Sentinel data 2021);
 AWS Terrain Tiles (Mapzen / Linux Foundation; SRTM and other public sources).
 
-Downloads go to tools/geodata/cache/ (about 175 MB, not committed). Requires: numpy pillow scipy tifffile, curl.
+Also downloads Sofia's 310 official neighbourhood boundaries (tools/geodata/kvartali.geojson).
+Downloads go to tools/geodata/ (about 180 MB, not committed). Requires: numpy pillow scipy tifffile, curl.
 Usage:  python3 tools/fetch_geodata.py      (run from the evil-sofia/ folder)
 """
 import math
@@ -81,6 +82,13 @@ for lon0 in range(int(LON_MIN // 3 * 3), int(LON_MAX), 3):
     cols = np.clip(((LON[sel] - lon0) * per_deg).astype(int), 0, arr.shape[1] - 1)
     landcover[sel] = arr[rows, cols]
     print(f"land cover: {name}")
+
+# ---------------------------------------------------------------- neighbourhood boundaries
+# The 310 official neighbourhoods ("kvartali") of Sofia municipality (Sofproekt, 2019), as published in
+# github.com/bbaid/services-access-sofia. Pinned to a commit so the map does not change under us.
+fetch("https://raw.githubusercontent.com/bbaid/services-access-sofia/716e2d27ea577c0fe8624c8f0bee9bd7dd6b8b13/"
+      "data/input/kvartali_26_sofpr_20190101.geojson", os.path.join(GEO, "kvartali.geojson"))
+print("neighbourhoods: tools/geodata/kvartali.geojson")
 
 np.savez_compressed(os.path.join(GEO, "sofia_geodata.npz"), elevation=elevation, landcover=landcover,
                     bounds=np.array([LAT_MIN, LAT_MAX, LON_MIN, LON_MAX, RES]))

@@ -1,0 +1,20 @@
+state = {
+	id = 83
+	name = "EVIL_SOFIA_STATE_83"
+	manpower = 10000
+	state_category = large_town
+
+	history = {
+		owner = VIT
+		add_core_of = VIT
+		victory_points = { 247 3 }
+		victory_points = { 246 1 }
+		buildings = {
+			infrastructure = 4
+		}
+	}
+
+	provinces = {
+		247 246 248 250
+	}
+}

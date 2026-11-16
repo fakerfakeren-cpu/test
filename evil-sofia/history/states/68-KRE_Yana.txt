@@ -1,0 +1,19 @@
+state = {
+	id = 68
+	name = "EVIL_SOFIA_STATE_68"
+	manpower = 2600
+	state_category = town
+
+	history = {
+		owner = KRE
+		add_core_of = KRE
+		victory_points = { 198 3 }
+		buildings = {
+			infrastructure = 3
+		}
+	}
+
+	provinces = {
+		198 225 233 236
+	}
+}

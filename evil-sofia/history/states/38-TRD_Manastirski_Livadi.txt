@@ -1,0 +1,20 @@
+state = {
+	id = 38
+	name = "EVIL_SOFIA_STATE_38"
+	manpower = 11400
+	state_category = city
+
+	history = {
+		owner = TRD
+		add_core_of = TRD
+		victory_points = { 104 3 }
+		victory_points = { 106 1 }
+		buildings = {
+			infrastructure = 4
+		}
+	}
+
+	provinces = {
+		104 106
+	}
+}

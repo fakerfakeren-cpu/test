@@ -1,11 +1,11 @@
 # Evil Sofia (HOI4 total-conversion mod)
 
-The map is Sofia, Bulgaria. Each of the 24 city districts is a country.
-Every district is **one state** and one country, with a leader and a general. The districts are split
-automatically into provinces of roughly equal size; each province has a city named after a real neighbourhood,
-street or village. The splits are placeholders until they are redrawn along real neighbourhoods.
+The map is Sofia, Bulgaria. Each of the 24 city districts is a country, with a leader and a general.
+Every country has **2 to 12 states**, so a peace deal can take part of a district instead of all of it.
+The provinces follow Sofia's 310 official neighbourhoods ("kvartali"), and states and cities carry the real names
+of the neighbourhoods, villages and landmarks in them.
 
-![terrain and cities](preview/terrain_preview.png)
+![states](preview/states_preview.png)
 
 ## Install (for testing)
 
@@ -57,9 +57,6 @@ by the Hoi4_world_map project (github.com/derprito64bit/Hoi4_world_map):
   continent column of `map/definition.csv`, every land province fails the "must belong to a continent"
   map check, and starting a game stops with *"Failed to load the map"*. `.gitattributes` keeps git from
   converting them.
-- Each district has several provinces with a named city (victory point) in each: neighbourhoods, streets
-  and villages, with the biggest as the capital. The names and their rough coordinates are the `NAMES`
-  table in `tools/build_map.py`; `preview/cities_preview.png` shows where they ended up.
 - Terrain comes from real data (`tools/fetch_geodata.py`): elevation from the AWS Terrain Tiles (SRTM-based) and
   land cover from ESA WorldCover 2021. The heightmap and the normal map follow the real relief (the normal map
   exaggerates slopes 3x so hills read clearly); tree cover gives forest textures and tree models (parks
@@ -73,12 +70,43 @@ by the Hoi4_world_map project (github.com/derprito64bit/Hoi4_world_map):
 - Characters: `common/characters/<TAG>.txt` gives every country a leader (despotism) and a corps commander;
   `common/names/evil_sofia_names.txt` gives the game Bulgarian names for the characters it generates itself.
 
+## Provinces, states and names
+
+- **Provinces** are the official neighbourhoods of Sofia (Sofproekt, 2019). A neighbourhood inside a district is a
+  province, or several if it is big. Land outside every neighbourhood (fields, forest, mountain) joins the
+  nearest neighbourhood along the terrain, and pieces that are too big are split along the terrain too: they
+  grow outwards over a cost map (steep slopes, rivers and the edges between built-up land, forest and fields
+  are expensive, plus some noise), so borders settle on ridges, rivers and street edges. No province is a
+  straight-sided polygon. Sizes: about 0.8 km² in the old city, 2.5 km² in the outer housing estates and
+  6 km² in the countryside, never more than 140 px across.
+- **District borders** were traced by hand from a district map. Inside the city they now follow the real
+  neighbourhood edges: a neighbourhood that lies 60 % or more in one traced district joins that district whole.
+- **States**: about one per 3 provinces in the city and one per 4–5 in the countryside, 2 to 12 per country.
+  They grow from the country's capital neighbourhood and other important, well-spread places; a state that
+  grows big grows slower, so states end up compact and of similar size.
+- **Names** are transliterated with the official Bulgarian system (Младост 1 → Mladost 1). The capital state
+  carries the country's name; every other state is named after its main neighbourhood or village. A
+  neighbourhood split between two districts gives "West Lozenets"-style names; a state with no named place is
+  called after the nearest one and its land ("Bistritsa Heights", "Yana Fields", "Lozyata Woods").
+- **Victory points**: country capitals 30 (Sredets), 15 (Vazrazhdane, Oborishte) or 10; the main place of every
+  other state 3; every other housing estate, quarter and village 1.
+- **Localisation keys are unique to the mod** (`EVIL_SOFIA_STATE_<id>`, `EVIL_SOFIA_REGION_<id>`) and the file is
+  in `localisation/english/replace/`. With vanilla-style keys (`STATE_9`, `STRATEGICREGION_3`) vanilla's names
+  won, which is why states showed names such as "Bohemia" and "Flanders".
+- **Strategic regions** (air zones, weather): Old Town, Southern, Western, Northern and Eastern Quarters,
+  Vitosha, Bankya Hills, Vrabnitsa Plain, Novi Iskar, Kremikovtsi, Pancharevo, Upper Iskar, plus the sea.
+- The Kremikovtsi steelworks: steel and three military factories in the Kremikovtsi state with the most
+  industrial land.
+- The impassable land around the city is cut into lake provinces the same way, over the real terrain.
+
 ## How the map is made
 
 Real geography: run `python3 tools/fetch_geodata.py` once. It downloads about 175 MB into `tools/geodata/cache/`
-and writes `tools/geodata/sofia_geodata.npz` (not committed). Data: ESA WorldCover 2021, CC BY 4.0
-(© ESA WorldCover project, contains modified Copernicus Sentinel data 2021); AWS Terrain Tiles (Mapzen,
-SRTM and other public sources).
+and writes `tools/geodata/sofia_geodata.npz` and `tools/geodata/kvartali.geojson` (not committed). Data:
+ESA WorldCover 2021, CC BY 4.0 (© ESA WorldCover project, contains modified Copernicus Sentinel data 2021);
+AWS Terrain Tiles (Mapzen, SRTM and other public sources); neighbourhood boundaries of Sofia Municipality
+(Sofproekt, 1 January 2019, file `kvartali_26_sofpr_20190101.geojson`) as published in
+github.com/bbaid/services-access-sofia. The mod contains only map data derived from them.
 
 `tools/districts_mask.png` is the source for the districts. It is grayscale, and each pixel's value is the district number (1–24); 0 means outside the city.
 `tools/build_map.py` reads it and writes every map, state, country and localisation file:
@@ -107,7 +135,8 @@ If a border is wrong, paint the mask with the correct value using any editor tha
 | 11 | KRP | Krasna Polyana | 23 | PNC | Pancharevo |
 | 12 | ILN | Ilinden | 24 | BNK | Bankya |
 
-State ID = district number. The provinces outside the city are impassable lakes ("The Void").
+State files are `history/states/<id>-<TAG>_<name>.txt`, numbered district by district with each country's
+capital state first. The provinces outside the city are impassable lakes ("The Void").
 Sofia has no sea, so there are no navies.
 
 ## Known gaps
@@ -115,6 +144,5 @@ Sofia has no sea, so there are no navies.
 - Armies are minimal: every district starts with basic infantry, support, artillery and train technology,
   a "City Guard" template (4 infantry battalions), 1-3 divisions in its capital (one per 40,000 people, rounded
   up) and 500 infantry equipment in stock.
-- `map/cities.bmp` is blank (all city models use the default city group).
 - Vanilla focus trees and events still refer to vanilla countries and states; they never fire for the districts.
 - `supported_version` is `1.*`, so the launcher accepts any 1.x game version.

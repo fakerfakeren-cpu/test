@@ -1,0 +1,19 @@
+state = {
+	id = 75
+	name = "EVIL_SOFIA_STATE_75"
+	manpower = 1500
+	state_category = pastoral
+
+	history = {
+		owner = KRE
+		add_core_of = KRE
+		victory_points = { 192 3 }
+		buildings = {
+			infrastructure = 3
+		}
+	}
+
+	provinces = {
+		192 213 214 215 223
+	}
+}

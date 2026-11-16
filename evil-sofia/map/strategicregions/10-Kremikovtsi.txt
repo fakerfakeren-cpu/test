@@ -1,0 +1,81 @@
+strategic_region = {
+	id = 10
+	name = "EVIL_SOFIA_REGION_10"
+	provinces = {
+		191 192 193 194 195 196 197 198 199 200 201 202 203 204 205 206 207 208 209 210 211 212 213 214 215 216 217 218 219 220 221 222 223 224 225 226 227 228 229 230 231 232 233 234 235 236 237 238 239 240 241 242 243 244 245 459 460 465 466 468 469 472 473 474 477 478 481 482 483 489 490 491 492 494 498 500 501 502 504 508 514 517 519 520 527 528 530 531 532 537 538 541 542 544 547 548 551 553 554 555 558 562 564 565 567 570 575 578 580 582 587 589 590 591 592 595 596 597 600 601 603 606 607 610 612 620 621 622 624 626 628 630 637 638 639 640 643 644 646 650 655 656 657 658 660 663 664 671 674 675 676 681 683 687 688 691 692 693 694 697 698 699 701 704 705 711 714 719 720 721 724 726 727 730 732 734 735 736 738 739 741 742 743 748 749 751 752 754 758 765 767 768 769 772 775 778 781 783 784 785 789 790 791 792 794 797 799 800 801 807 808 811 817 818 822 823 826 827 830 831 832 835 838 839 841 842 845 846 847 848 850 851 855 856 858 859 860 865 870 872 873 874 876 877 878 879 882 885 886 887 888 894 895 896 897 899 902 903 904 905 909 915 916 921 925 927 931 933 936 945 960 1367 1369 1370 1373 1374 1375 1380 1381 1387 1388 1390 1392 1393 1394 1395 1396 1397 1399 1400 1403 1404 1405 1406 1409 1410 1411 1412 1413 1414 1417 1418 1419 1422 1424 1427 1430 1435 1437 1440 1441 1442 1443 1445 1446 1447 1450 1459 1461 1463 1465 1467 1468 1471 1472 1473 1475 1476 1477 1481 1487 1489 1490 1491 1492 1494 1495 1496 1497 1500 1502 1505 1506 1507 1509 1514 1515 1516 1518 1519 1520 1522 1523 1526 1527 1531 1533 1534 1541 1545 1670 1671 1674 1677 1689 1690 1691 1693 1695 1697 1698 1699 1702 1703 1704
+	}
+	weather = {
+		period = {
+			between = { 0.0 30.0 }
+			temperature = { -6.0 3.0 }
+			no_phenomenon = 0.45 rain_light = 0.05 rain_heavy = 0 snow = 0.35 blizzard = 0.05 arctic_water = 0 mud = 0.1 sandstorm = 0
+			min_snow_level = 0.0
+		}
+		period = {
+			between = { 0.1 27.1 }
+			temperature = { -4.0 6.0 }
+			no_phenomenon = 0.45 rain_light = 0.08 rain_heavy = 0 snow = 0.3 blizzard = 0.02 arctic_water = 0 mud = 0.15 sandstorm = 0
+			min_snow_level = 0.0
+		}
+		period = {
+			between = { 0.2 30.2 }
+			temperature = { -1.0 11.0 }
+			no_phenomenon = 0.5 rain_light = 0.2 rain_heavy = 0.03 snow = 0.12 blizzard = 0 arctic_water = 0 mud = 0.15 sandstorm = 0
+			min_snow_level = 0.0
+		}
+		period = {
+			between = { 0.3 29.3 }
+			temperature = { 4.0 16.0 }
+			no_phenomenon = 0.55 rain_light = 0.3 rain_heavy = 0.1 snow = 0 blizzard = 0 arctic_water = 0 mud = 0.05 sandstorm = 0
+			min_snow_level = 0.0
+		}
+		period = {
+			between = { 0.4 30.4 }
+			temperature = { 9.0 21.0 }
+			no_phenomenon = 0.55 rain_light = 0.3 rain_heavy = 0.15 snow = 0 blizzard = 0 arctic_water = 0 mud = 0 sandstorm = 0
+			min_snow_level = 0.0
+		}
+		period = {
+			between = { 0.5 29.5 }
+			temperature = { 12.0 25.0 }
+			no_phenomenon = 0.6 rain_light = 0.25 rain_heavy = 0.15 snow = 0 blizzard = 0 arctic_water = 0 mud = 0 sandstorm = 0
+			min_snow_level = 0.0
+		}
+		period = {
+			between = { 0.6 30.6 }
+			temperature = { 14.0 28.0 }
+			no_phenomenon = 0.75 rain_light = 0.15 rain_heavy = 0.1 snow = 0 blizzard = 0 arctic_water = 0 mud = 0 sandstorm = 0
+			min_snow_level = 0.0
+		}
+		period = {
+			between = { 0.7 30.7 }
+			temperature = { 14.0 28.0 }
+			no_phenomenon = 0.8 rain_light = 0.12 rain_heavy = 0.08 snow = 0 blizzard = 0 arctic_water = 0 mud = 0 sandstorm = 0
+			min_snow_level = 0.0
+		}
+		period = {
+			between = { 0.8 29.8 }
+			temperature = { 10.0 23.0 }
+			no_phenomenon = 0.75 rain_light = 0.15 rain_heavy = 0.1 snow = 0 blizzard = 0 arctic_water = 0 mud = 0 sandstorm = 0
+			min_snow_level = 0.0
+		}
+		period = {
+			between = { 0.9 30.9 }
+			temperature = { 5.0 17.0 }
+			no_phenomenon = 0.6 rain_light = 0.25 rain_heavy = 0.05 snow = 0.02 blizzard = 0 arctic_water = 0 mud = 0.08 sandstorm = 0
+			min_snow_level = 0.0
+		}
+		period = {
+			between = { 0.10 29.10 }
+			temperature = { 1.0 10.0 }
+			no_phenomenon = 0.5 rain_light = 0.25 rain_heavy = 0.05 snow = 0.1 blizzard = 0 arctic_water = 0 mud = 0.1 sandstorm = 0
+			min_snow_level = 0.0
+		}
+		period = {
+			between = { 0.11 30.11 }
+			temperature = { -4.0 4.0 }
+			no_phenomenon = 0.45 rain_light = 0.1 rain_heavy = 0 snow = 0.3 blizzard = 0.05 arctic_water = 0 mud = 0.1 sandstorm = 0
+			min_snow_level = 0.0
+		}
+	}
+}

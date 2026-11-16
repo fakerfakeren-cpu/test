@@ -1,0 +1,21 @@
+state = {
+	id = 27
+	name = "EVIL_SOFIA_STATE_27"
+	manpower = 9400
+	state_category = city
+
+	history = {
+		owner = SLA
+		add_core_of = SLA
+		victory_points = { 61 3 }
+		victory_points = { 64 1 }
+		victory_points = { 77 1 }
+		buildings = {
+			infrastructure = 4
+		}
+	}
+
+	provinces = {
+		61 64 77
+	}
+}

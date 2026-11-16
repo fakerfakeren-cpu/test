@@ -11,14 +11,14 @@ division_template = {
 units = {
 	division = {
 		name = "1st Krasna Polyana Guard"
-		location = 39
+		location = 118
 		division_template = "City Guard"
 		start_experience_factor = 0.2
 		start_equipment_factor = 1.0
 	}
 	division = {
 		name = "2nd Krasna Polyana Guard"
-		location = 39
+		location = 118
 		division_template = "City Guard"
 		start_experience_factor = 0.2
 		start_equipment_factor = 1.0
