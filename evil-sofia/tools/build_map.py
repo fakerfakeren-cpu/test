@@ -129,7 +129,7 @@ SURNAMES = ["Ivanov", "Petrov", "Georgiev", "Dimitrov", "Nikolov", "Stoyanov", "
             "Draganov", "Bogdanov", "Ruskov", "Simeonov", "Tasev", "Uzunov", "Vulkov", "Zahariev"]
 # Country leaders with a set name (the others get one from the lists below). A leader gets a portrait when
 # tools/portraits/<TAG>.png exists (156x210 px); portraits stay out of the git repository.
-LEADER_NAMES = {"SRD": "Victor Kolev"}
+LEADER_NAMES = {"SRD": "Victor Kolev", "MLA": "Georgi Poryazov"}
 FEMALE = ["Maria", "Elena", "Ivanka", "Yordanka", "Rositsa", "Desislava", "Vesela", "Teodora", "Milena", "Radka",
           "Stefka", "Tsvetana", "Gergana", "Kalina", "Nevena", "Zornitsa"]
 
@@ -1547,7 +1547,14 @@ color = {{ {r} {g} {b} }}
     portrait = ""
     portrait_src = os.path.join(ROOT, "tools", "portraits", f"{tag}.png")
     if os.path.exists(portrait_src):     # large leader portrait: 156x210, uncompressed DDS
-        face = Image.open(portrait_src).convert("RGBA").resize((156, 210), Image.LANCZOS)
+        face = Image.open(portrait_src).convert("RGBA")
+        fw, fh = face.size
+        if fw * 210 > fh * 156:          # too wide: trim both sides
+            nw = round(fh * 156 / 210)
+            face = face.crop(((fw - nw) // 2, 0, (fw - nw) // 2 + nw, fh))
+        elif fw * 210 < fh * 156:        # too tall: trim the bottom, keep the head
+            face = face.crop((0, 0, fw, round(fw * 210 / 156)))
+        face = face.resize((156, 210), Image.LANCZOS)
         write_dds_bgra(f"gfx/leaders/{tag}/{tag}_leader.dds", np.asarray(face))
         portrait = f"""
 \t\tportraits = {{

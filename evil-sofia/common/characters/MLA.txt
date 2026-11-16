@@ -1,6 +1,11 @@
 characters = {
 	MLA_leader = {
 		name = MLA_leader
+		portraits = {
+			civilian = {
+				large = "gfx/leaders/MLA/MLA_leader.dds"
+			}
+		}
 		country_leader = {
 			ideology = despotism
 			expire = "1965.1.1.1"
