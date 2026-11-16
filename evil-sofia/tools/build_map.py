@@ -129,7 +129,8 @@ SURNAMES = ["Ivanov", "Petrov", "Georgiev", "Dimitrov", "Nikolov", "Stoyanov", "
             "Draganov", "Bogdanov", "Ruskov", "Simeonov", "Tasev", "Uzunov", "Vulkov", "Zahariev"]
 # Country leaders with a set name (the others get one from the lists below). A leader gets a portrait when
 # tools/portraits/<TAG>.png exists (156x210 px); portraits stay out of the git repository.
-LEADER_NAMES = {"SRD": "Victor Kolev", "MLA": "Georgi Poryazov", "VIT": "Daniel-Henry Capel"}
+LEADER_NAMES = {"SRD": "Victor Kolev", "MLA": "Georgi Poryazov", "VIT": "Daniel-Henry Capel",
+                "KRP": "Stefan Kartunov"}
 FEMALE = ["Maria", "Elena", "Ivanka", "Yordanka", "Rositsa", "Desislava", "Vesela", "Teodora", "Milena", "Radka",
           "Stefka", "Tsvetana", "Gergana", "Kalina", "Nevena", "Zornitsa"]
 

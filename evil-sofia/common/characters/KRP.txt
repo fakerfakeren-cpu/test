@@ -1,6 +1,11 @@
 characters = {
 	KRP_leader = {
 		name = KRP_leader
+		portraits = {
+			civilian = {
+				large = "gfx/leaders/KRP/KRP_leader.dds"
+			}
+		}
 		country_leader = {
 			ideology = despotism
 			expire = "1965.1.1.1"
