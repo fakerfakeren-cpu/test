@@ -127,12 +127,15 @@ SURNAMES = ["Ivanov", "Petrov", "Georgiev", "Dimitrov", "Nikolov", "Stoyanov", "
             "Stefanov", "Lazarov", "Radev", "Zhelev", "Bonev", "Tsvetkov", "Kamenov", "Dobrev", "Spasov", "Grigorov",
             "Antonov", "Valchev", "Penev", "Slavov", "Rusev", "Tonchev", "Genov", "Velchev", "Ganev", "Yankov",
             "Draganov", "Bogdanov", "Ruskov", "Simeonov", "Tasev", "Uzunov", "Vulkov", "Zahariev"]
+# Country leaders with a set name (the others get one from the lists below). A leader gets a portrait when
+# tools/portraits/<TAG>.png exists (156x210 px); portraits stay out of the git repository.
+LEADER_NAMES = {"SRD": "Victor Kolev"}
 FEMALE = ["Maria", "Elena", "Ivanka", "Yordanka", "Rositsa", "Desislava", "Vesela", "Teodora", "Milena", "Radka",
           "Stefka", "Tsvetana", "Gergana", "Kalina", "Nevena", "Zornitsa"]
 
 
 # Folders whose files are named after states and regions: cleared first, so no stale file survives a rebuild.
-for folder in ("history/states", "map/strategicregions", "map/supplyareas"):
+for folder in ("history/states", "map/strategicregions", "map/supplyareas", "gfx/leaders"):
     shutil.rmtree(os.path.join(ROOT, folder), ignore_errors=True)
 
 
@@ -1539,11 +1542,22 @@ graphical_culture_2d = eastern_european_2d
 color = {{ {r} {g} {b} }}
 """)
     tags_txt.append(f'{tag} = "countries/{file_name}.txt"')
-    leader = (FIRST[2 * (k - 1)], SURNAMES[2 * (k - 1)])
+    leader = LEADER_NAMES.get(tag, f"{FIRST[2 * (k - 1)]} {SURNAMES[2 * (k - 1)]}")
     general = (FIRST[2 * (k - 1) + 1], SURNAMES[2 * (k - 1) + 1])
+    portrait = ""
+    portrait_src = os.path.join(ROOT, "tools", "portraits", f"{tag}.png")
+    if os.path.exists(portrait_src):     # large leader portrait: 156x210, uncompressed DDS
+        face = Image.open(portrait_src).convert("RGBA").resize((156, 210), Image.LANCZOS)
+        write_dds_bgra(f"gfx/leaders/{tag}/{tag}_leader.dds", np.asarray(face))
+        portrait = f"""
+\t\tportraits = {{
+\t\t\tcivilian = {{
+\t\t\t\tlarge = "gfx/leaders/{tag}/{tag}_leader.dds"
+\t\t\t}}
+\t\t}}"""
     write(f"common/characters/{tag}.txt", f"""characters = {{
 \t{tag}_leader = {{
-\t\tname = {tag}_leader
+\t\tname = {tag}_leader{portrait}
 \t\tcountry_leader = {{
 \t\t\tideology = despotism
 \t\t\texpire = "1965.1.1.1"
@@ -1641,13 +1655,19 @@ instant_effect = {{
 }}""")
     bookmark_countries.append(f"\t\t\t{tag} = {{\n\t\t\t\thistory = \"EVIL_SOFIA_START_DESC\"\n\t\t\t\tideology = neutrality\n\t\t\t}}")
     loc += [f' {tag}:0 "{name}"', f' {tag}_DEF:0 "{name}"', f' {tag}_ADJ:0 "{adj_}"',
-            f' {tag}_leader:0 "{leader[0]} {leader[1]}"', f' {tag}_general:0 "{general[0]} {general[1]}"']
-    dark = (r // 2, g // 2, b // 2)    # placeholder flags: three stripes in the country colour
+            f' {tag}_leader:0 "{leader}"', f' {tag}_general:0 "{general[0]} {general[1]}"']
+    # Flags: tools/flags/<TAG>.png, cut from the "Flags of Sofia and her regions" sheet; without one, three
+    # stripes in the country colour.
+    flag_src = os.path.join(ROOT, "tools", "flags", f"{tag}.png")
+    dark = (r // 2, g // 2, b // 2)
     for folder, size in (("", (82, 52)), ("medium/", (41, 26)), ("small/", (10, 7))):
-        flag = Image.new("RGBA", size, (r, g, b, 255))
-        d = ImageDraw.Draw(flag)
-        d.rectangle([0, 0, size[0], size[1] // 3], fill=dark + (255,))
-        d.rectangle([0, size[1] - size[1] // 3, size[0], size[1]], fill=dark + (255,))
+        if os.path.exists(flag_src):
+            flag = Image.open(flag_src).convert("RGBA").resize(size, Image.LANCZOS)
+        else:
+            flag = Image.new("RGBA", size, (r, g, b, 255))
+            d = ImageDraw.Draw(flag)
+            d.rectangle([0, 0, size[0], size[1] // 3], fill=dark + (255,))
+            d.rectangle([0, size[1] - size[1] // 3, size[0], size[1]], fill=dark + (255,))
         flag.save(out(f"gfx/flags/{folder}{tag}.tga"))
 for rid, rname in list(REGIONS.items()) + [SEA_REGION]:
     loc.append(f' EVIL_SOFIA_REGION_{rid}:0 "{rname}"')
