@@ -1919,6 +1919,91 @@ per_country = [sum(1 for st in states if st["district"] == k) for k in DISTRICTS
 print(f"{len(vp)} cities; {len(states)} states ({min(per_country)}-{max(per_country)} per country); terrain {terr_count}")
 print(f"map {W}x{H}, {len(land_ids)} land provinces, {len(lake_ids)} lake provinces, {len(REGIONS) + 1} strategic regions")
 
+# ---------------------------------------------------------------- cores & claims map mode
+# A scripted map mode (format: the game's common/map_modes documentation; idea: Road to 56's core map mode).
+# For the player's country, every state is coloured: green own core, yellow owned but not a core, purple a core
+# someone else owns, blue a claim, orange occupied by the player but owned by someone else.
+MM = "evil_sofia_cores_claims"
+write(f"common/map_modes/{MM}.txt", f"""scripted_map_modes = {{
+	{MM} = {{
+		top = {{
+			type = state
+			color = {{
+				FROM = {{
+					set_temp_variable = {{ alpha = 1.0 }}
+					if = {{
+						limit = {{ is_owned_by = ROOT is_core_of = ROOT }}
+						set_temp_variable = {{ red = 0.1 }}
+						set_temp_variable = {{ green = 0.75 }}
+						set_temp_variable = {{ blue = 0.2 }}
+					}}
+					else_if = {{
+						limit = {{ is_owned_by = ROOT }}
+						set_temp_variable = {{ red = 0.95 }}
+						set_temp_variable = {{ green = 0.85 }}
+						set_temp_variable = {{ blue = 0.2 }}
+					}}
+					else_if = {{
+						limit = {{ is_core_of = ROOT }}
+						set_temp_variable = {{ red = 0.6 }}
+						set_temp_variable = {{ green = 0.15 }}
+						set_temp_variable = {{ blue = 0.85 }}
+					}}
+					else_if = {{
+						limit = {{ is_claimed_by = ROOT }}
+						set_temp_variable = {{ red = 0.15 }}
+						set_temp_variable = {{ green = 0.55 }}
+						set_temp_variable = {{ blue = 1.0 }}
+					}}
+					else = {{
+						set_temp_variable = {{ red = 1.0 }}
+						set_temp_variable = {{ green = 0.5 }}
+						set_temp_variable = {{ blue = 0.1 }}
+					}}
+				}}
+			}}
+			thickness = no
+			targets = {{
+				target_array = global.states
+				target_trigger = {{
+					FROM = {{
+						OR = {{
+							is_owned_by = ROOT
+							is_controlled_by = ROOT
+							is_core_of = ROOT
+							is_claimed_by = ROOT
+						}}
+					}}
+				}}
+			}}
+		}}
+		bottom = {{
+			type = none
+		}}
+		far_text = country
+		near_text = state
+		update_daily = yes
+	}}
+}}
+""")
+# its button icons (selected and not selected): a small coloured map legend
+for sel, bg in (("selected", (90, 75, 40, 255)), ("deselected", (45, 45, 45, 255))):
+    icon = Image.new("RGBA", (32, 32), bg)
+    d_ = ImageDraw.Draw(icon)
+    for i, c in enumerate([(26, 190, 50), (240, 215, 50), (150, 40, 215), (40, 140, 255)]):
+        d_.rectangle([4 + (i % 2) * 12, 4 + (i // 2) * 12, 14 + (i % 2) * 12, 14 + (i // 2) * 12], fill=c + (255,))
+    d_.rectangle([0, 0, 31, 31], outline=(200, 170, 100, 255) if sel == "selected" else (110, 110, 110, 255))
+    write_dds_bgra(f"gfx/interface/mapmode_{MM}_{sel}.dds", np.asarray(icon))
+write("interface/evil_sofia_mapmodes.gfx", "spriteTypes = {\n" + "".join(
+    f'\tspriteType = {{\n\t\tname = "GFX_mapmode_buttons_{sel}_small_{MM}"\n'
+    f'\t\ttexturefile = "gfx/interface/mapmode_{MM}_{sel}.dds"\n\t}}\n' for sel in ("selected", "deselected")) + "}\n")
+mm_desc = ("Green: your core. Yellow: yours, not a core. Purple: your core owned by someone else. "
+           "Blue: your claim. Orange: occupied by you.")
+write("localisation/english/replace/evil_sofia_mapmode_l_english.yml", "\n".join([
+    "l_english:", f' MAPMODE_{MM.upper()}:0 "Cores and Claims"', f' MAPMODE_{MM.upper()}_NAME:0 "Cores and Claims"',
+    f' MAPMODE_{MM.upper()}_DESCRIPTION:0 "{mm_desc}"', f' {MM}_tooltip:0 "Cores and Claims"',
+    f' {MM}_tooltip_delayed:0 "{mm_desc}"']) + "\n", bom=True)
+
 # ---------------------------------------------------------------- focus trees (tools/build_focus.py)
 _sx, _sy = place_px(42.6875, 23.3355)                 # Vasil Levski National Stadium
 stadium = int(prov[int(round(_sy)), int(round(_sx))])

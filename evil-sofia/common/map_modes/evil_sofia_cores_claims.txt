@@ -1,0 +1,61 @@
+scripted_map_modes = {
+	evil_sofia_cores_claims = {
+		top = {
+			type = state
+			color = {
+				FROM = {
+					set_temp_variable = { alpha = 1.0 }
+					if = {
+						limit = { is_owned_by = ROOT is_core_of = ROOT }
+						set_temp_variable = { red = 0.1 }
+						set_temp_variable = { green = 0.75 }
+						set_temp_variable = { blue = 0.2 }
+					}
+					else_if = {
+						limit = { is_owned_by = ROOT }
+						set_temp_variable = { red = 0.95 }
+						set_temp_variable = { green = 0.85 }
+						set_temp_variable = { blue = 0.2 }
+					}
+					else_if = {
+						limit = { is_core_of = ROOT }
+						set_temp_variable = { red = 0.6 }
+						set_temp_variable = { green = 0.15 }
+						set_temp_variable = { blue = 0.85 }
+					}
+					else_if = {
+						limit = { is_claimed_by = ROOT }
+						set_temp_variable = { red = 0.15 }
+						set_temp_variable = { green = 0.55 }
+						set_temp_variable = { blue = 1.0 }
+					}
+					else = {
+						set_temp_variable = { red = 1.0 }
+						set_temp_variable = { green = 0.5 }
+						set_temp_variable = { blue = 0.1 }
+					}
+				}
+			}
+			thickness = no
+			targets = {
+				target_array = global.states
+				target_trigger = {
+					FROM = {
+						OR = {
+							is_owned_by = ROOT
+							is_controlled_by = ROOT
+							is_core_of = ROOT
+							is_claimed_by = ROOT
+						}
+					}
+				}
+			}
+		}
+		bottom = {
+			type = none
+		}
+		far_text = country
+		near_text = state
+		update_daily = yes
+	}
+}

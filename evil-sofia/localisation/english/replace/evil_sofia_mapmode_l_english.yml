@@ -1,0 +1,6 @@
+﻿l_english:
+ MAPMODE_EVIL_SOFIA_CORES_CLAIMS:0 "Cores and Claims"
+ MAPMODE_EVIL_SOFIA_CORES_CLAIMS_NAME:0 "Cores and Claims"
+ MAPMODE_EVIL_SOFIA_CORES_CLAIMS_DESCRIPTION:0 "Green: your core. Yellow: yours, not a core. Purple: your core owned by someone else. Blue: your claim. Orange: occupied by you."
+ evil_sofia_cores_claims_tooltip:0 "Cores and Claims"
+ evil_sofia_cores_claims_tooltip_delayed:0 "Green: your core. Yellow: yours, not a core. Purple: your core owned by someone else. Blue: your claim. Orange: occupied by you."
