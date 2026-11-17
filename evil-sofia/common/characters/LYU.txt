@@ -1,9 +1,14 @@
 characters = {
 	LYU_leader = {
 		name = LYU_leader
+		portraits = {
+			civilian = {
+				large = "gfx/leaders/LYU/LYU_leader.dds"
+			}
+		}
 		country_leader = {
 			ideology = despotism
-			expire = "1965.1.1.1"
+			expire = "2100.1.1.1"
 			id = -1
 		}
 	}

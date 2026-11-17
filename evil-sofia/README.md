@@ -69,8 +69,14 @@ by the Hoi4_world_map project (github.com/derprito64bit/Hoi4_world_map):
   between rough waypoints. 1 px wide, 4-connected, one source each, flow-in pixel where a tributary joins.
 - Characters: `common/characters/<TAG>.txt` gives every country a leader (despotism) and a corps commander;
   `common/names/evil_sofia_names.txt` gives the game Bulgarian names for the characters it generates itself.
-  Sredets is led by Victor Kolev. A leader gets a portrait when `tools/portraits/<TAG>.png` (156x210 px) exists;
+  Leaders with their own name and portrait: Sredets Victor Kolev, Oborishte Anton Zafirov, Lozenets Georgi
+  Yanchovichin, Triaditsa Alexander Dimitrov, Krasna Polyana Stefan Kartunov, Mladost Georgi Poryazov, Lyulin
+  GrimBoss, Vitosha Daniel-Henry Capel. A leader gets a portrait when `tools/portraits/<TAG>.png` exists (any size;
+  it is trimmed to the game's 156x210 frame);
   portraits are kept out of the repository (`.gitignore`) and only go into the packaged mod.
+- The game starts on **1 January 2026**. `NGame.START_DATE` and `END_DATE` (2100) are moved in the defines file,
+  otherwise the game would be past its end date at the start. On the start screen the eight countries with their
+  own leaders are the featured ones, with a short description each; the other sixteen are the small flags below.
 - Flags come from the "Flags of Sofia and her regions" sheet, one image per district in `tools/flags/<TAG>.png`;
   the build scales them to the game's three flag sizes.
 

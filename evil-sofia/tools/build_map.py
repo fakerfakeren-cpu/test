@@ -130,13 +130,26 @@ SURNAMES = ["Ivanov", "Petrov", "Georgiev", "Dimitrov", "Nikolov", "Stoyanov", "
 # Country leaders with a set name (the others get one from the lists below). A leader gets a portrait when
 # tools/portraits/<TAG>.png exists (156x210 px); portraits stay out of the git repository.
 LEADER_NAMES = {"SRD": "Victor Kolev", "MLA": "Georgi Poryazov", "VIT": "Daniel-Henry Capel",
-                "KRP": "Stefan Kartunov"}
+                "KRP": "Stefan Kartunov", "OBR": "Anton Zafirov", "LOZ": "Georgi Yanchovichin",
+                "TRD": "Alexander Dimitrov", "LYU": "GrimBoss"}
+# Countries with their own leader are the featured ones on the start screen, with these descriptions; the
+# others are the small flags along the bottom.
+FEATURED = {
+    "SRD": "Sredets, the old heart of Sofia around Vitosha Boulevard and Borisova Gradina.",
+    "OBR": "Oborishte, the district of Alexander Nevsky Cathedral.",
+    "LOZ": "Lozenets, the green slopes between the city centre and Vitosha.",
+    "TRD": "Triaditsa, named after Sofia's medieval name, from Ivan Vazov to South Park.",
+    "KRP": "Krasna Polyana, the western quarters around West Park.",
+    "MLA": "Mladost, four housing estates and Business Park, one of Sofia's most populous districts.",
+    "LYU": "Lyulin, ten housing estates beneath the Lyulin mountain.",
+    "VIT": "Vitosha, from Boyana up the slopes of the mountain that watches over the city.",
+}
 FEMALE = ["Maria", "Elena", "Ivanka", "Yordanka", "Rositsa", "Desislava", "Vesela", "Teodora", "Milena", "Radka",
           "Stefka", "Tsvetana", "Gergana", "Kalina", "Nevena", "Zornitsa"]
 
 
 # Folders whose files are named after states and regions: cleared first, so no stale file survives a rebuild.
-for folder in ("history/states", "map/strategicregions", "map/supplyareas", "gfx/leaders"):
+for folder in ("history/states", "map/strategicregions", "map/supplyareas", "gfx/leaders", "history/units"):
     shutil.rmtree(os.path.join(ROOT, folder), ignore_errors=True)
 
 
@@ -1276,6 +1289,9 @@ local function set(tbl, ns, key, value)
 end
 -- One map pixel is about {M_PER_PX:.0f} m in reality; 1.5 km per pixel keeps unit movement close to vanilla pacing.
 set(NDefines, "NGame", "MAP_SCALE_PIXEL_TO_KM", 1.5)
+-- The game starts on 1 January 2026; without a later end date it would be over before it began.
+set(NDefines, "NGame", "START_DATE", "2026.1.1.12")
+set(NDefines, "NGame", "END_DATE", "2100.1.1.1")
 -- The main menu camera looks at the city.
 for _, tbl in ipairs({{NDefines, NDefines_Graphics}}) do
 \tset(tbl, "NFrontend", "CAMERA_LOOKAT_X", {cxm:.1f})
@@ -1471,7 +1487,8 @@ write("map/weatherpositions.txt", "\n".join(wpos) + "\n")
 # Every key is unique to the mod (vanilla's STATE_1, STRATEGICREGION_1... would win otherwise), and the file
 # goes into localisation/english/replace, which also beats vanilla's VICTORY_POINTS_<province> names.
 loc = ["l_english:", ' EVIL_SOFIA_START_NAME:0 "The Fall of Sofia"',
-       ' EVIL_SOFIA_START_DESC:0 "The city council has collapsed. Twenty-four districts, twenty-four warlords. Only one will rule Sofia."']
+       ' EVIL_SOFIA_START_DESC:0 "1 January 2026. The city council has collapsed. Twenty-four districts, twenty-four warlords. Only one will rule Sofia."',
+       ' EVIL_SOFIA_OTHER_DESC:0 "Every district of Sofia can be played: pick one of the flags below or any district on the map."']
 for st in states:
     st["built"], st["area"] = state_sum(st, P_BUILT), state_sum(st, P_AREA)
 for k, (tag, name, adj_, cat, pop) in DISTRICTS.items():
@@ -1533,7 +1550,7 @@ for st in states:
     loc.append(f' EVIL_SOFIA_STATE_{st["id"]}:0 "{st["name"]}"')
     loc += [f' VICTORY_POINTS_{p}:0 "{vp[p][0]}"' for p in st["provinces"] if p in vp]
 
-tags_txt, bookmark_countries, name_lists = [], [], []
+tags_txt, bookmark_countries, name_lists, featured_entries = [], [], [], {}
 for k, (tag, name, adj_, cat, pop) in DISTRICTS.items():
     r, g, b = country_color(k)
     file_name = name.replace(" ", "_")
@@ -1568,7 +1585,7 @@ color = {{ {r} {g} {b} }}
 \t\tname = {tag}_leader{portrait}
 \t\tcountry_leader = {{
 \t\t\tideology = despotism
-\t\t\texpire = "1965.1.1.1"
+\t\t\texpire = "2100.1.1.1"
 \t\t\tid = -1
 \t\t}}
 \t}}
@@ -1594,7 +1611,7 @@ set_war_support = 0.5
 
 set_politics = {{
 \truling_party = neutrality
-\tlast_election = "1932.1.1"
+\tlast_election = "2022.1.1"
 \telection_frequency = 48
 \telections_allowed = no
 }}
@@ -1608,9 +1625,9 @@ set_popularities = {{
 recruit_character = {tag}_leader
 recruit_character = {tag}_general
 
-oob = "{tag}_1936"
+oob = "{tag}_2026"
 
-# A basic 1936 start like vanilla minor nations: no country starts without technology or an army.
+# A basic start like vanilla minor nations: no country starts without technology or an army.
 set_technology = {{
 \tinfantry_weapons = 1
 \tinfantry_weapons1 = 1
@@ -1629,7 +1646,7 @@ set_technology = {{
 \t\tstart_experience_factor = 0.2
 \t\tstart_equipment_factor = 1.0
 \t}}""" for i in range(n_div))
-    write(f"history/units/{tag}_1936.txt", f"""division_template = {{
+    write(f"history/units/{tag}_2026.txt", f"""division_template = {{
 \tname = "City Guard"
 \tregiments = {{
 \t\tinfantry = {{ x = 0 y = 0 }}
@@ -1661,7 +1678,13 @@ instant_effect = {{
 \tsurnames = {{ {' '.join(SURNAMES)} }}
 \tcallsigns = {{ Vitosha Iskar Lion Eagle Hawk Falcon Wolf Bear }}
 }}""")
-    bookmark_countries.append(f"\t\t\t{tag} = {{\n\t\t\t\thistory = \"EVIL_SOFIA_START_DESC\"\n\t\t\t\tideology = neutrality\n\t\t\t}}")
+    if tag in FEATURED:
+        loc.append(f' EVIL_SOFIA_{tag}_DESC:0 "{FEATURED[tag]} {LEADER_NAMES[tag]} rules it."')
+        featured_entries[tag] = (f"\t\t{tag} = {{\n\t\t\thistory = \"EVIL_SOFIA_{tag}_DESC\"\n"
+                                 f"\t\t\tideology = neutrality\n\t\t}}")
+    else:
+        bookmark_countries.append(f"\t\t{tag} = {{\n\t\t\tminor = yes\n\t\t\thistory = \"EVIL_SOFIA_START_DESC\"\n"
+                                  f"\t\t\tideology = neutrality\n\t\t}}")
     loc += [f' {tag}:0 "{name}"', f' {tag}_DEF:0 "{name}"', f' {tag}_ADJ:0 "{adj_}"',
             f' {tag}_leader:0 "{leader}"', f' {tag}_general:0 "{general[0]} {general[1]}"']
     # Flags: tools/flags/<TAG>.png, cut from the "Flags of Sofia and her regions" sheet; without one, three
@@ -1726,11 +1749,15 @@ write("common/bookmarks/the_fall_of_sofia.txt", f"""bookmarks = {{
 \tbookmark = {{
 \t\tname = "EVIL_SOFIA_START_NAME"
 \t\tdesc = "EVIL_SOFIA_START_DESC"
-\t\tdate = 1936.1.1.12
+\t\tdate = 2026.1.1.12
 \t\tpicture = "GFX_select_date_1936"
 \t\tdefault_country = "SRD"
 \t\tdefault = yes
 
+{chr(10).join(featured_entries[t] for t in FEATURED)}
+\t\t"---" = {{
+\t\t\thistory = "EVIL_SOFIA_OTHER_DESC"
+\t\t}}
 {chr(10).join(bookmark_countries)}
 
 \t\teffect = {{
