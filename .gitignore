@@ -28,3 +28,4 @@ evil-sofia/tools/geodata/
 # leader portraits go into the packaged mod only, never into the repository
 evil-sofia/tools/portraits/
 evil-sofia/gfx/leaders/
+evil-sofia/gfx/interface/goals/evil_sofia/people/

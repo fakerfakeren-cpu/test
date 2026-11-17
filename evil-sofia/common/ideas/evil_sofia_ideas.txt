@@ -1,0 +1,13 @@
+ideas = {
+	country = {
+		SRD_mimas_doner = {
+			picture = SRD_mimas_doner
+			allowed = { always = no }
+			modifier = {
+				stability_factor = 0.05
+				war_support_factor = 0.05
+				consumer_goods_factor = -0.05
+			}
+		}
+	}
+}

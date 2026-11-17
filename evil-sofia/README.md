@@ -81,6 +81,13 @@ by the Hoi4_world_map project (github.com/derprito64bit/Hoi4_world_map):
   sixteen share a small starter tree (`common/national_focus/evil_sofia_starter.txt`, 13 focuses: district hall,
   martial law, streets, workshops, a research slot, city guard, rooftop air defence and artillery; vanilla
   icons). The featured eight keep vanilla's generic tree until real focus trees are made.
+- **Sredets focus tree** (`tools/focus_sredets.py`, written by `tools/build_focus.py`): the first focus is either
+  "Henry's Mom Was Right" (communism) or "Order in the Centre" (the authoritarian path, one focus for now). The
+  communist path: ally or destroy Anton Zafirov (with the North-South Pact if allied), the war on Daniel-Henry,
+  conquering the centre, the Party on the Largo, the Red Guards of Vasil Levski Stadium, Mimas Döner for the
+  workers. Daniel-Henry has the trait "Hates Communism" and is told when Sredets turns red. Icons come from the
+  DuoDex hoi4GFX and Ultimate HOI4 GFX packs (cached in `tools/icons/`); the ones with people are cut out of the
+  leaders' portraits by `tools/focus_icons.py` and, like the portraits, are kept out of the repository.
 - Flags come from the "Flags of Sofia and her regions" sheet, one image per district in `tools/flags/<TAG>.png`;
   the build scales them to the game's three flag sizes.
 

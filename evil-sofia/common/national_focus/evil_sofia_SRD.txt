@@ -1,0 +1,365 @@
+focus_tree = {
+	id = evil_sofia_SRD_focus
+	country = {
+		factor = 0
+		modifier = {
+			add = 20
+			tag = SRD
+		}
+	}
+	default = no
+
+	focus = {
+		id = SRD_henrys_mom_was_right
+		icon = GFX_focus_SRD_henrys_mom_was_right
+		x = 5
+		y = 0
+		mutually_exclusive = { focus = SRD_order_in_the_centre }
+		cost = 10
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			set_popularities = { communism = 65 neutrality = 35 democratic = 0 fascism = 0 }
+			set_politics = { ruling_party = communism elections_allowed = no }
+			add_country_leader_role = {
+				character = SRD_leader
+				country_leader = { ideology = leninism expire = "2100.1.1.1" }
+				promote_leader = yes
+			}
+			add_war_support = 0.10
+			VIT = { country_event = { id = evil_sofia_srd.1 } }
+		}
+	}
+	focus = {
+		id = SRD_order_in_the_centre
+		icon = GFX_focus_SRD_order_in_the_centre
+		x = 12
+		y = 0
+		mutually_exclusive = { focus = SRD_henrys_mom_was_right }
+		cost = 10
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_stability = 0.15
+			add_political_power = 100
+		}
+	}
+	focus = {
+		id = SRD_comrades_in_oborishte
+		icon = GFX_focus_SRD_comrades_in_oborishte
+		x = 1
+		y = 1
+		prerequisite = { focus = SRD_henrys_mom_was_right }
+		cost = 10
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			OBR = { add_popularity = { ideology = communism popularity = 0.20 } }
+			add_political_power = 50
+		}
+	}
+	focus = {
+		id = SRD_ally_anton
+		icon = GFX_focus_SRD_ally_anton
+		x = 0
+		y = 2
+		prerequisite = { focus = SRD_comrades_in_oborishte }
+		mutually_exclusive = { focus = SRD_anton_must_go }
+		available = {
+			OBR = { exists = yes OR = { has_government = communism communism > 0.4 } }
+		}
+		cost = 10
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			OBR = { country_event = { id = evil_sofia_srd.2 } }
+		}
+	}
+	focus = {
+		id = SRD_anton_must_go
+		icon = GFX_focus_SRD_anton_must_go
+		x = 2
+		y = 2
+		prerequisite = { focus = SRD_comrades_in_oborishte }
+		mutually_exclusive = { focus = SRD_ally_anton }
+		available = {
+			OBR = { exists = yes }
+		}
+		cost = 10
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			create_wargoal = { type = annex_everything target = OBR }
+			add_war_support = 0.10
+		}
+	}
+	focus = {
+		id = SRD_north_south_pact
+		icon = GFX_focus_SRD_north_south_pact
+		x = 0
+		y = 3
+		prerequisite = { focus = SRD_ally_anton }
+		available = {
+			has_country_flag = SRD_anton_allied
+		}
+		cost = 10
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			every_state = {
+				limit = { OR = { is_owned_by = LOZ is_owned_by = TRD is_owned_by = IZG is_owned_by = SLA is_owned_by = ISK is_owned_by = MLA is_owned_by = STU is_owned_by = VIT is_owned_by = KRS is_owned_by = OVK is_owned_by = PNC } }
+				ROOT = { add_state_claim = PREV }
+			}
+			every_state = {
+				limit = { OR = { is_owned_by = SRK is_owned_by = POD is_owned_by = NAD is_owned_by = VRB is_owned_by = NIS is_owned_by = KRE is_owned_by = ILN is_owned_by = KRP is_owned_by = LYU is_owned_by = BNK } }
+				OBR = { add_state_claim = PREV }
+			}
+		}
+	}
+	focus = {
+		id = SRD_destroy_anton
+		icon = GFX_focus_SRD_destroy_anton
+		x = 2
+		y = 3
+		prerequisite = { focus = SRD_ally_anton focus = SRD_anton_must_go }
+		available = {
+			controls_state = 5
+			NOT = { has_country_flag = SRD_anton_allied }
+		}
+		cost = 5
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_state_core = 5
+			add_state_core = 6
+			add_political_power = 150
+			add_stability = 0.10
+		}
+	}
+	focus = {
+		id = SRD_conquer_the_centre
+		icon = GFX_focus_SRD_conquer_the_centre
+		x = 1
+		y = 4
+		prerequisite = { focus = SRD_north_south_pact focus = SRD_destroy_anton }
+		cost = 10
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			create_wargoal = { type = annex_everything target = VAZ }
+			create_wargoal = { type = annex_everything target = SRK }
+		}
+	}
+	focus = {
+		id = SRD_party_takes_the_largo
+		icon = GFX_focus_SRD_party_takes_the_largo
+		x = 4
+		y = 1
+		prerequisite = { focus = SRD_henrys_mom_was_right }
+		cost = 10
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_political_power = 100
+			add_stability = 0.10
+		}
+	}
+	focus = {
+		id = SRD_red_guards_of_the_stadium
+		icon = GFX_focus_SRD_red_guards_of_the_stadium
+		x = 4
+		y = 2
+		prerequisite = { focus = SRD_party_takes_the_largo }
+		cost = 10
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			load_oob = "SRD_red_guards"
+			add_war_support = 0.05
+		}
+	}
+	focus = {
+		id = SRD_arm_the_workers
+		icon = GFX_focus_SRD_arm_the_workers
+		x = 4
+		y = 3
+		prerequisite = { focus = SRD_red_guards_of_the_stadium }
+		cost = 10
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 2000 }
+			add_tech_bonus = { name = SRD_arm_the_workers bonus = 0.5 uses = 1 category = infantry_weapons }
+		}
+	}
+	focus = {
+		id = SRD_barricades_on_vitosha
+		icon = GFX_focus_SRD_barricades_on_vitosha
+		x = 4
+		y = 4
+		prerequisite = { focus = SRD_arm_the_workers }
+		cost = 10
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			capital_scope = {
+				add_building_construction = { type = bunker level = 3 province = { all_provinces = yes limit_to_border = yes } instant_build = yes }
+			}
+		}
+	}
+	focus = {
+		id = SRD_red_leaflets
+		icon = GFX_focus_SRD_red_leaflets
+		x = 7
+		y = 1
+		prerequisite = { focus = SRD_henrys_mom_was_right }
+		available = {
+			VIT = { exists = yes }
+		}
+		cost = 10
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			VIT = { add_stability = -0.10 add_popularity = { ideology = communism popularity = 0.15 } }
+		}
+	}
+	focus = {
+		id = SRD_capel_question
+		icon = GFX_focus_SRD_capel_question
+		x = 7
+		y = 2
+		prerequisite = { focus = SRD_red_leaflets }
+		available = {
+			VIT = { exists = yes }
+		}
+		cost = 10
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			create_wargoal = { type = annex_everything target = VIT }
+			add_war_support = 0.05
+		}
+	}
+	focus = {
+		id = SRD_red_flag_over_boyana
+		icon = GFX_focus_SRD_red_flag_over_boyana
+		x = 7
+		y = 3
+		prerequisite = { focus = SRD_capel_question }
+		available = {
+			controls_state = 79
+		}
+		cost = 10
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_state_core = 79
+			add_state_core = 80
+			add_state_core = 81
+			add_state_core = 82
+			add_state_core = 83
+			add_state_core = 84
+			add_state_core = 85
+			add_political_power = 100
+			add_stability = 0.10
+		}
+	}
+	focus = {
+		id = SRD_one_sofia_one_party
+		icon = GFX_focus_SRD_one_sofia_one_party
+		x = 6
+		y = 5
+		prerequisite = { focus = SRD_conquer_the_centre }
+		prerequisite = { focus = SRD_red_flag_over_boyana }
+		cost = 10
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			if = {
+				limit = { has_country_flag = SRD_anton_allied }
+				every_state = {
+					limit = { OR = { is_owned_by = LOZ is_owned_by = TRD is_owned_by = IZG is_owned_by = SLA is_owned_by = ISK is_owned_by = MLA is_owned_by = STU is_owned_by = VIT is_owned_by = KRS is_owned_by = OVK is_owned_by = PNC } NOT = { is_owned_by = ROOT } }
+					ROOT = { add_state_claim = PREV }
+				}
+			}
+			else = {
+				every_state = {
+					limit = { NOT = { is_owned_by = ROOT } owner = { NOT = { is_in_faction_with = ROOT } } }
+					ROOT = { add_state_claim = PREV }
+				}
+			}
+			add_war_support = 0.20
+		}
+	}
+	focus = {
+		id = SRD_collectivise_vitosha_boulevard
+		icon = GFX_focus_SRD_collectivise_vitosha_boulevard
+		x = 10
+		y = 1
+		prerequisite = { focus = SRD_henrys_mom_was_right }
+		cost = 10
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			capital_scope = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = industrial_complex level = 2 instant_build = yes }
+			}
+		}
+	}
+	focus = {
+		id = SRD_mimas_for_the_workers
+		icon = GFX_focus_SRD_mimas_for_the_workers
+		x = 9
+		y = 2
+		prerequisite = { focus = SRD_collectivise_vitosha_boulevard }
+		cost = 10
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = SRD_mimas_doner
+		}
+	}
+	focus = {
+		id = SRD_party_arsenal
+		icon = GFX_focus_SRD_party_arsenal
+		x = 11
+		y = 2
+		prerequisite = { focus = SRD_collectivise_vitosha_boulevard }
+		cost = 10
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			capital_scope = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = arms_factory level = 2 instant_build = yes }
+			}
+		}
+	}
+	focus = {
+		id = SRD_red_tourism
+		icon = GFX_focus_SRD_red_tourism
+		x = 9
+		y = 3
+		prerequisite = { focus = SRD_mimas_for_the_workers }
+		cost = 10
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			capital_scope = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+			add_political_power = 100
+		}
+	}
+	focus = {
+		id = SRD_five_year_plan
+		icon = GFX_focus_SRD_five_year_plan
+		x = 10
+		y = 4
+		prerequisite = { focus = SRD_red_tourism }
+		prerequisite = { focus = SRD_party_arsenal }
+		cost = 10
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			capital_scope = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = industrial_complex level = 2 instant_build = yes }
+			}
+			add_tech_bonus = { name = SRD_five_year_plan bonus = 0.5 uses = 2 category = industry }
+		}
+	}
+	focus = {
+		id = SRD_star_on_the_party_house
+		icon = GFX_focus_SRD_star_on_the_party_house
+		x = 10
+		y = 5
+		prerequisite = { focus = SRD_five_year_plan }
+		cost = 10
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+}

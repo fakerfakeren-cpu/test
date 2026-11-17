@@ -8,6 +8,7 @@ characters = {
 		}
 		country_leader = {
 			ideology = despotism
+			traits = { evil_sofia_hates_communism }
 			expire = "2100.1.1.1"
 			id = -1
 		}

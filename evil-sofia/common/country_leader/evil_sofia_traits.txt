@@ -1,0 +1,8 @@
+leader_traits = {
+	evil_sofia_hates_communism = {
+		random = no
+		communism_drift = -0.20
+		communism_acceptance = -200
+		war_support_factor = 0.05
+	}
+}

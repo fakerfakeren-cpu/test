@@ -1,0 +1,5 @@
+opinion_modifiers = {
+	evil_sofia_dirty_communists = {
+		value = -100
+	}
+}

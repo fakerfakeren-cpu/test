@@ -1,0 +1,50 @@
+add_namespace = evil_sofia_srd
+
+country_event = {
+	id = evil_sofia_srd.1
+	title = evil_sofia_srd.1.t
+	desc = evil_sofia_srd.1.d
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_srd.1.a
+		ai_chance = { factor = 80 }
+		add_opinion_modifier = { target = FROM modifier = evil_sofia_dirty_communists }
+	}
+	option = {
+		name = evil_sofia_srd.1.b
+		ai_chance = { factor = 20 }
+		add_opinion_modifier = { target = FROM modifier = evil_sofia_dirty_communists }
+		create_wargoal = { type = annex_everything target = FROM }
+	}
+}
+
+country_event = {
+	id = evil_sofia_srd.2
+	title = evil_sofia_srd.2.t
+	desc = evil_sofia_srd.2.d
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_srd.2.a
+		ai_chance = { factor = 70 }
+		if = {
+			limit = { NOT = { has_government = communism } }
+			set_popularities = { communism = 60 neutrality = 40 democratic = 0 fascism = 0 }
+			set_politics = { ruling_party = communism elections_allowed = no }
+		}
+		add_country_leader_role = {
+			character = OBR_leader
+			country_leader = { ideology = leninism expire = "2100.1.1.1" }
+			promote_leader = yes
+		}
+		FROM = {
+			set_country_flag = SRD_anton_allied
+			if = { limit = { is_in_faction = no } create_faction = EVIL_SOFIA_RED_CENTRE }
+			add_to_faction = OBR
+		}
+	}
+	option = {
+		name = evil_sofia_srd.2.b
+		ai_chance = { factor = 30 }
+		FROM = { create_wargoal = { type = annex_everything target = OBR } }
+	}
+}

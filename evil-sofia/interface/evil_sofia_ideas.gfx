@@ -1,0 +1,6 @@
+spriteTypes = {
+	spriteType = {
+		name = "GFX_idea_SRD_mimas_doner"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_mimas_doner.dds"
+	}
+}

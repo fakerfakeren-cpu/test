@@ -21,6 +21,7 @@ Engine rules this script follows (measured in game on HOI4 1.19, see README):
 """
 import colorsys
 import heapq
+import importlib.util
 import json
 import os
 import re
@@ -129,6 +130,7 @@ SURNAMES = ["Ivanov", "Petrov", "Georgiev", "Dimitrov", "Nikolov", "Stoyanov", "
             "Draganov", "Bogdanov", "Ruskov", "Simeonov", "Tasev", "Uzunov", "Vulkov", "Zahariev"]
 # Country leaders with a set name (the others get one from the lists below). A leader gets a portrait when
 # tools/portraits/<TAG>.png exists (156x210 px); portraits stay out of the git repository.
+LEADER_TRAITS = {"VIT": ["evil_sofia_hates_communism"]}   # traits from tools/focus_sredets.py
 LEADER_NAMES = {"SRD": "Victor Kolev", "MLA": "Georgi Poryazov", "VIT": "Daniel-Henry Capel",
                 "KRP": "Stefan Kartunov", "OBR": "Anton Zafirov", "LOZ": "Georgi Yanchovichin",
                 "TRD": "Alexander Dimitrov", "LYU": "GrimBoss"}
@@ -149,7 +151,8 @@ FEMALE = ["Maria", "Elena", "Ivanka", "Yordanka", "Rositsa", "Desislava", "Vesel
 
 
 # Folders whose files are named after states and regions: cleared first, so no stale file survives a rebuild.
-for folder in ("history/states", "map/strategicregions", "map/supplyareas", "gfx/leaders", "history/units"):
+for folder in ("history/states", "map/strategicregions", "map/supplyareas", "gfx/leaders", "history/units",
+               "gfx/interface/goals/evil_sofia", "gfx/interface/ideas/evil_sofia"):
     shutil.rmtree(os.path.join(ROOT, folder), ignore_errors=True)
 
 
@@ -1583,7 +1586,7 @@ color = {{ {r} {g} {b} }}
 \t{tag}_leader = {{
 \t\tname = {tag}_leader{portrait}
 \t\tcountry_leader = {{
-\t\t\tideology = despotism
+\t\t\tideology = despotism{(chr(10) + chr(9) * 3 + "traits = { " + " ".join(LEADER_TRAITS[tag]) + " }") if tag in LEADER_TRAITS else ""}
 \t\t\texpire = "2100.1.1.1"
 \t\t\tid = -1
 \t\t}}
@@ -1915,3 +1918,16 @@ terr_count = {t_: sum(1 for p in land_ids if prov_terrain[p] == t_) for t_ in ("
 per_country = [sum(1 for st in states if st["district"] == k) for k in DISTRICTS]
 print(f"{len(vp)} cities; {len(states)} states ({min(per_country)}-{max(per_country)} per country); terrain {terr_count}")
 print(f"map {W}x{H}, {len(land_ids)} land provinces, {len(lake_ids)} lake provinces, {len(REGIONS) + 1} strategic regions")
+
+# ---------------------------------------------------------------- focus trees (tools/build_focus.py)
+_sx, _sy = place_px(42.6875, 23.3355)                 # Vasil Levski National Stadium
+stadium = int(prov[int(round(_sy)), int(round(_sx))])
+if prov_district.get(stadium) != 1:
+    stadium = capital[1]
+_spec = importlib.util.spec_from_file_location("build_focus", os.path.join(ROOT, "tools", "build_focus.py"))
+_bf = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(_bf)
+_n = _bf.build(ROOT, {"states": [{"id": st["id"], "owner": DISTRICTS[st["district"]][0], "name": st["name"]} for st in states],
+                      "capital_state": {DISTRICTS[k][0]: sid for k, sid in country_capital_state.items()},
+                      "stadium_province": stadium}, write, write_dds_bgra)
+print(f"focus tree: {_n} focuses for Sredets")

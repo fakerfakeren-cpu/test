@@ -1,0 +1,30 @@
+units = {
+	division = {
+		name = "1st Vasil Levski Red Guard"
+		location = 1
+		division_template = "City Guard"
+		start_experience_factor = 0.3
+		start_equipment_factor = 1.0
+	}
+	division = {
+		name = "2nd Vasil Levski Red Guard"
+		location = 1
+		division_template = "City Guard"
+		start_experience_factor = 0.3
+		start_equipment_factor = 1.0
+	}
+	division = {
+		name = "3rd Vasil Levski Red Guard"
+		location = 1
+		division_template = "City Guard"
+		start_experience_factor = 0.3
+		start_equipment_factor = 1.0
+	}
+	division = {
+		name = "4th Vasil Levski Red Guard"
+		location = 1
+		division_template = "City Guard"
+		start_experience_factor = 0.3
+		start_equipment_factor = 1.0
+	}
+}
