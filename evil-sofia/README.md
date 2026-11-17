@@ -88,8 +88,12 @@ by the Hoi4_world_map project (github.com/derprito64bit/Hoi4_world_map):
   group by group (the centre, the old quarters, the housing estates, Kremikovtsi, the outskirts), ending as South
   and North Sofia in the faction "Sofia"; alone, Sredets takes every group and becomes Sofia. Each step gives cores
   and war goals and opens when the previous group is beaten. Lozenets is asked for passage to reach Daniel-Henry,
-  who has the trait "Hates Communism". Every district has a communist name and flag; Sredets and Oborishte also
-  turn red on the map. Icons come from the DuoDex hoi4GFX and Ultimate HOI4 GFX packs (cached in `tools/icons/`);
+  who has the trait "Hates Communism". Between the two conquest paths, the People's Militia and the Komsomol give
+  manpower as the districts fall; the Party branch adds more manpower, army and air experience and the metro's
+  anti-air; the economy branch factories, the Red University and a research slot. 41 focuses, 3 to 12 weeks long.
+  Sredets and Oborishte have communist names and hand-drawn flags (`tools/red_flags.py`: the Sredets rhombuses in
+  a wheat wreath, Oborishte's rings turned into a cog with the hammer and sickle, the arms of Sofia on red for Sofia,
+  South and North Sofia) and turn red on the map. Icons come from the DuoDex hoi4GFX and Ultimate HOI4 GFX packs (cached in `tools/icons/`);
   the ones with people are cut out of the leaders' portraits by `tools/focus_icons.py` and, like the portraits,
   are kept out of the repository.
 - Flags come from the "Flags of Sofia and her regions" sheet, one image per district in `tools/flags/<TAG>.png`;

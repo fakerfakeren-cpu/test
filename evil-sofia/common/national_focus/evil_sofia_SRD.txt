@@ -12,10 +12,10 @@ focus_tree = {
 	focus = {
 		id = SRD_henrys_mom_was_right
 		icon = GFX_focus_SRD_henrys_mom_was_right
-		x = 6
+		x = 7
 		y = 0
 		mutually_exclusive = { focus = SRD_order_in_the_centre }
-		cost = 10
+		cost = 5
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			set_popularities = { communism = 65 neutrality = 35 democratic = 0 fascism = 0 }
@@ -33,10 +33,10 @@ focus_tree = {
 	focus = {
 		id = SRD_order_in_the_centre
 		icon = GFX_focus_SRD_order_in_the_centre
-		x = 14
+		x = 15
 		y = 0
 		mutually_exclusive = { focus = SRD_henrys_mom_was_right }
-		cost = 10
+		cost = 5
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			add_stability = 0.15
@@ -49,7 +49,7 @@ focus_tree = {
 		x = 2
 		y = 1
 		prerequisite = { focus = SRD_henrys_mom_was_right }
-		cost = 10
+		cost = 5
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			OBR = { add_popularity = { ideology = communism popularity = 0.15 } }
@@ -62,7 +62,7 @@ focus_tree = {
 		x = 2
 		y = 2
 		prerequisite = { focus = SRD_comrades_in_oborishte }
-		cost = 7
+		cost = 4
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			OBR = { add_popularity = { ideology = communism popularity = 0.10 } add_stability = -0.05 }
@@ -78,7 +78,7 @@ focus_tree = {
 		available = {
 			OBR = { exists = yes OR = { has_government = communism communism > 0.4 } }
 		}
-		cost = 10
+		cost = 7
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			OBR = { country_event = { id = evil_sofia_srd.2 } }
@@ -94,7 +94,7 @@ focus_tree = {
 		available = {
 			OBR = { exists = yes }
 		}
-		cost = 10
+		cost = 6
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			create_wargoal = { type = annex_everything target = OBR }
@@ -104,13 +104,13 @@ focus_tree = {
 	focus = {
 		id = SRD_north_south_pact
 		icon = GFX_focus_SRD_north_south_pact
-		x = 1
+		x = 0
 		y = 4
 		prerequisite = { focus = SRD_ally_anton }
 		available = {
 			has_country_flag = SRD_anton_allied
 		}
-		cost = 10
+		cost = 6
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			add_political_power = 100
@@ -120,7 +120,7 @@ focus_tree = {
 	focus = {
 		id = SRD_destroy_anton
 		icon = GFX_focus_SRD_destroy_anton
-		x = 3
+		x = 4
 		y = 4
 		prerequisite = { focus = SRD_ally_anton focus = SRD_anton_must_go }
 		available = {
@@ -139,10 +139,10 @@ focus_tree = {
 	focus = {
 		id = SRD_pact_centre
 		icon = GFX_focus_SRD_pact_centre
-		x = 1
+		x = 0
 		y = 5
 		prerequisite = { focus = SRD_north_south_pact }
-		cost = 10
+		cost = 8
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			add_state_core = 3
@@ -153,7 +153,7 @@ focus_tree = {
 	focus = {
 		id = SRD_pact_old_quarters
 		icon = GFX_focus_SRD_pact_old_quarters
-		x = 1
+		x = 0
 		y = 6
 		prerequisite = { focus = SRD_pact_centre }
 		available = {
@@ -220,7 +220,7 @@ focus_tree = {
 	focus = {
 		id = SRD_pact_housing_estates
 		icon = GFX_focus_SRD_pact_housing_estates
-		x = 1
+		x = 0
 		y = 7
 		prerequisite = { focus = SRD_pact_old_quarters }
 		available = {
@@ -267,7 +267,7 @@ focus_tree = {
 	focus = {
 		id = SRD_pact_kremikovtsi
 		icon = GFX_focus_SRD_pact_kremikovtsi
-		x = 1
+		x = 0
 		y = 8
 		prerequisite = { focus = SRD_pact_housing_estates }
 		available = {
@@ -277,7 +277,7 @@ focus_tree = {
 			OR = { NOT = { country_exists = STU } STU = { has_capitulated = yes } }
 			OR = { NOT = { country_exists = LYU } LYU = { has_capitulated = yes } }
 		}
-		cost = 10
+		cost = 7
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			OBR = {
@@ -301,7 +301,7 @@ focus_tree = {
 	focus = {
 		id = SRD_pact_outskirts
 		icon = GFX_focus_SRD_pact_outskirts
-		x = 1
+		x = 0
 		y = 9
 		prerequisite = { focus = SRD_pact_kremikovtsi }
 		available = {
@@ -374,7 +374,7 @@ focus_tree = {
 			OR = { NOT = { country_exists = PNC } PNC = { has_capitulated = yes } }
 			OR = { NOT = { country_exists = BNK } BNK = { has_capitulated = yes } }
 		}
-		cost = 10
+		cost = 6
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			set_cosmetic_tag = SRD_SOUTH
@@ -389,10 +389,10 @@ focus_tree = {
 	focus = {
 		id = SRD_one_centre
 		icon = GFX_focus_SRD_one_centre
-		x = 3
+		x = 4
 		y = 5
 		prerequisite = { focus = SRD_destroy_anton }
-		cost = 10
+		cost = 8
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			add_state_core = 3
@@ -403,14 +403,14 @@ focus_tree = {
 	focus = {
 		id = SRD_united_old_quarters
 		icon = GFX_focus_SRD_united_old_quarters
-		x = 3
+		x = 4
 		y = 6
 		prerequisite = { focus = SRD_one_centre }
 		available = {
 			OR = { NOT = { country_exists = VAZ } VAZ = { has_capitulated = yes } }
 			OR = { NOT = { country_exists = OBR } OBR = { has_capitulated = yes } }
 		}
-		cost = 10
+		cost = 12
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			add_state_core = 7
@@ -469,7 +469,7 @@ focus_tree = {
 	focus = {
 		id = SRD_united_housing_estates
 		icon = GFX_focus_SRD_united_housing_estates
-		x = 3
+		x = 4
 		y = 7
 		prerequisite = { focus = SRD_united_old_quarters }
 		available = {
@@ -483,7 +483,7 @@ focus_tree = {
 			OR = { NOT = { country_exists = KRP } KRP = { has_capitulated = yes } }
 			OR = { NOT = { country_exists = ILN } ILN = { has_capitulated = yes } }
 		}
-		cost = 10
+		cost = 12
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			add_state_core = 49
@@ -514,7 +514,7 @@ focus_tree = {
 	focus = {
 		id = SRD_united_kremikovtsi
 		icon = GFX_focus_SRD_united_kremikovtsi
-		x = 3
+		x = 4
 		y = 8
 		prerequisite = { focus = SRD_united_housing_estates }
 		available = {
@@ -524,7 +524,7 @@ focus_tree = {
 			OR = { NOT = { country_exists = STU } STU = { has_capitulated = yes } }
 			OR = { NOT = { country_exists = LYU } LYU = { has_capitulated = yes } }
 		}
-		cost = 10
+		cost = 8
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			add_state_core = 67
@@ -546,13 +546,13 @@ focus_tree = {
 	focus = {
 		id = SRD_united_outskirts
 		icon = GFX_focus_SRD_united_outskirts
-		x = 3
+		x = 4
 		y = 9
 		prerequisite = { focus = SRD_united_kremikovtsi }
 		available = {
 			OR = { NOT = { country_exists = KRE } KRE = { has_capitulated = yes } }
 		}
-		cost = 10
+		cost = 12
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			add_state_core = 79
@@ -617,7 +617,7 @@ focus_tree = {
 			OR = { NOT = { country_exists = PNC } PNC = { has_capitulated = yes } }
 			OR = { NOT = { country_exists = BNK } BNK = { has_capitulated = yes } }
 		}
-		cost = 10
+		cost = 6
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			set_cosmetic_tag = SRD_SOFIA
@@ -626,12 +626,39 @@ focus_tree = {
 		}
 	}
 	focus = {
+		id = SRD_peoples_militia
+		icon = GFX_focus_SRD_peoples_militia
+		x = 2
+		y = 6
+		prerequisite = { focus = SRD_pact_centre focus = SRD_one_centre }
+		cost = 6
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = SRD_peoples_militia
+			add_manpower = 15000
+		}
+	}
+	focus = {
+		id = SRD_komsomol_of_the_estates
+		icon = GFX_focus_SRD_komsomol_of_the_estates
+		x = 2
+		y = 8
+		prerequisite = { focus = SRD_peoples_militia }
+		prerequisite = { focus = SRD_pact_housing_estates focus = SRD_united_housing_estates }
+		cost = 7
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = SRD_komsomol
+			add_war_support = 0.05
+		}
+	}
+	focus = {
 		id = SRD_party_takes_the_largo
 		icon = GFX_focus_SRD_party_takes_the_largo
 		x = 6
 		y = 1
 		prerequisite = { focus = SRD_henrys_mom_was_right }
-		cost = 10
+		cost = 7
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			add_political_power = 100
@@ -641,10 +668,10 @@ focus_tree = {
 	focus = {
 		id = SRD_red_guards_of_the_stadium
 		icon = GFX_focus_SRD_red_guards_of_the_stadium
-		x = 6
+		x = 5
 		y = 2
 		prerequisite = { focus = SRD_party_takes_the_largo }
-		cost = 10
+		cost = 9
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			load_oob = "SRD_red_guards"
@@ -654,10 +681,10 @@ focus_tree = {
 	focus = {
 		id = SRD_arm_the_workers
 		icon = GFX_focus_SRD_arm_the_workers
-		x = 6
+		x = 5
 		y = 3
 		prerequisite = { focus = SRD_red_guards_of_the_stadium }
-		cost = 10
+		cost = 6
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 2000 }
@@ -667,7 +694,7 @@ focus_tree = {
 	focus = {
 		id = SRD_barricades_on_vitosha
 		icon = GFX_focus_SRD_barricades_on_vitosha
-		x = 6
+		x = 5
 		y = 4
 		prerequisite = { focus = SRD_arm_the_workers }
 		cost = 10
@@ -679,15 +706,72 @@ focus_tree = {
 		}
 	}
 	focus = {
+		id = SRD_universal_service
+		icon = GFX_focus_SRD_universal_service
+		x = 7
+		y = 2
+		prerequisite = { focus = SRD_party_takes_the_largo }
+		cost = 5
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = SRD_universal_service
+			add_manpower = 25000
+		}
+	}
+	focus = {
+		id = SRD_commissars_in_every_unit
+		icon = GFX_focus_SRD_commissars_in_every_unit
+		x = 7
+		y = 3
+		prerequisite = { focus = SRD_universal_service }
+		cost = 8
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			army_experience = 30
+			add_tech_bonus = { name = SRD_commissars_in_every_unit bonus = 1.0 uses = 1 category = land_doctrine }
+		}
+	}
+	focus = {
+		id = SRD_red_air_over_the_centre
+		icon = GFX_focus_SRD_red_air_over_the_centre
+		x = 7
+		y = 4
+		prerequisite = { focus = SRD_commissars_in_every_unit }
+		cost = 7
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			capital_scope = { add_building_construction = { type = air_base level = 2 instant_build = yes } }
+			air_experience = 25
+			add_tech_bonus = { name = SRD_red_air_over_the_centre bonus = 0.5 uses = 1 category = air_equipment }
+		}
+	}
+	focus = {
+		id = SRD_metro_goes_to_war
+		icon = GFX_focus_SRD_metro_goes_to_war
+		x = 6
+		y = 5
+		prerequisite = { focus = SRD_barricades_on_vitosha }
+		prerequisite = { focus = SRD_red_air_over_the_centre }
+		cost = 9
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			capital_scope = {
+				add_building_construction = { type = anti_air_building level = 3 instant_build = yes }
+				add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+			}
+			add_stability = 0.05
+		}
+	}
+	focus = {
 		id = SRD_red_leaflets
 		icon = GFX_focus_SRD_red_leaflets
-		x = 8
+		x = 9
 		y = 1
 		prerequisite = { focus = SRD_henrys_mom_was_right }
 		available = {
 			VIT = { exists = yes }
 		}
-		cost = 10
+		cost = 3
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			VIT = { add_stability = -0.10 add_popularity = { ideology = communism popularity = 0.15 } }
@@ -696,13 +780,13 @@ focus_tree = {
 	focus = {
 		id = SRD_road_to_boyana
 		icon = GFX_focus_SRD_road_to_boyana
-		x = 8
+		x = 9
 		y = 2
 		prerequisite = { focus = SRD_red_leaflets }
 		available = {
 			LOZ = { exists = yes }
 		}
-		cost = 7
+		cost = 5
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			LOZ = { country_event = { id = evil_sofia_srd.7 } }
@@ -711,13 +795,13 @@ focus_tree = {
 	focus = {
 		id = SRD_capel_question
 		icon = GFX_focus_SRD_capel_question
-		x = 8
+		x = 9
 		y = 3
 		prerequisite = { focus = SRD_road_to_boyana }
 		available = {
 			VIT = { exists = yes }
 		}
-		cost = 10
+		cost = 8
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			create_wargoal = { type = annex_everything target = VIT }
@@ -727,13 +811,13 @@ focus_tree = {
 	focus = {
 		id = SRD_red_flag_over_boyana
 		icon = GFX_focus_SRD_red_flag_over_boyana
-		x = 8
+		x = 9
 		y = 4
 		prerequisite = { focus = SRD_capel_question }
 		available = {
 			controls_state = 79
 		}
-		cost = 10
+		cost = 4
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			add_state_core = 79
@@ -750,7 +834,7 @@ focus_tree = {
 	focus = {
 		id = SRD_collectivise_vitosha_boulevard
 		icon = GFX_focus_SRD_collectivise_vitosha_boulevard
-		x = 11
+		x = 12
 		y = 1
 		prerequisite = { focus = SRD_henrys_mom_was_right }
 		cost = 10
@@ -765,10 +849,10 @@ focus_tree = {
 	focus = {
 		id = SRD_mimas_for_the_workers
 		icon = GFX_focus_SRD_mimas_for_the_workers
-		x = 10
+		x = 11
 		y = 2
 		prerequisite = { focus = SRD_collectivise_vitosha_boulevard }
-		cost = 10
+		cost = 4
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			add_ideas = SRD_mimas_doner
@@ -777,10 +861,10 @@ focus_tree = {
 	focus = {
 		id = SRD_party_arsenal
 		icon = GFX_focus_SRD_party_arsenal
-		x = 12
+		x = 13
 		y = 2
 		prerequisite = { focus = SRD_collectivise_vitosha_boulevard }
-		cost = 10
+		cost = 12
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			capital_scope = {
@@ -792,10 +876,10 @@ focus_tree = {
 	focus = {
 		id = SRD_red_tourism
 		icon = GFX_focus_SRD_red_tourism
-		x = 10
+		x = 11
 		y = 3
 		prerequisite = { focus = SRD_mimas_for_the_workers }
-		cost = 10
+		cost = 6
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			capital_scope = {
@@ -806,13 +890,25 @@ focus_tree = {
 		}
 	}
 	focus = {
+		id = SRD_red_university
+		icon = GFX_focus_SRD_red_university
+		x = 13
+		y = 3
+		prerequisite = { focus = SRD_party_arsenal }
+		cost = 9
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_tech_bonus = { name = SRD_red_university bonus = 0.75 uses = 2 category = electronics }
+		}
+	}
+	focus = {
 		id = SRD_five_year_plan
 		icon = GFX_focus_SRD_five_year_plan
-		x = 11
+		x = 12
 		y = 4
 		prerequisite = { focus = SRD_red_tourism }
-		prerequisite = { focus = SRD_party_arsenal }
-		cost = 10
+		prerequisite = { focus = SRD_red_university }
+		cost = 12
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			capital_scope = {
@@ -825,7 +921,7 @@ focus_tree = {
 	focus = {
 		id = SRD_star_on_the_party_house
 		icon = GFX_focus_SRD_star_on_the_party_house
-		x = 11
+		x = 12
 		y = 5
 		prerequisite = { focus = SRD_five_year_plan }
 		cost = 10

@@ -80,6 +80,14 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/evil_sofia/SRD_sofia_commune.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_SRD_peoples_militia"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_peoples_militia.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_komsomol_of_the_estates"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_komsomol_of_the_estates.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_SRD_party_takes_the_largo"
 		texturefile = "gfx/interface/goals/evil_sofia/SRD_party_takes_the_largo.dds"
 	}
@@ -94,6 +102,22 @@ spriteTypes = {
 	spriteType = {
 		name = "GFX_focus_SRD_barricades_on_vitosha"
 		texturefile = "gfx/interface/goals/evil_sofia/SRD_barricades_on_vitosha.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_universal_service"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_universal_service.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_commissars_in_every_unit"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_commissars_in_every_unit.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_red_air_over_the_centre"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_red_air_over_the_centre.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_metro_goes_to_war"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_metro_goes_to_war.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_SRD_red_leaflets"
@@ -126,6 +150,10 @@ spriteTypes = {
 	spriteType = {
 		name = "GFX_focus_SRD_red_tourism"
 		texturefile = "gfx/interface/goals/evil_sofia/SRD_red_tourism.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_red_university"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_red_university.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_SRD_five_year_plan"

@@ -9,5 +9,29 @@ ideas = {
 				consumer_goods_factor = -0.05
 			}
 		}
+		SRD_peoples_militia = {
+			picture = SRD_peoples_militia
+			allowed = { always = no }
+			modifier = {
+				conscription = 0.01
+				army_defence_factor = 0.05
+			}
+		}
+		SRD_komsomol = {
+			picture = SRD_komsomol
+			allowed = { always = no }
+			modifier = {
+				conscription_factor = 0.10
+				political_power_factor = 0.05
+			}
+		}
+		SRD_universal_service = {
+			picture = SRD_universal_service
+			allowed = { always = no }
+			modifier = {
+				conscription = 0.02
+				stability_factor = -0.02
+			}
+		}
 	}
 }

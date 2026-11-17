@@ -8,7 +8,6 @@ Called at the end of tools/build_map.py with facts about the generated map. Icon
   (git-ignored as well); without the portrait a pack icon stands in.
 """
 import importlib.util
-import math
 import os
 import re
 import sys
@@ -111,6 +110,16 @@ def _custom(key):
         canvas.alpha_composite(bread, (30 - bread.width // 2, 34 - bread.height // 2))
         return canvas
     raise KeyError(key)
+
+
+def _idea_icon(background, piece):
+    """National spirit icon: a pack background (60x68) with a piece in the middle."""
+    bg = Image.open(os.path.join(ULT, "National Spirit Backgrounds", background)).convert("RGBA")
+    canvas = Image.new("RGBA", (64, 68), (0, 0, 0, 0))
+    canvas.alpha_composite(bg, ((64 - bg.width) // 2, (68 - bg.height) // 2))
+    p = _fit(_piece(piece), 42, 42)
+    canvas.alpha_composite(p, (32 - p.width // 2, 34 - p.height // 2))
+    return canvas
 
 
 def build(root, facts, write, write_dds):
@@ -233,12 +242,15 @@ def build(root, facts, write, write_dds):
     for k, (n, d, mods) in tree.TRAITS.items():
         loc += [f' {k}:0 "{n}"', f' {k}_desc:0 "{d}"']
     ideas, idea_sprites = [], []
-    for k, (n, d, mods) in tree.IDEAS.items():
+    for k, (n, d, mods, icon) in tree.IDEAS.items():
         ideas.append(f"\t\t{k} = {{\n\t\t\tpicture = {k}\n\t\t\tallowed = {{ always = no }}\n"
                      f"\t\t\tmodifier = {{\n{indent(mods, 4)}\n\t\t\t}}\n\t\t}}\n")
-        cached = os.path.join(cache, "custom_idea_doner.png")
-        im = Image.open(cached).convert("RGBA") if os.path.exists(cached) else _custom("idea_doner")
-        if not os.path.exists(cached):
+        name = icon.partition(":")[2] if isinstance(icon, str) else "idea_" + k
+        cached = os.path.join(cache, f"custom_{name}.png")
+        if os.path.exists(cached):
+            im = Image.open(cached).convert("RGBA")
+        else:
+            im = _custom(name) if isinstance(icon, str) else _idea_icon(*icon)
             im.save(cached)
         tex = f"gfx/interface/ideas/evil_sofia/{k}.dds"
         write_dds(tex, np.asarray(im))
@@ -282,55 +294,25 @@ def build(root, facts, write, write_dds):
 \t}}""")
         loc.append(f' {did}:0 "{dname}"')
     write("common/decisions/evil_sofia_SRD.txt", f"{cat} = {{\n" + "\n".join(dec) + "\n}\n")
-    # flags: communist versions of every district flag, and the red Sofia flags
-    def star(draw, cx, cy, r, fill):
-        pts = []
-        for i in range(10):
-            a = -math.pi / 2 + i * math.pi / 5
-            rr = r if i % 2 == 0 else r * 0.4
-            pts.append((cx + rr * math.cos(a), cy + rr * math.sin(a)))
-        draw.polygon(pts, fill=fill)
-
-    def communist(src):
-        from PIL import ImageDraw
-        im = Image.open(src).convert("RGBA").resize((246, 156), Image.LANCZOS)
-        d = ImageDraw.Draw(im)
-        d.rectangle([0, 0, 92, 76], fill=(200, 25, 30, 255))
-        star(d, 46, 39, 28, (250, 205, 40, 255))
-        return im
-
-    def sofia(variant):
-        from PIL import ImageDraw
-        im = Image.open(os.path.join(root, "tools", "flags", "SOFIA.png")).convert("RGB").resize((246, 156), Image.LANCZOS)
-        a = np.asarray(im).astype(np.int32)
-        bg = np.median(np.concatenate([a[:6].reshape(-1, 3), a[-6:].reshape(-1, 3)]), 0)
-        near = np.abs(a - bg).sum(-1) < 70
-        a[near] = (200, 25, 30)
-        im = Image.fromarray(a.astype(np.uint8)).convert("RGBA")
-        d = ImageDraw.Draw(im)
-        star(d, 30, 30, 20, (250, 205, 40, 255))
-        if variant == "south":
-            d.rectangle([0, 132, 246, 156], fill=(245, 245, 245, 255))
-        if variant == "north":
-            d.rectangle([0, 0, 246, 24], fill=(245, 245, 245, 255))
-            star(d, 30, 50, 20, (250, 205, 40, 255))
-        return im
+    # flags: hand-drawn communist flags (tools/red_flags.py), only for the countries that can go red
+    import red_flags
 
     def save_flag(name, im):
         for folder, size in (("", (82, 52)), ("medium/", (41, 26)), ("small/", (10, 7))):
             im.resize(size, Image.LANCZOS).save(os.path.join(root, "gfx", "flags", f"{folder}{name}.tga"))
 
-    for t, nm in facts["countries"].items():
-        src = os.path.join(root, "tools", "flags", f"{t}.png")
-        if os.path.exists(src):
-            save_flag(f"{t}_communism", communist(src))
+    for folder in ("", "medium/", "small/"):        # communist flags of earlier builds for every district
+        d = os.path.join(root, "gfx", "flags", folder)
+        for f in os.listdir(d):
+            if f.endswith("_communism.tga") and f[:3] not in tree.RED_COUNTRIES:
+                os.remove(os.path.join(d, f))
+    for t in tree.RED_COUNTRIES:
+        save_flag(f"{t}_communism", red_flags.make(root, "district", t))
+        nm = facts["countries"][t]
         loc += [f' {t}_communism:0 "{nm} Commune"', f' {t}_communism_DEF:0 "the {nm} Commune"']
     cosm = []
     for ct, (nm, adj, colour, (recipe, arg)) in tree.COSMETIC.items():
-        if recipe == "district":
-            save_flag(ct, communist(os.path.join(root, "tools", "flags", f"{arg}.png")))
-        else:
-            save_flag(ct, sofia(arg))
+        save_flag(ct, red_flags.make(root, recipe, arg))
         r_, g_, b_ = colour
         cosm.append(f"{ct} = {{\n\tcolor = rgb {{ {r_} {g_} {b_} }}\n\tcolor_ui = rgb {{ {min(255, r_ + 40)} {min(255, g_ + 40)} {min(255, b_ + 40)} }}\n}}")
         loc += [f' {ct}:0 "{nm}"', f' {ct}_DEF:0 "{nm}"', f' {ct}_ADJ:0 "{adj}"']
