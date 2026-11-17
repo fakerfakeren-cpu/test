@@ -1,0 +1,45 @@
+SRD_oborishte_question = {
+	SRD_fund_oborishte_communists = {
+		cost = 50
+		days_re_enable = 30
+		available = {
+			OBR = { NOT = { has_government = communism } }
+		}
+		complete_effect = {
+			OBR = { add_popularity = { ideology = communism popularity = 0.05 } }
+		}
+		ai_will_do = { factor = 1 }
+	}
+	SRD_rally_at_the_doctors_garden = {
+		cost = 35
+		days_re_enable = 45
+		available = {
+			OBR = { NOT = { has_government = communism } }
+		}
+		complete_effect = {
+			OBR = { add_popularity = { ideology = communism popularity = 0.04 } add_stability = -0.03 }
+		}
+		ai_will_do = { factor = 1 }
+	}
+	SRD_red_coup_in_oborishte = {
+		cost = 100
+		available = {
+			has_completed_focus = SRD_red_newspapers_oborishte
+			OBR = { NOT = { has_government = communism } communism > 0.55 }
+		}
+		complete_effect = {
+			OBR = {
+				set_popularities = { communism = 60 neutrality = 40 democratic = 0 fascism = 0 }
+				set_politics = { ruling_party = communism elections_allowed = no }
+				add_country_leader_role = {
+					character = OBR_leader
+					country_leader = { ideology = leninism expire = "2100.1.1.1" }
+					promote_leader = yes
+				}
+				set_cosmetic_tag = OBR_RED
+			}
+			OBR = { country_event = { id = evil_sofia_srd.8 } }
+		}
+		ai_will_do = { factor = 1 }
+	}
+}

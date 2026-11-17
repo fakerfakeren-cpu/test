@@ -1,0 +1,20 @@
+SRD_RED = {
+	color = rgb { 200 25 30 }
+	color_ui = rgb { 240 65 70 }
+}
+OBR_RED = {
+	color = rgb { 150 20 45 }
+	color_ui = rgb { 190 60 85 }
+}
+SRD_SOFIA = {
+	color = rgb { 210 20 25 }
+	color_ui = rgb { 250 60 65 }
+}
+SRD_SOUTH = {
+	color = rgb { 205 30 30 }
+	color_ui = rgb { 245 70 70 }
+}
+OBR_NORTH = {
+	color = rgb { 140 15 40 }
+	color_ui = rgb { 180 55 80 }
+}

@@ -12,7 +12,7 @@ focus_tree = {
 	focus = {
 		id = SRD_henrys_mom_was_right
 		icon = GFX_focus_SRD_henrys_mom_was_right
-		x = 5
+		x = 6
 		y = 0
 		mutually_exclusive = { focus = SRD_order_in_the_centre }
 		cost = 10
@@ -25,6 +25,7 @@ focus_tree = {
 				country_leader = { ideology = leninism expire = "2100.1.1.1" }
 				promote_leader = yes
 			}
+			set_cosmetic_tag = SRD_RED
 			add_war_support = 0.10
 			VIT = { country_event = { id = evil_sofia_srd.1 } }
 		}
@@ -32,7 +33,7 @@ focus_tree = {
 	focus = {
 		id = SRD_order_in_the_centre
 		icon = GFX_focus_SRD_order_in_the_centre
-		x = 12
+		x = 14
 		y = 0
 		mutually_exclusive = { focus = SRD_henrys_mom_was_right }
 		cost = 10
@@ -45,22 +46,34 @@ focus_tree = {
 	focus = {
 		id = SRD_comrades_in_oborishte
 		icon = GFX_focus_SRD_comrades_in_oborishte
-		x = 1
+		x = 2
 		y = 1
 		prerequisite = { focus = SRD_henrys_mom_was_right }
 		cost = 10
 		ai_will_do = { factor = 1 }
 		completion_reward = {
-			OBR = { add_popularity = { ideology = communism popularity = 0.20 } }
+			OBR = { add_popularity = { ideology = communism popularity = 0.15 } }
 			add_political_power = 50
+		}
+	}
+	focus = {
+		id = SRD_red_newspapers_oborishte
+		icon = GFX_focus_SRD_red_newspapers_oborishte
+		x = 2
+		y = 2
+		prerequisite = { focus = SRD_comrades_in_oborishte }
+		cost = 7
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			OBR = { add_popularity = { ideology = communism popularity = 0.10 } add_stability = -0.05 }
 		}
 	}
 	focus = {
 		id = SRD_ally_anton
 		icon = GFX_focus_SRD_ally_anton
-		x = 0
-		y = 2
-		prerequisite = { focus = SRD_comrades_in_oborishte }
+		x = 1
+		y = 3
+		prerequisite = { focus = SRD_red_newspapers_oborishte }
 		mutually_exclusive = { focus = SRD_anton_must_go }
 		available = {
 			OBR = { exists = yes OR = { has_government = communism communism > 0.4 } }
@@ -74,9 +87,9 @@ focus_tree = {
 	focus = {
 		id = SRD_anton_must_go
 		icon = GFX_focus_SRD_anton_must_go
-		x = 2
-		y = 2
-		prerequisite = { focus = SRD_comrades_in_oborishte }
+		x = 3
+		y = 3
+		prerequisite = { focus = SRD_red_newspapers_oborishte }
 		mutually_exclusive = { focus = SRD_ally_anton }
 		available = {
 			OBR = { exists = yes }
@@ -91,8 +104,8 @@ focus_tree = {
 	focus = {
 		id = SRD_north_south_pact
 		icon = GFX_focus_SRD_north_south_pact
-		x = 0
-		y = 3
+		x = 1
+		y = 4
 		prerequisite = { focus = SRD_ally_anton }
 		available = {
 			has_country_flag = SRD_anton_allied
@@ -100,21 +113,15 @@ focus_tree = {
 		cost = 10
 		ai_will_do = { factor = 1 }
 		completion_reward = {
-			every_state = {
-				limit = { OR = { is_owned_by = LOZ is_owned_by = TRD is_owned_by = IZG is_owned_by = SLA is_owned_by = ISK is_owned_by = MLA is_owned_by = STU is_owned_by = VIT is_owned_by = KRS is_owned_by = OVK is_owned_by = PNC } }
-				ROOT = { add_state_claim = PREV }
-			}
-			every_state = {
-				limit = { OR = { is_owned_by = SRK is_owned_by = POD is_owned_by = NAD is_owned_by = VRB is_owned_by = NIS is_owned_by = KRE is_owned_by = ILN is_owned_by = KRP is_owned_by = LYU is_owned_by = BNK } }
-				OBR = { add_state_claim = PREV }
-			}
+			add_political_power = 100
+			OBR = { add_political_power = 100 }
 		}
 	}
 	focus = {
 		id = SRD_destroy_anton
 		icon = GFX_focus_SRD_destroy_anton
-		x = 2
-		y = 3
+		x = 3
+		y = 4
 		prerequisite = { focus = SRD_ally_anton focus = SRD_anton_must_go }
 		available = {
 			controls_state = 5
@@ -130,22 +137,498 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = SRD_conquer_the_centre
-		icon = GFX_focus_SRD_conquer_the_centre
+		id = SRD_pact_centre
+		icon = GFX_focus_SRD_pact_centre
 		x = 1
-		y = 4
-		prerequisite = { focus = SRD_north_south_pact focus = SRD_destroy_anton }
+		y = 5
+		prerequisite = { focus = SRD_north_south_pact }
 		cost = 10
 		ai_will_do = { factor = 1 }
 		completion_reward = {
-			create_wargoal = { type = annex_everything target = VAZ }
-			create_wargoal = { type = annex_everything target = SRK }
+			add_state_core = 3
+			add_state_core = 4
+			if = { limit = { country_exists = VAZ NOT = { has_war_with = VAZ } } create_wargoal = { type = annex_everything target = VAZ } }
+		}
+	}
+	focus = {
+		id = SRD_pact_old_quarters
+		icon = GFX_focus_SRD_pact_old_quarters
+		x = 1
+		y = 6
+		prerequisite = { focus = SRD_pact_centre }
+		available = {
+			OR = { NOT = { country_exists = VAZ } VAZ = { has_capitulated = yes } }
+		}
+		cost = 10
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_state_core = 7
+			add_state_core = 8
+			add_state_core = 9
+			add_state_core = 23
+			add_state_core = 24
+			add_state_core = 25
+			add_state_core = 26
+			add_state_core = 27
+			add_state_core = 28
+			add_state_core = 29
+			add_state_core = 30
+			add_state_core = 31
+			add_state_core = 32
+			add_state_core = 33
+			add_state_core = 34
+			add_state_core = 35
+			add_state_core = 36
+			add_state_core = 37
+			add_state_core = 38
+			add_state_core = 39
+			add_state_core = 40
+			add_state_core = 41
+			if = { limit = { country_exists = KRS NOT = { has_war_with = KRS } } create_wargoal = { type = annex_everything target = KRS } }
+			if = { limit = { country_exists = SLA NOT = { has_war_with = SLA } } create_wargoal = { type = annex_everything target = SLA } }
+			if = { limit = { country_exists = IZG NOT = { has_war_with = IZG } } create_wargoal = { type = annex_everything target = IZG } }
+			if = { limit = { country_exists = LOZ NOT = { has_war_with = LOZ } } create_wargoal = { type = annex_everything target = LOZ } }
+			if = { limit = { country_exists = TRD NOT = { has_war_with = TRD } } create_wargoal = { type = annex_everything target = TRD } }
+			OBR = {
+				add_state_core = 10
+			add_state_core = 11
+			add_state_core = 12
+			add_state_core = 13
+			add_state_core = 14
+			add_state_core = 15
+			add_state_core = 16
+			add_state_core = 17
+			add_state_core = 18
+			add_state_core = 19
+			add_state_core = 20
+			add_state_core = 21
+			add_state_core = 22
+			add_state_core = 42
+			add_state_core = 43
+			add_state_core = 44
+			add_state_core = 45
+			add_state_core = 46
+			add_state_core = 47
+			add_state_core = 48
+				if = { limit = { country_exists = SRK NOT = { has_war_with = SRK } } create_wargoal = { type = annex_everything target = SRK } }
+			if = { limit = { country_exists = POD NOT = { has_war_with = POD } } create_wargoal = { type = annex_everything target = POD } }
+			if = { limit = { country_exists = KRP NOT = { has_war_with = KRP } } create_wargoal = { type = annex_everything target = KRP } }
+			if = { limit = { country_exists = ILN NOT = { has_war_with = ILN } } create_wargoal = { type = annex_everything target = ILN } }
+			}
+		}
+	}
+	focus = {
+		id = SRD_pact_housing_estates
+		icon = GFX_focus_SRD_pact_housing_estates
+		x = 1
+		y = 7
+		prerequisite = { focus = SRD_pact_old_quarters }
+		available = {
+			OR = { NOT = { country_exists = KRS } KRS = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = SRK } SRK = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = POD } POD = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = SLA } SLA = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = IZG } IZG = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = LOZ } LOZ = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = TRD } TRD = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = KRP } KRP = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = ILN } ILN = { has_capitulated = yes } }
+		}
+		cost = 10
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_state_core = 54
+			add_state_core = 55
+			add_state_core = 56
+			add_state_core = 57
+			add_state_core = 58
+			add_state_core = 59
+			add_state_core = 60
+			add_state_core = 61
+			if = { limit = { country_exists = ISK NOT = { has_war_with = ISK } } create_wargoal = { type = annex_everything target = ISK } }
+			if = { limit = { country_exists = MLA NOT = { has_war_with = MLA } } create_wargoal = { type = annex_everything target = MLA } }
+			if = { limit = { country_exists = STU NOT = { has_war_with = STU } } create_wargoal = { type = annex_everything target = STU } }
+			OBR = {
+				add_state_core = 49
+			add_state_core = 50
+			add_state_core = 51
+			add_state_core = 52
+			add_state_core = 53
+			add_state_core = 62
+			add_state_core = 63
+			add_state_core = 64
+			add_state_core = 65
+			add_state_core = 66
+				if = { limit = { country_exists = NAD NOT = { has_war_with = NAD } } create_wargoal = { type = annex_everything target = NAD } }
+			if = { limit = { country_exists = LYU NOT = { has_war_with = LYU } } create_wargoal = { type = annex_everything target = LYU } }
+			}
+		}
+	}
+	focus = {
+		id = SRD_pact_kremikovtsi
+		icon = GFX_focus_SRD_pact_kremikovtsi
+		x = 1
+		y = 8
+		prerequisite = { focus = SRD_pact_housing_estates }
+		available = {
+			OR = { NOT = { country_exists = NAD } NAD = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = ISK } ISK = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = MLA } MLA = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = STU } STU = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = LYU } LYU = { has_capitulated = yes } }
+		}
+		cost = 10
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			OBR = {
+				add_state_core = 67
+			add_state_core = 68
+			add_state_core = 69
+			add_state_core = 70
+			add_state_core = 71
+			add_state_core = 72
+			add_state_core = 73
+			add_state_core = 74
+			add_state_core = 75
+			add_state_core = 76
+			add_state_core = 77
+			add_state_core = 78
+				if = { limit = { country_exists = KRE NOT = { has_war_with = KRE } } create_wargoal = { type = annex_everything target = KRE } }
+			}
+			add_political_power = 100
+		}
+	}
+	focus = {
+		id = SRD_pact_outskirts
+		icon = GFX_focus_SRD_pact_outskirts
+		x = 1
+		y = 9
+		prerequisite = { focus = SRD_pact_kremikovtsi }
+		available = {
+			OR = { NOT = { country_exists = KRE } KRE = { has_capitulated = yes } }
+		}
+		cost = 10
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_state_core = 79
+			add_state_core = 80
+			add_state_core = 81
+			add_state_core = 82
+			add_state_core = 83
+			add_state_core = 84
+			add_state_core = 85
+			add_state_core = 86
+			add_state_core = 87
+			add_state_core = 88
+			add_state_core = 103
+			add_state_core = 104
+			add_state_core = 105
+			add_state_core = 106
+			add_state_core = 107
+			add_state_core = 108
+			add_state_core = 109
+			add_state_core = 110
+			add_state_core = 111
+			add_state_core = 112
+			add_state_core = 113
+			add_state_core = 114
+			if = { limit = { country_exists = VIT NOT = { has_war_with = VIT } } create_wargoal = { type = annex_everything target = VIT } }
+			if = { limit = { country_exists = OVK NOT = { has_war_with = OVK } } create_wargoal = { type = annex_everything target = OVK } }
+			if = { limit = { country_exists = PNC NOT = { has_war_with = PNC } } create_wargoal = { type = annex_everything target = PNC } }
+			OBR = {
+				add_state_core = 89
+			add_state_core = 90
+			add_state_core = 91
+			add_state_core = 92
+			add_state_core = 93
+			add_state_core = 94
+			add_state_core = 95
+			add_state_core = 96
+			add_state_core = 97
+			add_state_core = 98
+			add_state_core = 99
+			add_state_core = 100
+			add_state_core = 101
+			add_state_core = 102
+			add_state_core = 115
+			add_state_core = 116
+			add_state_core = 117
+			add_state_core = 118
+				if = { limit = { country_exists = VRB NOT = { has_war_with = VRB } } create_wargoal = { type = annex_everything target = VRB } }
+			if = { limit = { country_exists = NIS NOT = { has_war_with = NIS } } create_wargoal = { type = annex_everything target = NIS } }
+			if = { limit = { country_exists = BNK NOT = { has_war_with = BNK } } create_wargoal = { type = annex_everything target = BNK } }
+			}
+		}
+	}
+	focus = {
+		id = SRD_sofia_union
+		icon = GFX_focus_SRD_sofia_union
+		x = 1
+		y = 10
+		prerequisite = { focus = SRD_pact_outskirts }
+		available = {
+			OR = { NOT = { country_exists = VIT } VIT = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = OVK } OVK = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = VRB } VRB = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = NIS } NIS = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = PNC } PNC = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = BNK } BNK = { has_capitulated = yes } }
+		}
+		cost = 10
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			set_cosmetic_tag = SRD_SOUTH
+			OBR = { set_cosmetic_tag = OBR_NORTH }
+			dismantle_faction = yes
+			create_faction = EVIL_SOFIA_FACTION_SOFIA
+			add_to_faction = OBR
+			add_stability = 0.15
+			add_political_power = 200
+		}
+	}
+	focus = {
+		id = SRD_one_centre
+		icon = GFX_focus_SRD_one_centre
+		x = 3
+		y = 5
+		prerequisite = { focus = SRD_destroy_anton }
+		cost = 10
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_state_core = 3
+			add_state_core = 4
+			if = { limit = { country_exists = VAZ NOT = { has_war_with = VAZ } } create_wargoal = { type = annex_everything target = VAZ } }
+		}
+	}
+	focus = {
+		id = SRD_united_old_quarters
+		icon = GFX_focus_SRD_united_old_quarters
+		x = 3
+		y = 6
+		prerequisite = { focus = SRD_one_centre }
+		available = {
+			OR = { NOT = { country_exists = VAZ } VAZ = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = OBR } OBR = { has_capitulated = yes } }
+		}
+		cost = 10
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_state_core = 7
+			add_state_core = 8
+			add_state_core = 9
+			add_state_core = 10
+			add_state_core = 11
+			add_state_core = 12
+			add_state_core = 13
+			add_state_core = 14
+			add_state_core = 15
+			add_state_core = 16
+			add_state_core = 17
+			add_state_core = 18
+			add_state_core = 19
+			add_state_core = 20
+			add_state_core = 21
+			add_state_core = 22
+			add_state_core = 23
+			add_state_core = 24
+			add_state_core = 25
+			add_state_core = 26
+			add_state_core = 27
+			add_state_core = 28
+			add_state_core = 29
+			add_state_core = 30
+			add_state_core = 31
+			add_state_core = 32
+			add_state_core = 33
+			add_state_core = 34
+			add_state_core = 35
+			add_state_core = 36
+			add_state_core = 37
+			add_state_core = 38
+			add_state_core = 39
+			add_state_core = 40
+			add_state_core = 41
+			add_state_core = 42
+			add_state_core = 43
+			add_state_core = 44
+			add_state_core = 45
+			add_state_core = 46
+			add_state_core = 47
+			add_state_core = 48
+			if = { limit = { country_exists = KRS NOT = { has_war_with = KRS } } create_wargoal = { type = annex_everything target = KRS } }
+			if = { limit = { country_exists = SRK NOT = { has_war_with = SRK } } create_wargoal = { type = annex_everything target = SRK } }
+			if = { limit = { country_exists = POD NOT = { has_war_with = POD } } create_wargoal = { type = annex_everything target = POD } }
+			if = { limit = { country_exists = SLA NOT = { has_war_with = SLA } } create_wargoal = { type = annex_everything target = SLA } }
+			if = { limit = { country_exists = IZG NOT = { has_war_with = IZG } } create_wargoal = { type = annex_everything target = IZG } }
+			if = { limit = { country_exists = LOZ NOT = { has_war_with = LOZ } } create_wargoal = { type = annex_everything target = LOZ } }
+			if = { limit = { country_exists = TRD NOT = { has_war_with = TRD } } create_wargoal = { type = annex_everything target = TRD } }
+			if = { limit = { country_exists = KRP NOT = { has_war_with = KRP } } create_wargoal = { type = annex_everything target = KRP } }
+			if = { limit = { country_exists = ILN NOT = { has_war_with = ILN } } create_wargoal = { type = annex_everything target = ILN } }
+		}
+	}
+	focus = {
+		id = SRD_united_housing_estates
+		icon = GFX_focus_SRD_united_housing_estates
+		x = 3
+		y = 7
+		prerequisite = { focus = SRD_united_old_quarters }
+		available = {
+			OR = { NOT = { country_exists = KRS } KRS = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = SRK } SRK = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = POD } POD = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = SLA } SLA = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = IZG } IZG = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = LOZ } LOZ = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = TRD } TRD = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = KRP } KRP = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = ILN } ILN = { has_capitulated = yes } }
+		}
+		cost = 10
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_state_core = 49
+			add_state_core = 50
+			add_state_core = 51
+			add_state_core = 52
+			add_state_core = 53
+			add_state_core = 54
+			add_state_core = 55
+			add_state_core = 56
+			add_state_core = 57
+			add_state_core = 58
+			add_state_core = 59
+			add_state_core = 60
+			add_state_core = 61
+			add_state_core = 62
+			add_state_core = 63
+			add_state_core = 64
+			add_state_core = 65
+			add_state_core = 66
+			if = { limit = { country_exists = NAD NOT = { has_war_with = NAD } } create_wargoal = { type = annex_everything target = NAD } }
+			if = { limit = { country_exists = ISK NOT = { has_war_with = ISK } } create_wargoal = { type = annex_everything target = ISK } }
+			if = { limit = { country_exists = MLA NOT = { has_war_with = MLA } } create_wargoal = { type = annex_everything target = MLA } }
+			if = { limit = { country_exists = STU NOT = { has_war_with = STU } } create_wargoal = { type = annex_everything target = STU } }
+			if = { limit = { country_exists = LYU NOT = { has_war_with = LYU } } create_wargoal = { type = annex_everything target = LYU } }
+		}
+	}
+	focus = {
+		id = SRD_united_kremikovtsi
+		icon = GFX_focus_SRD_united_kremikovtsi
+		x = 3
+		y = 8
+		prerequisite = { focus = SRD_united_housing_estates }
+		available = {
+			OR = { NOT = { country_exists = NAD } NAD = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = ISK } ISK = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = MLA } MLA = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = STU } STU = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = LYU } LYU = { has_capitulated = yes } }
+		}
+		cost = 10
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_state_core = 67
+			add_state_core = 68
+			add_state_core = 69
+			add_state_core = 70
+			add_state_core = 71
+			add_state_core = 72
+			add_state_core = 73
+			add_state_core = 74
+			add_state_core = 75
+			add_state_core = 76
+			add_state_core = 77
+			add_state_core = 78
+			if = { limit = { country_exists = KRE NOT = { has_war_with = KRE } } create_wargoal = { type = annex_everything target = KRE } }
+			add_political_power = 100
+		}
+	}
+	focus = {
+		id = SRD_united_outskirts
+		icon = GFX_focus_SRD_united_outskirts
+		x = 3
+		y = 9
+		prerequisite = { focus = SRD_united_kremikovtsi }
+		available = {
+			OR = { NOT = { country_exists = KRE } KRE = { has_capitulated = yes } }
+		}
+		cost = 10
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_state_core = 79
+			add_state_core = 80
+			add_state_core = 81
+			add_state_core = 82
+			add_state_core = 83
+			add_state_core = 84
+			add_state_core = 85
+			add_state_core = 86
+			add_state_core = 87
+			add_state_core = 88
+			add_state_core = 89
+			add_state_core = 90
+			add_state_core = 91
+			add_state_core = 92
+			add_state_core = 93
+			add_state_core = 94
+			add_state_core = 95
+			add_state_core = 96
+			add_state_core = 97
+			add_state_core = 98
+			add_state_core = 99
+			add_state_core = 100
+			add_state_core = 101
+			add_state_core = 102
+			add_state_core = 103
+			add_state_core = 104
+			add_state_core = 105
+			add_state_core = 106
+			add_state_core = 107
+			add_state_core = 108
+			add_state_core = 109
+			add_state_core = 110
+			add_state_core = 111
+			add_state_core = 112
+			add_state_core = 113
+			add_state_core = 114
+			add_state_core = 115
+			add_state_core = 116
+			add_state_core = 117
+			add_state_core = 118
+			if = { limit = { country_exists = VIT NOT = { has_war_with = VIT } } create_wargoal = { type = annex_everything target = VIT } }
+			if = { limit = { country_exists = OVK NOT = { has_war_with = OVK } } create_wargoal = { type = annex_everything target = OVK } }
+			if = { limit = { country_exists = VRB NOT = { has_war_with = VRB } } create_wargoal = { type = annex_everything target = VRB } }
+			if = { limit = { country_exists = NIS NOT = { has_war_with = NIS } } create_wargoal = { type = annex_everything target = NIS } }
+			if = { limit = { country_exists = PNC NOT = { has_war_with = PNC } } create_wargoal = { type = annex_everything target = PNC } }
+			if = { limit = { country_exists = BNK NOT = { has_war_with = BNK } } create_wargoal = { type = annex_everything target = BNK } }
+		}
+	}
+	focus = {
+		id = SRD_sofia_commune
+		icon = GFX_focus_SRD_sofia_commune
+		x = 3
+		y = 10
+		prerequisite = { focus = SRD_united_outskirts }
+		available = {
+			OR = { NOT = { country_exists = VIT } VIT = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = OVK } OVK = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = VRB } VRB = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = NIS } NIS = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = PNC } PNC = { has_capitulated = yes } }
+			OR = { NOT = { country_exists = BNK } BNK = { has_capitulated = yes } }
+		}
+		cost = 10
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			set_cosmetic_tag = SRD_SOFIA
+			add_stability = 0.20
+			add_political_power = 200
 		}
 	}
 	focus = {
 		id = SRD_party_takes_the_largo
 		icon = GFX_focus_SRD_party_takes_the_largo
-		x = 4
+		x = 6
 		y = 1
 		prerequisite = { focus = SRD_henrys_mom_was_right }
 		cost = 10
@@ -158,7 +641,7 @@ focus_tree = {
 	focus = {
 		id = SRD_red_guards_of_the_stadium
 		icon = GFX_focus_SRD_red_guards_of_the_stadium
-		x = 4
+		x = 6
 		y = 2
 		prerequisite = { focus = SRD_party_takes_the_largo }
 		cost = 10
@@ -171,7 +654,7 @@ focus_tree = {
 	focus = {
 		id = SRD_arm_the_workers
 		icon = GFX_focus_SRD_arm_the_workers
-		x = 4
+		x = 6
 		y = 3
 		prerequisite = { focus = SRD_red_guards_of_the_stadium }
 		cost = 10
@@ -184,7 +667,7 @@ focus_tree = {
 	focus = {
 		id = SRD_barricades_on_vitosha
 		icon = GFX_focus_SRD_barricades_on_vitosha
-		x = 4
+		x = 6
 		y = 4
 		prerequisite = { focus = SRD_arm_the_workers }
 		cost = 10
@@ -198,7 +681,7 @@ focus_tree = {
 	focus = {
 		id = SRD_red_leaflets
 		icon = GFX_focus_SRD_red_leaflets
-		x = 7
+		x = 8
 		y = 1
 		prerequisite = { focus = SRD_henrys_mom_was_right }
 		available = {
@@ -211,11 +694,26 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = SRD_capel_question
-		icon = GFX_focus_SRD_capel_question
-		x = 7
+		id = SRD_road_to_boyana
+		icon = GFX_focus_SRD_road_to_boyana
+		x = 8
 		y = 2
 		prerequisite = { focus = SRD_red_leaflets }
+		available = {
+			LOZ = { exists = yes }
+		}
+		cost = 7
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			LOZ = { country_event = { id = evil_sofia_srd.7 } }
+		}
+	}
+	focus = {
+		id = SRD_capel_question
+		icon = GFX_focus_SRD_capel_question
+		x = 8
+		y = 3
+		prerequisite = { focus = SRD_road_to_boyana }
 		available = {
 			VIT = { exists = yes }
 		}
@@ -229,8 +727,8 @@ focus_tree = {
 	focus = {
 		id = SRD_red_flag_over_boyana
 		icon = GFX_focus_SRD_red_flag_over_boyana
-		x = 7
-		y = 3
+		x = 8
+		y = 4
 		prerequisite = { focus = SRD_capel_question }
 		available = {
 			controls_state = 79
@@ -250,35 +748,9 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = SRD_one_sofia_one_party
-		icon = GFX_focus_SRD_one_sofia_one_party
-		x = 6
-		y = 5
-		prerequisite = { focus = SRD_conquer_the_centre }
-		prerequisite = { focus = SRD_red_flag_over_boyana }
-		cost = 10
-		ai_will_do = { factor = 1 }
-		completion_reward = {
-			if = {
-				limit = { has_country_flag = SRD_anton_allied }
-				every_state = {
-					limit = { OR = { is_owned_by = LOZ is_owned_by = TRD is_owned_by = IZG is_owned_by = SLA is_owned_by = ISK is_owned_by = MLA is_owned_by = STU is_owned_by = VIT is_owned_by = KRS is_owned_by = OVK is_owned_by = PNC } NOT = { is_owned_by = ROOT } }
-					ROOT = { add_state_claim = PREV }
-				}
-			}
-			else = {
-				every_state = {
-					limit = { NOT = { is_owned_by = ROOT } owner = { NOT = { is_in_faction_with = ROOT } } }
-					ROOT = { add_state_claim = PREV }
-				}
-			}
-			add_war_support = 0.20
-		}
-	}
-	focus = {
 		id = SRD_collectivise_vitosha_boulevard
 		icon = GFX_focus_SRD_collectivise_vitosha_boulevard
-		x = 10
+		x = 11
 		y = 1
 		prerequisite = { focus = SRD_henrys_mom_was_right }
 		cost = 10
@@ -293,7 +765,7 @@ focus_tree = {
 	focus = {
 		id = SRD_mimas_for_the_workers
 		icon = GFX_focus_SRD_mimas_for_the_workers
-		x = 9
+		x = 10
 		y = 2
 		prerequisite = { focus = SRD_collectivise_vitosha_boulevard }
 		cost = 10
@@ -305,7 +777,7 @@ focus_tree = {
 	focus = {
 		id = SRD_party_arsenal
 		icon = GFX_focus_SRD_party_arsenal
-		x = 11
+		x = 12
 		y = 2
 		prerequisite = { focus = SRD_collectivise_vitosha_boulevard }
 		cost = 10
@@ -320,7 +792,7 @@ focus_tree = {
 	focus = {
 		id = SRD_red_tourism
 		icon = GFX_focus_SRD_red_tourism
-		x = 9
+		x = 10
 		y = 3
 		prerequisite = { focus = SRD_mimas_for_the_workers }
 		cost = 10
@@ -336,7 +808,7 @@ focus_tree = {
 	focus = {
 		id = SRD_five_year_plan
 		icon = GFX_focus_SRD_five_year_plan
-		x = 10
+		x = 11
 		y = 4
 		prerequisite = { focus = SRD_red_tourism }
 		prerequisite = { focus = SRD_party_arsenal }
@@ -353,7 +825,7 @@ focus_tree = {
 	focus = {
 		id = SRD_star_on_the_party_house
 		icon = GFX_focus_SRD_star_on_the_party_house
-		x = 10
+		x = 11
 		y = 5
 		prerequisite = { focus = SRD_five_year_plan }
 		cost = 10

@@ -1,0 +1,7 @@
+SRD_oborishte_question = {
+	allowed = { tag = SRD }
+	visible = {
+		has_completed_focus = SRD_comrades_in_oborishte
+		OBR = { exists = yes }
+	}
+}

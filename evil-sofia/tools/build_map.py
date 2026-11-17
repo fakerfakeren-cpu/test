@@ -2014,5 +2014,6 @@ _bf = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(_bf)
 _n = _bf.build(ROOT, {"states": [{"id": st["id"], "owner": DISTRICTS[st["district"]][0], "name": st["name"]} for st in states],
                       "capital_state": {DISTRICTS[k][0]: sid for k, sid in country_capital_state.items()},
-                      "stadium_province": stadium}, write, write_dds_bgra)
+                      "stadium_province": stadium,
+                      "countries": {v[0]: v[1] for v in DISTRICTS.values()}}, write, write_dds_bgra)
 print(f"focus tree: {_n} focuses for Sredets")

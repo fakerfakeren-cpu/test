@@ -12,6 +12,10 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/evil_sofia/SRD_comrades_in_oborishte.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_SRD_red_newspapers_oborishte"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_red_newspapers_oborishte.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_SRD_ally_anton"
 		texturefile = "gfx/interface/goals/evil_sofia/people/SRD_ally_anton.dds"
 	}
@@ -28,8 +32,52 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/evil_sofia/people/SRD_destroy_anton.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_SRD_conquer_the_centre"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_conquer_the_centre.dds"
+		name = "GFX_focus_SRD_pact_centre"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_pact_centre.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_pact_old_quarters"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_pact_old_quarters.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_pact_housing_estates"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_pact_housing_estates.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_pact_kremikovtsi"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_pact_kremikovtsi.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_pact_outskirts"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_pact_outskirts.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_sofia_union"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_sofia_union.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_one_centre"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_one_centre.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_united_old_quarters"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_united_old_quarters.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_united_housing_estates"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_united_housing_estates.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_united_kremikovtsi"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_united_kremikovtsi.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_united_outskirts"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_united_outskirts.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_sofia_commune"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_sofia_commune.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_SRD_party_takes_the_largo"
@@ -52,16 +100,16 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/evil_sofia/SRD_red_leaflets.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_SRD_road_to_boyana"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_road_to_boyana.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_SRD_capel_question"
 		texturefile = "gfx/interface/goals/evil_sofia/people/SRD_capel_question.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_SRD_red_flag_over_boyana"
 		texturefile = "gfx/interface/goals/evil_sofia/SRD_red_flag_over_boyana.dds"
-	}
-	spriteType = {
-		name = "GFX_focus_SRD_one_sofia_one_party"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_one_sofia_one_party.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_SRD_collectivise_vitosha_boulevard"

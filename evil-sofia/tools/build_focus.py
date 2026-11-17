@@ -8,7 +8,9 @@ Called at the end of tools/build_map.py with facts about the generated map. Icon
   (git-ignored as well); without the portrait a pack icon stands in.
 """
 import importlib.util
+import math
 import os
+import re
 import sys
 import numpy as np
 from PIL import Image
@@ -126,12 +128,19 @@ def build(root, facts, write, write_dds):
     def owned_or(tags):
         return " ".join(f"is_owned_by = {t}" for t in tags)
 
-    fill = {"{OBR_CAP}": str(capital["OBR"]), "{VIT_CAP}": str(capital["VIT"]), "{OBR_CORES}": cores("OBR"),
-            "{VIT_CORES}": cores("VIT"), "{NORTH_OR}": owned_or(tree.NORTH), "{SOUTH_OR}": owned_or(tree.SOUTH)}
+    fill = {"{OBR_CAP}": str(capital["OBR"]), "{VIT_CAP}": str(capital["VIT"])}
+
+    def gone(t):
+        return f"OR = {{ NOT = {{ country_exists = {t} }} {t} = {{ has_capitulated = yes }} }}"
 
     def filled(text):
         for k, v in fill.items():
             text = text.replace(k, v)
+        text = re.sub(r"\{CORES:([A-Z,]+)\}", lambda m: "\n".join(cores(t) for t in m.group(1).split(",")), text)
+        text = re.sub(r"\{WAR:([A-Z,]+)\}", lambda m: "\n".join(
+            f"if = {{ limit = {{ country_exists = {t} NOT = {{ has_war_with = {t} }} }} "
+            f"create_wargoal = {{ type = annex_everything target = {t} }} }}" for t in m.group(1).split(",")), text)
+        text = re.sub(r"\{BEATEN:([A-Z,]+)\}", lambda m: "\n".join(gone(t) for t in m.group(1).split(",")), text)
         return text
 
     def indent(text, n):
@@ -210,8 +219,8 @@ def build(root, facts, write, write_dds):
         for i, (text, effect, chance) in enumerate(options):
             key = f"evil_sofia_srd.{num}.{'abcdef'[i]}"
             loc.append(f' {key}:0 "{text}"')
-            opts.append(f"\toption = {{\n\t\tname = {key}\n\t\tai_chance = {{ factor = {chance} }}\n"
-                        + indent(effect, 2) + "\n\t}")
+            body = ("\n" + indent(effect, 2)) if effect else ""
+            opts.append(f"\toption = {{\n\t\tname = {key}\n\t\tai_chance = {{ factor = {chance} }}{body}\n\t}}")
         loc += [f' evil_sofia_srd.{num}.t:0 "{title}"', f' evil_sofia_srd.{num}.d:0 "{desc}"']
         ev.append(f"country_event = {{\n\tid = evil_sofia_srd.{num}\n\ttitle = evil_sofia_srd.{num}.t\n"
                   f"\tdesc = evil_sofia_srd.{num}.d\n\tis_triggered_only = yes\n" + "\n".join(opts) + "\n}\n")
@@ -246,6 +255,85 @@ def build(root, facts, write, write_dds):
 \t\tstart_equipment_factor = 1.0
 \t}}""" for i in range(1, 5))
     write(f"history/units/{tag}_red_guards.txt", f"units = {{\n{divisions}\n}}\n")
-    loc.append(' EVIL_SOFIA_RED_CENTRE:0 "The Red Centre"')
+    for k, v in tree.FACTIONS.items():
+        loc.append(f' {k}:0 "{v}"')
+    # decisions
+    cat, cname, cdesc, cvis = tree.DECISIONS["category"]
+    write("common/decisions/categories/evil_sofia.txt", f"""{cat} = {{
+\tallowed = {{ tag = {tag} }}
+\tvisible = {{
+{indent(cvis, 2)}
+\t}}
+}}
+""")
+    loc += [f' {cat}:0 "{cname}"', f' {cat}_desc:0 "{cdesc}"']
+    dec = []
+    for did, dname, cost, cooldown, avail, effect in tree.DECISIONS["decisions"]:
+        re_en = f"\n\t\tdays_re_enable = {cooldown}" if cooldown else ""
+        dec.append(f"""\t{did} = {{
+\t\tcost = {cost}{re_en}
+\t\tavailable = {{
+{indent(avail, 3)}
+\t\t}}
+\t\tcomplete_effect = {{
+{indent(effect, 3)}
+\t\t}}
+\t\tai_will_do = {{ factor = 1 }}
+\t}}""")
+        loc.append(f' {did}:0 "{dname}"')
+    write("common/decisions/evil_sofia_SRD.txt", f"{cat} = {{\n" + "\n".join(dec) + "\n}\n")
+    # flags: communist versions of every district flag, and the red Sofia flags
+    def star(draw, cx, cy, r, fill):
+        pts = []
+        for i in range(10):
+            a = -math.pi / 2 + i * math.pi / 5
+            rr = r if i % 2 == 0 else r * 0.4
+            pts.append((cx + rr * math.cos(a), cy + rr * math.sin(a)))
+        draw.polygon(pts, fill=fill)
+
+    def communist(src):
+        from PIL import ImageDraw
+        im = Image.open(src).convert("RGBA").resize((246, 156), Image.LANCZOS)
+        d = ImageDraw.Draw(im)
+        d.rectangle([0, 0, 92, 76], fill=(200, 25, 30, 255))
+        star(d, 46, 39, 28, (250, 205, 40, 255))
+        return im
+
+    def sofia(variant):
+        from PIL import ImageDraw
+        im = Image.open(os.path.join(root, "tools", "flags", "SOFIA.png")).convert("RGB").resize((246, 156), Image.LANCZOS)
+        a = np.asarray(im).astype(np.int32)
+        bg = np.median(np.concatenate([a[:6].reshape(-1, 3), a[-6:].reshape(-1, 3)]), 0)
+        near = np.abs(a - bg).sum(-1) < 70
+        a[near] = (200, 25, 30)
+        im = Image.fromarray(a.astype(np.uint8)).convert("RGBA")
+        d = ImageDraw.Draw(im)
+        star(d, 30, 30, 20, (250, 205, 40, 255))
+        if variant == "south":
+            d.rectangle([0, 132, 246, 156], fill=(245, 245, 245, 255))
+        if variant == "north":
+            d.rectangle([0, 0, 246, 24], fill=(245, 245, 245, 255))
+            star(d, 30, 50, 20, (250, 205, 40, 255))
+        return im
+
+    def save_flag(name, im):
+        for folder, size in (("", (82, 52)), ("medium/", (41, 26)), ("small/", (10, 7))):
+            im.resize(size, Image.LANCZOS).save(os.path.join(root, "gfx", "flags", f"{folder}{name}.tga"))
+
+    for t, nm in facts["countries"].items():
+        src = os.path.join(root, "tools", "flags", f"{t}.png")
+        if os.path.exists(src):
+            save_flag(f"{t}_communism", communist(src))
+        loc += [f' {t}_communism:0 "{nm} Commune"', f' {t}_communism_DEF:0 "the {nm} Commune"']
+    cosm = []
+    for ct, (nm, adj, colour, (recipe, arg)) in tree.COSMETIC.items():
+        if recipe == "district":
+            save_flag(ct, communist(os.path.join(root, "tools", "flags", f"{arg}.png")))
+        else:
+            save_flag(ct, sofia(arg))
+        r_, g_, b_ = colour
+        cosm.append(f"{ct} = {{\n\tcolor = rgb {{ {r_} {g_} {b_} }}\n\tcolor_ui = rgb {{ {min(255, r_ + 40)} {min(255, g_ + 40)} {min(255, b_ + 40)} }}\n}}")
+        loc += [f' {ct}:0 "{nm}"', f' {ct}_DEF:0 "{nm}"', f' {ct}_ADJ:0 "{adj}"']
+    write("common/countries/cosmetic.txt", "\n".join(cosm) + "\n")
     write("localisation/english/replace/evil_sofia_focus_l_english.yml", "\n".join(loc) + "\n", bom=True)
     return len(tree.FOCUSES)
