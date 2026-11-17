@@ -1,0 +1,191 @@
+focus_tree = {
+	id = evil_sofia_starter_focus
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			OR = { tag = VAZ tag = KRS tag = SRK tag = POD tag = SLA tag = IZG tag = ILN tag = NAD tag = ISK tag = STU tag = KRE tag = OVK tag = VRB tag = NIS tag = PNC tag = BNK }
+		}
+	}
+	default = no
+
+	focus = {
+		id = ESF_seize_the_district_hall
+		icon = GFX_goal_generic_political_pressure
+		x = 1
+		y = 0
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_political_power = 120
+		}
+	}
+	focus = {
+		id = ESF_martial_law
+		icon = GFX_goal_generic_propaganda
+		x = 0
+		y = 1
+		prerequisite = { focus = ESF_seize_the_district_hall }
+		cost = 10
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_war_support = 0.10
+		}
+	}
+	focus = {
+		id = ESF_neighbourhood_patrols
+		icon = GFX_goal_generic_national_unity
+		x = 2
+		y = 1
+		prerequisite = { focus = ESF_seize_the_district_hall }
+		cost = 10
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_stability = 0.10
+		}
+	}
+	focus = {
+		id = ESF_propaganda_on_every_block
+		icon = GFX_goal_generic_propaganda
+		x = 1
+		y = 2
+		prerequisite = { focus = ESF_martial_law focus = ESF_neighbourhood_patrols }
+		cost = 10
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_political_power = 100
+			add_stability = 0.05
+			add_war_support = 0.05
+		}
+	}
+	focus = {
+		id = ESF_fix_the_streets
+		icon = GFX_goal_generic_construct_infrastructure
+		x = 5
+		y = 0
+		cost = 10
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = { free_building_slots = { building = infrastructure size > 0 } }
+				add_building_construction = { type = infrastructure level = 1 instant_build = yes }
+			}
+		}
+	}
+	focus = {
+		id = ESF_district_workshops
+		icon = GFX_goal_generic_construct_civ_factory
+		x = 4
+		y = 1
+		prerequisite = { focus = ESF_fix_the_streets }
+		cost = 10
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			capital_scope = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+		}
+	}
+	focus = {
+		id = ESF_arms_workshops
+		icon = GFX_goal_generic_construct_mil_factory
+		x = 6
+		y = 1
+		prerequisite = { focus = ESF_fix_the_streets }
+		cost = 10
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			capital_scope = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+		}
+	}
+	focus = {
+		id = ESF_industrial_drive
+		icon = GFX_goal_generic_production
+		x = 5
+		y = 2
+		prerequisite = { focus = ESF_district_workshops focus = ESF_arms_workshops }
+		cost = 10
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_tech_bonus = { name = ESF_industrial_drive bonus = 0.5 uses = 2 category = industry }
+		}
+	}
+	focus = {
+		id = ESF_district_institute
+		icon = GFX_goal_generic_research
+		x = 5
+		y = 3
+		prerequisite = { focus = ESF_industrial_drive }
+		cost = 10
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+	focus = {
+		id = ESF_raise_the_city_guard
+		icon = GFX_goal_generic_allies_build_infantry
+		x = 9
+		y = 0
+		cost = 10
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			army_experience = 10
+			add_tech_bonus = { name = ESF_raise_the_city_guard bonus = 0.5 uses = 1 category = land_doctrine }
+		}
+	}
+	focus = {
+		id = ESF_arm_the_blocks
+		icon = GFX_goal_generic_small_arms
+		x = 8
+		y = 1
+		prerequisite = { focus = ESF_raise_the_city_guard }
+		cost = 10
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1000 }
+			add_tech_bonus = { name = ESF_arm_the_blocks bonus = 0.5 uses = 1 category = infantry_weapons }
+		}
+	}
+	focus = {
+		id = ESF_rooftop_air_defence
+		icon = GFX_goal_generic_fortify_city
+		x = 10
+		y = 1
+		prerequisite = { focus = ESF_raise_the_city_guard }
+		cost = 10
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			capital_scope = { add_building_construction = { type = anti_air_building level = 1 instant_build = yes } }
+		}
+	}
+	focus = {
+		id = ESF_rooftop_artillery
+		icon = GFX_goal_generic_army_artillery
+		x = 9
+		y = 2
+		prerequisite = { focus = ESF_arm_the_blocks }
+		cost = 10
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_tech_bonus = { name = ESF_rooftop_artillery bonus = 0.5 uses = 1 category = artillery }
+		}
+	}
+}

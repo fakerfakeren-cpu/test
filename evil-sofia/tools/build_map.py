@@ -1707,6 +1707,84 @@ loc.append(' EVIL_SOFIA_SUPPLY_AREA:0 "Sofia"')
 # which keeps vanilla scripts that mention GER, SOV etc. parsing cleanly.
 write("common/country_tags/evil_sofia_countries.txt", "\n".join(tags_txt) + "\n")
 write("common/names/evil_sofia_names.txt", "\n".join(name_lists) + "\n")
+# A starter focus tree for the countries without their own leader. The start screen only shows a minor country as
+# a small flag when it has a focus tree of its own (vanilla's generic tree does not count). The featured
+# countries keep vanilla's generic tree until real focus trees are made. Icons are vanilla's.
+STARTER_FOCUSES = [
+    # id, x, y, prerequisites (any one of them), icon, search filter, reward, name, description
+    ("seize_the_district_hall", 1, 0, [], "GFX_goal_generic_political_pressure", "FOCUS_FILTER_POLITICAL",
+     "add_political_power = 120", "Seize the District Hall",
+     "The council is gone. Whoever holds the district hall holds the district."),
+    ("martial_law", 0, 1, ["seize_the_district_hall"], "GFX_goal_generic_propaganda", "FOCUS_FILTER_WAR_SUPPORT",
+     "add_war_support = 0.10", "Martial Law", "Curfews, checkpoints and a soldier on every corner."),
+    ("neighbourhood_patrols", 2, 1, ["seize_the_district_hall"], "GFX_goal_generic_national_unity",
+     "FOCUS_FILTER_STABILITY", "add_stability = 0.10", "Neighbourhood Patrols",
+     "Every block elects a warden. Every warden answers to us."),
+    ("propaganda_on_every_block", 1, 2, ["martial_law", "neighbourhood_patrols"], "GFX_goal_generic_propaganda",
+     "FOCUS_FILTER_POLITICAL", "add_political_power = 100\n\t\t\tadd_stability = 0.05\n\t\t\tadd_war_support = 0.05",
+     "Propaganda on Every Block", "Posters on every panel block, speakers on every lamp post."),
+    ("fix_the_streets", 5, 0, [], "GFX_goal_generic_construct_infrastructure", "FOCUS_FILTER_INDUSTRY",
+     "random_owned_controlled_state = {\n\t\t\t\tlimit = { free_building_slots = { building = infrastructure size > 0 } }\n"
+     "\t\t\t\tadd_building_construction = { type = infrastructure level = 1 instant_build = yes }\n\t\t\t}",
+     "Fix the Streets", "No army marches far on Sofia's potholes."),
+    ("district_workshops", 4, 1, ["fix_the_streets"], "GFX_goal_generic_construct_civ_factory", "FOCUS_FILTER_INDUSTRY",
+     "capital_scope = {\n\t\t\t\tadd_extra_state_shared_building_slots = 1\n"
+     "\t\t\t\tadd_building_construction = { type = industrial_complex level = 1 instant_build = yes }\n\t\t\t}",
+     "District Workshops", "The shops and garages of the district go back to work, for us."),
+    ("arms_workshops", 6, 1, ["fix_the_streets"], "GFX_goal_generic_construct_mil_factory", "FOCUS_FILTER_INDUSTRY",
+     "capital_scope = {\n\t\t\t\tadd_extra_state_shared_building_slots = 1\n"
+     "\t\t\t\tadd_building_construction = { type = arms_factory level = 1 instant_build = yes }\n\t\t\t}",
+     "Arms Workshops", "Every garage can make rifles if you ask it nicely enough."),
+    ("industrial_drive", 5, 2, ["district_workshops", "arms_workshops"], "GFX_goal_generic_production",
+     "FOCUS_FILTER_RESEARCH", "add_tech_bonus = { name = ESF_industrial_drive bonus = 0.5 uses = 2 category = industry }",
+     "Industrial Drive", "Work the night shift. Then work the day shift."),
+    ("district_institute", 5, 3, ["industrial_drive"], "GFX_goal_generic_research", "FOCUS_FILTER_RESEARCH",
+     "add_research_slot = 1", "District Institute", "The university will teach what we need it to teach."),
+    ("raise_the_city_guard", 9, 0, [], "GFX_goal_generic_allies_build_infantry", "FOCUS_FILTER_ARMY_XP",
+     "army_experience = 10\n\t\t\tadd_tech_bonus = { name = ESF_raise_the_city_guard bonus = 0.5 uses = 1 category = land_doctrine }",
+     "Raise the City Guard", "Every able-bodied resident, from the night guard to the bus driver."),
+    ("arm_the_blocks", 8, 1, ["raise_the_city_guard"], "GFX_goal_generic_small_arms", "FOCUS_FILTER_RESEARCH",
+     "add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1000 }\n"
+     "\t\t\tadd_tech_bonus = { name = ESF_arm_the_blocks bonus = 0.5 uses = 1 category = infantry_weapons }",
+     "Arm the Blocks", "A rifle in every flat, a crate of ammunition in every basement."),
+    ("rooftop_air_defence", 10, 1, ["raise_the_city_guard"], "GFX_goal_generic_fortify_city", "FOCUS_FILTER_INDUSTRY",
+     "capital_scope = { add_building_construction = { type = anti_air_building level = 1 instant_build = yes } }",
+     "Rooftop Air Defence", "Anti-aircraft guns on the tallest panel blocks."),
+    ("rooftop_artillery", 9, 2, ["arm_the_blocks"], "GFX_goal_generic_army_artillery", "FOCUS_FILTER_RESEARCH",
+     "add_tech_bonus = { name = ESF_rooftop_artillery bonus = 0.5 uses = 1 category = artillery }",
+     "Rooftop Artillery", "From the top of a fourteen-storey block, every street is in range."),
+]
+starter_tags = [DISTRICTS[k][0] for k in DISTRICTS if DISTRICTS[k][0] not in FEATURED]
+focus_blocks = []
+for fid, fx, fy, prereq, icon, filt, reward, fname, fdesc in STARTER_FOCUSES:
+    pre = ("\n\t\tprerequisite = { " + " ".join(f"focus = ESF_{q}" for q in prereq) + " }") if prereq else ""
+    focus_blocks.append(f"""\tfocus = {{
+\t\tid = ESF_{fid}
+\t\ticon = {icon}
+\t\tx = {fx}
+\t\ty = {fy}{pre}
+\t\tcost = 10
+\t\tsearch_filters = {{ {filt} }}
+\t\tai_will_do = {{ factor = 1 }}
+\t\tcompletion_reward = {{
+\t\t\t{reward}
+\t\t}}
+\t}}""")
+    loc += [f' ESF_{fid}:0 "{fname}"', f' ESF_{fid}_desc:0 "{fdesc}"']
+write("common/national_focus/evil_sofia_starter.txt", f"""focus_tree = {{
+\tid = evil_sofia_starter_focus
+\tcountry = {{
+\t\tfactor = 0
+\t\tmodifier = {{
+\t\t\tadd = 10
+\t\t\tOR = {{ {' '.join(f'tag = {t}' for t in starter_tags)} }}
+\t\t}}
+\t}}
+\tdefault = no
+
+{chr(10).join(focus_blocks)}
+}}
+""")
 write("localisation/english/replace/evil_sofia_l_english.yml", "\n".join(loc) + "\n", bom=True)
 if os.path.exists(out("localisation/english/evil_sofia_l_english.yml")):
     os.remove(out("localisation/english/evil_sofia_l_english.yml"))

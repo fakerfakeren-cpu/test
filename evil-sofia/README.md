@@ -77,6 +77,10 @@ by the Hoi4_world_map project (github.com/derprito64bit/Hoi4_world_map):
 - The game starts on **1 January 2026**. `NGame.START_DATE` and `END_DATE` (2100) are moved in the defines file,
   otherwise the game would be past its end date at the start. On the start screen the eight countries with their
   own leaders are the featured ones, with a short description each; the other sixteen are the small flags below.
+  The start screen only shows a minor country as a small flag when it has a focus tree of its own, so those
+  sixteen share a small starter tree (`common/national_focus/evil_sofia_starter.txt`, 13 focuses: district hall,
+  martial law, streets, workshops, a research slot, city guard, rooftop air defence and artillery; vanilla
+  icons). The featured eight keep vanilla's generic tree until real focus trees are made.
 - Flags come from the "Flags of Sofia and her regions" sheet, one image per district in `tools/flags/<TAG>.png`;
   the build scales them to the game's three flag sizes.
 
