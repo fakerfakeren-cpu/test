@@ -266,7 +266,9 @@ def build(root, facts, write, write_dds):
                 loc.append(f' {key}:0 "{L(text)}"')
                 body = ("\n\t\ttrigger = {\n" + indent(trig, 3) + "\n\t\t}") if trig else ""
                 body += ("\n" + indent(effect, 2)) if effect else ""
-                opts.append(f"\toption = {{\n\t\tname = {key}\n\t\tai_chance = {{ factor = {chance} }}{body}\n\t}}")
+                ai = (f"ai_chance = {{\n{indent(chance, 3)}\n\t\t}}" if isinstance(chance, str)
+                      else f"ai_chance = {{ factor = {chance} }}")
+                opts.append(f"\toption = {{\n\t\tname = {key}\n\t\t{ai}{body}\n\t}}")
             loc.extend([f' {eid}.t:0 "{L(title)}"', f' {eid}.d:0 "{L(desc)}"'])
             head = [f"\tid = {eid}", f"\ttitle = {eid}.t", f"\tdesc = {eid}.d",
                     f"\tpicture = {picture(kind, pic, eid.replace('.', '_'))}"]
@@ -276,9 +278,10 @@ def build(root, facts, write, write_dds):
                 days, trig = ev[3], ev[4]
                 flag = f"{eid.replace('.', '_')}_happened"
                 head += ["\ttrigger = {", "\t\texists = yes",
-                         f"\t\tNOT = {{ has_country_flag = {flag} }}"] + ([indent(trig, 2)] if trig else []) + ["\t}",
+                         f"\t\tNOT = {{ has_country_flag = {flag} has_country_flag = {namespace}_cooldown }}"] + ([indent(trig, 2)] if trig else []) + ["\t}",
                          f"\tmean_time_to_happen = {{ days = {days} }}",
-                         f"\timmediate = {{ set_country_flag = {flag} }}"]
+                         f"\timmediate = {{\n\t\tset_country_flag = {flag}\n"
+                         f"\t\tset_country_flag = {{ flag = {namespace}_cooldown days = 730 }}\n\t}}"]
             else:
                 head.append("\tis_triggered_only = yes")
             out.append(f"{kind}_event = {{\n" + "\n".join(head) + "\n" + "\n".join(opts) + "\n}\n")

@@ -7,10 +7,13 @@ country_event = {
 	picture = GFX_evil_sofia_evil_sofia_flavour_1
 	trigger = {
 		exists = yes
-		NOT = { has_country_flag = evil_sofia_flavour_1_happened }
+		NOT = { has_country_flag = evil_sofia_flavour_1_happened has_country_flag = evil_sofia_flavour_cooldown }
 	}
-	mean_time_to_happen = { days = 1400 }
-	immediate = { set_country_flag = evil_sofia_flavour_1_happened }
+	mean_time_to_happen = { days = 4200 }
+	immediate = {
+		set_country_flag = evil_sofia_flavour_1_happened
+		set_country_flag = { flag = evil_sofia_flavour_cooldown days = 730 }
+	}
 	option = {
 		name = evil_sofia_flavour.1.a
 		ai_chance = { factor = 60 }
@@ -31,10 +34,13 @@ country_event = {
 	picture = GFX_evil_sofia_evil_sofia_flavour_2
 	trigger = {
 		exists = yes
-		NOT = { has_country_flag = evil_sofia_flavour_2_happened }
+		NOT = { has_country_flag = evil_sofia_flavour_2_happened has_country_flag = evil_sofia_flavour_cooldown }
 	}
-	mean_time_to_happen = { days = 1200 }
-	immediate = { set_country_flag = evil_sofia_flavour_2_happened }
+	mean_time_to_happen = { days = 3600 }
+	immediate = {
+		set_country_flag = evil_sofia_flavour_2_happened
+		set_country_flag = { flag = evil_sofia_flavour_cooldown days = 730 }
+	}
 	option = {
 		name = evil_sofia_flavour.2.a
 		ai_chance = { factor = 60 }
@@ -56,10 +62,13 @@ country_event = {
 	picture = GFX_evil_sofia_evil_sofia_flavour_3
 	trigger = {
 		exists = yes
-		NOT = { has_country_flag = evil_sofia_flavour_3_happened }
+		NOT = { has_country_flag = evil_sofia_flavour_3_happened has_country_flag = evil_sofia_flavour_cooldown }
 	}
-	mean_time_to_happen = { days = 1500 }
-	immediate = { set_country_flag = evil_sofia_flavour_3_happened }
+	mean_time_to_happen = { days = 4500 }
+	immediate = {
+		set_country_flag = evil_sofia_flavour_3_happened
+		set_country_flag = { flag = evil_sofia_flavour_cooldown days = 730 }
+	}
 	option = {
 		name = evil_sofia_flavour.3.a
 		ai_chance = { factor = 50 }
@@ -80,10 +89,13 @@ country_event = {
 	picture = GFX_evil_sofia_evil_sofia_flavour_4
 	trigger = {
 		exists = yes
-		NOT = { has_country_flag = evil_sofia_flavour_4_happened }
+		NOT = { has_country_flag = evil_sofia_flavour_4_happened has_country_flag = evil_sofia_flavour_cooldown }
 	}
-	mean_time_to_happen = { days = 1500 }
-	immediate = { set_country_flag = evil_sofia_flavour_4_happened }
+	mean_time_to_happen = { days = 4500 }
+	immediate = {
+		set_country_flag = evil_sofia_flavour_4_happened
+		set_country_flag = { flag = evil_sofia_flavour_cooldown days = 730 }
+	}
 	option = {
 		name = evil_sofia_flavour.4.a
 		ai_chance = { factor = 50 }
@@ -105,10 +117,13 @@ country_event = {
 	picture = GFX_evil_sofia_evil_sofia_flavour_5
 	trigger = {
 		exists = yes
-		NOT = { has_country_flag = evil_sofia_flavour_5_happened }
+		NOT = { has_country_flag = evil_sofia_flavour_5_happened has_country_flag = evil_sofia_flavour_cooldown }
 	}
-	mean_time_to_happen = { days = 1300 }
-	immediate = { set_country_flag = evil_sofia_flavour_5_happened }
+	mean_time_to_happen = { days = 3900 }
+	immediate = {
+		set_country_flag = evil_sofia_flavour_5_happened
+		set_country_flag = { flag = evil_sofia_flavour_cooldown days = 730 }
+	}
 	option = {
 		name = evil_sofia_flavour.5.a
 		ai_chance = { factor = 60 }
@@ -129,10 +144,13 @@ country_event = {
 	picture = GFX_evil_sofia_evil_sofia_flavour_6
 	trigger = {
 		exists = yes
-		NOT = { has_country_flag = evil_sofia_flavour_6_happened }
+		NOT = { has_country_flag = evil_sofia_flavour_6_happened has_country_flag = evil_sofia_flavour_cooldown }
 	}
-	mean_time_to_happen = { days = 1600 }
-	immediate = { set_country_flag = evil_sofia_flavour_6_happened }
+	mean_time_to_happen = { days = 4800 }
+	immediate = {
+		set_country_flag = evil_sofia_flavour_6_happened
+		set_country_flag = { flag = evil_sofia_flavour_cooldown days = 730 }
+	}
 	option = {
 		name = evil_sofia_flavour.6.a
 		ai_chance = { factor = 50 }
@@ -153,20 +171,24 @@ country_event = {
 	picture = GFX_evil_sofia_evil_sofia_flavour_7
 	trigger = {
 		exists = yes
-		NOT = { has_country_flag = evil_sofia_flavour_7_happened }
+		NOT = { has_country_flag = evil_sofia_flavour_7_happened has_country_flag = evil_sofia_flavour_cooldown }
 	}
-	mean_time_to_happen = { days = 1600 }
-	immediate = { set_country_flag = evil_sofia_flavour_7_happened }
+	mean_time_to_happen = { days = 4500 }
+	immediate = {
+		set_country_flag = evil_sofia_flavour_7_happened
+		set_country_flag = { flag = evil_sofia_flavour_cooldown days = 730 }
+	}
 	option = {
 		name = evil_sofia_flavour.7.a
 		ai_chance = { factor = 60 }
-		add_political_power = -25
-		add_stability = 0.02
+		add_manpower = 1500
+		add_war_support = 0.02
 	}
 	option = {
 		name = evil_sofia_flavour.7.b
 		ai_chance = { factor = 40 }
-		add_stability = -0.03
+		add_stability = 0.04
+		add_political_power = -15
 	}
 }
 
@@ -177,21 +199,24 @@ country_event = {
 	picture = GFX_evil_sofia_evil_sofia_flavour_8
 	trigger = {
 		exists = yes
-		NOT = { has_country_flag = evil_sofia_flavour_8_happened }
+		NOT = { has_country_flag = evil_sofia_flavour_8_happened has_country_flag = evil_sofia_flavour_cooldown }
 	}
-	mean_time_to_happen = { days = 1500 }
-	immediate = { set_country_flag = evil_sofia_flavour_8_happened }
+	mean_time_to_happen = { days = 4200 }
+	immediate = {
+		set_country_flag = evil_sofia_flavour_8_happened
+		set_country_flag = { flag = evil_sofia_flavour_cooldown days = 730 }
+	}
 	option = {
 		name = evil_sofia_flavour.8.a
-		ai_chance = { factor = 60 }
-		add_manpower = 1500
-		add_war_support = 0.02
+		ai_chance = { factor = 50 }
+		add_stability = 0.02
+		add_political_power = -20
 	}
 	option = {
 		name = evil_sofia_flavour.8.b
-		ai_chance = { factor = 40 }
-		add_stability = 0.04
-		add_political_power = -15
+		ai_chance = { factor = 50 }
+		add_political_power = 40
+		add_stability = -0.03
 	}
 }
 
@@ -202,42 +227,20 @@ country_event = {
 	picture = GFX_evil_sofia_evil_sofia_flavour_9
 	trigger = {
 		exists = yes
-		NOT = { has_country_flag = evil_sofia_flavour_9_happened }
+		NOT = { has_country_flag = evil_sofia_flavour_9_happened has_country_flag = evil_sofia_flavour_cooldown }
 	}
-	mean_time_to_happen = { days = 1400 }
-	immediate = { set_country_flag = evil_sofia_flavour_9_happened }
+	mean_time_to_happen = { days = 5400 }
+	immediate = {
+		set_country_flag = evil_sofia_flavour_9_happened
+		set_country_flag = { flag = evil_sofia_flavour_cooldown days = 730 }
+	}
 	option = {
 		name = evil_sofia_flavour.9.a
-		ai_chance = { factor = 50 }
-		add_stability = 0.02
-		add_political_power = -20
-	}
-	option = {
-		name = evil_sofia_flavour.9.b
-		ai_chance = { factor = 50 }
-		add_political_power = 40
-		add_stability = -0.03
-	}
-}
-
-country_event = {
-	id = evil_sofia_flavour.10
-	title = evil_sofia_flavour.10.t
-	desc = evil_sofia_flavour.10.d
-	picture = GFX_evil_sofia_evil_sofia_flavour_10
-	trigger = {
-		exists = yes
-		NOT = { has_country_flag = evil_sofia_flavour_10_happened }
-	}
-	mean_time_to_happen = { days = 1800 }
-	immediate = { set_country_flag = evil_sofia_flavour_10_happened }
-	option = {
-		name = evil_sofia_flavour.10.a
 		ai_chance = { factor = 70 }
 		add_war_support = 0.03
 	}
 	option = {
-		name = evil_sofia_flavour.10.b
+		name = evil_sofia_flavour.9.b
 		ai_chance = { factor = 30 }
 		army_experience = 5
 	}

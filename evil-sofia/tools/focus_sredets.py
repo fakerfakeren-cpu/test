@@ -105,7 +105,8 @@ news_event = { id = evil_sofia_news.1 hours = 6 }""",
      "OBR = { country_event = { id = evil_sofia_srd.2 } }",
      "Anton is not our enemy. He is a man standing on the wrong side of a very short street. Victor will walk "
      "across it himself and offer him what nobody else in Sofia can: half of everything.\\n\\nNeeds Oborishte at "
-     "least 40% communist."),
+     "least 40% communist. Anton is more likely to accept the more communist Oborishte is and the better he thinks "
+     "of Sredets."),
     ("anton_must_go", "Anton Must Go", 3, 3, [["red_newspapers_oborishte"]], ["ally_anton"], 6,
      "person:anton_must_go", "OBR = { exists = yes }",
      "create_wargoal = { type = annex_everything target = OBR }\nadd_war_support = 0.10",
@@ -290,8 +291,8 @@ else = {
 }""",
      "Sredets does not touch Vitosha: Lozenets lies between us, and Lozenets belongs to Georgi Yanchovichin. Georgi "
      "and Victor go back further than any party or flag. They are day ones. Victor picks up the phone and asks him to "
-     "stand with Sredets against Henry.\\n\\nIf Lozenets is already our ally or no longer exists, nobody needs to "
-     "be asked."),
+     "stand with Sredets against Henry.\\n\\nGeorgi is more likely to say yes the better he thinks of Sredets. If "
+     "Lozenets is already our ally or no longer exists, nobody needs to be asked."),
     ("capel_question", "The Capel Question", 10, 3, [["road_to_boyana"]], [], 8,
      "person:capel_question", "VIT = { exists = yes }",
      "create_wargoal = { type = annex_everything target = VIT }\nadd_war_support = 0.05",
@@ -467,6 +468,32 @@ DECISIONS = {
     ],
 }
 
+ANTON_YES = """base = 10
+modifier = { add = 25 has_government = communism }
+modifier = { add = 15 communism > 0.45 }
+modifier = { add = 15 communism > 0.6 }
+modifier = { add = 10 communism > 0.75 }
+modifier = { add = 10 has_opinion = { target = FROM value > 0 } }
+modifier = { add = 15 has_opinion = { target = FROM value > 40 } }
+modifier = { add = 15 has_opinion = { target = FROM value > 80 } }
+modifier = { factor = 0.5 has_opinion = { target = FROM value < -20 } }"""
+ANTON_NO = """base = 50
+modifier = { factor = 0.6 communism > 0.6 }
+modifier = { factor = 0.5 has_government = communism }
+modifier = { factor = 0.7 has_opinion = { target = FROM value > 40 } }
+modifier = { add = 30 has_opinion = { target = FROM value < -20 } }"""
+GEORGI_YES = """base = 35
+modifier = { add = 15 has_opinion = { target = FROM value > 20 } }
+modifier = { add = 15 has_opinion = { target = FROM value > 50 } }
+modifier = { add = 10 has_opinion = { target = FROM value > 80 } }
+modifier = { add = 10 communism > 0.2 }
+modifier = { factor = 0.4 has_opinion = { target = FROM value < 0 } }
+modifier = { factor = 0.5 is_in_faction = yes }"""
+GEORGI_NO = """base = 35
+modifier = { add = 20 has_opinion = { target = FROM value < 0 } }
+modifier = { add = 20 has_opinion = { target = FROM value < -40 } }
+modifier = { factor = 0.7 has_opinion = { target = FROM value > 50 } }"""
+
 # Events of the Sredets tree: number: (title, description, options [(text, effect, AI chance)], picture)
 EVENTS = {
     "1": ("Henry's Mom Was Right",
@@ -497,10 +524,10 @@ EVENTS = {
 	if = { limit = { is_in_faction = no } create_faction = EVIL_SOFIA_RED_CENTRE }
 	add_to_faction = OBR
 	country_event = { id = evil_sofia_srd.3 }
-}""", 70),
+}""", ANTON_YES),
            ("Oborishte bows to no one. Show him out.",
             "FROM = { create_wargoal = { type = annex_everything target = OBR } country_event = { id = evil_sofia_srd.4 } }",
-            30)],
+            ANTON_NO)],
           "GFX_report_event_generic_sign_treaty1"),
     "3": ("Anton Says Yes",
           "Anton Zafirov came down the stairs himself and shook Victor's hand in front of the doorman. By midnight "
@@ -534,9 +561,9 @@ EVENTS = {
 	country_event = { id = evil_sofia_srd.9 }
 }
 add_opinion_modifier = { target = FROM modifier = evil_sofia_day_ones }
-FROM = { add_opinion_modifier = { target = ROOT modifier = evil_sofia_day_ones } }""", 80),
+FROM = { add_opinion_modifier = { target = ROOT modifier = evil_sofia_day_ones } }""", GEORGI_YES),
            ("I'm sorry, Victor. Lozenets stays out of this.",
-            "FROM = { country_event = { id = evil_sofia_srd.10 } }", 20)],
+            "FROM = { country_event = { id = evil_sofia_srd.10 } }", GEORGI_NO)],
           "GFX_report_event_generic_sign_treaty1"),
     "8": ("A Red Coup in Oborishte",
           "At three in the morning the barracks on Shipka Street opened their gates, and by five the district hall "

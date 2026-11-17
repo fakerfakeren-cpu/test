@@ -29,7 +29,17 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = evil_sofia_srd.2.a
-		ai_chance = { factor = 70 }
+		ai_chance = {
+			base = 10
+			modifier = { add = 25 has_government = communism }
+			modifier = { add = 15 communism > 0.45 }
+			modifier = { add = 15 communism > 0.6 }
+			modifier = { add = 10 communism > 0.75 }
+			modifier = { add = 10 has_opinion = { target = FROM value > 0 } }
+			modifier = { add = 15 has_opinion = { target = FROM value > 40 } }
+			modifier = { add = 15 has_opinion = { target = FROM value > 80 } }
+			modifier = { factor = 0.5 has_opinion = { target = FROM value < -20 } }
+		}
 		if = {
 			limit = { NOT = { has_government = communism } }
 			set_popularities = { communism = 60 neutrality = 40 democratic = 0 fascism = 0 }
@@ -51,7 +61,13 @@ country_event = {
 	}
 	option = {
 		name = evil_sofia_srd.2.b
-		ai_chance = { factor = 30 }
+		ai_chance = {
+			base = 50
+			modifier = { factor = 0.6 communism > 0.6 }
+			modifier = { factor = 0.5 has_government = communism }
+			modifier = { factor = 0.7 has_opinion = { target = FROM value > 40 } }
+			modifier = { add = 30 has_opinion = { target = FROM value < -20 } }
+		}
 		FROM = { create_wargoal = { type = annex_everything target = OBR } country_event = { id = evil_sofia_srd.4 } }
 	}
 }
@@ -113,7 +129,15 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = evil_sofia_srd.7.a
-		ai_chance = { factor = 80 }
+		ai_chance = {
+			base = 35
+			modifier = { add = 15 has_opinion = { target = FROM value > 20 } }
+			modifier = { add = 15 has_opinion = { target = FROM value > 50 } }
+			modifier = { add = 10 has_opinion = { target = FROM value > 80 } }
+			modifier = { add = 10 communism > 0.2 }
+			modifier = { factor = 0.4 has_opinion = { target = FROM value < 0 } }
+			modifier = { factor = 0.5 is_in_faction = yes }
+		}
 		FROM = {
 			if = { limit = { is_in_faction = no } create_faction = EVIL_SOFIA_RED_CENTRE }
 			add_to_faction = LOZ
@@ -125,7 +149,12 @@ country_event = {
 	}
 	option = {
 		name = evil_sofia_srd.7.b
-		ai_chance = { factor = 20 }
+		ai_chance = {
+			base = 35
+			modifier = { add = 20 has_opinion = { target = FROM value < 0 } }
+			modifier = { add = 20 has_opinion = { target = FROM value < -40 } }
+			modifier = { factor = 0.7 has_opinion = { target = FROM value > 50 } }
+		}
 		FROM = { country_event = { id = evil_sofia_srd.10 } }
 	}
 }

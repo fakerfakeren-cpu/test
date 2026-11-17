@@ -2,7 +2,7 @@
 
 Event: title, description, picture (flags, mood), options [(text, effect, AI chance, trigger)], and for the random
 events a mean time to happen and a trigger. In news, FROM is the country the news is about. Random events fire at
-most once per country (a country flag remembers them).
+most once per country (a country flag remembers them), and after one fires a country gets no other for two years.
 """
 
 NEWS = {   # namespace evil_sofia_news; major news is shown to every country
@@ -71,65 +71,59 @@ FLAVOUR = {   # namespace evil_sofia_flavour: random events of city life, for ev
           "The tram drivers of [Root.GetName] have walked off the job. Their demands are simple: paid wages, a "
           "working heater in every carriage and an end to being shot at on the lines that run near the front. "
           "Without the trams, nobody gets to work.",
-          (["SOFIA"], "rain"), 1400, "",
+          (["SOFIA"], "rain"), 4200, "",
           [("Pay them. We need the trams.", "add_political_power = -40", 60, ""),
            ("Soldiers can drive trams.", "add_stability = -0.04\nadd_war_support = 0.02", 40, "")]),
     "2": ("Derby Day",
           "Levski and CSKA are playing tonight, war or no war. Half of [Root.GetName] supports one side, half the "
           "other, and the guards are asking whether the match should be stopped before the stands turn into a "
           "front line of their own.",
-          (["LEVSKI", "CSKA"], "night"), 1200, "",
+          (["LEVSKI", "CSKA"], "night"), 3600, "",
           [("Let them play. People need something to cheer.", "add_stability = 0.03\nadd_war_support = -0.02", 60, ""),
            ("Call it off. Send the fans to the recruiting office.", "add_manpower = 2000\nadd_stability = -0.03", 40, "")]),
     "3": ("The Big Snow",
           "Snow has been falling on [Root.GetName] for three days. The streets are impassable, the trucks are stuck "
           "and the guards spend more time digging than drilling. Everyone with a shovel is needed.",
-          (["SOFIA"], "snow"), 1500, "",
+          (["SOFIA"], "snow"), 4500, "",
           [("Everyone out with a shovel.", "add_political_power = -25\nadd_stability = 0.02", 50, ""),
            ("The front first, the streets later.", "add_stability = -0.03", 50, "")]),
     "4": ("The Pothole Committee",
           "A delegation of furious residents has arrived at the district hall of [Root.GetName] with photographs of "
           "the worst potholes in the district. One of them has swallowed an army truck. They will not leave until "
           "something is done.",
-          (["SOFIA"], "day"), 1500, "",
+          (["SOFIA"], "day"), 4500, "",
           [("Fill them in. All of them.", "add_political_power = -30\nadd_stability = 0.03", 50, ""),
            ("Potholes slow down enemy tanks too.", "add_war_support = 0.02\nadd_stability = -0.02", 50, "")]),
     "5": ("The Price of a Döner",
           "The price of a döner in [Root.GetName] has doubled in a month. The kebab shops blame the war, the war "
           "blames the kebab shops, and the soldiers are eating bread and lyutenitsa again. Morale is suffering.",
-          (["SOFIA"], "night"), 1300, "",
+          (["SOFIA"], "night"), 3900, "",
           [("Fix the price. The soldiers must eat.", "add_political_power = -35\nadd_war_support = 0.03", 60, ""),
            ("Bread and lyutenitsa never hurt anybody.", "add_war_support = -0.03", 40, "")]),
     "6": ("The Stray Dogs of Sofia",
           "Packs of stray dogs have taken over the parks of [Root.GetName]. They follow patrols, steal from the "
           "field kitchens and bark at night until nobody can sleep. A guard sergeant has proposed adopting the "
           "whole pack as the district's mascot.",
-          (["SOFIA"], "dusk"), 1600, "",
+          (["SOFIA"], "dusk"), 4800, "",
           [("Adopt them. Every unit gets a dog.", "add_stability = 0.02\nadd_war_support = 0.02", 50, ""),
            ("Round them up and send them to the countryside.", "add_political_power = 20", 50, "")]),
-    "7": ("The Mineral Springs Run Dry",
-          "The public taps of mineral water in [Root.GetName] have stopped running. Sofians have drunk from them "
-          "for two thousand years; the queues of people with empty bottles are growing angrier every hour.",
-          (["SOFIA"], "heat"), 1600, "",
-          [("Send engineers to the springs.", "add_political_power = -25\nadd_stability = 0.02", 60, ""),
-           ("Water is water. Use the taps at home.", "add_stability = -0.03", 40, "")]),
-    "8": ("Weddings on Every Block",
+    "7": ("Weddings on Every Block",
           "The war has started a wave of weddings in [Root.GetName]. Every weekend the brass bands play in the "
           "courtyards of the panel blocks, and the young men go off to the front a few days later with rings on "
           "their fingers.",
-          (["SOFIA"], "dusk"), 1500, "",
+          (["SOFIA"], "dusk"), 4500, "",
           [("Wish them luck, and give them rifles.", "add_manpower = 1500\nadd_war_support = 0.02", 60, ""),
            ("Grant every groom a month of leave.", "add_stability = 0.04\nadd_political_power = -15", 40, "")]),
-    "9": ("A Black Market on the Women's Market",
+    "8": ("A Black Market on the Women's Market",
           "Everything is for sale in [Root.GetName] if you know whom to ask: rifles, petrol, cigarettes, ammunition "
           "and, for the right price, a commission in the district guard.",
-          (["SOFIA"], "night"), 1400, "",
+          (["SOFIA"], "night"), 4200, "",
           [("Close it down.", "add_stability = 0.02\nadd_political_power = -20", 50, ""),
            ("Tax it.", "add_political_power = 40\nadd_stability = -0.03", 50, "")]),
-    "10": ("Hikers on Cherni Vrah",
+    "9": ("Hikers on Cherni Vrah",
            "A group of hikers from [Root.GetName] has climbed Cherni Vrah, the highest peak of Vitosha, and planted "
            "the district flag on the summit. The photograph is in every newspaper of the city.",
-           (["VIT"], "snow"), 1800, "",
+           (["VIT"], "snow"), 5400, "",
            [("Print it on the posters.", "add_war_support = 0.03", 70, ""),
             ("Send them to the mountain troops.", "army_experience = 5", 30, "")]),
 }

@@ -106,7 +106,8 @@ by the Hoi4_world_map project (github.com/derprito64bit/Hoi4_world_map):
   (`events/evil_sofia_news.txt`: Sredets going red or authoritarian, the pact, the fall of Oborishte and Boyana, the
   two endings, and any district capitulating) and random events of city life for every district
   (`events/evil_sofia_flavour.txt`, from `tools/events_world.py`: tram strikes, the derby, snow, potholes, döner
-  prices, stray dogs, mineral springs, weddings, the black market, Cherni Vrah; each at most once per country).
+  prices, stray dogs, weddings, the black market, Cherni Vrah; each at most once per country, rare (10 to 15 years
+  on average), and never two within two years for the same country).
   Their pictures are drawn by `tools/event_pictures.py`: the districts' flags waving over a skyline of Sofia.
 - Flags come from the "Flags of Sofia and her regions" sheet, one image per district in `tools/flags/<TAG>.png`;
   the build scales them to the game's three flag sizes.
