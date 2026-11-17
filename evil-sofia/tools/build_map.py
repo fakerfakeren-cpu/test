@@ -1487,8 +1487,7 @@ write("map/weatherpositions.txt", "\n".join(wpos) + "\n")
 # Every key is unique to the mod (vanilla's STATE_1, STRATEGICREGION_1... would win otherwise), and the file
 # goes into localisation/english/replace, which also beats vanilla's VICTORY_POINTS_<province> names.
 loc = ["l_english:", ' EVIL_SOFIA_START_NAME:0 "The Fall of Sofia"',
-       ' EVIL_SOFIA_START_DESC:0 "1 January 2026. The city council has collapsed. Twenty-four districts, twenty-four warlords. Only one will rule Sofia."',
-       ' EVIL_SOFIA_OTHER_DESC:0 "Every district of Sofia can be played: pick one of the flags below or any district on the map."']
+       ' EVIL_SOFIA_START_DESC:0 "1 January 2026. The city council has collapsed. Twenty-four districts, twenty-four warlords. Only one will rule Sofia."']
 for st in states:
     st["built"], st["area"] = state_sum(st, P_BUILT), state_sum(st, P_AREA)
 for k, (tag, name, adj_, cat, pop) in DISTRICTS.items():
@@ -1833,9 +1832,6 @@ write("common/bookmarks/the_fall_of_sofia.txt", f"""bookmarks = {{
 \t\tdefault = yes
 
 {chr(10).join(featured_entries[t] for t in FEATURED)}
-\t\t"---" = {{
-\t\t\thistory = "EVIL_SOFIA_OTHER_DESC"
-\t\t}}
 {chr(10).join(bookmark_countries)}
 
 \t\teffect = {{

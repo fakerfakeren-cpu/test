@@ -1,7 +1,6 @@
 ﻿l_english:
  EVIL_SOFIA_START_NAME:0 "The Fall of Sofia"
  EVIL_SOFIA_START_DESC:0 "1 January 2026. The city council has collapsed. Twenty-four districts, twenty-four warlords. Only one will rule Sofia."
- EVIL_SOFIA_OTHER_DESC:0 "Every district of Sofia can be played: pick one of the flags below or any district on the map."
  EVIL_SOFIA_STATE_1:0 "Sredets"
  VICTORY_POINTS_1:0 "City Centre"
  VICTORY_POINTS_4:0 "Doctor's Garden"

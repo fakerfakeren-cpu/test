@@ -39,9 +39,6 @@ bookmarks = {
 			history = "EVIL_SOFIA_VIT_DESC"
 			ideology = neutrality
 		}
-		"---" = {
-			history = "EVIL_SOFIA_OTHER_DESC"
-		}
 		VAZ = {
 			minor = yes
 			history = "EVIL_SOFIA_START_DESC"
