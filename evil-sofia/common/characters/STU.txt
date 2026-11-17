@@ -2,8 +2,9 @@ characters = {
 	STU_leader = {
 		name = STU_leader
 		country_leader = {
+			desc = "STU_leader_desc"
 			ideology = despotism
-			expire = "2100.1.1.1"
+			expire = "1965.1.1.1"
 			id = -1
 		}
 	}
@@ -17,6 +18,39 @@ characters = {
 			planning_skill = 2
 			logistics_skill = 2
 			legacy_id = -1
+		}
+	}
+	STU_advisor_1 = {
+		name = STU_advisor_1
+		advisor = {
+			slot = political_advisor
+			idea_token = STU_advisor_1
+			allowed = { original_tag = STU }
+			traits = { evil_sofia_professor }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	STU_advisor_2 = {
+		name = STU_advisor_2
+		advisor = {
+			slot = political_advisor
+			idea_token = STU_advisor_2
+			allowed = { original_tag = STU }
+			traits = { evil_sofia_loudspeaker }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	STU_advisor_3 = {
+		name = STU_advisor_3
+		advisor = {
+			slot = army_chief
+			idea_token = STU_advisor_3
+			allowed = { original_tag = STU }
+			traits = { evil_sofia_street_fighter }
+			cost = 75
+			ai_will_do = { factor = 1 }
 		}
 	}
 }

@@ -4,6 +4,7 @@ country_event = {
 	id = evil_sofia_srd.1
 	title = evil_sofia_srd.1.t
 	desc = evil_sofia_srd.1.d
+	picture = GFX_evil_sofia_evil_sofia_srd_1
 	is_triggered_only = yes
 	option = {
 		name = evil_sofia_srd.1.a
@@ -24,6 +25,7 @@ country_event = {
 	id = evil_sofia_srd.2
 	title = evil_sofia_srd.2.t
 	desc = evil_sofia_srd.2.d
+	picture = GFX_evil_sofia_evil_sofia_srd_2
 	is_triggered_only = yes
 	option = {
 		name = evil_sofia_srd.2.a
@@ -34,7 +36,7 @@ country_event = {
 			set_politics = { ruling_party = communism elections_allowed = no }
 			add_country_leader_role = {
 				character = OBR_leader
-				country_leader = { ideology = leninism expire = "2100.1.1.1" }
+				country_leader = { ideology = leninism expire = "1965.1.1.1" }
 				promote_leader = yes
 			}
 			set_cosmetic_tag = OBR_RED
@@ -58,6 +60,7 @@ country_event = {
 	id = evil_sofia_srd.3
 	title = evil_sofia_srd.3.t
 	desc = evil_sofia_srd.3.d
+	picture = GFX_evil_sofia_evil_sofia_srd_3
 	is_triggered_only = yes
 	option = {
 		name = evil_sofia_srd.3.a
@@ -69,6 +72,7 @@ country_event = {
 	id = evil_sofia_srd.4
 	title = evil_sofia_srd.4.t
 	desc = evil_sofia_srd.4.d
+	picture = GFX_evil_sofia_evil_sofia_srd_4
 	is_triggered_only = yes
 	option = {
 		name = evil_sofia_srd.4.a
@@ -80,6 +84,7 @@ country_event = {
 	id = evil_sofia_srd.5
 	title = evil_sofia_srd.5.t
 	desc = evil_sofia_srd.5.d
+	picture = GFX_evil_sofia_evil_sofia_srd_5
 	is_triggered_only = yes
 	option = {
 		name = evil_sofia_srd.5.a
@@ -91,6 +96,7 @@ country_event = {
 	id = evil_sofia_srd.6
 	title = evil_sofia_srd.6.t
 	desc = evil_sofia_srd.6.d
+	picture = GFX_evil_sofia_evil_sofia_srd_6
 	is_triggered_only = yes
 	option = {
 		name = evil_sofia_srd.6.a
@@ -103,17 +109,24 @@ country_event = {
 	id = evil_sofia_srd.7
 	title = evil_sofia_srd.7.t
 	desc = evil_sofia_srd.7.d
+	picture = GFX_evil_sofia_evil_sofia_srd_7
 	is_triggered_only = yes
 	option = {
 		name = evil_sofia_srd.7.a
-		ai_chance = { factor = 60 }
-		give_military_access = FROM
-		FROM = { country_event = { id = evil_sofia_srd.9 } }
+		ai_chance = { factor = 80 }
+		FROM = {
+			if = { limit = { is_in_faction = no } create_faction = EVIL_SOFIA_RED_CENTRE }
+			add_to_faction = LOZ
+			set_country_flag = SRD_boyana_road_open
+			country_event = { id = evil_sofia_srd.9 }
+		}
+		add_opinion_modifier = { target = FROM modifier = evil_sofia_day_ones }
+		FROM = { add_opinion_modifier = { target = ROOT modifier = evil_sofia_day_ones } }
 	}
 	option = {
 		name = evil_sofia_srd.7.b
-		ai_chance = { factor = 40 }
-		FROM = { create_wargoal = { type = annex_everything target = LOZ } country_event = { id = evil_sofia_srd.10 } }
+		ai_chance = { factor = 20 }
+		FROM = { country_event = { id = evil_sofia_srd.10 } }
 	}
 }
 
@@ -121,6 +134,7 @@ country_event = {
 	id = evil_sofia_srd.8
 	title = evil_sofia_srd.8.t
 	desc = evil_sofia_srd.8.d
+	picture = GFX_evil_sofia_evil_sofia_srd_8
 	is_triggered_only = yes
 	option = {
 		name = evil_sofia_srd.8.a
@@ -132,6 +146,7 @@ country_event = {
 	id = evil_sofia_srd.9
 	title = evil_sofia_srd.9.t
 	desc = evil_sofia_srd.9.d
+	picture = GFX_evil_sofia_evil_sofia_srd_9
 	is_triggered_only = yes
 	option = {
 		name = evil_sofia_srd.9.a
@@ -143,9 +158,17 @@ country_event = {
 	id = evil_sofia_srd.10
 	title = evil_sofia_srd.10.t
 	desc = evil_sofia_srd.10.d
+	picture = GFX_evil_sofia_evil_sofia_srd_10
 	is_triggered_only = yes
 	option = {
 		name = evil_sofia_srd.10.a
-		ai_chance = { factor = 1 }
+		ai_chance = { factor = 30 }
+		create_wargoal = { type = annex_everything target = FROM }
+		set_country_flag = SRD_boyana_road_open
+	}
+	option = {
+		name = evil_sofia_srd.10.b
+		ai_chance = { factor = 70 }
+		add_political_power = 25
 	}
 }

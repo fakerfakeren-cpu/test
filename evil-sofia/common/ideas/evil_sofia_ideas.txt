@@ -9,8 +9,8 @@ ideas = {
 				consumer_goods_factor = -0.05
 			}
 		}
-		SRD_peoples_militia = {
-			picture = SRD_peoples_militia
+		SRD_militia_spirit = {
+			picture = SRD_militia_spirit
 			allowed = { always = no }
 			modifier = {
 				conscription = 0.01
@@ -25,12 +25,20 @@ ideas = {
 				political_power_factor = 0.05
 			}
 		}
-		SRD_universal_service = {
-			picture = SRD_universal_service
+		SRD_universal_service_spirit = {
+			picture = SRD_universal_service_spirit
 			allowed = { always = no }
 			modifier = {
 				conscription = 0.02
 				stability_factor = -0.02
+			}
+		}
+		SRD_emulation_spirit = {
+			picture = SRD_emulation_spirit
+			allowed = { always = no }
+			modifier = {
+				production_speed_buildings_factor = 0.05
+				industrial_capacity_factory = 0.05
 			}
 		}
 	}

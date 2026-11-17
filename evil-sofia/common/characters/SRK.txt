@@ -2,8 +2,9 @@ characters = {
 	SRK_leader = {
 		name = SRK_leader
 		country_leader = {
+			desc = "SRK_leader_desc"
 			ideology = despotism
-			expire = "2100.1.1.1"
+			expire = "1965.1.1.1"
 			id = -1
 		}
 	}
@@ -17,6 +18,39 @@ characters = {
 			planning_skill = 2
 			logistics_skill = 2
 			legacy_id = -1
+		}
+	}
+	SRK_advisor_1 = {
+		name = SRK_advisor_1
+		advisor = {
+			slot = political_advisor
+			idea_token = SRK_advisor_1
+			allowed = { original_tag = SRK }
+			traits = { evil_sofia_municipal_engineer }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	SRK_advisor_2 = {
+		name = SRK_advisor_2
+		advisor = {
+			slot = political_advisor
+			idea_token = SRK_advisor_2
+			allowed = { original_tag = SRK }
+			traits = { evil_sofia_tax_collector }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	SRK_advisor_3 = {
+		name = SRK_advisor_3
+		advisor = {
+			slot = army_chief
+			idea_token = SRK_advisor_3
+			allowed = { original_tag = SRK }
+			traits = { evil_sofia_quartermaster }
+			cost = 75
+			ai_will_do = { factor = 1 }
 		}
 	}
 }

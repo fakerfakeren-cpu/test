@@ -2,8 +2,9 @@ characters = {
 	ISK_leader = {
 		name = ISK_leader
 		country_leader = {
+			desc = "ISK_leader_desc"
 			ideology = despotism
-			expire = "2100.1.1.1"
+			expire = "1965.1.1.1"
 			id = -1
 		}
 	}
@@ -17,6 +18,39 @@ characters = {
 			planning_skill = 2
 			logistics_skill = 2
 			legacy_id = -1
+		}
+	}
+	ISK_advisor_1 = {
+		name = ISK_advisor_1
+		advisor = {
+			slot = political_advisor
+			idea_token = ISK_advisor_1
+			allowed = { original_tag = ISK }
+			traits = { evil_sofia_market_boss }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	ISK_advisor_2 = {
+		name = ISK_advisor_2
+		advisor = {
+			slot = political_advisor
+			idea_token = ISK_advisor_2
+			allowed = { original_tag = ISK }
+			traits = { evil_sofia_recruiter }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	ISK_advisor_3 = {
+		name = ISK_advisor_3
+		advisor = {
+			slot = army_chief
+			idea_token = ISK_advisor_3
+			allowed = { original_tag = ISK }
+			traits = { evil_sofia_drillmaster }
+			cost = 75
+			ai_will_do = { factor = 1 }
 		}
 	}
 }

@@ -6,9 +6,6 @@ local function set(tbl, ns, key, value)
 end
 -- One map pixel is about 47 m in reality; 1.5 km per pixel keeps unit movement close to vanilla pacing.
 set(NDefines, "NGame", "MAP_SCALE_PIXEL_TO_KM", 1.5)
--- The game starts on 1 January 2026; without a later end date it would be over before it began.
-set(NDefines, "NGame", "START_DATE", "2026.1.1.12")
-set(NDefines, "NGame", "END_DATE", "2100.1.1.1")
 -- The main menu camera looks at the city.
 for _, tbl in ipairs({NDefines, NDefines_Graphics}) do
 	set(tbl, "NFrontend", "CAMERA_LOOKAT_X", 2815.5)

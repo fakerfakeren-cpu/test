@@ -104,6 +104,14 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/evil_sofia/SRD_barricades_on_vitosha.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_SRD_red_officer_school"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_red_officer_school.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_tram_depot_tank_works"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_tram_depot_tank_works.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_SRD_universal_service"
 		texturefile = "gfx/interface/goals/evil_sofia/SRD_universal_service.dds"
 	}
@@ -156,11 +164,19 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/evil_sofia/SRD_red_university.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_SRD_socialist_emulation"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_socialist_emulation.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_SRD_five_year_plan"
 		texturefile = "gfx/interface/goals/evil_sofia/SRD_five_year_plan.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_SRD_star_on_the_party_house"
 		texturefile = "gfx/interface/goals/evil_sofia/SRD_star_on_the_party_house.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_electrify_the_districts"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_electrify_the_districts.dds"
 	}
 }

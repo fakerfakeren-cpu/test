@@ -2,8 +2,9 @@ characters = {
 	POD_leader = {
 		name = POD_leader
 		country_leader = {
+			desc = "POD_leader_desc"
 			ideology = despotism
-			expire = "2100.1.1.1"
+			expire = "1965.1.1.1"
 			id = -1
 		}
 	}
@@ -17,6 +18,39 @@ characters = {
 			planning_skill = 2
 			logistics_skill = 2
 			legacy_id = -1
+		}
+	}
+	POD_advisor_1 = {
+		name = POD_advisor_1
+		advisor = {
+			slot = political_advisor
+			idea_token = POD_advisor_1
+			allowed = { original_tag = POD }
+			traits = { evil_sofia_garage_gunsmith }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	POD_advisor_2 = {
+		name = POD_advisor_2
+		advisor = {
+			slot = political_advisor
+			idea_token = POD_advisor_2
+			allowed = { original_tag = POD }
+			traits = { evil_sofia_recruiter }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	POD_advisor_3 = {
+		name = POD_advisor_3
+		advisor = {
+			slot = army_chief
+			idea_token = POD_advisor_3
+			allowed = { original_tag = POD }
+			traits = { evil_sofia_street_fighter }
+			cost = 75
+			ai_will_do = { factor = 1 }
 		}
 	}
 }

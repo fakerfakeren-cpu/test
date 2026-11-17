@@ -1,0 +1,114 @@
+spriteTypes = {
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_srd_1"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_1.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_srd_2"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_2.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_srd_3"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_3.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_srd_4"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_4.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_srd_5"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_5.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_srd_6"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_6.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_srd_7"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_7.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_srd_8"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_8.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_srd_9"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_9.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_srd_10"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_10.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_news_1"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_news_1.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_news_2"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_news_2.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_news_3"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_news_3.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_news_4"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_news_4.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_news_5"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_news_5.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_news_6"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_news_6.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_news_7"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_news_7.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_news_8"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_news_8.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_flavour_1"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_flavour_1.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_flavour_2"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_flavour_2.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_flavour_3"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_flavour_3.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_flavour_4"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_flavour_4.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_flavour_5"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_flavour_5.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_flavour_6"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_flavour_6.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_flavour_7"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_flavour_7.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_flavour_8"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_flavour_8.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_flavour_9"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_flavour_9.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_flavour_10"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_flavour_10.dds"
+	}
+}

@@ -33,7 +33,7 @@ SRD_oborishte_question = {
 				set_politics = { ruling_party = communism elections_allowed = no }
 				add_country_leader_role = {
 					character = OBR_leader
-					country_leader = { ideology = leninism expire = "2100.1.1.1" }
+					country_leader = { ideology = leninism expire = "1965.1.1.1" }
 					promote_leader = yes
 				}
 				set_cosmetic_tag = OBR_RED

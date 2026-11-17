@@ -4,5 +4,74 @@ leader_traits = {
 		communism_drift = -0.20
 		communism_acceptance = -200
 		war_support_factor = 0.05
+		ai_will_do = { factor = 1 }
+	}
+	evil_sofia_market_boss = {
+		random = no
+		production_speed_industrial_complex_factor = 0.10
+		ai_will_do = { factor = 1 }
+	}
+	evil_sofia_garage_gunsmith = {
+		random = no
+		production_speed_arms_factory_factor = 0.10
+		ai_will_do = { factor = 1 }
+	}
+	evil_sofia_block_organiser = {
+		random = no
+		stability_factor = 0.05
+		political_power_factor = 0.05
+		ai_will_do = { factor = 1 }
+	}
+	evil_sofia_loudspeaker = {
+		random = no
+		war_support_factor = 0.05
+		political_power_factor = 0.05
+		ai_will_do = { factor = 1 }
+	}
+	evil_sofia_municipal_engineer = {
+		random = no
+		production_speed_bunker_factor = 0.25
+		production_speed_infrastructure_factor = 0.15
+		ai_will_do = { factor = 1 }
+	}
+	evil_sofia_tax_collector = {
+		random = no
+		consumer_goods_factor = -0.03
+		ai_will_do = { factor = 1 }
+	}
+	evil_sofia_professor = {
+		random = no
+		research_speed_factor = 0.03
+		ai_will_do = { factor = 1 }
+	}
+	evil_sofia_recruiter = {
+		random = no
+		conscription_factor = 0.08
+		ai_will_do = { factor = 1 }
+	}
+	evil_sofia_street_fighter = {
+		random = no
+		army_attack_factor = 0.05
+		ai_will_do = { factor = 1 }
+	}
+	evil_sofia_block_defender = {
+		random = no
+		army_defence_factor = 0.05
+		ai_will_do = { factor = 1 }
+	}
+	evil_sofia_drillmaster = {
+		random = no
+		training_time_factor = -0.10
+		ai_will_do = { factor = 1 }
+	}
+	evil_sofia_quartermaster = {
+		random = no
+		supply_consumption_factor = -0.05
+		ai_will_do = { factor = 1 }
+	}
+	evil_sofia_morale_officer = {
+		random = no
+		army_morale_factor = 0.05
+		ai_will_do = { factor = 1 }
 	}
 }

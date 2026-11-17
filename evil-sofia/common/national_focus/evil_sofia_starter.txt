@@ -14,7 +14,7 @@ focus_tree = {
 		icon = GFX_goal_generic_political_pressure
 		x = 1
 		y = 0
-		cost = 10
+		cost = 5
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -27,7 +27,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		prerequisite = { focus = ESF_seize_the_district_hall }
-		cost = 10
+		cost = 6
 		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -40,7 +40,7 @@ focus_tree = {
 		x = 2
 		y = 1
 		prerequisite = { focus = ESF_seize_the_district_hall }
-		cost = 10
+		cost = 6
 		search_filters = { FOCUS_FILTER_STABILITY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -53,7 +53,7 @@ focus_tree = {
 		x = 1
 		y = 2
 		prerequisite = { focus = ESF_martial_law focus = ESF_neighbourhood_patrols }
-		cost = 10
+		cost = 8
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -67,7 +67,7 @@ focus_tree = {
 		icon = GFX_goal_generic_construct_infrastructure
 		x = 5
 		y = 0
-		cost = 10
+		cost = 7
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -115,7 +115,7 @@ focus_tree = {
 		x = 5
 		y = 2
 		prerequisite = { focus = ESF_district_workshops focus = ESF_arms_workshops }
-		cost = 10
+		cost = 9
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -128,7 +128,7 @@ focus_tree = {
 		x = 5
 		y = 3
 		prerequisite = { focus = ESF_industrial_drive }
-		cost = 10
+		cost = 12
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -140,7 +140,7 @@ focus_tree = {
 		icon = GFX_goal_generic_allies_build_infantry
 		x = 9
 		y = 0
-		cost = 10
+		cost = 5
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -154,7 +154,7 @@ focus_tree = {
 		x = 8
 		y = 1
 		prerequisite = { focus = ESF_raise_the_city_guard }
-		cost = 10
+		cost = 7
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -168,7 +168,7 @@ focus_tree = {
 		x = 10
 		y = 1
 		prerequisite = { focus = ESF_raise_the_city_guard }
-		cost = 10
+		cost = 6
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -181,7 +181,7 @@ focus_tree = {
 		x = 9
 		y = 2
 		prerequisite = { focus = ESF_arm_the_blocks }
-		cost = 10
+		cost = 8
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		ai_will_do = { factor = 1 }
 		completion_reward = {

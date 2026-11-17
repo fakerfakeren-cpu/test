@@ -136,18 +136,32 @@ LEADER_NAMES = {"SRD": "Victor Kolev", "MLA": "Georgi Poryazov", "VIT": "Daniel-
                 "TRD": "Alexander Dimitrov", "LYU": "GrimBoss"}
 # Countries with their own leader are the featured ones on the start screen, with these descriptions; the
 # others are the small flags along the bottom.
-FEATURED = {
-    "SRD": "Sredets, the old heart of Sofia around Vitosha Boulevard and Borisova Gradina.",
-    "OBR": "Oborishte, the district of Alexander Nevsky Cathedral.",
-    "LOZ": "Lozenets, the green slopes between the city centre and Vitosha.",
-    "TRD": "Triaditsa, named after Sofia's medieval name, from Ivan Vazov to South Park.",
-    "KRP": "Krasna Polyana, the western quarters around West Park.",
-    "MLA": "Mladost, four housing estates and Business Park, one of Sofia's most populous districts.",
-    "LYU": "Lyulin, ten housing estates beneath the Lyulin mountain.",
-    "VIT": "Vitosha, from Boyana up the slopes of the mountain that watches over the city.",
-}
+import sys as _sys
+_sys.path.insert(0, os.path.join(ROOT, "tools"))
+import texts as _texts   # start screen and leader descriptions, starting advisors
+FEATURED = _texts.FEATURED
 FEMALE = ["Maria", "Elena", "Ivanka", "Yordanka", "Rositsa", "Desislava", "Vesela", "Teodora", "Milena", "Radka",
           "Stefka", "Tsvetana", "Gergana", "Kalina", "Nevena", "Zornitsa"]
+
+
+def _advisor_names(n):
+    """Names for the starting advisors (men and women), none the same as a leader's or general's."""
+    rng = np.random.default_rng(1878)
+    taken = {f"{FIRST[i]} {SURNAMES[i]}" for i in range(len(FIRST))}
+    names = []
+    while len(names) < n:
+        surname = SURNAMES[rng.integers(len(SURNAMES))]
+        if rng.random() < 0.35:
+            name = f"{FEMALE[rng.integers(len(FEMALE))]} {surname}a"
+        else:
+            name = f"{FIRST[rng.integers(len(FIRST))]} {surname}"
+        if name not in taken:
+            taken.add(name)
+            names.append(name)
+    return names
+
+
+ADVISOR_NAMES = _advisor_names(3 * 24)
 
 
 # Folders whose files are named after states and regions: cleared first, so no stale file survives a rebuild.
@@ -1292,9 +1306,6 @@ local function set(tbl, ns, key, value)
 end
 -- One map pixel is about {M_PER_PX:.0f} m in reality; 1.5 km per pixel keeps unit movement close to vanilla pacing.
 set(NDefines, "NGame", "MAP_SCALE_PIXEL_TO_KM", 1.5)
--- The game starts on 1 January 2026; without a later end date it would be over before it began.
-set(NDefines, "NGame", "START_DATE", "2026.1.1.12")
-set(NDefines, "NGame", "END_DATE", "2100.1.1.1")
 -- The main menu camera looks at the city.
 for _, tbl in ipairs({{NDefines, NDefines_Graphics}}) do
 \tset(tbl, "NFrontend", "CAMERA_LOOKAT_X", {cxm:.1f})
@@ -1490,7 +1501,7 @@ write("map/weatherpositions.txt", "\n".join(wpos) + "\n")
 # Every key is unique to the mod (vanilla's STATE_1, STRATEGICREGION_1... would win otherwise), and the file
 # goes into localisation/english/replace, which also beats vanilla's VICTORY_POINTS_<province> names.
 loc = ["l_english:", ' EVIL_SOFIA_START_NAME:0 "The Fall of Sofia"',
-       ' EVIL_SOFIA_START_DESC:0 "1 January 2026. The city council has collapsed. Twenty-four districts, twenty-four warlords. Only one will rule Sofia."']
+       ' EVIL_SOFIA_START_DESC:0 "1 January 1936. The city council of Sofia has collapsed overnight, and the mayor has fled. In the morning every district hall raises its own flag, every district guard hands out rifles, and every district leader looks at the map and counts the streets to the centre.\\n\\nTwenty-four districts. Twenty-four warlords. Only one will rule Sofia."']
 for st in states:
     st["built"], st["area"] = state_sum(st, P_BUILT), state_sum(st, P_AREA)
 for k, (tag, name, adj_, cat, pop) in DISTRICTS.items():
@@ -1582,12 +1593,30 @@ color = {{ {r} {g} {b} }}
 \t\t\t\tlarge = "gfx/leaders/{tag}/{tag}_leader.dds"
 \t\t\t}}
 \t\t}}"""
+    advisor_blocks = []
+    for i, trait in enumerate(_texts.ADVISORS[tag], 1):
+        cid = f"{tag}_advisor_{i}"
+        slot = _texts.ADVISOR_TRAITS[trait][3]
+        advisor_blocks.append(f"""\t{cid} = {{
+\t\tname = {cid}
+\t\tadvisor = {{
+\t\t\tslot = {slot}
+\t\t\tidea_token = {cid}
+\t\t\tallowed = {{ original_tag = {tag} }}
+\t\t\ttraits = {{ {trait} }}
+\t\t\tcost = {100 if slot == "political_advisor" else 75}
+\t\t\tai_will_do = {{ factor = 1 }}
+\t\t}}
+\t}}""")
+        loc.append(f' {cid}:0 "{ADVISOR_NAMES.pop(0)}"')
+    advisor_blocks = "\n".join(advisor_blocks)
     write(f"common/characters/{tag}.txt", f"""characters = {{
 \t{tag}_leader = {{
 \t\tname = {tag}_leader{portrait}
 \t\tcountry_leader = {{
+\t\t\tdesc = "{tag}_leader_desc"
 \t\t\tideology = despotism{(chr(10) + chr(9) * 3 + "traits = { " + " ".join(LEADER_TRAITS[tag]) + " }") if tag in LEADER_TRAITS else ""}
-\t\t\texpire = "2100.1.1.1"
+\t\t\texpire = "1965.1.1.1"
 \t\t\tid = -1
 \t\t}}
 \t}}
@@ -1603,6 +1632,7 @@ color = {{ {r} {g} {b} }}
 \t\t\tlegacy_id = -1
 \t\t}}
 \t}}
+{advisor_blocks}
 }}
 """)
     write(f"history/countries/{tag} - {name}.txt", f"""capital = {country_capital_state[k]}
@@ -1613,7 +1643,7 @@ set_war_support = 0.5
 
 set_politics = {{
 \truling_party = neutrality
-\tlast_election = "2022.1.1"
+\tlast_election = "1932.1.1"
 \telection_frequency = 48
 \telections_allowed = no
 }}
@@ -1627,7 +1657,7 @@ set_popularities = {{
 recruit_character = {tag}_leader
 recruit_character = {tag}_general
 
-oob = "{tag}_2026"
+oob = "{tag}_1936"
 
 # A basic start like vanilla minor nations: no country starts without technology or an army.
 set_technology = {{
@@ -1648,7 +1678,7 @@ set_technology = {{
 \t\tstart_experience_factor = 0.2
 \t\tstart_equipment_factor = 1.0
 \t}}""" for i in range(n_div))
-    write(f"history/units/{tag}_2026.txt", f"""division_template = {{
+    write(f"history/units/{tag}_1936.txt", f"""division_template = {{
 \tname = "City Guard"
 \tregiments = {{
 \t\tinfantry = {{ x = 0 y = 0 }}
@@ -1681,14 +1711,15 @@ instant_effect = {{
 \tcallsigns = {{ Vitosha Iskar Lion Eagle Hawk Falcon Wolf Bear }}
 }}""")
     if tag in FEATURED:
-        loc.append(f' EVIL_SOFIA_{tag}_DESC:0 "{FEATURED[tag]} {LEADER_NAMES[tag]} rules it."')
+        loc.append(f' EVIL_SOFIA_{tag}_DESC:0 "{FEATURED[tag]}\\n\\nLeader: {LEADER_NAMES[tag]}."')
         featured_entries[tag] = (f"\t\t{tag} = {{\n\t\t\thistory = \"EVIL_SOFIA_{tag}_DESC\"\n"
                                  f"\t\t\tideology = neutrality\n\t\t}}")
     else:
         bookmark_countries.append(f"\t\t{tag} = {{\n\t\t\tminor = yes\n\t\t\thistory = \"EVIL_SOFIA_START_DESC\"\n"
                                   f"\t\t\tideology = neutrality\n\t\t}}")
     loc += [f' {tag}:0 "{name}"', f' {tag}_DEF:0 "{name}"', f' {tag}_ADJ:0 "{adj_}"',
-            f' {tag}_leader:0 "{leader}"', f' {tag}_general:0 "{general[0]} {general[1]}"']
+            f' {tag}_leader:0 "{leader}"', f' {tag}_leader_desc:0 "{_texts.LEADER_DESCS[tag]}"',
+            f' {tag}_general:0 "{general[0]} {general[1]}"']
     # Flags: tools/flags/<TAG>.png, cut from the "Flags of Sofia and her regions" sheet; without one, three
     # stripes in the country colour.
     flag_src = os.path.join(ROOT, "tools", "flags", f"{tag}.png")
@@ -1716,48 +1747,52 @@ STARTER_FOCUSES = [
     # id, x, y, prerequisites (any one of them), icon, search filter, reward, name, description
     ("seize_the_district_hall", 1, 0, [], "GFX_goal_generic_political_pressure", "FOCUS_FILTER_POLITICAL",
      "add_political_power = 120", "Seize the District Hall",
-     "The council is gone. Whoever holds the district hall holds the district."),
+     "The city council has fled and the mayor's office is empty. In every district of Sofia, whoever holds the district hall holds the stamps, the payroll and the keys to the armoury. Tonight it will be us."),
     ("martial_law", 0, 1, ["seize_the_district_hall"], "GFX_goal_generic_propaganda", "FOCUS_FILTER_WAR_SUPPORT",
-     "add_war_support = 0.10", "Martial Law", "Curfews, checkpoints and a soldier on every corner."),
+     "add_war_support = 0.10", "Martial Law", "A curfew from ten in the evening, checkpoints on every bridge and a guard at every tram stop. The people will complain, but they will complain indoors."),
     ("neighbourhood_patrols", 2, 1, ["seize_the_district_hall"], "GFX_goal_generic_national_unity",
      "FOCUS_FILTER_STABILITY", "add_stability = 0.10", "Neighbourhood Patrols",
-     "Every block elects a warden. Every warden answers to us."),
+     "Every block elects a warden, and every warden reports to the district hall: who has moved in, who has moved out and who has been talking to the neighbours across the boulevard."),
     ("propaganda_on_every_block", 1, 2, ["martial_law", "neighbourhood_patrols"], "GFX_goal_generic_propaganda",
      "FOCUS_FILTER_POLITICAL", "add_political_power = 100\n\t\t\tadd_stability = 0.05\n\t\t\tadd_war_support = 0.05",
-     "Propaganda on Every Block", "Posters on every panel block, speakers on every lamp post."),
+     "Propaganda on Every Block", "Posters on every panel block, loudspeakers on every lamp post and our newspaper in every kiosk. By the end of the month there will be nobody in the district who does not know whose side they are on."),
     ("fix_the_streets", 5, 0, [], "GFX_goal_generic_construct_infrastructure", "FOCUS_FILTER_INDUSTRY",
      "random_owned_controlled_state = {\n\t\t\t\tlimit = { free_building_slots = { building = infrastructure size > 0 } }\n"
      "\t\t\t\tadd_building_construction = { type = infrastructure level = 1 instant_build = yes }\n\t\t\t}",
-     "Fix the Streets", "No army marches far on Sofia's potholes."),
+     "Fix the Streets", "Sofia's potholes have broken more axles than any enemy ever will. If our guards are to reach the front, someone has to fill them in first."),
     ("district_workshops", 4, 1, ["fix_the_streets"], "GFX_goal_generic_construct_civ_factory", "FOCUS_FILTER_INDUSTRY",
      "capital_scope = {\n\t\t\t\tadd_extra_state_shared_building_slots = 1\n"
      "\t\t\t\tadd_building_construction = { type = industrial_complex level = 1 instant_build = yes }\n\t\t\t}",
-     "District Workshops", "The shops and garages of the district go back to work, for us."),
+     "District Workshops", "Bakeries, print shops and car repair garages are reopened under district management. They will make what the district needs, and the district needs everything."),
     ("arms_workshops", 6, 1, ["fix_the_streets"], "GFX_goal_generic_construct_mil_factory", "FOCUS_FILTER_INDUSTRY",
      "capital_scope = {\n\t\t\t\tadd_extra_state_shared_building_slots = 1\n"
      "\t\t\t\tadd_building_construction = { type = arms_factory level = 1 instant_build = yes }\n\t\t\t}",
-     "Arms Workshops", "Every garage can make rifles if you ask it nicely enough."),
+     "Arms Workshops", "A lathe in a garage can turn a rifle barrel as well as a car part, given a drawing and some encouragement. Every workshop in the district gets both."),
     ("industrial_drive", 5, 2, ["district_workshops", "arms_workshops"], "GFX_goal_generic_production",
      "FOCUS_FILTER_RESEARCH", "add_tech_bonus = { name = ESF_industrial_drive bonus = 0.5 uses = 2 category = industry }",
-     "Industrial Drive", "Work the night shift. Then work the day shift."),
+     "Industrial Drive", "Two shifts, then three. The workshops never close, the lights never go off and the foremen sleep in their offices."),
     ("district_institute", 5, 3, ["industrial_drive"], "GFX_goal_generic_research", "FOCUS_FILTER_RESEARCH",
-     "add_research_slot = 1", "District Institute", "The university will teach what we need it to teach."),
+     "add_research_slot = 1", "District Institute", "Engineers, chemists and radio men from the city's universities are given a building, a budget and a list of problems the district guard needs solved by spring."),
     ("raise_the_city_guard", 9, 0, [], "GFX_goal_generic_allies_build_infantry", "FOCUS_FILTER_ARMY_XP",
      "army_experience = 10\n\t\t\tadd_tech_bonus = { name = ESF_raise_the_city_guard bonus = 0.5 uses = 1 category = land_doctrine }",
-     "Raise the City Guard", "Every able-bodied resident, from the night guard to the bus driver."),
+     "Raise the City Guard", "Night watchmen, bus drivers, students and pensioners: every resident who can carry a rifle is enrolled in the district guard and given a unit, an armband and a place to report to."),
     ("arm_the_blocks", 8, 1, ["raise_the_city_guard"], "GFX_goal_generic_small_arms", "FOCUS_FILTER_RESEARCH",
      "add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1000 }\n"
      "\t\t\tadd_tech_bonus = { name = ESF_arm_the_blocks bonus = 0.5 uses = 1 category = infantry_weapons }",
-     "Arm the Blocks", "A rifle in every flat, a crate of ammunition in every basement."),
+     "Arm the Blocks", "A rifle in every flat and a crate of ammunition in every basement. If the enemy comes, every staircase in the district will be a fighting position."),
     ("rooftop_air_defence", 10, 1, ["raise_the_city_guard"], "GFX_goal_generic_fortify_city", "FOCUS_FILTER_INDUSTRY",
      "capital_scope = { add_building_construction = { type = anti_air_building level = 1 instant_build = yes } }",
-     "Rooftop Air Defence", "Anti-aircraft guns on the tallest panel blocks."),
+     "Rooftop Air Defence", "The tallest panel blocks in the district get anti-aircraft guns on their roofs and lookouts on the top floor. Nothing will fly over us unseen."),
     ("rooftop_artillery", 9, 2, ["arm_the_blocks"], "GFX_goal_generic_army_artillery", "FOCUS_FILTER_RESEARCH",
      "add_tech_bonus = { name = ESF_rooftop_artillery bonus = 0.5 uses = 1 category = artillery }",
-     "Rooftop Artillery", "From the top of a fourteen-storey block, every street is in range."),
+     "Rooftop Artillery", "From the roof of a fourteen-storey block, every street of the neighbouring district is within range of a field gun. The residents of the top floor have been asked to move downstairs."),
 ]
 starter_tags = [DISTRICTS[k][0] for k in DISTRICTS if DISTRICTS[k][0] not in FEATURED]
 focus_blocks = []
+STARTER_COST = {"seize_the_district_hall": 5, "martial_law": 6, "neighbourhood_patrols": 6,
+                "propaganda_on_every_block": 8, "fix_the_streets": 7, "district_workshops": 10, "arms_workshops": 10,
+                "industrial_drive": 9, "district_institute": 12, "raise_the_city_guard": 5, "arm_the_blocks": 7,
+                "rooftop_air_defence": 6, "rooftop_artillery": 8}
 for fid, fx, fy, prereq, icon, filt, reward, fname, fdesc in STARTER_FOCUSES:
     pre = ("\n\t\tprerequisite = { " + " ".join(f"focus = ESF_{q}" for q in prereq) + " }") if prereq else ""
     focus_blocks.append(f"""\tfocus = {{
@@ -1765,7 +1800,7 @@ for fid, fx, fy, prereq, icon, filt, reward, fname, fdesc in STARTER_FOCUSES:
 \t\ticon = {icon}
 \t\tx = {fx}
 \t\ty = {fy}{pre}
-\t\tcost = 10
+\t\tcost = {STARTER_COST[fid]}
 \t\tsearch_filters = {{ {filt} }}
 \t\tai_will_do = {{ factor = 1 }}
 \t\tcompletion_reward = {{
@@ -1808,8 +1843,13 @@ for path_, size_ in (("gfx/minimap/minimap.dds", (268, 97)), ("gfx/interface/min
 del minimap
 
 # Vanilla on_actions, events and decisions are written for the world map and its countries; they are
-# replaced (descriptor.mod) by this file, which only writes checkpoints to game.log.
+# replaced (descriptor.mod) by this file: checkpoints in game.log, and the news when a district capitulates.
 write("common/on_actions/evil_sofia_on_actions.txt", """on_actions = {
+\ton_capitulation = {
+\t\teffect = {
+\t\t\tnews_event = { id = evil_sofia_news.8 hours = 1 }
+\t\t}
+\t}
 \ton_startup = {
 \t\teffect = {
 \t\t\tlog = "Evil Sofia checkpoint 2: on_startup ran"
@@ -1829,7 +1869,7 @@ write("common/bookmarks/the_fall_of_sofia.txt", f"""bookmarks = {{
 \tbookmark = {{
 \t\tname = "EVIL_SOFIA_START_NAME"
 \t\tdesc = "EVIL_SOFIA_START_DESC"
-\t\tdate = 2026.1.1.12
+\t\tdate = 1936.1.1.12
 \t\tpicture = "GFX_select_date_1936"
 \t\tdefault_country = "SRD"
 \t\tdefault = yes

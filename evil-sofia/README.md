@@ -48,8 +48,8 @@ by the Hoi4_world_map project (github.com/derprito64bit/Hoi4_world_map):
 - Every strategic region passes the engine's region-centre rule (a region whose averaged box centre falls
   outside all its provinces, exactly on the middle column, crashes the game with a divide-by-zero).
 - Vanilla on_actions, events and decisions are written for the world map and its countries, so they are replaced
-  (`replace_path`) by `common/on_actions/evil_sofia_on_actions.txt`, which only writes checkpoints to `game.log`
-  ("Evil Sofia checkpoint 1/2/3"); the `log` effect works without `-debug`. Vanilla AI strategies are kept: an
+  (`replace_path`) by `common/on_actions/evil_sofia_on_actions.txt`, which sends the news when a district
+  capitulates and writes checkpoints to `game.log` ("Evil Sofia checkpoint 1/2/3"); the `log` effect works without `-debug`. Vanilla AI strategies are kept: an
   empty AI strategy folder is the kind of missing database the HOI4 wiki's troubleshooting page warns about.
 - One small sea province (a 96x96 corner of the map, its own naval strategic region) so the naval systems have
   something to work with; vanilla always has sea.
@@ -67,15 +67,17 @@ by the Hoi4_world_map project (github.com/derprito64bit/Hoi4_world_map):
 - The Iskar reservoir and other big lakes inside the city are impassable lake provinces.
 - Rivers (Iskar, Perlovska, Vladayska, Boyanska) follow the real valleys: the cheapest path over the elevation
   between rough waypoints. 1 px wide, 4-connected, one source each, flow-in pixel where a tributary joins.
-- Characters: `common/characters/<TAG>.txt` gives every country a leader (despotism) and a corps commander;
+- Characters: `common/characters/<TAG>.txt` gives every country a leader (despotism) with a description, a corps
+  commander and three starting advisors (two political advisors and an army chief, with the district traits of
+  `tools/texts.py`, which also holds the leader and start screen descriptions);
   `common/names/evil_sofia_names.txt` gives the game Bulgarian names for the characters it generates itself.
   Leaders with their own name and portrait: Sredets Victor Kolev, Oborishte Anton Zafirov, Lozenets Georgi
   Yanchovichin, Triaditsa Alexander Dimitrov, Krasna Polyana Stefan Kartunov, Mladost Georgi Poryazov, Lyulin
   GrimBoss, Vitosha Daniel-Henry Capel. A leader gets a portrait when `tools/portraits/<TAG>.png` exists (any size;
   it is trimmed to the game's 156x210 frame);
   portraits are kept out of the repository (`.gitignore`) and only go into the packaged mod.
-- The game starts on **1 January 2026**. `NGame.START_DATE` and `END_DATE` (2100) are moved in the defines file,
-  otherwise the game would be past its end date at the start. On the start screen the eight countries with their
+- The game starts on **1 January 1936**, vanilla's date, so research years and their ahead-of-time penalty work
+  as in vanilla. On the start screen the eight countries with their
   own leaders are the featured ones, with a short description each; the other sixteen are the small flags below.
   The start screen only shows a minor country as a small flag when it has a focus tree of its own, so those
   sixteen share a small starter tree (`common/national_focus/evil_sofia_starter.txt`, 13 focuses: district hall,
@@ -86,16 +88,26 @@ by the Hoi4_world_map project (github.com/derprito64bit/Hoi4_world_map):
   authoritarian path, one focus for now). The communist path wins Anton Zafirov over (focuses and the decisions of
   "The Oborishte Question", up to a red coup) or destroys him. Allied, Sredets and Oborishte split Sofia and take it
   group by group (the centre, the old quarters, the housing estates, Kremikovtsi, the outskirts), ending as South
-  and North Sofia in the faction "Sofia"; alone, Sredets takes every group and becomes Sofia. Each step gives cores
-  and war goals and opens when the previous group is beaten. Lozenets is asked for passage to reach Daniel-Henry,
-  who has the trait "Hates Communism". Between the two conquest paths, the People's Militia and the Komsomol give
-  manpower as the districts fall; the Party branch adds more manpower, army and air experience and the metro's
-  anti-air; the economy branch factories, the Red University and a research slot. 41 focuses, 3 to 12 weeks long.
+  and North Sofia in the faction "Sofia"; alone, Sredets takes every group and becomes Sofia. Each step gives
+  claims and war goals on the next group and opens once every state of the previous group is held (by us or a
+  faction member); the cores on a group come with the step after it, for the states actually held. On the road to
+  Daniel-Henry (trait "Hates Communism"), Georgi Yanchovichin of Lozenets, Victor's day one, is asked to join the
+  fight (skipped when Lozenets is gone or already an ally). Between the two conquest paths, the People's Militia
+  and the Komsomol give manpower as the districts fall; the Party branch adds more manpower, army and air
+  experience, an officer school, a tank works and anti-air; the economy branch factories, the Red University,
+  socialist emulation, electrification and a research slot. 45 focuses, 3 to 12 weeks long, all with search
+  filters.
   Sredets and Oborishte have communist names and hand-drawn flags (`tools/red_flags.py`: the Sredets rhombuses in
   a wheat wreath, Oborishte's rings turned into a cog with the hammer and sickle, the arms of Sofia on red for Sofia,
   South and North Sofia) and turn red on the map. Icons come from the DuoDex hoi4GFX and Ultimate HOI4 GFX packs (cached in `tools/icons/`);
   the ones with people are cut out of the leaders' portraits by `tools/focus_icons.py` and, like the portraits,
   are kept out of the repository.
+- Events: the Sredets tree's own (`events/evil_sofia_srd.txt`), world news every district sees
+  (`events/evil_sofia_news.txt`: Sredets going red or authoritarian, the pact, the fall of Oborishte and Boyana, the
+  two endings, and any district capitulating) and random events of city life for every district
+  (`events/evil_sofia_flavour.txt`, from `tools/events_world.py`: tram strikes, the derby, snow, potholes, döner
+  prices, stray dogs, mineral springs, weddings, the black market, Cherni Vrah; each at most once per country).
+  Their pictures are drawn by `tools/event_pictures.py`: the districts' flags waving over a skyline of Sofia.
 - Flags come from the "Flags of Sofia and her regions" sheet, one image per district in `tools/flags/<TAG>.png`;
   the build scales them to the game's three flag sizes.
 

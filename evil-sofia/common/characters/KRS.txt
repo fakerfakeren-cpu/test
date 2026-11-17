@@ -2,8 +2,9 @@ characters = {
 	KRS_leader = {
 		name = KRS_leader
 		country_leader = {
+			desc = "KRS_leader_desc"
 			ideology = despotism
-			expire = "2100.1.1.1"
+			expire = "1965.1.1.1"
 			id = -1
 		}
 	}
@@ -17,6 +18,39 @@ characters = {
 			planning_skill = 2
 			logistics_skill = 2
 			legacy_id = -1
+		}
+	}
+	KRS_advisor_1 = {
+		name = KRS_advisor_1
+		advisor = {
+			slot = political_advisor
+			idea_token = KRS_advisor_1
+			allowed = { original_tag = KRS }
+			traits = { evil_sofia_municipal_engineer }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	KRS_advisor_2 = {
+		name = KRS_advisor_2
+		advisor = {
+			slot = political_advisor
+			idea_token = KRS_advisor_2
+			allowed = { original_tag = KRS }
+			traits = { evil_sofia_block_organiser }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	KRS_advisor_3 = {
+		name = KRS_advisor_3
+		advisor = {
+			slot = army_chief
+			idea_token = KRS_advisor_3
+			allowed = { original_tag = KRS }
+			traits = { evil_sofia_drillmaster }
+			cost = 75
+			ai_will_do = { factor = 1 }
 		}
 	}
 }

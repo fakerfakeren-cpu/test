@@ -2,8 +2,9 @@ characters = {
 	IZG_leader = {
 		name = IZG_leader
 		country_leader = {
+			desc = "IZG_leader_desc"
 			ideology = despotism
-			expire = "2100.1.1.1"
+			expire = "1965.1.1.1"
 			id = -1
 		}
 	}
@@ -17,6 +18,39 @@ characters = {
 			planning_skill = 2
 			logistics_skill = 2
 			legacy_id = -1
+		}
+	}
+	IZG_advisor_1 = {
+		name = IZG_advisor_1
+		advisor = {
+			slot = political_advisor
+			idea_token = IZG_advisor_1
+			allowed = { original_tag = IZG }
+			traits = { evil_sofia_professor }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	IZG_advisor_2 = {
+		name = IZG_advisor_2
+		advisor = {
+			slot = political_advisor
+			idea_token = IZG_advisor_2
+			allowed = { original_tag = IZG }
+			traits = { evil_sofia_tax_collector }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	IZG_advisor_3 = {
+		name = IZG_advisor_3
+		advisor = {
+			slot = army_chief
+			idea_token = IZG_advisor_3
+			allowed = { original_tag = IZG }
+			traits = { evil_sofia_block_defender }
+			cost = 75
+			ai_will_do = { factor = 1 }
 		}
 	}
 }

@@ -131,26 +131,37 @@ def build(root, facts, write, write_dds):
     tag = tree.TAG
     states, capital = facts["states"], facts["capital_state"]
 
-    def cores(t):
-        return "\n".join(f"add_state_core = {s['id']}" for s in states if s["owner"] == t)
-
-    def owned_or(tags):
-        return " ".join(f"is_owned_by = {t}" for t in tags)
+    def start_states(tags):
+        return [s_["id"] for s_ in states if s_["owner"] in tags]
 
     fill = {"{OBR_CAP}": str(capital["OBR"]), "{VIT_CAP}": str(capital["VIT"])}
 
-    def gone(t):
-        return f"OR = {{ NOT = {{ country_exists = {t} }} {t} = {{ has_capitulated = yes }} }}"
+    def claims(tags):
+        return "\n".join(f"add_state_claim = {i}" for i in start_states(tags))
+
+    def core_held(t, tags):
+        ids = " ".join(f"state = {i}" for i in start_states(tags))
+        return f"every_state = {{\n\tlimit = {{ OR = {{ {ids} }} is_controlled_by = {t} }}\n\tadd_core_of = {t}\n}}"
+
+    def held(tags):
+        return "\n".join(f"{i} = {{ OR = {{ is_controlled_by = ROOT controller = {{ is_in_faction_with = ROOT }} }} }}"
+                         for i in start_states(tags))
 
     def filled(text):
         for k, v in fill.items():
             text = text.replace(k, v)
-        text = re.sub(r"\{CORES:([A-Z,]+)\}", lambda m: "\n".join(cores(t) for t in m.group(1).split(",")), text)
+        text = re.sub(r"\{CLAIMS:([A-Z,]+)\}", lambda m: claims(m.group(1).split(",")), text)
+        text = re.sub(r"\{COREHELD:([A-Z]+):([A-Z,]+)\}", lambda m: core_held(m.group(1), m.group(2).split(",")), text)
+        text = re.sub(r"\{HELD:([A-Z,]+)\}", lambda m: held(m.group(1).split(",")), text)
         text = re.sub(r"\{WAR:([A-Z,]+)\}", lambda m: "\n".join(
-            f"if = {{ limit = {{ country_exists = {t} NOT = {{ has_war_with = {t} }} }} "
+            f"if = {{ limit = {{ country_exists = {t} NOT = {{ has_war_with = {t} is_in_faction_with = {t} }} }} "
             f"create_wargoal = {{ type = annex_everything target = {t} }} }}" for t in m.group(1).split(",")), text)
-        text = re.sub(r"\{BEATEN:([A-Z,]+)\}", lambda m: "\n".join(gone(t) for t in m.group(1).split(",")), text)
+        assert "{" + "CORES" not in text and not re.search(r"\{[A-Z_]+:", text), text
         return text
+
+    def L(text):
+        """A localisation value: line breaks as the game writes them, no stray quotes."""
+        return text.replace("\n", "\\n").replace('"', "'")
 
     def indent(text, n):
         return "\n".join("\t" * n + ln if ln.strip() else ln for ln in text.split("\n"))
@@ -187,7 +198,7 @@ def build(root, facts, write, write_dds):
             tex = f"gfx/interface/goals/evil_sofia/{tag}_{fid}.dds"
         write_dds(tex, np.asarray(im.convert("RGBA")))
         sprites.append((sprite, tex))
-        loc += [f' {tag}_{fid}:0 "{name}"', f' {tag}_{fid}_desc:0 "{desc}"']
+        loc += [f' {tag}_{fid}:0 "{L(name)}"', f' {tag}_{fid}_desc:0 "{L(desc)}"']
     write("interface/evil_sofia_goals.gfx", "spriteTypes = {\n" + "".join(
         f'\tspriteType = {{\n\t\tname = "{n}"\n\t\ttexturefile = "{t}"\n\t}}\n' for n, t in sprites) + "}\n")
     write("interface/evil_sofia_goals_shine.gfx", "spriteTypes = {\n" + "\n".join(
@@ -203,7 +214,9 @@ def build(root, facts, write, write_dds):
             parts.append("\t\tmutually_exclusive = { " + " ".join(f"focus = {tag}_{q}" for q in mx) + " }")
         if avail:
             parts.append("\t\tavailable = {\n" + indent(filled(avail), 3) + "\n\t\t}")
-        parts += [f"\t\tcost = {weeks}", "\t\tai_will_do = { factor = 1 }",
+        parts += [f"\t\tcost = {weeks}",
+                  "\t\tsearch_filters = { " + " ".join(f"FOCUS_FILTER_{f}" for f in tree.FILTERS[fid]) + " }",
+                  "\t\tai_will_do = { factor = 1 }",
                   "\t\tcompletion_reward = {\n" + indent(filled(reward), 3) + "\n\t\t}"]
         blocks.append("\tfocus = {\n" + "\n".join(parts) + "\n\t}")
     write(f"common/national_focus/evil_sofia_{tag}.txt", f"""focus_tree = {{
@@ -222,26 +235,71 @@ def build(root, facts, write, write_dds):
 }}
 """)
 
-    # ---------------------------------------------------------------- events, opinion, traits, ideas, units
-    ev = ["add_namespace = evil_sofia_srd", ""]
-    for num, (title, desc, options) in tree.EVENTS.items():
-        opts = []
-        for i, (text, effect, chance) in enumerate(options):
-            key = f"evil_sofia_srd.{num}.{'abcdef'[i]}"
-            loc.append(f' {key}:0 "{text}"')
-            body = ("\n" + indent(effect, 2)) if effect else ""
-            opts.append(f"\toption = {{\n\t\tname = {key}\n\t\tai_chance = {{ factor = {chance} }}{body}\n\t}}")
-        loc += [f' evil_sofia_srd.{num}.t:0 "{title}"', f' evil_sofia_srd.{num}.d:0 "{desc}"']
-        ev.append(f"country_event = {{\n\tid = evil_sofia_srd.{num}\n\ttitle = evil_sofia_srd.{num}.t\n"
-                  f"\tdesc = evil_sofia_srd.{num}.d\n\tis_triggered_only = yes\n" + "\n".join(opts) + "\n}\n")
-    write("events/evil_sofia_srd.txt", "\n".join(ev))
-    write("common/opinion_modifiers/evil_sofia.txt",
-          "opinion_modifiers = {\n\tevil_sofia_dirty_communists = {\n\t\tvalue = -100\n\t}\n}\n")
-    loc.append(' evil_sofia_dirty_communists:0 "Dirty communists!"')
+    # ---------------------------------------------------------------- events, pictures, opinion, traits
+    import event_pictures
+    import events_world
+    import texts
+    pictures = {}
+
+    def picture(kind, spec, key):
+        flags, mood = spec
+        name = f"GFX_evil_sofia_{key}"
+        if name not in pictures:
+            im = event_pictures.picture(kind, [event_pictures.flag_image(root, f) for f in flags], mood,
+                                        seed=sum(map(ord, key)))
+            tex = f"gfx/event_pictures/evil_sofia/{key}.dds"
+            write_dds(tex, np.asarray(im))
+            pictures[name] = tex
+        return name
+
+    def events(namespace, items, kind="country", major=False, mtth=False):
+        out = [f"add_namespace = {namespace}", ""]
+        for num, ev in items.items():
+            title, desc, pic = ev[0], ev[1], ev[2]
+            options = ev[-1]
+            eid = f"{namespace}.{num}"
+            opts = []
+            for i, opt in enumerate(options):
+                text, effect, chance = opt[:3]
+                trig = opt[3] if len(opt) > 3 else ""
+                key = f"{eid}.{'abcdef'[i]}"
+                loc.append(f' {key}:0 "{L(text)}"')
+                body = ("\n\t\ttrigger = {\n" + indent(trig, 3) + "\n\t\t}") if trig else ""
+                body += ("\n" + indent(effect, 2)) if effect else ""
+                opts.append(f"\toption = {{\n\t\tname = {key}\n\t\tai_chance = {{ factor = {chance} }}{body}\n\t}}")
+            loc.extend([f' {eid}.t:0 "{L(title)}"', f' {eid}.d:0 "{L(desc)}"'])
+            head = [f"\tid = {eid}", f"\ttitle = {eid}.t", f"\tdesc = {eid}.d",
+                    f"\tpicture = {picture(kind, pic, eid.replace('.', '_'))}"]
+            if major:
+                head.append("\tmajor = yes")
+            if mtth:
+                days, trig = ev[3], ev[4]
+                flag = f"{eid.replace('.', '_')}_happened"
+                head += ["\ttrigger = {", "\t\texists = yes",
+                         f"\t\tNOT = {{ has_country_flag = {flag} }}"] + ([indent(trig, 2)] if trig else []) + ["\t}",
+                         f"\tmean_time_to_happen = {{ days = {days} }}",
+                         f"\timmediate = {{ set_country_flag = {flag} }}"]
+            else:
+                head.append("\tis_triggered_only = yes")
+            out.append(f"{kind}_event = {{\n" + "\n".join(head) + "\n" + "\n".join(opts) + "\n}\n")
+        return "\n".join(out)
+
+    write("events/evil_sofia_srd.txt", events("evil_sofia_srd", tree.EVENTS))
+    write("events/evil_sofia_news.txt", events("evil_sofia_news", events_world.NEWS, "news", major=True))
+    write("events/evil_sofia_flavour.txt", events("evil_sofia_flavour", events_world.FLAVOUR, mtth=True))
+    write("interface/evil_sofia_events.gfx", "spriteTypes = {\n" + "".join(
+        f'\tspriteType = {{\n\t\tname = "{n}"\n\t\ttexturefile = "{t}"\n\t}}\n' for n, t in pictures.items()) + "}\n")
+    write("common/opinion_modifiers/evil_sofia.txt", "opinion_modifiers = {\n"
+          "\tevil_sofia_dirty_communists = {\n\t\tvalue = -100\n\t}\n"
+          "\tevil_sofia_day_ones = {\n\t\tvalue = 100\n\t}\n}\n")
+    loc += [' evil_sofia_dirty_communists:0 "Dirty communists!"', ' evil_sofia_day_ones:0 "Day ones"']
+    all_traits = dict(tree.TRAITS)
+    all_traits.update({k: (n, d, mods) for k, (n, d, mods, slot) in texts.ADVISOR_TRAITS.items()})
     write("common/country_leader/evil_sofia_traits.txt", "leader_traits = {\n" + "".join(
-        f"\t{k} = {{\n\t\trandom = no\n{indent(mods, 2)}\n\t}}\n" for k, (n, d, mods) in tree.TRAITS.items()) + "}\n")
-    for k, (n, d, mods) in tree.TRAITS.items():
-        loc += [f' {k}:0 "{n}"', f' {k}_desc:0 "{d}"']
+        f"\t{k} = {{\n\t\trandom = no\n{indent(mods, 2)}\n\t\tai_will_do = {{ factor = 1 }}\n\t}}\n"
+        for k, (n, d, mods) in all_traits.items()) + "}\n")
+    for k, (n, d, mods) in all_traits.items():
+        loc += [f' {k}:0 "{L(n)}"', f' {k}_desc:0 "{L(d)}"']
     ideas, idea_sprites = [], []
     for k, (n, d, mods, icon) in tree.IDEAS.items():
         ideas.append(f"\t\t{k} = {{\n\t\t\tpicture = {k}\n\t\t\tallowed = {{ always = no }}\n"
@@ -256,7 +314,7 @@ def build(root, facts, write, write_dds):
         tex = f"gfx/interface/ideas/evil_sofia/{k}.dds"
         write_dds(tex, np.asarray(im))
         idea_sprites.append((f"GFX_idea_{k}", tex))
-        loc += [f' {k}:0 "{n}"', f' {k}_desc:0 "{d}"']
+        loc += [f' {k}:0 "{L(n)}"', f' {k}_desc:0 "{L(d)}"']
     write("common/ideas/evil_sofia_ideas.txt", "ideas = {\n\tcountry = {\n" + "".join(ideas) + "\t}\n}\n")
     write("interface/evil_sofia_ideas.gfx", "spriteTypes = {\n" + "".join(
         f'\tspriteType = {{\n\t\tname = "{n}"\n\t\ttexturefile = "{t}"\n\t}}\n' for n, t in idea_sprites) + "}\n")
@@ -279,9 +337,9 @@ def build(root, facts, write, write_dds):
 \t}}
 }}
 """)
-    loc += [f' {cat}:0 "{cname}"', f' {cat}_desc:0 "{cdesc}"']
+    loc += [f' {cat}:0 "{L(cname)}"', f' {cat}_desc:0 "{L(cdesc)}"']
     dec = []
-    for did, dname, cost, cooldown, avail, effect in tree.DECISIONS["decisions"]:
+    for did, dname, ddesc, cost, cooldown, avail, effect in tree.DECISIONS["decisions"]:
         re_en = f"\n\t\tdays_re_enable = {cooldown}" if cooldown else ""
         dec.append(f"""\t{did} = {{
 \t\tcost = {cost}{re_en}
@@ -293,7 +351,7 @@ def build(root, facts, write, write_dds):
 \t\t}}
 \t\tai_will_do = {{ factor = 1 }}
 \t}}""")
-        loc.append(f' {did}:0 "{dname}"')
+        loc += [f' {did}:0 "{L(dname)}"', f' {did}_desc:0 "{L(ddesc)}"']
     write("common/decisions/evil_sofia_SRD.txt", f"{cat} = {{\n" + "\n".join(dec) + "\n}\n")
     # flags: hand-drawn communist flags (tools/red_flags.py), only for the countries that can go red
     import red_flags
