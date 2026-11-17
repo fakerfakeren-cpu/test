@@ -8,11 +8,12 @@ focus_tree = {
 		}
 	}
 	default = no
+	continuous_focus_position = { x = 50 y = 1490 }
 
 	focus = {
 		id = SRD_henrys_mom_was_right
 		icon = GFX_focus_SRD_henrys_mom_was_right
-		x = 7
+		x = 8
 		y = 0
 		mutually_exclusive = { focus = SRD_order_in_the_centre }
 		cost = 5
@@ -33,7 +34,7 @@ focus_tree = {
 	focus = {
 		id = SRD_order_in_the_centre
 		icon = GFX_focus_SRD_order_in_the_centre
-		x = 15
+		x = 16
 		y = 0
 		mutually_exclusive = { focus = SRD_henrys_mom_was_right }
 		cost = 5
@@ -655,7 +656,7 @@ focus_tree = {
 	focus = {
 		id = SRD_party_takes_the_largo
 		icon = GFX_focus_SRD_party_takes_the_largo
-		x = 6
+		x = 7
 		y = 1
 		prerequisite = { focus = SRD_henrys_mom_was_right }
 		cost = 7
@@ -668,7 +669,7 @@ focus_tree = {
 	focus = {
 		id = SRD_red_guards_of_the_stadium
 		icon = GFX_focus_SRD_red_guards_of_the_stadium
-		x = 5
+		x = 6
 		y = 2
 		prerequisite = { focus = SRD_party_takes_the_largo }
 		cost = 9
@@ -681,7 +682,7 @@ focus_tree = {
 	focus = {
 		id = SRD_arm_the_workers
 		icon = GFX_focus_SRD_arm_the_workers
-		x = 5
+		x = 6
 		y = 3
 		prerequisite = { focus = SRD_red_guards_of_the_stadium }
 		cost = 6
@@ -694,7 +695,7 @@ focus_tree = {
 	focus = {
 		id = SRD_barricades_on_vitosha
 		icon = GFX_focus_SRD_barricades_on_vitosha
-		x = 5
+		x = 6
 		y = 4
 		prerequisite = { focus = SRD_arm_the_workers }
 		cost = 10
@@ -708,7 +709,7 @@ focus_tree = {
 	focus = {
 		id = SRD_universal_service
 		icon = GFX_focus_SRD_universal_service
-		x = 7
+		x = 8
 		y = 2
 		prerequisite = { focus = SRD_party_takes_the_largo }
 		cost = 5
@@ -721,7 +722,7 @@ focus_tree = {
 	focus = {
 		id = SRD_commissars_in_every_unit
 		icon = GFX_focus_SRD_commissars_in_every_unit
-		x = 7
+		x = 8
 		y = 3
 		prerequisite = { focus = SRD_universal_service }
 		cost = 8
@@ -734,7 +735,7 @@ focus_tree = {
 	focus = {
 		id = SRD_red_air_over_the_centre
 		icon = GFX_focus_SRD_red_air_over_the_centre
-		x = 7
+		x = 8
 		y = 4
 		prerequisite = { focus = SRD_commissars_in_every_unit }
 		cost = 7
@@ -748,7 +749,7 @@ focus_tree = {
 	focus = {
 		id = SRD_metro_goes_to_war
 		icon = GFX_focus_SRD_metro_goes_to_war
-		x = 6
+		x = 7
 		y = 5
 		prerequisite = { focus = SRD_barricades_on_vitosha }
 		prerequisite = { focus = SRD_red_air_over_the_centre }
@@ -765,7 +766,7 @@ focus_tree = {
 	focus = {
 		id = SRD_red_leaflets
 		icon = GFX_focus_SRD_red_leaflets
-		x = 9
+		x = 10
 		y = 1
 		prerequisite = { focus = SRD_henrys_mom_was_right }
 		available = {
@@ -780,7 +781,7 @@ focus_tree = {
 	focus = {
 		id = SRD_road_to_boyana
 		icon = GFX_focus_SRD_road_to_boyana
-		x = 9
+		x = 10
 		y = 2
 		prerequisite = { focus = SRD_red_leaflets }
 		available = {
@@ -795,7 +796,7 @@ focus_tree = {
 	focus = {
 		id = SRD_capel_question
 		icon = GFX_focus_SRD_capel_question
-		x = 9
+		x = 10
 		y = 3
 		prerequisite = { focus = SRD_road_to_boyana }
 		available = {
@@ -811,7 +812,7 @@ focus_tree = {
 	focus = {
 		id = SRD_red_flag_over_boyana
 		icon = GFX_focus_SRD_red_flag_over_boyana
-		x = 9
+		x = 10
 		y = 4
 		prerequisite = { focus = SRD_capel_question }
 		available = {
@@ -834,7 +835,7 @@ focus_tree = {
 	focus = {
 		id = SRD_collectivise_vitosha_boulevard
 		icon = GFX_focus_SRD_collectivise_vitosha_boulevard
-		x = 12
+		x = 13
 		y = 1
 		prerequisite = { focus = SRD_henrys_mom_was_right }
 		cost = 10
@@ -849,7 +850,7 @@ focus_tree = {
 	focus = {
 		id = SRD_mimas_for_the_workers
 		icon = GFX_focus_SRD_mimas_for_the_workers
-		x = 11
+		x = 12
 		y = 2
 		prerequisite = { focus = SRD_collectivise_vitosha_boulevard }
 		cost = 4
@@ -861,7 +862,7 @@ focus_tree = {
 	focus = {
 		id = SRD_party_arsenal
 		icon = GFX_focus_SRD_party_arsenal
-		x = 13
+		x = 14
 		y = 2
 		prerequisite = { focus = SRD_collectivise_vitosha_boulevard }
 		cost = 12
@@ -876,7 +877,7 @@ focus_tree = {
 	focus = {
 		id = SRD_red_tourism
 		icon = GFX_focus_SRD_red_tourism
-		x = 11
+		x = 12
 		y = 3
 		prerequisite = { focus = SRD_mimas_for_the_workers }
 		cost = 6
@@ -892,7 +893,7 @@ focus_tree = {
 	focus = {
 		id = SRD_red_university
 		icon = GFX_focus_SRD_red_university
-		x = 13
+		x = 14
 		y = 3
 		prerequisite = { focus = SRD_party_arsenal }
 		cost = 9
@@ -904,7 +905,7 @@ focus_tree = {
 	focus = {
 		id = SRD_five_year_plan
 		icon = GFX_focus_SRD_five_year_plan
-		x = 12
+		x = 13
 		y = 4
 		prerequisite = { focus = SRD_red_tourism }
 		prerequisite = { focus = SRD_red_university }
@@ -921,7 +922,7 @@ focus_tree = {
 	focus = {
 		id = SRD_star_on_the_party_house
 		icon = GFX_focus_SRD_star_on_the_party_house
-		x = 12
+		x = 13
 		y = 5
 		prerequisite = { focus = SRD_five_year_plan }
 		cost = 10

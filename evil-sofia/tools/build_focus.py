@@ -216,6 +216,7 @@ def build(root, facts, write, write_dds):
 \t\t}}
 \t}}
 \tdefault = no
+\tcontinuous_focus_position = {{ x = 50 y = {(max(f[3] for f in tree.FOCUSES) + 1) * 130 + 60} }}
 
 {chr(10).join(blocks)}
 }}

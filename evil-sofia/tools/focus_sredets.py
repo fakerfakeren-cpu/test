@@ -52,7 +52,7 @@ A5, A5a = alone_stage(OUTSKIRTS, INDUSTRY)
 ALL_BUT_PACT = ",".join(OLD_QUARTERS + HOUSING + INDUSTRY + OUTSKIRTS + CENTRE)
 
 FOCUSES = [
-    ("henrys_mom_was_right", "Henry's Mom Was Right", 7, 0, [], ["order_in_the_centre"], 5,
+    ("henrys_mom_was_right", "Henry's Mom Was Right", 8, 0, [], ["order_in_the_centre"], 5,
      "duo:Communist_Discourse", "",
      """set_popularities = { communism = 65 neutrality = 35 democratic = 0 fascism = 0 }
 set_politics = { ruling_party = communism elections_allowed = no }
@@ -65,7 +65,7 @@ set_cosmetic_tag = SRD_RED
 add_war_support = 0.10
 VIT = { country_event = { id = evil_sofia_srd.1 } }""",
      "For years Daniel-Henry's mom has called everyone from the centre a dirty communist. Fine. She was right."),
-    ("order_in_the_centre", "Order in the Centre", 15, 0, [], ["henrys_mom_was_right"], 5,
+    ("order_in_the_centre", "Order in the Centre", 16, 0, [], ["henrys_mom_was_right"], 5,
      "duo:goal_authoritarian", "",
      "add_stability = 0.15\nadd_political_power = 100",
      "No parties, no slogans. Victor Kolev keeps the centre in order with his own hand."),
@@ -152,40 +152,40 @@ add_political_power = 200""",
      "add_ideas = SRD_komsomol\nadd_war_support = 0.05",
      "The kids of the panel blocks always wanted a reason to fight. Now they get badges as well."),
     # ------------------------------------------------------------------ the Party
-    ("party_takes_the_largo", "The Party Takes the Largo", 6, 1, [["henrys_mom_was_right"]], [], 7,
+    ("party_takes_the_largo", "The Party Takes the Largo", 7, 1, [["henrys_mom_was_right"]], [], 7,
      "duo:Generic_Revolutionary_Government", "",
      "add_political_power = 100\nadd_stability = 0.10",
      "The Party House on the Largo is ours again. The red flag goes up over the government quarter."),
-    ("red_guards_of_the_stadium", "Red Guards of Vasil Levski Stadium", 5, 2, [["party_takes_the_largo"]], [], 9,
+    ("red_guards_of_the_stadium", "Red Guards of Vasil Levski Stadium", 6, 2, [["party_takes_the_largo"]], [], 9,
      "custom:stadium", "",
      'load_oob = "SRD_red_guards"\nadd_war_support = 0.05',
      "The national stadium becomes a drill ground. Four divisions of Red Guards march out of it."),
-    ("arm_the_workers", "Arm the Workers", 5, 3, [["red_guards_of_the_stadium"]], [], 6,
+    ("arm_the_workers", "Arm the Workers", 6, 3, [["red_guards_of_the_stadium"]], [], 6,
      "duo:goal_integrate_workers_militia", "",
      """add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 2000 }
 add_tech_bonus = { name = SRD_arm_the_workers bonus = 0.5 uses = 1 category = infantry_weapons }""",
      "A rifle for every waiter, shop assistant and bus driver of the centre."),
-    ("barricades_on_vitosha", "Barricades on Vitosha Boulevard", 5, 4, [["arm_the_workers"]], [], 10,
+    ("barricades_on_vitosha", "Barricades on Vitosha Boulevard", 6, 4, [["arm_the_workers"]], [], 10,
      "duo:Generic_Barricade", "",
      """capital_scope = {
 	add_building_construction = { type = bunker level = 3 province = { all_provinces = yes limit_to_border = yes } instant_build = yes }
 }""",
      "Café tables, tram rails and paving stones: Vitosha Boulevard becomes a fortress."),
-    ("universal_service", "Every Comrade Serves", 7, 2, [["party_takes_the_largo"]], [], 5,
+    ("universal_service", "Every Comrade Serves", 8, 2, [["party_takes_the_largo"]], [], 5,
      "duo:goal_conscription", "",
      "add_ideas = SRD_universal_service\nadd_manpower = 25000",
      "From the Largo to the Lions' Bridge, every comrade between eighteen and sixty has a rifle number."),
-    ("commissars_in_every_unit", "Commissars in Every Unit", 7, 3, [["universal_service"]], [], 8,
+    ("commissars_in_every_unit", "Commissars in Every Unit", 8, 3, [["universal_service"]], [], 8,
      "duo:Generic_Socialist_Soldier", "",
      "army_experience = 30\nadd_tech_bonus = { name = SRD_commissars_in_every_unit bonus = 1.0 uses = 1 category = land_doctrine }",
      "A Party man in every platoon, so the Red Guards never forget what they are fighting for."),
-    ("red_air_over_the_centre", "Red Wings over the Centre", 7, 4, [["commissars_in_every_unit"]], [], 7,
+    ("red_air_over_the_centre", "Red Wings over the Centre", 8, 4, [["commissars_in_every_unit"]], [], 7,
      "duo:goal_air_red", "",
      """capital_scope = { add_building_construction = { type = air_base level = 2 instant_build = yes } }
 air_experience = 25
 add_tech_bonus = { name = SRD_red_air_over_the_centre bonus = 0.5 uses = 1 category = air_equipment }""",
      "Drones from the roof of TZUM, a runway down Tsar Osvoboditel Boulevard. The centre takes to the air."),
-    ("metro_goes_to_war", "The Metro Goes to War", 6, 5, [["barricades_on_vitosha"], ["red_air_over_the_centre"]], [], 9,
+    ("metro_goes_to_war", "The Metro Goes to War", 7, 5, [["barricades_on_vitosha"], ["red_air_over_the_centre"]], [], 9,
      "duo:goal_anti_air", "",
      """capital_scope = {
 	add_building_construction = { type = anti_air_building level = 3 instant_build = yes }
@@ -194,53 +194,53 @@ add_tech_bonus = { name = SRD_red_air_over_the_centre bonus = 0.5 uses = 1 categ
 add_stability = 0.05""",
      "Serdika station becomes a shelter, the tunnels become supply lines, and anti-air guns go up on the roofs."),
     # ------------------------------------------------------------------ Daniel-Henry Capel
-    ("red_leaflets", "Red Leaflets over Vitosha", 9, 1, [["henrys_mom_was_right"]], [], 3,
+    ("red_leaflets", "Red Leaflets over Vitosha", 10, 1, [["henrys_mom_was_right"]], [], 3,
      "duo:Generic_Socialist_Propaganda", "VIT = { exists = yes }",
      "VIT = { add_stability = -0.10 add_popularity = { ideology = communism popularity = 0.15 } }",
      "Let Henry's mom find red leaflets in her own letterbox."),
-    ("road_to_boyana", "The Road to Boyana", 9, 2, [["red_leaflets"]], [], 5,
+    ("road_to_boyana", "The Road to Boyana", 10, 2, [["red_leaflets"]], [], 5,
      "duo:focus_generic_diplomatic_treaty", "LOZ = { exists = yes }",
      "LOZ = { country_event = { id = evil_sofia_srd.7 } }",
      "Sredets does not touch Vitosha, but Lozenets does. Lozenets will let our army through, or it will be "
      "the first to fall."),
-    ("capel_question", "The Capel Question", 9, 3, [["road_to_boyana"]], [], 8,
+    ("capel_question", "The Capel Question", 10, 3, [["road_to_boyana"]], [], 8,
      "person:capel_question", "VIT = { exists = yes }",
      "create_wargoal = { type = annex_everything target = VIT }\nadd_war_support = 0.05",
      "Daniel-Henry hates us. Daniel-Henry hates communism. Daniel-Henry has to go."),
-    ("red_flag_over_boyana", "Red Flag over Boyana", 9, 4, [["capel_question"]], [], 4,
+    ("red_flag_over_boyana", "Red Flag over Boyana", 10, 4, [["capel_question"]], [], 4,
      "duo:goal_red_star_green_wreath", "controls_state = {VIT_CAP}",
      "{CORES:VIT}\nadd_political_power = 100\nadd_stability = 0.10",
      "The red flag flies over Boyana. Somewhere, Henry's mom is still saying she told everyone so."),
     # ------------------------------------------------------------------ the red economy of the centre
-    ("collectivise_vitosha_boulevard", "Collectivise Vitosha Boulevard", 12, 1, [["henrys_mom_was_right"]], [], 10,
+    ("collectivise_vitosha_boulevard", "Collectivise Vitosha Boulevard", 13, 1, [["henrys_mom_was_right"]], [], 10,
      "duo:Generic_Market_Socialism", "",
      """capital_scope = {
 	add_extra_state_shared_building_slots = 2
 	add_building_construction = { type = industrial_complex level = 2 instant_build = yes }
 }""",
      "Every boutique on Vitosha Boulevard now belongs to the people. The people are very well dressed."),
-    ("mimas_for_the_workers", "Mimas Döner for the Workers", 11, 2, [["collectivise_vitosha_boulevard"]], [], 4,
+    ("mimas_for_the_workers", "Mimas Döner for the Workers", 12, 2, [["collectivise_vitosha_boulevard"]], [], 4,
      "custom:doner", "", "add_ideas = SRD_mimas_doner",
      "Mimas never closes. Now it feeds the revolution, day and night."),
-    ("party_arsenal", "The Party Arsenal", 13, 2, [["collectivise_vitosha_boulevard"]], [], 12,
+    ("party_arsenal", "The Party Arsenal", 14, 2, [["collectivise_vitosha_boulevard"]], [], 12,
      "duo:goal_generic_construct_mil_factory", "",
      """capital_scope = {
 	add_extra_state_shared_building_slots = 2
 	add_building_construction = { type = arms_factory level = 2 instant_build = yes }
 }""",
      "The back rooms of the centre's restaurants start making something other than food."),
-    ("red_tourism", "Red Tourism", 11, 3, [["mimas_for_the_workers"]], [], 6, "duo:LEC_Passports", "",
+    ("red_tourism", "Red Tourism", 12, 3, [["mimas_for_the_workers"]], [], 6, "duo:LEC_Passports", "",
      """capital_scope = {
 	add_extra_state_shared_building_slots = 1
 	add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
 }
 add_political_power = 100""",
      "Tourists still come to the centre. Now they pay the Party."),
-    ("red_university", "The Red University", 13, 3, [["party_arsenal"]], [], 9,
+    ("red_university", "The Red University", 14, 3, [["party_arsenal"]], [], 9,
      "duo:focus_generic_socialist_science", "",
      "add_tech_bonus = { name = SRD_red_university bonus = 0.75 uses = 2 category = electronics }",
      "Sofia University stands in Sredets. Its professors now work for the Party, and the Party wants radios."),
-    ("five_year_plan", "Five-Year Plan for the Centre", 12, 4, [["red_tourism"], ["red_university"]], [], 12,
+    ("five_year_plan", "Five-Year Plan for the Centre", 13, 4, [["red_tourism"], ["red_university"]], [], 12,
      "duo:Generic_Factory_Planning", "",
      """capital_scope = {
 	add_extra_state_shared_building_slots = 2
@@ -248,7 +248,7 @@ add_political_power = 100""",
 }
 add_tech_bonus = { name = SRD_five_year_plan bonus = 0.5 uses = 2 category = industry }""",
      "Five years, two more factories, and no more potholes. Probably."),
-    ("star_on_the_party_house", "The Star on the Party House", 12, 5, [["five_year_plan"]], [], 10,
+    ("star_on_the_party_house", "The Star on the Party House", 13, 5, [["five_year_plan"]], [], 10,
      "duo:goal_red_star_gold_wreath", "", "add_research_slot = 1",
      "The red star goes back on top of the Party House, and the Party's best minds go back to work."),
 ]
