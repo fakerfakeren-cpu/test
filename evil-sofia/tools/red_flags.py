@@ -189,7 +189,47 @@ def sofia(root, variant=""):
     return _finish(im)
 
 
+BLUE = (32, 78, 165)
+BLUE_LIGHT = (44, 93, 184)
+SILVER = (226, 230, 238)
+SILVER_DARK = (170, 178, 194)
+SRD_RED = (220, 35, 40)
+
+
+def free(root, variant=""):
+    """The free centre (democratic branch): blue for liberty, light rays of a dawn behind a white disc that holds
+    the old emblem of Sredets (its four red rhombuses), in a silver laurel wreath. No band at the bottom, so it
+    never looks like the communist flags. The Free Centre of Sofia puts the arms of Sofia in the
+    disc and the four rhombuses, in white, above the wreath."""
+    im = Image.new("RGBA", (W, H), BLUE + (255,))
+    d = ImageDraw.Draw(im)
+    cx, cy, r = W * 0.5, H * (0.53 if variant == "centre" else 0.5), H * 0.34
+    for i in range(16):                               # dawn rays
+        a0 = i * 2 * math.pi / 16
+        d.polygon([(cx, cy), (cx + W * math.cos(a0), cy + W * math.sin(a0)),
+                   (cx + W * math.cos(a0 + math.pi / 16), cy + W * math.sin(a0 + math.pi / 16))], fill=BLUE_LIGHT)
+    rd = r * 0.70
+    d.ellipse((cx - rd * 1.06, cy - rd * 1.06, cx + rd * 1.06, cy + rd * 1.06), fill=SILVER_DARK)
+    d.ellipse((cx - rd, cy - rd, cx + rd, cy + rd), fill=WHITE)
+    wheat_wreath(im, cx, cy, r, SILVER, SILVER_DARK, ribbon=BLUE)
+    q = r * 0.25
+    if variant == "centre":
+        arms = _arms(root)
+        ah = int(rd * 1.72)
+        arms = arms.resize((int(arms.width * ah / arms.height), ah), Image.LANCZOS)
+        im.alpha_composite(arms, (int(cx - arms.width / 2), int(cy - ah / 2)))
+        qq, top = q * 0.42, cy - r * 1.02
+        for dx, dy in ((0, -1), (1, 0), (0, 1), (-1, 0)):
+            rhombus(d, cx + dx * qq * 1.25, top + dy * qq * 1.25, qq * 0.95, WHITE)
+    else:
+        for dx, dy in ((0, -1), (1, 0), (0, 1), (-1, 0)):
+            rhombus(d, cx + dx * q * 1.25, cy + dy * q * 1.25, q * 0.95, SRD_RED)
+    return _finish(im)
+
+
 def make(root, recipe, arg=""):
+    if recipe == "free":
+        return free(root, arg)
     if recipe == "district":
         return {"SRD": sredets, "OBR": oborishte}[arg]()
     return sofia(root, arg)

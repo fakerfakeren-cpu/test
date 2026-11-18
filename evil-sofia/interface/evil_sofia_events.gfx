@@ -64,8 +64,20 @@ spriteTypes = {
 		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_16.dds"
 	}
 	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_srd_17"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_17.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_srd_18"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_18.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_srd_19"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_19.dds"
+	}
+	spriteType = {
 		name = "GFX_evil_sofia_evil_sofia_news_1"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_news_1.dds"
+		texturefile = "gfx/event_pictures/evil_sofia/own/evil_sofia_news_1.dds"
 	}
 	spriteType = {
 		name = "GFX_evil_sofia_evil_sofia_news_2"

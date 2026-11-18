@@ -9,6 +9,7 @@ Placeholders filled in by the build (tools/build_focus.py):
   {COREHELD:T:A,B}      T gets a core on every state of A, B (as at the start) that T controls
   {HELD:A,B}            trigger: every state of A, B (as at the start) is controlled by us or a faction member
   {STATE:T:Name}        id of the state called Name that T owns at the start
+  {OFFER:T}             the free centre's peaceful offer to T (event evil_sofia_srd.17)
 Cores only come once a group of districts is held: each stage claims the next group and gives war goals on it,
 and the stage after it (or the final focus) gives the cores on what was taken.
 Icons: "duo:<name>" finished pack icon, "person:<key>" leader portrait icon (tools/focus_icons.py),
@@ -97,7 +98,7 @@ news_event = { id = evil_sofia_news.1 hours = 6 }""",
      "the people of the centre are communists, every last one of them. Tonight Victor Kolev climbs onto the steps of "
      "the Party House, looks out over a Largo full of red flags, and decides that she was right.\\n\\nSredets becomes "
      "the Sredets Commune. Somewhere up the slopes of Vitosha, Henry is already furious."),
-    ("order_in_the_centre", "Order in the Centre", 24, 0, [], ["henrys_mom_was_right"], 5,
+    ("order_in_the_centre", "Order in the Centre", 28, 0, [], ["henrys_mom_was_right"], 5,
      "duo:goal_authoritarian", "",
      "add_stability = 0.15\nadd_political_power = 100\nnews_event = { id = evil_sofia_news.2 hours = 6 }",
      "The council is gone and the city is a mess of checkpoints and rival flags. Sredets will not join the "
@@ -390,24 +391,25 @@ capital_scope = {
      "Communism is the Party plus the electrification of the whole city. New lines run from the power station to "
      "every district we hold, and the street lamps of the commune burn all night."),
     # ================================================================== Order in the Centre: the authoritarian path
-    ("curfew_on_the_largo", "Curfew on the Largo", 22, 1, [["order_in_the_centre"]], [], 5,
+    ("curfew_on_the_largo", "Curfew on the Largo", 26, 1, [["order_in_the_centre"]], [], 5,
      "duo:Generic_Policeman", "",
      "add_stability = 0.10\nadd_political_power = 50",
      "From ten in the evening the Largo belongs to the patrols. The cafés close early, the trams stop at the "
      "bridges and anyone out after dark had better have a very good reason and the right stamp on their papers."),
-    ("centres_own_guard", "The Centre's Own Guard", 26, 1, [["order_in_the_centre"]], [], 7,
+    ("centres_own_guard", "The Centre's Own Guard", 30, 1, [["order_in_the_centre"]], [], 7,
      "duo:goal_enlist_the_police", "",
      "army_experience = 15\nadd_manpower = 10000\nadd_war_support = 0.05",
      "The district guard of Sredets is given new uniforms, new rifles and a single order: keep the centre "
      "quiet. Recruits are taken from the police, the fire brigade and the doormen of the ministries."),
-    ("who_stands_with_sredets", "Who Stands with Sredets?", 24, 2, [["curfew_on_the_largo"], ["centres_own_guard"]], [], 5,
+    ("who_stands_with_sredets", "Who Stands with Sredets?", 28, 2, [["curfew_on_the_largo"], ["centres_own_guard"]], [], 5,
      "duo:Generic_Factionalism", "",
      "add_political_power = 75",
      "Order has returned to the centre. Now Victor must decide how to face the rest of the city: alone, lifting "
      "the curfew and trusting his own people, with the Evil Gang at his side, at the head of the C Class Hools, or not at all, "
      "if Konstantin Ilchev has anything to say about it."),
     # ------------------------------------------------------------------ a free Sredets, alone (the democratic branch)
-    ("a_free_sredets", "A Free Sredets", 18, 3, [["who_stands_with_sredets"]],
+    # root at x 20; four columns: free speech (17), open city (19), defend freedom (21), friends of freedom (23)
+    ("a_free_sredets", "A Free Sredets", 20, 3, [["who_stands_with_sredets"]],
      ["call_the_evil_gang", "unleash_the_c_class", "ilchevs_lesson"], 5,
      "duo:Generic_Break_Free", "",
      """set_politics = { ruling_party = democratic elections_allowed = no }
@@ -417,82 +419,122 @@ add_country_leader_role = {
 	country_leader = { ideology = liberalism expire = "1965.1.1.1" }
 	promote_leader = yes
 }
+set_cosmetic_tag = SRD_FREE
 add_ideas = SRD_free_sredets
 news_event = { id = evil_sofia_news.9 hours = 6 }""",
      "The patrols are called off the Largo at dawn. The checkpoints on the bridges are taken down, the papers "
      "with the right stamps go into the stove, and by noon the cafés on Vitosha Boulevard have their chairs out "
-     "again. Victor Kolev's centre will be free, and it will be free on its own: no gangs, no pacts, no favours "
-     "owed to anyone.\\n\\nSredets becomes a democracy and can no longer create or join factions."),
-    ("speakers_corner", "Speakers' Corner at the Crystal", 17, 4, [["a_free_sredets"]], [], 4,
+     "again. A blue flag goes up over the district hall. Victor Kolev's centre will be free, and it will be free "
+     "on its own: no gangs, no pacts, no favours owed to anyone.\\n\\nSredets becomes a democracy under Victor "
+     "and the Free Sredets, and can no longer create or join factions."),
+    # free speech and friends of freedom on the left, the open city in the middle, the guard on the right;
+    # the workshops need the market and the guard, the wider centre needs the old centre and the offers
+    ("speakers_corner", "Speakers' Corner at the Crystal", 18, 4, [["a_free_sredets"]], [], 3,
      "duo:Generic_Liberation", "",
      "add_stability = 0.08\nadd_popularity = { ideology = democratic popularity = 0.10 }",
      "The little park of the Crystal on Rakovski Street has seen every protest Sofia ever had. Now anyone may "
      "climb on a bench there and say what they like about anyone, including Victor. Many do. Victor listens, "
      "and some days he even takes notes."),
-    ("free_press_on_rakovski", "Free Press on Rakovski Street", 19, 4, [["a_free_sredets"]], [], 6,
-     "duo:goal_big_news", "",
-     "add_political_power = 120",
-     "The printing houses behind the theatres are unsealed. Within a week the centre has eleven newspapers, "
-     "three of them against the government, one of them about football and all of them sold out by eight in "
-     "the morning."),
-    ("first_free_election", "The First Free Election", 17, 5, [["speakers_corner"]], [], 8,
-     "duo:Generic_Democracy", "",
-     """set_politics = { ruling_party = democratic last_election = "1936.1.1" election_frequency = 48 elections_allowed = yes }
-add_stability = 0.10
-add_political_power = 75""",
-     "Ballot boxes in the schools of the centre, queues down Graf Ignatiev Street and observers from every "
-     "district who came to laugh and stayed to vote. Victor wins, of course. But for the first time in Sofia, "
-     "he had to ask for it.\\n\\nElections are held every four years."),
-    ("volunteers_of_the_centre", "Volunteers of the Centre", 19, 5, [["free_press_on_rakovski"]], [], 7,
+    ("volunteers_of_the_centre", "Volunteers of the Centre", 22, 4, [["a_free_sredets"]], [], 5,
      "duo:Generic_Volunteer_Corps", "",
      "add_manpower = 20000\narmy_experience = 20",
      "Nobody is drafted in a free Sredets, and nobody needs to be. Students from the university, waiters from "
      "the Largo and pensioners from the Women's Market sign up at the recruiting tables in front of the "
      "Ivan Vazov Theatre."),
-    ("open_market_on_vitosha", "Open Market on Vitosha Boulevard", 17, 6, [["first_free_election"]], [], 10,
+    ("free_press_on_rakovski", "Free Press on Rakovski Street", 17, 5, [["speakers_corner"]], [], 4,
+     "duo:goal_big_news", "",
+     "add_political_power = 120\nevery_neighbor_country = { add_popularity = { ideology = democratic popularity = 0.05 } }",
+     "The printing houses behind the theatres are unsealed. Within a week the centre has eleven newspapers, "
+     "three of them against the government, one of them about football and all of them sold out by eight in "
+     "the morning. Copies are smuggled into every district around us.\\n\\nDemocracy grows in every neighbour."),
+    ("open_market_on_vitosha", "Open Market on Vitosha Boulevard", 19, 5, [["speakers_corner"]], [], 8,
      "duo:goal_AST_new_markets", "",
      """capital_scope = {
 	add_extra_state_shared_building_slots = 2
-	add_building_construction = { type = industrial_complex level = 2 instant_build = yes }
+	add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
 }""",
      "No permits, no party stamps, no tax on the stalls. Traders from every district of Sofia come to sell on "
      "Vitosha Boulevard, and the workshops of the centre run day and night to keep up."),
-    ("liberty_guard", "The Liberty Guard", 19, 6, [["volunteers_of_the_centre"]], [], 9,
+    ("liberty_guard", "The Liberty Guard", 22, 5, [["volunteers_of_the_centre"]], [], 7,
      "duo:Generic_Bell_Tolls", "",
      """capital_scope = {
 	add_building_construction = { type = bunker level = 2 province = { all_provinces = yes limit_to_border = yes } instant_build = yes }
-	add_building_construction = { type = anti_air_building level = 2 instant_build = yes }
 }
 add_war_support = 0.05""",
      "When the bells of Sveta Nedelya ring the alarm, every volunteer knows his post: a doorway, a bridge, a "
      "roof over the boulevard. A free district has to be ready to defend itself, because nobody else will."),
-    ("liberate_the_old_centre", "Liberate the Old Centre", 18, 7, [["open_market_on_vitosha"], ["liberty_guard"]], [], 8,
+    ("friends_of_freedom", "Friends of Freedom", 17, 6, [["free_press_on_rakovski"]], [], 4,
+     "duo:Social Liberalism", "",
+     """every_country = {
+	limit = { OR = { tag = OBR tag = LOZ tag = TRD } NOT = { has_war_with = ROOT } }
+	add_popularity = { ideology = democratic popularity = 0.15 }
+	add_opinion_modifier = { target = ROOT modifier = evil_sofia_free_friends }
+}""",
+     "Victor still has friends in the districts around the centre, and the free centre has admirers there too. "
+     "Our clubs, newspapers and student societies open branches in Oborishte, Lozenets and Triaditsa.\\n\\n"
+     "Democracy grows in Oborishte, Lozenets and Triaditsa, and they think better of us."),
+    ("workshops_of_the_free_centre", "Workshops of the Free Centre", 21, 6, [["open_market_on_vitosha"], ["liberty_guard"]], [], 10,
+     "duo:goal_generic_small_arms", "",
+     """capital_scope = {
+	add_extra_state_shared_building_slots = 1
+	add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+}""",
+     "Freedom has to be defended, and rifles do not grow on the trees of the City Garden. The cellar workshops "
+     "of the centre take orders from the Liberty Guard."),
+    ("drills_in_borisova_garden", "Drills in Borisova Garden", 23, 6, [["liberty_guard"]], [], 4,
+     "duo:Generic_Infantry_Training", "",
+     "army_experience = 25\nadd_tech_bonus = { name = SRD_drills_in_borisova_garden bonus = 1.0 uses = 1 category = land_doctrine }",
+     "Every Sunday the volunteers march out to Borisova Garden and drill between the lakes and the old trees, "
+     "watched by families with picnics. The officers are ex-guardsmen; the tactics are new."),
+    ("offer_to_anton", "An Offer to Anton", 17, 7, [["friends_of_freedom"]], [], 3,
+     "person:offer_to_anton", "", "{OFFER:OBR}",
+     "Anton Zafirov lives three streets from the district hall. Victor walks over himself, without guards, and "
+     "asks him a simple question: will Oborishte join the free centre?\\n\\nOborishte is asked to join Sredets "
+     "peacefully. Anton will most likely say no; the more he likes us and the more democratic Oborishte is, the "
+     "better our chances."),
+    ("offer_to_georgi", "An Offer to Georgi", 19, 7, [["friends_of_freedom"]], [], 3,
+     "person:offer_to_georgi", "", "{OFFER:LOZ}",
+     "Georgi Yanchovichin is Victor's day one, but Lozenets is his, and day ones do not give away their "
+     "districts lightly. Victor asks anyway, over coffee, the way they always talked.\\n\\nLozenets is asked to "
+     "join Sredets peacefully. Georgi will most likely say no; the more he likes us and the more democratic "
+     "Lozenets is, the better our chances."),
+    ("liberate_the_old_centre", "Liberate the Old Centre", 21, 7, [["workshops_of_the_free_centre"]], [], 6,
      "duo:goal_Fight_for_Freedom", "",
      "{CLAIMS:VAZ,OBR}\n{WAR:VAZ,OBR}",
      "The Women's Market of Vazrazhdane and the cathedral square of Oborishte are a ten-minute walk from the "
      "Largo, and behind their checkpoints people still need a stamp to cross the street. A free centre cannot "
-     "end at a barricade.\\n\\nClaims and war goals on Vazrazhdane and Oborishte."),
-    ("the_wider_centre", "The Wider Centre", 18, 8, [["liberate_the_old_centre"]], [], 9,
+     "end at a barricade.\\n\\nClaims on Vazrazhdane and Oborishte, and war goals on them if they have not "
+     "joined us."),
+    ("offer_to_alexander", "An Offer to Alexander", 18, 8, [["offer_to_anton"], ["offer_to_georgi"]], [], 3,
+     "person:offer_to_alexander", "", "{OFFER:TRD}",
+     "Alexander Dimitrov will listen politely, agree with everything and then do what he likes. Victor puts the "
+     "offer in writing, so at least Alexander has to read it twice.\\n\\nTriaditsa is asked to join Sredets "
+     "peacefully. Alexander will most likely say no; the more he likes us and the more democratic Triaditsa "
+     "is, the better our chances."),
+    ("the_wider_centre", "The Wider Centre", 20, 9, [["liberate_the_old_centre"], ["offer_to_alexander"]], [], 8,
      "duo:Generic_Liberty_Calling", "{HELD:VAZ,OBR}",
      "{COREHELD:SRD:VAZ,OBR}\n" + WIDER_CENTRE_CLAIMS,
-     "The old centre is free. Its edges are not: the streets around the National Palace of Culture, the old "
-     "villas of Lozenets, Kriva Reka and Lagera, and the railway quarter north of the Lions' Bridge still answer "
-     "to someone else.\\n\\nCores on the states of Vazrazhdane and Oborishte held. Claims and war goals on the "
+     "The old centre is free. Its edges are not: the streets around the Ivan Vazov quarter, the old villas of "
+     "Lozenets, Kriva Reka and Lagera, and the railway quarter north of the Lions' Bridge still answer to "
+     "someone else.\\n\\nCores on the states of Vazrazhdane and Oborishte held. Claims and war goals on the "
      "central states of Triaditsa, Lozenets, Krasno Selo and Serdika (" + WIDER_CENTRE_NAMES + "). Needs every "
-     "state of Vazrazhdane and Oborishte held."),
-    ("a_free_centre", "A Free Centre", 18, 9, [["the_wider_centre"]], [], 6,
-     "duo:goal_constitutional_guarantees", WIDER_CENTRE_HELD,
-     WIDER_CENTRE_CORES + "\nadd_stability = 0.10\nnews_event = { id = evil_sofia_news.13 hours = 6 }",
+     "state of Vazrazhdane and Oborishte held, and the offers to Anton, Georgi and Alexander made first."),
+    ("a_free_centre", "A Free Centre", 20, 10, [["the_wider_centre"]], [], 5,
+     "duo:goal_civil_service", WIDER_CENTRE_HELD,
+     WIDER_CENTRE_CORES + "\nadd_stability = 0.10",
      "From Lagera to the Eagles' Bridge, from the Lions' Bridge to the villas of Lozenets, the whole centre of "
-     "Sofia is one free city again. It has one charter, one council and no checkpoints at all.\\n\\nCores on "
-     "the central states held. Needs every central state of Triaditsa, Lozenets, Krasno Selo and Serdika held."),
-    ("beacon_of_the_centre", "Beacon of the Free Centre", 18, 10, [["a_free_centre"]], [], 12,
+     "Sofia answers to one council and has no checkpoints at all.\\n\\nCores on the central states held. Needs "
+     "every central state of Triaditsa, Lozenets, Krasno Selo and Serdika held."),
+    ("free_centre_of_sofia", "The Free Centre of Sofia", 20, 11, [["a_free_centre"]], [], 10,
      "duo:focus_generic_bastion_of_democracy", "",
-     "swap_ideas = { remove_idea = SRD_free_sredets add_idea = SRD_free_centre }\nadd_research_slot = 1",
-     "Alone, and without a single curfew, Sredets has done what no gang and no alliance in Sofia could. "
-     "Refugees from the outer districts queue at the bridges, not to fight, but to get in."),
+     """set_cosmetic_tag = SRD_FREE_CENTRE
+swap_ideas = { remove_idea = SRD_free_sredets add_idea = SRD_free_centre }
+add_research_slot = 1
+news_event = { id = evil_sofia_news.13 hours = 6 }""",
+     "Sredets is too small a name for what it has become. Alone, and without a single curfew, Victor Kolev's "
+     "district has made the whole centre of Sofia one free city.\\n\\nSredets becomes the Free Centre of Sofia."),
     # ------------------------------------------------------------------ the Evil Gang
-    ("call_the_evil_gang", "Call the Evil Gang", 22, 3, [["who_stands_with_sredets"]],
+    ("call_the_evil_gang", "Call the Evil Gang", 26, 3, [["who_stands_with_sredets"]],
      ["a_free_sredets", "unleash_the_c_class", "ilchevs_lesson"], 5,
      "photo:evil_gang", "",
      """if = { limit = { is_in_faction = yes } leave_faction = yes }
@@ -503,38 +545,38 @@ news_event = { id = evil_sofia_news.10 hours = 6 }""",
      "on the steps of a theatre and every one of the people who now rule half the districts of Sofia.\\n\\n"
      "Victor opens it again and types one message: the Evil Gang rides again. Then he starts inviting them, one "
      "by one."),
-    ("invite_anton", "Invite Anton Zafirov", 21, 4, [["call_the_evil_gang"]], [], 5,
+    ("invite_anton", "Invite Anton Zafirov", 25, 4, [["call_the_evil_gang"]], [], 5,
      "person:invite_anton", "", "{INVITE:OBR}",
      "Anton is three streets away and has never once missed a gang meeting. Whether he still remembers that "
      "depends on how he feels about Sredets these days.\\n\\nOborishte is invited to the Evil Gang. Anton is "
      "more likely to accept the better he thinks of Sredets."),
-    ("invite_georgi", "Invite Georgi Yanchovichin", 23, 4, [["call_the_evil_gang"]], [], 4,
+    ("invite_georgi", "Invite Georgi Yanchovichin", 27, 4, [["call_the_evil_gang"]], [], 4,
      "person:invite_georgi", "", "{INVITE:LOZ}",
      "Georgi does not need an invitation. He is a day one; he was in the chat before the chat had a name. Victor "
      "sends him one anyway, because that is how it is done.\\n\\nLozenets is invited to the Evil Gang. As "
      "Victor's day one, Georgi is the most likely of all to say yes."),
-    ("invite_poryazov", "Invite Georgi Poryazov", 21, 5, [["invite_anton"]], [], 5,
+    ("invite_poryazov", "Invite Georgi Poryazov", 25, 5, [["invite_anton"]], [], 5,
      "person:invite_poryazov", "", "{INVITE:MLA}",
      "Georgi Poryazov has four housing estates and more men than he knows what to do with. In the gang he was "
      "always the one who arrived last and stayed the longest.\\n\\nMladost is invited to the Evil Gang."),
-    ("invite_kartunov", "Invite Stefan Kartunov", 23, 5, [["invite_georgi"]], [], 5,
+    ("invite_kartunov", "Invite Stefan Kartunov", 27, 5, [["invite_georgi"]], [], 5,
      "person:invite_kartunov", "", "{INVITE:KRP}",
      "Stefan rules the courtyards of Krasna Polyana and trusts nobody from the centre. Nobody, except the people "
      "who were in the gang with him.\\n\\nKrasna Polyana is invited to the Evil Gang."),
-    ("invite_dimitrov", "Invite Alexander Dimitrov", 21, 6, [["invite_poryazov"]], [], 5,
+    ("invite_dimitrov", "Invite Alexander Dimitrov", 25, 6, [["invite_poryazov"]], [], 5,
      "person:invite_dimitrov", "", "{INVITE:TRD}",
      "Alexander will listen politely, agree with everything and then do what he likes. In the gang, that was "
      "exactly why everyone liked him.\\n\\nTriaditsa is invited to the Evil Gang."),
-    ("invite_grimboss", "Invite GrimBoss", 23, 6, [["invite_kartunov"]], [], 5,
+    ("invite_grimboss", "Invite GrimBoss", 27, 6, [["invite_kartunov"]], [], 5,
      "person:invite_grimboss", "", "{INVITE:LYU}",
      "Nobody has seen GrimBoss in daylight since the city fell. The message is read within a second. The reply "
      "will take as long as GrimBoss wants it to.\\n\\nLyulin is invited to the Evil Gang."),
-    ("even_henry", "Even Henry?", 22, 7, [["invite_dimitrov", "invite_grimboss"]], [], 6,
+    ("even_henry", "Even Henry?", 26, 7, [["invite_dimitrov", "invite_grimboss"]], [], 6,
      "person:even_henry", "", "{INVITE:VIT}",
      "He hates the centre. His mother hates the centre. But he was in the gang, and the gang does not leave "
      "anyone out. Victor swallows his pride and sends the last invitation to Boyana.\\n\\nVitosha is invited to "
      "the Evil Gang. Daniel-Henry will not make it easy."),
-    ("the_evil_gang_rules_sofia", "The Evil Gang Rules Sofia", 22, 8, [["even_henry"]], [], 8,
+    ("the_evil_gang_rules_sofia", "The Evil Gang Rules Sofia", 26, 8, [["even_henry"]], [], 8,
      "duo:goal_generic_join_faction", "",
      """add_ideas = SRD_evil_gang
 every_other_country = {
@@ -549,7 +591,7 @@ every_neighbor_country = {
      "everyone outside it is about to find out what that means.\\n\\nEvery member of the Evil Gang gets the "
      "Evil Gang spirit. War goals on every neighbour outside the gang."),
     # ------------------------------------------------------------------ the C Class Hools
-    ("unleash_the_c_class", "Unleash the C Class", 26, 3, [["who_stands_with_sredets"]],
+    ("unleash_the_c_class", "Unleash the C Class", 30, 3, [["who_stands_with_sredets"]],
      ["a_free_sredets", "call_the_evil_gang", "ilchevs_lesson"], 5,
      "photo:c_class", "",
      """if = { limit = { is_in_faction = yes } leave_faction = yes }
@@ -559,28 +601,28 @@ news_event = { id = evil_sofia_news.11 hours = 6 }""",
      "Every school has a class like the C Class: loud, loyal, impossible to teach and absolutely fearless. Now "
      "they have grown up, they have a group chat of their own, and they have been waiting for a reason.\\n\\n"
      "Victor gives them one. The C Class Hools are on the streets."),
-    ("ultras_of_the_stadium", "Ultras of the Stadium", 25, 4, [["unleash_the_c_class"]], [], 6,
+    ("ultras_of_the_stadium", "Ultras of the Stadium", 29, 4, [["unleash_the_c_class"]], [], 6,
      "duo:goal_balkan_fist", "",
      "add_manpower = 20000\nadd_war_support = 0.05",
      "The north stand of the national stadium has always had its own laws. Its ultras swap their scarves for "
      "armbands and march into the barracks of Sredets singing the same songs they sing on match days."),
-    ("flares_and_firecrackers", "Flares and Firecrackers", 27, 4, [["unleash_the_c_class"]], [], 7,
+    ("flares_and_firecrackers", "Flares and Firecrackers", 31, 4, [["unleash_the_c_class"]], [], 7,
      "duo:Generic_Firebombing", "",
      "add_tech_bonus = { name = SRD_flares_and_firecrackers bonus = 1.0 uses = 1 category = artillery }\n"
      "add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1000 }",
      "Anyone who has stood in a stand with a lit flare knows a little about artillery already. The C Class's "
      "pyrotechnicians are put to work on something louder."),
-    ("away_day", "Away Day", 25, 5, [["ultras_of_the_stadium"]], [], 7,
+    ("away_day", "Away Day", 29, 5, [["ultras_of_the_stadium"]], [], 7,
      "duo:Generic_Helmet_Knife", "",
      "{CLAIMS:VAZ,OBR}\n{WAR:VAZ,OBR}",
      "Every firm knows the rule: on away days you go to their ground. Vazrazhdane and Oborishte are the closest "
      "grounds there are.\\n\\nClaims and war goals on Vazrazhdane and Oborishte."),
-    ("pitch_invasion", "Pitch Invasion", 27, 5, [["flares_and_firecrackers"]], [], 8,
+    ("pitch_invasion", "Pitch Invasion", 31, 5, [["flares_and_firecrackers"]], [], 8,
      "duo:Generic_Violent_Coup", "",
      "army_experience = 30\nadd_tech_bonus = { name = SRD_pitch_invasion bonus = 1.0 uses = 1 category = land_doctrine }",
      "The fastest way across a football pitch is all at once, before the stewards can react. The C Class turns "
      "the pitch invasion into a doctrine."),
-    ("recruit_the_firms", "Recruit the Firms", 26, 6, [["away_day"], ["pitch_invasion"]], [], 6,
+    ("recruit_the_firms", "Recruit the Firms", 30, 6, [["away_day"], ["pitch_invasion"]], [], 6,
      "duo:Generic_Juche_Gang", "",
      """every_neighbor_country = {
 	limit = { is_in_faction = no NOT = { has_war_with = ROOT } }
@@ -589,19 +631,19 @@ news_event = { id = evil_sofia_news.11 hours = 6 }""",
      "Every district has its firm, and every firm has heard of the C Class. They are offered the same choice "
      "everyone gets on the street: join us, or get hit.\\n\\nEvery neighbour outside a faction is invited to "
      "join the C Class Hools. Weaker neighbours are more likely to say yes; those who refuse give us a war goal."),
-    ("home_ground", "Home Ground", 26, 7, [["recruit_the_firms"]], [], 6,
+    ("home_ground", "Home Ground", 30, 7, [["recruit_the_firms"]], [], 6,
      "duo:goal_generic_fortify_city", "{HELD:VAZ,OBR}",
      "{COREHELD:SRD:VAZ,OBR}\nadd_stability = 0.05",
      "The away grounds of the centre are home grounds now. The C Class paints its colours on every wall of "
      "Vazrazhdane and Oborishte.\\n\\nCores on the states held. Needs every state of Vazrazhdane and Oborishte "
      "held."),
-    ("champions_of_sofia", "Champions of Sofia", 26, 8, [["home_ground"]], [], 9,
+    ("champions_of_sofia", "Champions of Sofia", 30, 8, [["home_ground"]], [], 9,
      "duo:goal_HOL_fires_of_revolution", "",
      "swap_ideas = { remove_idea = SRD_c_class_hools add_idea = SRD_champions_spirit }",
      "Every firm in Sofia now knows who the champions are. The C Class marches through the centre with flares "
      "lit and scarves held high, and nobody dares to look them in the eye."),
     # ------------------------------------------------------------------ Konstantin Ilchev
-    ("ilchevs_lesson", "The Physics Teacher Steps In", 30, 3, [["who_stands_with_sredets"]],
+    ("ilchevs_lesson", "The Physics Teacher Steps In", 34, 3, [["who_stands_with_sredets"]],
      ["a_free_sredets", "call_the_evil_gang", "unleash_the_c_class"], 5,
      "person:ilchevs_lesson", "",
      """add_country_leader_role = {
@@ -615,39 +657,39 @@ news_event = { id = evil_sofia_news.12 hours = 6 }""",
      "Konstantin Ilchev has watched his former student run Sredets for long enough. One morning he walks into "
      "the Party House with a red pen and a stack of marked exam papers, and the guards, who all sat in his "
      "classes too, let him straight through.\\n\\nVictor Kolev is sent to detention. Ilchev leads Sredets now."),
-    ("newtons_laws", "Newton's Laws of Government", 29, 4, [["ilchevs_lesson"]], [], 6,
+    ("newtons_laws", "Newton's Laws of Government", 33, 4, [["ilchevs_lesson"]], [], 6,
      "duo:KTG_Bookstack", "",
      "add_stability = 0.15\nadd_political_power = 50",
      "First law: a district at rest stays at rest unless acted upon by Ilchev. Second law: the force of a decree "
      "equals the mass of paperwork times its acceleration. Third law: for every complaint there is an equal "
      "and opposite detention."),
-    ("laboratory_of_the_nation", "Laboratory of the Nation", 31, 4, [["ilchevs_lesson"]], [], 10,
+    ("laboratory_of_the_nation", "Laboratory of the Nation", 35, 4, [["ilchevs_lesson"]], [], 10,
      "duo:goal_great_science", "",
      "add_research_slot = 1",
      "The ministries are turned into laboratories, and the laboratories into ministries. Every civil servant "
      "in Sredets now wears a white coat and keeps a lab notebook."),
-    ("homework_for_everyone", "Homework for Everyone", 29, 5, [["newtons_laws"]], [], 7,
+    ("homework_for_everyone", "Homework for Everyone", 33, 5, [["newtons_laws"]], [], 7,
      "duo:Focus_Examine_Foreign_Science", "",
      "add_tech_bonus = { name = SRD_homework_for_everyone bonus = 0.5 uses = 2 category = industry }\n"
      "add_political_power = 50",
      "Every household of the centre receives a worksheet each Monday, due by Friday. Late submissions are not "
      "accepted. The factories have never been so well organised."),
-    ("pop_quiz_for_the_army", "Pop Quiz for the Army", 31, 5, [["laboratory_of_the_nation"]], [], 7,
+    ("pop_quiz_for_the_army", "Pop Quiz for the Army", 35, 5, [["laboratory_of_the_nation"]], [], 7,
      "duo:goal_military_research", "",
      "army_experience = 25\nadd_tech_bonus = { name = SRD_pop_quiz_for_the_army bonus = 1.0 uses = 1 category = land_doctrine }",
      "Officers who cannot calculate a shell's trajectory on paper are sent back to the barracks to study. The "
      "officers who can are promoted. Ilchev marks every paper himself."),
-    ("e_equals_mc2", "E = mc²", 30, 6, [["homework_for_everyone"], ["pop_quiz_for_the_army"]], [], 12,
+    ("e_equals_mc2", "E = mc²", 34, 6, [["homework_for_everyone"], ["pop_quiz_for_the_army"]], [], 12,
      "duo:Generic_Red_Atomic", "",
      "add_ideas = SRD_laboratory\nadd_tech_bonus = { name = SRD_e_equals_mc2 bonus = 0.75 uses = 2 category = electronics }",
      "Energy equals mass times the speed of light squared. Ilchev writes it on the blackboard of the Council "
      "Chamber and explains, very slowly, what it could mean for a small district with enemies on every side."),
-    ("the_final_exam", "The Final Exam", 30, 7, [["e_equals_mc2"]], [], 8,
+    ("the_final_exam", "The Final Exam", 34, 7, [["e_equals_mc2"]], [], 8,
      "duo:Generic_Coup02", "",
      "{CLAIMS:VAZ,OBR}\n{WAR:VAZ,OBR}",
      "Vazrazhdane and Oborishte have failed every test of good neighbourliness. Ilchev sets them one final exam, "
      "and he has already decided the grade.\\n\\nClaims and war goals on Vazrazhdane and Oborishte."),
-    ("grades_are_final", "Grades Are Final", 30, 8, [["the_final_exam"]], [], 6,
+    ("grades_are_final", "Grades Are Final", 34, 8, [["the_final_exam"]], [], 6,
      "duo:goal_nested_fortifications", "{HELD:VAZ,OBR}",
      "{COREHELD:SRD:VAZ,OBR}\nadd_stability = 0.05",
      "There will be no resits. The centre has been marked, graded and filed under Sredets.\\n\\nCores on the "
@@ -678,11 +720,17 @@ FILTERS = {  # search filters for the focus tree's filter buttons
     "curfew_on_the_largo": ["STABILITY", "POLITICAL"], "centres_own_guard": ["ARMY_XP", "MANPOWER", "WAR_SUPPORT"],
     "who_stands_with_sredets": ["POLITICAL"],
     "a_free_sredets": ["POLITICAL", "STABILITY"], "speakers_corner": ["STABILITY", "POLITICAL"],
-    "free_press_on_rakovski": ["POLITICAL"], "first_free_election": ["POLITICAL", "STABILITY"],
-    "volunteers_of_the_centre": ["MANPOWER", "ARMY_XP"], "open_market_on_vitosha": ["INDUSTRY"],
-    "liberty_guard": ["INDUSTRY", "WAR_SUPPORT"], "liberate_the_old_centre": ["ANNEXATION", "WAR_SUPPORT"],
-    "the_wider_centre": ["ANNEXATION"], "a_free_centre": ["ANNEXATION", "STABILITY"],
-    "beacon_of_the_centre": ["RESEARCH", "STABILITY"],
+    "free_press_on_rakovski": ["POLITICAL"],
+    "open_market_on_vitosha": ["INDUSTRY"],
+   
+    "workshops_of_the_free_centre": ["INDUSTRY"], "volunteers_of_the_centre": ["MANPOWER", "ARMY_XP"],
+    "liberty_guard": ["INDUSTRY", "WAR_SUPPORT"], "drills_in_borisova_garden": ["ARMY_XP", "RESEARCH"],
+    "friends_of_freedom": ["POLITICAL"],
+    "offer_to_anton": ["POLITICAL", "ANNEXATION"], "offer_to_georgi": ["POLITICAL", "ANNEXATION"],
+    "offer_to_alexander": ["POLITICAL", "ANNEXATION"],
+    "liberate_the_old_centre": ["ANNEXATION", "WAR_SUPPORT"], "the_wider_centre": ["ANNEXATION"],
+    "a_free_centre": ["ANNEXATION", "STABILITY"],
+    "free_centre_of_sofia": ["RESEARCH", "STABILITY"],
     "call_the_evil_gang": ["POLITICAL"], "invite_anton": ["POLITICAL"], "invite_georgi": ["POLITICAL"],
     "invite_poryazov": ["POLITICAL"], "invite_kartunov": ["POLITICAL"], "invite_dimitrov": ["POLITICAL"],
     "invite_grimboss": ["POLITICAL"], "even_henry": ["POLITICAL"], "the_evil_gang_rules_sofia": ["ANNEXATION"],
@@ -709,6 +757,10 @@ PERSON_ICONS = {  # key: (portrait tag, frame, piece in front, rotation, options
     "invite_dimitrov": ("TRD", "SilverStarFrame.png", "Hands Shaking4.png", 0, dict(fill=(30, 30, 40), front_width=0.46, front_y=0.5)),
     "invite_grimboss": ("LYU", "SpikyFrame.png", "Hands Shaking3.png", 0, dict(fill=(24, 24, 28), front_width=0.46, front_y=0.5)),
     "even_henry": ("VIT", "RedWheatFrame.png", "Hands Shaking.png", 0, dict(fill=(60, 30, 30), front_width=0.46, front_y=0.5)),
+    # the free centre's peaceful offers
+    "offer_to_anton": ("OBR", "metalcircle.png", "Hands Shaking4.png", 0, dict(fill=(30, 40, 70), front_width=0.46, front_y=0.5)),
+    "offer_to_georgi": ("LOZ", "SilverStarFrame.png", "Hands Shaking2.png", 0, dict(fill=(28, 44, 78), front_width=0.46, front_y=0.5)),
+    "offer_to_alexander": ("TRD", "SunStarFrame.png", "Hands Shaking.png", 0, dict(fill=(34, 46, 80), front_width=0.42, front_y=0.5)),
     "ilchevs_lesson": ("SRD_ilchev", "LeavedFrame.png", "Book Open.png", 0, dict(fill=(36, 36, 30), front_width=0.5, front_y=0.62)),
 }
 # group photos in a frame, black and white: key: (photo in tools/portraits, frame, crop box, piece in front or None)
@@ -719,7 +771,8 @@ PHOTO_ICONS = {
 PHOTO_FALLBACK = {"evil_gang": "goal_generic_join_faction", "c_class": "goal_balkan_fist"}
 PERSON_FALLBACK = {"ally_anton": "goal_generic_alliance", "anton_must_go": "goal_generic_demand_territory",
                    "destroy_anton": "goal_generic_attack_allies", "capel_question": "goal_generic_demand_territory",
-                   "ilchevs_lesson": "KTG_Bookstack"}
+                   "ilchevs_lesson": "KTG_Bookstack", "offer_to_anton": "Generic_Parliament_Box",
+                   "offer_to_georgi": "Focus_Guy_Raising_Hand_Propaganda", "offer_to_alexander": "Generic_Liberalism"}
 PERSON_FALLBACK.update({k: "goal_ANQ_patriotic_protests" for k in ("invite_anton", "invite_georgi", "invite_poryazov",
                         "invite_kartunov", "invite_dimitrov", "invite_grimboss", "even_henry")})
 
@@ -752,7 +805,7 @@ IDEAS.update({  # the authoritarian path; a fifth element is extra script for th
                          "No curfews, no stamps, no gangs, no pacts. The centre governs itself and owes nobody.",
                          "stability_factor = 0.10\npolitical_power_factor = 0.10\ndemocratic_drift = 0.05\n"
                          "army_defence_factor = 0.05", ("Shield Blue.png", "Bird Freed.png"), _NO_FACTIONS),
-    "SRD_free_centre": ("Beacon of the Free Centre",
+    "SRD_free_centre": ("The Free Centre of Sofia",
                         "The whole centre of Sofia is one free city, and the rest of Sofia is watching.",
                         "stability_factor = 0.15\npolitical_power_factor = 0.10\nresearch_speed_factor = 0.05\n"
                         "army_defence_factor = 0.10\narmy_attack_factor = 0.05", ("Sun.png", "Dove.png"), _NO_FACTIONS),
@@ -837,6 +890,21 @@ GEORGI_NO = """base = 35
 modifier = { add = 20 has_opinion = { target = FROM value < 0 } }
 modifier = { add = 20 has_opinion = { target = FROM value < -40 } }
 modifier = { factor = 0.7 has_opinion = { target = FROM value > 50 } }"""
+
+# Peaceful offers of the free centre: most likely no; random, better the more they like us and the more
+# democratic they are (never yes from a communist government or a country that dislikes us much).
+FREE_YES = """base = 5
+modifier = { add = 10 has_opinion = { target = FROM value > 20 } }
+modifier = { add = 15 has_opinion = { target = FROM value > 50 } }
+modifier = { add = 15 has_opinion = { target = FROM value > 80 } }
+modifier = { add = 10 democratic > 0.2 }
+modifier = { add = 15 democratic > 0.4 }
+modifier = { add = 15 democratic > 0.6 }
+modifier = { add = 10 has_government = democratic }
+modifier = { factor = 0.3 has_opinion = { target = FROM value < 0 } }
+modifier = { factor = 0 has_government = communism }"""
+FREE_NO = """base = 80
+modifier = { add = 40 has_opinion = { target = FROM value < 0 } }"""
 
 # Events of the Sredets tree: number: (title, description, options [(text, effect, AI chance)], picture)
 EVENTS = {
@@ -986,12 +1054,34 @@ FROM = { add_opinion_modifier = { target = ROOT modifier = evil_sofia_gang } }""
            [("We know where they live.", "", 1)], ""),
 })
 
+EVENTS.update({
+    "17": ("An Offer from the Free Centre",
+           "Victor Kolev has come to [Root.GetName] in person, with no guards and no ultimatum. Sredets has lifted its "
+           "curfew, opened its press and its markets, and now it asks [Root.GetLeader] a simple question: will "
+           "[Root.GetName] join the free centre? Same rights for everyone, no checkpoints between us, one city "
+           "again.\n\nSaying yes means [Root.GetName] becomes part of Sredets. Saying no costs nothing, for now.",
+           [("We join the free centre.",
+             "FROM = { country_event = { id = evil_sofia_srd.18 } }\nFROM = { annex_country = { target = ROOT transfer_troops = yes } }",
+             FREE_YES),
+            ("Thank you, Victor, but no.", "FROM = { country_event = { id = evil_sofia_srd.19 } }", FREE_NO)],
+           ""),
+    "18": ("[From.GetName] Joins the Free Centre",
+           "The answer is yes. [From.GetName] has voted to join the free centre, and its people are taking down the "
+           "barriers between our districts themselves. Not a shot was fired.",
+           [("One city, freely.", "", 1)], ""),
+    "19": ("[From.GetName] Says No",
+           "[From.GetName] has thanked us for the offer and declined it. Its people will stay behind their own "
+           "barriers, for now.",
+           [("The door stays open.", "", 1)], ""),
+})
+
 # pictures: (flags, mood) for tools/event_pictures.py; stored as (title, description, picture, options)
 _PICTURES = {"1": (["SRD_RED"], "dusk"), "2": (["SRD_RED", "OBR"], "night"), "3": (["SRD_RED", "OBR_RED"], "day"),
              "4": (["OBR"], "rain"), "5": (["VIT"], "dusk"), "6": (["VIT"], "fire"), "7": (["SRD_RED", "LOZ"], "night"),
              "8": (["OBR_RED"], "night"), "9": (["SRD_RED", "LOZ"], "day"), "10": (["LOZ"], "rain"),
              "11": (["SRD"], "night"), "12": (["SRD", "LOZ"], "day"), "13": (["SRD"], "rain"),
-             "14": (["SRD"], "fire"), "15": (["SRD", "SOFIA"], "dusk"), "16": (["SRD"], "fire")}
+             "14": (["SRD"], "fire"), "15": (["SRD", "SOFIA"], "dusk"), "16": (["SRD"], "fire"),
+             "17": (["SRD_FREE"], "day"), "18": (["SRD_FREE"], "day"), "19": (["SRD_FREE"], "rain")}
 EVENTS = {k: (t, d, _PICTURES[k], o) for k, (t, d, o, _) in EVENTS.items()}
 
 TRAITS = {
@@ -1006,6 +1096,8 @@ COSMETIC = {
     "SRD_RED": ("Sredets Commune", "Sredetsian", (200, 25, 30), ("district", "SRD")),
     "OBR_RED": ("Oborishte Commune", "Oborishtian", (150, 20, 45), ("district", "OBR")),
     "SRD_SOFIA": ("Sofia", "Sofian", (210, 20, 25), ("sofia", "")),
+    "SRD_FREE": ("Free Sredets", "Sredetsian", (40, 92, 190), ("free", "")),
+    "SRD_FREE_CENTRE": ("Free Centre of Sofia", "Sofian", (30, 80, 180), ("free", "centre")),
     "SRD_SOUTH": ("South Sofia", "South Sofian", (205, 30, 30), ("sofia", "south")),
     "OBR_NORTH": ("North Sofia", "North Sofian", (140, 15, 40), ("sofia", "north")),
 }

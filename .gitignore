@@ -29,3 +29,6 @@ evil-sofia/tools/geodata/
 evil-sofia/tools/portraits/
 evil-sofia/gfx/leaders/
 evil-sofia/gfx/interface/goals/evil_sofia/people/
+# the user's own event pictures (photos) go into the packaged mod only, like the portraits
+evil-sofia/tools/event_pictures/*.png
+evil-sofia/gfx/event_pictures/evil_sofia/own/

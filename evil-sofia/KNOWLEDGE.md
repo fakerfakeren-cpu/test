@@ -92,7 +92,7 @@ The user is **Victor Kolev** and plays **Sredets (SRD)**, the city centre. The f
 11. Authoritarian path ("Order in the Centre") with four branches: alone / Evil Gang / C Class Hools / Ilchev.
 12. The user is now making their own event pictures (vanilla style) from `tools/event_pictures/PICTURES.md`.
 
-## 5. The Sredets focus tree (84 focuses)
+## 5. The Sredets focus tree (89 focuses)
 
 Root choice (mutually exclusive): **Henry's Mom Was Right** (communism) at x=8, **Order in the Centre**
 (authoritarian) at x=24.
@@ -130,15 +130,26 @@ Root choice (mutually exclusive): **Henry's Mom Was Right** (communism) at x=8, 
 
 ### Authoritarian path (Order in the Centre)
 - Curfew on the Largo + The Centre's Own Guard → **Who Stands with Sredets?** → four mutually exclusive branches:
-  1. **A Free Sredets** (reworked on request: "focus on freedom, kinda like a democratic regime"): Sredets becomes
-     a democracy, Victor a liberalism leader; spirit "A Free Sredets" keeps `rule = { can_create_factions = no
-     can_join_factions = no }` (still the go-alone branch). Speakers' Corner at the Crystal, Free Press on Rakovski
-     Street, The First Free Election (elections every 4 years), Volunteers of the Centre, Open Market on Vitosha
-     Boulevard, The Liberty Guard, Liberate the Old Centre (VAZ, OBR), The Wider Centre (cores on VAZ/OBR; claims and
-     `take_state_focus` war goals on the central states: Triaditsa of TRD, North Lozenets and Lozenets of LOZ, Kriva
-     Reka and Lagera of KRS, North City Centre and Serdika of SRK, i.e. the states touching the old centre plus
-     Lozenets proper), A Free Centre (cores, news event 13), Beacon of the Free Centre (spirit upgrade, research slot).
-     The states are named in `WIDER_CENTRE` and resolved by the `{STATE:TAG:Name}` placeholder.
+  1. **A Free Sredets** (reworked twice on request: "focus on freedom, kinda like a democratic regime"; then "a bit
+     larger and better organised", no elections, Victor stays, blue, new flag, last focus renames to "Free Centre of
+     Sofia", peaceful offers to Anton, Georgi, Alexander that are "most likely to decline" but random, by opinion
+     and democracy). Root at x=20: democracy (elections_allowed = no), Victor a liberalism leader, cosmetic tag
+     `SRD_FREE` "Free Sredets" (blue), spirit with the no-faction rule. Third version (the user found a grid of four
+     equal columns "robot like", wanted fewer focuses and lengths by importance, not all 70 days): 16 focuses,
+     3-10 weeks. Speakers' Corner (3w) → Free Press (4w) → Friends of Freedom (4w, +15% democracy, +30 opinion in OBR,
+     LOZ, TRD) → An Offer to Anton / An Offer to Georgi (3w each) → An Offer to Alexander (needs both); Speakers'
+     Corner → Open Market on Vitosha (8w); Volunteers (5w) → Liberty Guard (7w) → Drills in Borisova Garden (4w);
+     Workshops of the Free Centre (10w, needs the Market AND the Guard) → Liberate the Old Centre (6w, VAZ+OBR) →
+     The Wider Centre (8w, needs Liberate AND the offer to Alexander; central states of TRD, LOZ, KRS, SRK in
+     `WIDER_CENTRE`, `take_state_focus` war goals) → A Free Centre (5w, cores) → The Free Centre of Sofia (10w,
+     cosmetic tag `SRD_FREE_CENTRE`, news 13). Offers: event srd.17, yes = peaceful annexation, AI odds
+     `FREE_YES`/`FREE_NO` (base 5 vs 80, up with opinion and democracy). The offers use person icons (metalcircle,
+     SilverStarFrame, SunStarFrame with handshakes), which need the portraits. The user was upset when they thought
+     the friends' icons had been changed: tree renders made without portraits show pack fallbacks, say so up front.
+     Flag (`red_flags.free`): blue with dawn rays, white disc with the red rhombuses in a silver laurel
+     wreath, no band at the bottom (the user did not want it to look like the communist flags); the Free Centre's
+     has the arms of Sofia in the disc and the rhombuses in white above. The rest of the authoritarian path moved
+     4 columns right to make room.
   2. **Call the Evil Gang** (photo icon of the group): faction "The Evil Gang"; invite Anton, Georgi Y., Poryazov,
      Stefan, Alexander, GrimBoss, then "Even Henry?" (each a person icon with a handshake, different frame; AI odds
      by opinion, Georgi +25 as day one, Henry halved, communists unlikely); The Evil Gang Rules Sofia.
@@ -258,6 +269,7 @@ Root choice (mutually exclusive): **Henry's Mom Was Right** (communism) at x=8, 
 
 - Focus trees for the other featured friends (only Sredets has one; the rest use the starter tree).
 - Fascism possibly inside the authoritarian path.
-- Event pictures from the user replacing the drawn ones.
+- Event pictures from the user replacing the drawn ones (news 1 done). The user's pictures are treated like
+  photos: git-ignored, only in the zip.
 - Untested in game: advisor traits, the no-faction rule, `major = yes` news, `strength_ratio` odds,
   `[From.GetLeader]` in event titles.

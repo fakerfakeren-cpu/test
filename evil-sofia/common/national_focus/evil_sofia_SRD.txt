@@ -8,7 +8,7 @@ focus_tree = {
 		}
 	}
 	default = no
-	continuous_focus_position = { x = 50 y = 1490 }
+	continuous_focus_position = { x = 50 y = 1620 }
 
 	focus = {
 		id = SRD_henrys_mom_was_right
@@ -36,7 +36,7 @@ focus_tree = {
 	focus = {
 		id = SRD_order_in_the_centre
 		icon = GFX_focus_SRD_order_in_the_centre
-		x = 24
+		x = 28
 		y = 0
 		mutually_exclusive = { focus = SRD_henrys_mom_was_right }
 		cost = 5
@@ -1292,7 +1292,7 @@ focus_tree = {
 	focus = {
 		id = SRD_curfew_on_the_largo
 		icon = GFX_focus_SRD_curfew_on_the_largo
-		x = 22
+		x = 26
 		y = 1
 		prerequisite = { focus = SRD_order_in_the_centre }
 		cost = 5
@@ -1306,7 +1306,7 @@ focus_tree = {
 	focus = {
 		id = SRD_centres_own_guard
 		icon = GFX_focus_SRD_centres_own_guard
-		x = 26
+		x = 30
 		y = 1
 		prerequisite = { focus = SRD_order_in_the_centre }
 		cost = 7
@@ -1321,7 +1321,7 @@ focus_tree = {
 	focus = {
 		id = SRD_who_stands_with_sredets
 		icon = GFX_focus_SRD_who_stands_with_sredets
-		x = 24
+		x = 28
 		y = 2
 		prerequisite = { focus = SRD_curfew_on_the_largo }
 		prerequisite = { focus = SRD_centres_own_guard }
@@ -1335,7 +1335,7 @@ focus_tree = {
 	focus = {
 		id = SRD_a_free_sredets
 		icon = GFX_focus_SRD_a_free_sredets
-		x = 18
+		x = 20
 		y = 3
 		prerequisite = { focus = SRD_who_stands_with_sredets }
 		mutually_exclusive = { focus = SRD_call_the_evil_gang focus = SRD_unleash_the_c_class focus = SRD_ilchevs_lesson }
@@ -1350,6 +1350,7 @@ focus_tree = {
 				country_leader = { ideology = liberalism expire = "1965.1.1.1" }
 				promote_leader = yes
 			}
+			set_cosmetic_tag = SRD_FREE
 			add_ideas = SRD_free_sredets
 			news_event = { id = evil_sofia_news.9 hours = 6 }
 		}
@@ -1357,10 +1358,10 @@ focus_tree = {
 	focus = {
 		id = SRD_speakers_corner
 		icon = GFX_focus_SRD_speakers_corner
-		x = 17
+		x = 18
 		y = 4
 		prerequisite = { focus = SRD_a_free_sredets }
-		cost = 4
+		cost = 3
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1369,40 +1370,12 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = SRD_free_press_on_rakovski
-		icon = GFX_focus_SRD_free_press_on_rakovski
-		x = 19
-		y = 4
-		prerequisite = { focus = SRD_a_free_sredets }
-		cost = 6
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		ai_will_do = { factor = 1 }
-		completion_reward = {
-			add_political_power = 120
-		}
-	}
-	focus = {
-		id = SRD_first_free_election
-		icon = GFX_focus_SRD_first_free_election
-		x = 17
-		y = 5
-		prerequisite = { focus = SRD_speakers_corner }
-		cost = 8
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
-		ai_will_do = { factor = 1 }
-		completion_reward = {
-			set_politics = { ruling_party = democratic last_election = "1936.1.1" election_frequency = 48 elections_allowed = yes }
-			add_stability = 0.10
-			add_political_power = 75
-		}
-	}
-	focus = {
 		id = SRD_volunteers_of_the_centre
 		icon = GFX_focus_SRD_volunteers_of_the_centre
-		x = 19
-		y = 5
-		prerequisite = { focus = SRD_free_press_on_rakovski }
-		cost = 7
+		x = 22
+		y = 4
+		prerequisite = { focus = SRD_a_free_sredets }
+		cost = 5
 		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_ARMY_XP }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1411,46 +1384,138 @@ focus_tree = {
 		}
 	}
 	focus = {
+		id = SRD_free_press_on_rakovski
+		icon = GFX_focus_SRD_free_press_on_rakovski
+		x = 17
+		y = 5
+		prerequisite = { focus = SRD_speakers_corner }
+		cost = 4
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_political_power = 120
+			every_neighbor_country = { add_popularity = { ideology = democratic popularity = 0.05 } }
+		}
+	}
+	focus = {
 		id = SRD_open_market_on_vitosha
 		icon = GFX_focus_SRD_open_market_on_vitosha
-		x = 17
-		y = 6
-		prerequisite = { focus = SRD_first_free_election }
-		cost = 10
+		x = 19
+		y = 5
+		prerequisite = { focus = SRD_speakers_corner }
+		cost = 8
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			capital_scope = {
 				add_extra_state_shared_building_slots = 2
-				add_building_construction = { type = industrial_complex level = 2 instant_build = yes }
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
 			}
 		}
 	}
 	focus = {
 		id = SRD_liberty_guard
 		icon = GFX_focus_SRD_liberty_guard
-		x = 19
-		y = 6
+		x = 22
+		y = 5
 		prerequisite = { focus = SRD_volunteers_of_the_centre }
-		cost = 9
+		cost = 7
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			capital_scope = {
 				add_building_construction = { type = bunker level = 2 province = { all_provinces = yes limit_to_border = yes } instant_build = yes }
-				add_building_construction = { type = anti_air_building level = 2 instant_build = yes }
 			}
 			add_war_support = 0.05
 		}
 	}
 	focus = {
-		id = SRD_liberate_the_old_centre
-		icon = GFX_focus_SRD_liberate_the_old_centre
-		x = 18
-		y = 7
+		id = SRD_friends_of_freedom
+		icon = GFX_focus_SRD_friends_of_freedom
+		x = 17
+		y = 6
+		prerequisite = { focus = SRD_free_press_on_rakovski }
+		cost = 4
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			every_country = {
+				limit = { OR = { tag = OBR tag = LOZ tag = TRD } NOT = { has_war_with = ROOT } }
+				add_popularity = { ideology = democratic popularity = 0.15 }
+				add_opinion_modifier = { target = ROOT modifier = evil_sofia_free_friends }
+			}
+		}
+	}
+	focus = {
+		id = SRD_workshops_of_the_free_centre
+		icon = GFX_focus_SRD_workshops_of_the_free_centre
+		x = 21
+		y = 6
 		prerequisite = { focus = SRD_open_market_on_vitosha }
 		prerequisite = { focus = SRD_liberty_guard }
-		cost = 8
+		cost = 10
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			capital_scope = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+		}
+	}
+	focus = {
+		id = SRD_drills_in_borisova_garden
+		icon = GFX_focus_SRD_drills_in_borisova_garden
+		x = 23
+		y = 6
+		prerequisite = { focus = SRD_liberty_guard }
+		cost = 4
+		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			army_experience = 25
+			add_tech_bonus = { name = SRD_drills_in_borisova_garden bonus = 1.0 uses = 1 category = land_doctrine }
+		}
+	}
+	focus = {
+		id = SRD_offer_to_anton
+		icon = GFX_focus_SRD_offer_to_anton
+		x = 17
+		y = 7
+		prerequisite = { focus = SRD_friends_of_freedom }
+		cost = 3
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			if = {
+				limit = { country_exists = OBR NOT = { has_war_with = OBR } }
+				OBR = { country_event = { id = evil_sofia_srd.17 } }
+			}
+		}
+	}
+	focus = {
+		id = SRD_offer_to_georgi
+		icon = GFX_focus_SRD_offer_to_georgi
+		x = 19
+		y = 7
+		prerequisite = { focus = SRD_friends_of_freedom }
+		cost = 3
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			if = {
+				limit = { country_exists = LOZ NOT = { has_war_with = LOZ } }
+				LOZ = { country_event = { id = evil_sofia_srd.17 } }
+			}
+		}
+	}
+	focus = {
+		id = SRD_liberate_the_old_centre
+		icon = GFX_focus_SRD_liberate_the_old_centre
+		x = 21
+		y = 7
+		prerequisite = { focus = SRD_workshops_of_the_free_centre }
+		cost = 6
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1463,18 +1528,36 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = SRD_the_wider_centre
-		icon = GFX_focus_SRD_the_wider_centre
+		id = SRD_offer_to_alexander
+		icon = GFX_focus_SRD_offer_to_alexander
 		x = 18
 		y = 8
+		prerequisite = { focus = SRD_offer_to_anton }
+		prerequisite = { focus = SRD_offer_to_georgi }
+		cost = 3
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			if = {
+				limit = { country_exists = TRD NOT = { has_war_with = TRD } }
+				TRD = { country_event = { id = evil_sofia_srd.17 } }
+			}
+		}
+	}
+	focus = {
+		id = SRD_the_wider_centre
+		icon = GFX_focus_SRD_the_wider_centre
+		x = 20
+		y = 9
 		prerequisite = { focus = SRD_liberate_the_old_centre }
+		prerequisite = { focus = SRD_offer_to_alexander }
 		available = {
 			5 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 			6 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 			3 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 			4 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 		}
-		cost = 9
+		cost = 8
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1498,8 +1581,8 @@ focus_tree = {
 	focus = {
 		id = SRD_a_free_centre
 		icon = GFX_focus_SRD_a_free_centre
-		x = 18
-		y = 9
+		x = 20
+		y = 10
 		prerequisite = { focus = SRD_the_wider_centre }
 		available = {
 			38 = { is_controlled_by = ROOT }
@@ -1510,7 +1593,7 @@ focus_tree = {
 			17 = { is_controlled_by = ROOT }
 			10 = { is_controlled_by = ROOT }
 		}
-		cost = 6
+		cost = 5
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_STABILITY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1519,27 +1602,28 @@ focus_tree = {
 				add_core_of = SRD
 			}
 			add_stability = 0.10
-			news_event = { id = evil_sofia_news.13 hours = 6 }
 		}
 	}
 	focus = {
-		id = SRD_beacon_of_the_centre
-		icon = GFX_focus_SRD_beacon_of_the_centre
-		x = 18
-		y = 10
+		id = SRD_free_centre_of_sofia
+		icon = GFX_focus_SRD_free_centre_of_sofia
+		x = 20
+		y = 11
 		prerequisite = { focus = SRD_a_free_centre }
-		cost = 12
+		cost = 10
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_STABILITY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
+			set_cosmetic_tag = SRD_FREE_CENTRE
 			swap_ideas = { remove_idea = SRD_free_sredets add_idea = SRD_free_centre }
 			add_research_slot = 1
+			news_event = { id = evil_sofia_news.13 hours = 6 }
 		}
 	}
 	focus = {
 		id = SRD_call_the_evil_gang
 		icon = GFX_focus_SRD_call_the_evil_gang
-		x = 22
+		x = 26
 		y = 3
 		prerequisite = { focus = SRD_who_stands_with_sredets }
 		mutually_exclusive = { focus = SRD_a_free_sredets focus = SRD_unleash_the_c_class focus = SRD_ilchevs_lesson }
@@ -1556,7 +1640,7 @@ focus_tree = {
 	focus = {
 		id = SRD_invite_anton
 		icon = GFX_focus_SRD_invite_anton
-		x = 21
+		x = 25
 		y = 4
 		prerequisite = { focus = SRD_call_the_evil_gang }
 		cost = 5
@@ -1572,7 +1656,7 @@ focus_tree = {
 	focus = {
 		id = SRD_invite_georgi
 		icon = GFX_focus_SRD_invite_georgi
-		x = 23
+		x = 27
 		y = 4
 		prerequisite = { focus = SRD_call_the_evil_gang }
 		cost = 4
@@ -1588,7 +1672,7 @@ focus_tree = {
 	focus = {
 		id = SRD_invite_poryazov
 		icon = GFX_focus_SRD_invite_poryazov
-		x = 21
+		x = 25
 		y = 5
 		prerequisite = { focus = SRD_invite_anton }
 		cost = 5
@@ -1604,7 +1688,7 @@ focus_tree = {
 	focus = {
 		id = SRD_invite_kartunov
 		icon = GFX_focus_SRD_invite_kartunov
-		x = 23
+		x = 27
 		y = 5
 		prerequisite = { focus = SRD_invite_georgi }
 		cost = 5
@@ -1620,7 +1704,7 @@ focus_tree = {
 	focus = {
 		id = SRD_invite_dimitrov
 		icon = GFX_focus_SRD_invite_dimitrov
-		x = 21
+		x = 25
 		y = 6
 		prerequisite = { focus = SRD_invite_poryazov }
 		cost = 5
@@ -1636,7 +1720,7 @@ focus_tree = {
 	focus = {
 		id = SRD_invite_grimboss
 		icon = GFX_focus_SRD_invite_grimboss
-		x = 23
+		x = 27
 		y = 6
 		prerequisite = { focus = SRD_invite_kartunov }
 		cost = 5
@@ -1652,7 +1736,7 @@ focus_tree = {
 	focus = {
 		id = SRD_even_henry
 		icon = GFX_focus_SRD_even_henry
-		x = 22
+		x = 26
 		y = 7
 		prerequisite = { focus = SRD_invite_dimitrov focus = SRD_invite_grimboss }
 		cost = 6
@@ -1668,7 +1752,7 @@ focus_tree = {
 	focus = {
 		id = SRD_the_evil_gang_rules_sofia
 		icon = GFX_focus_SRD_the_evil_gang_rules_sofia
-		x = 22
+		x = 26
 		y = 8
 		prerequisite = { focus = SRD_even_henry }
 		cost = 8
@@ -1689,7 +1773,7 @@ focus_tree = {
 	focus = {
 		id = SRD_unleash_the_c_class
 		icon = GFX_focus_SRD_unleash_the_c_class
-		x = 26
+		x = 30
 		y = 3
 		prerequisite = { focus = SRD_who_stands_with_sredets }
 		mutually_exclusive = { focus = SRD_a_free_sredets focus = SRD_call_the_evil_gang focus = SRD_ilchevs_lesson }
@@ -1706,7 +1790,7 @@ focus_tree = {
 	focus = {
 		id = SRD_ultras_of_the_stadium
 		icon = GFX_focus_SRD_ultras_of_the_stadium
-		x = 25
+		x = 29
 		y = 4
 		prerequisite = { focus = SRD_unleash_the_c_class }
 		cost = 6
@@ -1720,7 +1804,7 @@ focus_tree = {
 	focus = {
 		id = SRD_flares_and_firecrackers
 		icon = GFX_focus_SRD_flares_and_firecrackers
-		x = 27
+		x = 31
 		y = 4
 		prerequisite = { focus = SRD_unleash_the_c_class }
 		cost = 7
@@ -1734,7 +1818,7 @@ focus_tree = {
 	focus = {
 		id = SRD_away_day
 		icon = GFX_focus_SRD_away_day
-		x = 25
+		x = 29
 		y = 5
 		prerequisite = { focus = SRD_ultras_of_the_stadium }
 		cost = 7
@@ -1752,7 +1836,7 @@ focus_tree = {
 	focus = {
 		id = SRD_pitch_invasion
 		icon = GFX_focus_SRD_pitch_invasion
-		x = 27
+		x = 31
 		y = 5
 		prerequisite = { focus = SRD_flares_and_firecrackers }
 		cost = 8
@@ -1766,7 +1850,7 @@ focus_tree = {
 	focus = {
 		id = SRD_recruit_the_firms
 		icon = GFX_focus_SRD_recruit_the_firms
-		x = 26
+		x = 30
 		y = 6
 		prerequisite = { focus = SRD_away_day }
 		prerequisite = { focus = SRD_pitch_invasion }
@@ -1783,7 +1867,7 @@ focus_tree = {
 	focus = {
 		id = SRD_home_ground
 		icon = GFX_focus_SRD_home_ground
-		x = 26
+		x = 30
 		y = 7
 		prerequisite = { focus = SRD_recruit_the_firms }
 		available = {
@@ -1806,7 +1890,7 @@ focus_tree = {
 	focus = {
 		id = SRD_champions_of_sofia
 		icon = GFX_focus_SRD_champions_of_sofia
-		x = 26
+		x = 30
 		y = 8
 		prerequisite = { focus = SRD_home_ground }
 		cost = 9
@@ -1819,7 +1903,7 @@ focus_tree = {
 	focus = {
 		id = SRD_ilchevs_lesson
 		icon = GFX_focus_SRD_ilchevs_lesson
-		x = 30
+		x = 34
 		y = 3
 		prerequisite = { focus = SRD_who_stands_with_sredets }
 		mutually_exclusive = { focus = SRD_a_free_sredets focus = SRD_call_the_evil_gang focus = SRD_unleash_the_c_class }
@@ -1840,7 +1924,7 @@ focus_tree = {
 	focus = {
 		id = SRD_newtons_laws
 		icon = GFX_focus_SRD_newtons_laws
-		x = 29
+		x = 33
 		y = 4
 		prerequisite = { focus = SRD_ilchevs_lesson }
 		cost = 6
@@ -1854,7 +1938,7 @@ focus_tree = {
 	focus = {
 		id = SRD_laboratory_of_the_nation
 		icon = GFX_focus_SRD_laboratory_of_the_nation
-		x = 31
+		x = 35
 		y = 4
 		prerequisite = { focus = SRD_ilchevs_lesson }
 		cost = 10
@@ -1867,7 +1951,7 @@ focus_tree = {
 	focus = {
 		id = SRD_homework_for_everyone
 		icon = GFX_focus_SRD_homework_for_everyone
-		x = 29
+		x = 33
 		y = 5
 		prerequisite = { focus = SRD_newtons_laws }
 		cost = 7
@@ -1881,7 +1965,7 @@ focus_tree = {
 	focus = {
 		id = SRD_pop_quiz_for_the_army
 		icon = GFX_focus_SRD_pop_quiz_for_the_army
-		x = 31
+		x = 35
 		y = 5
 		prerequisite = { focus = SRD_laboratory_of_the_nation }
 		cost = 7
@@ -1895,7 +1979,7 @@ focus_tree = {
 	focus = {
 		id = SRD_e_equals_mc2
 		icon = GFX_focus_SRD_e_equals_mc2
-		x = 30
+		x = 34
 		y = 6
 		prerequisite = { focus = SRD_homework_for_everyone }
 		prerequisite = { focus = SRD_pop_quiz_for_the_army }
@@ -1910,7 +1994,7 @@ focus_tree = {
 	focus = {
 		id = SRD_the_final_exam
 		icon = GFX_focus_SRD_the_final_exam
-		x = 30
+		x = 34
 		y = 7
 		prerequisite = { focus = SRD_e_equals_mc2 }
 		cost = 8
@@ -1928,7 +2012,7 @@ focus_tree = {
 	focus = {
 		id = SRD_grades_are_final
 		icon = GFX_focus_SRD_grades_are_final
-		x = 30
+		x = 34
 		y = 8
 		prerequisite = { focus = SRD_the_final_exam }
 		available = {

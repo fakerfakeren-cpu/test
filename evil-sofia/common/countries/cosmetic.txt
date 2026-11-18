@@ -10,6 +10,14 @@ SRD_SOFIA = {
 	color = rgb { 210 20 25 }
 	color_ui = rgb { 250 60 65 }
 }
+SRD_FREE = {
+	color = rgb { 40 92 190 }
+	color_ui = rgb { 80 132 230 }
+}
+SRD_FREE_CENTRE = {
+	color = rgb { 30 80 180 }
+	color_ui = rgb { 70 120 220 }
+}
 SRD_SOUTH = {
 	color = rgb { 205 30 30 }
 	color_ui = rgb { 245 70 70 }

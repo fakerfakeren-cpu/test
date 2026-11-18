@@ -13,10 +13,11 @@ Triaditsa (TRD, Alexander Dimitrov), Lyulin (LYU, GrimBoss). The game starts on 
 
 ## Rules from the user (keep them)
 
-- **No portraits or photos in the repository, ever.** They live in `tools/portraits/` (git-ignored) and go only
+- **No portraits or photos in the repository, ever.** That includes the user's own event pictures:
+  `tools/event_pictures/*.png` and their DDS in `gfx/event_pictures/evil_sofia/own/` are git-ignored. They live in `tools/portraits/` (git-ignored) and go only
   into the packaged zip. The icons made from them go to `gfx/interface/goals/evil_sofia/people/` and
   `gfx/leaders/` (both git-ignored). Before every commit, check that no staged path contains `portraits/`,
-  `gfx/leaders/` or `goals/evil_sofia/people/`.
+  `gfx/leaders/`, `goals/evil_sofia/people/`, `event_pictures/evil_sofia/own/` or a PNG in `tools/event_pictures/`.
 - Person focus icons: the leader cut out of his portrait in black and white, standing inside a pack frame, with
   the sword or handshake **in front** of him, faces visible, a different frame for each. Other icons: finished
   pack icons, varied. No foreign-flag icons.
@@ -84,13 +85,20 @@ The user has to send these again (they are not in git); save each as PNG under `
 | `EVIL_GANG.png` | the Evil Gang group photo (on the steps, 1080x1080) |
 | `C_CLASS.png` | the C Class Hools group photo (mirror selfie, 1080x1080) |
 
+The user's event pictures (`tools/event_pictures/<event>.png`, see `PICTURES.md`) also have to be sent again.
+Made so far: `evil_sofia_news_1.png` (speaker in a coat before red Sredets flags, Alexander Nevsky and Vitosha
+behind; saved already cropped to the news shape).
+
 Without them the build still works: leaders have no portrait and the person/photo icons fall back to pack icons.
 
 ## State of the work
 
-- Sredets tree: 84 focuses. Communist path (Henry's Mom Was Right) finished and tuned by the user. Authoritarian
-  path (Order in the Centre) just written: four mutually exclusive branches, A Free Sredets (democracy, alone, no factions; takes the centre: VAZ and OBR
-  whole, then the central states of TRD, LOZ, KRS and SRK, set in `WIDER_CENTRE` in `focus_sredets.py`), the Evil
+- Sredets tree: 89 focuses. Communist path (Henry's Mom Was Right) finished and tuned by the user. Authoritarian
+  path (Order in the Centre) just written: four mutually exclusive branches, A Free Sredets (democracy under Victor, no elections, alone, no factions, blue with its own
+  flag `red_flags.free()`; 16 focuses, 3 to 10 weeks by weight, an uneven layout where some focuses need two others; peaceful
+  offers to Anton, Georgi, Alexander (event srd.17, mostly no; person icons `offer_to_*`, made once the portraits are
+  back); then takes the centre: VAZ and OBR
+  whole, then the central states of TRD, LOZ, KRS and SRK, set in `WIDER_CENTRE`; ends as the Free Centre of Sofia), the Evil
   Gang (invite the friends one by one), the C Class Hools (join or get hit) and Konstantin Ilchev's takeover.
   Not yet played; expect tweaks.
 - The other districts have a 13-focus starter tree; the featured friends have no tree of their own yet.

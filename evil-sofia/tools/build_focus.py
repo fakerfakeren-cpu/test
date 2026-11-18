@@ -162,6 +162,9 @@ def build(root, facts, write, write_dds):
         text = re.sub(r"\{INVITE:([A-Z]+)\}", lambda m: (
             f"if = {{\n\tlimit = {{ country_exists = {m.group(1)} NOT = {{ is_in_faction_with = {m.group(1)} "
             f"has_war_with = {m.group(1)} }} }}\n\t{m.group(1)} = {{ country_event = {{ id = evil_sofia_srd.11 }} }}\n}}"), text)
+        text = re.sub(r"\{OFFER:([A-Z]+)\}", lambda m: (
+            f"if = {{\n\tlimit = {{ country_exists = {m.group(1)} NOT = {{ has_war_with = {m.group(1)} }} }}\n"
+            f"\t{m.group(1)} = {{ country_event = {{ id = evil_sofia_srd.17 }} }}\n}}"), text)
         text = re.sub(r"\{WAR:([A-Z,]+)\}", lambda m: "\n".join(
             f"if = {{ limit = {{ country_exists = {t} NOT = {{ has_war_with = {t} is_in_faction_with = {t} }} }} "
             f"create_wargoal = {{ type = annex_everything target = {t} }} }}" for t in m.group(1).split(",")), text)
@@ -267,12 +270,13 @@ def build(root, facts, write, write_dds):
         name = f"GFX_evil_sofia_{key}"
         if name not in pictures:
             own = os.path.join(own_pictures, f"{key}.png")
+            tex = f"gfx/event_pictures/evil_sofia/{key}.dds"
             if os.path.exists(own):        # a picture made for this event: cropped to the frame's shape
                 im = event_pictures.fit(Image.open(own), kind)
+                tex = f"gfx/event_pictures/evil_sofia/own/{key}.dds"     # the user's pictures stay out of git
             else:
                 im = event_pictures.picture(kind, [event_pictures.flag_image(root, f) for f in flags], mood,
                                             seed=sum(map(ord, key)))
-            tex = f"gfx/event_pictures/evil_sofia/{key}.dds"
             write_dds(tex, np.asarray(im))
             pictures[name] = tex
         return name
@@ -331,9 +335,11 @@ def build(root, facts, write, write_dds):
     write("common/opinion_modifiers/evil_sofia.txt", "opinion_modifiers = {\n"
           "\tevil_sofia_dirty_communists = {\n\t\tvalue = -100\n\t}\n"
           "\tevil_sofia_day_ones = {\n\t\tvalue = 100\n\t}\n"
-          "\tevil_sofia_gang = {\n\t\tvalue = 50\n\t}\n}\n")
+          "\tevil_sofia_gang = {\n\t\tvalue = 50\n\t}\n"
+          "\tevil_sofia_free_friends = {\n\t\tvalue = 30\n\t}\n}\n")
     loc += [' evil_sofia_dirty_communists:0 "Dirty communists!"', ' evil_sofia_day_ones:0 "Day ones"',
-            ' evil_sofia_gang:0 "The Evil Gang"']
+            ' evil_sofia_gang:0 "The Evil Gang"',
+            ' evil_sofia_free_friends:0 "Friends of Freedom"']
     all_traits = dict(tree.TRAITS)
     all_traits.update({k: (n, d, mods) for k, (n, d, mods, slot) in texts.ADVISOR_TRAITS.items()})
     write("common/country_leader/evil_sofia_traits.txt", "leader_traits = {\n" + "".join(

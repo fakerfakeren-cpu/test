@@ -139,7 +139,8 @@ def flag_image(root, name):
             ImageDraw.Draw(im).rectangle((0, 62, 246, 94), fill=(240, 240, 236))
         return im
     recipes = {"SRD_RED": ("district", "SRD"), "OBR_RED": ("district", "OBR"), "SRD_SOFIA": ("sofia", ""),
-               "SRD_SOUTH": ("sofia", "south"), "OBR_NORTH": ("sofia", "north")}
+               "SRD_SOUTH": ("sofia", "south"), "OBR_NORTH": ("sofia", "north"),
+               "SRD_FREE": ("free", ""), "SRD_FREE_CENTRE": ("free", "centre")}
     if name in recipes:
         return red_flags.make(root, *recipes[name])
     return Image.open(os.path.join(root, "tools", "flags", f"{name}.png")).convert("RGB").resize((246, 156))

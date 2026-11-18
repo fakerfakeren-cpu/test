@@ -311,3 +311,60 @@ country_event = {
 		ai_chance = { factor = 1 }
 	}
 }
+
+country_event = {
+	id = evil_sofia_srd.17
+	title = evil_sofia_srd.17.t
+	desc = evil_sofia_srd.17.d
+	picture = GFX_evil_sofia_evil_sofia_srd_17
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_srd.17.a
+		ai_chance = {
+			base = 5
+			modifier = { add = 10 has_opinion = { target = FROM value > 20 } }
+			modifier = { add = 15 has_opinion = { target = FROM value > 50 } }
+			modifier = { add = 15 has_opinion = { target = FROM value > 80 } }
+			modifier = { add = 10 democratic > 0.2 }
+			modifier = { add = 15 democratic > 0.4 }
+			modifier = { add = 15 democratic > 0.6 }
+			modifier = { add = 10 has_government = democratic }
+			modifier = { factor = 0.3 has_opinion = { target = FROM value < 0 } }
+			modifier = { factor = 0 has_government = communism }
+		}
+		FROM = { country_event = { id = evil_sofia_srd.18 } }
+		FROM = { annex_country = { target = ROOT transfer_troops = yes } }
+	}
+	option = {
+		name = evil_sofia_srd.17.b
+		ai_chance = {
+			base = 80
+			modifier = { add = 40 has_opinion = { target = FROM value < 0 } }
+		}
+		FROM = { country_event = { id = evil_sofia_srd.19 } }
+	}
+}
+
+country_event = {
+	id = evil_sofia_srd.18
+	title = evil_sofia_srd.18.t
+	desc = evil_sofia_srd.18.d
+	picture = GFX_evil_sofia_evil_sofia_srd_18
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_srd.18.a
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = evil_sofia_srd.19
+	title = evil_sofia_srd.19.t
+	desc = evil_sofia_srd.19.d
+	picture = GFX_evil_sofia_evil_sofia_srd_19
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_srd.19.a
+		ai_chance = { factor = 1 }
+	}
+}

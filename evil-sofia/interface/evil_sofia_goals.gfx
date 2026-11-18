@@ -200,16 +200,12 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/evil_sofia/SRD_speakers_corner.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_SRD_free_press_on_rakovski"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_free_press_on_rakovski.dds"
-	}
-	spriteType = {
-		name = "GFX_focus_SRD_first_free_election"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_first_free_election.dds"
-	}
-	spriteType = {
 		name = "GFX_focus_SRD_volunteers_of_the_centre"
 		texturefile = "gfx/interface/goals/evil_sofia/SRD_volunteers_of_the_centre.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_free_press_on_rakovski"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_free_press_on_rakovski.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_SRD_open_market_on_vitosha"
@@ -220,8 +216,32 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/evil_sofia/SRD_liberty_guard.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_SRD_friends_of_freedom"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_friends_of_freedom.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_workshops_of_the_free_centre"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_workshops_of_the_free_centre.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_drills_in_borisova_garden"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_drills_in_borisova_garden.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_offer_to_anton"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_offer_to_anton.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_offer_to_georgi"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_offer_to_georgi.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_SRD_liberate_the_old_centre"
 		texturefile = "gfx/interface/goals/evil_sofia/SRD_liberate_the_old_centre.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_offer_to_alexander"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_offer_to_alexander.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_SRD_the_wider_centre"
@@ -232,8 +252,8 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/evil_sofia/SRD_a_free_centre.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_SRD_beacon_of_the_centre"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_beacon_of_the_centre.dds"
+		name = "GFX_focus_SRD_free_centre_of_sofia"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_free_centre_of_sofia.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_SRD_call_the_evil_gang"

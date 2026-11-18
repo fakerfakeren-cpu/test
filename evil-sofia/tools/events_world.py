@@ -66,10 +66,10 @@ NEWS = {   # namespace evil_sofia_news; major news is shown to every country
           [("Sofia shrinks.", "", 1, "")]),
     "9": ("The Curfew Is Lifted in Sredets",
           "Victor Kolev has called the patrols off the Largo and declared Sredets a free district: free papers, free "
-          "speech and, he promises, free elections. In the same speech he announced that the centre will join no "
-          "alliance and ask no district for help. Diplomats report that the cafés on Vitosha Boulevard are full "
-          "again, and that nobody at the Party House will discuss a pact.",
-          (["SRD"], "day"),
+          "speech, free trade and no curfew. In the same speech he announced that the centre will join no alliance "
+          "and ask no district for help. Diplomats report that the cafés on Vitosha Boulevard are full again, that "
+          "a blue flag flies over the district hall, and that nobody there will discuss a pact.",
+          (["SRD_FREE"], "day"),
           [("Sredets is free.", "", 1, "tag = SRD"),
            ("Let them talk. We will see how long it lasts.", "", 1, "NOT = { tag = SRD }")]),
     "10": ("The Evil Gang Rides Again",
@@ -93,11 +93,12 @@ NEWS = {   # namespace evil_sofia_news; major news is shown to every country
            (["SRD"], "day"),
            [("Class is in session.", "", 1, "tag = SRD"),
             ("Sofia has gone completely mad.", "", 1, "NOT = { tag = SRD }")]),
-    "13": ("A Free Centre",
-           "From Lagera to the Eagles' Bridge, the centre of Sofia now answers to one council in Sredets. Victor "
-           "Kolev has abolished every checkpoint in it and promised its people the same rights as his own. In the "
-           "outer districts, people have started asking why theirs are different.",
-           (["SRD"], "dusk"),
+    "13": ("The Free Centre of Sofia",
+           "From Lagera to the Eagles' Bridge, the centre of Sofia now answers to one council in Sredets, and it has "
+           "taken a new name: the Free Centre of Sofia. Victor Kolev has abolished every checkpoint in it and "
+           "promised its people the same rights as his own. In the outer districts, people have started asking why "
+           "theirs are different.",
+           (["SRD_FREE_CENTRE"], "dusk"),
            [("One free city.", "", 1, "tag = SRD"),
             ("Free, and much too close.", "", 1, "NOT = { tag = SRD }")]),
 }

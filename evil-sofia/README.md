@@ -85,9 +85,11 @@ by the Hoi4_world_map project (github.com/derprito64bit/Hoi4_world_map):
   icons). The featured eight keep vanilla's generic tree until real focus trees are made.
 - **Sredets focus tree** (`tools/focus_sredets.py`, written by `tools/build_focus.py`): the first focus is either
   "Henry's Mom Was Right" (communism: Sredets becomes the red Sredets Commune) or "Order in the Centre" (the
-  authoritarian path: after two shared focuses Sredets either becomes a free democracy that stands alone (it can never
-  join or create a faction) and takes the whole centre: Vazrazhdane, Oborishte and the central states of Triaditsa,
-  Lozenets, Krasno Selo and Serdika, calls the Evil Gang and invites the friends' districts one by one, unleashes the C Class Hools and
+  authoritarian path: after two shared focuses Sredets either becomes Free Sredets, a democracy under Victor (blue, a
+  new flag, no elections) that stands alone (it can never join or create a faction), asks Anton, Georgi and Alexander
+  to join it peacefully (AI answers are random, mostly no, better with opinion and democracy) and takes the whole
+  centre: Vazrazhdane, Oborishte and the central states of Triaditsa, Lozenets, Krasno Selo and Serdika, ending as
+  the Free Centre of Sofia, calls the Evil Gang and invites the friends' districts one by one, unleashes the C Class Hools and
   offers every neighbour "join or get hit", or is taken over by Victor's physics teacher Konstantin Ilchev, a
   research-heavy branch; each ends in claims, war goals and cores on the centre once held). The communist path wins Anton Zafirov over (focuses and the decisions of
   "The Oborishte Question", up to a red coup) or destroys him. Allied, Sredets and Oborishte split Sofia and take it
@@ -99,7 +101,7 @@ by the Hoi4_world_map project (github.com/derprito64bit/Hoi4_world_map):
   fight (skipped when Lozenets is gone or already an ally). Between the two conquest paths, the People's Militia
   and the Komsomol give manpower as the districts fall; the Party branch adds more manpower, army and air
   experience, an officer school, a tank works and anti-air; the economy branch factories, the Red University,
-  socialist emulation, electrification and a research slot. 84 focuses in all, 3 to 12 weeks long, all with
+  socialist emulation, electrification and a research slot. 89 focuses in all, 3 to 12 weeks long, all with
   search filters.
   Sredets and Oborishte have communist names and hand-drawn flags (`tools/red_flags.py`: the Sredets rhombuses in
   a wheat wreath, Oborishte's rings turned into a cog with the hammer and sickle, the arms of Sofia on red for Sofia,
