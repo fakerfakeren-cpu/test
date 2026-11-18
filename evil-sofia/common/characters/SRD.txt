@@ -65,5 +65,11 @@ characters = {
 				large = "gfx/leaders/SRD/SRD_ilchev.dds"
 			}
 		}
+		country_leader = {
+			desc = "SRD_ilchev_desc"
+			ideology = despotism
+			expire = "1965.1.1.1"
+			id = -1
+		}
 	}
 }

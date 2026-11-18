@@ -123,9 +123,8 @@ NEWS = {   # namespace evil_sofia_news; major news is shown to every country
             ("If even she admits it...", "", 1, "NOT = { tag = SRD tag = VIT }")]),
     "15": ("The Vitosha Award",
            "Vitosha has been carved up at a table in the Party House. With the map of Henry's district spread in front "
-           "of him, Victor Kolev drew the new lines himself: the villas of Boyana stay with Sredets, and the slopes "
-           "and villages around them go to the members of the Evil Gang who stood by him. Nobody from Vitosha was "
-           "invited.",
+           "of him, Victor Kolev drew the new lines himself. Sredets took nothing: the villas of Boyana, the slopes and "
+           "the villages all go to the members of the Evil Gang who stood by him. Nobody from Vitosha was invited.",
            (["SRD", "VIT"], "dusk"),
            [("Everyone gets their share.", "", 1, "tag = SRD"),
             ("A fair share for a loyal friend.", "", 1, "AND = { NOT = { tag = SRD } is_in_faction_with = SRD }"),

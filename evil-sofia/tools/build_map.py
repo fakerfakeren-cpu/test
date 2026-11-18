@@ -1599,7 +1599,9 @@ color = {{ {r} {g} {b} }}
     portrait = leader_portrait(tag, f"{tag}_leader")
     extra_blocks = []   # characters that only appear through focuses (tools/texts.py EXTRA_CHARACTERS)
     for cid, cname, cdesc in _texts.EXTRA_CHARACTERS.get(tag, []):
-        extra_blocks.append(f"\t{cid} = {{\n\t\tname = {cid}{leader_portrait(cid, cid)}\n\t}}")
+        extra_blocks.append(f"\t{cid} = {{\n\t\tname = {cid}{leader_portrait(cid, cid)}\n"
+                            f"\t\tcountry_leader = {{\n\t\t\tdesc = \"{cid}_desc\"\n\t\t\tideology = despotism\n"
+                            f"\t\t\texpire = \"1965.1.1.1\"\n\t\t\tid = -1\n\t\t}}\n\t}}")
         loc += [f' {cid}:0 "{cname}"', f' {cid}_desc:0 "{cdesc}"']
     advisor_blocks = []
     for i, trait in enumerate(_texts.ADVISORS[tag], 1):

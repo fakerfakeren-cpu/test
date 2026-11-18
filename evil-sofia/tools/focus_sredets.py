@@ -88,13 +88,28 @@ WIDER_CENTRE_CORES = ("every_state = {\n\tlimit = { OR = { " + " ".join(f"state 
 
 # The Vitosha Award (Evil Gang tree): Henry's district shared out, like the Vienna Award. Each state goes to the
 # friend whose district it borders or lies closest to, if he is in the gang; Sredets keeps Henry's capital.
-VITOSHA_SHARES = [("MLA", "Georgi Poryazov", ["Simeonovo"]), ("KRP", "Stefan Kartunov", ["Knyazhevo", "Marchaevo"]),
-                  ("LOZ", "Georgi Yanchovichin", ["Dragalevtsi", "Zlatni Mostove"]), ("TRD", "Alexander Dimitrov", ["Karpuzitsa"])]
-VITOSHA_AWARD = "\n".join(
-    f"if = {{ limit = {{ owns_state = {{STATE:VIT:{n}}} {t} = {{ exists = yes is_in_faction_with = ROOT }} }} "
-    f"{t} = {{ transfer_state = {{STATE:VIT:{n}}} add_core_of = {{STATE:VIT:{n}}} }} }}"
-    for t, _, names in VITOSHA_SHARES for n in names) + "\nnews_event = { id = evil_sofia_news.15 hours = 6 }"
-VITOSHA_AWARD_TEXT = "; ".join(f"{who}: {', '.join(names)}" for _, who, names in VITOSHA_SHARES) + "."
+VITOSHA_FRIENDS = {"MLA": "Georgi Poryazov", "KRP": "Stefan Kartunov", "LOZ": "Georgi Yanchovichin",
+                   "TRD": "Alexander Dimitrov"}
+VITOSHA_SHARES = [  # state of Vitosha: the friends in order of preference (border first, then distance)
+    ("Vitosha", ["TRD", "LOZ", "KRP", "MLA"]), ("Simeonovo", ["MLA", "LOZ", "TRD", "KRP"]),
+    ("Marchaevo", ["KRP", "TRD", "LOZ", "MLA"]), ("Dragalevtsi", ["LOZ", "TRD", "MLA", "KRP"]),
+    ("Zlatni Mostove", ["LOZ", "TRD", "MLA", "KRP"]), ("Knyazhevo", ["KRP", "TRD", "LOZ", "MLA"]),
+    ("Karpuzitsa", ["TRD", "KRP", "LOZ", "MLA"])]
+
+
+def _award(name, order):
+    out = []
+    for i, t in enumerate(order):
+        out.append(f"{'if' if i == 0 else 'else_if'} = {{ limit = {{ owns_state = {{STATE:VIT:{name}}} {t} = {{ exists = yes "
+                   f"is_in_faction_with = ROOT }} }} {t} = {{ transfer_state = {{STATE:VIT:{name}}} "
+                   f"add_core_of = {{STATE:VIT:{name}}} }} }}")
+    return "\n".join(out)
+
+
+VITOSHA_AWARD = "\n".join(_award(n, o) for n, o in VITOSHA_SHARES) + "\nnews_event = { id = evil_sofia_news.15 hours = 6 }"
+VITOSHA_AWARD_TEXT = "Sredets takes nothing. " + "; ".join(
+    f"{who}: {', '.join(n for n, o in VITOSHA_SHARES if o[0] == t)}" for t, who in VITOSHA_FRIENDS.items()) + \
+    ". If a friend is not in the gang, his share goes to the nearest friend who is."
 
 FOCUSES = [
     ("henrys_mom_was_right", "Henry's Mom Was Right", 8, 0, [], ["order_in_the_centre"], 5,
@@ -608,27 +623,27 @@ news_event = { id = evil_sofia_news.13 hours = 6 }""",
      "gives them one.\\n\\nOnly without the Evil Gang: the C Class does not share Victor with anyone."),
     ("march_on_the_old_centre", "March on the Old Centre", 27, 6, [["workshops_of_the_centre"], ["arsenal_of_the_centre"]], [], 6,
      "duo:Generic_Tank_through_Wall", "",
-     "{CLAIMS:VAZ}\n{WAR:VAZ}",
+     "{COREALL:SRD:VAZ}\n{WAR:VAZ}",
      "The Women's Market of Vazrazhdane is a ten-minute walk from the Largo, and it still answers to somebody "
-     "else. The first step to a united centre is the shortest.\\n\\nClaims and war goals on Vazrazhdane."),
+     "else. The first step to a united centre is the shortest.\\n\\nCores and war goals on Vazrazhdane."),
     ("the_centre_takes_shape", "The Centre Takes Shape", 27, 7, [["march_on_the_old_centre"]], [], 8,
      "duo:goal_generic_occypy_states_ongoing_war", "{HELD:VAZ}",
-     "{COREHELD:SRD:VAZ}\n" + WIDER_CENTRE_CLAIMS,
+     WIDER_CENTRE_COREALL,
      "Vazrazhdane is ours. Now the edges of the centre: the streets around the Ivan Vazov quarter, the old villas "
-     "of Lozenets, Kriva Reka and Lagera, and the railway quarter north of the Lions' Bridge.\\n\\nCores on "
-     "Vazrazhdane's states held. Claims and war goals on the central states of Triaditsa, Lozenets, Krasno Selo "
+     "of Lozenets, Kriva Reka and Lagera, and the railway quarter north of the Lions' Bridge.\\n\\nCores and "
+     "war goals on the central states of Triaditsa, Lozenets, Krasno Selo "
      "and Serdika (" + WIDER_CENTRE_NAMES + "). Needs every state of Vazrazhdane held."),
     ("the_centre_is_one", "The Centre Is One", 27, 8, [["the_centre_takes_shape"]], [], 5,
      "duo:goal_generic_fortify_city", WIDER_CENTRE_HELD,
      WIDER_CENTRE_CORES + "\nadd_stability = 0.05",
      "From Lagera to the Eagles' Bridge, the centre answers to one district hall. Only one question is left: "
-     "Oborishte.\\n\\nCores on the central states held. Needs every central state of Triaditsa, Lozenets, "
+     "Oborishte.\\n\\nNeeds every central state of Triaditsa, Lozenets, "
      "Krasno Selo and Serdika held."),
     ("bring_anton_in", "Bring Anton In", 26, 9, [["the_centre_is_one"]], ["anton_at_our_side"], 6,
      "duo:goal_generic_demand_territory", "country_exists = OBR",
-     "{CLAIMS:OBR}\n{WAR:OBR}",
+     "{COREALL:SRD:OBR}\n{WAR:OBR}",
      "The centre is not whole while the cathedral square answers to Anton Zafirov. He was a friend once. He "
-     "can still be one, inside the centre.\\n\\nClaims and war goals on Oborishte."),
+     "can still be one, inside the centre.\\n\\nCores and war goals on Oborishte."),
     ("anton_at_our_side", "Anton at Our Side", 28, 9, [["the_centre_is_one"]], ["bring_anton_in"], 4,
      "duo:Generic_Coalition_Army", "country_exists = OBR",
      """OBR = { add_opinion_modifier = { target = ROOT modifier = evil_sofia_gang } }
@@ -643,8 +658,7 @@ if = { limit = { is_in_faction = no } give_guarantee = OBR }""",
      "{COREHELD:SRD:OBR}\nswap_ideas = { remove_idea = SRD_united_dream add_idea = SRD_united_centre_done }\n"
      "add_research_slot = 1\nnews_event = { id = evil_sofia_news.16 hours = 6 }",
      "The cathedral square, the Women's Market, the villas of Lozenets and the Largo: one centre, under one "
-     "hand, Oborishte included. Victor's dream has come true.\\n\\nCores on Oborishte's states held. Needs every "
-     "state of Oborishte held."),
+     "hand, Oborishte included. Victor's dream has come true.\\n\\nNeeds every state of Oborishte held."),
     ("the_centre_and_oborishte", "The Centre and Oborishte", 28, 10, [["anton_at_our_side"]], [], 8,
      "duo:goal_generic_national_unity", "",
      "swap_ideas = { remove_idea = SRD_united_dream add_idea = SRD_united_centre_done }\n"
@@ -655,11 +669,8 @@ if = { limit = { is_in_faction = no } give_guarantee = OBR }""",
     ("ilchevs_lesson", "The Physics Teacher Steps In", 34, 3, [["who_stands_with_sredets"]],
      ["a_free_sredets", "united_centre"], 5,
      "person:ilchevs_lesson", "date > 1937.1.1",
-     """add_country_leader_role = {
-	character = SRD_ilchev
-	country_leader = { desc = "SRD_ilchev_desc" ideology = despotism expire = "1965.1.1.1" }
-	promote_leader = yes
-}
+     """recruit_character = SRD_ilchev
+promote_character = SRD_ilchev
 add_stability = -0.05
 add_political_power = 100
 news_event = { id = evil_sofia_news.12 hours = 6 }""",
@@ -706,7 +717,7 @@ news_event = { id = evil_sofia_news.12 hours = 6 }""",
      "states held. Needs every state of Vazrazhdane and Oborishte held."),
     # ------------------------------------------------------------------ the Evil Gang (the faction tree, open on any road but the free one)
     ("call_the_evil_gang", "Propose the Evil Gang", 42, 0, [], [], 5,
-     "photo:evil_gang", "is_in_faction = no\nNOT = { has_completed_focus = SRD_a_free_sredets }",
+     "photo:evil_gang", "has_completed_focus = SRD_who_stands_with_sredets\nis_in_faction = no\nNOT = { has_completed_focus = SRD_a_free_sredets }",
      """create_faction = EVIL_SOFIA_FACTION_EVIL_GANG
 add_political_power = 50
 news_event = { id = evil_sofia_news.10 hours = 6 }
@@ -717,7 +728,7 @@ if = { limit = { country_exists = KRP NOT = { has_war_with = KRP } } KRP = { cou
      "on the steps of a theatre and every one of the people who now rule half the districts of Sofia.\\n\\n"
      "Victor opens it again and proposes the Evil Gang. The letters go out one by one: to Georgi Poryazov now, "
      "to Daniel-Henry Capel in a month, to Stefan Kartunov in two. Each is more likely to say yes the better he "
-     "thinks of Sredets.\\n\\nNot possible for a free Sredets."),
+     "thinks of Sredets.\\n\\nNeeds Who Stands with Sredets?. Not possible for a free Sredets."),
     ("destroy_henry", "Destroy Henry", 39, 1, [["call_the_evil_gang"]], [], 6,
      "person:destroy_henry", "VIT = { exists = yes has_country_flag = SRD_refused_the_gang }",
      "{CLAIMS:VIT}\n{WAR:VIT}",
@@ -739,9 +750,8 @@ if = { limit = { country_exists = KRP NOT = { has_war_with = KRP } } KRP = { cou
      "duo:goal_generic_forceful_treaty", "NOT = { country_exists = VIT }",
      VITOSHA_AWARD,
      "Vitosha is ours, and the gang is waiting for its share. Victor spreads the map on the table and draws the "
-     "lines himself, like an arbiter in an old treaty: the villas of Boyana stay with Sredets, the rest goes to "
-     "the friends who stood by him.\\n\\n" + VITOSHA_AWARD_TEXT + " A friend outside the gang gets nothing; "
-     "his share stays with Sredets."),
+     "lines himself, like an arbiter in an old treaty. Sredets wants nothing from Henry: every street of Vitosha "
+     "goes to the friends who stood by Victor.\\n\\n" + VITOSHA_AWARD_TEXT),
     ("invite_dimitrov", "Invite Alexander Dimitrov", 41, 2, [["invite_georgi"]], [], 5,
      "person:invite_dimitrov", "", "{INVITE:TRD}",
      "Alexander will listen politely, agree with everything and then do what he likes. In the gang, that was "
