@@ -64,6 +64,34 @@ NEWS = {   # namespace evil_sofia_news; major news is shown to every country
           "the rule of the whole city.",
           (["SOFIA"], "rain"),
           [("Sofia shrinks.", "", 1, "")]),
+    "9": ("Sredets Stands Alone",
+          "Victor Kolev has announced that Sredets will join no alliance, sign no pact and ask no district for help. "
+          "Engineers are already pouring concrete on the bridges into the centre. Diplomats from the other districts "
+          "report that the Party House no longer answers the telephone.",
+          (["SRD"], "rain"),
+          [("We need nobody.", "", 1, "tag = SRD"),
+           ("Let them sit behind their walls.", "", 1, "NOT = { tag = SRD }")]),
+    "10": ("The Evil Gang Rides Again",
+           "An old group chat has become the most talked-about alliance in Sofia. Victor Kolev of Sredets has "
+           "announced the return of the Evil Gang, and invitations are said to be on their way to several district "
+           "leaders who, before the city fell apart, were his closest friends.",
+           (["SRD", "LOZ", "OBR"], "night"),
+           [("The gang is back.", "", 1, "tag = SRD"),
+            ("Are we on the list?", "", 1, "NOT = { tag = SRD }")]),
+    "11": ("The C Class Hools Take to the Streets",
+           "Hundreds of young men in scarves and hoods marched through the centre of Sofia last night, lighting "
+           "flares and singing. They call themselves the C Class Hools, they answer to Sredets, and their leaders "
+           "say they will be visiting every neighbouring district soon.",
+           (["SRD"], "fire"),
+           [("Nobody stops the C Class.", "", 1, "tag = SRD"),
+            ("Lock the doors.", "", 1, "NOT = { tag = SRD }")]),
+    "12": ("A Physics Teacher Seizes Sredets",
+           "In the strangest change of government Sofia has seen yet, Victor Kolev has been removed from power in "
+           "Sredets by his former physics teacher, Konstantin Ilchev. Witnesses say Ilchev walked into the Party "
+           "House carrying a stack of marked exam papers, and that the guards let him through without a word.",
+           (["SRD"], "day"),
+           [("Class is in session.", "", 1, "tag = SRD"),
+            ("Sofia has gone completely mad.", "", 1, "NOT = { tag = SRD }")]),
 }
 
 FLAVOUR = {   # namespace evil_sofia_flavour: random events of city life, for every district

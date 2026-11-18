@@ -143,3 +143,13 @@ def flag_image(root, name):
     if name in recipes:
         return red_flags.make(root, *recipes[name])
     return Image.open(os.path.join(root, "tools", "flags", f"{name}.png")).convert("RGB").resize((246, 156))
+
+
+def fit(im, kind):
+    """A picture made for an event, scaled and cropped from the middle to the frame's size."""
+    W, H = SIZES[kind]
+    im = im.convert("RGB")
+    s = max(W / im.width, H / im.height)
+    im = im.resize((max(W, round(im.width * s)), max(H, round(im.height * s))), Image.LANCZOS)
+    l, t = (im.width - W) // 2, (im.height - H) // 2
+    return im.crop((l, t, l + W, t + H)).convert("RGBA")

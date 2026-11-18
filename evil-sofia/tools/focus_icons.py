@@ -154,3 +154,30 @@ def person_icon(frame, portrait, front=None, fill=(28, 28, 34), front_width=0.62
         front = front.resize((fw, fh), Image.LANCZOS)
         canvas.alpha_composite(front, (int(cx - fw / 2), int(min(H - fh, cy + r * front_y))))
     return canvas
+
+
+def photo_icon(frame, photo, box, front=None, contrast=1.2):
+    """A group photo, in black and white, filling the inner part of a focus frame, the ring drawn over it.
+    box: the part of the photo to show (left, top, right, bottom); front: an optional piece at the bottom."""
+    frame = frame.convert("RGBA")
+    W, H = frame.size
+    inner, overlay, (cy, cx), r, filled = frame_parts(frame)
+    ys, xs = np.nonzero(inner)
+    x0, x1, y0, y1 = xs.min(), xs.max() + 1, ys.min(), ys.max() + 1
+    g = ImageOps.autocontrast(ImageOps.grayscale(photo.convert("RGB").crop(box)), cutoff=1)
+    g = g.point(lambda v: max(0, min(255, int((v - 128) * contrast + 128))))
+    layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    layer.alpha_composite(g.resize((x1 - x0, y1 - y0), Image.LANCZOS).convert("RGBA"), (int(x0), int(y0)))
+    clip = Image.fromarray((ndi.binary_dilation(inner, iterations=1) * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(0.5))
+    layer.putalpha(Image.fromarray(np.minimum(np.asarray(layer.getchannel("A")), np.asarray(clip))))
+    canvas = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    canvas.alpha_composite(frame)
+    canvas.alpha_composite(layer)
+    canvas.alpha_composite(overlay)
+    if front is not None:
+        front = front.convert("RGBA")
+        fw = int(W * 0.5)
+        fh = int(front.height * fw / front.width)
+        front = front.resize((fw, fh), Image.LANCZOS)
+        canvas.alpha_composite(front, (int(cx - fw / 2), int(min(H - fh, cy + r * 0.6))))
+    return canvas

@@ -153,6 +153,9 @@ def build(root, facts, write, write_dds):
         text = re.sub(r"\{CLAIMS:([A-Z,]+)\}", lambda m: claims(m.group(1).split(",")), text)
         text = re.sub(r"\{COREHELD:([A-Z]+):([A-Z,]+)\}", lambda m: core_held(m.group(1), m.group(2).split(",")), text)
         text = re.sub(r"\{HELD:([A-Z,]+)\}", lambda m: held(m.group(1).split(",")), text)
+        text = re.sub(r"\{INVITE:([A-Z]+)\}", lambda m: (
+            f"if = {{\n\tlimit = {{ country_exists = {m.group(1)} NOT = {{ is_in_faction_with = {m.group(1)} "
+            f"has_war_with = {m.group(1)} }} }}\n\t{m.group(1)} = {{ country_event = {{ id = evil_sofia_srd.11 }} }}\n}}"), text)
         text = re.sub(r"\{WAR:([A-Z,]+)\}", lambda m: "\n".join(
             f"if = {{ limit = {{ country_exists = {t} NOT = {{ has_war_with = {t} is_in_faction_with = {t} }} }} "
             f"create_wargoal = {{ type = annex_everything target = {t} }} }}" for t in m.group(1).split(",")), text)
@@ -188,6 +191,15 @@ def build(root, facts, write, write_dds):
                 tex = f"gfx/interface/goals/evil_sofia/people/{tag}_{fid}.dds"
             else:
                 kind, key = "duo", tree.PERSON_FALLBACK[key]
+        if kind == "photo":
+            src, frame, box, piece = tree.PHOTO_ICONS[key]
+            photo = os.path.join(root, "tools", "portraits", f"{src}.png")
+            if os.path.exists(photo) and os.path.isdir(FRAMES):
+                im = focus_icons.photo_icon(Image.open(os.path.join(FRAMES, frame)), Image.open(photo), box,
+                                            _piece(piece) if piece else None)
+                tex = f"gfx/interface/goals/evil_sofia/people/{tag}_{fid}.dds"
+            else:
+                kind, key = "duo", tree.PHOTO_FALLBACK[key]
         if kind in ("duo", "custom"):
             cached = os.path.join(cache, f"{kind}_{key}.png".replace(" ", "_"))
             if os.path.exists(cached):
@@ -241,12 +253,19 @@ def build(root, facts, write, write_dds):
     import texts
     pictures = {}
 
+    own_pictures = os.path.join(root, "tools", "event_pictures")
+    wanted = []
+
     def picture(kind, spec, key):
         flags, mood = spec
         name = f"GFX_evil_sofia_{key}"
         if name not in pictures:
-            im = event_pictures.picture(kind, [event_pictures.flag_image(root, f) for f in flags], mood,
-                                        seed=sum(map(ord, key)))
+            own = os.path.join(own_pictures, f"{key}.png")
+            if os.path.exists(own):        # a picture made for this event: cropped to the frame's shape
+                im = event_pictures.fit(Image.open(own), kind)
+            else:
+                im = event_pictures.picture(kind, [event_pictures.flag_image(root, f) for f in flags], mood,
+                                            seed=sum(map(ord, key)))
             tex = f"gfx/event_pictures/evil_sofia/{key}.dds"
             write_dds(tex, np.asarray(im))
             pictures[name] = tex
@@ -270,6 +289,7 @@ def build(root, facts, write, write_dds):
                       else f"ai_chance = {{ factor = {chance} }}")
                 opts.append(f"\toption = {{\n\t\tname = {key}\n\t\t{ai}{body}\n\t}}")
             loc.extend([f' {eid}.t:0 "{L(title)}"', f' {eid}.d:0 "{L(desc)}"'])
+            wanted.append((eid.replace(".", "_"), kind, title))
             head = [f"\tid = {eid}", f"\ttitle = {eid}.t", f"\tdesc = {eid}.d",
                     f"\tpicture = {picture(kind, pic, eid.replace('.', '_'))}"]
             if major:
@@ -290,12 +310,24 @@ def build(root, facts, write, write_dds):
     write("events/evil_sofia_srd.txt", events("evil_sofia_srd", tree.EVENTS))
     write("events/evil_sofia_news.txt", events("evil_sofia_news", events_world.NEWS, "news", major=True))
     write("events/evil_sofia_flavour.txt", events("evil_sofia_flavour", events_world.FLAVOUR, mtth=True))
+    briefs = importlib.util.spec_from_file_location("briefs", os.path.join(root, "tools", "picture_briefs.py"))
+    pb = importlib.util.module_from_spec(briefs)
+    briefs.loader.exec_module(pb)
+    lines = [pb.HEADER]
+    for key, kind, title in wanted:
+        w, h = event_pictures.SIZES[kind]
+        done = "done" if os.path.exists(os.path.join(own_pictures, f"{key}.png")) else "wanted"
+        lines.append(f"| `{key}.png` | {w}x{h} | {title} | {pb.BRIEFS.get(key, '')} | {done} |")
+    with open(os.path.join(own_pictures, "PICTURES.md"), "w", encoding="utf-8") as f:
+        f.write("\n".join(lines) + "\n")
     write("interface/evil_sofia_events.gfx", "spriteTypes = {\n" + "".join(
         f'\tspriteType = {{\n\t\tname = "{n}"\n\t\ttexturefile = "{t}"\n\t}}\n' for n, t in pictures.items()) + "}\n")
     write("common/opinion_modifiers/evil_sofia.txt", "opinion_modifiers = {\n"
           "\tevil_sofia_dirty_communists = {\n\t\tvalue = -100\n\t}\n"
-          "\tevil_sofia_day_ones = {\n\t\tvalue = 100\n\t}\n}\n")
-    loc += [' evil_sofia_dirty_communists:0 "Dirty communists!"', ' evil_sofia_day_ones:0 "Day ones"']
+          "\tevil_sofia_day_ones = {\n\t\tvalue = 100\n\t}\n"
+          "\tevil_sofia_gang = {\n\t\tvalue = 50\n\t}\n}\n")
+    loc += [' evil_sofia_dirty_communists:0 "Dirty communists!"', ' evil_sofia_day_ones:0 "Day ones"',
+            ' evil_sofia_gang:0 "The Evil Gang"']
     all_traits = dict(tree.TRAITS)
     all_traits.update({k: (n, d, mods) for k, (n, d, mods, slot) in texts.ADVISOR_TRAITS.items()})
     write("common/country_leader/evil_sofia_traits.txt", "leader_traits = {\n" + "".join(
@@ -304,8 +336,9 @@ def build(root, facts, write, write_dds):
     for k, (n, d, mods) in all_traits.items():
         loc += [f' {k}:0 "{L(n)}"', f' {k}_desc:0 "{L(d)}"']
     ideas, idea_sprites = [], []
-    for k, (n, d, mods, icon) in tree.IDEAS.items():
-        ideas.append(f"\t\t{k} = {{\n\t\t\tpicture = {k}\n\t\t\tallowed = {{ always = no }}\n"
+    for k, (n, d, mods, icon, *extra) in tree.IDEAS.items():
+        extra = ("\n" + indent(extra[0], 3)) if extra else ""
+        ideas.append(f"\t\t{k} = {{\n\t\t\tpicture = {k}\n\t\t\tallowed = {{ always = no }}{extra}\n"
                      f"\t\t\tmodifier = {{\n{indent(mods, 4)}\n\t\t\t}}\n\t\t}}\n")
         name = icon.partition(":")[2] if isinstance(icon, str) else "idea_" + k
         cached = os.path.join(cache, f"custom_{name}.png")

@@ -1575,10 +1575,12 @@ color = {{ {r} {g} {b} }}
     tags_txt.append(f'{tag} = "countries/{file_name}.txt"')
     leader = LEADER_NAMES.get(tag, f"{FIRST[2 * (k - 1)]} {SURNAMES[2 * (k - 1)]}")
     general = (FIRST[2 * (k - 1) + 1], SURNAMES[2 * (k - 1) + 1])
-    portrait = ""
-    portrait_src = os.path.join(ROOT, "tools", "portraits", f"{tag}.png")
-    if os.path.exists(portrait_src):     # large leader portrait: 156x210, uncompressed DDS
-        face = Image.open(portrait_src).convert("RGBA")
+    def leader_portrait(src_name, dds_name):
+        """Large leader portrait (156x210, uncompressed DDS) from tools/portraits/<src_name>.png, if it exists."""
+        src = os.path.join(ROOT, "tools", "portraits", f"{src_name}.png")
+        if not os.path.exists(src):
+            return ""
+        face = Image.open(src).convert("RGBA")
         fw, fh = face.size
         if fw * 210 > fh * 156:          # too wide: trim both sides
             nw = round(fh * 156 / 210)
@@ -1586,13 +1588,19 @@ color = {{ {r} {g} {b} }}
         elif fw * 210 < fh * 156:        # too tall: trim the bottom, keep the head
             face = face.crop((0, 0, fw, round(fw * 210 / 156)))
         face = face.resize((156, 210), Image.LANCZOS)
-        write_dds_bgra(f"gfx/leaders/{tag}/{tag}_leader.dds", np.asarray(face))
-        portrait = f"""
+        write_dds_bgra(f"gfx/leaders/{tag}/{dds_name}.dds", np.asarray(face))
+        return f"""
 \t\tportraits = {{
 \t\t\tcivilian = {{
-\t\t\t\tlarge = "gfx/leaders/{tag}/{tag}_leader.dds"
+\t\t\t\tlarge = "gfx/leaders/{tag}/{dds_name}.dds"
 \t\t\t}}
 \t\t}}"""
+
+    portrait = leader_portrait(tag, f"{tag}_leader")
+    extra_blocks = []   # characters that only appear through focuses (tools/texts.py EXTRA_CHARACTERS)
+    for cid, cname, cdesc in _texts.EXTRA_CHARACTERS.get(tag, []):
+        extra_blocks.append(f"\t{cid} = {{\n\t\tname = {cid}{leader_portrait(cid, cid)}\n\t}}")
+        loc += [f' {cid}:0 "{cname}"', f' {cid}_desc:0 "{cdesc}"']
     advisor_blocks = []
     for i, trait in enumerate(_texts.ADVISORS[tag], 1):
         cid = f"{tag}_advisor_{i}"
@@ -1633,6 +1641,7 @@ color = {{ {r} {g} {b} }}
 \t\t}}
 \t}}
 {advisor_blocks}
+{chr(10).join(extra_blocks)}
 }}
 """)
     write(f"history/countries/{tag} - {name}.txt", f"""capital = {country_capital_state[k]}

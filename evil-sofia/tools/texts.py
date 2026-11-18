@@ -151,3 +151,14 @@ ADVISORS = {
     "PNC": ("evil_sofia_municipal_engineer", "evil_sofia_tax_collector", "evil_sofia_quartermaster"),
     "BNK": ("evil_sofia_tax_collector", "evil_sofia_block_organiser", "evil_sofia_morale_officer"),
 }
+
+# Characters that only take a role through focuses: tag: [(id, name, description)]; a portrait is used when
+# tools/portraits/<id>.png exists.
+EXTRA_CHARACTERS = {
+    "SRD": [("SRD_ilchev", "Konstantin Ilchev",
+             "Konstantin Ilchev taught physics to half the leaders of Sofia, Victor Kolev included, and remembers "
+             "every one of their exam papers. He has watched his former students carve the city into twenty-four "
+             "warring districts with growing irritation.\\n\\nHe believes in three things: the laws of physics, "
+             "homework handed in on time, and the idea that a city can be run like a well-ordered laboratory. "
+             "Sredets is about to become his experiment.")],
+}
