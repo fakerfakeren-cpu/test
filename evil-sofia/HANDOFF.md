@@ -97,8 +97,8 @@ The user has to send these again (they are not in git); save each as PNG under `
 | `C_CLASS.png` | the C Class Hools group photo (mirror selfie, 1080x1080) |
 
 The user's event pictures (`tools/event_pictures/<event>.png`, see `PICTURES.md`) also have to be sent again.
-Made so far: `evil_sofia_news_1.png` (speaker in a coat before red Sredets flags, Alexander Nevsky and Vitosha
-behind; saved already cropped to the news shape).
+Made so far (all saved already cropped to the news shape): news 1, 2, 3, 4, 5, 6, 7, 9, 13, 14 and srd 2. Still
+drawn: news 8 (A District Falls) and the news of the other branches (10, 11, 12).
 
 Without them the build still works: leaders have no portrait and the person/photo icons fall back to pack icons.
 
