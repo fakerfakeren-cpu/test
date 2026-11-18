@@ -1,6 +1,6 @@
 # Handoff: Evil Sofia
 
-Read this and `README.md` before changing anything. The README describes what the mod contains; this file
+Read this, `KNOWLEDGE.md` (everything known so far, in detail) and `README.md` before changing anything. The README describes what the mod contains; this file
 describes how the work is done and the rules the user has set.
 
 ## What it is
