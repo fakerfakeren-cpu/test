@@ -147,9 +147,15 @@ def build(root, facts, write, write_dds):
         return "\n".join(f"{i} = {{ OR = {{ is_controlled_by = ROOT controller = {{ is_in_faction_with = ROOT }} }} }}"
                          for i in start_states(tags))
 
+    def state_id(tag_, name):
+        ids = [s_["id"] for s_ in states if s_["owner"] == tag_ and s_["name"] == name]
+        assert len(ids) == 1, f"no single state {name} of {tag_}: {ids}"
+        return str(ids[0])
+
     def filled(text):
         for k, v in fill.items():
             text = text.replace(k, v)
+        text = re.sub(r"\{STATE:([A-Z]+):([^{}:]+)\}", lambda m: state_id(m.group(1), m.group(2)), text)
         text = re.sub(r"\{CLAIMS:([A-Z,]+)\}", lambda m: claims(m.group(1).split(",")), text)
         text = re.sub(r"\{COREHELD:([A-Z]+):([A-Z,]+)\}", lambda m: core_held(m.group(1), m.group(2).split(",")), text)
         text = re.sub(r"\{HELD:([A-Z,]+)\}", lambda m: held(m.group(1).split(",")), text)

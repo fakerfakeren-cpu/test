@@ -64,13 +64,14 @@ NEWS = {   # namespace evil_sofia_news; major news is shown to every country
           "the rule of the whole city.",
           (["SOFIA"], "rain"),
           [("Sofia shrinks.", "", 1, "")]),
-    "9": ("Sredets Stands Alone",
-          "Victor Kolev has announced that Sredets will join no alliance, sign no pact and ask no district for help. "
-          "Engineers are already pouring concrete on the bridges into the centre. Diplomats from the other districts "
-          "report that the Party House no longer answers the telephone.",
-          (["SRD"], "rain"),
-          [("We need nobody.", "", 1, "tag = SRD"),
-           ("Let them sit behind their walls.", "", 1, "NOT = { tag = SRD }")]),
+    "9": ("The Curfew Is Lifted in Sredets",
+          "Victor Kolev has called the patrols off the Largo and declared Sredets a free district: free papers, free "
+          "speech and, he promises, free elections. In the same speech he announced that the centre will join no "
+          "alliance and ask no district for help. Diplomats report that the cafés on Vitosha Boulevard are full "
+          "again, and that nobody at the Party House will discuss a pact.",
+          (["SRD"], "day"),
+          [("Sredets is free.", "", 1, "tag = SRD"),
+           ("Let them talk. We will see how long it lasts.", "", 1, "NOT = { tag = SRD }")]),
     "10": ("The Evil Gang Rides Again",
            "An old group chat has become the most talked-about alliance in Sofia. Victor Kolev of Sredets has "
            "announced the return of the Evil Gang, and invitations are said to be on their way to several district "
@@ -92,6 +93,13 @@ NEWS = {   # namespace evil_sofia_news; major news is shown to every country
            (["SRD"], "day"),
            [("Class is in session.", "", 1, "tag = SRD"),
             ("Sofia has gone completely mad.", "", 1, "NOT = { tag = SRD }")]),
+    "13": ("A Free Centre",
+           "From Lagera to the Eagles' Bridge, the centre of Sofia now answers to one council in Sredets. Victor "
+           "Kolev has abolished every checkpoint in it and promised its people the same rights as his own. In the "
+           "outer districts, people have started asking why theirs are different.",
+           (["SRD"], "dusk"),
+           [("One free city.", "", 1, "tag = SRD"),
+            ("Free, and much too close.", "", 1, "NOT = { tag = SRD }")]),
 }
 
 FLAVOUR = {   # namespace evil_sofia_flavour: random events of city life, for every district

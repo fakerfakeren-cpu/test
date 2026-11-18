@@ -112,6 +112,10 @@ spriteTypes = {
 		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_news_12.dds"
 	}
 	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_news_13"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_news_13.dds"
+	}
+	spriteType = {
 		name = "GFX_evil_sofia_evil_sofia_flavour_1"
 		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_flavour_1.dds"
 	}

@@ -1,6 +1,6 @@
 # Handoff: Evil Sofia
 
-Read this and `README.md` before changing anything. The README describes what the mod contains; this file
+Read this, `KNOWLEDGE.md` (the full history and reasons) and `README.md` before changing anything. The README describes what the mod contains; this file
 describes how the work is done and the rules the user has set.
 
 ## What it is
@@ -46,7 +46,8 @@ Packaging (what the user installs): copy `evil-sofia/` without `tools/`, `previe
 `dist/pkg/evil-sofia/`, write `dist/pkg/evil_sofia.mod` = `path="mod/evil-sofia"` + `descriptor.mod` without its
 `path=` line, zip both as `dist/evil-sofia.zip` and send it. The user deletes the old folder before copying.
 
-The GFX packs are read from `/home/user/duodex/hoi4gfx` (DuoDex hoi4GFX) and `/home/user/globvs/ultimate-hoi4-gfx`
+The GFX packs (Ultimate HOI4 GFX is free to use with credit, see its `CREDITS.txt`; DuoDex hoi4GFX has no licence, so
+ask DuoDex or credit them before publishing anywhere) are read from `/home/user/duodex/hoi4gfx` (DuoDex hoi4GFX) and `/home/user/globvs/ultimate-hoi4-gfx`
 (Ultimate HOI4 GFX). Pack icons already used are cached in `tools/icons/`, so the build only needs the packs for
 new icons and for person/photo icons (frames and pieces): clone them again if they are missing.
 
@@ -87,8 +88,9 @@ Without them the build still works: leaders have no portrait and the person/phot
 
 ## State of the work
 
-- Sredets tree: 81 focuses. Communist path (Henry's Mom Was Right) finished and tuned by the user. Authoritarian
-  path (Order in the Centre) just written: four mutually exclusive branches, Sredets alone (no factions), the Evil
+- Sredets tree: 84 focuses. Communist path (Henry's Mom Was Right) finished and tuned by the user. Authoritarian
+  path (Order in the Centre) just written: four mutually exclusive branches, A Free Sredets (democracy, alone, no factions; takes the centre: VAZ and OBR
+  whole, then the central states of TRD, LOZ, KRS and SRK, set in `WIDER_CENTRE` in `focus_sredets.py`), the Evil
   Gang (invite the friends one by one), the C Class Hools (join or get hit) and Konstantin Ilchev's takeover.
   Not yet played; expect tweaks.
 - The other districts have a 13-focus starter tree; the featured friends have no tree of their own yet.
@@ -101,3 +103,5 @@ Without them the build still works: leaders have no portrait and the person/phot
 - the `rule = { can_create_factions = no can_join_factions = no }` block in the "Sredets Stands Alone" spirits
 - news events with `major = yes` reaching every country, and `[From.GetLeader]` in event titles
 - `strength_ratio` in the C Class invitation's AI odds
+- A Free Sredets: switching to democracy with `set_politics` + a `liberalism` leader role for Victor, and the
+  `take_state_focus` war goals (with `generator`) on the parts of Triaditsa, Lozenets, Krasno Selo and Serdika

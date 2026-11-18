@@ -12,10 +12,13 @@ def write_dds_bgra(path, rgba):
                          32, 0x41, 0, 32, 0x00FF0000, 0x0000FF00, 0x000000FF, 0xFF000000, 0x1000, 0, 0, 0, 0)
     with open(out(path), "wb") as f:
         f.write(header); f.write(rgba[..., [2, 1, 0, 3]].tobytes())
+loc = open(f"{ROOT}/localisation/english/replace/evil_sofia_l_english.yml", encoding="utf-8-sig").read()
+state_names = {int(i): n for i, n in re.findall(r'EVIL_SOFIA_STATE_(\d+):0 "([^"]*)"', loc)}
 states = []
 for f in glob.glob(f"{ROOT}/history/states/*.txt"):
     t = open(f, encoding="utf-8-sig").read()
-    states.append({"id": int(re.search(r"\bid\s*=\s*(\d+)", t).group(1)), "owner": re.search(r"owner\s*=\s*(\w+)", t).group(1), "name": ""})
+    states.append({"id": int(re.search(r"\bid\s*=\s*(\d+)", t).group(1)), "owner": re.search(r"owner\s*=\s*(\w+)", t).group(1)})
+    states[-1]["name"] = state_names.get(states[-1]["id"], "")
 cap, names = {}, {}
 for f in glob.glob(f"{ROOT}/history/countries/*.txt"):
     tag, name = os.path.basename(f)[:-4].split(" - ")

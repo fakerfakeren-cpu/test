@@ -20,12 +20,12 @@ spriteTypes = {
 		texturefile = "gfx/interface/ideas/evil_sofia/SRD_emulation_spirit.dds"
 	}
 	spriteType = {
-		name = "GFX_idea_SRD_stands_alone"
-		texturefile = "gfx/interface/ideas/evil_sofia/SRD_stands_alone.dds"
+		name = "GFX_idea_SRD_free_sredets"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_free_sredets.dds"
 	}
 	spriteType = {
-		name = "GFX_idea_SRD_above_all"
-		texturefile = "gfx/interface/ideas/evil_sofia/SRD_above_all.dds"
+		name = "GFX_idea_SRD_free_centre"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_free_centre.dds"
 	}
 	spriteType = {
 		name = "GFX_idea_SRD_evil_gang"
