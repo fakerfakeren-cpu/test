@@ -51,7 +51,7 @@ BRIEFS = {
     "evil_sofia_news_6": "A huge rally in a square, a man speaking from a balcony hung with a red flag.",
     "evil_sofia_news_7": "Two leaders shaking hands on a bridge with bronze eagles, photographers around them.",
     "evil_sofia_news_8": "Soldiers laying down rifles in a pile in a city street, civilians watching.",
-    "evil_sofia_news_9": "Soldiers taking down a checkpoint barrier on a city boulevard while crowds fill the cafés.",
+    "evil_sofia_news_9": "Soldiers taking down a checkpoint barrier on a city boulevard while crowds fill the cafés, a blue flag on a hall.",
     "evil_sofia_news_13": "A crowd celebrating on a city square under an old cathedral, blue flags waved from balconies.",
     "evil_sofia_news_10": "A group of young men posing on the steps of a theatre, a newspaper photograph.",
     "evil_sofia_news_11": "A march of young men with scarves and lit flares through a city centre at night.",

@@ -10,7 +10,10 @@ NEWS = {   # namespace evil_sofia_news; major news is shown to every country
           "Sredets has gone communist. Late last night Victor Kolev appeared on the steps of the Party House before a "
           "crowd of several thousand and declared the Sredets Commune. Red flags have replaced the district colours "
           "on every public building around the Largo, and the ministries have been sealed by armed workers.\\n\\n"
-          "Daniel-Henry Capel's mother has told reporters that she always said so.",
+          "In Vitosha, Daniel-Henry Capel's mother received reporters at her door with a cup of coffee and a "
+          "satisfied smile. She has been saying it for years, she told them: the people of the centre were always "
+          "communists. Tonight they simply stopped pretending. Asked whether she had a message for Victor Kolev, she "
+          "said only that she hoped he was proud of himself.",
           (["SRD_RED"], "dusk"),
           [("The revolution has begun.", "", 1, "tag = SRD"),
            ("Henry's mother was right.", "", 1, "tag = VIT"),
@@ -64,14 +67,17 @@ NEWS = {   # namespace evil_sofia_news; major news is shown to every country
           "the rule of the whole city.",
           (["SOFIA"], "rain"),
           [("Sofia shrinks.", "", 1, "")]),
-    "9": ("The Curfew Is Lifted in Sredets",
-          "Victor Kolev has called the patrols off the Largo and declared Sredets a free district: free papers, free "
-          "speech, free trade and no curfew. In the same speech he announced that the centre will join no alliance "
-          "and ask no district for help. Diplomats report that the cafés on Vitosha Boulevard are full again, that "
-          "a blue flag flies over the district hall, and that nobody there will discuss a pact.",
+    "9": ("The Free Sredets Is Proclaimed",
+          "Victor Kolev has called the patrols off the Largo and proclaimed the Free Sredets: free papers, free "
+          "speech, free trade and no curfew, ever again. In the same speech he announced that the centre will join "
+          "no alliance and ask no district for help. Diplomats report that the cafés on Vitosha Boulevard are full "
+          "again and that a blue flag flies over the district hall.\\n\\nIn Vitosha, Daniel-Henry Capel's mother "
+          "is not impressed. A communist in a blue coat, she told reporters, is still a communist. She has seen the "
+          "people of the centre before, and she will believe they have changed when she sees it with her own eyes.",
           (["SRD_FREE"], "day"),
           [("Sredets is free.", "", 1, "tag = SRD"),
-           ("Let them talk. We will see how long it lasts.", "", 1, "NOT = { tag = SRD }")]),
+           ("Mom isn't buying it.", "", 1, "tag = VIT"),
+           ("Let them talk. We will see how long it lasts.", "", 1, "NOT = { tag = SRD tag = VIT }")]),
     "10": ("The Evil Gang Rides Again",
            "An old group chat has become the most talked-about alliance in Sofia. Victor Kolev of Sredets has "
            "announced the return of the Evil Gang, and invitations are said to be on their way to several district "

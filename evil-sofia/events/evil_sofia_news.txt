@@ -199,7 +199,14 @@ news_event = {
 		name = evil_sofia_news.9.b
 		ai_chance = { factor = 1 }
 		trigger = {
-			NOT = { tag = SRD }
+			tag = VIT
+		}
+	}
+	option = {
+		name = evil_sofia_news.9.c
+		ai_chance = { factor = 1 }
+		trigger = {
+			NOT = { tag = SRD tag = VIT }
 		}
 	}
 }
