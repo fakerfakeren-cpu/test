@@ -9,8 +9,8 @@ NEWS = {   # namespace evil_sofia_news; major news is shown to every country
     "1": ("Red Flag over the Largo",
           "Sredets has gone communist. Late last night Victor Kolev appeared on the steps of the Party House before a "
           "crowd of several thousand and declared the Sredets Commune. Red flags have replaced the district colours "
-          "on every public building around the Largo, and the ministries have been sealed by armed workers.\\n\\nIn "
-          "Boyana, Daniel-Henry Capel's mother has told reporters that she always said so.",
+          "on every public building around the Largo, and the ministries have been sealed by armed workers.\\n\\n"
+          "Daniel-Henry Capel's mother has told reporters that she always said so.",
           (["SRD_RED"], "dusk"),
           [("The revolution has begun.", "", 1, "tag = SRD"),
            ("Henry's mother was right.", "", 1, "tag = VIT"),

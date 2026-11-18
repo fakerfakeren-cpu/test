@@ -34,7 +34,7 @@ LEADER_DESCS = {
            "and old families all want something from him, and so far he has given each of them just enough to keep "
            "them waiting.\\n\\nHe is three streets from the Party House, and he knows that whoever rules Sredets will "
            "come knocking sooner or later.",
-    "VIT": "Daniel-Henry Capel grew up in a villa in Boyana, raised by a mother with very firm opinions about the "
+    "VIT": "Daniel-Henry Capel was raised by a mother with very firm opinions about the "
            "people of the centre. He inherited every one of them.\\n\\nHenry rules Vitosha from the top of the city, "
            "with the forest at his back and the whole of Sofia spread out below him. He believes that is exactly where "
            "he belongs.",

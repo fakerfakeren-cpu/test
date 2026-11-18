@@ -26,7 +26,7 @@ The user is **Victor Kolev** and plays **Sredets (SRD)**, the city centre. The f
 |---|---|---|---|
 | SRD | Sredets | **Victor Kolev** (the user) | Rules the centre: Largo, Party House, Vitosha Boulevard. Main focus tree. |
 | OBR | Oborishte | **Anton Zafirov** | Three streets from the Party House, under Alexander Nevsky cathedral; undecided, can be allied or destroyed. |
-| VIT | Vitosha | **Daniel-Henry Capel** ("Henry") | Lives in Boyana; **his mom** always said the people of the centre are "dirty communists". Henry has the trait **"Hates Communism"** (communism drift -0.20, acceptance -200, +5% war support). He hates Sredets once it goes red. |
+| VIT | Vitosha | **Daniel-Henry Capel** ("Henry") | Rules Vitosha (Boyana is in it, but never place his mom there); **his mom** always said the people of the centre are "dirty communists". Henry has the trait **"Hates Communism"** (communism drift -0.20, acceptance -200, +5% war support). He hates Sredets once it goes red. |
 | LOZ | Lozenets | **Georgi Yanchovichin** | Victor's **"day one"** (best friend from before everything). Lozenets lies between Sredets and Vitosha. |
 | MLA | Mladost | **Georgi Poryazov** | Biggest housing estates, lots of manpower. |
 | KRP | Krasna Polyana | **Stefan Kartunov** | Western quarters, West Park; poor, crowded, loyal. |
@@ -92,7 +92,7 @@ The user is **Victor Kolev** and plays **Sredets (SRD)**, the city centre. The f
 11. Authoritarian path ("Order in the Centre") with four branches: alone / Evil Gang / C Class Hools / Ilchev.
 12. The user is now making their own event pictures (vanilla style) from `tools/event_pictures/PICTURES.md`.
 
-## 5. The Sredets focus tree (89 focuses)
+## 5. The Sredets focus tree (90 focuses)
 
 Root choice (mutually exclusive): **Henry's Mom Was Right** (communism) at x=8, **Order in the Centre**
 (authoritarian) at x=24.
@@ -160,6 +160,20 @@ Root choice (mutually exclusive): **Henry's Mom Was Right** (communism) at x=8, 
      `tools/portraits/SRD_ilchev.png`); Newton's Laws of Government, Laboratory of the Nation, Homework for
      Everyone, Pop Quiz for the Army, E = mc², The Final Exam, Grades Are Final.
 - The user originally mentioned fascism might become part of the authoritarian side later.
+
+### Over time, not at once (user's rule)
+- No `add_popularity`/`set_popularities` anywhere: timed spirits with `communism_drift`/`democratic_drift`
+  (Red Agitation and The Curfew Lifted 0.4/day for 240 days on the two roots; Comrades from Sredets, Red Newspapers,
+  Party money, Doctors' Garden rally, Red Leaflets, A Red Oborishte; Speakers' Corner, Newspapers from Sredets on
+  every neighbour, Friends of Freedom, Mom Was Wrong). Decision category "The Road to Power": Proclaim the Sredets
+  Commune (communism > 50%) / Proclaim the Free Sredets (democracy > 50%) change government, leader, flag and name.
+  The communist endings and the Free Centre of Sofia need the right government.
+- Generic decisions for every district (`tools/decisions_world.py`): War Propaganda, Public Order Campaign, four
+  ideology campaigns (one at a time), Recruitment Drive; at war: War Bonds, Call Up the Reserves, Rationing. All
+  are timed spirits. Vanilla's decision files stay replaced (they are written for the world map).
+- Prove Henry's Mom Wrong (free branch, needs Free Press AND Open Market): event srd.20 to Vitosha, his mother admits
+  the centre is not communist; Henry +40 opinion of Sredets, Mom Was Wrong spirit; srd.21 back to Sredets.
+- Henry's mother is never placed in Boyana (user's request); Henry's district is Vitosha.
 
 ## 6. Events
 

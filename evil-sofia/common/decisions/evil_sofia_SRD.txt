@@ -1,27 +1,34 @@
 SRD_oborishte_question = {
 	SRD_fund_oborishte_communists = {
+		icon = generic_political_discourse
 		cost = 50
 		days_re_enable = 30
 		available = {
-			OBR = { NOT = { has_government = communism } }
+			OBR = { NOT = { has_government = communism has_idea = SRD_party_money } }
 		}
 		complete_effect = {
-			OBR = { add_popularity = { ideology = communism popularity = 0.05 } }
+			OBR = { add_timed_idea = { idea = SRD_party_money days = 90 } }
 		}
-		ai_will_do = { factor = 1 }
+		ai_will_do = {
+			factor = 1
+		}
 	}
 	SRD_rally_at_the_doctors_garden = {
+		icon = generic_political_discourse
 		cost = 35
 		days_re_enable = 45
 		available = {
-			OBR = { NOT = { has_government = communism } }
+			OBR = { NOT = { has_government = communism has_idea = SRD_doctors_garden_rally } }
 		}
 		complete_effect = {
-			OBR = { add_popularity = { ideology = communism popularity = 0.04 } add_stability = -0.03 }
+			OBR = { add_timed_idea = { idea = SRD_doctors_garden_rally days = 60 } }
 		}
-		ai_will_do = { factor = 1 }
+		ai_will_do = {
+			factor = 1
+		}
 	}
 	SRD_red_coup_in_oborishte = {
+		icon = generic_political_discourse
 		cost = 100
 		available = {
 			has_completed_focus = SRD_red_newspapers_oborishte
@@ -29,7 +36,7 @@ SRD_oborishte_question = {
 		}
 		complete_effect = {
 			OBR = {
-				set_popularities = { communism = 60 neutrality = 40 democratic = 0 fascism = 0 }
+				add_timed_idea = { idea = SRD_red_oborishte days = 180 }
 				set_politics = { ruling_party = communism elections_allowed = no }
 				add_country_leader_role = {
 					character = OBR_leader
@@ -40,6 +47,62 @@ SRD_oborishte_question = {
 			}
 			OBR = { country_event = { id = evil_sofia_srd.8 } }
 		}
-		ai_will_do = { factor = 1 }
+		ai_will_do = {
+			factor = 1
+		}
+	}
+}
+SRD_road_to_power = {
+	SRD_proclaim_the_commune = {
+		icon = generic_political_discourse
+		cost = 25
+		visible = {
+			has_completed_focus = SRD_henrys_mom_was_right
+			NOT = { has_government = communism }
+		}
+		available = {
+			communism > 0.5
+		}
+		complete_effect = {
+			if = { limit = { has_idea = SRD_red_agitation } remove_ideas = SRD_red_agitation }
+			set_politics = { ruling_party = communism elections_allowed = no }
+			add_country_leader_role = {
+				character = SRD_leader
+				country_leader = { ideology = leninism expire = "1965.1.1.1" }
+				promote_leader = yes
+			}
+			set_cosmetic_tag = SRD_RED
+			add_war_support = 0.10
+			VIT = { country_event = { id = evil_sofia_srd.1 } }
+			news_event = { id = evil_sofia_news.1 hours = 6 }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_proclaim_the_free_sredets = {
+		icon = generic_civil_support
+		cost = 25
+		visible = {
+			has_completed_focus = SRD_a_free_sredets
+			NOT = { has_government = democratic }
+		}
+		available = {
+			democratic > 0.5
+		}
+		complete_effect = {
+			if = { limit = { has_idea = SRD_curfew_lifted } remove_ideas = SRD_curfew_lifted }
+			set_politics = { ruling_party = democratic elections_allowed = no }
+			add_country_leader_role = {
+				character = SRD_leader
+				country_leader = { ideology = liberalism expire = "1965.1.1.1" }
+				promote_leader = yes
+			}
+			set_cosmetic_tag = SRD_FREE
+			news_event = { id = evil_sofia_news.9 hours = 6 }
+		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
 }

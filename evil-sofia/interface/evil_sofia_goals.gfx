@@ -216,6 +216,10 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/evil_sofia/SRD_liberty_guard.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_SRD_prove_henrys_mom_wrong"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_prove_henrys_mom_wrong.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_SRD_friends_of_freedom"
 		texturefile = "gfx/interface/goals/evil_sofia/SRD_friends_of_freedom.dds"
 	}

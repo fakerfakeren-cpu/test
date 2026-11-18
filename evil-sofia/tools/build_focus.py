@@ -128,6 +128,7 @@ def build(root, facts, write, write_dds):
     spec.loader.exec_module(tree)
     sys.path.insert(0, os.path.join(root, "tools"))
     import focus_icons
+    import decisions_world
     tag = tree.TAG
     states, capital = facts["states"], facts["capital_state"]
 
@@ -336,10 +337,11 @@ def build(root, facts, write, write_dds):
           "\tevil_sofia_dirty_communists = {\n\t\tvalue = -100\n\t}\n"
           "\tevil_sofia_day_ones = {\n\t\tvalue = 100\n\t}\n"
           "\tevil_sofia_gang = {\n\t\tvalue = 50\n\t}\n"
-          "\tevil_sofia_free_friends = {\n\t\tvalue = 30\n\t}\n}\n")
+          "\tevil_sofia_free_friends = {\n\t\tvalue = 30\n\t}\n"
+          "\tevil_sofia_mom_was_wrong = {\n\t\tvalue = 40\n\t}\n}\n")
     loc += [' evil_sofia_dirty_communists:0 "Dirty communists!"', ' evil_sofia_day_ones:0 "Day ones"',
             ' evil_sofia_gang:0 "The Evil Gang"',
-            ' evil_sofia_free_friends:0 "Friends of Freedom"']
+            ' evil_sofia_free_friends:0 "Friends of Freedom"', ' evil_sofia_mom_was_wrong:0 "Mom was wrong"']
     all_traits = dict(tree.TRAITS)
     all_traits.update({k: (n, d, mods) for k, (n, d, mods, slot) in texts.ADVISOR_TRAITS.items()})
     write("common/country_leader/evil_sofia_traits.txt", "leader_traits = {\n" + "".join(
@@ -348,7 +350,7 @@ def build(root, facts, write, write_dds):
     for k, (n, d, mods) in all_traits.items():
         loc += [f' {k}:0 "{L(n)}"', f' {k}_desc:0 "{L(d)}"']
     ideas, idea_sprites = [], []
-    for k, (n, d, mods, icon, *extra) in tree.IDEAS.items():
+    for k, (n, d, mods, icon, *extra) in {**tree.IDEAS, **decisions_world.IDEAS}.items():
         extra = ("\n" + indent(extra[0], 3)) if extra else ""
         ideas.append(f"\t\t{k} = {{\n\t\t\tpicture = {k}\n\t\t\tallowed = {{ always = no }}{extra}\n"
                      f"\t\t\tmodifier = {{\n{indent(mods, 4)}\n\t\t\t}}\n\t\t}}\n")
@@ -376,31 +378,46 @@ def build(root, facts, write, write_dds):
     write(f"history/units/{tag}_red_guards.txt", f"units = {{\n{divisions}\n}}\n")
     for k, v in tree.FACTIONS.items():
         loc.append(f' {k}:0 "{v}"')
-    # decisions
+    # decisions: the Sredets tree's own (the Oborishte Question, the Road to Power) and basic ones for everyone
     cat, cname, cdesc, cvis = tree.DECISIONS["category"]
-    write("common/decisions/categories/evil_sofia.txt", f"""{cat} = {{
-\tallowed = {{ tag = {tag} }}
-\tvisible = {{
-{indent(cvis, 2)}
-\t}}
-}}
-""")
-    loc += [f' {cat}:0 "{L(cname)}"', f' {cat}_desc:0 "{L(cdesc)}"']
-    dec = []
-    for did, dname, ddesc, cost, cooldown, avail, effect in tree.DECISIONS["decisions"]:
-        re_en = f"\n\t\tdays_re_enable = {cooldown}" if cooldown else ""
-        dec.append(f"""\t{did} = {{
-\t\tcost = {cost}{re_en}
+    srd_cats = [(cat, cname, cdesc, f"tag = {tag}", cvis, [
+        dict(id=did, name=dname, desc=ddesc, cost=cost, cooldown=cooldown, visible="", available=avail,
+             effect=effect, ai="factor = 1", icon="generic_political_discourse")
+        for did, dname, ddesc, cost, cooldown, avail, effect in tree.DECISIONS["decisions"]]), tree.POWER_DECISIONS]
+
+    def decision_files(cats):
+        cat_blocks, files = [], []
+        for key, name, desc, allowed, visible, decs in cats:
+            cat_blocks.append(f"{key} = {{\n\tallowed = {{\n{indent(allowed, 2)}\n\t}}\n"
+                              f"\tvisible = {{\n{indent(visible, 2)}\n\t}}\n}}\n")
+            loc.extend([f' {key}:0 "{L(name)}"', f' {key}_desc:0 "{L(desc)}"'])
+            out = []
+            for d_ in decs:
+                d_ = {"cooldown": 0, "visible": "", "ai": "factor = 1", **d_}
+                re_en = f"\n\t\tdays_re_enable = {d_['cooldown']}" if d_["cooldown"] else ""
+                vis = f"\n\t\tvisible = {{\n{indent(d_['visible'], 3)}\n\t\t}}" if d_["visible"] else ""
+                out.append(f"""\t{d_['id']} = {{
+\t\ticon = {d_['icon']}
+\t\tcost = {d_['cost']}{re_en}{vis}
 \t\tavailable = {{
-{indent(avail, 3)}
+{indent(d_['available'], 3)}
 \t\t}}
 \t\tcomplete_effect = {{
-{indent(effect, 3)}
+{indent(d_['effect'], 3)}
 \t\t}}
-\t\tai_will_do = {{ factor = 1 }}
+\t\tai_will_do = {{
+{indent(d_['ai'], 3)}
+\t\t}}
 \t}}""")
-        loc += [f' {did}:0 "{L(dname)}"', f' {did}_desc:0 "{L(ddesc)}"']
-    write("common/decisions/evil_sofia_SRD.txt", f"{cat} = {{\n" + "\n".join(dec) + "\n}\n")
+                loc.extend([f' {d_["id"]}:0 "{L(d_["name"])}"', f' {d_["id"]}_desc:0 "{L(d_["desc"])}"'])
+            files.append(f"{key} = {{\n" + "\n".join(out) + "\n}\n")
+        return "".join(cat_blocks), "".join(files)
+
+    c1, f1 = decision_files(srd_cats)
+    c2, f2 = decision_files(decisions_world.CATEGORIES)
+    write("common/decisions/categories/evil_sofia.txt", c1 + c2)
+    write("common/decisions/evil_sofia_generic.txt", f2)
+    write("common/decisions/evil_sofia_SRD.txt", f1)
     # flags: hand-drawn communist flags (tools/red_flags.py), only for the countries that can go red
     import red_flags
 

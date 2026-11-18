@@ -42,7 +42,7 @@ country_event = {
 		}
 		if = {
 			limit = { NOT = { has_government = communism } }
-			set_popularities = { communism = 60 neutrality = 40 democratic = 0 fascism = 0 }
+			add_timed_idea = { idea = SRD_red_oborishte days = 180 }
 			set_politics = { ruling_party = communism elections_allowed = no }
 			add_country_leader_role = {
 				character = OBR_leader
@@ -354,6 +354,34 @@ country_event = {
 	option = {
 		name = evil_sofia_srd.18.a
 		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = evil_sofia_srd.20
+	title = evil_sofia_srd.20.t
+	desc = evil_sofia_srd.20.d
+	picture = GFX_evil_sofia_evil_sofia_srd_20
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_srd.20.a
+		ai_chance = { factor = 1 }
+		add_opinion_modifier = { target = FROM modifier = evil_sofia_mom_was_wrong }
+		add_timed_idea = { idea = SRD_mom_was_wrong days = 180 }
+		FROM = { country_event = { id = evil_sofia_srd.21 } }
+	}
+}
+
+country_event = {
+	id = evil_sofia_srd.21
+	title = evil_sofia_srd.21.t
+	desc = evil_sofia_srd.21.d
+	picture = GFX_evil_sofia_evil_sofia_srd_21
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_srd.21.a
+		ai_chance = { factor = 1 }
+		add_stability = 0.03
 	}
 }
 

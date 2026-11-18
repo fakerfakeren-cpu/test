@@ -83,21 +83,12 @@ WIDER_CENTRE_CORES = ("every_state = {\n\tlimit = { OR = { " + " ".join(f"state 
 FOCUSES = [
     ("henrys_mom_was_right", "Henry's Mom Was Right", 8, 0, [], ["order_in_the_centre"], 5,
      "duo:Communist_Discourse", "",
-     """set_popularities = { communism = 65 neutrality = 35 democratic = 0 fascism = 0 }
-set_politics = { ruling_party = communism elections_allowed = no }
-add_country_leader_role = {
-	character = SRD_leader
-	country_leader = { ideology = leninism expire = "1965.1.1.1" }
-	promote_leader = yes
-}
-set_cosmetic_tag = SRD_RED
-add_war_support = 0.10
-VIT = { country_event = { id = evil_sofia_srd.1 } }
-news_event = { id = evil_sofia_news.1 hours = 6 }""",
-     "For years Daniel-Henry Capel's mother has stood at her window in Boyana and told anyone who would listen that "
+     "add_timed_idea = { idea = SRD_red_agitation days = 240 }\nadd_political_power = 50",
+     "For years Daniel-Henry Capel's mother has told anyone who would listen that "
      "the people of the centre are communists, every last one of them. Tonight Victor Kolev climbs onto the steps of "
-     "the Party House, looks out over a Largo full of red flags, and decides that she was right.\\n\\nSredets becomes "
-     "the Sredets Commune. Somewhere up the slopes of Vitosha, Henry is already furious."),
+     "the Party House, looks out over a Largo full of red flags, and decides that she was right.\\n\\nCommunism "
+     "grows in Sredets day by day. Once more than half the district is red, the decision Proclaim the Sredets "
+     "Commune makes it the Sredets Commune, and somewhere up the slopes of Vitosha, Henry will be furious."),
     ("order_in_the_centre", "Order in the Centre", 28, 0, [], ["henrys_mom_was_right"], 5,
      "duo:goal_authoritarian", "",
      "add_stability = 0.15\nadd_political_power = 100\nnews_event = { id = evil_sofia_news.2 hours = 6 }",
@@ -108,13 +99,13 @@ news_event = { id = evil_sofia_news.1 hours = 6 }""",
     # ------------------------------------------------------------------ Oborishte and Anton Zafirov
     ("comrades_in_oborishte", "Comrades in Oborishte", 2, 1, [["henrys_mom_was_right"]], [], 5,
      "duo:Generic_Communist_Propaganda", "",
-     "OBR = { add_popularity = { ideology = communism popularity = 0.15 } }\nadd_political_power = 50",
+     "OBR = { add_timed_idea = { idea = SRD_comrades_from_sredets days = 180 } }\nadd_political_power = 50",
      "Oborishte begins three streets east of the Party House, under the domes of Alexander Nevsky. Its cafés are "
      "full of students, its students are full of ideas, and Anton Zafirov has not yet decided which side he is on. "
      "Our people will help him decide.\\n\\nUnlocks the decisions of the Oborishte Question."),
     ("red_newspapers_oborishte", "Red Newspapers in Oborishte", 2, 2, [["comrades_in_oborishte"]], [], 4,
      "duo:Generic_Communist_Propaganda02", "",
-     "OBR = { add_popularity = { ideology = communism popularity = 0.10 } add_stability = -0.05 }",
+     "OBR = { add_timed_idea = { idea = SRD_red_newspapers days = 180 } }",
      "By morning every kiosk from Oborishte Street to the Doctors' Garden is selling the same paper, and it is "
      "printed in Sredets. Anton's police tear the posters down; by evening there are twice as many.\\n\\nUnlocks the "
      "decision Red Coup in Oborishte."),
@@ -169,7 +160,7 @@ news_event = { id = evil_sofia_news.1 hours = 6 }""",
      "and Pancharevo for us; Vrabnitsa, Novi Iskar and Bankya for Anton.\\n\\nCores on Kremikovtsi. Claims and war "
      "goals on the outskirts. Needs every state of Kremikovtsi held."),
     ("sofia_union", "The Union of North and South Sofia", 1, 10, [["pact_outskirts"]], [], 6,
-     "duo:goal_generic_major_alliance", PACT_END[1],
+     "duo:goal_generic_major_alliance", PACT_END[1] + "\nhas_government = communism",
      PACT_END[0] + """
 set_cosmetic_tag = SRD_SOUTH
 OBR = { set_cosmetic_tag = OBR_NORTH }
@@ -208,7 +199,7 @@ news_event = { id = evil_sofia_news.7 hours = 6 }""",
      "always thought themselves safe from Sofia's politics. They were wrong.\\n\\nCores on Kremikovtsi. Claims and "
      "war goals on the outskirts. Needs every state of Kremikovtsi held."),
     ("sofia_commune", "The Sofia Commune", 3, 10, [["united_outskirts"]], [], 6, "duo:Generic_Hammer_Star",
-     ALONE_END[1],
+     ALONE_END[1] + "\nhas_government = communism",
      ALONE_END[0] + "\nset_cosmetic_tag = SRD_SOFIA\nadd_stability = 0.20\nadd_political_power = 200"
      "\nnews_event = { id = evil_sofia_news.6 hours = 6 }",
      "Twenty-four districts, one flag. The Party House is no longer the seat of Sredets but of the whole city, and "
@@ -294,10 +285,9 @@ add_stability = 0.05""",
     # ------------------------------------------------------------------ Daniel-Henry Capel
     ("red_leaflets", "Red Leaflets over Vitosha", 10, 1, [["henrys_mom_was_right"]], [], 3,
      "duo:Generic_Socialist_Propaganda", "VIT = { exists = yes }",
-     "VIT = { add_stability = -0.10 add_popularity = { ideology = communism popularity = 0.15 } }",
+     "VIT = { add_timed_idea = { idea = SRD_red_leaflets days = 180 } }",
      "Henry's district is villas, pine forest and people who think the revolution is something that happens to "
-     "other neighbourhoods. A few thousand leaflets in the letterboxes of Boyana should change that. One of them "
-     "will land in his mother's."),
+     "other neighbourhoods. A few thousand leaflets in the letterboxes of Vitosha should change that."),
     ("road_to_boyana", "The Road to Boyana", 10, 2, [["red_leaflets"]], [], 5,
      "duo:focus_generic_diplomatic_treaty", "",
      """if = {
@@ -321,8 +311,8 @@ else = {
      "duo:goal_red_star_green_wreath", "{HELD:VIT}",
      "{COREHELD:SRD:VIT}\nadd_political_power = 100\nadd_stability = 0.10\nnews_event = { id = evil_sofia_news.5 hours = 6 }",
      "The red flag flies over Boyana Church and the forest roads up to Dragalevtsi. Henry's villa has become a rest "
-     "home for tired Red Guards. His mother has been heard telling the new tenants that she said this would "
-     "happen.\\n\\nNeeds every state of Vitosha under our control."),
+     "home for tired Red Guards. Somewhere, his mother is telling anyone who will listen that she said this "
+     "would happen.\\n\\nNeeds every state of Vitosha under our control."),
     # ------------------------------------------------------------------ the red economy of the centre
     ("collectivise_vitosha_boulevard", "Collectivise Vitosha Boulevard", 13, 1, [["henrys_mom_was_right"]], [], 10,
      "duo:Generic_Market_Socialism", "",
@@ -412,26 +402,18 @@ capital_scope = {
     ("a_free_sredets", "A Free Sredets", 20, 3, [["who_stands_with_sredets"]],
      ["call_the_evil_gang", "unleash_the_c_class", "ilchevs_lesson"], 5,
      "duo:Generic_Break_Free", "",
-     """set_politics = { ruling_party = democratic elections_allowed = no }
-set_popularities = { democratic = 55 neutrality = 45 communism = 0 fascism = 0 }
-add_country_leader_role = {
-	character = SRD_leader
-	country_leader = { ideology = liberalism expire = "1965.1.1.1" }
-	promote_leader = yes
-}
-set_cosmetic_tag = SRD_FREE
-add_ideas = SRD_free_sredets
-news_event = { id = evil_sofia_news.9 hours = 6 }""",
+     "add_ideas = SRD_free_sredets\nadd_timed_idea = { idea = SRD_curfew_lifted days = 240 }",
      "The patrols are called off the Largo at dawn. The checkpoints on the bridges are taken down, the papers "
      "with the right stamps go into the stove, and by noon the cafés on Vitosha Boulevard have their chairs out "
-     "again. A blue flag goes up over the district hall. Victor Kolev's centre will be free, and it will be free "
-     "on its own: no gangs, no pacts, no favours owed to anyone.\\n\\nSredets becomes a democracy under Victor "
-     "and the Free Sredets, and can no longer create or join factions."),
+     "again. Victor Kolev's centre will be free, and it will be free on its own: no gangs, no pacts, no favours "
+     "owed to anyone.\\n\\nSredets can no longer create or join factions. Democracy grows day by day; once more "
+     "than half the district supports it, the decision Proclaim the Free Sredets makes Sredets a democracy under "
+     "Victor, with a blue flag."),
     # free speech and friends of freedom on the left, the open city in the middle, the guard on the right;
     # the workshops need the market and the guard, the wider centre needs the old centre and the offers
     ("speakers_corner", "Speakers' Corner at the Crystal", 18, 4, [["a_free_sredets"]], [], 3,
      "duo:Generic_Liberation", "",
-     "add_stability = 0.08\nadd_popularity = { ideology = democratic popularity = 0.10 }",
+     "add_stability = 0.05\nadd_timed_idea = { idea = SRD_speakers_corner_idea days = 150 }",
      "The little park of the Crystal on Rakovski Street has seen every protest Sofia ever had. Now anyone may "
      "climb on a bench there and say what they like about anyone, including Victor. Many do. Victor listens, "
      "and some days he even takes notes."),
@@ -443,10 +425,10 @@ news_event = { id = evil_sofia_news.9 hours = 6 }""",
      "Ivan Vazov Theatre."),
     ("free_press_on_rakovski", "Free Press on Rakovski Street", 17, 5, [["speakers_corner"]], [], 4,
      "duo:goal_big_news", "",
-     "add_political_power = 120\nevery_neighbor_country = { add_popularity = { ideology = democratic popularity = 0.05 } }",
+     "add_political_power = 120\nevery_neighbor_country = { add_timed_idea = { idea = SRD_smuggled_newspapers days = 180 } }",
      "The printing houses behind the theatres are unsealed. Within a week the centre has eleven newspapers, "
      "three of them against the government, one of them about football and all of them sold out by eight in "
-     "the morning. Copies are smuggled into every district around us.\\n\\nDemocracy grows in every neighbour."),
+     "the morning. Copies are smuggled into every district around us.\\n\\nDemocracy slowly grows in every neighbour."),
     ("open_market_on_vitosha", "Open Market on Vitosha Boulevard", 19, 5, [["speakers_corner"]], [], 8,
      "duo:goal_AST_new_markets", "",
      """capital_scope = {
@@ -463,16 +445,23 @@ news_event = { id = evil_sofia_news.9 hours = 6 }""",
 add_war_support = 0.05""",
      "When the bells of Sveta Nedelya ring the alarm, every volunteer knows his post: a doorway, a bridge, a "
      "roof over the boulevard. A free district has to be ready to defend itself, because nobody else will."),
+    ("prove_henrys_mom_wrong", "Prove Henry's Mom Wrong", 19, 6, [["free_press_on_rakovski"], ["open_market_on_vitosha"]], [], 4,
+     "duo:Generic_Liberty_Calling", "country_exists = VIT",
+     "VIT = { country_event = { id = evil_sofia_srd.20 } }\nadd_political_power = 50",
+     "For years Daniel-Henry Capel's mother has told anyone who would listen that the people of the centre are "
+     "communists, every last one of them. Free newspapers, a free market on Vitosha Boulevard and not a single red "
+     "flag on the Largo say otherwise. Victor sends her an invitation: come and see for yourself.\\n\\nHenry's "
+     "mother visits the free centre."),
     ("friends_of_freedom", "Friends of Freedom", 17, 6, [["free_press_on_rakovski"]], [], 4,
      "duo:Social Liberalism", "",
      """every_country = {
 	limit = { OR = { tag = OBR tag = LOZ tag = TRD } NOT = { has_war_with = ROOT } }
-	add_popularity = { ideology = democratic popularity = 0.15 }
+	add_timed_idea = { idea = SRD_friends_of_freedom days = 240 }
 	add_opinion_modifier = { target = ROOT modifier = evil_sofia_free_friends }
 }""",
      "Victor still has friends in the districts around the centre, and the free centre has admirers there too. "
      "Our clubs, newspapers and student societies open branches in Oborishte, Lozenets and Triaditsa.\\n\\n"
-     "Democracy grows in Oborishte, Lozenets and Triaditsa, and they think better of us."),
+     "Democracy grows in Oborishte, Lozenets and Triaditsa for eight months, and they think better of us."),
     ("workshops_of_the_free_centre", "Workshops of the Free Centre", 21, 6, [["open_market_on_vitosha"], ["liberty_guard"]], [], 10,
      "duo:goal_generic_small_arms", "",
      """capital_scope = {
@@ -512,7 +501,7 @@ add_war_support = 0.05""",
      "peacefully. Alexander will most likely say no; the more he likes us and the more democratic Triaditsa "
      "is, the better our chances."),
     ("the_wider_centre", "The Wider Centre", 20, 9, [["liberate_the_old_centre"], ["offer_to_alexander"]], [], 8,
-     "duo:Generic_Liberty_Calling", "{HELD:VAZ,OBR}",
+     "duo:goal_generic_more_territorial_claims", "{HELD:VAZ,OBR}",
      "{COREHELD:SRD:VAZ,OBR}\n" + WIDER_CENTRE_CLAIMS,
      "The old centre is free. Its edges are not: the streets around the Ivan Vazov quarter, the old villas of "
      "Lozenets, Kriva Reka and Lagera, and the railway quarter north of the Lions' Bridge still answer to "
@@ -526,7 +515,7 @@ add_war_support = 0.05""",
      "Sofia answers to one council and has no checkpoints at all.\\n\\nCores on the central states held. Needs "
      "every central state of Triaditsa, Lozenets, Krasno Selo and Serdika held."),
     ("free_centre_of_sofia", "The Free Centre of Sofia", 20, 11, [["a_free_centre"]], [], 10,
-     "duo:focus_generic_bastion_of_democracy", "",
+     "duo:focus_generic_bastion_of_democracy", "has_government = democratic",
      """set_cosmetic_tag = SRD_FREE_CENTRE
 swap_ideas = { remove_idea = SRD_free_sredets add_idea = SRD_free_centre }
 add_research_slot = 1
@@ -727,7 +716,7 @@ FILTERS = {  # search filters for the focus tree's filter buttons
     "liberty_guard": ["INDUSTRY", "WAR_SUPPORT"], "drills_in_borisova_garden": ["ARMY_XP", "RESEARCH"],
     "friends_of_freedom": ["POLITICAL"],
     "offer_to_anton": ["POLITICAL", "ANNEXATION"], "offer_to_georgi": ["POLITICAL", "ANNEXATION"],
-    "offer_to_alexander": ["POLITICAL", "ANNEXATION"],
+    "offer_to_alexander": ["POLITICAL", "ANNEXATION"], "prove_henrys_mom_wrong": ["POLITICAL"],
     "liberate_the_old_centre": ["ANNEXATION", "WAR_SUPPORT"], "the_wider_centre": ["ANNEXATION"],
     "a_free_centre": ["ANNEXATION", "STABILITY"],
     "free_centre_of_sofia": ["RESEARCH", "STABILITY"],
@@ -826,9 +815,49 @@ IDEAS.update({  # the authoritarian path; a fifth element is extra script for th
                        "research_speed_factor = 0.07\nproduction_speed_buildings_factor = 0.05",
                        ("Rectangle.png", "Nuclear Atom.png")),
 })
+IDEAS.update({  # timed spirits that make an ideology grow day by day (no instant popularity changes anywhere)
+    "SRD_red_agitation": ("Red Agitation",
+                          "Red flags on the Largo, party cells in every block and a speech on every corner. Every "
+                          "day a few more people of the centre believe Henry's mother was right.",
+                          "communism_drift = 0.4", ("Rectangle.png", "Megaphone.png")),
+    "SRD_curfew_lifted": ("The Curfew Lifted",
+                          "Cafés open all night, newspapers on every corner and nobody asking for papers. Every day "
+                          "a few more people of the centre decide they like it this way.",
+                          "democratic_drift = 0.4", ("Circle.png", "Dove2.png")),
+    "SRD_speakers_corner_idea": ("Speakers' Corner",
+                                 "Anyone can climb on a bench in the Crystal and say what they like.",
+                                 "democratic_drift = 0.15", ("Circle.png", "Megaphone3.png")),
+    "SRD_smuggled_newspapers": ("Newspapers from Sredets",
+                                "Free newspapers from the centre, smuggled in by the bundle and read in secret.",
+                                "democratic_drift = 0.1", ("Rectangle.png", "Paper.png")),
+    "SRD_friends_of_freedom": ("Friends of Freedom",
+                               "Clubs, newspapers and student societies from the free centre have opened branches "
+                               "here.", "democratic_drift = 0.25", ("Circle.png", "Dove.png")),
+    "SRD_comrades_from_sredets": ("Comrades from Sredets",
+                                  "Party organisers from the centre are working the cafés and the student halls.",
+                                  "communism_drift = 0.25", ("Rectangle.png", "Hand with Hammer & Sickle.png")),
+    "SRD_red_newspapers": ("Red Newspapers",
+                           "Red newspapers on every corner, and arguments in every café about what they say.",
+                           "communism_drift = 0.2\nstability_factor = -0.05", ("Rectangle.png", "Paper Torn.png")),
+    "SRD_party_money": ("Money from the Party House",
+                        "Envelopes of cash for the party cell: printing presses, halls and friendly policemen.",
+                        "communism_drift = 0.15", ("Rectangle.png", "Cash.png")),
+    "SRD_doctors_garden_rally": ("The Rally at the Doctors' Garden",
+                                 "Ten thousand people and loudspeakers in the park behind the National Library.",
+                                 "communism_drift = 0.2\nstability_factor = -0.03", ("Rectangle.png", "Megaphone Twins.png")),
+    "SRD_red_leaflets": ("Red Leaflets",
+                         "Red leaflets in every letterbox of Vitosha. Most go in the stove, but not all of them.",
+                         "communism_drift = 0.15\nstability_factor = -0.05", ("Rectangle.png", "Paper Sign.png")),
+    "SRD_mom_was_wrong": ("Mom Was Wrong",
+                          "Even Henry's mother says the centre is free. Vitosha starts to wonder what else she got wrong.",
+                          "democratic_drift = 0.15", ("Circle.png", "Bird Freed.png")),
+    "SRD_red_oborishte": ("A Red Oborishte",
+                          "Oborishte has gone red with the centre, and the party is making sure it stays that way.",
+                          "communism_drift = 0.3", ("Rectangle.png", "Star Red with Sickle.png")),
+})
 RED_COUNTRIES = ["SRD", "OBR"]   # the countries that get a communist flag and a Commune name
 
-OBR_GOES_RED = """set_popularities = { communism = 60 neutrality = 40 democratic = 0 fascism = 0 }
+OBR_GOES_RED = """add_timed_idea = { idea = SRD_red_oborishte days = 180 }
 set_politics = { ruling_party = communism elections_allowed = no }
 add_country_leader_role = {
 	character = OBR_leader
@@ -848,13 +877,13 @@ DECISIONS = {
         ("SRD_fund_oborishte_communists", "Fund the Oborishte Communists",
          "Envelopes of cash for the Oborishte party cell: printing presses, rented halls and a few police officers "
          "who look the other way.", 50, 30,
-         "OBR = { NOT = { has_government = communism } }",
-         "OBR = { add_popularity = { ideology = communism popularity = 0.05 } }"),
+         "OBR = { NOT = { has_government = communism has_idea = SRD_party_money } }",
+         "OBR = { add_timed_idea = { idea = SRD_party_money days = 90 } }"),
         ("SRD_rally_at_the_doctors_garden", "Rally at the Doctors' Garden",
          "Ten thousand people, red flags and loudspeakers in the park behind the National Library. Anton's police "
          "will not dare to clear it, and his ministers will not sleep that night.", 35, 45,
-         "OBR = { NOT = { has_government = communism } }",
-         "OBR = { add_popularity = { ideology = communism popularity = 0.04 } add_stability = -0.03 }"),
+         "OBR = { NOT = { has_government = communism has_idea = SRD_doctors_garden_rally } }",
+         "OBR = { add_timed_idea = { idea = SRD_doctors_garden_rally days = 60 } }"),
         ("SRD_red_coup_in_oborishte", "Red Coup in Oborishte",
          "The party cell is armed, the barracks on Shipka Street are with us and the district hall is guarded by "
          "three sleepy policemen. One night is all it takes. Anton stays in charge, but of a red Oborishte.\n\n"
@@ -891,6 +920,43 @@ modifier = { add = 20 has_opinion = { target = FROM value < 0 } }
 modifier = { add = 20 has_opinion = { target = FROM value < -40 } }
 modifier = { factor = 0.7 has_opinion = { target = FROM value > 50 } }"""
 
+POWER_DECISIONS = ("SRD_road_to_power", "The Road to Power",
+    "Sredets has chosen its road, but a district does not change overnight. Once more than half of its people "
+    "stand behind the new ideas, Victor can make it official.",
+    "tag = SRD",
+    "OR = {\n\tAND = { has_completed_focus = SRD_henrys_mom_was_right NOT = { has_government = communism } }\n"
+    "\tAND = { has_completed_focus = SRD_a_free_sredets NOT = { has_government = democratic } }\n}",
+    [dict(id="SRD_proclaim_the_commune", name="Proclaim the Sredets Commune",
+          desc="More than half of Sredets is red. The Party House flies the red flag, Victor becomes Chairman, and "
+               "the Sredets Commune is proclaimed from the steps above the Largo.",
+          cost=25, visible="has_completed_focus = SRD_henrys_mom_was_right\nNOT = { has_government = communism }",
+          available="communism > 0.5",
+          effect="if = { limit = { has_idea = SRD_red_agitation } remove_ideas = SRD_red_agitation }\n" + """set_politics = { ruling_party = communism elections_allowed = no }
+add_country_leader_role = {
+	character = SRD_leader
+	country_leader = { ideology = leninism expire = "1965.1.1.1" }
+	promote_leader = yes
+}
+set_cosmetic_tag = SRD_RED
+add_war_support = 0.10
+VIT = { country_event = { id = evil_sofia_srd.1 } }
+news_event = { id = evil_sofia_news.1 hours = 6 }""",
+          icon="generic_political_discourse"),
+     dict(id="SRD_proclaim_the_free_sredets", name="Proclaim the Free Sredets",
+          desc="More than half of Sredets wants to stay free. A blue flag goes up over the district hall and Victor "
+               "Kolev proclaims the Free Sredets, governed by its own people, with no curfew ever again.",
+          cost=25, visible="has_completed_focus = SRD_a_free_sredets\nNOT = { has_government = democratic }",
+          available="democratic > 0.5",
+          effect="if = { limit = { has_idea = SRD_curfew_lifted } remove_ideas = SRD_curfew_lifted }\n" + """set_politics = { ruling_party = democratic elections_allowed = no }
+add_country_leader_role = {
+	character = SRD_leader
+	country_leader = { ideology = liberalism expire = "1965.1.1.1" }
+	promote_leader = yes
+}
+set_cosmetic_tag = SRD_FREE
+news_event = { id = evil_sofia_news.9 hours = 6 }""",
+          icon="generic_civil_support")])
+
 # Peaceful offers of the free centre: most likely no; random, better the more they like us and the more
 # democratic they are (never yes from a communist government or a country that dislikes us much).
 FREE_YES = """base = 5
@@ -909,7 +975,7 @@ modifier = { add = 40 has_opinion = { target = FROM value < 0 } }"""
 # Events of the Sredets tree: number: (title, description, options [(text, effect, AI chance)], picture)
 EVENTS = {
     "1": ("Henry's Mom Was Right",
-          "The news reaches Boyana before dinner. Sredets has declared for communism; there are red flags on the "
+          "The news reaches Vitosha before dinner. Sredets has declared for communism; there are red flags on the "
           "Largo and Victor Kolev is calling himself Chairman.\n\nDaniel-Henry Capel's mother puts down the "
           "telephone, turns to her son and says, very calmly, that she has been telling him this for years. The people "
           "of the centre were always communists. She just did not expect them to be so open about it.\n\nHenry has "
@@ -952,7 +1018,7 @@ EVENTS = {
           "will need more than it has.",
           [("He will regret it.", "", 1)], "GFX_report_event_generic_read_write"),
     "5": ("Henry Hates Us",
-          "Word comes from Boyana: Daniel-Henry Capel has torn up every letter Sredets ever sent him, and his mother "
+          "Word comes from Vitosha: Daniel-Henry Capel has torn up every letter Sredets ever sent him, and his mother "
           "is telling the whole street she was right about us all along. He is not marching yet. He is waiting.",
           [("Let him hate. Let him wait.", "", 1)], "GFX_report_event_generic_read_write"),
     "6": ("Henry Prepares for War",
@@ -1069,6 +1135,23 @@ EVENTS.update({
            "The answer is yes. [From.GetName] has voted to join the free centre, and its people are taking down the "
            "barriers between our districts themselves. Not a shot was fired.",
            [("One city, freely.", "", 1)], ""),
+    "20": ("Henry's Mom Was Wrong",
+           "Daniel-Henry Capel's mother came back from the centre this evening and has not said a word since "
+           "dinner.\n\nShe went to Sredets expecting red flags, commissars and queues for bread. She found cafés "
+           "full until midnight, eleven newspapers arguing with each other on Rakovski Street, a market on Vitosha "
+           "Boulevard where nobody asked for a party card, and Victor Kolev himself, who carried her shopping to the "
+           "tram stop.\n\nAt last she puts down her fork and says it, very quietly: she was wrong. They are not "
+           "communists. Henry has never heard her say those words before.",
+           [("Mom... was wrong?",
+             "add_opinion_modifier = { target = FROM modifier = evil_sofia_mom_was_wrong }\n"
+             "add_timed_idea = { idea = SRD_mom_was_wrong days = 180 }\n"
+             "FROM = { country_event = { id = evil_sofia_srd.21 } }", 1)],
+           ""),
+    "21": ("She Admits It",
+           "Word comes from Vitosha: Daniel-Henry Capel's mother has told the whole street that the people of the "
+           "centre are not communists after all. Henry is said to be in shock. In Sredets, Victor frames her "
+           "thank-you note and hangs it in the district hall.",
+           [("Told you so, Mrs Capel.", "add_stability = 0.03", 1)], ""),
     "19": ("[From.GetName] Says No",
            "[From.GetName] has thanked us for the offer and declined it. Its people will stay behind their own "
            "barriers, for now.",
@@ -1081,12 +1164,13 @@ _PICTURES = {"1": (["SRD_RED"], "dusk"), "2": (["SRD_RED", "OBR"], "night"), "3"
              "8": (["OBR_RED"], "night"), "9": (["SRD_RED", "LOZ"], "day"), "10": (["LOZ"], "rain"),
              "11": (["SRD"], "night"), "12": (["SRD", "LOZ"], "day"), "13": (["SRD"], "rain"),
              "14": (["SRD"], "fire"), "15": (["SRD", "SOFIA"], "dusk"), "16": (["SRD"], "fire"),
+             "20": (["VIT"], "day"), "21": (["SRD_FREE"], "day"),
              "17": (["SRD_FREE"], "day"), "18": (["SRD_FREE"], "day"), "19": (["SRD_FREE"], "rain")}
 EVENTS = {k: (t, d, _PICTURES[k], o) for k, (t, d, o, _) in EVENTS.items()}
 
 TRAITS = {
     "evil_sofia_hates_communism": ("Hates Communism",
-                                   "Raised in Boyana on stories of the communists from the centre. His mother made "
+                                   "Raised on stories of the communists from the centre. His mother made "
                                    "sure he never forgot them.",
                                    "communism_drift = -0.20\ncommunism_acceptance = -200\nwar_support_factor = 0.05"),
 }

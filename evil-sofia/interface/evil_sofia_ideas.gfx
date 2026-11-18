@@ -43,4 +43,92 @@ spriteTypes = {
 		name = "GFX_idea_SRD_laboratory"
 		texturefile = "gfx/interface/ideas/evil_sofia/SRD_laboratory.dds"
 	}
+	spriteType = {
+		name = "GFX_idea_SRD_red_agitation"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_red_agitation.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_SRD_curfew_lifted"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_curfew_lifted.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_SRD_speakers_corner_idea"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_speakers_corner_idea.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_SRD_smuggled_newspapers"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_smuggled_newspapers.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_SRD_friends_of_freedom"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_friends_of_freedom.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_SRD_comrades_from_sredets"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_comrades_from_sredets.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_SRD_red_newspapers"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_red_newspapers.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_SRD_party_money"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_party_money.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_SRD_doctors_garden_rally"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_doctors_garden_rally.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_SRD_red_leaflets"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_red_leaflets.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_SRD_mom_was_wrong"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_mom_was_wrong.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_SRD_red_oborishte"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_red_oborishte.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_ES_war_propaganda"
+		texturefile = "gfx/interface/ideas/evil_sofia/ES_war_propaganda.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_ES_public_order"
+		texturefile = "gfx/interface/ideas/evil_sofia/ES_public_order.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_ES_promote_communism"
+		texturefile = "gfx/interface/ideas/evil_sofia/ES_promote_communism.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_ES_promote_democracy"
+		texturefile = "gfx/interface/ideas/evil_sofia/ES_promote_democracy.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_ES_promote_fascism"
+		texturefile = "gfx/interface/ideas/evil_sofia/ES_promote_fascism.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_ES_promote_neutrality"
+		texturefile = "gfx/interface/ideas/evil_sofia/ES_promote_neutrality.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_ES_recruitment_drive"
+		texturefile = "gfx/interface/ideas/evil_sofia/ES_recruitment_drive.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_ES_war_bonds"
+		texturefile = "gfx/interface/ideas/evil_sofia/ES_war_bonds.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_ES_reserves"
+		texturefile = "gfx/interface/ideas/evil_sofia/ES_reserves.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_ES_rationing"
+		texturefile = "gfx/interface/ideas/evil_sofia/ES_rationing.dds"
+	}
 }

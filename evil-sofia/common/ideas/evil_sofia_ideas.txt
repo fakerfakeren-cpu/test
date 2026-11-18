@@ -100,5 +100,166 @@ ideas = {
 				production_speed_buildings_factor = 0.05
 			}
 		}
+		SRD_red_agitation = {
+			picture = SRD_red_agitation
+			allowed = { always = no }
+			modifier = {
+				communism_drift = 0.4
+			}
+		}
+		SRD_curfew_lifted = {
+			picture = SRD_curfew_lifted
+			allowed = { always = no }
+			modifier = {
+				democratic_drift = 0.4
+			}
+		}
+		SRD_speakers_corner_idea = {
+			picture = SRD_speakers_corner_idea
+			allowed = { always = no }
+			modifier = {
+				democratic_drift = 0.15
+			}
+		}
+		SRD_smuggled_newspapers = {
+			picture = SRD_smuggled_newspapers
+			allowed = { always = no }
+			modifier = {
+				democratic_drift = 0.1
+			}
+		}
+		SRD_friends_of_freedom = {
+			picture = SRD_friends_of_freedom
+			allowed = { always = no }
+			modifier = {
+				democratic_drift = 0.25
+			}
+		}
+		SRD_comrades_from_sredets = {
+			picture = SRD_comrades_from_sredets
+			allowed = { always = no }
+			modifier = {
+				communism_drift = 0.25
+			}
+		}
+		SRD_red_newspapers = {
+			picture = SRD_red_newspapers
+			allowed = { always = no }
+			modifier = {
+				communism_drift = 0.2
+				stability_factor = -0.05
+			}
+		}
+		SRD_party_money = {
+			picture = SRD_party_money
+			allowed = { always = no }
+			modifier = {
+				communism_drift = 0.15
+			}
+		}
+		SRD_doctors_garden_rally = {
+			picture = SRD_doctors_garden_rally
+			allowed = { always = no }
+			modifier = {
+				communism_drift = 0.2
+				stability_factor = -0.03
+			}
+		}
+		SRD_red_leaflets = {
+			picture = SRD_red_leaflets
+			allowed = { always = no }
+			modifier = {
+				communism_drift = 0.15
+				stability_factor = -0.05
+			}
+		}
+		SRD_mom_was_wrong = {
+			picture = SRD_mom_was_wrong
+			allowed = { always = no }
+			modifier = {
+				democratic_drift = 0.15
+			}
+		}
+		SRD_red_oborishte = {
+			picture = SRD_red_oborishte
+			allowed = { always = no }
+			modifier = {
+				communism_drift = 0.3
+			}
+		}
+		ES_war_propaganda = {
+			picture = ES_war_propaganda
+			allowed = { always = no }
+			modifier = {
+				war_support_weekly = 0.01
+			}
+		}
+		ES_public_order = {
+			picture = ES_public_order
+			allowed = { always = no }
+			modifier = {
+				stability_weekly = 0.01
+			}
+		}
+		ES_promote_communism = {
+			picture = ES_promote_communism
+			allowed = { always = no }
+			modifier = {
+				communism_drift = 0.1
+			}
+		}
+		ES_promote_democracy = {
+			picture = ES_promote_democracy
+			allowed = { always = no }
+			modifier = {
+				democratic_drift = 0.1
+			}
+		}
+		ES_promote_fascism = {
+			picture = ES_promote_fascism
+			allowed = { always = no }
+			modifier = {
+				fascism_drift = 0.1
+			}
+		}
+		ES_promote_neutrality = {
+			picture = ES_promote_neutrality
+			allowed = { always = no }
+			modifier = {
+				neutrality_drift = 0.1
+			}
+		}
+		ES_recruitment_drive = {
+			picture = ES_recruitment_drive
+			allowed = { always = no }
+			modifier = {
+				conscription = 0.005
+			}
+		}
+		ES_war_bonds = {
+			picture = ES_war_bonds
+			allowed = { always = no }
+			modifier = {
+				war_support_weekly = 0.005
+				stability_weekly = -0.003
+				political_power_factor = 0.10
+			}
+		}
+		ES_reserves = {
+			picture = ES_reserves
+			allowed = { always = no }
+			modifier = {
+				conscription_factor = 0.15
+				stability_weekly = -0.005
+			}
+		}
+		ES_rationing = {
+			picture = ES_rationing
+			allowed = { always = no }
+			modifier = {
+				consumer_goods_factor = -0.05
+				stability_factor = -0.05
+			}
+		}
 	}
 }

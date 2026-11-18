@@ -1,0 +1,145 @@
+ES_political_actions = {
+	ES_decision_war_propaganda = {
+		icon = generic_army_support
+		cost = 50
+		available = {
+			NOT = { has_idea = ES_war_propaganda }
+		}
+		complete_effect = {
+			add_timed_idea = { idea = ES_war_propaganda days = 120 }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = { factor = 0 has_war_support > 0.7 }
+		}
+	}
+	ES_decision_public_order = {
+		icon = generic_civil_support
+		cost = 50
+		available = {
+			NOT = { has_idea = ES_public_order }
+		}
+		complete_effect = {
+			add_timed_idea = { idea = ES_public_order days = 120 }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = { factor = 0 has_stability > 0.7 }
+		}
+	}
+	ES_decision_promote_communism = {
+		icon = generic_political_discourse
+		cost = 75
+		available = {
+			NOT = { has_idea = ES_promote_communism has_idea = ES_promote_democracy has_idea = ES_promote_fascism has_idea = ES_promote_neutrality }
+		}
+		complete_effect = {
+			add_timed_idea = { idea = ES_promote_communism days = 120 }
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = { add = 1 has_government = communism }
+		}
+	}
+	ES_decision_promote_democracy = {
+		icon = generic_political_discourse
+		cost = 75
+		available = {
+			NOT = { has_idea = ES_promote_communism has_idea = ES_promote_democracy has_idea = ES_promote_fascism has_idea = ES_promote_neutrality }
+		}
+		complete_effect = {
+			add_timed_idea = { idea = ES_promote_democracy days = 120 }
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = { add = 1 has_government = democratic }
+		}
+	}
+	ES_decision_promote_fascism = {
+		icon = generic_political_discourse
+		cost = 75
+		available = {
+			NOT = { has_idea = ES_promote_communism has_idea = ES_promote_democracy has_idea = ES_promote_fascism has_idea = ES_promote_neutrality }
+		}
+		complete_effect = {
+			add_timed_idea = { idea = ES_promote_fascism days = 120 }
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = { add = 1 has_government = fascism }
+		}
+	}
+	ES_decision_promote_neutrality = {
+		icon = generic_political_discourse
+		cost = 75
+		available = {
+			NOT = { has_idea = ES_promote_communism has_idea = ES_promote_democracy has_idea = ES_promote_fascism has_idea = ES_promote_neutrality }
+		}
+		complete_effect = {
+			add_timed_idea = { idea = ES_promote_neutrality days = 120 }
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = { add = 1 has_government = neutrality }
+		}
+	}
+	ES_decision_recruitment_drive = {
+		icon = generic_army_support
+		cost = 50
+		available = {
+			NOT = { has_idea = ES_recruitment_drive }
+		}
+		complete_effect = {
+			add_timed_idea = { idea = ES_recruitment_drive days = 120 }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = { factor = 0 has_war = no }
+		}
+	}
+}
+ES_war_measures = {
+	ES_decision_war_bonds = {
+		icon = generic_industry
+		cost = 25
+		available = {
+			has_war = yes
+			NOT = { has_idea = ES_war_bonds }
+		}
+		complete_effect = {
+			add_timed_idea = { idea = ES_war_bonds days = 180 }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	ES_decision_call_up_the_reserves = {
+		icon = generic_prepare_civil_war
+		cost = 75
+		available = {
+			has_war = yes
+			NOT = { has_idea = ES_reserves }
+		}
+		complete_effect = {
+			add_timed_idea = { idea = ES_reserves days = 180 }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = { factor = 0 has_manpower > 20000 }
+		}
+	}
+	ES_decision_rationing = {
+		icon = generic_industry
+		cost = 50
+		available = {
+			has_war = yes
+			NOT = { has_idea = ES_rationing }
+		}
+		complete_effect = {
+			add_timed_idea = { idea = ES_rationing days = 180 }
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+}

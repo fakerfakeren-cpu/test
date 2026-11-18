@@ -1,7 +1,36 @@
 SRD_oborishte_question = {
-	allowed = { tag = SRD }
+	allowed = {
+		tag = SRD
+	}
 	visible = {
 		has_completed_focus = SRD_comrades_in_oborishte
 		OBR = { exists = yes }
+	}
+}
+SRD_road_to_power = {
+	allowed = {
+		tag = SRD
+	}
+	visible = {
+		OR = {
+			AND = { has_completed_focus = SRD_henrys_mom_was_right NOT = { has_government = communism } }
+			AND = { has_completed_focus = SRD_a_free_sredets NOT = { has_government = democratic } }
+		}
+	}
+}
+ES_political_actions = {
+	allowed = {
+		always = yes
+	}
+	visible = {
+		always = yes
+	}
+}
+ES_war_measures = {
+	allowed = {
+		always = yes
+	}
+	visible = {
+		has_war = yes
 	}
 }

@@ -38,6 +38,9 @@ BRIEFS = {
                          "curious people watching from the street.",
     "evil_sofia_srd_18": "Townspeople lifting a wooden street barrier together and shaking hands across it.",
     "evil_sofia_srd_19": "A man reading a letter at a window, a closed barrier in the street below.",
+    "evil_sofia_srd_20": "An older woman in a 1930s coat and hat sitting silently at a dinner table in a villa, a "
+                         "young man staring at her.",
+    "evil_sofia_srd_21": "A framed handwritten letter hanging on the wall of a district hall office, a man admiring it.",
     "evil_sofia_srd_16": "A street fight at night between two groups of young men, smoke from flares.",
     # news
     "evil_sofia_news_1": "Red banners over a large square in front of a monumental government building, crowds below.",

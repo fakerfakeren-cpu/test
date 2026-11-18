@@ -20,17 +20,8 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
-			set_popularities = { communism = 65 neutrality = 35 democratic = 0 fascism = 0 }
-			set_politics = { ruling_party = communism elections_allowed = no }
-			add_country_leader_role = {
-				character = SRD_leader
-				country_leader = { ideology = leninism expire = "1965.1.1.1" }
-				promote_leader = yes
-			}
-			set_cosmetic_tag = SRD_RED
-			add_war_support = 0.10
-			VIT = { country_event = { id = evil_sofia_srd.1 } }
-			news_event = { id = evil_sofia_news.1 hours = 6 }
+			add_timed_idea = { idea = SRD_red_agitation days = 240 }
+			add_political_power = 50
 		}
 	}
 	focus = {
@@ -58,7 +49,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
-			OBR = { add_popularity = { ideology = communism popularity = 0.15 } }
+			OBR = { add_timed_idea = { idea = SRD_comrades_from_sredets days = 180 } }
 			add_political_power = 50
 		}
 	}
@@ -72,7 +63,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
-			OBR = { add_popularity = { ideology = communism popularity = 0.10 } add_stability = -0.05 }
+			OBR = { add_timed_idea = { idea = SRD_red_newspapers days = 180 } }
 		}
 	}
 	focus = {
@@ -510,6 +501,7 @@ focus_tree = {
 			116 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 			92 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 			112 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			has_government = communism
 		}
 		cost = 6
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_STABILITY }
@@ -877,6 +869,7 @@ focus_tree = {
 			116 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 			92 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 			112 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			has_government = communism
 		}
 		cost = 6
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_STABILITY }
@@ -1083,7 +1076,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
-			VIT = { add_stability = -0.10 add_popularity = { ideology = communism popularity = 0.15 } }
+			VIT = { add_timed_idea = { idea = SRD_red_leaflets days = 180 } }
 		}
 	}
 	focus = {
@@ -1343,16 +1336,8 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
-			set_politics = { ruling_party = democratic elections_allowed = no }
-			set_popularities = { democratic = 55 neutrality = 45 communism = 0 fascism = 0 }
-			add_country_leader_role = {
-				character = SRD_leader
-				country_leader = { ideology = liberalism expire = "1965.1.1.1" }
-				promote_leader = yes
-			}
-			set_cosmetic_tag = SRD_FREE
 			add_ideas = SRD_free_sredets
-			news_event = { id = evil_sofia_news.9 hours = 6 }
+			add_timed_idea = { idea = SRD_curfew_lifted days = 240 }
 		}
 	}
 	focus = {
@@ -1365,8 +1350,8 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
-			add_stability = 0.08
-			add_popularity = { ideology = democratic popularity = 0.10 }
+			add_stability = 0.05
+			add_timed_idea = { idea = SRD_speakers_corner_idea days = 150 }
 		}
 	}
 	focus = {
@@ -1394,7 +1379,7 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			add_political_power = 120
-			every_neighbor_country = { add_popularity = { ideology = democratic popularity = 0.05 } }
+			every_neighbor_country = { add_timed_idea = { idea = SRD_smuggled_newspapers days = 180 } }
 		}
 	}
 	focus = {
@@ -1430,6 +1415,24 @@ focus_tree = {
 		}
 	}
 	focus = {
+		id = SRD_prove_henrys_mom_wrong
+		icon = GFX_focus_SRD_prove_henrys_mom_wrong
+		x = 19
+		y = 6
+		prerequisite = { focus = SRD_free_press_on_rakovski }
+		prerequisite = { focus = SRD_open_market_on_vitosha }
+		available = {
+			country_exists = VIT
+		}
+		cost = 4
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			VIT = { country_event = { id = evil_sofia_srd.20 } }
+			add_political_power = 50
+		}
+	}
+	focus = {
 		id = SRD_friends_of_freedom
 		icon = GFX_focus_SRD_friends_of_freedom
 		x = 17
@@ -1441,7 +1444,7 @@ focus_tree = {
 		completion_reward = {
 			every_country = {
 				limit = { OR = { tag = OBR tag = LOZ tag = TRD } NOT = { has_war_with = ROOT } }
-				add_popularity = { ideology = democratic popularity = 0.15 }
+				add_timed_idea = { idea = SRD_friends_of_freedom days = 240 }
 				add_opinion_modifier = { target = ROOT modifier = evil_sofia_free_friends }
 			}
 		}
@@ -1610,6 +1613,9 @@ focus_tree = {
 		x = 20
 		y = 11
 		prerequisite = { focus = SRD_a_free_centre }
+		available = {
+			has_government = democratic
+		}
 		cost = 10
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_STABILITY }
 		ai_will_do = { factor = 1 }
