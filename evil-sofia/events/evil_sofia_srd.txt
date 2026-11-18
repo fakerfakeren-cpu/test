@@ -222,6 +222,7 @@ country_event = {
 			modifier = { add = 20 tag = VIT }
 			modifier = { factor = 0.6 has_opinion = { target = FROM value > 50 } }
 		}
+		set_country_flag = SRD_refused_the_gang
 		FROM = { country_event = { id = evil_sofia_srd.13 } }
 	}
 }
@@ -244,55 +245,6 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = evil_sofia_srd.13.a
-		ai_chance = { factor = 1 }
-	}
-}
-
-country_event = {
-	id = evil_sofia_srd.14
-	title = evil_sofia_srd.14.t
-	desc = evil_sofia_srd.14.d
-	is_triggered_only = yes
-	option = {
-		name = evil_sofia_srd.14.a
-		ai_chance = {
-			base = 15
-			modifier = { add = 25 strength_ratio = { tag = FROM ratio < 0.6 } }
-			modifier = { add = 20 strength_ratio = { tag = FROM ratio < 0.3 } }
-			modifier = { add = 15 has_opinion = { target = FROM value > 40 } }
-			modifier = { factor = 0.5 has_opinion = { target = FROM value < 0 } }
-		}
-		FROM = { add_to_faction = ROOT country_event = { id = evil_sofia_srd.15 } }
-	}
-	option = {
-		name = evil_sofia_srd.14.b
-		ai_chance = {
-			base = 35
-			modifier = { add = 30 strength_ratio = { tag = FROM ratio > 1 } }
-			modifier = { add = 15 has_opinion = { target = FROM value < 0 } }
-		}
-		FROM = { create_wargoal = { type = annex_everything target = ROOT } country_event = { id = evil_sofia_srd.16 } }
-	}
-}
-
-country_event = {
-	id = evil_sofia_srd.15
-	title = evil_sofia_srd.15.t
-	desc = evil_sofia_srd.15.d
-	is_triggered_only = yes
-	option = {
-		name = evil_sofia_srd.15.a
-		ai_chance = { factor = 1 }
-	}
-}
-
-country_event = {
-	id = evil_sofia_srd.16
-	title = evil_sofia_srd.16.t
-	desc = evil_sofia_srd.16.d
-	is_triggered_only = yes
-	option = {
-		name = evil_sofia_srd.16.a
 		ai_chance = { factor = 1 }
 	}
 }

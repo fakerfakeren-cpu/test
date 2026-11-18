@@ -101,7 +101,7 @@ by the Hoi4_world_map project (github.com/derprito64bit/Hoi4_world_map):
   fight (skipped when Lozenets is gone or already an ally). Between the two conquest paths, the People's Militia
   and the Komsomol give manpower as the districts fall; the Party branch adds more manpower, army and air
   experience, an officer school, a tank works and anti-air; the economy branch factories, the Red University,
-  socialist emulation, electrification and a research slot. 92 focuses in all, 3 to 12 weeks long, all with
+  socialist emulation, electrification and a research slot. 96 focuses in all, 3 to 12 weeks long, all with
   search filters.
   Sredets and Oborishte have communist names and hand-drawn flags (`tools/red_flags.py`: the Sredets rhombuses in
   a wheat wreath, Oborishte's rings turned into a cog with the hammer and sickle, the arms of Sofia on red for Sofia,

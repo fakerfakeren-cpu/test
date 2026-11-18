@@ -80,11 +80,13 @@ NEWS = {   # namespace evil_sofia_news; major news is shown to every country
            ("Let them talk. We will see how long it lasts.", "", 1, "NOT = { tag = SRD tag = VIT }")]),
     "10": ("The Evil Gang Rides Again",
            "An old group chat has become the most talked-about alliance in Sofia. Victor Kolev of Sredets has "
-           "announced the return of the Evil Gang, and invitations are said to be on their way to several district "
-           "leaders who, before the city fell apart, were his closest friends.",
-           (["SRD", "LOZ", "OBR"], "night"),
+           "proposed the return of the Evil Gang, and letters are said to be on their way, one a month, to Georgi "
+           "Poryazov of Mladost, Daniel-Henry Capel of Vitosha and Stefan Kartunov of Krasna Polyana. Before the city "
+           "fell apart, they were his closest friends. Whether they still are is another question.",
+           (["SRD", "MLA", "KRP"], "night"),
            [("The gang is back.", "", 1, "tag = SRD"),
-            ("Are we on the list?", "", 1, "NOT = { tag = SRD }")]),
+            ("Check the letterbox.", "", 1, "OR = { tag = MLA tag = VIT tag = KRP }"),
+            ("Are we on the list?", "", 1, "NOT = { tag = SRD tag = MLA tag = VIT tag = KRP }")]),
     "11": ("The C Class Hools Take to the Streets",
            "Hundreds of young men in scarves and hoods marched through the centre of Sofia last night, lighting "
            "flares and singing. They call themselves the C Class Hools, they answer to Sredets, and their leaders "
@@ -93,9 +95,11 @@ NEWS = {   # namespace evil_sofia_news; major news is shown to every country
            [("Nobody stops the C Class.", "", 1, "tag = SRD"),
             ("Lock the doors.", "", 1, "NOT = { tag = SRD }")]),
     "12": ("A Physics Teacher Seizes Sredets",
-           "In the strangest change of government Sofia has seen yet, Victor Kolev has been removed from power in "
-           "Sredets by his former physics teacher, Konstantin Ilchev. Witnesses say Ilchev walked into the Party "
-           "House carrying a stack of marked exam papers, and that the guards let him through without a word.",
+           "The people of Sredets have waited long enough. A year of curfews and promises, and Victor Kolev has still "
+           "not told them what the centre is for. This morning his former physics teacher, Konstantin Ilchev, walked "
+           "into the Party House with a red pen and a stack of marked exam papers and declared that the lesson was "
+           "over. The guards, who all sat in his classes too, let him straight through. Victor has been sent to "
+           "detention, and Ilchev governs Sredets.",
            (["SRD"], "day"),
            [("Class is in session.", "", 1, "tag = SRD"),
             ("Sofia has gone completely mad.", "", 1, "NOT = { tag = SRD }")]),
@@ -117,6 +121,22 @@ NEWS = {   # namespace evil_sofia_news; major news is shown to every country
            [("Told you so, Mrs Capel.", "", 1, "tag = SRD"),
             ("Mom... was wrong?", "", 1, "tag = VIT"),
             ("If even she admits it...", "", 1, "NOT = { tag = SRD tag = VIT }")]),
+    "15": ("The Vitosha Award",
+           "Vitosha has been carved up at a table in the Party House. With the map of Henry's district spread in front "
+           "of him, Victor Kolev drew the new lines himself: the villas of Boyana stay with Sredets, and the slopes "
+           "and villages around them go to the members of the Evil Gang who stood by him. Nobody from Vitosha was "
+           "invited.",
+           (["SRD", "VIT"], "dusk"),
+           [("Everyone gets their share.", "", 1, "tag = SRD"),
+            ("A fair share for a loyal friend.", "", 1, "AND = { NOT = { tag = SRD } is_in_faction_with = SRD }"),
+            ("Today Vitosha. Tomorrow?", "", 1, "AND = { NOT = { tag = SRD } NOT = { is_in_faction_with = SRD } }")]),
+    "16": ("The Centre Is United",
+           "From the Women's Market to the villas of Lozenets, the centre of Sofia answers to one district hall again. "
+           "Victor Kolev has called it the end of a long dream. In the districts beyond the boulevards, people are "
+           "asking whether the dream ends at the edge of the centre.",
+           (["SRD"], "day"),
+           [("One centre.", "", 1, "tag = SRD"),
+            ("And where does it stop?", "", 1, "NOT = { tag = SRD }")]),
 }
 
 FLAVOUR = {   # namespace evil_sofia_flavour: random events of city life, for every district

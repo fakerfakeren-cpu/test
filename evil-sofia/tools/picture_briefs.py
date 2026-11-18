@@ -52,6 +52,8 @@ BRIEFS = {
     "evil_sofia_news_8": "Soldiers laying down rifles in a pile in a city street, civilians watching.",
     "evil_sofia_news_9": "Soldiers taking down a checkpoint barrier on a city boulevard while crowds fill the cafés, a blue flag on a hall.",
     "evil_sofia_news_14": "An older woman in a 1930s coat and hat surrounded by reporters with notebooks on a city street, a café behind.",
+    "evil_sofia_news_15": "Men in suits and uniforms around a table with a large map, one drawing lines on it with a pen.",
+    "evil_sofia_news_16": "A military parade on a wide boulevard of the city centre, crowds and flags on both sides.",
     "evil_sofia_news_13": "A crowd celebrating on a city square under an old cathedral, blue flags waved from balconies.",
     "evil_sofia_news_10": "A group of young men posing on the steps of a theatre, a newspaper photograph.",
     "evil_sofia_news_11": "A march of young men with scarves and lit flares through a city centre at night.",

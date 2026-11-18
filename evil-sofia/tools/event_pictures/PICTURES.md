@@ -22,9 +22,6 @@ modern objects in focus. Country events are 210x176 (nearly square), news events
 | `evil_sofia_srd_11.png` | 210x176 | An Invitation from the Evil Gang | A young man reading a message, a group photograph pinned to the wall behind him. | wanted |
 | `evil_sofia_srd_12.png` | 210x176 | [From.GetLeader] Is In | A small group of young men in coats laughing together on the steps of a theatre. | wanted |
 | `evil_sofia_srd_13.png` | 210x176 | [From.GetLeader] Says No | An empty chair at a long table, a single glass left on it. | wanted |
-| `evil_sofia_srd_14.png` | 210x176 | The C Class Comes Calling | A dozen young men in scarves and hoods outside a district hall, one holding a lit flare. | wanted |
-| `evil_sofia_srd_15.png` | 210x176 | [From.GetName] Joins the C Class | Football fans with scarves raised marching together through a street. | wanted |
-| `evil_sofia_srd_16.png` | 210x176 | [From.GetName] Wants a Fight | A street fight at night between two groups of young men, smoke from flares. | wanted |
 | `evil_sofia_srd_17.png` | 210x176 | An Offer from the Free Centre | A young man in a coat knocking at the door of a district hall alone, no guards, a few curious people watching from the street. | wanted |
 | `evil_sofia_srd_18.png` | 210x176 | [From.GetName] Joins the Free Centre | Townspeople lifting a wooden street barrier together and shaking hands across it. | wanted |
 | `evil_sofia_srd_20.png` | 210x176 | The Free Centre Asks for Our Quarters | A young man in a coat talking to an older official at the door of a district hall, a street barrier behind. | wanted |
@@ -44,6 +41,8 @@ modern objects in focus. Country events are 210x176 (nearly square), news events
 | `evil_sofia_news_12.png` | 397x153 | A Physics Teacher Seizes Sredets | A teacher with a stack of papers walking past saluting guards into a government building. | wanted |
 | `evil_sofia_news_13.png` | 397x153 | The Free Centre of Sofia | A crowd celebrating on a city square under an old cathedral, blue flags waved from balconies. | done |
 | `evil_sofia_news_14.png` | 397x153 | Henry's Mom Was Wrong | An older woman in a 1930s coat and hat surrounded by reporters with notebooks on a city street, a café behind. | done |
+| `evil_sofia_news_15.png` | 397x153 | The Vitosha Award | Men in suits and uniforms around a table with a large map, one drawing lines on it with a pen. | wanted |
+| `evil_sofia_news_16.png` | 397x153 | The Centre Is United | A military parade on a wide boulevard of the city centre, crowds and flags on both sides. | wanted |
 | `evil_sofia_flavour_1.png` | 210x176 | The Trams Stop | Trams standing still in a rainy street, drivers gathered beside them. | wanted |
 | `evil_sofia_flavour_2.png` | 210x176 | Derby Day | A packed football stadium at night, two sets of fans with scarves. | wanted |
 | `evil_sofia_flavour_3.png` | 210x176 | The Big Snow | People shovelling deep snow in a city street, a stuck truck. | wanted |

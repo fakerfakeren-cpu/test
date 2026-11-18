@@ -36,8 +36,12 @@ spriteTypes = {
 		texturefile = "gfx/interface/ideas/evil_sofia/SRD_c_class_hools.dds"
 	}
 	spriteType = {
-		name = "GFX_idea_SRD_champions_spirit"
-		texturefile = "gfx/interface/ideas/evil_sofia/SRD_champions_spirit.dds"
+		name = "GFX_idea_SRD_united_dream"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_united_dream.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_SRD_united_centre_done"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_united_centre_done.dds"
 	}
 	spriteType = {
 		name = "GFX_idea_SRD_laboratory"

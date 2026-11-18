@@ -107,8 +107,8 @@ Without them the build still works: leaders have no portrait and the person/phot
 
 ## State of the work
 
-- Sredets tree: 92 focuses. Communist path (Henry's Mom Was Right) finished and tuned by the user. Authoritarian
-  path (Order in the Centre) just written: four mutually exclusive branches, A Free Sredets (democracy under Victor, no elections, alone, no factions, blue with its own
+- Sredets tree: 96 focuses. Communist path (Henry's Mom Was Right) finished and tuned by the user. Authoritarian
+  path (Order in the Centre) just written: three mutually exclusive roads (see KNOWLEDGE.md, "Restructure"), A Free Sredets (democracy under Victor, no elections, alone, no factions, blue with its own
   flag `red_flags.free()`; 16 focuses, 3 to 10 weeks by weight, an uneven layout where some focuses need two others; peaceful
   offers to Anton, Georgi, Alexander (event srd.17, mostly no; person icons `offer_to_*`, made once the portraits are
   back); then takes the centre: VAZ and OBR

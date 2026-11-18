@@ -181,6 +181,23 @@ Root choice (mutually exclusive): **Henry's Mom Was Right** (communism) at x=8, 
 - Offers: only Anton is asked to join whole (srd.17, annexation, "I need him all"); Georgi and Alexander get srd.20 and
   hand over only North Lozenets + Lozenets / Triaditsa (the states the formable needs); yes → srd.21, no → srd.19.
   The Wider Centre's war goals skip a district that no longer owns any of those states.
+- Restructure (user's design): the authoritarian road (after Who Stands with Sredets?) is now A Free Sredets (x20),
+  The Dream of a United Centre (x28, the "normal path") and Ilchev (x34, only from 1937: `date > 1937.1.1`, news 12
+  says the people of Sredets waited long enough). United Centre: Order on the Boulevards, The Centre's Army,
+  Workshops / Arsenal of the Centre, Unleash the C Class Hools (one focus for now; only without the Evil Gang;
+  the old 7-focus C Class branch and its "join or get hit" events are gone), March on the Old Centre (VAZ),
+  The Centre Takes Shape (cores held VAZ; claims/war goals on the central states), The Centre Is One (cores held),
+  then a fork: Bring Anton In → The United Centre (annex OBR) or Anton at Our Side → The Centre and Oborishte
+  (guarantee or faction); both send news 16. Cores only after holding here (only the free branch cores at once).
+  The user will say more about the C Class later.
+- Evil Gang = separate faction tree at x39-45 from y0 (any road except the free one; A Free Sredets is not
+  possible once it exists): Propose the Evil Gang (focus id call_the_evil_gang, keeps the photo icon) creates the
+  faction and sends letters to Georgi Poryazov now, Henry in 30 days, Stefan in 60 (event srd.11; a refusal sets
+  SRD_refused_the_gang); Destroy Henry / Destroy Stefan (only after a refusal); The Vitosha Award (Vienna Award
+  style, once Vitosha is gone: Simeonovo to MLA, Knyazhevo + Marchaevo to KRP, Dragalevtsi + Zlatni Mostove to LOZ,
+  Karpuzitsa to TRD, if they are in the gang; Sredets keeps Vitosha; news 15); Invite Georgi Yanchovichin, then
+  Alexander and Anton; The Evil Gang Rules Sofia. Dropped: the GrimBoss invitation and Even Henry?.
+- Watch for duplicate focus ids across branches (a new `one_centre` once collided with the communist one).
 - Later tweaks: spirits on other districts cut to about a quarter (comrades 0.06, red newspapers 0.05, party money
   0.04, rally 0.05, leaflets 0.04, newspapers from Sredets 0.03, friends of freedom 0.06, mom was wrong 0.04, a red
   Oborishte 0.08); thresholds scaled with them (Ally Anton 20%, Red Coup 30%, AI odds in ANTON_YES/GEORGI_YES/

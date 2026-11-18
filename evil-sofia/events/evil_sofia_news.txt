@@ -229,7 +229,14 @@ news_event = {
 		name = evil_sofia_news.10.b
 		ai_chance = { factor = 1 }
 		trigger = {
-			NOT = { tag = SRD }
+			OR = { tag = MLA tag = VIT tag = KRP }
+		}
+	}
+	option = {
+		name = evil_sofia_news.10.c
+		ai_chance = { factor = 1 }
+		trigger = {
+			NOT = { tag = SRD tag = MLA tag = VIT tag = KRP }
 		}
 	}
 }
@@ -329,6 +336,59 @@ news_event = {
 		ai_chance = { factor = 1 }
 		trigger = {
 			NOT = { tag = SRD tag = VIT }
+		}
+	}
+}
+
+news_event = {
+	id = evil_sofia_news.15
+	title = evil_sofia_news.15.t
+	desc = evil_sofia_news.15.d
+	picture = GFX_evil_sofia_evil_sofia_news_15
+	major = yes
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_news.15.a
+		ai_chance = { factor = 1 }
+		trigger = {
+			tag = SRD
+		}
+	}
+	option = {
+		name = evil_sofia_news.15.b
+		ai_chance = { factor = 1 }
+		trigger = {
+			AND = { NOT = { tag = SRD } is_in_faction_with = SRD }
+		}
+	}
+	option = {
+		name = evil_sofia_news.15.c
+		ai_chance = { factor = 1 }
+		trigger = {
+			AND = { NOT = { tag = SRD } NOT = { is_in_faction_with = SRD } }
+		}
+	}
+}
+
+news_event = {
+	id = evil_sofia_news.16
+	title = evil_sofia_news.16.t
+	desc = evil_sofia_news.16.d
+	picture = GFX_evil_sofia_evil_sofia_news_16
+	major = yes
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_news.16.a
+		ai_chance = { factor = 1 }
+		trigger = {
+			tag = SRD
+		}
+	}
+	option = {
+		name = evil_sofia_news.16.b
+		ai_chance = { factor = 1 }
+		trigger = {
+			NOT = { tag = SRD }
 		}
 	}
 }

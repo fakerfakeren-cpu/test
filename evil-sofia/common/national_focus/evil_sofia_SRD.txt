@@ -1356,7 +1356,10 @@ focus_tree = {
 		x = 20
 		y = 3
 		prerequisite = { focus = SRD_who_stands_with_sredets }
-		mutually_exclusive = { focus = SRD_call_the_evil_gang focus = SRD_unleash_the_c_class focus = SRD_ilchevs_lesson }
+		mutually_exclusive = { focus = SRD_united_centre focus = SRD_ilchevs_lesson }
+		available = {
+			NOT = { has_completed_focus = SRD_call_the_evil_gang }
+		}
 		cost = 5
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		ai_will_do = { factor = 1 }
@@ -1675,283 +1678,246 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = SRD_call_the_evil_gang
-		icon = GFX_focus_SRD_call_the_evil_gang
-		x = 26
+		id = SRD_united_centre
+		icon = GFX_focus_SRD_united_centre
+		x = 28
 		y = 3
 		prerequisite = { focus = SRD_who_stands_with_sredets }
-		mutually_exclusive = { focus = SRD_a_free_sredets focus = SRD_unleash_the_c_class focus = SRD_ilchevs_lesson }
+		mutually_exclusive = { focus = SRD_a_free_sredets focus = SRD_ilchevs_lesson }
 		cost = 5
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
-			if = { limit = { is_in_faction = yes } leave_faction = yes }
-			create_faction = EVIL_SOFIA_FACTION_EVIL_GANG
+			add_ideas = SRD_united_dream
 			add_political_power = 50
-			news_event = { id = evil_sofia_news.10 hours = 6 }
 		}
 	}
 	focus = {
-		id = SRD_invite_anton
-		icon = GFX_focus_SRD_invite_anton
-		x = 25
-		y = 4
-		prerequisite = { focus = SRD_call_the_evil_gang }
-		cost = 5
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		ai_will_do = { factor = 1 }
-		completion_reward = {
-			if = {
-				limit = { country_exists = OBR NOT = { is_in_faction_with = OBR has_war_with = OBR } }
-				OBR = { country_event = { id = evil_sofia_srd.11 } }
-			}
-		}
-	}
-	focus = {
-		id = SRD_invite_georgi
-		icon = GFX_focus_SRD_invite_georgi
-		x = 27
-		y = 4
-		prerequisite = { focus = SRD_call_the_evil_gang }
-		cost = 4
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		ai_will_do = { factor = 1 }
-		completion_reward = {
-			if = {
-				limit = { country_exists = LOZ NOT = { is_in_faction_with = LOZ has_war_with = LOZ } }
-				LOZ = { country_event = { id = evil_sofia_srd.11 } }
-			}
-		}
-	}
-	focus = {
-		id = SRD_invite_poryazov
-		icon = GFX_focus_SRD_invite_poryazov
-		x = 25
-		y = 5
-		prerequisite = { focus = SRD_invite_anton }
-		cost = 5
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		ai_will_do = { factor = 1 }
-		completion_reward = {
-			if = {
-				limit = { country_exists = MLA NOT = { is_in_faction_with = MLA has_war_with = MLA } }
-				MLA = { country_event = { id = evil_sofia_srd.11 } }
-			}
-		}
-	}
-	focus = {
-		id = SRD_invite_kartunov
-		icon = GFX_focus_SRD_invite_kartunov
-		x = 27
-		y = 5
-		prerequisite = { focus = SRD_invite_georgi }
-		cost = 5
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		ai_will_do = { factor = 1 }
-		completion_reward = {
-			if = {
-				limit = { country_exists = KRP NOT = { is_in_faction_with = KRP has_war_with = KRP } }
-				KRP = { country_event = { id = evil_sofia_srd.11 } }
-			}
-		}
-	}
-	focus = {
-		id = SRD_invite_dimitrov
-		icon = GFX_focus_SRD_invite_dimitrov
-		x = 25
-		y = 6
-		prerequisite = { focus = SRD_invite_poryazov }
-		cost = 5
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		ai_will_do = { factor = 1 }
-		completion_reward = {
-			if = {
-				limit = { country_exists = TRD NOT = { is_in_faction_with = TRD has_war_with = TRD } }
-				TRD = { country_event = { id = evil_sofia_srd.11 } }
-			}
-		}
-	}
-	focus = {
-		id = SRD_invite_grimboss
-		icon = GFX_focus_SRD_invite_grimboss
-		x = 27
-		y = 6
-		prerequisite = { focus = SRD_invite_kartunov }
-		cost = 5
-		search_filters = { FOCUS_FILTER_POLITICAL }
-		ai_will_do = { factor = 1 }
-		completion_reward = {
-			if = {
-				limit = { country_exists = LYU NOT = { is_in_faction_with = LYU has_war_with = LYU } }
-				LYU = { country_event = { id = evil_sofia_srd.11 } }
-			}
-		}
-	}
-	focus = {
-		id = SRD_even_henry
-		icon = GFX_focus_SRD_even_henry
+		id = SRD_order_on_the_boulevards
+		icon = GFX_focus_SRD_order_on_the_boulevards
 		x = 26
-		y = 7
-		prerequisite = { focus = SRD_invite_dimitrov focus = SRD_invite_grimboss }
+		y = 4
+		prerequisite = { focus = SRD_united_centre }
+		cost = 3
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 75
+		}
+	}
+	focus = {
+		id = SRD_the_centres_army
+		icon = GFX_focus_SRD_the_centres_army
+		x = 30
+		y = 4
+		prerequisite = { focus = SRD_united_centre }
 		cost = 6
-		search_filters = { FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_ARMY_XP }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
-			if = {
-				limit = { country_exists = VIT NOT = { is_in_faction_with = VIT has_war_with = VIT } }
-				VIT = { country_event = { id = evil_sofia_srd.11 } }
+			add_manpower = 15000
+			army_experience = 20
+		}
+	}
+	focus = {
+		id = SRD_workshops_of_the_centre
+		icon = GFX_focus_SRD_workshops_of_the_centre
+		x = 25
+		y = 5
+		prerequisite = { focus = SRD_order_on_the_boulevards }
+		cost = 8
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			capital_scope = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
 			}
 		}
 	}
 	focus = {
-		id = SRD_the_evil_gang_rules_sofia
-		icon = GFX_focus_SRD_the_evil_gang_rules_sofia
-		x = 26
-		y = 8
-		prerequisite = { focus = SRD_even_henry }
+		id = SRD_arsenal_of_the_centre
+		icon = GFX_focus_SRD_arsenal_of_the_centre
+		x = 29
+		y = 5
+		prerequisite = { focus = SRD_the_centres_army }
 		cost = 8
-		search_filters = { FOCUS_FILTER_ANNEXATION }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
-			add_ideas = SRD_evil_gang
-			every_other_country = {
-				limit = { is_in_faction_with = ROOT }
-				add_ideas = SRD_evil_gang
-			}
-			every_neighbor_country = {
-				limit = { NOT = { is_in_faction_with = ROOT } }
-				ROOT = { create_wargoal = { type = annex_everything target = PREV } }
+			capital_scope = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
 			}
 		}
 	}
 	focus = {
 		id = SRD_unleash_the_c_class
 		icon = GFX_focus_SRD_unleash_the_c_class
-		x = 30
-		y = 3
-		prerequisite = { focus = SRD_who_stands_with_sredets }
-		mutually_exclusive = { focus = SRD_a_free_sredets focus = SRD_call_the_evil_gang focus = SRD_ilchevs_lesson }
-		cost = 5
+		x = 31
+		y = 5
+		prerequisite = { focus = SRD_the_centres_army }
+		available = {
+			NOT = { has_completed_focus = SRD_call_the_evil_gang }
+		}
+		cost = 4
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
-			if = { limit = { is_in_faction = yes } leave_faction = yes }
-			create_faction = EVIL_SOFIA_FACTION_C_CLASS
 			add_ideas = SRD_c_class_hools
+			add_manpower = 10000
 			news_event = { id = evil_sofia_news.11 hours = 6 }
 		}
 	}
 	focus = {
-		id = SRD_ultras_of_the_stadium
-		icon = GFX_focus_SRD_ultras_of_the_stadium
-		x = 29
-		y = 4
-		prerequisite = { focus = SRD_unleash_the_c_class }
+		id = SRD_march_on_the_old_centre
+		icon = GFX_focus_SRD_march_on_the_old_centre
+		x = 27
+		y = 6
+		prerequisite = { focus = SRD_workshops_of_the_centre }
+		prerequisite = { focus = SRD_arsenal_of_the_centre }
 		cost = 6
-		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_WAR_SUPPORT }
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
-			add_manpower = 20000
-			add_war_support = 0.05
-		}
-	}
-	focus = {
-		id = SRD_flares_and_firecrackers
-		icon = GFX_focus_SRD_flares_and_firecrackers
-		x = 31
-		y = 4
-		prerequisite = { focus = SRD_unleash_the_c_class }
-		cost = 7
-		search_filters = { FOCUS_FILTER_RESEARCH }
-		ai_will_do = { factor = 1 }
-		completion_reward = {
-			add_tech_bonus = { name = SRD_flares_and_firecrackers bonus = 1.0 uses = 1 category = artillery }
-			add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1000 }
-		}
-	}
-	focus = {
-		id = SRD_away_day
-		icon = GFX_focus_SRD_away_day
-		x = 29
-		y = 5
-		prerequisite = { focus = SRD_ultras_of_the_stadium }
-		cost = 7
-		search_filters = { FOCUS_FILTER_ANNEXATION }
-		ai_will_do = { factor = 1 }
-		completion_reward = {
-			add_state_claim = 5
-			add_state_claim = 6
 			add_state_claim = 3
 			add_state_claim = 4
 			if = { limit = { country_exists = VAZ NOT = { has_war_with = VAZ is_in_faction_with = VAZ } } create_wargoal = { type = annex_everything target = VAZ } }
-			if = { limit = { country_exists = OBR NOT = { has_war_with = OBR is_in_faction_with = OBR } } create_wargoal = { type = annex_everything target = OBR } }
 		}
 	}
 	focus = {
-		id = SRD_pitch_invasion
-		icon = GFX_focus_SRD_pitch_invasion
-		x = 31
-		y = 5
-		prerequisite = { focus = SRD_flares_and_firecrackers }
-		cost = 8
-		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_RESEARCH }
-		ai_will_do = { factor = 1 }
-		completion_reward = {
-			army_experience = 30
-			add_tech_bonus = { name = SRD_pitch_invasion bonus = 1.0 uses = 1 category = land_doctrine }
-		}
-	}
-	focus = {
-		id = SRD_recruit_the_firms
-		icon = GFX_focus_SRD_recruit_the_firms
-		x = 30
-		y = 6
-		prerequisite = { focus = SRD_away_day }
-		prerequisite = { focus = SRD_pitch_invasion }
-		cost = 6
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
-		ai_will_do = { factor = 1 }
-		completion_reward = {
-			every_neighbor_country = {
-				limit = { is_in_faction = no NOT = { has_war_with = ROOT } }
-				country_event = { id = evil_sofia_srd.14 }
-			}
-		}
-	}
-	focus = {
-		id = SRD_home_ground
-		icon = GFX_focus_SRD_home_ground
-		x = 30
+		id = SRD_the_centre_takes_shape
+		icon = GFX_focus_SRD_the_centre_takes_shape
+		x = 27
 		y = 7
-		prerequisite = { focus = SRD_recruit_the_firms }
+		prerequisite = { focus = SRD_march_on_the_old_centre }
 		available = {
-			5 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
-			6 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 			3 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 			4 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 		}
-		cost = 6
+		cost = 8
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			every_state = {
+				limit = { OR = { state = 3 state = 4 } is_controlled_by = SRD }
+				add_core_of = SRD
+			}
+			add_state_claim = 38
+			add_state_claim = 35
+			add_state_claim = 32
+			add_state_claim = 8
+			add_state_claim = 9
+			add_state_claim = 17
+			add_state_claim = 10
+			if = { limit = { country_exists = TRD NOT = { has_war_with = TRD is_in_faction_with = TRD } TRD = { OR = { owns_state = 38 } } } create_wargoal = { type = take_state_focus target = TRD generator = { 38 } } }
+			if = { limit = { country_exists = LOZ NOT = { has_war_with = LOZ is_in_faction_with = LOZ } LOZ = { OR = { owns_state = 35 owns_state = 32 } } } create_wargoal = { type = take_state_focus target = LOZ generator = { 35 32 } } }
+			if = { limit = { country_exists = KRS NOT = { has_war_with = KRS is_in_faction_with = KRS } KRS = { OR = { owns_state = 8 owns_state = 9 } } } create_wargoal = { type = take_state_focus target = KRS generator = { 8 9 } } }
+			if = { limit = { country_exists = SRK NOT = { has_war_with = SRK is_in_faction_with = SRK } SRK = { OR = { owns_state = 17 owns_state = 10 } } } create_wargoal = { type = take_state_focus target = SRK generator = { 17 10 } } }
+		}
+	}
+	focus = {
+		id = SRD_the_centre_is_one
+		icon = GFX_focus_SRD_the_centre_is_one
+		x = 27
+		y = 8
+		prerequisite = { focus = SRD_the_centre_takes_shape }
+		available = {
+			38 = { is_controlled_by = ROOT }
+			35 = { is_controlled_by = ROOT }
+			32 = { is_controlled_by = ROOT }
+			8 = { is_controlled_by = ROOT }
+			9 = { is_controlled_by = ROOT }
+			17 = { is_controlled_by = ROOT }
+			10 = { is_controlled_by = ROOT }
+		}
+		cost = 5
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_STABILITY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			every_state = {
-				limit = { OR = { state = 5 state = 6 state = 3 state = 4 } is_controlled_by = SRD }
+				limit = { OR = { state = 38 state = 35 state = 32 state = 8 state = 9 state = 17 state = 10 } is_controlled_by = SRD }
 				add_core_of = SRD
 			}
 			add_stability = 0.05
 		}
 	}
 	focus = {
-		id = SRD_champions_of_sofia
-		icon = GFX_focus_SRD_champions_of_sofia
-		x = 30
-		y = 8
-		prerequisite = { focus = SRD_home_ground }
-		cost = 9
-		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
+		id = SRD_bring_anton_in
+		icon = GFX_focus_SRD_bring_anton_in
+		x = 26
+		y = 9
+		prerequisite = { focus = SRD_the_centre_is_one }
+		mutually_exclusive = { focus = SRD_anton_at_our_side }
+		available = {
+			country_exists = OBR
+		}
+		cost = 6
+		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
-			swap_ideas = { remove_idea = SRD_c_class_hools add_idea = SRD_champions_spirit }
+			add_state_claim = 5
+			add_state_claim = 6
+			if = { limit = { country_exists = OBR NOT = { has_war_with = OBR is_in_faction_with = OBR } } create_wargoal = { type = annex_everything target = OBR } }
+		}
+	}
+	focus = {
+		id = SRD_anton_at_our_side
+		icon = GFX_focus_SRD_anton_at_our_side
+		x = 28
+		y = 9
+		prerequisite = { focus = SRD_the_centre_is_one }
+		mutually_exclusive = { focus = SRD_bring_anton_in }
+		available = {
+			country_exists = OBR
+		}
+		cost = 4
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			OBR = { add_opinion_modifier = { target = ROOT modifier = evil_sofia_gang } }
+			add_opinion_modifier = { target = OBR modifier = evil_sofia_gang }
+			if = { limit = { is_in_faction = yes OBR = { is_in_faction = no } } add_to_faction = OBR }
+			if = { limit = { is_in_faction = no } give_guarantee = OBR }
+		}
+	}
+	focus = {
+		id = SRD_the_united_centre
+		icon = GFX_focus_SRD_the_united_centre
+		x = 26
+		y = 10
+		prerequisite = { focus = SRD_bring_anton_in }
+		available = {
+			5 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			6 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+		}
+		cost = 10
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			every_state = {
+				limit = { OR = { state = 5 state = 6 } is_controlled_by = SRD }
+				add_core_of = SRD
+			}
+			swap_ideas = { remove_idea = SRD_united_dream add_idea = SRD_united_centre_done }
+			add_research_slot = 1
+			news_event = { id = evil_sofia_news.16 hours = 6 }
+		}
+	}
+	focus = {
+		id = SRD_the_centre_and_oborishte
+		icon = GFX_focus_SRD_the_centre_and_oborishte
+		x = 28
+		y = 10
+		prerequisite = { focus = SRD_anton_at_our_side }
+		cost = 8
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			swap_ideas = { remove_idea = SRD_united_dream add_idea = SRD_united_centre_done }
+			add_research_slot = 1
+			news_event = { id = evil_sofia_news.16 hours = 6 }
 		}
 	}
 	focus = {
@@ -1960,7 +1926,10 @@ focus_tree = {
 		x = 34
 		y = 3
 		prerequisite = { focus = SRD_who_stands_with_sredets }
-		mutually_exclusive = { focus = SRD_a_free_sredets focus = SRD_call_the_evil_gang focus = SRD_unleash_the_c_class }
+		mutually_exclusive = { focus = SRD_a_free_sredets focus = SRD_united_centre }
+		available = {
+			date > 1937.1.1
+		}
 		cost = 5
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
@@ -2084,6 +2053,162 @@ focus_tree = {
 				add_core_of = SRD
 			}
 			add_stability = 0.05
+		}
+	}
+	focus = {
+		id = SRD_call_the_evil_gang
+		icon = GFX_focus_SRD_call_the_evil_gang
+		x = 42
+		y = 0
+		available = {
+			is_in_faction = no
+			NOT = { has_completed_focus = SRD_a_free_sredets }
+		}
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			create_faction = EVIL_SOFIA_FACTION_EVIL_GANG
+			add_political_power = 50
+			news_event = { id = evil_sofia_news.10 hours = 6 }
+			if = { limit = { country_exists = MLA NOT = { has_war_with = MLA } } MLA = { country_event = { id = evil_sofia_srd.11 } } }
+			if = { limit = { country_exists = VIT NOT = { has_war_with = VIT } } VIT = { country_event = { id = evil_sofia_srd.11 days = 30 } } }
+			if = { limit = { country_exists = KRP NOT = { has_war_with = KRP } } KRP = { country_event = { id = evil_sofia_srd.11 days = 60 } } }
+		}
+	}
+	focus = {
+		id = SRD_destroy_henry
+		icon = GFX_focus_SRD_destroy_henry
+		x = 39
+		y = 1
+		prerequisite = { focus = SRD_call_the_evil_gang }
+		available = {
+			VIT = { exists = yes has_country_flag = SRD_refused_the_gang }
+		}
+		cost = 6
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_state_claim = 83
+			add_state_claim = 85
+			add_state_claim = 84
+			add_state_claim = 80
+			add_state_claim = 82
+			add_state_claim = 81
+			add_state_claim = 79
+			if = { limit = { country_exists = VIT NOT = { has_war_with = VIT is_in_faction_with = VIT } } create_wargoal = { type = annex_everything target = VIT } }
+		}
+	}
+	focus = {
+		id = SRD_invite_georgi
+		icon = GFX_focus_SRD_invite_georgi
+		x = 42
+		y = 1
+		prerequisite = { focus = SRD_call_the_evil_gang }
+		cost = 4
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			if = {
+				limit = { country_exists = LOZ NOT = { is_in_faction_with = LOZ has_war_with = LOZ } }
+				LOZ = { country_event = { id = evil_sofia_srd.11 } }
+			}
+		}
+	}
+	focus = {
+		id = SRD_destroy_stefan
+		icon = GFX_focus_SRD_destroy_stefan
+		x = 45
+		y = 1
+		prerequisite = { focus = SRD_call_the_evil_gang }
+		available = {
+			KRP = { exists = yes has_country_flag = SRD_refused_the_gang }
+		}
+		cost = 6
+		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_state_claim = 46
+			add_state_claim = 42
+			add_state_claim = 45
+			add_state_claim = 44
+			add_state_claim = 43
+			if = { limit = { country_exists = KRP NOT = { has_war_with = KRP is_in_faction_with = KRP } } create_wargoal = { type = annex_everything target = KRP } }
+		}
+	}
+	focus = {
+		id = SRD_vitosha_award
+		icon = GFX_focus_SRD_vitosha_award
+		x = 39
+		y = 2
+		prerequisite = { focus = SRD_destroy_henry }
+		available = {
+			NOT = { country_exists = VIT }
+		}
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			if = { limit = { owns_state = 80 MLA = { exists = yes is_in_faction_with = ROOT } } MLA = { transfer_state = 80 add_core_of = 80 } }
+			if = { limit = { owns_state = 84 KRP = { exists = yes is_in_faction_with = ROOT } } KRP = { transfer_state = 84 add_core_of = 84 } }
+			if = { limit = { owns_state = 81 KRP = { exists = yes is_in_faction_with = ROOT } } KRP = { transfer_state = 81 add_core_of = 81 } }
+			if = { limit = { owns_state = 82 LOZ = { exists = yes is_in_faction_with = ROOT } } LOZ = { transfer_state = 82 add_core_of = 82 } }
+			if = { limit = { owns_state = 83 LOZ = { exists = yes is_in_faction_with = ROOT } } LOZ = { transfer_state = 83 add_core_of = 83 } }
+			if = { limit = { owns_state = 85 TRD = { exists = yes is_in_faction_with = ROOT } } TRD = { transfer_state = 85 add_core_of = 85 } }
+			news_event = { id = evil_sofia_news.15 hours = 6 }
+		}
+	}
+	focus = {
+		id = SRD_invite_dimitrov
+		icon = GFX_focus_SRD_invite_dimitrov
+		x = 41
+		y = 2
+		prerequisite = { focus = SRD_invite_georgi }
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			if = {
+				limit = { country_exists = TRD NOT = { is_in_faction_with = TRD has_war_with = TRD } }
+				TRD = { country_event = { id = evil_sofia_srd.11 } }
+			}
+		}
+	}
+	focus = {
+		id = SRD_invite_anton
+		icon = GFX_focus_SRD_invite_anton
+		x = 43
+		y = 2
+		prerequisite = { focus = SRD_invite_georgi }
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			if = {
+				limit = { country_exists = OBR NOT = { is_in_faction_with = OBR has_war_with = OBR } }
+				OBR = { country_event = { id = evil_sofia_srd.11 } }
+			}
+		}
+	}
+	focus = {
+		id = SRD_the_evil_gang_rules_sofia
+		icon = GFX_focus_SRD_the_evil_gang_rules_sofia
+		x = 42
+		y = 3
+		prerequisite = { focus = SRD_invite_dimitrov focus = SRD_invite_anton }
+		cost = 8
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = SRD_evil_gang
+			every_other_country = {
+				limit = { is_in_faction_with = ROOT }
+				add_ideas = SRD_evil_gang
+			}
+			every_neighbor_country = {
+				limit = { NOT = { is_in_faction_with = ROOT } }
+				ROOT = { create_wargoal = { type = annex_everything target = PREV } }
+			}
 		}
 	}
 }
