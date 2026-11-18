@@ -548,7 +548,7 @@ news_event = { id = evil_sofia_news.11 hours = 6 }""",
      "held."),
     ("champions_of_sofia", "Champions of Sofia", 26, 8, [["home_ground"]], [], 9,
      "duo:goal_HOL_fires_of_revolution", "",
-     "swap_ideas = { remove_idea = SRD_c_class_hools add_idea = SRD_champions_of_sofia }",
+     "swap_ideas = { remove_idea = SRD_c_class_hools add_idea = SRD_champions_spirit }",
      "Every firm in Sofia now knows who the champions are. The C Class marches through the centre with flares "
      "lit and scarves held high, and nobody dares to look them in the eye."),
     # ------------------------------------------------------------------ Konstantin Ilchev
@@ -713,7 +713,7 @@ IDEAS.update({  # the authoritarian path; a fifth element is extra script for th
                           "Loud, loyal, impossible to teach and absolutely fearless.",
                           "army_attack_factor = 0.08\nwar_support_factor = 0.10\nstability_factor = -0.05",
                           ("Rectangle.png", "Fire.png")),
-    "SRD_champions_of_sofia": ("Champions of Sofia",
+    "SRD_champions_spirit": ("Champions of Sofia",
                                "Every firm in the city knows who the champions are.",
                                "army_attack_factor = 0.12\narmy_morale_factor = 0.10\nwar_support_factor = 0.15\n"
                                "stability_factor = -0.03", ("Pentagon.png", "Fire2.png")),

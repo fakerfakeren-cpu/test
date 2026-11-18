@@ -85,7 +85,10 @@ by the Hoi4_world_map project (github.com/derprito64bit/Hoi4_world_map):
   icons). The featured eight keep vanilla's generic tree until real focus trees are made.
 - **Sredets focus tree** (`tools/focus_sredets.py`, written by `tools/build_focus.py`): the first focus is either
   "Henry's Mom Was Right" (communism: Sredets becomes the red Sredets Commune) or "Order in the Centre" (the
-  authoritarian path, one focus for now). The communist path wins Anton Zafirov over (focuses and the decisions of
+  authoritarian path: after two shared focuses Sredets either stands alone and can never join or create a
+  faction, calls the Evil Gang and invites the friends' districts one by one, unleashes the C Class Hools and
+  offers every neighbour "join or get hit", or is taken over by Victor's physics teacher Konstantin Ilchev, a
+  research-heavy branch; each ends in claims, war goals and cores on the centre once held). The communist path wins Anton Zafirov over (focuses and the decisions of
   "The Oborishte Question", up to a red coup) or destroys him. Allied, Sredets and Oborishte split Sofia and take it
   group by group (the centre, the old quarters, the housing estates, Kremikovtsi, the outskirts), ending as South
   and North Sofia in the faction "Sofia"; alone, Sredets takes every group and becomes Sofia. Each step gives
@@ -95,8 +98,8 @@ by the Hoi4_world_map project (github.com/derprito64bit/Hoi4_world_map):
   fight (skipped when Lozenets is gone or already an ally). Between the two conquest paths, the People's Militia
   and the Komsomol give manpower as the districts fall; the Party branch adds more manpower, army and air
   experience, an officer school, a tank works and anti-air; the economy branch factories, the Red University,
-  socialist emulation, electrification and a research slot. 45 focuses, 3 to 12 weeks long, all with search
-  filters.
+  socialist emulation, electrification and a research slot. 81 focuses in all, 3 to 12 weeks long, all with
+  search filters.
   Sredets and Oborishte have communist names and hand-drawn flags (`tools/red_flags.py`: the Sredets rhombuses in
   a wheat wreath, Oborishte's rings turned into a cog with the hammer and sickle, the arms of Sofia on red for Sofia,
   South and North Sofia) and turn red on the map. Icons come from the DuoDex hoi4GFX and Ultimate HOI4 GFX packs (cached in `tools/icons/`);
@@ -108,7 +111,9 @@ by the Hoi4_world_map project (github.com/derprito64bit/Hoi4_world_map):
   (`events/evil_sofia_flavour.txt`, from `tools/events_world.py`: tram strikes, the derby, snow, potholes, döner
   prices, stray dogs, weddings, the black market, Cherni Vrah; each at most once per country, rare (10 to 15 years
   on average), and never two within two years for the same country).
-  Their pictures are drawn by `tools/event_pictures.py`: the districts' flags waving over a skyline of Sofia.
+  Their pictures are drawn by `tools/event_pictures.py` (the districts' flags waving over a skyline of Sofia),
+  unless `tools/event_pictures/<event>.png` exists; the build lists every picture wanted, with its size and
+  subject, in `tools/event_pictures/PICTURES.md`. See `HANDOFF.md` for how the mod is built and the rules kept.
 - Flags come from the "Flags of Sofia and her regions" sheet, one image per district in `tools/flags/<TAG>.png`;
   the build scales them to the game's three flag sizes.
 

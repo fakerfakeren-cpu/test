@@ -41,5 +41,62 @@ ideas = {
 				industrial_capacity_factory = 0.05
 			}
 		}
+		SRD_stands_alone = {
+			picture = SRD_stands_alone
+			allowed = { always = no }
+			rule = { can_create_factions = no can_join_factions = no }
+			modifier = {
+				stability_factor = 0.10
+				army_defence_factor = 0.05
+				political_power_factor = 0.10
+			}
+		}
+		SRD_above_all = {
+			picture = SRD_above_all
+			allowed = { always = no }
+			rule = { can_create_factions = no can_join_factions = no }
+			modifier = {
+				stability_factor = 0.15
+				army_defence_factor = 0.10
+				army_attack_factor = 0.05
+				political_power_factor = 0.10
+			}
+		}
+		SRD_evil_gang = {
+			picture = SRD_evil_gang
+			allowed = { always = no }
+			modifier = {
+				army_attack_factor = 0.05
+				army_defence_factor = 0.05
+				stability_factor = 0.05
+			}
+		}
+		SRD_c_class_hools = {
+			picture = SRD_c_class_hools
+			allowed = { always = no }
+			modifier = {
+				army_attack_factor = 0.08
+				war_support_factor = 0.10
+				stability_factor = -0.05
+			}
+		}
+		SRD_champions_spirit = {
+			picture = SRD_champions_spirit
+			allowed = { always = no }
+			modifier = {
+				army_attack_factor = 0.12
+				army_morale_factor = 0.10
+				war_support_factor = 0.15
+				stability_factor = -0.03
+			}
+		}
+		SRD_laboratory = {
+			picture = SRD_laboratory
+			allowed = { always = no }
+			modifier = {
+				research_speed_factor = 0.07
+				production_speed_buildings_factor = 0.05
+			}
+		}
 	}
 }

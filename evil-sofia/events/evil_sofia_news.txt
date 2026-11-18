@@ -180,3 +180,95 @@ news_event = {
 		ai_chance = { factor = 1 }
 	}
 }
+
+news_event = {
+	id = evil_sofia_news.9
+	title = evil_sofia_news.9.t
+	desc = evil_sofia_news.9.d
+	picture = GFX_evil_sofia_evil_sofia_news_9
+	major = yes
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_news.9.a
+		ai_chance = { factor = 1 }
+		trigger = {
+			tag = SRD
+		}
+	}
+	option = {
+		name = evil_sofia_news.9.b
+		ai_chance = { factor = 1 }
+		trigger = {
+			NOT = { tag = SRD }
+		}
+	}
+}
+
+news_event = {
+	id = evil_sofia_news.10
+	title = evil_sofia_news.10.t
+	desc = evil_sofia_news.10.d
+	picture = GFX_evil_sofia_evil_sofia_news_10
+	major = yes
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_news.10.a
+		ai_chance = { factor = 1 }
+		trigger = {
+			tag = SRD
+		}
+	}
+	option = {
+		name = evil_sofia_news.10.b
+		ai_chance = { factor = 1 }
+		trigger = {
+			NOT = { tag = SRD }
+		}
+	}
+}
+
+news_event = {
+	id = evil_sofia_news.11
+	title = evil_sofia_news.11.t
+	desc = evil_sofia_news.11.d
+	picture = GFX_evil_sofia_evil_sofia_news_11
+	major = yes
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_news.11.a
+		ai_chance = { factor = 1 }
+		trigger = {
+			tag = SRD
+		}
+	}
+	option = {
+		name = evil_sofia_news.11.b
+		ai_chance = { factor = 1 }
+		trigger = {
+			NOT = { tag = SRD }
+		}
+	}
+}
+
+news_event = {
+	id = evil_sofia_news.12
+	title = evil_sofia_news.12.t
+	desc = evil_sofia_news.12.d
+	picture = GFX_evil_sofia_evil_sofia_news_12
+	major = yes
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_news.12.a
+		ai_chance = { factor = 1 }
+		trigger = {
+			tag = SRD
+		}
+	}
+	option = {
+		name = evil_sofia_news.12.b
+		ai_chance = { factor = 1 }
+		trigger = {
+			NOT = { tag = SRD }
+		}
+	}
+}

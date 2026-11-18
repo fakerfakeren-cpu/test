@@ -19,4 +19,28 @@ spriteTypes = {
 		name = "GFX_idea_SRD_emulation_spirit"
 		texturefile = "gfx/interface/ideas/evil_sofia/SRD_emulation_spirit.dds"
 	}
+	spriteType = {
+		name = "GFX_idea_SRD_stands_alone"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_stands_alone.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_SRD_above_all"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_above_all.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_SRD_evil_gang"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_evil_gang.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_SRD_c_class_hools"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_c_class_hools.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_SRD_champions_spirit"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_champions_spirit.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_SRD_laboratory"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_laboratory.dds"
+	}
 }

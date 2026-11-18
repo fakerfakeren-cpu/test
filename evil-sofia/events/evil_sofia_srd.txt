@@ -201,3 +201,113 @@ country_event = {
 		add_political_power = 25
 	}
 }
+
+country_event = {
+	id = evil_sofia_srd.11
+	title = evil_sofia_srd.11.t
+	desc = evil_sofia_srd.11.d
+	picture = GFX_evil_sofia_evil_sofia_srd_11
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_srd.11.a
+		ai_chance = {
+			base = 30
+			modifier = { add = 20 has_opinion = { target = FROM value > 20 } }
+			modifier = { add = 20 has_opinion = { target = FROM value > 50 } }
+			modifier = { add = 25 tag = LOZ }
+			modifier = { factor = 0.4 has_opinion = { target = FROM value < 0 } }
+			modifier = { factor = 0.5 tag = VIT }
+			modifier = { factor = 0.3 has_government = communism }
+			modifier = { factor = 0.4 is_in_faction = yes }
+		}
+		FROM = { add_to_faction = ROOT country_event = { id = evil_sofia_srd.12 } }
+		add_opinion_modifier = { target = FROM modifier = evil_sofia_gang }
+		FROM = { add_opinion_modifier = { target = ROOT modifier = evil_sofia_gang } }
+	}
+	option = {
+		name = evil_sofia_srd.11.b
+		ai_chance = {
+			base = 35
+			modifier = { add = 25 has_opinion = { target = FROM value < 0 } }
+			modifier = { add = 20 tag = VIT }
+			modifier = { factor = 0.6 has_opinion = { target = FROM value > 50 } }
+		}
+		FROM = { country_event = { id = evil_sofia_srd.13 } }
+	}
+}
+
+country_event = {
+	id = evil_sofia_srd.12
+	title = evil_sofia_srd.12.t
+	desc = evil_sofia_srd.12.d
+	picture = GFX_evil_sofia_evil_sofia_srd_12
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_srd.12.a
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = evil_sofia_srd.13
+	title = evil_sofia_srd.13.t
+	desc = evil_sofia_srd.13.d
+	picture = GFX_evil_sofia_evil_sofia_srd_13
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_srd.13.a
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = evil_sofia_srd.14
+	title = evil_sofia_srd.14.t
+	desc = evil_sofia_srd.14.d
+	picture = GFX_evil_sofia_evil_sofia_srd_14
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_srd.14.a
+		ai_chance = {
+			base = 15
+			modifier = { add = 25 strength_ratio = { tag = FROM ratio < 0.6 } }
+			modifier = { add = 20 strength_ratio = { tag = FROM ratio < 0.3 } }
+			modifier = { add = 15 has_opinion = { target = FROM value > 40 } }
+			modifier = { factor = 0.5 has_opinion = { target = FROM value < 0 } }
+		}
+		FROM = { add_to_faction = ROOT country_event = { id = evil_sofia_srd.15 } }
+	}
+	option = {
+		name = evil_sofia_srd.14.b
+		ai_chance = {
+			base = 35
+			modifier = { add = 30 strength_ratio = { tag = FROM ratio > 1 } }
+			modifier = { add = 15 has_opinion = { target = FROM value < 0 } }
+		}
+		FROM = { create_wargoal = { type = annex_everything target = ROOT } country_event = { id = evil_sofia_srd.16 } }
+	}
+}
+
+country_event = {
+	id = evil_sofia_srd.15
+	title = evil_sofia_srd.15.t
+	desc = evil_sofia_srd.15.d
+	picture = GFX_evil_sofia_evil_sofia_srd_15
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_srd.15.a
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = evil_sofia_srd.16
+	title = evil_sofia_srd.16.t
+	desc = evil_sofia_srd.16.d
+	picture = GFX_evil_sofia_evil_sofia_srd_16
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_srd.16.a
+		ai_chance = { factor = 1 }
+	}
+}

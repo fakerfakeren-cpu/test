@@ -179,4 +179,148 @@ spriteTypes = {
 		name = "GFX_focus_SRD_electrify_the_districts"
 		texturefile = "gfx/interface/goals/evil_sofia/SRD_electrify_the_districts.dds"
 	}
+	spriteType = {
+		name = "GFX_focus_SRD_curfew_on_the_largo"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_curfew_on_the_largo.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_centres_own_guard"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_centres_own_guard.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_who_stands_with_sredets"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_who_stands_with_sredets.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_sredets_stands_alone"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_sredets_stands_alone.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_no_friends_no_debts"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_no_friends_no_debts.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_fortress_sredets"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_fortress_sredets.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_self_reliant_workshops"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_self_reliant_workshops.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_every_citizen_a_soldier"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_every_citizen_a_soldier.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_take_the_centre_alone"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_take_the_centre_alone.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_one_hand_over_the_centre"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_one_hand_over_the_centre.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_sredets_above_all"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_sredets_above_all.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_call_the_evil_gang"
+		texturefile = "gfx/interface/goals/evil_sofia/people/SRD_call_the_evil_gang.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_invite_anton"
+		texturefile = "gfx/interface/goals/evil_sofia/people/SRD_invite_anton.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_invite_georgi"
+		texturefile = "gfx/interface/goals/evil_sofia/people/SRD_invite_georgi.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_invite_poryazov"
+		texturefile = "gfx/interface/goals/evil_sofia/people/SRD_invite_poryazov.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_invite_kartunov"
+		texturefile = "gfx/interface/goals/evil_sofia/people/SRD_invite_kartunov.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_invite_dimitrov"
+		texturefile = "gfx/interface/goals/evil_sofia/people/SRD_invite_dimitrov.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_invite_grimboss"
+		texturefile = "gfx/interface/goals/evil_sofia/people/SRD_invite_grimboss.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_even_henry"
+		texturefile = "gfx/interface/goals/evil_sofia/people/SRD_even_henry.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_the_evil_gang_rules_sofia"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_the_evil_gang_rules_sofia.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_unleash_the_c_class"
+		texturefile = "gfx/interface/goals/evil_sofia/people/SRD_unleash_the_c_class.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_ultras_of_the_stadium"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_ultras_of_the_stadium.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_flares_and_firecrackers"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_flares_and_firecrackers.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_away_day"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_away_day.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_pitch_invasion"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_pitch_invasion.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_recruit_the_firms"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_recruit_the_firms.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_home_ground"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_home_ground.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_champions_of_sofia"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_champions_of_sofia.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_ilchevs_lesson"
+		texturefile = "gfx/interface/goals/evil_sofia/people/SRD_ilchevs_lesson.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_newtons_laws"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_newtons_laws.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_laboratory_of_the_nation"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_laboratory_of_the_nation.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_homework_for_everyone"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_homework_for_everyone.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_pop_quiz_for_the_army"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_pop_quiz_for_the_army.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_e_equals_mc2"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_e_equals_mc2.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_the_final_exam"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_the_final_exam.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_grades_are_final"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_grades_are_final.dds"
+	}
 }

@@ -58,4 +58,12 @@ characters = {
 			ai_will_do = { factor = 1 }
 		}
 	}
+	SRD_ilchev = {
+		name = SRD_ilchev
+		portraits = {
+			civilian = {
+				large = "gfx/leaders/SRD/SRD_ilchev.dds"
+			}
+		}
+	}
 }

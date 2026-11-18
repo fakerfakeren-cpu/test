@@ -40,6 +40,30 @@ spriteTypes = {
 		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_10.dds"
 	}
 	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_srd_11"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_11.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_srd_12"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_12.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_srd_13"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_13.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_srd_14"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_14.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_srd_15"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_15.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_srd_16"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_16.dds"
+	}
+	spriteType = {
 		name = "GFX_evil_sofia_evil_sofia_news_1"
 		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_news_1.dds"
 	}
@@ -70,6 +94,22 @@ spriteTypes = {
 	spriteType = {
 		name = "GFX_evil_sofia_evil_sofia_news_8"
 		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_news_8.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_news_9"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_news_9.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_news_10"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_news_10.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_news_11"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_news_11.dds"
+	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_news_12"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_news_12.dds"
 	}
 	spriteType = {
 		name = "GFX_evil_sofia_evil_sofia_flavour_1"
