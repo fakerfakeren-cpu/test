@@ -121,10 +121,10 @@ spriteTypes = {
 	}
 	SpriteType = {
 		name = "GFX_focus_SRD_ally_anton_shine"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_ally_anton.dds"
+		texturefile = "gfx/interface/goals/evil_sofia/people/SRD_ally_anton.dds"
 		effectFile = "gfx/FX/buttonstate.lua"
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_ally_anton.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/people/SRD_ally_anton.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = -90.0
 			animationlooping = no
@@ -136,7 +136,7 @@ spriteTypes = {
 			animationtexturescale = { x = 1.0 y = 1.0 }
 		}
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_ally_anton.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/people/SRD_ally_anton.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = 90.0
 			animationlooping = no
@@ -151,10 +151,10 @@ spriteTypes = {
 	}
 	SpriteType = {
 		name = "GFX_focus_SRD_anton_must_go_shine"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_anton_must_go.dds"
+		texturefile = "gfx/interface/goals/evil_sofia/people/SRD_anton_must_go.dds"
 		effectFile = "gfx/FX/buttonstate.lua"
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_anton_must_go.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/people/SRD_anton_must_go.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = -90.0
 			animationlooping = no
@@ -166,7 +166,7 @@ spriteTypes = {
 			animationtexturescale = { x = 1.0 y = 1.0 }
 		}
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_anton_must_go.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/people/SRD_anton_must_go.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = 90.0
 			animationlooping = no
@@ -211,10 +211,10 @@ spriteTypes = {
 	}
 	SpriteType = {
 		name = "GFX_focus_SRD_destroy_anton_shine"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_destroy_anton.dds"
+		texturefile = "gfx/interface/goals/evil_sofia/people/SRD_destroy_anton.dds"
 		effectFile = "gfx/FX/buttonstate.lua"
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_destroy_anton.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/people/SRD_destroy_anton.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = -90.0
 			animationlooping = no
@@ -226,7 +226,7 @@ spriteTypes = {
 			animationtexturescale = { x = 1.0 y = 1.0 }
 		}
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_destroy_anton.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/people/SRD_destroy_anton.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = 90.0
 			animationlooping = no
@@ -1021,10 +1021,10 @@ spriteTypes = {
 	}
 	SpriteType = {
 		name = "GFX_focus_SRD_capel_question_shine"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_capel_question.dds"
+		texturefile = "gfx/interface/goals/evil_sofia/people/SRD_capel_question.dds"
 		effectFile = "gfx/FX/buttonstate.lua"
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_capel_question.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/people/SRD_capel_question.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = -90.0
 			animationlooping = no
@@ -1036,7 +1036,7 @@ spriteTypes = {
 			animationtexturescale = { x = 1.0 y = 1.0 }
 		}
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_capel_question.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/people/SRD_capel_question.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = 90.0
 			animationlooping = no
@@ -1771,10 +1771,10 @@ spriteTypes = {
 	}
 	SpriteType = {
 		name = "GFX_focus_SRD_call_the_evil_gang_shine"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_call_the_evil_gang.dds"
+		texturefile = "gfx/interface/goals/evil_sofia/people/SRD_call_the_evil_gang.dds"
 		effectFile = "gfx/FX/buttonstate.lua"
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_call_the_evil_gang.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/people/SRD_call_the_evil_gang.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = -90.0
 			animationlooping = no
@@ -1786,7 +1786,7 @@ spriteTypes = {
 			animationtexturescale = { x = 1.0 y = 1.0 }
 		}
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_call_the_evil_gang.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/people/SRD_call_the_evil_gang.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = 90.0
 			animationlooping = no
@@ -1801,10 +1801,10 @@ spriteTypes = {
 	}
 	SpriteType = {
 		name = "GFX_focus_SRD_invite_anton_shine"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_invite_anton.dds"
+		texturefile = "gfx/interface/goals/evil_sofia/people/SRD_invite_anton.dds"
 		effectFile = "gfx/FX/buttonstate.lua"
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_invite_anton.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/people/SRD_invite_anton.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = -90.0
 			animationlooping = no
@@ -1816,7 +1816,7 @@ spriteTypes = {
 			animationtexturescale = { x = 1.0 y = 1.0 }
 		}
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_invite_anton.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/people/SRD_invite_anton.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = 90.0
 			animationlooping = no
@@ -1831,10 +1831,10 @@ spriteTypes = {
 	}
 	SpriteType = {
 		name = "GFX_focus_SRD_invite_georgi_shine"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_invite_georgi.dds"
+		texturefile = "gfx/interface/goals/evil_sofia/people/SRD_invite_georgi.dds"
 		effectFile = "gfx/FX/buttonstate.lua"
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_invite_georgi.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/people/SRD_invite_georgi.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = -90.0
 			animationlooping = no
@@ -1846,7 +1846,7 @@ spriteTypes = {
 			animationtexturescale = { x = 1.0 y = 1.0 }
 		}
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_invite_georgi.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/people/SRD_invite_georgi.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = 90.0
 			animationlooping = no
@@ -1861,10 +1861,10 @@ spriteTypes = {
 	}
 	SpriteType = {
 		name = "GFX_focus_SRD_invite_poryazov_shine"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_invite_poryazov.dds"
+		texturefile = "gfx/interface/goals/evil_sofia/people/SRD_invite_poryazov.dds"
 		effectFile = "gfx/FX/buttonstate.lua"
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_invite_poryazov.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/people/SRD_invite_poryazov.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = -90.0
 			animationlooping = no
@@ -1876,7 +1876,7 @@ spriteTypes = {
 			animationtexturescale = { x = 1.0 y = 1.0 }
 		}
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_invite_poryazov.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/people/SRD_invite_poryazov.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = 90.0
 			animationlooping = no
@@ -1891,10 +1891,10 @@ spriteTypes = {
 	}
 	SpriteType = {
 		name = "GFX_focus_SRD_invite_kartunov_shine"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_invite_kartunov.dds"
+		texturefile = "gfx/interface/goals/evil_sofia/people/SRD_invite_kartunov.dds"
 		effectFile = "gfx/FX/buttonstate.lua"
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_invite_kartunov.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/people/SRD_invite_kartunov.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = -90.0
 			animationlooping = no
@@ -1906,7 +1906,7 @@ spriteTypes = {
 			animationtexturescale = { x = 1.0 y = 1.0 }
 		}
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_invite_kartunov.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/people/SRD_invite_kartunov.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = 90.0
 			animationlooping = no
@@ -1921,10 +1921,10 @@ spriteTypes = {
 	}
 	SpriteType = {
 		name = "GFX_focus_SRD_invite_dimitrov_shine"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_invite_dimitrov.dds"
+		texturefile = "gfx/interface/goals/evil_sofia/people/SRD_invite_dimitrov.dds"
 		effectFile = "gfx/FX/buttonstate.lua"
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_invite_dimitrov.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/people/SRD_invite_dimitrov.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = -90.0
 			animationlooping = no
@@ -1936,7 +1936,7 @@ spriteTypes = {
 			animationtexturescale = { x = 1.0 y = 1.0 }
 		}
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_invite_dimitrov.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/people/SRD_invite_dimitrov.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = 90.0
 			animationlooping = no
@@ -1951,10 +1951,10 @@ spriteTypes = {
 	}
 	SpriteType = {
 		name = "GFX_focus_SRD_invite_grimboss_shine"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_invite_grimboss.dds"
+		texturefile = "gfx/interface/goals/evil_sofia/people/SRD_invite_grimboss.dds"
 		effectFile = "gfx/FX/buttonstate.lua"
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_invite_grimboss.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/people/SRD_invite_grimboss.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = -90.0
 			animationlooping = no
@@ -1966,7 +1966,7 @@ spriteTypes = {
 			animationtexturescale = { x = 1.0 y = 1.0 }
 		}
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_invite_grimboss.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/people/SRD_invite_grimboss.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = 90.0
 			animationlooping = no
@@ -1981,10 +1981,10 @@ spriteTypes = {
 	}
 	SpriteType = {
 		name = "GFX_focus_SRD_even_henry_shine"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_even_henry.dds"
+		texturefile = "gfx/interface/goals/evil_sofia/people/SRD_even_henry.dds"
 		effectFile = "gfx/FX/buttonstate.lua"
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_even_henry.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/people/SRD_even_henry.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = -90.0
 			animationlooping = no
@@ -1996,7 +1996,7 @@ spriteTypes = {
 			animationtexturescale = { x = 1.0 y = 1.0 }
 		}
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_even_henry.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/people/SRD_even_henry.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = 90.0
 			animationlooping = no
@@ -2041,10 +2041,10 @@ spriteTypes = {
 	}
 	SpriteType = {
 		name = "GFX_focus_SRD_unleash_the_c_class_shine"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_unleash_the_c_class.dds"
+		texturefile = "gfx/interface/goals/evil_sofia/people/SRD_unleash_the_c_class.dds"
 		effectFile = "gfx/FX/buttonstate.lua"
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_unleash_the_c_class.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/people/SRD_unleash_the_c_class.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = -90.0
 			animationlooping = no
@@ -2056,7 +2056,7 @@ spriteTypes = {
 			animationtexturescale = { x = 1.0 y = 1.0 }
 		}
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_unleash_the_c_class.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/people/SRD_unleash_the_c_class.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = 90.0
 			animationlooping = no
@@ -2281,10 +2281,10 @@ spriteTypes = {
 	}
 	SpriteType = {
 		name = "GFX_focus_SRD_ilchevs_lesson_shine"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_ilchevs_lesson.dds"
+		texturefile = "gfx/interface/goals/evil_sofia/people/SRD_ilchevs_lesson.dds"
 		effectFile = "gfx/FX/buttonstate.lua"
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_ilchevs_lesson.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/people/SRD_ilchevs_lesson.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = -90.0
 			animationlooping = no
@@ -2296,7 +2296,7 @@ spriteTypes = {
 			animationtexturescale = { x = 1.0 y = 1.0 }
 		}
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_ilchevs_lesson.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/people/SRD_ilchevs_lesson.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = 90.0
 			animationlooping = no
