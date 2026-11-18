@@ -758,9 +758,9 @@ PERSON_ICONS = {  # key: (portrait tag, frame, piece in front, rotation, options
     "invite_grimboss": ("LYU", "SpikyFrame.png", "Hands Shaking3.png", 0, dict(fill=(24, 24, 28), front_width=0.46, front_y=0.5)),
     "even_henry": ("VIT", "RedWheatFrame.png", "Hands Shaking.png", 0, dict(fill=(60, 30, 30), front_width=0.46, front_y=0.5)),
     # the free centre's peaceful offers
-    "offer_to_anton": ("OBR", "metalcircle.png", "Hands Shaking4.png", 0, dict(fill=(30, 40, 70), front_width=0.46, front_y=0.5)),
-    "offer_to_georgi": ("LOZ", "SilverStarFrame.png", "Hands Shaking2.png", 0, dict(fill=(28, 44, 78), front_width=0.46, front_y=0.5)),
-    "offer_to_alexander": ("TRD", "SunStarFrame.png", "Hands Shaking.png", 0, dict(fill=(34, 46, 80), front_width=0.42, front_y=0.5)),
+    "offer_to_anton": ("OBR", "metalcircle.png", "Hands Shaking.png", 0, dict(fill=(30, 40, 70), front_width=0.5, front_y=0.8)),
+    "offer_to_georgi": ("LOZ", "SilverStarFrame.png", "Hands Shaking.png", 0, dict(fill=(28, 44, 78), front_width=0.44, front_y=0.85)),
+    "offer_to_alexander": ("TRD", "SunStarFrame.png", "Hands Shaking3.png", 0, dict(fill=(34, 46, 80), front_width=0.46, front_y=0.8)),
     "ilchevs_lesson": ("SRD_ilchev", "LeavedFrame.png", "Book Open.png", 0, dict(fill=(36, 36, 30), front_width=0.5, front_y=0.62)),
 }
 # group photos in a frame, black and white: key: (photo in tools/portraits, frame, crop box, piece in front or None)

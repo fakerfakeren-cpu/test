@@ -229,11 +229,11 @@ spriteTypes = {
 	}
 	spriteType = {
 		name = "GFX_focus_SRD_offer_to_anton"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_offer_to_anton.dds"
+		texturefile = "gfx/interface/goals/evil_sofia/people/SRD_offer_to_anton.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_SRD_offer_to_georgi"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_offer_to_georgi.dds"
+		texturefile = "gfx/interface/goals/evil_sofia/people/SRD_offer_to_georgi.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_SRD_liberate_the_old_centre"
@@ -241,7 +241,7 @@ spriteTypes = {
 	}
 	spriteType = {
 		name = "GFX_focus_SRD_offer_to_alexander"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_offer_to_alexander.dds"
+		texturefile = "gfx/interface/goals/evil_sofia/people/SRD_offer_to_alexander.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_SRD_the_wider_centre"
