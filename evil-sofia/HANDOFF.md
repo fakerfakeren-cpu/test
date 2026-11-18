@@ -30,7 +30,8 @@ Triaditsa (TRD, Alexander Dimitrov), Lyulin (LYU, GrimBoss). The game starts on 
 - Random events stay rare.
 - **No instant popularity changes**, for us or anyone else: ideologies grow through timed spirits with a
   `*_drift` (`add_timed_idea`). The first focus of the communist and the democratic road starts the drift; the
-  government changes by decision (The Road to Power) once the ideology is above 50%.
+  government changes with the focus Proclaim the Sredets Commune / Proclaim the Free Sredets, which needs the
+  ideology above 30% (the user's number).
 - Basic decisions for every district (`tools/decisions_world.py`: Political Actions, War Measures), vanilla-style,
   also over time.
 - Henry's mother is never placed in Boyana.
@@ -99,7 +100,7 @@ Without them the build still works: leaders have no portrait and the person/phot
 
 ## State of the work
 
-- Sredets tree: 90 focuses. Communist path (Henry's Mom Was Right) finished and tuned by the user. Authoritarian
+- Sredets tree: 92 focuses. Communist path (Henry's Mom Was Right) finished and tuned by the user. Authoritarian
   path (Order in the Centre) just written: four mutually exclusive branches, A Free Sredets (democracy under Victor, no elections, alone, no factions, blue with its own
   flag `red_flags.free()`; 16 focuses, 3 to 10 weeks by weight, an uneven layout where some focuses need two others; peaceful
   offers to Anton, Georgi, Alexander (event srd.17, mostly no; person icons `offer_to_*`, made once the portraits are

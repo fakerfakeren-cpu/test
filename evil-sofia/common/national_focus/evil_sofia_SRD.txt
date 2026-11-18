@@ -25,6 +25,31 @@ focus_tree = {
 		}
 	}
 	focus = {
+		id = SRD_proclaim_the_commune
+		icon = GFX_focus_SRD_proclaim_the_commune
+		x = 8
+		y = 1
+		prerequisite = { focus = SRD_henrys_mom_was_right }
+		available = {
+			communism > 0.3
+		}
+		cost = 3
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			set_politics = { ruling_party = communism elections_allowed = no }
+			add_country_leader_role = {
+				character = SRD_leader
+				country_leader = { ideology = leninism expire = "1965.1.1.1" }
+				promote_leader = yes
+			}
+			set_cosmetic_tag = SRD_RED
+			add_war_support = 0.10
+			VIT = { country_event = { id = evil_sofia_srd.1 } }
+			news_event = { id = evil_sofia_news.1 hours = 6 }
+		}
+	}
+	focus = {
 		id = SRD_order_in_the_centre
 		icon = GFX_focus_SRD_order_in_the_centre
 		x = 28
@@ -43,8 +68,8 @@ focus_tree = {
 		id = SRD_comrades_in_oborishte
 		icon = GFX_focus_SRD_comrades_in_oborishte
 		x = 2
-		y = 1
-		prerequisite = { focus = SRD_henrys_mom_was_right }
+		y = 2
+		prerequisite = { focus = SRD_proclaim_the_commune }
 		cost = 5
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
@@ -57,7 +82,7 @@ focus_tree = {
 		id = SRD_red_newspapers_oborishte
 		icon = GFX_focus_SRD_red_newspapers_oborishte
 		x = 2
-		y = 2
+		y = 3
 		prerequisite = { focus = SRD_comrades_in_oborishte }
 		cost = 4
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -70,7 +95,7 @@ focus_tree = {
 		id = SRD_ally_anton
 		icon = GFX_focus_SRD_ally_anton
 		x = 1
-		y = 3
+		y = 4
 		prerequisite = { focus = SRD_red_newspapers_oborishte }
 		mutually_exclusive = { focus = SRD_anton_must_go }
 		available = {
@@ -87,7 +112,7 @@ focus_tree = {
 		id = SRD_anton_must_go
 		icon = GFX_focus_SRD_anton_must_go
 		x = 3
-		y = 3
+		y = 4
 		prerequisite = { focus = SRD_red_newspapers_oborishte }
 		mutually_exclusive = { focus = SRD_ally_anton }
 		available = {
@@ -105,7 +130,7 @@ focus_tree = {
 		id = SRD_north_south_pact
 		icon = GFX_focus_SRD_north_south_pact
 		x = 0
-		y = 4
+		y = 5
 		prerequisite = { focus = SRD_ally_anton }
 		available = {
 			has_country_flag = SRD_anton_allied
@@ -123,7 +148,7 @@ focus_tree = {
 		id = SRD_destroy_anton
 		icon = GFX_focus_SRD_destroy_anton
 		x = 4
-		y = 4
+		y = 5
 		prerequisite = { focus = SRD_ally_anton focus = SRD_anton_must_go }
 		available = {
 			5 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
@@ -147,7 +172,7 @@ focus_tree = {
 		id = SRD_pact_centre
 		icon = GFX_focus_SRD_pact_centre
 		x = 0
-		y = 5
+		y = 6
 		prerequisite = { focus = SRD_north_south_pact }
 		cost = 8
 		search_filters = { FOCUS_FILTER_ANNEXATION }
@@ -162,7 +187,7 @@ focus_tree = {
 		id = SRD_pact_old_quarters
 		icon = GFX_focus_SRD_pact_old_quarters
 		x = 0
-		y = 6
+		y = 7
 		prerequisite = { focus = SRD_pact_centre }
 		available = {
 			3 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
@@ -235,7 +260,7 @@ focus_tree = {
 		id = SRD_pact_housing_estates
 		icon = GFX_focus_SRD_pact_housing_estates
 		x = 0
-		y = 7
+		y = 8
 		prerequisite = { focus = SRD_pact_old_quarters }
 		available = {
 			26 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
@@ -324,7 +349,7 @@ focus_tree = {
 		id = SRD_pact_kremikovtsi
 		icon = GFX_focus_SRD_pact_kremikovtsi
 		x = 0
-		y = 8
+		y = 9
 		prerequisite = { focus = SRD_pact_housing_estates }
 		available = {
 			64 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
@@ -380,7 +405,7 @@ focus_tree = {
 		id = SRD_pact_outskirts
 		icon = GFX_focus_SRD_pact_outskirts
 		x = 0
-		y = 9
+		y = 10
 		prerequisite = { focus = SRD_pact_kremikovtsi }
 		available = {
 			72 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
@@ -458,7 +483,7 @@ focus_tree = {
 		id = SRD_sofia_union
 		icon = GFX_focus_SRD_sofia_union
 		x = 1
-		y = 10
+		y = 11
 		prerequisite = { focus = SRD_pact_outskirts }
 		available = {
 			107 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
@@ -529,7 +554,7 @@ focus_tree = {
 		id = SRD_one_centre
 		icon = GFX_focus_SRD_one_centre
 		x = 4
-		y = 5
+		y = 6
 		prerequisite = { focus = SRD_destroy_anton }
 		cost = 8
 		search_filters = { FOCUS_FILTER_ANNEXATION }
@@ -544,7 +569,7 @@ focus_tree = {
 		id = SRD_united_old_quarters
 		icon = GFX_focus_SRD_united_old_quarters
 		x = 4
-		y = 6
+		y = 7
 		prerequisite = { focus = SRD_one_centre }
 		available = {
 			5 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
@@ -617,7 +642,7 @@ focus_tree = {
 		id = SRD_united_housing_estates
 		icon = GFX_focus_SRD_united_housing_estates
 		x = 4
-		y = 7
+		y = 8
 		prerequisite = { focus = SRD_united_old_quarters }
 		available = {
 			26 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
@@ -700,7 +725,7 @@ focus_tree = {
 		id = SRD_united_kremikovtsi
 		icon = GFX_focus_SRD_united_kremikovtsi
 		x = 4
-		y = 8
+		y = 9
 		prerequisite = { focus = SRD_united_housing_estates }
 		available = {
 			64 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
@@ -750,7 +775,7 @@ focus_tree = {
 		id = SRD_united_outskirts
 		icon = GFX_focus_SRD_united_outskirts
 		x = 4
-		y = 9
+		y = 10
 		prerequisite = { focus = SRD_united_kremikovtsi }
 		available = {
 			72 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
@@ -826,7 +851,7 @@ focus_tree = {
 		id = SRD_sofia_commune
 		icon = GFX_focus_SRD_sofia_commune
 		x = 3
-		y = 10
+		y = 11
 		prerequisite = { focus = SRD_united_outskirts }
 		available = {
 			107 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
@@ -889,7 +914,7 @@ focus_tree = {
 		id = SRD_peoples_militia
 		icon = GFX_focus_SRD_peoples_militia
 		x = 2
-		y = 6
+		y = 7
 		prerequisite = { focus = SRD_pact_centre focus = SRD_one_centre }
 		cost = 6
 		search_filters = { FOCUS_FILTER_MANPOWER }
@@ -903,7 +928,7 @@ focus_tree = {
 		id = SRD_komsomol_of_the_estates
 		icon = GFX_focus_SRD_komsomol_of_the_estates
 		x = 2
-		y = 8
+		y = 9
 		prerequisite = { focus = SRD_peoples_militia }
 		prerequisite = { focus = SRD_pact_housing_estates focus = SRD_united_housing_estates }
 		cost = 7
@@ -918,8 +943,8 @@ focus_tree = {
 		id = SRD_party_takes_the_largo
 		icon = GFX_focus_SRD_party_takes_the_largo
 		x = 7
-		y = 1
-		prerequisite = { focus = SRD_henrys_mom_was_right }
+		y = 2
+		prerequisite = { focus = SRD_proclaim_the_commune }
 		cost = 7
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		ai_will_do = { factor = 1 }
@@ -932,7 +957,7 @@ focus_tree = {
 		id = SRD_red_guards_of_the_stadium
 		icon = GFX_focus_SRD_red_guards_of_the_stadium
 		x = 6
-		y = 2
+		y = 3
 		prerequisite = { focus = SRD_party_takes_the_largo }
 		cost = 9
 		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_WAR_SUPPORT }
@@ -946,7 +971,7 @@ focus_tree = {
 		id = SRD_arm_the_workers
 		icon = GFX_focus_SRD_arm_the_workers
 		x = 6
-		y = 3
+		y = 4
 		prerequisite = { focus = SRD_red_guards_of_the_stadium }
 		cost = 6
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -960,7 +985,7 @@ focus_tree = {
 		id = SRD_barricades_on_vitosha
 		icon = GFX_focus_SRD_barricades_on_vitosha
 		x = 6
-		y = 4
+		y = 5
 		prerequisite = { focus = SRD_arm_the_workers }
 		cost = 10
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -975,7 +1000,7 @@ focus_tree = {
 		id = SRD_red_officer_school
 		icon = GFX_focus_SRD_red_officer_school
 		x = 6
-		y = 6
+		y = 7
 		prerequisite = { focus = SRD_metro_goes_to_war }
 		cost = 8
 		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_RESEARCH }
@@ -989,7 +1014,7 @@ focus_tree = {
 		id = SRD_tram_depot_tank_works
 		icon = GFX_focus_SRD_tram_depot_tank_works
 		x = 8
-		y = 6
+		y = 7
 		prerequisite = { focus = SRD_metro_goes_to_war }
 		cost = 10
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
@@ -1006,7 +1031,7 @@ focus_tree = {
 		id = SRD_universal_service
 		icon = GFX_focus_SRD_universal_service
 		x = 8
-		y = 2
+		y = 3
 		prerequisite = { focus = SRD_party_takes_the_largo }
 		cost = 5
 		search_filters = { FOCUS_FILTER_MANPOWER }
@@ -1020,7 +1045,7 @@ focus_tree = {
 		id = SRD_commissars_in_every_unit
 		icon = GFX_focus_SRD_commissars_in_every_unit
 		x = 8
-		y = 3
+		y = 4
 		prerequisite = { focus = SRD_universal_service }
 		cost = 8
 		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_RESEARCH }
@@ -1034,7 +1059,7 @@ focus_tree = {
 		id = SRD_red_air_over_the_centre
 		icon = GFX_focus_SRD_red_air_over_the_centre
 		x = 8
-		y = 4
+		y = 5
 		prerequisite = { focus = SRD_commissars_in_every_unit }
 		cost = 7
 		search_filters = { FOCUS_FILTER_AIR_XP FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
@@ -1049,7 +1074,7 @@ focus_tree = {
 		id = SRD_metro_goes_to_war
 		icon = GFX_focus_SRD_metro_goes_to_war
 		x = 7
-		y = 5
+		y = 6
 		prerequisite = { focus = SRD_barricades_on_vitosha }
 		prerequisite = { focus = SRD_red_air_over_the_centre }
 		cost = 9
@@ -1067,7 +1092,7 @@ focus_tree = {
 		id = SRD_red_leaflets
 		icon = GFX_focus_SRD_red_leaflets
 		x = 10
-		y = 1
+		y = 2
 		prerequisite = { focus = SRD_henrys_mom_was_right }
 		available = {
 			VIT = { exists = yes }
@@ -1083,7 +1108,7 @@ focus_tree = {
 		id = SRD_road_to_boyana
 		icon = GFX_focus_SRD_road_to_boyana
 		x = 10
-		y = 2
+		y = 3
 		prerequisite = { focus = SRD_red_leaflets }
 		cost = 5
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -1102,7 +1127,7 @@ focus_tree = {
 		id = SRD_capel_question
 		icon = GFX_focus_SRD_capel_question
 		x = 10
-		y = 3
+		y = 4
 		prerequisite = { focus = SRD_road_to_boyana }
 		available = {
 			VIT = { exists = yes }
@@ -1119,7 +1144,7 @@ focus_tree = {
 		id = SRD_red_flag_over_boyana
 		icon = GFX_focus_SRD_red_flag_over_boyana
 		x = 10
-		y = 4
+		y = 5
 		prerequisite = { focus = SRD_capel_question }
 		available = {
 			83 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
@@ -1147,7 +1172,7 @@ focus_tree = {
 		id = SRD_collectivise_vitosha_boulevard
 		icon = GFX_focus_SRD_collectivise_vitosha_boulevard
 		x = 13
-		y = 1
+		y = 2
 		prerequisite = { focus = SRD_henrys_mom_was_right }
 		cost = 10
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -1163,7 +1188,7 @@ focus_tree = {
 		id = SRD_mimas_for_the_workers
 		icon = GFX_focus_SRD_mimas_for_the_workers
 		x = 12
-		y = 2
+		y = 3
 		prerequisite = { focus = SRD_collectivise_vitosha_boulevard }
 		cost = 4
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT }
@@ -1176,7 +1201,7 @@ focus_tree = {
 		id = SRD_party_arsenal
 		icon = GFX_focus_SRD_party_arsenal
 		x = 14
-		y = 2
+		y = 3
 		prerequisite = { focus = SRD_collectivise_vitosha_boulevard }
 		cost = 12
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -1192,7 +1217,7 @@ focus_tree = {
 		id = SRD_red_tourism
 		icon = GFX_focus_SRD_red_tourism
 		x = 12
-		y = 3
+		y = 4
 		prerequisite = { focus = SRD_mimas_for_the_workers }
 		cost = 6
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL }
@@ -1209,7 +1234,7 @@ focus_tree = {
 		id = SRD_red_university
 		icon = GFX_focus_SRD_red_university
 		x = 14
-		y = 3
+		y = 4
 		prerequisite = { focus = SRD_party_arsenal }
 		cost = 9
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -1222,7 +1247,7 @@ focus_tree = {
 		id = SRD_socialist_emulation
 		icon = GFX_focus_SRD_socialist_emulation
 		x = 15
-		y = 4
+		y = 5
 		prerequisite = { focus = SRD_red_university }
 		cost = 7
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -1235,7 +1260,7 @@ focus_tree = {
 		id = SRD_five_year_plan
 		icon = GFX_focus_SRD_five_year_plan
 		x = 13
-		y = 4
+		y = 5
 		prerequisite = { focus = SRD_red_tourism }
 		prerequisite = { focus = SRD_red_university }
 		cost = 12
@@ -1253,7 +1278,7 @@ focus_tree = {
 		id = SRD_star_on_the_party_house
 		icon = GFX_focus_SRD_star_on_the_party_house
 		x = 13
-		y = 5
+		y = 6
 		prerequisite = { focus = SRD_five_year_plan }
 		cost = 10
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -1266,7 +1291,7 @@ focus_tree = {
 		id = SRD_electrify_the_districts
 		icon = GFX_focus_SRD_electrify_the_districts
 		x = 13
-		y = 6
+		y = 7
 		prerequisite = { focus = SRD_star_on_the_party_house }
 		cost = 9
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -1338,6 +1363,29 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = SRD_free_sredets
 			add_timed_idea = { idea = SRD_curfew_lifted days = 240 }
+		}
+	}
+	focus = {
+		id = SRD_proclaim_the_free_sredets
+		icon = GFX_focus_SRD_proclaim_the_free_sredets
+		x = 20
+		y = 4
+		prerequisite = { focus = SRD_a_free_sredets }
+		available = {
+			democratic > 0.3
+		}
+		cost = 3
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			set_politics = { ruling_party = democratic elections_allowed = no }
+			add_country_leader_role = {
+				character = SRD_leader
+				country_leader = { ideology = liberalism expire = "1965.1.1.1" }
+				promote_leader = yes
+			}
+			set_cosmetic_tag = SRD_FREE
+			news_event = { id = evil_sofia_news.9 hours = 6 }
 		}
 	}
 	focus = {
@@ -1438,6 +1486,7 @@ focus_tree = {
 		x = 17
 		y = 6
 		prerequisite = { focus = SRD_free_press_on_rakovski }
+		prerequisite = { focus = SRD_proclaim_the_free_sredets }
 		cost = 4
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
@@ -1518,6 +1567,7 @@ focus_tree = {
 		x = 21
 		y = 7
 		prerequisite = { focus = SRD_workshops_of_the_free_centre }
+		prerequisite = { focus = SRD_proclaim_the_free_sredets }
 		cost = 6
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = { factor = 1 }

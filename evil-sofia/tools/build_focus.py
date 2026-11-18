@@ -383,7 +383,7 @@ def build(root, facts, write, write_dds):
     srd_cats = [(cat, cname, cdesc, f"tag = {tag}", cvis, [
         dict(id=did, name=dname, desc=ddesc, cost=cost, cooldown=cooldown, visible="", available=avail,
              effect=effect, ai="factor = 1", icon="generic_political_discourse")
-        for did, dname, ddesc, cost, cooldown, avail, effect in tree.DECISIONS["decisions"]]), tree.POWER_DECISIONS]
+        for did, dname, ddesc, cost, cooldown, avail, effect in tree.DECISIONS["decisions"]])]
 
     def decision_files(cats):
         cat_blocks, files = [], []

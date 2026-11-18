@@ -4,6 +4,10 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/evil_sofia/SRD_henrys_mom_was_right.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_SRD_proclaim_the_commune"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_proclaim_the_commune.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_SRD_order_in_the_centre"
 		texturefile = "gfx/interface/goals/evil_sofia/SRD_order_in_the_centre.dds"
 	}
@@ -194,6 +198,10 @@ spriteTypes = {
 	spriteType = {
 		name = "GFX_focus_SRD_a_free_sredets"
 		texturefile = "gfx/interface/goals/evil_sofia/SRD_a_free_sredets.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_proclaim_the_free_sredets"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_proclaim_the_free_sredets.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_SRD_speakers_corner"

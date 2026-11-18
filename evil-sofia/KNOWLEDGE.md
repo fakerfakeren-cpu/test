@@ -92,7 +92,7 @@ The user is **Victor Kolev** and plays **Sredets (SRD)**, the city centre. The f
 11. Authoritarian path ("Order in the Centre") with four branches: alone / Evil Gang / C Class Hools / Ilchev.
 12. The user is now making their own event pictures (vanilla style) from `tools/event_pictures/PICTURES.md`.
 
-## 5. The Sredets focus tree (90 focuses)
+## 5. The Sredets focus tree (92 focuses)
 
 Root choice (mutually exclusive): **Henry's Mom Was Right** (communism) at x=8, **Order in the Centre**
 (authoritarian) at x=24.
@@ -165,8 +165,11 @@ Root choice (mutually exclusive): **Henry's Mom Was Right** (communism) at x=8, 
 - No `add_popularity`/`set_popularities` anywhere: timed spirits with `communism_drift`/`democratic_drift`
   (Red Agitation and The Curfew Lifted 0.4/day for 240 days on the two roots; Comrades from Sredets, Red Newspapers,
   Party money, Doctors' Garden rally, Red Leaflets, A Red Oborishte; Speakers' Corner, Newspapers from Sredets on
-  every neighbour, Friends of Freedom, Mom Was Wrong). Decision category "The Road to Power": Proclaim the Sredets
-  Commune (communism > 50%) / Proclaim the Free Sredets (democracy > 50%) change government, leader, flag and name.
+  every neighbour, Friends of Freedom, Mom Was Wrong). The government changes with a focus (the user asked for focuses at
+  a percentage, 30%): Proclaim the Sredets Commune (8,1; communism > 0.3; the Oborishte and Party branches need it,
+  the communist tree moved one row down) and Proclaim the Free Sredets (20,4; democratic > 0.3; Friends of Freedom
+  and Liberate the Old Centre need it). They set government, leader role, flag and name, and send the news.
+  An earlier "Road to Power" decision category for this was replaced by these focuses.
   The communist endings and the Free Centre of Sofia need the right government.
 - Generic decisions for every district (`tools/decisions_world.py`): War Propaganda, Public Order Campaign, four
   ideology campaigns (one at a time), Recruitment Drive; at war: War Bonds, Call Up the Reserves, Rationing. All

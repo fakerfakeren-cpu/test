@@ -87,8 +87,23 @@ FOCUSES = [
      "For years Daniel-Henry Capel's mother has told anyone who would listen that "
      "the people of the centre are communists, every last one of them. Tonight Victor Kolev climbs onto the steps of "
      "the Party House, looks out over a Largo full of red flags, and decides that she was right.\\n\\nCommunism "
-     "grows in Sredets day by day. Once more than half the district is red, the decision Proclaim the Sredets "
+     "grows in Sredets day by day. Once more than 30% of the district is red, the focus Proclaim the Sredets "
      "Commune makes it the Sredets Commune, and somewhere up the slopes of Vitosha, Henry will be furious."),
+    ("proclaim_the_commune", "Proclaim the Sredets Commune", 8, 1, [["henrys_mom_was_right"]], [], 3,
+     "duo:goal_commune_politics", "communism > 0.3",
+     """set_politics = { ruling_party = communism elections_allowed = no }
+add_country_leader_role = {
+	character = SRD_leader
+	country_leader = { ideology = leninism expire = "1965.1.1.1" }
+	promote_leader = yes
+}
+set_cosmetic_tag = SRD_RED
+add_war_support = 0.10
+VIT = { country_event = { id = evil_sofia_srd.1 } }
+news_event = { id = evil_sofia_news.1 hours = 6 }""",
+     "A third of the centre marches under red flags, and the rest no longer dares to argue. The Party House flies "
+     "the red flag, Victor becomes Chairman, and the Sredets Commune is proclaimed from the steps above the "
+     "Largo.\\n\\nNeeds more than 30% support for communism. Sredets becomes the Sredets Commune."),
     ("order_in_the_centre", "Order in the Centre", 28, 0, [], ["henrys_mom_was_right"], 5,
      "duo:goal_authoritarian", "",
      "add_stability = 0.15\nadd_political_power = 100\nnews_event = { id = evil_sofia_news.2 hours = 6 }",
@@ -97,69 +112,69 @@ FOCUSES = [
      "will run on time.\\n\\nOpens the four roads: a free Sredets standing alone, the Evil Gang, the C Class "
      "Hools, or Konstantin Ilchev."),
     # ------------------------------------------------------------------ Oborishte and Anton Zafirov
-    ("comrades_in_oborishte", "Comrades in Oborishte", 2, 1, [["henrys_mom_was_right"]], [], 5,
+    ("comrades_in_oborishte", "Comrades in Oborishte", 2, 2, [["proclaim_the_commune"]], [], 5,
      "duo:Generic_Communist_Propaganda", "",
      "OBR = { add_timed_idea = { idea = SRD_comrades_from_sredets days = 180 } }\nadd_political_power = 50",
      "Oborishte begins three streets east of the Party House, under the domes of Alexander Nevsky. Its cafés are "
      "full of students, its students are full of ideas, and Anton Zafirov has not yet decided which side he is on. "
      "Our people will help him decide.\\n\\nUnlocks the decisions of the Oborishte Question."),
-    ("red_newspapers_oborishte", "Red Newspapers in Oborishte", 2, 2, [["comrades_in_oborishte"]], [], 4,
+    ("red_newspapers_oborishte", "Red Newspapers in Oborishte", 2, 3, [["comrades_in_oborishte"]], [], 4,
      "duo:Generic_Communist_Propaganda02", "",
      "OBR = { add_timed_idea = { idea = SRD_red_newspapers days = 180 } }",
      "By morning every kiosk from Oborishte Street to the Doctors' Garden is selling the same paper, and it is "
      "printed in Sredets. Anton's police tear the posters down; by evening there are twice as many.\\n\\nUnlocks the "
      "decision Red Coup in Oborishte."),
-    ("ally_anton", "Ally Anton Zafirov", 1, 3, [["red_newspapers_oborishte"]], ["anton_must_go"], 7,
+    ("ally_anton", "Ally Anton Zafirov", 1, 4, [["red_newspapers_oborishte"]], ["anton_must_go"], 7,
      "person:ally_anton", "OBR = { exists = yes OR = { has_government = communism communism > 0.4 } }",
      "OBR = { country_event = { id = evil_sofia_srd.2 } }",
      "Anton is not our enemy. He is a man standing on the wrong side of a very short street. Victor will walk "
      "across it himself and offer him what nobody else in Sofia can: half of everything.\\n\\nNeeds Oborishte at "
      "least 40% communist. Anton is more likely to accept the more communist Oborishte is and the better he thinks "
      "of Sredets."),
-    ("anton_must_go", "Anton Must Go", 3, 3, [["red_newspapers_oborishte"]], ["ally_anton"], 6,
+    ("anton_must_go", "Anton Must Go", 3, 4, [["red_newspapers_oborishte"]], ["ally_anton"], 6,
      "person:anton_must_go", "OBR = { exists = yes }",
      "create_wargoal = { type = annex_everything target = OBR }\nadd_war_support = 0.10",
      "There is no room for two masters in the centre of Sofia. Anton Zafirov has had his chance to stand with the "
      "revolution, and he has spent it drinking coffee under the cathedral. The Red Guards are ready."),
-    ("north_south_pact", "The North-South Pact", 0, 4, [["ally_anton"]], [], 6,
+    ("north_south_pact", "The North-South Pact", 0, 5, [["ally_anton"]], [], 6,
      "duo:GAL_goal_divide_nation", "has_country_flag = SRD_anton_allied",
      "add_political_power = 100\nOBR = { add_political_power = 100 }\nnews_event = { id = evil_sofia_news.3 hours = 6 }",
      "A map of Sofia is spread across a table in the Party House. Victor takes a red pencil and draws a line from "
      "Lyulin to Kremikovtsi: the north for Oborishte, the centre and the south for Sredets. Anton signs first. "
      "Neither of them mentions what happens after the last district falls."),
-    ("destroy_anton", "Destroy Anton Zafirov", 4, 4, [["ally_anton", "anton_must_go"]], [], 5,
+    ("destroy_anton", "Destroy Anton Zafirov", 4, 5, [["ally_anton", "anton_must_go"]], [], 5,
      "person:destroy_anton", "{HELD:OBR}\nNOT = { has_country_flag = SRD_anton_allied }",
      "{COREHELD:SRD:OBR}\nadd_political_power = 150\nadd_stability = 0.10\nnews_event = { id = evil_sofia_news.4 hours = 6 }",
      "The bells of Alexander Nevsky are silent and the red flag hangs from the Holy Synod. Every street of "
      "Oborishte is in our hands; Anton Zafirov's career is over, and his district is ours to keep.\\n\\nNeeds every "
      "state of Oborishte under our control."),
     # the pact: Sofia split between Sredets (south) and Oborishte (north), one group of districts at a time
-    ("pact_centre", "The Red Centre", 0, 5, [["north_south_pact"]], [], 8, "duo:Generic_Redraw_Borders", P1a, P1,
+    ("pact_centre", "The Red Centre", 0, 6, [["north_south_pact"]], [], 8, "duo:Generic_Redraw_Borders", P1a, P1,
      "The pact begins where the city began: Vazrazhdane, the old market streets around the Women's Market and Lion's "
      "Bridge. Whoever holds them holds the roads in and out of the centre.\\n\\nClaims and war goals on Vazrazhdane. "
      "Its cores come with the next stage, once it is held."),
-    ("pact_old_quarters", "The Old Quarters", 0, 6, [["pact_centre"]], [], 10, "duo:SIA_Urban_Warfare_NF", P2a, P2,
+    ("pact_old_quarters", "The Old Quarters", 0, 7, [["pact_centre"]], [], 10, "duo:SIA_Urban_Warfare_NF", P2a, P2,
      "The boulevards and villas built between the wars, where Sofia's middle class still lives behind lace "
      "curtains. Krasno Selo, Slatina, Izgrev, Lozenets and Triaditsa for us; Serdika, Poduyane, Krasna Polyana and "
      "Ilinden for Anton.\\n\\nCores on the centre. Claims and war goals on the old quarters. Needs every state of "
      "the centre held."),
-    ("pact_housing_estates", "The Housing Estates", 0, 7, [["pact_old_quarters"]], [], 10,
+    ("pact_housing_estates", "The Housing Estates", 0, 8, [["pact_old_quarters"]], [], 10,
      "duo:focus_collective_housing", P3a, P3,
      "Endless rows of panel blocks, ten floors high and a kilometre long. The estates were built for the workers; "
      "the workers will take them back. Iskar, Mladost and Studentski for us; Nadezhda and Lyulin for Oborishte."
      "\\n\\nCores on the old quarters. Claims and war goals on the housing estates. Needs every state of the old "
      "quarters held."),
-    ("pact_kremikovtsi", "The Steelworks of Kremikovtsi", 0, 8, [["pact_housing_estates"]], [], 7,
+    ("pact_kremikovtsi", "The Steelworks of Kremikovtsi", 0, 9, [["pact_housing_estates"]], [], 7,
      "duo:goal_factory_complex", P4a, P4,
      "Out past the airport, the chimneys of Kremikovtsi stand over the plain. The district goes to Oborishte; the "
      "steel goes to both of us, and nobody will ask what it is for.\\n\\nCores on the housing estates. War goals on "
      "Kremikovtsi. Needs every state of the housing estates held."),
-    ("pact_outskirts", "The Outskirts", 0, 9, [["pact_kremikovtsi"]], [], 10,
+    ("pact_outskirts", "The Outskirts", 0, 10, [["pact_kremikovtsi"]], [], 10,
      "duo:goal_generic_territory_or_war", P5a, P5,
      "Villages, orchards and the slopes of the mountains: the last of Sofia that is not red. Vitosha, Ovcha Kupel "
      "and Pancharevo for us; Vrabnitsa, Novi Iskar and Bankya for Anton.\\n\\nCores on Kremikovtsi. Claims and war "
      "goals on the outskirts. Needs every state of Kremikovtsi held."),
-    ("sofia_union", "The Union of North and South Sofia", 1, 10, [["pact_outskirts"]], [], 6,
+    ("sofia_union", "The Union of North and South Sofia", 1, 11, [["pact_outskirts"]], [], 6,
      "duo:goal_generic_major_alliance", PACT_END[1] + "\nhas_government = communism",
      PACT_END[0] + """
 set_cosmetic_tag = SRD_SOUTH
@@ -175,30 +190,30 @@ news_event = { id = evil_sofia_news.7 hours = 6 }""",
      "the alliance takes the only name big enough for it: Sofia.\\n\\nCores on everything each of us holds. Needs "
      "every state of the outskirts held."),
     # alone: Sofia under Sredets alone, one group of districts at a time
-    ("one_centre", "One Centre", 4, 5, [["destroy_anton"]], [], 8, "duo:Generic_Major_City", A1a, A1,
+    ("one_centre", "One Centre", 4, 6, [["destroy_anton"]], [], 8, "duo:Generic_Major_City", A1a, A1,
      "With Oborishte gone, only Vazrazhdane stands between Sredets and a centre that answers to one man. Its market "
      "halls and tram depots will make a fine headquarters.\\n\\nClaims and war goals on Vazrazhdane."),
-    ("united_old_quarters", "Take the Old Quarters", 4, 6, [["one_centre"]], [], 12, "duo:Generic_Urban_Warfare",
+    ("united_old_quarters", "Take the Old Quarters", 4, 7, [["one_centre"]], [], 12, "duo:Generic_Urban_Warfare",
      A2a, A2,
      "Nine districts of boulevards, parks and pre-war villas, from Krasno Selo to Ilinden. Without allies this will "
      "be slow, street by street, but nothing we take will have to be shared.\\n\\nCores on the centre and "
      "Oborishte. Claims and war goals on the old quarters. Needs every state of the centre held."),
-    ("united_housing_estates", "Take the Housing Estates", 4, 7, [["united_old_quarters"]], [], 12,
+    ("united_housing_estates", "Take the Housing Estates", 4, 8, [["united_old_quarters"]], [], 12,
      "duo:goal_generic_build_housing", A3a, A3,
      "Nadezhda, Iskar, Mladost, Studentski and Lyulin: half of Sofia lives in these blocks, and half of our "
      "army will come from them.\\n\\nCores on the old quarters. Claims and war goals on the housing estates. Needs "
      "every state of the old quarters held."),
-    ("united_kremikovtsi", "Take Kremikovtsi", 4, 8, [["united_housing_estates"]], [], 8, "duo:focus_generic_steel",
+    ("united_kremikovtsi", "Take Kremikovtsi", 4, 9, [["united_housing_estates"]], [], 8, "duo:focus_generic_steel",
      A4a, A4,
      "The steelworks of Kremikovtsi are the only real industry this city has. Whoever holds them can arm every "
      "district they conquer.\\n\\nCores on the housing estates. War goals on Kremikovtsi. Needs every state of the "
      "housing estates held."),
-    ("united_outskirts", "Take the Outskirts", 4, 9, [["united_kremikovtsi"]], [], 12,
+    ("united_outskirts", "Take the Outskirts", 4, 10, [["united_kremikovtsi"]], [], 12,
      "duo:goal_generic_more_territorial_claims", A5a, A5,
      "Vitosha, Ovcha Kupel, Vrabnitsa, Novi Iskar, Pancharevo and Bankya. The villages on the edge of the city have "
      "always thought themselves safe from Sofia's politics. They were wrong.\\n\\nCores on Kremikovtsi. Claims and "
      "war goals on the outskirts. Needs every state of Kremikovtsi held."),
-    ("sofia_commune", "The Sofia Commune", 3, 10, [["united_outskirts"]], [], 6, "duo:Generic_Hammer_Star",
+    ("sofia_commune", "The Sofia Commune", 3, 11, [["united_outskirts"]], [], 6, "duo:Generic_Hammer_Star",
      ALONE_END[1] + "\nhas_government = communism",
      ALONE_END[0] + "\nset_cosmetic_tag = SRD_SOFIA\nadd_stability = 0.20\nadd_political_power = 200"
      "\nnews_event = { id = evil_sofia_news.6 hours = 6 }",
@@ -206,48 +221,48 @@ news_event = { id = evil_sofia_news.7 hours = 6 }""",
      "Victor Kolev speaks from its balcony to a Largo packed from wall to wall. Sredets is gone; there is only "
      "Sofia.\\n\\nCores on everything we hold. Needs every state of the outskirts held."),
     # the war at home, between both paths: manpower from the districts as they fall
-    ("peoples_militia", "The People's Militia", 2, 6, [["pact_centre", "one_centre"]], [], 6,
+    ("peoples_militia", "The People's Militia", 2, 7, [["pact_centre", "one_centre"]], [], 6,
      "duo:goal_integrate_the_militia", "",
      "add_ideas = SRD_militia_spirit\nadd_manpower = 15000",
      "Every block we take sends ten men to the district committee, and the committee gives them a red armband and "
      "a rifle. They will learn to shoot on the way to the front."),
-    ("komsomol_of_the_estates", "Komsomol of the Housing Estates", 2, 8,
+    ("komsomol_of_the_estates", "Komsomol of the Housing Estates", 2, 9,
      [["peoples_militia"], ["pact_housing_estates", "united_housing_estates"]], [], 7,
      "duo:SWI_Workers_Army", "",
      "add_ideas = SRD_komsomol\nadd_war_support = 0.05",
      "The teenagers of the panel blocks have spent years hanging around bus stops with nothing to do. Now they "
      "have badges, marching songs, a youth hall in every estate, and a waiting list for the front."),
     # ------------------------------------------------------------------ the Party
-    ("party_takes_the_largo", "The Party Takes the Largo", 7, 1, [["henrys_mom_was_right"]], [], 7,
+    ("party_takes_the_largo", "The Party Takes the Largo", 7, 2, [["proclaim_the_commune"]], [], 7,
      "duo:Generic_Revolutionary_Government", "",
      "add_political_power = 100\nadd_stability = 0.10",
      "The Largo was built to impress: three grand buildings around one square, with the Party House at its head. "
      "The ministries are emptied, the archives are sealed, and a red flag the size of a tram goes up over the "
      "government quarter."),
-    ("red_guards_of_the_stadium", "Red Guards of Vasil Levski Stadium", 6, 2, [["party_takes_the_largo"]], [], 9,
+    ("red_guards_of_the_stadium", "Red Guards of Vasil Levski Stadium", 6, 3, [["party_takes_the_largo"]], [], 9,
      "custom:stadium", "",
      'load_oob = "SRD_red_guards"\nadd_war_support = 0.05',
      "The national stadium holds forty thousand people. On match days they come to shout; now they come to drill. "
      "Four divisions of Red Guards march out of the gates past Borisova Gradina."),
-    ("arm_the_workers", "Arm the Workers", 6, 3, [["red_guards_of_the_stadium"]], [], 6,
+    ("arm_the_workers", "Arm the Workers", 6, 4, [["red_guards_of_the_stadium"]], [], 6,
      "duo:goal_integrate_workers_militia", "",
      """add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 2000 }
 add_tech_bonus = { name = SRD_arm_the_workers bonus = 0.5 uses = 1 category = infantry_weapons }""",
      "Waiters from the cafés on Rakovski Street, shop assistants from TZUM, conductors from the tram depots. Every "
      "worker of the centre gets a rifle, a cartridge belt and an address to report to."),
-    ("barricades_on_vitosha", "Barricades on Vitosha Boulevard", 6, 4, [["arm_the_workers"]], [], 10,
+    ("barricades_on_vitosha", "Barricades on Vitosha Boulevard", 6, 5, [["arm_the_workers"]], [], 10,
      "duo:Generic_Barricade", "",
      """capital_scope = {
 	add_building_construction = { type = bunker level = 3 province = { all_provinces = yes limit_to_border = yes } instant_build = yes }
 }""",
      "Café tables, tram rails, paving stones and the shop windows of the most expensive street in the country. "
      "Vitosha Boulevard is turned into a fortress from the Palace of Justice to the National Palace of Culture."),
-    ("red_officer_school", "The Red Officer School", 6, 6, [["metro_goes_to_war"]], [], 8,
+    ("red_officer_school", "The Red Officer School", 6, 7, [["metro_goes_to_war"]], [], 8,
      "duo:goal_officers", "",
      "army_experience = 25\nadd_tech_bonus = { name = SRD_red_officer_school bonus = 1.0 uses = 1 category = land_doctrine }",
      "The old Military Academy on Evlogi Georgiev Boulevard is given a new curriculum: street fighting, political "
      "education and the history of the Party. Its first graduates will lead our divisions."),
-    ("tram_depot_tank_works", "The Tram Depot Tank Works", 8, 6, [["metro_goes_to_war"]], [], 10,
+    ("tram_depot_tank_works", "The Tram Depot Tank Works", 8, 7, [["metro_goes_to_war"]], [], 10,
      "duo:focus_generic_tank_production", "",
      """capital_scope = {
 	add_extra_state_shared_building_slots = 1
@@ -256,24 +271,24 @@ add_tech_bonus = { name = SRD_arm_the_workers bonus = 0.5 uses = 1 category = in
 add_tech_bonus = { name = SRD_tram_depot_tank_works bonus = 1.0 uses = 1 category = armor }""",
      "A tram is already a steel box on wheels. Add armour plate, swap the wheels for tracks and put a gun on top: "
      "the depot workers swear it will be the finest tank in the Balkans."),
-    ("universal_service", "Every Comrade Serves", 8, 2, [["party_takes_the_largo"]], [], 5,
+    ("universal_service", "Every Comrade Serves", 8, 3, [["party_takes_the_largo"]], [], 5,
      "duo:goal_conscription", "",
      "add_ideas = SRD_universal_service_spirit\nadd_manpower = 25000",
      "From the Largo to the Lions' Bridge, every comrade between eighteen and sixty is given a rifle number and a "
      "unit to report to. Nobody in the centre will be able to say the revolution did not need them."),
-    ("commissars_in_every_unit", "Commissars in Every Unit", 8, 3, [["universal_service"]], [], 8,
+    ("commissars_in_every_unit", "Commissars in Every Unit", 8, 4, [["universal_service"]], [], 8,
      "duo:Generic_Socialist_Soldier", "",
      "army_experience = 30\nadd_tech_bonus = { name = SRD_commissars_in_every_unit bonus = 1.0 uses = 1 category = land_doctrine }",
      "A Party man in every platoon: he reads the newspaper aloud, he writes the reports, and he makes sure that the "
      "Red Guards never forget what they are fighting for, or who they answer to."),
-    ("red_air_over_the_centre", "Red Wings over the Centre", 8, 4, [["commissars_in_every_unit"]], [], 7,
+    ("red_air_over_the_centre", "Red Wings over the Centre", 8, 5, [["commissars_in_every_unit"]], [], 7,
      "duo:goal_air_red", "",
      """capital_scope = { add_building_construction = { type = air_base level = 2 instant_build = yes } }
 air_experience = 25
 add_tech_bonus = { name = SRD_red_air_over_the_centre bonus = 0.5 uses = 1 category = air_equipment }""",
      "Tsar Osvoboditel Boulevard is straight, wide and paved in yellow brick. With the lamp posts taken down it "
      "makes a perfectly good runway, and the Party's first squadron takes off over the Russian Church."),
-    ("metro_goes_to_war", "The Shelters Beneath the Centre", 7, 5, [["barricades_on_vitosha"], ["red_air_over_the_centre"]], [], 9,
+    ("metro_goes_to_war", "The Shelters Beneath the Centre", 7, 6, [["barricades_on_vitosha"], ["red_air_over_the_centre"]], [], 9,
      "duo:goal_anti_air", "",
      """capital_scope = {
 	add_building_construction = { type = anti_air_building level = 3 instant_build = yes }
@@ -283,12 +298,12 @@ add_stability = 0.05""",
      "Under the Largo lie the ruins of Roman Serdica, and under the ruins there is room for thousands. The cellars "
      "are linked into shelters and supply tunnels, and anti-aircraft guns go up on every rooftop around them."),
     # ------------------------------------------------------------------ Daniel-Henry Capel
-    ("red_leaflets", "Red Leaflets over Vitosha", 10, 1, [["henrys_mom_was_right"]], [], 3,
+    ("red_leaflets", "Red Leaflets over Vitosha", 10, 2, [["henrys_mom_was_right"]], [], 3,
      "duo:Generic_Socialist_Propaganda", "VIT = { exists = yes }",
      "VIT = { add_timed_idea = { idea = SRD_red_leaflets days = 180 } }",
      "Henry's district is villas, pine forest and people who think the revolution is something that happens to "
      "other neighbourhoods. A few thousand leaflets in the letterboxes of Vitosha should change that."),
-    ("road_to_boyana", "The Road to Boyana", 10, 2, [["red_leaflets"]], [], 5,
+    ("road_to_boyana", "The Road to Boyana", 10, 3, [["red_leaflets"]], [], 5,
      "duo:focus_generic_diplomatic_treaty", "",
      """if = {
 	limit = { OR = { NOT = { country_exists = LOZ } is_in_faction_with = LOZ } }
@@ -301,20 +316,20 @@ else = {
      "and Victor go back further than any party or flag. They are day ones. Victor picks up the phone and asks him to "
      "stand with Sredets against Henry.\\n\\nGeorgi is more likely to say yes the better he thinks of Sredets. If "
      "Lozenets is already our ally or no longer exists, nobody needs to be asked."),
-    ("capel_question", "The Capel Question", 10, 3, [["road_to_boyana"]], [], 8,
+    ("capel_question", "The Capel Question", 10, 4, [["road_to_boyana"]], [], 8,
      "person:capel_question", "VIT = { exists = yes }",
      "create_wargoal = { type = annex_everything target = VIT }\nadd_war_support = 0.05",
      "Daniel-Henry Capel hates communism, hates Sredets and, above all, hates being proven wrong by his own mother. "
      "As long as he sits in Boyana, every red flag in Sofia has a rifle pointed at it from the mountain. It is "
      "time to answer the Capel Question."),
-    ("red_flag_over_boyana", "Red Flag over Boyana", 10, 4, [["capel_question"]], [], 4,
+    ("red_flag_over_boyana", "Red Flag over Boyana", 10, 5, [["capel_question"]], [], 4,
      "duo:goal_red_star_green_wreath", "{HELD:VIT}",
      "{COREHELD:SRD:VIT}\nadd_political_power = 100\nadd_stability = 0.10\nnews_event = { id = evil_sofia_news.5 hours = 6 }",
      "The red flag flies over Boyana Church and the forest roads up to Dragalevtsi. Henry's villa has become a rest "
      "home for tired Red Guards. Somewhere, his mother is telling anyone who will listen that she said this "
      "would happen.\\n\\nNeeds every state of Vitosha under our control."),
     # ------------------------------------------------------------------ the red economy of the centre
-    ("collectivise_vitosha_boulevard", "Collectivise Vitosha Boulevard", 13, 1, [["henrys_mom_was_right"]], [], 10,
+    ("collectivise_vitosha_boulevard", "Collectivise Vitosha Boulevard", 13, 2, [["henrys_mom_was_right"]], [], 10,
      "duo:Generic_Market_Socialism", "",
      """capital_scope = {
 	add_extra_state_shared_building_slots = 2
@@ -323,12 +338,12 @@ else = {
      "Gucci, Hugo Boss and a hundred smaller boutiques: the most expensive street in Bulgaria now belongs to the "
      "people. The tailors stay, the sewing machines stay, and the workshops behind the shop windows start working "
      "for the Party."),
-    ("mimas_for_the_workers", "Mimas Döner for the Workers", 12, 2, [["collectivise_vitosha_boulevard"]], [], 4,
+    ("mimas_for_the_workers", "Mimas Döner for the Workers", 12, 3, [["collectivise_vitosha_boulevard"]], [], 4,
      "custom:doner", "", "add_ideas = SRD_mimas_doner",
      "Mimas on Graf Ignatiev has never closed, not for holidays, not for elections and not for revolutions. It "
      "is now the official canteen of the Sredets Commune, and the queue at four in the morning is the most "
      "united front in the city."),
-    ("party_arsenal", "The Party Arsenal", 14, 2, [["collectivise_vitosha_boulevard"]], [], 12,
+    ("party_arsenal", "The Party Arsenal", 14, 3, [["collectivise_vitosha_boulevard"]], [], 12,
      "duo:goal_generic_construct_mil_factory", "",
      """capital_scope = {
 	add_extra_state_shared_building_slots = 2
@@ -336,7 +351,7 @@ else = {
 }""",
      "Bakeries, print shops and car repair garages all over the centre are given new orders and new tools. The "
      "back rooms that used to smell of bread now smell of gun oil."),
-    ("red_tourism", "Red Tourism", 12, 3, [["mimas_for_the_workers"]], [], 6, "duo:LEC_Passports", "",
+    ("red_tourism", "Red Tourism", 12, 4, [["mimas_for_the_workers"]], [], 6, "duo:LEC_Passports", "",
      """capital_scope = {
 	add_extra_state_shared_building_slots = 1
 	add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
@@ -344,17 +359,17 @@ else = {
 add_political_power = 100""",
      "The tourists still come to photograph the cathedral and the yellow bricks. Now they buy their postcards from "
      "the Party, sleep in Party hotels and leave Party tips. Every lev goes into a new factory."),
-    ("red_university", "The Red University", 14, 3, [["party_arsenal"]], [], 9,
+    ("red_university", "The Red University", 14, 4, [["party_arsenal"]], [], 9,
      "duo:focus_generic_socialist_science", "",
      "add_tech_bonus = { name = SRD_red_university bonus = 0.75 uses = 2 category = electronics }",
      "Sofia University stands on Tsar Osvoboditel, two hundred metres from the Party House. Its physicists are "
      "moved into the laboratories of the Faculty of Physics and asked one question: how to build a better radio."),
-    ("socialist_emulation", "Socialist Emulation", 15, 4, [["red_university"]], [], 7,
+    ("socialist_emulation", "Socialist Emulation", 15, 5, [["red_university"]], [], 7,
      "duo:goal_Workers_Paradise", "",
      "add_ideas = SRD_emulation_spirit",
      "Every factory in the commune now competes with every other. The winning shift gets its photograph in the "
      "newspaper, a red pennant on the wall and a free döner each. The losing shift gets the night shift."),
-    ("five_year_plan", "Five-Year Plan for the Centre", 13, 4, [["red_tourism"], ["red_university"]], [], 12,
+    ("five_year_plan", "Five-Year Plan for the Centre", 13, 5, [["red_tourism"], ["red_university"]], [], 12,
      "duo:Generic_Factory_Planning", "",
      """capital_scope = {
 	add_extra_state_shared_building_slots = 2
@@ -364,11 +379,11 @@ add_tech_bonus = { name = SRD_five_year_plan bonus = 0.5 uses = 2 category = ind
      "Planners from the Party House count every factory, every tram and every pothole in the centre, then write "
      "a plan to double the first and fill the last. It will be completed in five years, or in four, if the "
      "workers love the Party enough."),
-    ("star_on_the_party_house", "The Star on the Party House", 13, 5, [["five_year_plan"]], [], 10,
+    ("star_on_the_party_house", "The Star on the Party House", 13, 6, [["five_year_plan"]], [], 10,
      "duo:goal_red_star_gold_wreath", "", "add_research_slot = 1",
      "A ruby star once crowned the spire of the Party House. The engineers who put it back up are rewarded with "
      "their own institute, and the Party's best minds go back to work beneath it."),
-    ("electrify_the_districts", "Electrify the Districts", 13, 6, [["star_on_the_party_house"]], [], 9,
+    ("electrify_the_districts", "Electrify the Districts", 13, 7, [["star_on_the_party_house"]], [], 9,
      "duo:Generic_Electrification", "",
      """every_owned_state = {
 	limit = { is_core_of = ROOT free_building_slots = { building = infrastructure size > 0 } }
@@ -407,7 +422,21 @@ capital_scope = {
      "with the right stamps go into the stove, and by noon the cafés on Vitosha Boulevard have their chairs out "
      "again. Victor Kolev's centre will be free, and it will be free on its own: no gangs, no pacts, no favours "
      "owed to anyone.\\n\\nSredets can no longer create or join factions. Democracy grows day by day; once more "
-     "than half the district supports it, the decision Proclaim the Free Sredets makes Sredets a democracy under "
+     "than 30% of the district supports it, the focus Proclaim the Free Sredets makes Sredets a democracy under "
+     "Victor, with a blue flag."),
+    ("proclaim_the_free_sredets", "Proclaim the Free Sredets", 20, 4, [["a_free_sredets"]], [], 3,
+     "duo:Generic_Parliament_Box", "democratic > 0.3",
+     """set_politics = { ruling_party = democratic elections_allowed = no }
+add_country_leader_role = {
+	character = SRD_leader
+	country_leader = { ideology = liberalism expire = "1965.1.1.1" }
+	promote_leader = yes
+}
+set_cosmetic_tag = SRD_FREE
+news_event = { id = evil_sofia_news.9 hours = 6 }""",
+     "A third of the centre stands behind the free district, and nobody wants the curfew back. A blue flag goes "
+     "up over the district hall and Victor Kolev proclaims the Free Sredets: governed by its own people, with no "
+     "curfew ever again.\\n\\nNeeds more than 30% support for democracy. Sredets becomes a democracy under "
      "Victor, with a blue flag."),
     # free speech and friends of freedom on the left, the open city in the middle, the guard on the right;
     # the workshops need the market and the guard, the wider centre needs the old centre and the offers
@@ -452,7 +481,7 @@ add_war_support = 0.05""",
      "communists, every last one of them. Free newspapers, a free market on Vitosha Boulevard and not a single red "
      "flag on the Largo say otherwise. Victor sends her an invitation: come and see for yourself.\\n\\nHenry's "
      "mother visits the free centre."),
-    ("friends_of_freedom", "Friends of Freedom", 17, 6, [["free_press_on_rakovski"]], [], 4,
+    ("friends_of_freedom", "Friends of Freedom", 17, 6, [["free_press_on_rakovski"], ["proclaim_the_free_sredets"]], [], 4,
      "duo:Social Liberalism", "",
      """every_country = {
 	limit = { OR = { tag = OBR tag = LOZ tag = TRD } NOT = { has_war_with = ROOT } }
@@ -487,7 +516,7 @@ add_war_support = 0.05""",
      "districts lightly. Victor asks anyway, over coffee, the way they always talked.\\n\\nLozenets is asked to "
      "join Sredets peacefully. Georgi will most likely say no; the more he likes us and the more democratic "
      "Lozenets is, the better our chances."),
-    ("liberate_the_old_centre", "Liberate the Old Centre", 21, 7, [["workshops_of_the_free_centre"]], [], 6,
+    ("liberate_the_old_centre", "Liberate the Old Centre", 21, 7, [["workshops_of_the_free_centre"], ["proclaim_the_free_sredets"]], [], 6,
      "duo:goal_Fight_for_Freedom", "",
      "{CLAIMS:VAZ,OBR}\n{WAR:VAZ,OBR}",
      "The Women's Market of Vazrazhdane and the cathedral square of Oborishte are a ten-minute walk from the "
@@ -686,7 +715,8 @@ news_event = { id = evil_sofia_news.12 hours = 6 }""",
 ]
 
 FILTERS = {  # search filters for the focus tree's filter buttons
-    "henrys_mom_was_right": ["POLITICAL", "WAR_SUPPORT"], "order_in_the_centre": ["POLITICAL", "STABILITY"],
+    "henrys_mom_was_right": ["POLITICAL", "WAR_SUPPORT"], "proclaim_the_commune": ["POLITICAL"],
+    "proclaim_the_free_sredets": ["POLITICAL"], "order_in_the_centre": ["POLITICAL", "STABILITY"],
     "comrades_in_oborishte": ["POLITICAL"], "red_newspapers_oborishte": ["POLITICAL"],
     "ally_anton": ["POLITICAL"], "anton_must_go": ["ANNEXATION", "WAR_SUPPORT"], "north_south_pact": ["POLITICAL"],
     "destroy_anton": ["ANNEXATION", "STABILITY"],
@@ -919,43 +949,6 @@ GEORGI_NO = """base = 35
 modifier = { add = 20 has_opinion = { target = FROM value < 0 } }
 modifier = { add = 20 has_opinion = { target = FROM value < -40 } }
 modifier = { factor = 0.7 has_opinion = { target = FROM value > 50 } }"""
-
-POWER_DECISIONS = ("SRD_road_to_power", "The Road to Power",
-    "Sredets has chosen its road, but a district does not change overnight. Once more than half of its people "
-    "stand behind the new ideas, Victor can make it official.",
-    "tag = SRD",
-    "OR = {\n\tAND = { has_completed_focus = SRD_henrys_mom_was_right NOT = { has_government = communism } }\n"
-    "\tAND = { has_completed_focus = SRD_a_free_sredets NOT = { has_government = democratic } }\n}",
-    [dict(id="SRD_proclaim_the_commune", name="Proclaim the Sredets Commune",
-          desc="More than half of Sredets is red. The Party House flies the red flag, Victor becomes Chairman, and "
-               "the Sredets Commune is proclaimed from the steps above the Largo.",
-          cost=25, visible="has_completed_focus = SRD_henrys_mom_was_right\nNOT = { has_government = communism }",
-          available="communism > 0.5",
-          effect="if = { limit = { has_idea = SRD_red_agitation } remove_ideas = SRD_red_agitation }\n" + """set_politics = { ruling_party = communism elections_allowed = no }
-add_country_leader_role = {
-	character = SRD_leader
-	country_leader = { ideology = leninism expire = "1965.1.1.1" }
-	promote_leader = yes
-}
-set_cosmetic_tag = SRD_RED
-add_war_support = 0.10
-VIT = { country_event = { id = evil_sofia_srd.1 } }
-news_event = { id = evil_sofia_news.1 hours = 6 }""",
-          icon="generic_political_discourse"),
-     dict(id="SRD_proclaim_the_free_sredets", name="Proclaim the Free Sredets",
-          desc="More than half of Sredets wants to stay free. A blue flag goes up over the district hall and Victor "
-               "Kolev proclaims the Free Sredets, governed by its own people, with no curfew ever again.",
-          cost=25, visible="has_completed_focus = SRD_a_free_sredets\nNOT = { has_government = democratic }",
-          available="democratic > 0.5",
-          effect="if = { limit = { has_idea = SRD_curfew_lifted } remove_ideas = SRD_curfew_lifted }\n" + """set_politics = { ruling_party = democratic elections_allowed = no }
-add_country_leader_role = {
-	character = SRD_leader
-	country_leader = { ideology = liberalism expire = "1965.1.1.1" }
-	promote_leader = yes
-}
-set_cosmetic_tag = SRD_FREE
-news_event = { id = evil_sofia_news.9 hours = 6 }""",
-          icon="generic_civil_support")])
 
 # Peaceful offers of the free centre: most likely no; random, better the more they like us and the more
 # democratic they are (never yes from a communist government or a country that dislikes us much).
