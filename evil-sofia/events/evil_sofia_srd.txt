@@ -31,9 +31,9 @@ country_event = {
 		ai_chance = {
 			base = 10
 			modifier = { add = 25 has_government = communism }
-			modifier = { add = 15 communism > 0.45 }
-			modifier = { add = 15 communism > 0.6 }
-			modifier = { add = 10 communism > 0.75 }
+			modifier = { add = 15 communism > 0.2 }
+			modifier = { add = 15 communism > 0.3 }
+			modifier = { add = 10 communism > 0.4 }
 			modifier = { add = 10 has_opinion = { target = FROM value > 0 } }
 			modifier = { add = 15 has_opinion = { target = FROM value > 40 } }
 			modifier = { add = 15 has_opinion = { target = FROM value > 80 } }
@@ -62,7 +62,7 @@ country_event = {
 		name = evil_sofia_srd.2.b
 		ai_chance = {
 			base = 50
-			modifier = { factor = 0.6 communism > 0.6 }
+			modifier = { factor = 0.6 communism > 0.3 }
 			modifier = { factor = 0.5 has_government = communism }
 			modifier = { factor = 0.7 has_opinion = { target = FROM value > 40 } }
 			modifier = { add = 30 has_opinion = { target = FROM value < -20 } }
@@ -128,7 +128,7 @@ country_event = {
 			modifier = { add = 15 has_opinion = { target = FROM value > 20 } }
 			modifier = { add = 15 has_opinion = { target = FROM value > 50 } }
 			modifier = { add = 10 has_opinion = { target = FROM value > 80 } }
-			modifier = { add = 10 communism > 0.2 }
+			modifier = { add = 10 communism > 0.1 }
 			modifier = { factor = 0.4 has_opinion = { target = FROM value < 0 } }
 			modifier = { factor = 0.5 is_in_faction = yes }
 		}
@@ -309,9 +309,9 @@ country_event = {
 			modifier = { add = 10 has_opinion = { target = FROM value > 20 } }
 			modifier = { add = 15 has_opinion = { target = FROM value > 50 } }
 			modifier = { add = 15 has_opinion = { target = FROM value > 80 } }
-			modifier = { add = 10 democratic > 0.2 }
-			modifier = { add = 15 democratic > 0.4 }
-			modifier = { add = 15 democratic > 0.6 }
+			modifier = { add = 10 democratic > 0.1 }
+			modifier = { add = 15 democratic > 0.2 }
+			modifier = { add = 15 democratic > 0.3 }
 			modifier = { add = 10 has_government = democratic }
 			modifier = { factor = 0.3 has_opinion = { target = FROM value < 0 } }
 			modifier = { factor = 0 has_government = communism }
@@ -337,6 +337,10 @@ country_event = {
 	option = {
 		name = evil_sofia_srd.18.a
 		ai_chance = { factor = 1 }
+		every_state = {
+			limit = { OR = { state = 5 state = 6 } is_controlled_by = SRD }
+			add_core_of = SRD
+		}
 	}
 }
 
@@ -352,9 +356,9 @@ country_event = {
 			modifier = { add = 10 has_opinion = { target = FROM value > 20 } }
 			modifier = { add = 15 has_opinion = { target = FROM value > 50 } }
 			modifier = { add = 15 has_opinion = { target = FROM value > 80 } }
-			modifier = { add = 10 democratic > 0.2 }
-			modifier = { add = 15 democratic > 0.4 }
-			modifier = { add = 15 democratic > 0.6 }
+			modifier = { add = 10 democratic > 0.1 }
+			modifier = { add = 15 democratic > 0.2 }
+			modifier = { add = 15 democratic > 0.3 }
 			modifier = { add = 10 has_government = democratic }
 			modifier = { factor = 0.3 has_opinion = { target = FROM value < 0 } }
 			modifier = { factor = 0 has_government = communism }
@@ -382,6 +386,10 @@ country_event = {
 	option = {
 		name = evil_sofia_srd.21.a
 		ai_chance = { factor = 1 }
+		every_state = {
+			limit = { OR = { state = 38 state = 35 state = 32 state = 8 state = 9 state = 17 state = 10 } is_controlled_by = SRD }
+			add_core_of = SRD
+		}
 	}
 }
 

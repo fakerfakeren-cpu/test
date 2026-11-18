@@ -23,12 +23,15 @@ Triaditsa (TRD, Alexander Dimitrov), Lyulin (LYU, GrimBoss). The game starts on 
   pack icons, varied. No foreign-flag icons.
 - Cores only after holding: conquest focuses give claims and war goals; cores come in the next focus, only for the
   states actually controlled (placeholders `{CLAIMS}`, `{WAR}`, `{HELD}`, `{COREHELD}`).
+  Exception (user's request): the democratic Free Sredets branch gets cores on the centre at once
+  (`{COREALL:T:A,B}`, `WIDER_CENTRE_COREALL`), and land handed over peacefully is cored too.
 - AI answers to diplomatic events depend on opinion (and, for Anton, Oborishte's communism), so they can say no.
 - Focus lengths vary (3 to 12 weeks); every focus has search filters; no two focuses' labels may touch (leave an
   empty column between branches).
 - Texts: HOI4-style descriptions, rooted in real Sofia places, playful about the friends but never mean.
 - Random events stay rare.
-- **No instant popularity changes**, for us or anyone else: ideologies grow through timed spirits with a
+- **No instant popularity changes**, and the spirits Sredets puts on other districts are small (0.03-0.08 drift;
+  the user asked for them to be a lot smaller), with Ally Anton at 20% and the Red Coup at 30% communism; for us or anyone else: ideologies grow through timed spirits with a
   `*_drift` (`add_timed_idea`). The first focus of the communist and the democratic road starts the drift; the
   government changes with the focus Proclaim the Sredets Commune / Proclaim the Free Sredets, which needs the
   ideology above 30% (the user's number).

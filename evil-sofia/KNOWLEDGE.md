@@ -181,6 +181,11 @@ Root choice (mutually exclusive): **Henry's Mom Was Right** (communism) at x=8, 
 - Offers: only Anton is asked to join whole (srd.17, annexation, "I need him all"); Georgi and Alexander get srd.20 and
   hand over only North Lozenets + Lozenets / Triaditsa (the states the formable needs); yes → srd.21, no → srd.19.
   The Wider Centre's war goals skip a district that no longer owns any of those states.
+- Later tweaks: spirits on other districts cut to about a quarter (comrades 0.06, red newspapers 0.05, party money
+  0.04, rally 0.05, leaflets 0.04, newspapers from Sredets 0.03, friends of freedom 0.06, mom was wrong 0.04, a red
+  Oborishte 0.08); thresholds scaled with them (Ally Anton 20%, Red Coup 30%, AI odds in ANTON_YES/GEORGI_YES/
+  FREE_YES). The democratic branch cores at once (Liberate the Old Centre: VAZ+OBR; The Wider Centre: the central
+  states), and peaceful handovers are cored (srd.18, srd.21).
 - Private events: no picture unless the user made one (user: "for the private ones you may not use pictures").
   The user makes world news pictures; done so far: news_1, srd_2.
 

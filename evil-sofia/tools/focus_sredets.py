@@ -80,6 +80,8 @@ WIDER_CENTRE_CLAIMS = "\n".join(f"add_state_claim = {{STATE:{t}:{n}}}" for t, n 
 PARTS_HANDOVER = "\n".join(
     f"if = {{ limit = {{ tag = {t} owns_state = {{STATE:{t}:{n}}} }} FROM = {{ transfer_state = {{STATE:{t}:{n}}} }} }}"
     for t in ("LOZ", "TRD") for n in WIDER_CENTRE[t])
+WIDER_CENTRE_COREALL = ("every_state = {\n\tlimit = { OR = { " + " ".join(f"state = {{STATE:{t}:{n}}}" for t, n in _W)
+                        + " } }\n\tadd_core_of = SRD\n}\n" + WIDER_CENTRE_CLAIMS.split("\n", len(_W))[-1])
 WIDER_CENTRE_HELD = "\n".join(f"{{STATE:{t}:{n}}} = {{ is_controlled_by = ROOT }}" for t, n in _W)
 WIDER_CENTRE_CORES = ("every_state = {\n\tlimit = { OR = { " + " ".join(f"state = {{STATE:{t}:{n}}}" for t, n in _W)
                       + " } is_controlled_by = SRD }\n\tadd_core_of = SRD\n}")
@@ -129,11 +131,11 @@ news_event = { id = evil_sofia_news.1 hours = 6 }""",
      "printed in Sredets. Anton's police tear the posters down; by evening there are twice as many.\\n\\nUnlocks the "
      "decision Red Coup in Oborishte."),
     ("ally_anton", "Ally Anton Zafirov", 1, 4, [["red_newspapers_oborishte"]], ["anton_must_go"], 7,
-     "person:ally_anton", "OBR = { exists = yes OR = { has_government = communism communism > 0.4 } }",
+     "person:ally_anton", "OBR = { exists = yes OR = { has_government = communism communism > 0.2 } }",
      "OBR = { country_event = { id = evil_sofia_srd.2 } }",
      "Anton is not our enemy. He is a man standing on the wrong side of a very short street. Victor will walk "
      "across it himself and offer him what nobody else in Sofia can: half of everything.\\n\\nNeeds Oborishte at "
-     "least 40% communist. Anton is more likely to accept the more communist Oborishte is and the better he thinks "
+     "least 20% communist. Anton is more likely to accept the more communist Oborishte is and the better he thinks "
      "of Sredets."),
     ("anton_must_go", "Anton Must Go", 3, 4, [["red_newspapers_oborishte"]], ["ally_anton"], 6,
      "person:anton_must_go", "OBR = { exists = yes }",
@@ -524,10 +526,10 @@ add_war_support = 0.05""",
      "Lozenets is, the better our chances."),
     ("liberate_the_old_centre", "Liberate the Old Centre", 21, 7, [["workshops_of_the_free_centre"], ["proclaim_the_free_sredets"]], [], 6,
      "duo:goal_Fight_for_Freedom", "",
-     "{CLAIMS:VAZ,OBR}\n{WAR:VAZ,OBR}",
+     "{COREALL:SRD:VAZ,OBR}\n{WAR:VAZ,OBR}",
      "The Women's Market of Vazrazhdane and the cathedral square of Oborishte are a ten-minute walk from the "
      "Largo, and behind their checkpoints people still need a stamp to cross the street. A free centre cannot "
-     "end at a barricade.\\n\\nClaims on Vazrazhdane and Oborishte, and war goals on them if they have not "
+     "end at a barricade.\\n\\nCores on Vazrazhdane and Oborishte, and war goals on them if they have not "
      "joined us."),
     ("offer_to_alexander", "An Offer to Alexander", 18, 8, [["offer_to_anton"], ["offer_to_georgi"]], [], 3,
      "person:offer_to_alexander", "", "{OFFER_PARTS:TRD}",
@@ -537,17 +539,17 @@ add_war_support = 0.05""",
      "is, the better our chances."),
     ("the_wider_centre", "The Wider Centre", 20, 9, [["liberate_the_old_centre"], ["offer_to_alexander"]], [], 8,
      "duo:goal_generic_more_territorial_claims", "{HELD:VAZ,OBR}",
-     "{COREHELD:SRD:VAZ,OBR}\n" + WIDER_CENTRE_CLAIMS,
+     WIDER_CENTRE_COREALL,
      "The old centre is free. Its edges are not: the streets around the Ivan Vazov quarter, the old villas of "
      "Lozenets, Kriva Reka and Lagera, and the railway quarter north of the Lions' Bridge still answer to "
-     "someone else.\\n\\nCores on the states of Vazrazhdane and Oborishte held. Claims and war goals on the "
+     "someone else.\\n\\nCores and war goals on the "
      "central states of Triaditsa, Lozenets, Krasno Selo and Serdika (" + WIDER_CENTRE_NAMES + "). Needs every "
      "state of Vazrazhdane and Oborishte held, and the offers to Anton, Georgi and Alexander made first."),
     ("a_free_centre", "A Free Centre", 20, 10, [["the_wider_centre"]], [], 5,
      "duo:goal_civil_service", WIDER_CENTRE_HELD,
      WIDER_CENTRE_CORES + "\nadd_stability = 0.10",
      "From Lagera to the Eagles' Bridge, from the Lions' Bridge to the villas of Lozenets, the whole centre of "
-     "Sofia answers to one council and has no checkpoints at all.\\n\\nCores on the central states held. Needs "
+     "Sofia answers to one council and has no checkpoints at all.\\n\\nNeeds "
      "every central state of Triaditsa, Lozenets, Krasno Selo and Serdika held."),
     ("free_centre_of_sofia", "The Free Centre of Sofia", 20, 11, [["a_free_centre"]], [], 10,
      "duo:focus_generic_bastion_of_democracy", "has_government = democratic",
@@ -865,31 +867,31 @@ IDEAS.update({  # timed spirits that make an ideology grow day by day (no instan
                                  "democratic_drift = 0.15", ("Circle.png", "Megaphone3.png")),
     "SRD_smuggled_newspapers": ("Newspapers from Sredets",
                                 "Free newspapers from the centre, smuggled in by the bundle and read in secret.",
-                                "democratic_drift = 0.1", ("Rectangle.png", "Paper.png")),
+                                "democratic_drift = 0.03", ("Rectangle.png", "Paper.png")),
     "SRD_friends_of_freedom": ("Friends of Freedom",
                                "Clubs, newspapers and student societies from the free centre have opened branches "
-                               "here.", "democratic_drift = 0.25", ("Circle.png", "Dove.png")),
+                               "here.", "democratic_drift = 0.06", ("Circle.png", "Dove.png")),
     "SRD_comrades_from_sredets": ("Comrades from Sredets",
                                   "Party organisers from the centre are working the cafés and the student halls.",
-                                  "communism_drift = 0.25", ("Rectangle.png", "Hand with Hammer & Sickle.png")),
+                                  "communism_drift = 0.06", ("Rectangle.png", "Hand with Hammer & Sickle.png")),
     "SRD_red_newspapers": ("Red Newspapers",
                            "Red newspapers on every corner, and arguments in every café about what they say.",
-                           "communism_drift = 0.2\nstability_factor = -0.05", ("Rectangle.png", "Paper Torn.png")),
+                           "communism_drift = 0.05\nstability_factor = -0.05", ("Rectangle.png", "Paper Torn.png")),
     "SRD_party_money": ("Money from the Party House",
                         "Envelopes of cash for the party cell: printing presses, halls and friendly policemen.",
-                        "communism_drift = 0.15", ("Rectangle.png", "Cash.png")),
+                        "communism_drift = 0.04", ("Rectangle.png", "Cash.png")),
     "SRD_doctors_garden_rally": ("The Rally at the Doctors' Garden",
                                  "Ten thousand people and loudspeakers in the park behind the National Library.",
-                                 "communism_drift = 0.2\nstability_factor = -0.03", ("Rectangle.png", "Megaphone Twins.png")),
+                                 "communism_drift = 0.05\nstability_factor = -0.03", ("Rectangle.png", "Megaphone Twins.png")),
     "SRD_red_leaflets": ("Red Leaflets",
                          "Red leaflets in every letterbox of Vitosha. Most go in the stove, but not all of them.",
-                         "communism_drift = 0.15\nstability_factor = -0.05", ("Rectangle.png", "Paper Sign.png")),
+                         "communism_drift = 0.04\nstability_factor = -0.05", ("Rectangle.png", "Paper Sign.png")),
     "SRD_mom_was_wrong": ("Mom Was Wrong",
                           "Even Henry's mother says the centre is free. Vitosha starts to wonder what else she got wrong.",
-                          "democratic_drift = 0.15", ("Circle.png", "Bird Freed.png")),
+                          "democratic_drift = 0.04", ("Circle.png", "Bird Freed.png")),
     "SRD_red_oborishte": ("A Red Oborishte",
                           "Oborishte has gone red with the centre, and the party is making sure it stays that way.",
-                          "communism_drift = 0.3", ("Rectangle.png", "Star Red with Sickle.png")),
+                          "communism_drift = 0.08", ("Rectangle.png", "Star Red with Sickle.png")),
 })
 RED_COUNTRIES = ["SRD", "OBR"]   # the countries that get a communist flag and a Commune name
 
@@ -923,8 +925,8 @@ DECISIONS = {
         ("SRD_red_coup_in_oborishte", "Red Coup in Oborishte",
          "The party cell is armed, the barracks on Shipka Street are with us and the district hall is guarded by "
          "three sleepy policemen. One night is all it takes. Anton stays in charge, but of a red Oborishte.\n\n"
-         "Needs Red Newspapers in Oborishte and Oborishte more than 55% communist.", 100, 0,
-         "has_completed_focus = SRD_red_newspapers_oborishte\nOBR = { NOT = { has_government = communism } communism > 0.55 }",
+         "Needs Red Newspapers in Oborishte and Oborishte more than 30% communist.", 100, 0,
+         "has_completed_focus = SRD_red_newspapers_oborishte\nOBR = { NOT = { has_government = communism } communism > 0.3 }",
          "OBR = {\n" + "\n".join("\t" + ln for ln in OBR_GOES_RED.split("\n")) + "\n}\n"
          "OBR = { country_event = { id = evil_sofia_srd.8 } }"),
     ],
@@ -932,15 +934,15 @@ DECISIONS = {
 
 ANTON_YES = """base = 10
 modifier = { add = 25 has_government = communism }
-modifier = { add = 15 communism > 0.45 }
-modifier = { add = 15 communism > 0.6 }
-modifier = { add = 10 communism > 0.75 }
+modifier = { add = 15 communism > 0.2 }
+modifier = { add = 15 communism > 0.3 }
+modifier = { add = 10 communism > 0.4 }
 modifier = { add = 10 has_opinion = { target = FROM value > 0 } }
 modifier = { add = 15 has_opinion = { target = FROM value > 40 } }
 modifier = { add = 15 has_opinion = { target = FROM value > 80 } }
 modifier = { factor = 0.5 has_opinion = { target = FROM value < -20 } }"""
 ANTON_NO = """base = 50
-modifier = { factor = 0.6 communism > 0.6 }
+modifier = { factor = 0.6 communism > 0.3 }
 modifier = { factor = 0.5 has_government = communism }
 modifier = { factor = 0.7 has_opinion = { target = FROM value > 40 } }
 modifier = { add = 30 has_opinion = { target = FROM value < -20 } }"""
@@ -948,7 +950,7 @@ GEORGI_YES = """base = 35
 modifier = { add = 15 has_opinion = { target = FROM value > 20 } }
 modifier = { add = 15 has_opinion = { target = FROM value > 50 } }
 modifier = { add = 10 has_opinion = { target = FROM value > 80 } }
-modifier = { add = 10 communism > 0.2 }
+modifier = { add = 10 communism > 0.1 }
 modifier = { factor = 0.4 has_opinion = { target = FROM value < 0 } }
 modifier = { factor = 0.5 is_in_faction = yes }"""
 GEORGI_NO = """base = 35
@@ -962,9 +964,9 @@ FREE_YES = """base = 5
 modifier = { add = 10 has_opinion = { target = FROM value > 20 } }
 modifier = { add = 15 has_opinion = { target = FROM value > 50 } }
 modifier = { add = 15 has_opinion = { target = FROM value > 80 } }
-modifier = { add = 10 democratic > 0.2 }
-modifier = { add = 15 democratic > 0.4 }
-modifier = { add = 15 democratic > 0.6 }
+modifier = { add = 10 democratic > 0.1 }
+modifier = { add = 15 democratic > 0.2 }
+modifier = { add = 15 democratic > 0.3 }
 modifier = { add = 10 has_government = democratic }
 modifier = { factor = 0.3 has_opinion = { target = FROM value < 0 } }
 modifier = { factor = 0 has_government = communism }"""
@@ -1133,7 +1135,7 @@ EVENTS.update({
     "18": ("[From.GetName] Joins the Free Centre",
            "The answer is yes. [From.GetName] has voted to join the free centre, and its people are taking down the "
            "barriers between our districts themselves. Not a shot was fired.",
-           [("One city, freely.", "", 1)], ""),
+           [("One city, freely.", "{COREHELD:SRD:OBR}", 1)], ""),
     "20": ("The Free Centre Asks for Our Quarters",
            "Victor Kolev has come to [Root.GetName] in person, with no guards and no ultimatum. He does not want all "
            "of [Root.GetName]. He wants the quarters next to the centre, the streets that have always been more "
@@ -1146,7 +1148,7 @@ EVENTS.update({
     "21": ("[From.GetName] Hands Over Its Quarters",
            "The answer is yes. [From.GetName] has handed the quarters next to the centre to the free centre. The "
            "barriers came down this morning, and not a shot was fired.",
-           [("Welcome to the free centre.", "", 1)], ""),
+           [("Welcome to the free centre.", WIDER_CENTRE_CORES, 1)], ""),
     "19": ("[From.GetName] Says No",
            "[From.GetName] has thanked us for the offer and declined it. Its people will stay behind their own "
            "barriers, for now.",

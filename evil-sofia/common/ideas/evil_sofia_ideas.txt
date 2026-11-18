@@ -125,28 +125,28 @@ ideas = {
 			picture = SRD_smuggled_newspapers
 			allowed = { always = no }
 			modifier = {
-				democratic_drift = 0.1
+				democratic_drift = 0.03
 			}
 		}
 		SRD_friends_of_freedom = {
 			picture = SRD_friends_of_freedom
 			allowed = { always = no }
 			modifier = {
-				democratic_drift = 0.25
+				democratic_drift = 0.06
 			}
 		}
 		SRD_comrades_from_sredets = {
 			picture = SRD_comrades_from_sredets
 			allowed = { always = no }
 			modifier = {
-				communism_drift = 0.25
+				communism_drift = 0.06
 			}
 		}
 		SRD_red_newspapers = {
 			picture = SRD_red_newspapers
 			allowed = { always = no }
 			modifier = {
-				communism_drift = 0.2
+				communism_drift = 0.05
 				stability_factor = -0.05
 			}
 		}
@@ -154,14 +154,14 @@ ideas = {
 			picture = SRD_party_money
 			allowed = { always = no }
 			modifier = {
-				communism_drift = 0.15
+				communism_drift = 0.04
 			}
 		}
 		SRD_doctors_garden_rally = {
 			picture = SRD_doctors_garden_rally
 			allowed = { always = no }
 			modifier = {
-				communism_drift = 0.2
+				communism_drift = 0.05
 				stability_factor = -0.03
 			}
 		}
@@ -169,7 +169,7 @@ ideas = {
 			picture = SRD_red_leaflets
 			allowed = { always = no }
 			modifier = {
-				communism_drift = 0.15
+				communism_drift = 0.04
 				stability_factor = -0.05
 			}
 		}
@@ -177,14 +177,14 @@ ideas = {
 			picture = SRD_mom_was_wrong
 			allowed = { always = no }
 			modifier = {
-				democratic_drift = 0.15
+				democratic_drift = 0.04
 			}
 		}
 		SRD_red_oborishte = {
 			picture = SRD_red_oborishte
 			allowed = { always = no }
 			modifier = {
-				communism_drift = 0.3
+				communism_drift = 0.08
 			}
 		}
 		ES_war_propaganda = {

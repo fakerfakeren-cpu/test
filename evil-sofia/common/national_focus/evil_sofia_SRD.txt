@@ -99,7 +99,7 @@ focus_tree = {
 		prerequisite = { focus = SRD_red_newspapers_oborishte }
 		mutually_exclusive = { focus = SRD_anton_must_go }
 		available = {
-			OBR = { exists = yes OR = { has_government = communism communism > 0.4 } }
+			OBR = { exists = yes OR = { has_government = communism communism > 0.2 } }
 		}
 		cost = 7
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -1577,10 +1577,10 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
-			add_state_claim = 5
-			add_state_claim = 6
-			add_state_claim = 3
-			add_state_claim = 4
+			every_state = {
+				limit = { OR = { state = 5 state = 6 state = 3 state = 4 } }
+				add_core_of = SRD
+			}
 			if = { limit = { country_exists = VAZ NOT = { has_war_with = VAZ is_in_faction_with = VAZ } } create_wargoal = { type = annex_everything target = VAZ } }
 			if = { limit = { country_exists = OBR NOT = { has_war_with = OBR is_in_faction_with = OBR } } create_wargoal = { type = annex_everything target = OBR } }
 		}
@@ -1620,16 +1620,9 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			every_state = {
-				limit = { OR = { state = 5 state = 6 state = 3 state = 4 } is_controlled_by = SRD }
+				limit = { OR = { state = 38 state = 35 state = 32 state = 8 state = 9 state = 17 state = 10 } }
 				add_core_of = SRD
 			}
-			add_state_claim = 38
-			add_state_claim = 35
-			add_state_claim = 32
-			add_state_claim = 8
-			add_state_claim = 9
-			add_state_claim = 17
-			add_state_claim = 10
 			if = { limit = { country_exists = TRD NOT = { has_war_with = TRD is_in_faction_with = TRD } TRD = { OR = { owns_state = 38 } } } create_wargoal = { type = take_state_focus target = TRD generator = { 38 } } }
 			if = { limit = { country_exists = LOZ NOT = { has_war_with = LOZ is_in_faction_with = LOZ } LOZ = { OR = { owns_state = 35 owns_state = 32 } } } create_wargoal = { type = take_state_focus target = LOZ generator = { 35 32 } } }
 			if = { limit = { country_exists = KRS NOT = { has_war_with = KRS is_in_faction_with = KRS } KRS = { OR = { owns_state = 8 owns_state = 9 } } } create_wargoal = { type = take_state_focus target = KRS generator = { 8 9 } } }

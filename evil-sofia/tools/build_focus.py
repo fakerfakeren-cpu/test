@@ -158,6 +158,9 @@ def build(root, facts, write, write_dds):
             text = text.replace(k, v)
         text = re.sub(r"\{STATE:([A-Z]+):([^{}:]+)\}", lambda m: state_id(m.group(1), m.group(2)), text)
         text = re.sub(r"\{CLAIMS:([A-Z,]+)\}", lambda m: claims(m.group(1).split(",")), text)
+        text = re.sub(r"\{COREALL:([A-Z]+):([A-Z,]+)\}", lambda m: (   # the free centre: cores at once
+            f"every_state = {{\n\tlimit = {{ OR = {{ {' '.join(f'state = {i}' for i in start_states(m.group(2).split(',')))} }} }}\n"
+            f"\tadd_core_of = {m.group(1)}\n}}"), text)
         text = re.sub(r"\{COREHELD:([A-Z]+):([A-Z,]+)\}", lambda m: core_held(m.group(1), m.group(2).split(",")), text)
         text = re.sub(r"\{HELD:([A-Z,]+)\}", lambda m: held(m.group(1).split(",")), text)
         text = re.sub(r"\{INVITE:([A-Z]+)\}", lambda m: (

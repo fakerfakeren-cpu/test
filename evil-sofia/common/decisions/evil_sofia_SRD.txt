@@ -32,7 +32,7 @@ SRD_oborishte_question = {
 		cost = 100
 		available = {
 			has_completed_focus = SRD_red_newspapers_oborishte
-			OBR = { NOT = { has_government = communism } communism > 0.55 }
+			OBR = { NOT = { has_government = communism } communism > 0.3 }
 		}
 		complete_effect = {
 			OBR = {
