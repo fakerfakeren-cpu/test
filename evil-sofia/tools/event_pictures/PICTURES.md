@@ -10,7 +10,7 @@ modern objects in focus. Country events are 210x176 (nearly square), news events
 | File | Size | Event | What it should show | Status |
 |---|---|---|---|---|
 | `evil_sofia_srd_1.png` | 210x176 | Henry's Mom Was Right | A crowd with red flags filling a city square at dusk, a speaker on the steps of a large government building. | wanted |
-| `evil_sofia_srd_2.png` | 210x176 | Victor at the Door | A man in a coat waiting alone in the hallway of an old apartment building, a staircase behind him. | wanted |
+| `evil_sofia_srd_2.png` | 210x176 | Victor at the Door | A man in a coat waiting alone in the hallway of an old apartment building, a staircase behind him. | done |
 | `evil_sofia_srd_3.png` | 210x176 | Anton Says Yes | Two men shaking hands in front of a cathedral, a small crowd watching. | wanted |
 | `evil_sofia_srd_4.png` | 210x176 | Anton Says No | A man walking away alone down an empty street at night, a cathedral dome behind. | wanted |
 | `evil_sofia_srd_5.png` | 210x176 | Henry Hates Us | A young man tearing up letters at a desk in a villa, an older woman standing behind him. | wanted |
@@ -27,8 +27,8 @@ modern objects in focus. Country events are 210x176 (nearly square), news events
 | `evil_sofia_srd_16.png` | 210x176 | [From.GetName] Wants a Fight | A street fight at night between two groups of young men, smoke from flares. | wanted |
 | `evil_sofia_srd_17.png` | 210x176 | An Offer from the Free Centre | A young man in a coat knocking at the door of a district hall alone, no guards, a few curious people watching from the street. | wanted |
 | `evil_sofia_srd_18.png` | 210x176 | [From.GetName] Joins the Free Centre | Townspeople lifting a wooden street barrier together and shaking hands across it. | wanted |
-| `evil_sofia_srd_20.png` | 210x176 | Henry's Mom Was Wrong | An older woman in a 1930s coat and hat sitting silently at a dinner table in a villa, a young man staring at her. | wanted |
-| `evil_sofia_srd_21.png` | 210x176 | She Admits It | A framed handwritten letter hanging on the wall of a district hall office, a man admiring it. | wanted |
+| `evil_sofia_srd_20.png` | 210x176 | The Free Centre Asks for Our Quarters | A young man in a coat talking to an older official at the door of a district hall, a street barrier behind. | wanted |
+| `evil_sofia_srd_21.png` | 210x176 | [From.GetName] Hands Over Its Quarters | Townspeople lifting a wooden street barrier at a crossroads, children running through. | wanted |
 | `evil_sofia_srd_19.png` | 210x176 | [From.GetName] Says No | A man reading a letter at a window, a closed barrier in the street below. | wanted |
 | `evil_sofia_news_1.png` | 397x153 | Red Flag over the Largo | Red banners over a large square in front of a monumental government building, crowds below. | done |
 | `evil_sofia_news_2.png` | 397x153 | Order in the Centre | Armed police at a checkpoint on a bridge, a tram waiting behind them. | wanted |
@@ -43,6 +43,7 @@ modern objects in focus. Country events are 210x176 (nearly square), news events
 | `evil_sofia_news_11.png` | 397x153 | The C Class Hools Take to the Streets | A march of young men with scarves and lit flares through a city centre at night. | wanted |
 | `evil_sofia_news_12.png` | 397x153 | A Physics Teacher Seizes Sredets | A teacher with a stack of papers walking past saluting guards into a government building. | wanted |
 | `evil_sofia_news_13.png` | 397x153 | The Free Centre of Sofia | A crowd celebrating on a city square under an old cathedral, blue flags waved from balconies. | wanted |
+| `evil_sofia_news_14.png` | 397x153 | Henry's Mom Was Wrong | An older woman in a 1930s coat and hat surrounded by reporters with notebooks on a city street, a café behind. | wanted |
 | `evil_sofia_flavour_1.png` | 210x176 | The Trams Stop | Trams standing still in a rainy street, drivers gathered beside them. | wanted |
 | `evil_sofia_flavour_2.png` | 210x176 | Derby Day | A packed football stadium at night, two sets of fans with scarves. | wanted |
 | `evil_sofia_flavour_3.png` | 210x176 | The Big Snow | People shovelling deep snow in a city street, a stuck truck. | wanted |

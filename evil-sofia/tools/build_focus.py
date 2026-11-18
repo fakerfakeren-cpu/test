@@ -163,6 +163,9 @@ def build(root, facts, write, write_dds):
         text = re.sub(r"\{INVITE:([A-Z]+)\}", lambda m: (
             f"if = {{\n\tlimit = {{ country_exists = {m.group(1)} NOT = {{ is_in_faction_with = {m.group(1)} "
             f"has_war_with = {m.group(1)} }} }}\n\t{m.group(1)} = {{ country_event = {{ id = evil_sofia_srd.11 }} }}\n}}"), text)
+        text = re.sub(r"\{OFFER_PARTS:([A-Z]+)\}", lambda m: (
+            f"if = {{\n\tlimit = {{ country_exists = {m.group(1)} NOT = {{ has_war_with = {m.group(1)} }} }}\n"
+            f"\t{m.group(1)} = {{ country_event = {{ id = evil_sofia_srd.20 }} }}\n}}"), text)
         text = re.sub(r"\{OFFER:([A-Z]+)\}", lambda m: (
             f"if = {{\n\tlimit = {{ country_exists = {m.group(1)} NOT = {{ has_war_with = {m.group(1)} }} }}\n"
             f"\t{m.group(1)} = {{ country_event = {{ id = evil_sofia_srd.17 }} }}\n}}"), text)
@@ -272,6 +275,8 @@ def build(root, facts, write, write_dds):
         if name not in pictures:
             own = os.path.join(own_pictures, f"{key}.png")
             tex = f"gfx/event_pictures/evil_sofia/{key}.dds"
+            if kind == "country" and not os.path.exists(own):
+                return None        # private events: no drawn picture, only the user's own (the user's choice)
             if os.path.exists(own):        # a picture made for this event: cropped to the frame's shape
                 im = event_pictures.fit(Image.open(own), kind)
                 tex = f"gfx/event_pictures/evil_sofia/own/{key}.dds"     # the user's pictures stay out of git
@@ -295,14 +300,15 @@ def build(root, facts, write, write_dds):
                 key = f"{eid}.{'abcdef'[i]}"
                 loc.append(f' {key}:0 "{L(text)}"')
                 body = ("\n\t\ttrigger = {\n" + indent(trig, 3) + "\n\t\t}") if trig else ""
-                body += ("\n" + indent(effect, 2)) if effect else ""
+                body += ("\n" + indent(filled(effect), 2)) if effect else ""
                 ai = (f"ai_chance = {{\n{indent(chance, 3)}\n\t\t}}" if isinstance(chance, str)
                       else f"ai_chance = {{ factor = {chance} }}")
                 opts.append(f"\toption = {{\n\t\tname = {key}\n\t\t{ai}{body}\n\t}}")
             loc.extend([f' {eid}.t:0 "{L(title)}"', f' {eid}.d:0 "{L(desc)}"'])
             wanted.append((eid.replace(".", "_"), kind, title))
-            head = [f"\tid = {eid}", f"\ttitle = {eid}.t", f"\tdesc = {eid}.d",
-                    f"\tpicture = {picture(kind, pic, eid.replace('.', '_'))}"]
+            pic_name = picture(kind, pic, eid.replace('.', '_'))
+            head = [f"\tid = {eid}", f"\ttitle = {eid}.t", f"\tdesc = {eid}.d"] + (
+                [f"\tpicture = {pic_name}"] if pic_name else [])
             if major:
                 head.append("\tmajor = yes")
             if mtth:

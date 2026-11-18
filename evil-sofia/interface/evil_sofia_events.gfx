@@ -1,87 +1,7 @@
 spriteTypes = {
 	spriteType = {
-		name = "GFX_evil_sofia_evil_sofia_srd_1"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_1.dds"
-	}
-	spriteType = {
 		name = "GFX_evil_sofia_evil_sofia_srd_2"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_2.dds"
-	}
-	spriteType = {
-		name = "GFX_evil_sofia_evil_sofia_srd_3"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_3.dds"
-	}
-	spriteType = {
-		name = "GFX_evil_sofia_evil_sofia_srd_4"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_4.dds"
-	}
-	spriteType = {
-		name = "GFX_evil_sofia_evil_sofia_srd_5"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_5.dds"
-	}
-	spriteType = {
-		name = "GFX_evil_sofia_evil_sofia_srd_6"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_6.dds"
-	}
-	spriteType = {
-		name = "GFX_evil_sofia_evil_sofia_srd_7"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_7.dds"
-	}
-	spriteType = {
-		name = "GFX_evil_sofia_evil_sofia_srd_8"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_8.dds"
-	}
-	spriteType = {
-		name = "GFX_evil_sofia_evil_sofia_srd_9"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_9.dds"
-	}
-	spriteType = {
-		name = "GFX_evil_sofia_evil_sofia_srd_10"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_10.dds"
-	}
-	spriteType = {
-		name = "GFX_evil_sofia_evil_sofia_srd_11"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_11.dds"
-	}
-	spriteType = {
-		name = "GFX_evil_sofia_evil_sofia_srd_12"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_12.dds"
-	}
-	spriteType = {
-		name = "GFX_evil_sofia_evil_sofia_srd_13"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_13.dds"
-	}
-	spriteType = {
-		name = "GFX_evil_sofia_evil_sofia_srd_14"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_14.dds"
-	}
-	spriteType = {
-		name = "GFX_evil_sofia_evil_sofia_srd_15"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_15.dds"
-	}
-	spriteType = {
-		name = "GFX_evil_sofia_evil_sofia_srd_16"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_16.dds"
-	}
-	spriteType = {
-		name = "GFX_evil_sofia_evil_sofia_srd_17"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_17.dds"
-	}
-	spriteType = {
-		name = "GFX_evil_sofia_evil_sofia_srd_18"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_18.dds"
-	}
-	spriteType = {
-		name = "GFX_evil_sofia_evil_sofia_srd_20"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_20.dds"
-	}
-	spriteType = {
-		name = "GFX_evil_sofia_evil_sofia_srd_21"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_21.dds"
-	}
-	spriteType = {
-		name = "GFX_evil_sofia_evil_sofia_srd_19"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_srd_19.dds"
+		texturefile = "gfx/event_pictures/evil_sofia/own/evil_sofia_srd_2.dds"
 	}
 	spriteType = {
 		name = "GFX_evil_sofia_evil_sofia_news_1"
@@ -136,39 +56,7 @@ spriteTypes = {
 		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_news_13.dds"
 	}
 	spriteType = {
-		name = "GFX_evil_sofia_evil_sofia_flavour_1"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_flavour_1.dds"
-	}
-	spriteType = {
-		name = "GFX_evil_sofia_evil_sofia_flavour_2"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_flavour_2.dds"
-	}
-	spriteType = {
-		name = "GFX_evil_sofia_evil_sofia_flavour_3"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_flavour_3.dds"
-	}
-	spriteType = {
-		name = "GFX_evil_sofia_evil_sofia_flavour_4"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_flavour_4.dds"
-	}
-	spriteType = {
-		name = "GFX_evil_sofia_evil_sofia_flavour_5"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_flavour_5.dds"
-	}
-	spriteType = {
-		name = "GFX_evil_sofia_evil_sofia_flavour_6"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_flavour_6.dds"
-	}
-	spriteType = {
-		name = "GFX_evil_sofia_evil_sofia_flavour_7"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_flavour_7.dds"
-	}
-	spriteType = {
-		name = "GFX_evil_sofia_evil_sofia_flavour_8"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_flavour_8.dds"
-	}
-	spriteType = {
-		name = "GFX_evil_sofia_evil_sofia_flavour_9"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_flavour_9.dds"
+		name = "GFX_evil_sofia_evil_sofia_news_14"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_news_14.dds"
 	}
 }

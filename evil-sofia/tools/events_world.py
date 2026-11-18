@@ -107,6 +107,16 @@ NEWS = {   # namespace evil_sofia_news; major news is shown to every country
            (["SRD_FREE_CENTRE"], "dusk"),
            [("One free city.", "", 1, "tag = SRD"),
             ("Free, and much too close.", "", 1, "NOT = { tag = SRD }")]),
+    "14": ("Henry's Mom Was Wrong",
+           "Daniel-Henry Capel's mother went to the free centre this week expecting red flags, commissars and "
+           "queues for bread. She found cafés full until midnight, eleven newspapers arguing with each other on "
+           "Rakovski Street, a market on Vitosha Boulevard where nobody asked for a party card, and Victor Kolev "
+           "himself, who carried her shopping to the tram stop.\\n\\nLast night she told reporters, very quietly, "
+           "that she was wrong. The people of the centre are not communists. Henry is said to have dropped his fork.",
+           (["SRD_FREE", "VIT"], "day"),
+           [("Told you so, Mrs Capel.", "", 1, "tag = SRD"),
+            ("Mom... was wrong?", "", 1, "tag = VIT"),
+            ("If even she admits it...", "", 1, "NOT = { tag = SRD tag = VIT }")]),
 }
 
 FLAVOUR = {   # namespace evil_sofia_flavour: random events of city life, for every district

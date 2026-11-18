@@ -177,6 +177,12 @@ Root choice (mutually exclusive): **Henry's Mom Was Right** (communism) at x=8, 
 - Prove Henry's Mom Wrong (free branch, needs Free Press AND Open Market): event srd.20 to Vitosha, his mother admits
   the centre is not communist; Henry +40 opinion of Sredets, Mom Was Wrong spirit; srd.21 back to Sredets.
 - Henry's mother is never placed in Boyana (user's request); Henry's district is Vitosha.
+- Prove Henry's Mom Wrong now sends world news 14 ("Henry's Mom Was Wrong"); the effects on Henry come with the focus.
+- Offers: only Anton is asked to join whole (srd.17, annexation, "I need him all"); Georgi and Alexander get srd.20 and
+  hand over only North Lozenets + Lozenets / Triaditsa (the states the formable needs); yes → srd.21, no → srd.19.
+  The Wider Centre's war goals skip a district that no longer owns any of those states.
+- Private events: no picture unless the user made one (user: "for the private ones you may not use pictures").
+  The user makes world news pictures; done so far: news_1, srd_2.
 
 ## 6. Events
 

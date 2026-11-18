@@ -1476,8 +1476,13 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
-			VIT = { country_event = { id = evil_sofia_srd.20 } }
+			VIT = {
+				add_opinion_modifier = { target = ROOT modifier = evil_sofia_mom_was_wrong }
+				add_timed_idea = { idea = SRD_mom_was_wrong days = 180 }
+			}
 			add_political_power = 50
+			add_stability = 0.03
+			news_event = { id = evil_sofia_news.14 hours = 6 }
 		}
 	}
 	focus = {
@@ -1557,7 +1562,7 @@ focus_tree = {
 		completion_reward = {
 			if = {
 				limit = { country_exists = LOZ NOT = { has_war_with = LOZ } }
-				LOZ = { country_event = { id = evil_sofia_srd.17 } }
+				LOZ = { country_event = { id = evil_sofia_srd.20 } }
 			}
 		}
 	}
@@ -1593,7 +1598,7 @@ focus_tree = {
 		completion_reward = {
 			if = {
 				limit = { country_exists = TRD NOT = { has_war_with = TRD } }
-				TRD = { country_event = { id = evil_sofia_srd.17 } }
+				TRD = { country_event = { id = evil_sofia_srd.20 } }
 			}
 		}
 	}
@@ -1625,10 +1630,10 @@ focus_tree = {
 			add_state_claim = 9
 			add_state_claim = 17
 			add_state_claim = 10
-			if = { limit = { country_exists = TRD NOT = { has_war_with = TRD is_in_faction_with = TRD } } create_wargoal = { type = take_state_focus target = TRD generator = { 38 } } }
-			if = { limit = { country_exists = LOZ NOT = { has_war_with = LOZ is_in_faction_with = LOZ } } create_wargoal = { type = take_state_focus target = LOZ generator = { 35 32 } } }
-			if = { limit = { country_exists = KRS NOT = { has_war_with = KRS is_in_faction_with = KRS } } create_wargoal = { type = take_state_focus target = KRS generator = { 8 9 } } }
-			if = { limit = { country_exists = SRK NOT = { has_war_with = SRK is_in_faction_with = SRK } } create_wargoal = { type = take_state_focus target = SRK generator = { 17 10 } } }
+			if = { limit = { country_exists = TRD NOT = { has_war_with = TRD is_in_faction_with = TRD } TRD = { OR = { owns_state = 38 } } } create_wargoal = { type = take_state_focus target = TRD generator = { 38 } } }
+			if = { limit = { country_exists = LOZ NOT = { has_war_with = LOZ is_in_faction_with = LOZ } LOZ = { OR = { owns_state = 35 owns_state = 32 } } } create_wargoal = { type = take_state_focus target = LOZ generator = { 35 32 } } }
+			if = { limit = { country_exists = KRS NOT = { has_war_with = KRS is_in_faction_with = KRS } KRS = { OR = { owns_state = 8 owns_state = 9 } } } create_wargoal = { type = take_state_focus target = KRS generator = { 8 9 } } }
+			if = { limit = { country_exists = SRK NOT = { has_war_with = SRK is_in_faction_with = SRK } SRK = { OR = { owns_state = 17 owns_state = 10 } } } create_wargoal = { type = take_state_focus target = SRK generator = { 17 10 } } }
 		}
 	}
 	focus = {

@@ -38,9 +38,8 @@ BRIEFS = {
                          "curious people watching from the street.",
     "evil_sofia_srd_18": "Townspeople lifting a wooden street barrier together and shaking hands across it.",
     "evil_sofia_srd_19": "A man reading a letter at a window, a closed barrier in the street below.",
-    "evil_sofia_srd_20": "An older woman in a 1930s coat and hat sitting silently at a dinner table in a villa, a "
-                         "young man staring at her.",
-    "evil_sofia_srd_21": "A framed handwritten letter hanging on the wall of a district hall office, a man admiring it.",
+    "evil_sofia_srd_20": "A young man in a coat talking to an older official at the door of a district hall, a street barrier behind.",
+    "evil_sofia_srd_21": "Townspeople lifting a wooden street barrier at a crossroads, children running through.",
     "evil_sofia_srd_16": "A street fight at night between two groups of young men, smoke from flares.",
     # news
     "evil_sofia_news_1": "Red banners over a large square in front of a monumental government building, crowds below.",
@@ -52,6 +51,7 @@ BRIEFS = {
     "evil_sofia_news_7": "Two leaders shaking hands on a bridge with bronze eagles, photographers around them.",
     "evil_sofia_news_8": "Soldiers laying down rifles in a pile in a city street, civilians watching.",
     "evil_sofia_news_9": "Soldiers taking down a checkpoint barrier on a city boulevard while crowds fill the cafés, a blue flag on a hall.",
+    "evil_sofia_news_14": "An older woman in a 1930s coat and hat surrounded by reporters with notebooks on a city street, a café behind.",
     "evil_sofia_news_13": "A crowd celebrating on a city square under an old cathedral, blue flags waved from balconies.",
     "evil_sofia_news_10": "A group of young men posing on the steps of a theatre, a newspaper photograph.",
     "evil_sofia_news_11": "A march of young men with scarves and lit flares through a city centre at night.",

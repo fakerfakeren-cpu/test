@@ -72,10 +72,14 @@ WIDER_CENTRE = {"TRD": ["Triaditsa"], "LOZ": ["North Lozenets", "Lozenets"], "KR
 _W = [(t, n) for t, names in WIDER_CENTRE.items() for n in names]
 WIDER_CENTRE_NAMES = ", ".join(n for _, n in _W)
 WIDER_CENTRE_CLAIMS = "\n".join(f"add_state_claim = {{STATE:{t}:{n}}}" for t, n in _W) + "\n" + "\n".join(
-    f"if = {{ limit = {{ country_exists = {t} NOT = {{ has_war_with = {t} is_in_faction_with = {t} }} }} "
+    f"if = {{ limit = {{ country_exists = {t} NOT = {{ has_war_with = {t} is_in_faction_with = {t} }} {t} = {{ OR = {{ "
+    + " ".join(f"owns_state = {{STATE:{t}:{n}}}" for n in names) + " } } } "
     f"create_wargoal = {{ type = take_state_focus target = {t} generator = {{ "
     + " ".join(f"{{STATE:{t}:{n}}}" for n in names) + " } } }"
     for t, names in WIDER_CENTRE.items())
+PARTS_HANDOVER = "\n".join(
+    f"if = {{ limit = {{ tag = {t} owns_state = {{STATE:{t}:{n}}} }} FROM = {{ transfer_state = {{STATE:{t}:{n}}} }} }}"
+    for t in ("LOZ", "TRD") for n in WIDER_CENTRE[t])
 WIDER_CENTRE_HELD = "\n".join(f"{{STATE:{t}:{n}}} = {{ is_controlled_by = ROOT }}" for t, n in _W)
 WIDER_CENTRE_CORES = ("every_state = {\n\tlimit = { OR = { " + " ".join(f"state = {{STATE:{t}:{n}}}" for t, n in _W)
                       + " } is_controlled_by = SRD }\n\tadd_core_of = SRD\n}")
@@ -476,11 +480,12 @@ add_war_support = 0.05""",
      "roof over the boulevard. A free district has to be ready to defend itself, because nobody else will."),
     ("prove_henrys_mom_wrong", "Prove Henry's Mom Wrong", 19, 6, [["free_press_on_rakovski"], ["open_market_on_vitosha"]], [], 4,
      "duo:Generic_Liberty_Calling", "country_exists = VIT",
-     "VIT = { country_event = { id = evil_sofia_srd.20 } }\nadd_political_power = 50",
+     "VIT = {\n\tadd_opinion_modifier = { target = ROOT modifier = evil_sofia_mom_was_wrong }\n\tadd_timed_idea = { idea = SRD_mom_was_wrong days = 180 }\n}\nadd_political_power = 50\nadd_stability = 0.03\nnews_event = { id = evil_sofia_news.14 hours = 6 }",
      "For years Daniel-Henry Capel's mother has told anyone who would listen that the people of the centre are "
      "communists, every last one of them. Free newspapers, a free market on Vitosha Boulevard and not a single red "
      "flag on the Largo say otherwise. Victor sends her an invitation: come and see for yourself.\\n\\nHenry's "
-     "mother visits the free centre."),
+     "mother visits the free centre, and the whole city hears what she says about it. Henry thinks better of us, "
+     "and democracy slowly grows in Vitosha."),
     ("friends_of_freedom", "Friends of Freedom", 17, 6, [["free_press_on_rakovski"], ["proclaim_the_free_sredets"]], [], 4,
      "duo:Social Liberalism", "",
      """every_country = {
@@ -507,14 +512,15 @@ add_war_support = 0.05""",
     ("offer_to_anton", "An Offer to Anton", 17, 7, [["friends_of_freedom"]], [], 3,
      "person:offer_to_anton", "", "{OFFER:OBR}",
      "Anton Zafirov lives three streets from the district hall. Victor walks over himself, without guards, and "
-     "asks him a simple question: will Oborishte join the free centre?\\n\\nOborishte is asked to join Sredets "
+     "asks him a simple question: will Oborishte join the free centre?\\n\\nOborishte is asked to join Sredets, all of it, "
      "peacefully. Anton will most likely say no; the more he likes us and the more democratic Oborishte is, the "
      "better our chances."),
     ("offer_to_georgi", "An Offer to Georgi", 19, 7, [["friends_of_freedom"]], [], 3,
-     "person:offer_to_georgi", "", "{OFFER:LOZ}",
+     "person:offer_to_georgi", "", "{OFFER_PARTS:LOZ}",
      "Georgi Yanchovichin is Victor's day one, but Lozenets is his, and day ones do not give away their "
-     "districts lightly. Victor asks anyway, over coffee, the way they always talked.\\n\\nLozenets is asked to "
-     "join Sredets peacefully. Georgi will most likely say no; the more he likes us and the more democratic "
+     "districts lightly. Victor asks anyway, over coffee, the way they always talked.\\n\\nGeorgi is asked to "
+     "hand North Lozenets and Lozenets, the quarters by the centre, to Sredets peacefully; the rest of Lozenets "
+     "stays his. Georgi will most likely say no; the more he likes us and the more democratic "
      "Lozenets is, the better our chances."),
     ("liberate_the_old_centre", "Liberate the Old Centre", 21, 7, [["workshops_of_the_free_centre"], ["proclaim_the_free_sredets"]], [], 6,
      "duo:goal_Fight_for_Freedom", "",
@@ -524,10 +530,10 @@ add_war_support = 0.05""",
      "end at a barricade.\\n\\nClaims on Vazrazhdane and Oborishte, and war goals on them if they have not "
      "joined us."),
     ("offer_to_alexander", "An Offer to Alexander", 18, 8, [["offer_to_anton"], ["offer_to_georgi"]], [], 3,
-     "person:offer_to_alexander", "", "{OFFER:TRD}",
+     "person:offer_to_alexander", "", "{OFFER_PARTS:TRD}",
      "Alexander Dimitrov will listen politely, agree with everything and then do what he likes. Victor puts the "
-     "offer in writing, so at least Alexander has to read it twice.\\n\\nTriaditsa is asked to join Sredets "
-     "peacefully. Alexander will most likely say no; the more he likes us and the more democratic Triaditsa "
+     "offer in writing, so at least Alexander has to read it twice.\\n\\nAlexander is asked to "
+     "hand the Triaditsa state, by the centre, to Sredets peacefully; the rest of Triaditsa stays his. Alexander will most likely say no; the more he likes us and the more democratic Triaditsa "
      "is, the better our chances."),
     ("the_wider_centre", "The Wider Centre", 20, 9, [["liberate_the_old_centre"], ["offer_to_alexander"]], [], 8,
      "duo:goal_generic_more_territorial_claims", "{HELD:VAZ,OBR}",
@@ -1128,23 +1134,19 @@ EVENTS.update({
            "The answer is yes. [From.GetName] has voted to join the free centre, and its people are taking down the "
            "barriers between our districts themselves. Not a shot was fired.",
            [("One city, freely.", "", 1)], ""),
-    "20": ("Henry's Mom Was Wrong",
-           "Daniel-Henry Capel's mother came back from the centre this evening and has not said a word since "
-           "dinner.\n\nShe went to Sredets expecting red flags, commissars and queues for bread. She found cafés "
-           "full until midnight, eleven newspapers arguing with each other on Rakovski Street, a market on Vitosha "
-           "Boulevard where nobody asked for a party card, and Victor Kolev himself, who carried her shopping to the "
-           "tram stop.\n\nAt last she puts down her fork and says it, very quietly: she was wrong. They are not "
-           "communists. Henry has never heard her say those words before.",
-           [("Mom... was wrong?",
-             "add_opinion_modifier = { target = FROM modifier = evil_sofia_mom_was_wrong }\n"
-             "add_timed_idea = { idea = SRD_mom_was_wrong days = 180 }\n"
-             "FROM = { country_event = { id = evil_sofia_srd.21 } }", 1)],
+    "20": ("The Free Centre Asks for Our Quarters",
+           "Victor Kolev has come to [Root.GetName] in person, with no guards and no ultimatum. He does not want all "
+           "of [Root.GetName]. He wants the quarters next to the centre, the streets that have always been more "
+           "the centre's than ours, to join the free centre. Everything else stays [Root.GetLeader]'s.\n\nSaying "
+           "yes hands those quarters to Sredets. Saying no costs nothing, for now.",
+           [("Take them, and look after them.",
+             PARTS_HANDOVER + "\nFROM = { country_event = { id = evil_sofia_srd.21 } }", FREE_YES),
+            ("Not one street, Victor.", "FROM = { country_event = { id = evil_sofia_srd.19 } }", FREE_NO)],
            ""),
-    "21": ("She Admits It",
-           "Word comes from Vitosha: Daniel-Henry Capel's mother has told the whole street that the people of the "
-           "centre are not communists after all. Henry is said to be in shock. In Sredets, Victor frames her "
-           "thank-you note and hangs it in the district hall.",
-           [("Told you so, Mrs Capel.", "add_stability = 0.03", 1)], ""),
+    "21": ("[From.GetName] Hands Over Its Quarters",
+           "The answer is yes. [From.GetName] has handed the quarters next to the centre to the free centre. The "
+           "barriers came down this morning, and not a shot was fired.",
+           [("Welcome to the free centre.", "", 1)], ""),
     "19": ("[From.GetName] Says No",
            "[From.GetName] has thanked us for the offer and declined it. Its people will stay behind their own "
            "barriers, for now.",
@@ -1157,7 +1159,7 @@ _PICTURES = {"1": (["SRD_RED"], "dusk"), "2": (["SRD_RED", "OBR"], "night"), "3"
              "8": (["OBR_RED"], "night"), "9": (["SRD_RED", "LOZ"], "day"), "10": (["LOZ"], "rain"),
              "11": (["SRD"], "night"), "12": (["SRD", "LOZ"], "day"), "13": (["SRD"], "rain"),
              "14": (["SRD"], "fire"), "15": (["SRD", "SOFIA"], "dusk"), "16": (["SRD"], "fire"),
-             "20": (["VIT"], "day"), "21": (["SRD_FREE"], "day"),
+             "20": (["SRD_FREE"], "day"), "21": (["SRD_FREE"], "day"),
              "17": (["SRD_FREE"], "day"), "18": (["SRD_FREE"], "day"), "19": (["SRD_FREE"], "rain")}
 EVENTS = {k: (t, d, _PICTURES[k], o) for k, (t, d, o, _) in EVENTS.items()}
 

@@ -4,7 +4,6 @@ country_event = {
 	id = evil_sofia_srd.1
 	title = evil_sofia_srd.1.t
 	desc = evil_sofia_srd.1.d
-	picture = GFX_evil_sofia_evil_sofia_srd_1
 	is_triggered_only = yes
 	option = {
 		name = evil_sofia_srd.1.a
@@ -76,7 +75,6 @@ country_event = {
 	id = evil_sofia_srd.3
 	title = evil_sofia_srd.3.t
 	desc = evil_sofia_srd.3.d
-	picture = GFX_evil_sofia_evil_sofia_srd_3
 	is_triggered_only = yes
 	option = {
 		name = evil_sofia_srd.3.a
@@ -88,7 +86,6 @@ country_event = {
 	id = evil_sofia_srd.4
 	title = evil_sofia_srd.4.t
 	desc = evil_sofia_srd.4.d
-	picture = GFX_evil_sofia_evil_sofia_srd_4
 	is_triggered_only = yes
 	option = {
 		name = evil_sofia_srd.4.a
@@ -100,7 +97,6 @@ country_event = {
 	id = evil_sofia_srd.5
 	title = evil_sofia_srd.5.t
 	desc = evil_sofia_srd.5.d
-	picture = GFX_evil_sofia_evil_sofia_srd_5
 	is_triggered_only = yes
 	option = {
 		name = evil_sofia_srd.5.a
@@ -112,7 +108,6 @@ country_event = {
 	id = evil_sofia_srd.6
 	title = evil_sofia_srd.6.t
 	desc = evil_sofia_srd.6.d
-	picture = GFX_evil_sofia_evil_sofia_srd_6
 	is_triggered_only = yes
 	option = {
 		name = evil_sofia_srd.6.a
@@ -125,7 +120,6 @@ country_event = {
 	id = evil_sofia_srd.7
 	title = evil_sofia_srd.7.t
 	desc = evil_sofia_srd.7.d
-	picture = GFX_evil_sofia_evil_sofia_srd_7
 	is_triggered_only = yes
 	option = {
 		name = evil_sofia_srd.7.a
@@ -163,7 +157,6 @@ country_event = {
 	id = evil_sofia_srd.8
 	title = evil_sofia_srd.8.t
 	desc = evil_sofia_srd.8.d
-	picture = GFX_evil_sofia_evil_sofia_srd_8
 	is_triggered_only = yes
 	option = {
 		name = evil_sofia_srd.8.a
@@ -175,7 +168,6 @@ country_event = {
 	id = evil_sofia_srd.9
 	title = evil_sofia_srd.9.t
 	desc = evil_sofia_srd.9.d
-	picture = GFX_evil_sofia_evil_sofia_srd_9
 	is_triggered_only = yes
 	option = {
 		name = evil_sofia_srd.9.a
@@ -187,7 +179,6 @@ country_event = {
 	id = evil_sofia_srd.10
 	title = evil_sofia_srd.10.t
 	desc = evil_sofia_srd.10.d
-	picture = GFX_evil_sofia_evil_sofia_srd_10
 	is_triggered_only = yes
 	option = {
 		name = evil_sofia_srd.10.a
@@ -206,7 +197,6 @@ country_event = {
 	id = evil_sofia_srd.11
 	title = evil_sofia_srd.11.t
 	desc = evil_sofia_srd.11.d
-	picture = GFX_evil_sofia_evil_sofia_srd_11
 	is_triggered_only = yes
 	option = {
 		name = evil_sofia_srd.11.a
@@ -240,7 +230,6 @@ country_event = {
 	id = evil_sofia_srd.12
 	title = evil_sofia_srd.12.t
 	desc = evil_sofia_srd.12.d
-	picture = GFX_evil_sofia_evil_sofia_srd_12
 	is_triggered_only = yes
 	option = {
 		name = evil_sofia_srd.12.a
@@ -252,7 +241,6 @@ country_event = {
 	id = evil_sofia_srd.13
 	title = evil_sofia_srd.13.t
 	desc = evil_sofia_srd.13.d
-	picture = GFX_evil_sofia_evil_sofia_srd_13
 	is_triggered_only = yes
 	option = {
 		name = evil_sofia_srd.13.a
@@ -264,7 +252,6 @@ country_event = {
 	id = evil_sofia_srd.14
 	title = evil_sofia_srd.14.t
 	desc = evil_sofia_srd.14.d
-	picture = GFX_evil_sofia_evil_sofia_srd_14
 	is_triggered_only = yes
 	option = {
 		name = evil_sofia_srd.14.a
@@ -292,7 +279,6 @@ country_event = {
 	id = evil_sofia_srd.15
 	title = evil_sofia_srd.15.t
 	desc = evil_sofia_srd.15.d
-	picture = GFX_evil_sofia_evil_sofia_srd_15
 	is_triggered_only = yes
 	option = {
 		name = evil_sofia_srd.15.a
@@ -304,7 +290,6 @@ country_event = {
 	id = evil_sofia_srd.16
 	title = evil_sofia_srd.16.t
 	desc = evil_sofia_srd.16.d
-	picture = GFX_evil_sofia_evil_sofia_srd_16
 	is_triggered_only = yes
 	option = {
 		name = evil_sofia_srd.16.a
@@ -316,7 +301,6 @@ country_event = {
 	id = evil_sofia_srd.17
 	title = evil_sofia_srd.17.t
 	desc = evil_sofia_srd.17.d
-	picture = GFX_evil_sofia_evil_sofia_srd_17
 	is_triggered_only = yes
 	option = {
 		name = evil_sofia_srd.17.a
@@ -349,7 +333,6 @@ country_event = {
 	id = evil_sofia_srd.18
 	title = evil_sofia_srd.18.t
 	desc = evil_sofia_srd.18.d
-	picture = GFX_evil_sofia_evil_sofia_srd_18
 	is_triggered_only = yes
 	option = {
 		name = evil_sofia_srd.18.a
@@ -361,14 +344,33 @@ country_event = {
 	id = evil_sofia_srd.20
 	title = evil_sofia_srd.20.t
 	desc = evil_sofia_srd.20.d
-	picture = GFX_evil_sofia_evil_sofia_srd_20
 	is_triggered_only = yes
 	option = {
 		name = evil_sofia_srd.20.a
-		ai_chance = { factor = 1 }
-		add_opinion_modifier = { target = FROM modifier = evil_sofia_mom_was_wrong }
-		add_timed_idea = { idea = SRD_mom_was_wrong days = 180 }
+		ai_chance = {
+			base = 5
+			modifier = { add = 10 has_opinion = { target = FROM value > 20 } }
+			modifier = { add = 15 has_opinion = { target = FROM value > 50 } }
+			modifier = { add = 15 has_opinion = { target = FROM value > 80 } }
+			modifier = { add = 10 democratic > 0.2 }
+			modifier = { add = 15 democratic > 0.4 }
+			modifier = { add = 15 democratic > 0.6 }
+			modifier = { add = 10 has_government = democratic }
+			modifier = { factor = 0.3 has_opinion = { target = FROM value < 0 } }
+			modifier = { factor = 0 has_government = communism }
+		}
+		if = { limit = { tag = LOZ owns_state = 35 } FROM = { transfer_state = 35 } }
+		if = { limit = { tag = LOZ owns_state = 32 } FROM = { transfer_state = 32 } }
+		if = { limit = { tag = TRD owns_state = 38 } FROM = { transfer_state = 38 } }
 		FROM = { country_event = { id = evil_sofia_srd.21 } }
+	}
+	option = {
+		name = evil_sofia_srd.20.b
+		ai_chance = {
+			base = 80
+			modifier = { add = 40 has_opinion = { target = FROM value < 0 } }
+		}
+		FROM = { country_event = { id = evil_sofia_srd.19 } }
 	}
 }
 
@@ -376,12 +378,10 @@ country_event = {
 	id = evil_sofia_srd.21
 	title = evil_sofia_srd.21.t
 	desc = evil_sofia_srd.21.d
-	picture = GFX_evil_sofia_evil_sofia_srd_21
 	is_triggered_only = yes
 	option = {
 		name = evil_sofia_srd.21.a
 		ai_chance = { factor = 1 }
-		add_stability = 0.03
 	}
 }
 
@@ -389,7 +389,6 @@ country_event = {
 	id = evil_sofia_srd.19
 	title = evil_sofia_srd.19.t
 	desc = evil_sofia_srd.19.d
-	picture = GFX_evil_sofia_evil_sofia_srd_19
 	is_triggered_only = yes
 	option = {
 		name = evil_sofia_srd.19.a

@@ -4,7 +4,6 @@ country_event = {
 	id = evil_sofia_flavour.1
 	title = evil_sofia_flavour.1.t
 	desc = evil_sofia_flavour.1.d
-	picture = GFX_evil_sofia_evil_sofia_flavour_1
 	trigger = {
 		exists = yes
 		NOT = { has_country_flag = evil_sofia_flavour_1_happened has_country_flag = evil_sofia_flavour_cooldown }
@@ -31,7 +30,6 @@ country_event = {
 	id = evil_sofia_flavour.2
 	title = evil_sofia_flavour.2.t
 	desc = evil_sofia_flavour.2.d
-	picture = GFX_evil_sofia_evil_sofia_flavour_2
 	trigger = {
 		exists = yes
 		NOT = { has_country_flag = evil_sofia_flavour_2_happened has_country_flag = evil_sofia_flavour_cooldown }
@@ -59,7 +57,6 @@ country_event = {
 	id = evil_sofia_flavour.3
 	title = evil_sofia_flavour.3.t
 	desc = evil_sofia_flavour.3.d
-	picture = GFX_evil_sofia_evil_sofia_flavour_3
 	trigger = {
 		exists = yes
 		NOT = { has_country_flag = evil_sofia_flavour_3_happened has_country_flag = evil_sofia_flavour_cooldown }
@@ -86,7 +83,6 @@ country_event = {
 	id = evil_sofia_flavour.4
 	title = evil_sofia_flavour.4.t
 	desc = evil_sofia_flavour.4.d
-	picture = GFX_evil_sofia_evil_sofia_flavour_4
 	trigger = {
 		exists = yes
 		NOT = { has_country_flag = evil_sofia_flavour_4_happened has_country_flag = evil_sofia_flavour_cooldown }
@@ -114,7 +110,6 @@ country_event = {
 	id = evil_sofia_flavour.5
 	title = evil_sofia_flavour.5.t
 	desc = evil_sofia_flavour.5.d
-	picture = GFX_evil_sofia_evil_sofia_flavour_5
 	trigger = {
 		exists = yes
 		NOT = { has_country_flag = evil_sofia_flavour_5_happened has_country_flag = evil_sofia_flavour_cooldown }
@@ -141,7 +136,6 @@ country_event = {
 	id = evil_sofia_flavour.6
 	title = evil_sofia_flavour.6.t
 	desc = evil_sofia_flavour.6.d
-	picture = GFX_evil_sofia_evil_sofia_flavour_6
 	trigger = {
 		exists = yes
 		NOT = { has_country_flag = evil_sofia_flavour_6_happened has_country_flag = evil_sofia_flavour_cooldown }
@@ -168,7 +162,6 @@ country_event = {
 	id = evil_sofia_flavour.7
 	title = evil_sofia_flavour.7.t
 	desc = evil_sofia_flavour.7.d
-	picture = GFX_evil_sofia_evil_sofia_flavour_7
 	trigger = {
 		exists = yes
 		NOT = { has_country_flag = evil_sofia_flavour_7_happened has_country_flag = evil_sofia_flavour_cooldown }
@@ -196,7 +189,6 @@ country_event = {
 	id = evil_sofia_flavour.8
 	title = evil_sofia_flavour.8.t
 	desc = evil_sofia_flavour.8.d
-	picture = GFX_evil_sofia_evil_sofia_flavour_8
 	trigger = {
 		exists = yes
 		NOT = { has_country_flag = evil_sofia_flavour_8_happened has_country_flag = evil_sofia_flavour_cooldown }
@@ -224,7 +216,6 @@ country_event = {
 	id = evil_sofia_flavour.9
 	title = evil_sofia_flavour.9.t
 	desc = evil_sofia_flavour.9.d
-	picture = GFX_evil_sofia_evil_sofia_flavour_9
 	trigger = {
 		exists = yes
 		NOT = { has_country_flag = evil_sofia_flavour_9_happened has_country_flag = evil_sofia_flavour_cooldown }

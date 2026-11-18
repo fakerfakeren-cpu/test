@@ -35,6 +35,10 @@ Triaditsa (TRD, Alexander Dimitrov), Lyulin (LYU, GrimBoss). The game starts on 
 - Basic decisions for every district (`tools/decisions_world.py`: Political Actions, War Measures), vanilla-style,
   also over time.
 - Henry's mother is never placed in Boyana.
+- Event pictures: the user makes the world news pictures. Private (country) events have no picture unless the
+  user made one (`tools/event_pictures/<event>.png`); the drawn flag pictures are only used for news.
+- Peaceful offers of the free centre: Anton (OBR) joins whole (annexation); Georgi (LOZ) and Alexander (TRD) are only
+  asked for the central states the Free Centre of Sofia needs (event srd.20, `transfer_state`).
 - Leave the rivers alone ("the rivers are fine").
 
 ## Building

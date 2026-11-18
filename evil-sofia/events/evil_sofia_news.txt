@@ -302,3 +302,33 @@ news_event = {
 		}
 	}
 }
+
+news_event = {
+	id = evil_sofia_news.14
+	title = evil_sofia_news.14.t
+	desc = evil_sofia_news.14.d
+	picture = GFX_evil_sofia_evil_sofia_news_14
+	major = yes
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_news.14.a
+		ai_chance = { factor = 1 }
+		trigger = {
+			tag = SRD
+		}
+	}
+	option = {
+		name = evil_sofia_news.14.b
+		ai_chance = { factor = 1 }
+		trigger = {
+			tag = VIT
+		}
+	}
+	option = {
+		name = evil_sofia_news.14.c
+		ai_chance = { factor = 1 }
+		trigger = {
+			NOT = { tag = SRD tag = VIT }
+		}
+	}
+}
