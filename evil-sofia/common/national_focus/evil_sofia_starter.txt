@@ -4,7 +4,7 @@ focus_tree = {
 		factor = 0
 		modifier = {
 			add = 10
-			OR = { tag = VAZ tag = KRS tag = SRK tag = POD tag = SLA tag = IZG tag = ILN tag = NAD tag = ISK tag = STU tag = KRE tag = OVK tag = VRB tag = NIS tag = PNC tag = BNK }
+			OR = { tag = VAZ tag = KRS tag = SRK tag = POD tag = SLA tag = IZG tag = ILN tag = NAD tag = ISK tag = STU tag = KRE tag = OVK tag = VRB tag = NIS tag = PNC tag = BNK tag = IAP }
 		}
 	}
 	default = no

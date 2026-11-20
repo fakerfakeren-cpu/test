@@ -68,20 +68,27 @@ DISTRICTS = {
     22: ("NIS", "Novi Iskar", "Noviiskarian", "rural", 27000),
     23: ("PNC", "Pancharevo", "Pancharevian", "rural", 28000),
     24: ("BNK", "Bankya", "Bankyan", "rural", 13000),
+    25: ("IAP", "Ivan Apostolov", "Apostolovian", "city", 2500),
 }
+# Micro-states (like Vatican City): district id: (x, y, radius) in map pixels. Carved out of the districts around
+# them after the districts snap to the neighbourhoods; one province, one state. Ivan Apostolov sits on the border
+# of Mladost and Izgrev.
+MICRO = {25: (2812, 997, 7)}
 # Province size by kind of district: (target px, largest px, smallest px). 1 km^2 is about 450 px.
 SIZES = {"inner": (380, 650, 100), "middle": (1100, 1800, 180), "outer": (2600, 4200, 300)}
 PROVINCES_PER_STATE = {"inner": 3.0, "middle": 3.5, "outer": 4.5}
 
 
 def size_class(k):
+    if k in MICRO:
+        return "inner"
     return "inner" if k <= 12 else "middle" if k <= 17 else "outer"
 
 
 # Strategic regions (air zones and weather): (id, name, districts). Pancharevo is split north/south.
 REGION_DEFS = [(1, "Old Town", [1, 2, 3, 12]), (2, "Southern Quarters", [4, 8, 9, 10]),
                (3, "Western Quarters", [11, 17, 20]), (4, "Northern Quarters", [5, 6, 13]),
-               (5, "Eastern Quarters", [7, 14, 15, 16]), (6, "Vitosha", [19]), (7, "Bankya Hills", [24]),
+               (5, "Eastern Quarters", [7, 14, 15, 16, 25]), (6, "Vitosha", [19]), (7, "Bankya Hills", [24]),
                (8, "Vrabnitsa Plain", [21]), (9, "Novi Iskar", [22]), (10, "Kremikovtsi", [18]),
                (11, "Pancharevo", []), (12, "Upper Iskar", [23])]
 PANCHAREVO_NORTH_REGION = 11
@@ -130,8 +137,9 @@ SURNAMES = ["Ivanov", "Petrov", "Georgiev", "Dimitrov", "Nikolov", "Stoyanov", "
             "Draganov", "Bogdanov", "Ruskov", "Simeonov", "Tasev", "Uzunov", "Vulkov", "Zahariev"]
 # Country leaders with a set name (the others get one from the lists below). A leader gets a portrait when
 # tools/portraits/<TAG>.png exists (156x210 px); portraits stay out of the git repository.
-LEADER_TRAITS = {"VIT": ["evil_sofia_hates_communism"]}   # traits from tools/focus_sredets.py
-LEADER_NAMES = {"SRD": "Victor Kolev", "MLA": "Georgi Poryazov", "VIT": "Daniel-Henry Capel",
+LEADER_TRAITS = {"VIT": ["evil_sofia_hates_communism"]}
+GENERAL_NAMES = {"IAP": ("Lyuben", "Slavov")}   # districts past the 24th have no pair of their own in the lists   # traits from tools/focus_sredets.py
+LEADER_NAMES = {"SRK": "Khan Krum", "IAP": "Apostol Penev", "SRD": "Victor Kolev", "MLA": "Georgi Poryazov", "VIT": "Daniel-Henry Capel",
                 "KRP": "Stefan Kartunov", "OBR": "Anton Zafirov", "LOZ": "Georgi Yanchovichin",
                 "TRD": "Alexander Dimitrov", "LYU": "GrimBoss"}
 # Countries with their own leader are the featured ones on the start screen, with these descriptions; the
@@ -161,7 +169,7 @@ def _advisor_names(n):
     return names
 
 
-ADVISOR_NAMES = _advisor_names(3 * 24)
+ADVISOR_NAMES = _advisor_names(3 * len(DISTRICTS))
 
 
 # Folders whose files are named after states and regions: cleared first, so no stale file survives a rebuild.
@@ -390,6 +398,9 @@ for kvid_, (dd, n_) in kv_home.items():
 _to = snap[_kv]
 dist[_yy[_to > 0], _xx[_to > 0]] = _to[_to > 0]
 dist = tidy_districts(dist)
+for k_, (mx_, my_, mr_) in MICRO.items():
+    yy_m, xx_m = np.ogrid[:H, :W]
+    dist[((xx_m - mx_) ** 2 + (yy_m - my_) ** 2 <= mr_ * mr_) & (dist > 0)] = k_
 city = dist > 0
 kv_home, kv_total, _yy, _xx, _kv = kv_shares()
 for kvid_, (nm_, t_) in kv_info.items():
@@ -754,7 +765,7 @@ for k in DISTRICTS:
     # 3. right sizes, organic borders
     lab_ = refine(lab_, m, cost, BUILT[sl], names, kinds, origin, SIZES[size_class(k)])
     ids = [j for j, bb in enumerate(ndi.find_objects(lab_), 1) if bb is not None]
-    if len(ids) < 2:   # every country gets at least two states, so at least two provinces
+    if len(ids) < 2 and k not in MICRO:   # every country but a micro-state gets at least two states and provinces
         parts = split_organic(lab_ == ids[0], 2, cost)
         j = int(lab_.max()) + 1
         lab_[parts == 2] = j
@@ -812,10 +823,11 @@ for k in DISTRICTS:
     pgraph = coo_matrix((wts, (rows, cols)), shape=(len(plist), len(plist))).tocsr()
     pd = dijkstra(pgraph, directed=False)
     pd[~np.isfinite(pd)] = 1e9
-    n_states = int(np.clip(round(len(plist) / PROVINCES_PER_STATE[size_class(k)]), 3 if len(plist) >= 9 else 2, 12))
+    n_states = int(np.clip(round(len(plist) / PROVINCES_PER_STATE[size_class(k)]),
+                           1 if k in MICRO else 3 if len(plist) >= 9 else 2, 12))
     # the capital: the neighbourhood the district is named after ("Mladost 1" for Mladost), else the housing
     # estate, quarter or village nearest to the district's real centre
-    cx_, cy_ = place_px(*CAPITALS[k])
+    cx_, cy_ = place_px(*CAPITALS[k]) if k in CAPITALS else (xs_.mean(), ys_.mean())
     cap_local = np.array((cy_ - sl[0].start, cx_ - sl[1].start))
     dname = DISTRICTS[k][1]
     homes = [p for p in plist if prov_name[p] and prov_kvtype[p] in RESIDENTIAL and p not in prov_partial]
@@ -1573,8 +1585,8 @@ graphical_culture_2d = eastern_european_2d
 color = {{ {r} {g} {b} }}
 """)
     tags_txt.append(f'{tag} = "countries/{file_name}.txt"')
-    leader = LEADER_NAMES.get(tag, f"{FIRST[2 * (k - 1)]} {SURNAMES[2 * (k - 1)]}")
-    general = (FIRST[2 * (k - 1) + 1], SURNAMES[2 * (k - 1) + 1])
+    leader = LEADER_NAMES.get(tag, f"{FIRST[(2 * (k - 1)) % len(FIRST)]} {SURNAMES[(2 * (k - 1)) % len(SURNAMES)]}")
+    general = GENERAL_NAMES.get(tag, (FIRST[(2 * (k - 1) + 1) % len(FIRST)], SURNAMES[(2 * (k - 1) + 1) % len(SURNAMES)]))
     def leader_portrait(src_name, dds_name):
         """Large leader portrait (156x210, uncompressed DDS) from tools/portraits/<src_name>.png, if it exists."""
         src = os.path.join(ROOT, "tools", "portraits", f"{src_name}.png")

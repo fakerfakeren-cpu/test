@@ -60,9 +60,15 @@ LEADER_DESCS = {
            "loyalty.",
     "KRS": "Krasno Selo's leader governs the Hippodrome, Borovo and Lagera: tidy blocks, wide streets and residents "
            "who expect the trams to run on time whatever is happening to the rest of the city.",
-    "SRK": "Serdika holds the Central Railway Station, and with it every train in and out of Sofia. Its leader is a "
-           "former station master who believes, with some reason, that nothing in this war moves without his "
-           "permission.",
+    "SRK": "Serdika stands on the ruins of old Serdica, the city Khan Krum of the Bulgars took from the Byzantines "
+           "in the year 809. Twelve centuries later, with Sofia at war with itself, the old Khan has come back to take "
+           "it again. Nobody knows quite how. Nobody has dared to ask.\\n\\nHe holds court at the Central Railway "
+           "Station in chain mail, drinks from a cup nobody wants to look at too closely, and counts the other "
+           "districts the way he once counted Byzantine armies: as future tribute.",
+    "IAP": "Ivan Apostolov is the smallest country in Sofia: one school, its yard, its sports hall and a gate between "
+           "Mladost and Izgrev. Its headmaster governs it like a classroom, with a timetable, a bell and very strict "
+           "rules about lateness.\\n\\nIts motto is to invest in the future. Its neighbours suspect the future it "
+           "has in mind is theirs.",
     "POD": "Poduyane is railway yards, workshops and the long streets of Hadzhi Dimitar. Its leader is a union man "
            "who has spent his life arguing with managers and now finds himself in charge of an army.",
     "SLA": "The leader of Slatina governs Geo Milev, Reduta and the road to the airport. He has the only district in "
@@ -131,6 +137,7 @@ ADVISORS = {
     "OBR": ("evil_sofia_professor", "evil_sofia_block_organiser", "evil_sofia_morale_officer"),
     "KRS": ("evil_sofia_municipal_engineer", "evil_sofia_block_organiser", "evil_sofia_drillmaster"),
     "SRK": ("evil_sofia_municipal_engineer", "evil_sofia_tax_collector", "evil_sofia_quartermaster"),
+    "IAP": ("evil_sofia_professor", "evil_sofia_loudspeaker", "evil_sofia_drillmaster"),
     "POD": ("evil_sofia_garage_gunsmith", "evil_sofia_recruiter", "evil_sofia_street_fighter"),
     "SLA": ("evil_sofia_garage_gunsmith", "evil_sofia_loudspeaker", "evil_sofia_drillmaster"),
     "IZG": ("evil_sofia_professor", "evil_sofia_tax_collector", "evil_sofia_block_defender"),

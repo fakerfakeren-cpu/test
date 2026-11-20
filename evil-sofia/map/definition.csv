@@ -459,7 +459,7 @@
 458;134;190;184;land;false;forest;1
 459;40;197;173;land;false;forest;1
 460;50;116;19;land;false;hills;1
-461;177;158;191;lake;false;lakes;0
+461;177;158;191;land;false;plains;1
 462;69;160;49;lake;false;lakes;0
 463;197;240;227;lake;false;lakes;0
 464;16;167;77;lake;false;lakes;0
@@ -1717,4 +1717,5 @@
 1716;214;111;131;lake;false;lakes;0
 1717;152;62;128;lake;false;lakes;0
 1718;218;123;84;lake;false;lakes;0
-1719;60;213;224;sea;false;ocean;0
+1719;60;213;224;lake;false;lakes;0
+1720;83;216;94;sea;false;ocean;0

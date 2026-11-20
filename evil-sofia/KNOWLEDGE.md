@@ -42,6 +42,15 @@ The user is **Victor Kolev** and plays **Sredets (SRD)**, the city centre. The f
 - Tone: playful about the friends, never mean or personal. In-character district politics only.
 - Leader portraits were supplied by the user as HOI4-style painted portraits.
 
+- **Serdika** is led by **Khan Krum** (the Bulgar khan who took Serdica in 809, come back somehow; the user's
+  painting, chain mail, skull cup). **Ivan Apostolov (IAP)** is a micro-state like Vatican City: one province, one
+  state, between Mladost and Izgrev, carved after the districts snap to the neighbourhoods (`MICRO` in build_map.py:
+  centre and radius in map pixels); flag after the user's logo (white sword, two peaks with yellow centres, the M,
+  on green; `tools/flags/IAP.png`), leader Apostol Penev (a made-up headmaster).
+- Full builds: `python3 tools/fetch_geodata.py` first in a new container; a build of unchanged code reproduces the
+  map files exactly. Put every leader portrait in `tools/portraits/` before a full build (from the last zip's
+  `gfx/leaders/*/*.dds` if the originals are not there), or the character files lose their portraits.
+
 ## 3. Rules the user gave (do not break)
 
 1. **No portraits or photos on GitHub**, ever ("dont include it" / "Dont include any portraits"). They live in

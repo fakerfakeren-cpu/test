@@ -164,10 +164,12 @@ for f in glob.glob(f'{root}/map/strategicregions/*.txt'):
     if re.fullmatch(r'STRATEGICREGION_\d+', nk): E(f'region uses vanilla-style key {nk}')
     if nk not in keys: E(f'region name key {nk} not localised')
     if not block(t, 'provinces'): E(f'empty strategic region {f}')
+MICRO_TAGS = {'IAP'}   # one-state countries by design (MICRO in tools/build_map.py)
 per_tag = collections.Counter(owner.values())
 print('states per country', dict(sorted(per_tag.items())))
 for tag, n in per_tag.items():
-    if n < 2: E(f'{tag} has only {n} state')
+    if n < 2 and tag not in MICRO_TAGS: E(f'{tag} has only {n} state')   # micro-states have one
+
     for k_ in (tag, tag + '_ADJ', tag + '_DEF'):
         if k_ not in keys: E(f'missing {k_}')
 for f in glob.glob(f'{root}/history/countries/*.txt'):

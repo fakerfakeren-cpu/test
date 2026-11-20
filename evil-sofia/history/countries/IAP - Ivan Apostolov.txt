@@ -1,0 +1,34 @@
+capital = 119
+
+set_research_slots = 2
+set_stability = 0.5
+set_war_support = 0.5
+
+set_politics = {
+	ruling_party = neutrality
+	last_election = "1932.1.1"
+	election_frequency = 48
+	elections_allowed = no
+}
+set_popularities = {
+	democratic = 0
+	fascism = 0
+	communism = 0
+	neutrality = 100
+}
+
+recruit_character = IAP_leader
+recruit_character = IAP_general
+
+oob = "IAP_1936"
+
+# A basic start like vanilla minor nations: no country starts without technology or an army.
+set_technology = {
+	infantry_weapons = 1
+	infantry_weapons1 = 1
+	tech_support = 1
+	tech_engineers = 1
+	tech_recon = 1
+	gw_artillery = 1
+	basic_train = 1
+}

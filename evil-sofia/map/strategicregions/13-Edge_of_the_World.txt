@@ -2,7 +2,7 @@ strategic_region = {
 	id = 13
 	name = "EVIL_SOFIA_REGION_13"
 	provinces = {
-		1719
+		1720
 	}
 	naval_terrain = water_deep_ocean
 	weather = {

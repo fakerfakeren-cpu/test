@@ -1,6 +1,11 @@
 characters = {
 	SRK_leader = {
 		name = SRK_leader
+		portraits = {
+			civilian = {
+				large = "gfx/leaders/SRK/SRK_leader.dds"
+			}
+		}
 		country_leader = {
 			desc = "SRK_leader_desc"
 			ideology = despotism

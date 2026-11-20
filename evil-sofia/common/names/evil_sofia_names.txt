@@ -238,3 +238,13 @@ BNK = {
 	surnames = { Ivanov Petrov Georgiev Dimitrov Nikolov Stoyanov Todorov Hristov Vasilev Angelov Atanasov Kirilov Popov Kolev Marinov Yordanov Iliev Mihaylov Kostov Pavlov Stefanov Lazarov Radev Zhelev Bonev Tsvetkov Kamenov Dobrev Spasov Grigorov Antonov Valchev Penev Slavov Rusev Tonchev Genov Velchev Ganev Yankov Draganov Bogdanov Ruskov Simeonov Tasev Uzunov Vulkov Zahariev }
 	callsigns = { Vitosha Iskar Lion Eagle Hawk Falcon Wolf Bear }
 }
+IAP = {
+	male = {
+		names = { Krum Asen Boris Kaloyan Simeon Petar Ivan Todor Stoyan Hristo Vasil Lyuben Georgi Dimitar Nikola Atanas Kiril Angel Rumen Plamen Ognyan Bozhidar Radoslav Zhivko Stefan Yordan Mihail Lazar Konstantin Velizar Tsvetan Emil Rayko Sava Pavel Trayko Kosta Vladimir Dobri Spas Grigor Anton Valentin Svetoslav Yasen Momchil Zlatko Iliya }
+	}
+	female = {
+		names = { Maria Elena Ivanka Yordanka Rositsa Desislava Vesela Teodora Milena Radka Stefka Tsvetana Gergana Kalina Nevena Zornitsa }
+	}
+	surnames = { Ivanov Petrov Georgiev Dimitrov Nikolov Stoyanov Todorov Hristov Vasilev Angelov Atanasov Kirilov Popov Kolev Marinov Yordanov Iliev Mihaylov Kostov Pavlov Stefanov Lazarov Radev Zhelev Bonev Tsvetkov Kamenov Dobrev Spasov Grigorov Antonov Valchev Penev Slavov Rusev Tonchev Genov Velchev Ganev Yankov Draganov Bogdanov Ruskov Simeonov Tasev Uzunov Vulkov Zahariev }
+	callsigns = { Vitosha Iskar Lion Eagle Hawk Falcon Wolf Bear }
+}

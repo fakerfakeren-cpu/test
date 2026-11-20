@@ -1,6 +1,7 @@
 # Evil Sofia (HOI4 total-conversion mod)
 
-The map is Sofia, Bulgaria. Each of the 24 city districts is a country, with a leader and a general.
+The map is Sofia, Bulgaria. Each of the 24 city districts is a country, with a leader and a general, plus one
+micro-state, Ivan Apostolov (a single school-sized province between Mladost and Izgrev, like Vatican City).
 Every country has **2 to 12 states**, so a peace deal can take part of a district instead of all of it.
 The provinces follow Sofia's 310 official neighbourhoods ("kvartali"), and states and cities carry the real names
 of the neighbourhoods, villages and landmarks in them.
@@ -188,6 +189,7 @@ If a border is wrong, paint the mask with the correct value using any editor tha
 | 10 | TRD | Triaditsa | 22 | NIS | Novi Iskar |
 | 11 | KRP | Krasna Polyana | 23 | PNC | Pancharevo |
 | 12 | ILN | Ilinden | 24 | BNK | Bankya |
+|  |  |  | 25 | IAP | Ivan Apostolov (micro-state, `MICRO` in `build_map.py`) |
 
 State files are `history/states/<id>-<TAG>_<name>.txt`, numbered district by district with each country's
 capital state first. The provinces outside the city are impassable lakes ("The Void").

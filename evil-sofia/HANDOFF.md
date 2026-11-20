@@ -9,7 +9,8 @@ A Hearts of Iron IV (1.19) total conversion for multiplayer with friends: the ma
 districts is a country. Eight districts are led by the user's friends (real names, portraits): Sredets (SRD,
 Victor Kolev, the user's own country), Oborishte (OBR, Anton Zafirov), Vitosha (VIT, Daniel-Henry Capel),
 Mladost (MLA, Georgi Poryazov), Krasna Polyana (KRP, Stefan Kartunov), Lozenets (LOZ, Georgi Yanchovichin),
-Triaditsa (TRD, Alexander Dimitrov), Lyulin (LYU, GrimBoss). The game starts on 1 January 1936.
+Triaditsa (TRD, Alexander Dimitrov), Lyulin (LYU, GrimBoss). Serdika (SRK) is led by Khan Krum (portrait
+`tools/portraits/SRK.png`), and Ivan Apostolov (IAP) is a one-province micro-state between Mladost and Izgrev. The game starts on 1 January 1936.
 
 ## Rules from the user (keep them)
 
@@ -99,6 +100,7 @@ The user has to send these again (they are not in git); save each as PNG under `
 | `SRD_ilchev.png` | Konstantin Ilchev (Victor's physics teacher) |
 | `EVIL_GANG.png` | the Evil Gang group photo (on the steps, 1080x1080) |
 | `C_CLASS.png` | the C Class Hools group photo (mirror selfie, 1080x1080) |
+| `SRK.png` | Khan Krum, leader of Serdika (painting; head and shoulders cropped from the user's full-length picture) |
 
 The user's event pictures (`tools/event_pictures/<event>.png`, see `PICTURES.md`) also have to be sent again.
 Made so far (all saved already cropped to the news shape): news 1, 2, 3, 4, 5, 6, 7, 9, 13, 14 and srd 2. Still

@@ -119,6 +119,11 @@ bookmarks = {
 			history = "EVIL_SOFIA_START_DESC"
 			ideology = neutrality
 		}
+		IAP = {
+			minor = yes
+			history = "EVIL_SOFIA_START_DESC"
+			ideology = neutrality
+		}
 
 		effect = {
 			randomize_weather = 22345
