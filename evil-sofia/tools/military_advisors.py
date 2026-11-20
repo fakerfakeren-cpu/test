@@ -14,10 +14,12 @@ TRAITS = {
                                     "army_artillery_attack_factor = 0.10", "high_command", 100),
     "evil_sofia_entrenchment_expert": ("Entrenchment Expert", "Every pavement can be a trench by morning.",
                                        "dig_in_speed_factor = 0.25\narmy_defence_factor = 0.02", "high_command", 100),
+    "evil_sofia_guard_chief": ("Chief of the District Guard", "Knows every unit, every barracks and every excuse.",
+                               "army_org_factor = 0.05\narmy_morale_factor = 0.05", "army_chief", 100),
     "evil_sofia_air_chief": ("Chief of the Air Guard", "Three aeroplanes, five pilots and a plan for both.",
                              "air_attack_factor = 0.05\nair_defence_factor = 0.05", "air_chief", 100),
 }
-RANKS = {"theorist": "Colonel", "high_command": "General", "air_chief": "Major"}
+RANKS = {"theorist": "Colonel", "high_command": "General", "air_chief": "Major", "army_chief": "General"}
 FIRST = ["Bogomil", "Danail", "Evtim", "Filip", "Gancho", "Hristofor", "Ilia", "Kamen", "Lachezar", "Metodi",
          "Nayden", "Ognyan", "Pancho", "Rangel", "Sotir", "Tihomir", "Valeri", "Yanko", "Zdravko", "Boyan",
          "Velin", "Darin", "Krastyu", "Mladen", "Neno", "Pravdomir", "Rosen", "Tanyo", "Hrabar", "Tsanko"]

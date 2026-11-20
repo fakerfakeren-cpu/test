@@ -213,28 +213,34 @@ Root choice (mutually exclusive): **Henry's Mom Was Right** (communism) at x=8, 
   OBR). The Vitosha Award gives Sredets nothing: every state goes to the nearest friend in the gang (Vitosha and
   Karpuzitsa → TRD, Simeonovo → MLA, Marchaevo and Knyazhevo → KRP, Dragalevtsi and Zlatni Mostove → LOZ), with
   fallbacks in VITOSHA_SHARES when a friend is not in the gang.
-- Authoritarian road rebuilt (v36): The Dream of a United Centre (x29) with four lines. The Grip on the Centre
-  (new mechanic): variable SRD_grip 0-100 (flag SRD_grip_active), scripted effect SRD_update_grip keeps one of
-  three spirits (loose <30, firm 30-69, iron 70+), monthly drift in common/on_actions/evil_sofia_srd_on_actions.txt
-  (-2 at war with stability <40%, +1 with stability >60%), decision category SRD_grip (Patrol the Boulevards, Bread at
-  the Women's Market, Night Raids, Parade on Tsar Osvoboditel, and the targeted decision Send an Ultimatum: Grip 50+,
-  costs 15; target submits → puppet, refuses → war goal and Grip +5; events srd.22-24). Focuses: Order on the
-  Boulevards, Checkpoints on the Bridges, The Night Watch, Informers in Every Café, Ultimatums from the Largo, The
-  Iron Grip. Conquest: The Centre's Army, March on the Old Centre, The Centre Takes Shape, The Khan Must Fall (only
-  while Khan Krum leads Serdika: has_country_leader SRK_leader) → Krum's Cup (news 18), The Centre Is One, Bring
-  Anton In / Anton at Our Side, The United Centre / The Centre and Oborishte. C Class Hools (faction, only without
-  the Evil Gang): Unleash, Call Alexander (TRD) and Call Georgi Poryazov (MLA) (event srd.25, AI says yes 90%),
-  Away Days, Champions of Sofia. Formable: Proclaim the Directorate of Sofia (Grip 70+, centre held; cosmetic tag
-  SRD_DIRECTORATE, flag red_flags.directorate, trait The Director, news 17), One Directorate (annex subjects, cores
-  everywhere owned), Sofia Answers to the Director. The free road can turn evil: A Temporary Emergency (alternative
-  to The Free Centre of Sofia; despotism again, Grip 50, ultimatums; news 19) also opens the Directorate.
-  Workshops/Arsenal of the Centre were removed (the industry tree replaces them). Ilchev moved to x37-39, the Evil
-  Gang to x43-49.
+- Authoritarian road (v39): The Dream of a United Centre (x29) with three lines and the formable. The user found
+  the first mechanic (the Grip on the Centre, a 0-100 score with repeatable decisions) dull and endless, so it was
+  replaced by **the Tunnels of Serdica**: from the Roman ruins under the Largo, Sredets digs tunnels toward
+  neighbouring districts (decision per district, 60 days with days_remove, one at a time, two after Miners from
+  Pernik; 20% chance of a cave-in event, srd.22; srd.23 when a tunnel is finished; variables SRD_tunnels,
+  SRD_digging, SRD_dig_capacity; flags SRD_tunnel_<TAG>). A tunnel opens actions as the focuses unlock them: Agents
+  from Below (target: -10% stability, -5% war support for 120 days), Tunnel Strike (at war: target -15% defence,
+  -10% organisation, us +10% attack for 45 days), The Coup from Below (target under 50% stability, at peace, no
+  faction: becomes our subject; srd.24 to the target, world news 20). Focuses: The Ruins under the Largo, Miners from
+  Pernik, Agents in the Dark, Strike from Below, The Coup from Below, The Ring under Sofia (needs 4 tunnels; needed
+  for the Directorate). The category closes (flag cleared) when the Directorate is proclaimed: it has an end.
+  Conquest: The Centre's Army, March on the Old Centre, The Centre Takes Shape, The Khan Must Fall (only while Khan
+  Krum leads Serdika) → Krum's Cup, The Centre Is One, Bring Anton In / Anton at Our Side, The United Centre / The
+  Centre and Oborishte. C Class Hools (faction with TRD and MLA, excludes the Evil Gang both ways): Unleash, Call
+  Alexander, Call Georgi Poryazov, Away Days, Champions of Sofia. Formable: Proclaim the Directorate of Sofia (4
+  tunnels and the centre held), One Directorate, Sofia Answers to the Director. A Temporary Emergency (free road)
+  also opens the Directorate, with two tunnels and every tunnel action at once.
+- Focus lengths were raised on the user's request ("you progress too fast"): 3→5, 4→6, 5→7, 6→8, 7→9, 8→10, 9→11,
+  10→12, 12→14 weeks (the SCALE in the v39 commit).
+- Advisors: nobody showed up in the hire panels; every country now recruits its three political and six military
+  advisors at game start (on_startup in common/on_actions/evil_sofia_srd_on_actions.txt). Military: army theorist,
+  air theorist, artillery expert, entrenchment expert, Chief of the District Guard (army chief), Chief of the Air
+  Guard (air chief).
 - Shared trees, open on every road: industry (x51-57, 15 focuses: factories, slots, a research slot, construction
   and factory output spirits) and military (x59-65, 16 focuses: tech bonuses for infantry weapons, artillery,
   armour, doctrine, air; army/air experience; anti-air and radar; spirits).
 - The C Class Hools and the Evil Gang exclude each other both ways (Unleash needs no Evil Gang; Propose needs no
-  C Class). Every country has five default military advisors (tools/military_advisors.py → common/characters/
+  C Class). Every country has six default military advisors (see above) (tools/military_advisors.py → common/characters/
   evil_sofia_military.txt): an army theorist (+0.1 army experience a day), an air theorist (+0.1 air experience),
   an artillery expert and an entrenchment expert (high command) and an air chief; custom traits, like the political
   advisors (untested in game).

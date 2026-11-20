@@ -360,6 +360,7 @@ def build(root, facts, write, write_dds):
     import military_advisors as mil
     all_traits.update({k: (n, d, mods) for k, (n, d, mods, slot, cost) in mil.TRAITS.items()})
     mil_blocks = []
+    advisor_ids = {t: [f"{t}_advisor_{i}" for i in (1, 2, 3)] for t in facts["countries"]}
     for cid, cname, ctag, trait in mil.advisors(sorted(facts["countries"])):
         slot, cost = mil.TRAITS[trait][3], mil.TRAITS[trait][4]
         mil_blocks.append(f"\t{cid} = {{\n\t\tname = {cid}\n\t\tadvisor = {{\n\t\t\tslot = {slot}\n"
@@ -367,6 +368,7 @@ def build(root, facts, write, write_dds):
                           f"\t\t\ttraits = {{ {trait} }}\n\t\t\tcost = {cost}\n\t\t\tai_will_do = {{ factor = 1 }}\n"
                           f"\t\t}}\n\t}}")
         loc.append(f' {cid}:0 "{cname}"')
+        advisor_ids[ctag].append(cid)
     write("common/characters/evil_sofia_military.txt", "characters = {\n" + "\n".join(mil_blocks) + "\n}\n")
     write("common/country_leader/evil_sofia_traits.txt", "leader_traits = {\n" + "".join(
         f"\t{k} = {{\n\t\trandom = no\n{indent(mods, 2)}\n\t\tai_will_do = {{ factor = 1 }}\n\t}}\n"
@@ -407,7 +409,7 @@ def build(root, facts, write, write_dds):
     srd_cats = [(cat, cname, cdesc, f"tag = {tag}", cvis, [
         dict(id=did, name=dname, desc=ddesc, cost=cost, cooldown=cooldown, visible="", available=avail,
              effect=effect, ai="factor = 1", icon="generic_political_discourse")
-        for did, dname, ddesc, cost, cooldown, avail, effect in tree.DECISIONS["decisions"]]), tree.GRIP_DECISIONS]
+        for did, dname, ddesc, cost, cooldown, avail, effect in tree.DECISIONS["decisions"]]), tree.TUNNEL_DECISIONS]
 
     def decision_files(cats):
         cat_blocks, files = [], []
@@ -444,10 +446,19 @@ def build(root, facts, write, write_dds):
     write("common/decisions/evil_sofia_SRD.txt", f1)
     # scripted effects (the Grip on the Centre) and Sredets' own monthly on_action (a second on_actions file;
     # the game merges it with the one build_map.py writes)
-    write("common/scripted_effects/evil_sofia_effects.txt", "".join(
-        f"{k} = {{\n{indent(v, 1)}\n}}\n" for k, v in tree.SCRIPTED_EFFECTS.items()))
+    eff_path = os.path.join(root, "common", "scripted_effects", "evil_sofia_effects.txt")
+    if tree.SCRIPTED_EFFECTS:
+        write("common/scripted_effects/evil_sofia_effects.txt", "".join(
+            f"{k} = {{\n{indent(v, 1)}\n}}\n" for k, v in tree.SCRIPTED_EFFECTS.items()))
+    elif os.path.exists(eff_path):
+        os.remove(eff_path)
+    # at game start every country recruits its advisors (political and military), so they can be hired
+    recruit = "\n".join(f"{t} = {{ " + " ".join(f"recruit_character = {c}" for c in cids) + " }"
+                         for t, cids in sorted(advisor_ids.items()))
+    monthly = (f"\ton_monthly = {{\n\t\teffect = {{\n{indent(tree.ON_MONTHLY, 3)}\n\t\t}}\n\t}}\n"
+               if tree.ON_MONTHLY else "")
     write("common/on_actions/evil_sofia_srd_on_actions.txt",
-          f"on_actions = {{\n\ton_monthly = {{\n\t\teffect = {{\n{indent(tree.ON_MONTHLY, 3)}\n\t\t}}\n\t}}\n}}\n")
+          f"on_actions = {{\n\ton_startup = {{\n\t\teffect = {{\n{indent(recruit, 3)}\n\t\t}}\n\t}}\n{monthly}}}\n")
     # flags: hand-drawn communist flags (tools/red_flags.py), only for the countries that can go red
     import red_flags
 

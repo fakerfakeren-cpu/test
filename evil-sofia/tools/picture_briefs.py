@@ -57,6 +57,7 @@ BRIEFS = {
     "evil_sofia_news_17": "A man in a dark coat proclaiming from a balcony draped with a long dark banner, soldiers in rows below.",
     "evil_sofia_news_18": "An ornate drinking cup on a desk in a dim office, a soldier's hand setting it down.",
     "evil_sofia_news_19": "Soldiers pulling down a large pale flag from a building at night, a curfew poster on the wall.",
+    "evil_sofia_news_20": "Armed men in long coats climbing out of a cellar hatch in the courtyard of a district hall at night.",
     "evil_sofia_news_13": "A crowd celebrating on a city square under an old cathedral, blue flags waved from balconies.",
     "evil_sofia_news_10": "A group of young men posing on the steps of a theatre, a newspaper photograph.",
     "evil_sofia_news_11": "A march of young men with scarves and lit flares through a city centre at night.",

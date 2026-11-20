@@ -44,16 +44,20 @@ spriteTypes = {
 		texturefile = "gfx/interface/ideas/evil_sofia/SRD_united_centre_done.dds"
 	}
 	spriteType = {
-		name = "GFX_idea_SRD_grip_loose"
-		texturefile = "gfx/interface/ideas/evil_sofia/SRD_grip_loose.dds"
+		name = "GFX_idea_SRD_agents_below"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_agents_below.dds"
 	}
 	spriteType = {
-		name = "GFX_idea_SRD_grip_firm"
-		texturefile = "gfx/interface/ideas/evil_sofia/SRD_grip_firm.dds"
+		name = "GFX_idea_SRD_enemy_in_the_tunnels"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_enemy_in_the_tunnels.dds"
 	}
 	spriteType = {
-		name = "GFX_idea_SRD_grip_iron"
-		texturefile = "gfx/interface/ideas/evil_sofia/SRD_grip_iron.dds"
+		name = "GFX_idea_SRD_through_the_tunnels"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_through_the_tunnels.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_SRD_ring_under_sofia"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_ring_under_sofia.dds"
 	}
 	spriteType = {
 		name = "GFX_idea_SRD_champions_spirit"

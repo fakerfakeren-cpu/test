@@ -363,29 +363,14 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = evil_sofia_srd.22.a
-		ai_chance = {
-			base = 10
-			modifier = { add = 30 strength_ratio = { tag = FROM ratio < 0.5 } }
-			modifier = { add = 30 strength_ratio = { tag = FROM ratio < 0.25 } }
-			modifier = { add = 10 has_opinion = { target = FROM value > 30 } }
-			modifier = { add = 15 FROM = { check_variable = { SRD_grip > 79 } } }
-			modifier = { factor = 0.3 is_in_faction = yes }
-		}
-		FROM = { puppet = ROOT country_event = { id = evil_sofia_srd.23 } }
+		ai_chance = { factor = 1 }
+		add_manpower = -2000
+		add_stability = -0.02
 	}
 	option = {
 		name = evil_sofia_srd.22.b
-		ai_chance = {
-			base = 50
-			modifier = { add = 50 strength_ratio = { tag = FROM ratio > 1 } }
-			modifier = { add = 20 has_opinion = { target = FROM value < 0 } }
-		}
-		FROM = {
-			create_wargoal = { type = annex_everything target = ROOT }
-			add_to_variable = { SRD_grip = 5 }
-			SRD_update_grip = yes
-			country_event = { id = evil_sofia_srd.24 }
-		}
+		ai_chance = { factor = 1 }
+		add_political_power = -40
 	}
 }
 

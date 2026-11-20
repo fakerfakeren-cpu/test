@@ -7,12 +7,12 @@ SRD_oborishte_question = {
 		OBR = { exists = yes }
 	}
 }
-SRD_grip = {
+SRD_tunnels = {
 	allowed = {
 		tag = SRD
 	}
 	visible = {
-		has_country_flag = SRD_grip_active
+		has_country_flag = SRD_tunnels_active
 	}
 }
 ES_political_actions = {

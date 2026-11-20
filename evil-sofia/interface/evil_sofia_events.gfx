@@ -79,4 +79,8 @@ spriteTypes = {
 		name = "GFX_evil_sofia_evil_sofia_news_19"
 		texturefile = "gfx/event_pictures/evil_sofia/own/evil_sofia_news_19.dds"
 	}
+	spriteType = {
+		name = "GFX_evil_sofia_evil_sofia_news_20"
+		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_news_20.dds"
+	}
 }

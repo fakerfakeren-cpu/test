@@ -276,28 +276,28 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/evil_sofia/SRD_united_centre.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_SRD_order_on_the_boulevards"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_order_on_the_boulevards.dds"
+		name = "GFX_focus_SRD_ruins_under_the_largo"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_ruins_under_the_largo.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_SRD_checkpoints_on_the_bridges"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_checkpoints_on_the_bridges.dds"
+		name = "GFX_focus_SRD_miners_from_pernik"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_miners_from_pernik.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_SRD_the_night_watch"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_the_night_watch.dds"
+		name = "GFX_focus_SRD_agents_in_the_dark"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_agents_in_the_dark.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_SRD_informers_in_every_cafe"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_informers_in_every_cafe.dds"
+		name = "GFX_focus_SRD_strike_from_below"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_strike_from_below.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_SRD_ultimatums_from_the_largo"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_ultimatums_from_the_largo.dds"
+		name = "GFX_focus_SRD_the_coup_from_below"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_the_coup_from_below.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_SRD_the_iron_grip"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_the_iron_grip.dds"
+		name = "GFX_focus_SRD_the_ring_under_sofia"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_the_ring_under_sofia.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_SRD_the_centres_army"

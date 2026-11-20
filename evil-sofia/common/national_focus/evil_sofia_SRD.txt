@@ -16,7 +16,7 @@ focus_tree = {
 		x = 8
 		y = 0
 		mutually_exclusive = { focus = SRD_order_in_the_centre }
-		cost = 5
+		cost = 7
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -33,7 +33,7 @@ focus_tree = {
 		available = {
 			communism > 0.3
 		}
-		cost = 3
+		cost = 5
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -55,7 +55,7 @@ focus_tree = {
 		x = 28
 		y = 0
 		mutually_exclusive = { focus = SRD_henrys_mom_was_right }
-		cost = 5
+		cost = 7
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -70,7 +70,7 @@ focus_tree = {
 		x = 2
 		y = 2
 		prerequisite = { focus = SRD_proclaim_the_commune }
-		cost = 5
+		cost = 7
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -84,7 +84,7 @@ focus_tree = {
 		x = 2
 		y = 3
 		prerequisite = { focus = SRD_comrades_in_oborishte }
-		cost = 4
+		cost = 6
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -101,7 +101,7 @@ focus_tree = {
 		available = {
 			OBR = { exists = yes OR = { has_government = communism communism > 0.2 } }
 		}
-		cost = 7
+		cost = 9
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -118,7 +118,7 @@ focus_tree = {
 		available = {
 			OBR = { exists = yes }
 		}
-		cost = 6
+		cost = 8
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -135,7 +135,7 @@ focus_tree = {
 		available = {
 			has_country_flag = SRD_anton_allied
 		}
-		cost = 6
+		cost = 8
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -155,7 +155,7 @@ focus_tree = {
 			6 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 			NOT = { has_country_flag = SRD_anton_allied }
 		}
-		cost = 5
+		cost = 7
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_STABILITY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -174,7 +174,7 @@ focus_tree = {
 		x = 0
 		y = 6
 		prerequisite = { focus = SRD_north_south_pact }
-		cost = 8
+		cost = 10
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -193,7 +193,7 @@ focus_tree = {
 			3 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 			4 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 		}
-		cost = 10
+		cost = 12
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -306,7 +306,7 @@ focus_tree = {
 			23 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 			43 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 		}
-		cost = 10
+		cost = 12
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -371,7 +371,7 @@ focus_tree = {
 			65 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 			50 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 		}
-		cost = 7
+		cost = 9
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -421,7 +421,7 @@ focus_tree = {
 			70 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 			71 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 		}
-		cost = 10
+		cost = 12
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -528,7 +528,7 @@ focus_tree = {
 			112 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 			has_government = communism
 		}
-		cost = 6
+		cost = 8
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_STABILITY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -556,7 +556,7 @@ focus_tree = {
 		x = 4
 		y = 6
 		prerequisite = { focus = SRD_destroy_anton }
-		cost = 8
+		cost = 10
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -577,7 +577,7 @@ focus_tree = {
 			3 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 			4 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 		}
-		cost = 12
+		cost = 14
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -688,7 +688,7 @@ focus_tree = {
 			23 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 			43 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 		}
-		cost = 12
+		cost = 14
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -747,7 +747,7 @@ focus_tree = {
 			65 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 			50 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 		}
-		cost = 8
+		cost = 10
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -791,7 +791,7 @@ focus_tree = {
 			70 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 			71 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 		}
-		cost = 12
+		cost = 14
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -896,7 +896,7 @@ focus_tree = {
 			112 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 			has_government = communism
 		}
-		cost = 6
+		cost = 8
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_STABILITY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -916,7 +916,7 @@ focus_tree = {
 		x = 2
 		y = 7
 		prerequisite = { focus = SRD_pact_centre focus = SRD_one_centre }
-		cost = 6
+		cost = 8
 		search_filters = { FOCUS_FILTER_MANPOWER }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -931,7 +931,7 @@ focus_tree = {
 		y = 9
 		prerequisite = { focus = SRD_peoples_militia }
 		prerequisite = { focus = SRD_pact_housing_estates focus = SRD_united_housing_estates }
-		cost = 7
+		cost = 9
 		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -945,7 +945,7 @@ focus_tree = {
 		x = 7
 		y = 2
 		prerequisite = { focus = SRD_proclaim_the_commune }
-		cost = 7
+		cost = 9
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -959,7 +959,7 @@ focus_tree = {
 		x = 6
 		y = 3
 		prerequisite = { focus = SRD_party_takes_the_largo }
-		cost = 9
+		cost = 11
 		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -973,7 +973,7 @@ focus_tree = {
 		x = 6
 		y = 4
 		prerequisite = { focus = SRD_red_guards_of_the_stadium }
-		cost = 6
+		cost = 8
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -987,7 +987,7 @@ focus_tree = {
 		x = 6
 		y = 5
 		prerequisite = { focus = SRD_arm_the_workers }
-		cost = 10
+		cost = 12
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1002,7 +1002,7 @@ focus_tree = {
 		x = 6
 		y = 7
 		prerequisite = { focus = SRD_metro_goes_to_war }
-		cost = 8
+		cost = 10
 		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_RESEARCH }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1016,7 +1016,7 @@ focus_tree = {
 		x = 8
 		y = 7
 		prerequisite = { focus = SRD_metro_goes_to_war }
-		cost = 10
+		cost = 12
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1033,7 +1033,7 @@ focus_tree = {
 		x = 8
 		y = 3
 		prerequisite = { focus = SRD_party_takes_the_largo }
-		cost = 5
+		cost = 7
 		search_filters = { FOCUS_FILTER_MANPOWER }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1047,7 +1047,7 @@ focus_tree = {
 		x = 8
 		y = 4
 		prerequisite = { focus = SRD_universal_service }
-		cost = 8
+		cost = 10
 		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_RESEARCH }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1061,7 +1061,7 @@ focus_tree = {
 		x = 8
 		y = 5
 		prerequisite = { focus = SRD_commissars_in_every_unit }
-		cost = 7
+		cost = 9
 		search_filters = { FOCUS_FILTER_AIR_XP FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1077,7 +1077,7 @@ focus_tree = {
 		y = 6
 		prerequisite = { focus = SRD_barricades_on_vitosha }
 		prerequisite = { focus = SRD_red_air_over_the_centre }
-		cost = 9
+		cost = 11
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1097,7 +1097,7 @@ focus_tree = {
 		available = {
 			VIT = { exists = yes }
 		}
-		cost = 3
+		cost = 5
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1110,7 +1110,7 @@ focus_tree = {
 		x = 10
 		y = 3
 		prerequisite = { focus = SRD_red_leaflets }
-		cost = 5
+		cost = 7
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1132,7 +1132,7 @@ focus_tree = {
 		available = {
 			VIT = { exists = yes }
 		}
-		cost = 8
+		cost = 10
 		search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_ANNEXATION }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1155,7 +1155,7 @@ focus_tree = {
 			81 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 			79 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 		}
-		cost = 4
+		cost = 6
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_STABILITY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1174,7 +1174,7 @@ focus_tree = {
 		x = 13
 		y = 2
 		prerequisite = { focus = SRD_henrys_mom_was_right }
-		cost = 10
+		cost = 12
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1190,7 +1190,7 @@ focus_tree = {
 		x = 12
 		y = 3
 		prerequisite = { focus = SRD_collectivise_vitosha_boulevard }
-		cost = 4
+		cost = 6
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1203,7 +1203,7 @@ focus_tree = {
 		x = 14
 		y = 3
 		prerequisite = { focus = SRD_collectivise_vitosha_boulevard }
-		cost = 12
+		cost = 14
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1219,7 +1219,7 @@ focus_tree = {
 		x = 12
 		y = 4
 		prerequisite = { focus = SRD_mimas_for_the_workers }
-		cost = 6
+		cost = 8
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1236,7 +1236,7 @@ focus_tree = {
 		x = 14
 		y = 4
 		prerequisite = { focus = SRD_party_arsenal }
-		cost = 9
+		cost = 11
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1249,7 +1249,7 @@ focus_tree = {
 		x = 15
 		y = 5
 		prerequisite = { focus = SRD_red_university }
-		cost = 7
+		cost = 9
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1263,7 +1263,7 @@ focus_tree = {
 		y = 5
 		prerequisite = { focus = SRD_red_tourism }
 		prerequisite = { focus = SRD_red_university }
-		cost = 12
+		cost = 14
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1280,7 +1280,7 @@ focus_tree = {
 		x = 13
 		y = 6
 		prerequisite = { focus = SRD_five_year_plan }
-		cost = 10
+		cost = 12
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1293,7 +1293,7 @@ focus_tree = {
 		x = 13
 		y = 7
 		prerequisite = { focus = SRD_star_on_the_party_house }
-		cost = 9
+		cost = 11
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1313,7 +1313,7 @@ focus_tree = {
 		x = 26
 		y = 1
 		prerequisite = { focus = SRD_order_in_the_centre }
-		cost = 5
+		cost = 7
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1327,7 +1327,7 @@ focus_tree = {
 		x = 30
 		y = 1
 		prerequisite = { focus = SRD_order_in_the_centre }
-		cost = 7
+		cost = 9
 		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_MANPOWER FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1343,7 +1343,7 @@ focus_tree = {
 		y = 2
 		prerequisite = { focus = SRD_curfew_on_the_largo }
 		prerequisite = { focus = SRD_centres_own_guard }
-		cost = 5
+		cost = 7
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1360,7 +1360,7 @@ focus_tree = {
 		available = {
 			NOT = { has_completed_focus = SRD_call_the_evil_gang }
 		}
-		cost = 5
+		cost = 7
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1377,7 +1377,7 @@ focus_tree = {
 		available = {
 			democratic > 0.3
 		}
-		cost = 3
+		cost = 5
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1397,7 +1397,7 @@ focus_tree = {
 		x = 18
 		y = 4
 		prerequisite = { focus = SRD_a_free_sredets }
-		cost = 3
+		cost = 5
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1411,7 +1411,7 @@ focus_tree = {
 		x = 22
 		y = 4
 		prerequisite = { focus = SRD_a_free_sredets }
-		cost = 5
+		cost = 7
 		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_ARMY_XP }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1425,7 +1425,7 @@ focus_tree = {
 		x = 17
 		y = 5
 		prerequisite = { focus = SRD_speakers_corner }
-		cost = 4
+		cost = 6
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1439,7 +1439,7 @@ focus_tree = {
 		x = 19
 		y = 5
 		prerequisite = { focus = SRD_speakers_corner }
-		cost = 8
+		cost = 10
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1455,7 +1455,7 @@ focus_tree = {
 		x = 22
 		y = 5
 		prerequisite = { focus = SRD_volunteers_of_the_centre }
-		cost = 7
+		cost = 9
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1475,7 +1475,7 @@ focus_tree = {
 		available = {
 			country_exists = VIT
 		}
-		cost = 4
+		cost = 6
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1495,7 +1495,7 @@ focus_tree = {
 		y = 6
 		prerequisite = { focus = SRD_free_press_on_rakovski }
 		prerequisite = { focus = SRD_proclaim_the_free_sredets }
-		cost = 4
+		cost = 6
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1513,7 +1513,7 @@ focus_tree = {
 		y = 6
 		prerequisite = { focus = SRD_open_market_on_vitosha }
 		prerequisite = { focus = SRD_liberty_guard }
-		cost = 10
+		cost = 12
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1529,7 +1529,7 @@ focus_tree = {
 		x = 23
 		y = 6
 		prerequisite = { focus = SRD_liberty_guard }
-		cost = 4
+		cost = 6
 		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_RESEARCH }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1543,7 +1543,7 @@ focus_tree = {
 		x = 17
 		y = 7
 		prerequisite = { focus = SRD_friends_of_freedom }
-		cost = 3
+		cost = 5
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1559,7 +1559,7 @@ focus_tree = {
 		x = 19
 		y = 7
 		prerequisite = { focus = SRD_friends_of_freedom }
-		cost = 3
+		cost = 5
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1576,7 +1576,7 @@ focus_tree = {
 		y = 7
 		prerequisite = { focus = SRD_workshops_of_the_free_centre }
 		prerequisite = { focus = SRD_proclaim_the_free_sredets }
-		cost = 6
+		cost = 8
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1595,7 +1595,7 @@ focus_tree = {
 		y = 8
 		prerequisite = { focus = SRD_offer_to_anton }
 		prerequisite = { focus = SRD_offer_to_georgi }
-		cost = 3
+		cost = 5
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1618,7 +1618,7 @@ focus_tree = {
 			3 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 			4 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 		}
-		cost = 8
+		cost = 10
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1647,7 +1647,7 @@ focus_tree = {
 			17 = { is_controlled_by = ROOT }
 			10 = { is_controlled_by = ROOT }
 		}
-		cost = 5
+		cost = 7
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_STABILITY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1668,7 +1668,7 @@ focus_tree = {
 		available = {
 			has_government = democratic
 		}
-		cost = 10
+		cost = 12
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_STABILITY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1685,7 +1685,7 @@ focus_tree = {
 		y = 11
 		prerequisite = { focus = SRD_a_free_centre }
 		mutually_exclusive = { focus = SRD_free_centre_of_sofia }
-		cost = 6
+		cost = 8
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1697,10 +1697,13 @@ focus_tree = {
 			}
 			drop_cosmetic_tag = yes
 			if = { limit = { has_idea = SRD_free_sredets } remove_ideas = SRD_free_sredets }
-			set_country_flag = SRD_grip_active
-			set_country_flag = SRD_ultimatums_unlocked
-			set_variable = { SRD_grip = 50 }
-			SRD_update_grip = yes
+			set_country_flag = SRD_tunnels_active
+			set_country_flag = SRD_agents_unlocked
+			set_country_flag = SRD_strike_unlocked
+			set_country_flag = SRD_coup_unlocked
+			set_variable = { SRD_tunnels = 2 }
+			set_variable = { SRD_digging = 0 }
+			set_variable = { SRD_dig_capacity = 2 }
 			add_stability = -0.10
 			news_event = { id = evil_sofia_news.19 hours = 6 }
 		}
@@ -1712,103 +1715,100 @@ focus_tree = {
 		y = 3
 		prerequisite = { focus = SRD_who_stands_with_sredets }
 		mutually_exclusive = { focus = SRD_a_free_sredets focus = SRD_ilchevs_lesson }
-		cost = 5
+		cost = 7
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			add_ideas = SRD_united_dream
 			add_political_power = 50
-			set_country_flag = SRD_grip_active
-			set_variable = { SRD_grip = 20 }
-			SRD_update_grip = yes
 		}
 	}
 	focus = {
-		id = SRD_order_on_the_boulevards
-		icon = GFX_focus_SRD_order_on_the_boulevards
+		id = SRD_ruins_under_the_largo
+		icon = GFX_focus_SRD_ruins_under_the_largo
 		x = 26
 		y = 4
 		prerequisite = { focus = SRD_united_centre }
-		cost = 3
-		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
+		cost = 6
+		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
-			add_stability = 0.05
-			add_to_variable = { SRD_grip = 10 }
-			SRD_update_grip = yes
+			set_country_flag = SRD_tunnels_active
+			set_variable = { SRD_tunnels = 0 }
+			set_variable = { SRD_digging = 0 }
+			set_variable = { SRD_dig_capacity = 1 }
 		}
 	}
 	focus = {
-		id = SRD_checkpoints_on_the_bridges
-		icon = GFX_focus_SRD_checkpoints_on_the_bridges
+		id = SRD_miners_from_pernik
+		icon = GFX_focus_SRD_miners_from_pernik
 		x = 25
 		y = 5
-		prerequisite = { focus = SRD_order_on_the_boulevards }
-		cost = 4
-		search_filters = { FOCUS_FILTER_STABILITY }
+		prerequisite = { focus = SRD_ruins_under_the_largo }
+		cost = 7
+		search_filters = { FOCUS_FILTER_MANPOWER }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
-			add_to_variable = { SRD_grip = 10 }
-			SRD_update_grip = yes
-			capital_scope = { add_building_construction = { type = bunker level = 1 province = { all_provinces = yes limit_to_border = yes } instant_build = yes } }
+			set_variable = { SRD_dig_capacity = 2 }
+			add_manpower = 5000
 		}
 	}
 	focus = {
-		id = SRD_the_night_watch
-		icon = GFX_focus_SRD_the_night_watch
+		id = SRD_agents_in_the_dark
+		icon = GFX_focus_SRD_agents_in_the_dark
 		x = 27
 		y = 5
-		prerequisite = { focus = SRD_order_on_the_boulevards }
-		cost = 5
-		search_filters = { FOCUS_FILTER_STABILITY }
-		ai_will_do = { factor = 1 }
-		completion_reward = {
-			add_to_variable = { SRD_grip = 5 }
-			SRD_update_grip = yes
-		}
-	}
-	focus = {
-		id = SRD_informers_in_every_cafe
-		icon = GFX_focus_SRD_informers_in_every_cafe
-		x = 26
-		y = 6
-		prerequisite = { focus = SRD_checkpoints_on_the_bridges }
-		prerequisite = { focus = SRD_the_night_watch }
+		prerequisite = { focus = SRD_ruins_under_the_largo }
 		cost = 7
-		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
+		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
-			add_to_variable = { SRD_grip = 15 }
-			SRD_update_grip = yes
+			set_country_flag = SRD_agents_unlocked
 			add_political_power = 50
 		}
 	}
 	focus = {
-		id = SRD_ultimatums_from_the_largo
-		icon = GFX_focus_SRD_ultimatums_from_the_largo
+		id = SRD_strike_from_below
+		icon = GFX_focus_SRD_strike_from_below
 		x = 26
-		y = 7
-		prerequisite = { focus = SRD_informers_in_every_cafe }
-		cost = 5
-		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
+		y = 6
+		prerequisite = { focus = SRD_miners_from_pernik }
+		prerequisite = { focus = SRD_agents_in_the_dark }
+		cost = 10
+		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
-			add_political_power = 75
-			set_country_flag = SRD_ultimatums_unlocked
+			set_country_flag = SRD_strike_unlocked
+			army_experience = 25
 		}
 	}
 	focus = {
-		id = SRD_the_iron_grip
-		icon = GFX_focus_SRD_the_iron_grip
+		id = SRD_the_coup_from_below
+		icon = GFX_focus_SRD_the_coup_from_below
+		x = 26
+		y = 7
+		prerequisite = { focus = SRD_strike_from_below }
+		cost = 9
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			set_country_flag = SRD_coup_unlocked
+		}
+	}
+	focus = {
+		id = SRD_the_ring_under_sofia
+		icon = GFX_focus_SRD_the_ring_under_sofia
 		x = 26
 		y = 8
-		prerequisite = { focus = SRD_ultimatums_from_the_largo }
-		cost = 8
+		prerequisite = { focus = SRD_the_coup_from_below }
+		available = {
+			check_variable = { SRD_tunnels > 3 }
+		}
+		cost = 10
 		search_filters = { FOCUS_FILTER_STABILITY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
-			add_to_variable = { SRD_grip = 15 }
-			SRD_update_grip = yes
+			add_ideas = SRD_ring_under_sofia
 			add_stability = 0.05
 		}
 	}
@@ -1818,7 +1818,7 @@ focus_tree = {
 		x = 29
 		y = 4
 		prerequisite = { focus = SRD_united_centre }
-		cost = 6
+		cost = 8
 		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_ARMY_XP }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1832,7 +1832,7 @@ focus_tree = {
 		x = 29
 		y = 5
 		prerequisite = { focus = SRD_the_centres_army }
-		cost = 6
+		cost = 8
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1853,7 +1853,7 @@ focus_tree = {
 			3 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 			4 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 		}
-		cost = 8
+		cost = 10
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1876,7 +1876,7 @@ focus_tree = {
 		available = {
 			SRK = { exists = yes has_country_leader = { character = SRK_leader ruling_only = yes } }
 		}
-		cost = 6
+		cost = 8
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1896,7 +1896,7 @@ focus_tree = {
 		available = {
 			NOT = { country_exists = SRK }
 		}
-		cost = 4
+		cost = 6
 		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1920,7 +1920,7 @@ focus_tree = {
 			17 = { is_controlled_by = ROOT }
 			10 = { is_controlled_by = ROOT }
 		}
-		cost = 5
+		cost = 7
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_STABILITY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1929,8 +1929,6 @@ focus_tree = {
 				add_core_of = SRD
 			}
 			add_stability = 0.05
-			add_to_variable = { SRD_grip = 5 }
-			SRD_update_grip = yes
 		}
 	}
 	focus = {
@@ -1943,7 +1941,7 @@ focus_tree = {
 		available = {
 			country_exists = OBR
 		}
-		cost = 6
+		cost = 8
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1964,7 +1962,7 @@ focus_tree = {
 		available = {
 			country_exists = OBR
 		}
-		cost = 4
+		cost = 6
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1984,7 +1982,7 @@ focus_tree = {
 			5 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 			6 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 		}
-		cost = 10
+		cost = 12
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_RESEARCH }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -1999,7 +1997,7 @@ focus_tree = {
 		x = 32
 		y = 9
 		prerequisite = { focus = SRD_anton_at_our_side }
-		cost = 8
+		cost = 10
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_RESEARCH }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2014,9 +2012,9 @@ focus_tree = {
 		x = 30
 		y = 12
 		prerequisite = { focus = SRD_the_united_centre focus = SRD_the_centre_and_oborishte focus = SRD_a_temporary_emergency }
-		prerequisite = { focus = SRD_the_iron_grip focus = SRD_a_temporary_emergency }
+		prerequisite = { focus = SRD_the_ring_under_sofia focus = SRD_a_temporary_emergency }
 		available = {
-			check_variable = { SRD_grip > 69 }
+			check_variable = { SRD_tunnels > 3 }
 			3 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 			4 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 			38 = { is_controlled_by = ROOT }
@@ -2027,13 +2025,14 @@ focus_tree = {
 			17 = { is_controlled_by = ROOT }
 			10 = { is_controlled_by = ROOT }
 		}
-		cost = 10
+		cost = 12
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			set_cosmetic_tag = SRD_DIRECTORATE
 			if = { limit = { has_idea = SRD_united_centre_done } remove_ideas = SRD_united_centre_done }
 			add_ideas = SRD_directorate
+			clr_country_flag = SRD_tunnels_active
 			add_country_leader_trait = evil_sofia_the_director
 			add_political_power = 150
 			news_event = { id = evil_sofia_news.17 hours = 6 }
@@ -2045,7 +2044,7 @@ focus_tree = {
 		x = 29
 		y = 13
 		prerequisite = { focus = SRD_proclaim_the_directorate }
-		cost = 8
+		cost = 10
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2062,7 +2061,7 @@ focus_tree = {
 		x = 31
 		y = 13
 		prerequisite = { focus = SRD_proclaim_the_directorate }
-		cost = 10
+		cost = 12
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2083,7 +2082,7 @@ focus_tree = {
 			is_in_faction = no
 			NOT = { has_completed_focus = SRD_call_the_evil_gang }
 		}
-		cost = 4
+		cost = 6
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2099,7 +2098,7 @@ focus_tree = {
 		x = 31
 		y = 5
 		prerequisite = { focus = SRD_unleash_the_c_class }
-		cost = 3
+		cost = 5
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2115,7 +2114,7 @@ focus_tree = {
 		x = 33
 		y = 5
 		prerequisite = { focus = SRD_unleash_the_c_class }
-		cost = 3
+		cost = 5
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2132,7 +2131,7 @@ focus_tree = {
 		y = 6
 		prerequisite = { focus = SRD_call_alexander }
 		prerequisite = { focus = SRD_call_poryazov }
-		cost = 6
+		cost = 8
 		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2150,7 +2149,7 @@ focus_tree = {
 		x = 32
 		y = 7
 		prerequisite = { focus = SRD_away_days }
-		cost = 8
+		cost = 10
 		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2172,7 +2171,7 @@ focus_tree = {
 		available = {
 			date > 1937.1.1
 		}
-		cost = 5
+		cost = 7
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2189,7 +2188,7 @@ focus_tree = {
 		x = 37
 		y = 4
 		prerequisite = { focus = SRD_ilchevs_lesson }
-		cost = 6
+		cost = 8
 		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2203,7 +2202,7 @@ focus_tree = {
 		x = 39
 		y = 4
 		prerequisite = { focus = SRD_ilchevs_lesson }
-		cost = 10
+		cost = 12
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2216,7 +2215,7 @@ focus_tree = {
 		x = 37
 		y = 5
 		prerequisite = { focus = SRD_newtons_laws }
-		cost = 7
+		cost = 9
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2230,7 +2229,7 @@ focus_tree = {
 		x = 39
 		y = 5
 		prerequisite = { focus = SRD_laboratory_of_the_nation }
-		cost = 7
+		cost = 9
 		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_RESEARCH }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2245,7 +2244,7 @@ focus_tree = {
 		y = 6
 		prerequisite = { focus = SRD_homework_for_everyone }
 		prerequisite = { focus = SRD_pop_quiz_for_the_army }
-		cost = 12
+		cost = 14
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2259,7 +2258,7 @@ focus_tree = {
 		x = 38
 		y = 7
 		prerequisite = { focus = SRD_e_equals_mc2 }
-		cost = 8
+		cost = 10
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2283,7 +2282,7 @@ focus_tree = {
 			3 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 			4 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 		}
-		cost = 6
+		cost = 8
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_STABILITY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2304,7 +2303,7 @@ focus_tree = {
 			is_in_faction = no
 			NOT = { has_completed_focus = SRD_a_free_sredets has_completed_focus = SRD_unleash_the_c_class }
 		}
-		cost = 5
+		cost = 7
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2325,7 +2324,7 @@ focus_tree = {
 		available = {
 			VIT = { exists = yes has_country_flag = SRD_refused_the_gang }
 		}
-		cost = 6
+		cost = 8
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2345,7 +2344,7 @@ focus_tree = {
 		x = 46
 		y = 1
 		prerequisite = { focus = SRD_call_the_evil_gang }
-		cost = 4
+		cost = 6
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2364,7 +2363,7 @@ focus_tree = {
 		available = {
 			KRP = { exists = yes has_country_flag = SRD_refused_the_gang }
 		}
-		cost = 6
+		cost = 8
 		search_filters = { FOCUS_FILTER_ANNEXATION FOCUS_FILTER_WAR_SUPPORT }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2385,7 +2384,7 @@ focus_tree = {
 		available = {
 			NOT = { country_exists = VIT }
 		}
-		cost = 5
+		cost = 7
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2426,7 +2425,7 @@ focus_tree = {
 		x = 45
 		y = 2
 		prerequisite = { focus = SRD_invite_georgi }
-		cost = 5
+		cost = 7
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2442,7 +2441,7 @@ focus_tree = {
 		x = 47
 		y = 2
 		prerequisite = { focus = SRD_invite_georgi }
-		cost = 5
+		cost = 7
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2458,7 +2457,7 @@ focus_tree = {
 		x = 46
 		y = 3
 		prerequisite = { focus = SRD_invite_dimitrov focus = SRD_invite_anton }
-		cost = 8
+		cost = 10
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2478,7 +2477,7 @@ focus_tree = {
 		icon = GFX_focus_SRD_workshops_of_sofia
 		x = 54
 		y = 0
-		cost = 7
+		cost = 9
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2495,7 +2494,7 @@ focus_tree = {
 		x = 52
 		y = 1
 		prerequisite = { focus = SRD_workshops_of_sofia }
-		cost = 10
+		cost = 12
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2511,7 +2510,7 @@ focus_tree = {
 		x = 56
 		y = 1
 		prerequisite = { focus = SRD_workshops_of_sofia }
-		cost = 10
+		cost = 12
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2527,7 +2526,7 @@ focus_tree = {
 		x = 51
 		y = 2
 		prerequisite = { focus = SRD_courtyard_workshops }
-		cost = 5
+		cost = 7
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2541,7 +2540,7 @@ focus_tree = {
 		x = 53
 		y = 2
 		prerequisite = { focus = SRD_courtyard_workshops }
-		cost = 7
+		cost = 9
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2554,7 +2553,7 @@ focus_tree = {
 		x = 55
 		y = 2
 		prerequisite = { focus = SRD_cellar_arsenals }
-		cost = 7
+		cost = 9
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2567,7 +2566,7 @@ focus_tree = {
 		x = 57
 		y = 2
 		prerequisite = { focus = SRD_cellar_arsenals }
-		cost = 10
+		cost = 12
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2583,7 +2582,7 @@ focus_tree = {
 		x = 51
 		y = 3
 		prerequisite = { focus = SRD_tram_lines }
-		cost = 10
+		cost = 12
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2596,7 +2595,7 @@ focus_tree = {
 		x = 53
 		y = 3
 		prerequisite = { focus = SRD_construction_brigades }
-		cost = 7
+		cost = 9
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2613,7 +2612,7 @@ focus_tree = {
 		y = 3
 		prerequisite = { focus = SRD_night_shifts }
 		prerequisite = { focus = SRD_rail_yard_arms }
-		cost = 12
+		cost = 14
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2629,7 +2628,7 @@ focus_tree = {
 		x = 57
 		y = 3
 		prerequisite = { focus = SRD_rail_yard_arms }
-		cost = 6
+		cost = 8
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2642,7 +2641,7 @@ focus_tree = {
 		x = 52
 		y = 4
 		prerequisite = { focus = SRD_basement_laboratories }
-		cost = 8
+		cost = 10
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2656,7 +2655,7 @@ focus_tree = {
 		x = 54
 		y = 4
 		prerequisite = { focus = SRD_market_halls_reopen }
-		cost = 10
+		cost = 12
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2672,7 +2671,7 @@ focus_tree = {
 		x = 56
 		y = 4
 		prerequisite = { focus = SRD_the_war_factories }
-		cost = 12
+		cost = 14
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2689,7 +2688,7 @@ focus_tree = {
 		y = 5
 		prerequisite = { focus = SRD_tsarigradsko_factories }
 		prerequisite = { focus = SRD_arsenal_of_sofia }
-		cost = 10
+		cost = 12
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2701,7 +2700,7 @@ focus_tree = {
 		icon = GFX_focus_SRD_district_guard_reformed
 		x = 62
 		y = 0
-		cost = 5
+		cost = 7
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2714,7 +2713,7 @@ focus_tree = {
 		x = 60
 		y = 1
 		prerequisite = { focus = SRD_district_guard_reformed }
-		cost = 5
+		cost = 7
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2728,7 +2727,7 @@ focus_tree = {
 		x = 62
 		y = 1
 		prerequisite = { focus = SRD_district_guard_reformed }
-		cost = 7
+		cost = 9
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2741,7 +2740,7 @@ focus_tree = {
 		x = 64
 		y = 1
 		prerequisite = { focus = SRD_district_guard_reformed }
-		cost = 6
+		cost = 8
 		search_filters = { FOCUS_FILTER_AIR_XP }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2755,7 +2754,7 @@ focus_tree = {
 		x = 59
 		y = 2
 		prerequisite = { focus = SRD_rifle_clubs }
-		cost = 5
+		cost = 7
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2768,7 +2767,7 @@ focus_tree = {
 		x = 61
 		y = 2
 		prerequisite = { focus = SRD_rifle_clubs }
-		cost = 5
+		cost = 7
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2781,7 +2780,7 @@ focus_tree = {
 		x = 63
 		y = 2
 		prerequisite = { focus = SRD_sergeants_of_the_old_army }
-		cost = 7
+		cost = 9
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2794,7 +2793,7 @@ focus_tree = {
 		x = 65
 		y = 2
 		prerequisite = { focus = SRD_pilots_from_vrazhdebna }
-		cost = 6
+		cost = 8
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_AIR_XP }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2808,7 +2807,7 @@ focus_tree = {
 		y = 3
 		prerequisite = { focus = SRD_artillery_in_the_parks }
 		prerequisite = { focus = SRD_field_kitchens }
-		cost = 8
+		cost = 10
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2821,7 +2820,7 @@ focus_tree = {
 		x = 62
 		y = 3
 		prerequisite = { focus = SRD_street_fighting_school }
-		cost = 8
+		cost = 10
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2834,7 +2833,7 @@ focus_tree = {
 		x = 64
 		y = 3
 		prerequisite = { focus = SRD_fighters_over_the_centre }
-		cost = 6
+		cost = 8
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_AIR_XP }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2851,7 +2850,7 @@ focus_tree = {
 		x = 59
 		y = 4
 		prerequisite = { focus = SRD_armoured_trams }
-		cost = 6
+		cost = 8
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2864,7 +2863,7 @@ focus_tree = {
 		x = 61
 		y = 4
 		prerequisite = { focus = SRD_armoured_trams }
-		cost = 10
+		cost = 12
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2877,7 +2876,7 @@ focus_tree = {
 		x = 63
 		y = 4
 		prerequisite = { focus = SRD_officer_corps }
-		cost = 8
+		cost = 10
 		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_RESEARCH }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2891,7 +2890,7 @@ focus_tree = {
 		x = 65
 		y = 4
 		prerequisite = { focus = SRD_anti_air_belt }
-		cost = 6
+		cost = 8
 		search_filters = { FOCUS_FILTER_AIR_XP FOCUS_FILTER_RESEARCH }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
@@ -2906,7 +2905,7 @@ focus_tree = {
 		y = 5
 		prerequisite = { focus = SRD_locomotive_works_armour }
 		prerequisite = { focus = SRD_general_staff }
-		cost = 10
+		cost = 12
 		search_filters = { FOCUS_FILTER_ARMY_XP }
 		ai_will_do = { factor = 1 }
 		completion_reward = {

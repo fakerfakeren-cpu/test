@@ -46,8 +46,19 @@ characters = {
 	BNK_military_5 = {
 		name = BNK_military_5
 		advisor = {
-			slot = air_chief
+			slot = army_chief
 			idea_token = BNK_military_5
+			allowed = { original_tag = BNK }
+			traits = { evil_sofia_guard_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	BNK_military_6 = {
+		name = BNK_military_6
+		advisor = {
+			slot = air_chief
+			idea_token = BNK_military_6
 			allowed = { original_tag = BNK }
 			traits = { evil_sofia_air_chief }
 			cost = 100
@@ -101,8 +112,19 @@ characters = {
 	IAP_military_5 = {
 		name = IAP_military_5
 		advisor = {
-			slot = air_chief
+			slot = army_chief
 			idea_token = IAP_military_5
+			allowed = { original_tag = IAP }
+			traits = { evil_sofia_guard_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	IAP_military_6 = {
+		name = IAP_military_6
+		advisor = {
+			slot = air_chief
+			idea_token = IAP_military_6
 			allowed = { original_tag = IAP }
 			traits = { evil_sofia_air_chief }
 			cost = 100
@@ -156,8 +178,19 @@ characters = {
 	ILN_military_5 = {
 		name = ILN_military_5
 		advisor = {
-			slot = air_chief
+			slot = army_chief
 			idea_token = ILN_military_5
+			allowed = { original_tag = ILN }
+			traits = { evil_sofia_guard_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	ILN_military_6 = {
+		name = ILN_military_6
+		advisor = {
+			slot = air_chief
+			idea_token = ILN_military_6
 			allowed = { original_tag = ILN }
 			traits = { evil_sofia_air_chief }
 			cost = 100
@@ -211,8 +244,19 @@ characters = {
 	ISK_military_5 = {
 		name = ISK_military_5
 		advisor = {
-			slot = air_chief
+			slot = army_chief
 			idea_token = ISK_military_5
+			allowed = { original_tag = ISK }
+			traits = { evil_sofia_guard_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	ISK_military_6 = {
+		name = ISK_military_6
+		advisor = {
+			slot = air_chief
+			idea_token = ISK_military_6
 			allowed = { original_tag = ISK }
 			traits = { evil_sofia_air_chief }
 			cost = 100
@@ -266,8 +310,19 @@ characters = {
 	IZG_military_5 = {
 		name = IZG_military_5
 		advisor = {
-			slot = air_chief
+			slot = army_chief
 			idea_token = IZG_military_5
+			allowed = { original_tag = IZG }
+			traits = { evil_sofia_guard_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	IZG_military_6 = {
+		name = IZG_military_6
+		advisor = {
+			slot = air_chief
+			idea_token = IZG_military_6
 			allowed = { original_tag = IZG }
 			traits = { evil_sofia_air_chief }
 			cost = 100
@@ -321,8 +376,19 @@ characters = {
 	KRE_military_5 = {
 		name = KRE_military_5
 		advisor = {
-			slot = air_chief
+			slot = army_chief
 			idea_token = KRE_military_5
+			allowed = { original_tag = KRE }
+			traits = { evil_sofia_guard_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	KRE_military_6 = {
+		name = KRE_military_6
+		advisor = {
+			slot = air_chief
+			idea_token = KRE_military_6
 			allowed = { original_tag = KRE }
 			traits = { evil_sofia_air_chief }
 			cost = 100
@@ -376,8 +442,19 @@ characters = {
 	KRP_military_5 = {
 		name = KRP_military_5
 		advisor = {
-			slot = air_chief
+			slot = army_chief
 			idea_token = KRP_military_5
+			allowed = { original_tag = KRP }
+			traits = { evil_sofia_guard_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	KRP_military_6 = {
+		name = KRP_military_6
+		advisor = {
+			slot = air_chief
+			idea_token = KRP_military_6
 			allowed = { original_tag = KRP }
 			traits = { evil_sofia_air_chief }
 			cost = 100
@@ -431,8 +508,19 @@ characters = {
 	KRS_military_5 = {
 		name = KRS_military_5
 		advisor = {
-			slot = air_chief
+			slot = army_chief
 			idea_token = KRS_military_5
+			allowed = { original_tag = KRS }
+			traits = { evil_sofia_guard_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	KRS_military_6 = {
+		name = KRS_military_6
+		advisor = {
+			slot = air_chief
+			idea_token = KRS_military_6
 			allowed = { original_tag = KRS }
 			traits = { evil_sofia_air_chief }
 			cost = 100
@@ -486,8 +574,19 @@ characters = {
 	LOZ_military_5 = {
 		name = LOZ_military_5
 		advisor = {
-			slot = air_chief
+			slot = army_chief
 			idea_token = LOZ_military_5
+			allowed = { original_tag = LOZ }
+			traits = { evil_sofia_guard_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	LOZ_military_6 = {
+		name = LOZ_military_6
+		advisor = {
+			slot = air_chief
+			idea_token = LOZ_military_6
 			allowed = { original_tag = LOZ }
 			traits = { evil_sofia_air_chief }
 			cost = 100
@@ -541,8 +640,19 @@ characters = {
 	LYU_military_5 = {
 		name = LYU_military_5
 		advisor = {
-			slot = air_chief
+			slot = army_chief
 			idea_token = LYU_military_5
+			allowed = { original_tag = LYU }
+			traits = { evil_sofia_guard_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	LYU_military_6 = {
+		name = LYU_military_6
+		advisor = {
+			slot = air_chief
+			idea_token = LYU_military_6
 			allowed = { original_tag = LYU }
 			traits = { evil_sofia_air_chief }
 			cost = 100
@@ -596,8 +706,19 @@ characters = {
 	MLA_military_5 = {
 		name = MLA_military_5
 		advisor = {
-			slot = air_chief
+			slot = army_chief
 			idea_token = MLA_military_5
+			allowed = { original_tag = MLA }
+			traits = { evil_sofia_guard_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	MLA_military_6 = {
+		name = MLA_military_6
+		advisor = {
+			slot = air_chief
+			idea_token = MLA_military_6
 			allowed = { original_tag = MLA }
 			traits = { evil_sofia_air_chief }
 			cost = 100
@@ -651,8 +772,19 @@ characters = {
 	NAD_military_5 = {
 		name = NAD_military_5
 		advisor = {
-			slot = air_chief
+			slot = army_chief
 			idea_token = NAD_military_5
+			allowed = { original_tag = NAD }
+			traits = { evil_sofia_guard_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	NAD_military_6 = {
+		name = NAD_military_6
+		advisor = {
+			slot = air_chief
+			idea_token = NAD_military_6
 			allowed = { original_tag = NAD }
 			traits = { evil_sofia_air_chief }
 			cost = 100
@@ -706,8 +838,19 @@ characters = {
 	NIS_military_5 = {
 		name = NIS_military_5
 		advisor = {
-			slot = air_chief
+			slot = army_chief
 			idea_token = NIS_military_5
+			allowed = { original_tag = NIS }
+			traits = { evil_sofia_guard_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	NIS_military_6 = {
+		name = NIS_military_6
+		advisor = {
+			slot = air_chief
+			idea_token = NIS_military_6
 			allowed = { original_tag = NIS }
 			traits = { evil_sofia_air_chief }
 			cost = 100
@@ -761,8 +904,19 @@ characters = {
 	OBR_military_5 = {
 		name = OBR_military_5
 		advisor = {
-			slot = air_chief
+			slot = army_chief
 			idea_token = OBR_military_5
+			allowed = { original_tag = OBR }
+			traits = { evil_sofia_guard_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	OBR_military_6 = {
+		name = OBR_military_6
+		advisor = {
+			slot = air_chief
+			idea_token = OBR_military_6
 			allowed = { original_tag = OBR }
 			traits = { evil_sofia_air_chief }
 			cost = 100
@@ -816,8 +970,19 @@ characters = {
 	OVK_military_5 = {
 		name = OVK_military_5
 		advisor = {
-			slot = air_chief
+			slot = army_chief
 			idea_token = OVK_military_5
+			allowed = { original_tag = OVK }
+			traits = { evil_sofia_guard_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	OVK_military_6 = {
+		name = OVK_military_6
+		advisor = {
+			slot = air_chief
+			idea_token = OVK_military_6
 			allowed = { original_tag = OVK }
 			traits = { evil_sofia_air_chief }
 			cost = 100
@@ -871,8 +1036,19 @@ characters = {
 	PNC_military_5 = {
 		name = PNC_military_5
 		advisor = {
-			slot = air_chief
+			slot = army_chief
 			idea_token = PNC_military_5
+			allowed = { original_tag = PNC }
+			traits = { evil_sofia_guard_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	PNC_military_6 = {
+		name = PNC_military_6
+		advisor = {
+			slot = air_chief
+			idea_token = PNC_military_6
 			allowed = { original_tag = PNC }
 			traits = { evil_sofia_air_chief }
 			cost = 100
@@ -926,8 +1102,19 @@ characters = {
 	POD_military_5 = {
 		name = POD_military_5
 		advisor = {
-			slot = air_chief
+			slot = army_chief
 			idea_token = POD_military_5
+			allowed = { original_tag = POD }
+			traits = { evil_sofia_guard_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	POD_military_6 = {
+		name = POD_military_6
+		advisor = {
+			slot = air_chief
+			idea_token = POD_military_6
 			allowed = { original_tag = POD }
 			traits = { evil_sofia_air_chief }
 			cost = 100
@@ -981,8 +1168,19 @@ characters = {
 	SLA_military_5 = {
 		name = SLA_military_5
 		advisor = {
-			slot = air_chief
+			slot = army_chief
 			idea_token = SLA_military_5
+			allowed = { original_tag = SLA }
+			traits = { evil_sofia_guard_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	SLA_military_6 = {
+		name = SLA_military_6
+		advisor = {
+			slot = air_chief
+			idea_token = SLA_military_6
 			allowed = { original_tag = SLA }
 			traits = { evil_sofia_air_chief }
 			cost = 100
@@ -1036,8 +1234,19 @@ characters = {
 	SRD_military_5 = {
 		name = SRD_military_5
 		advisor = {
-			slot = air_chief
+			slot = army_chief
 			idea_token = SRD_military_5
+			allowed = { original_tag = SRD }
+			traits = { evil_sofia_guard_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	SRD_military_6 = {
+		name = SRD_military_6
+		advisor = {
+			slot = air_chief
+			idea_token = SRD_military_6
 			allowed = { original_tag = SRD }
 			traits = { evil_sofia_air_chief }
 			cost = 100
@@ -1091,8 +1300,19 @@ characters = {
 	SRK_military_5 = {
 		name = SRK_military_5
 		advisor = {
-			slot = air_chief
+			slot = army_chief
 			idea_token = SRK_military_5
+			allowed = { original_tag = SRK }
+			traits = { evil_sofia_guard_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	SRK_military_6 = {
+		name = SRK_military_6
+		advisor = {
+			slot = air_chief
+			idea_token = SRK_military_6
 			allowed = { original_tag = SRK }
 			traits = { evil_sofia_air_chief }
 			cost = 100
@@ -1146,8 +1366,19 @@ characters = {
 	STU_military_5 = {
 		name = STU_military_5
 		advisor = {
-			slot = air_chief
+			slot = army_chief
 			idea_token = STU_military_5
+			allowed = { original_tag = STU }
+			traits = { evil_sofia_guard_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	STU_military_6 = {
+		name = STU_military_6
+		advisor = {
+			slot = air_chief
+			idea_token = STU_military_6
 			allowed = { original_tag = STU }
 			traits = { evil_sofia_air_chief }
 			cost = 100
@@ -1201,8 +1432,19 @@ characters = {
 	TRD_military_5 = {
 		name = TRD_military_5
 		advisor = {
-			slot = air_chief
+			slot = army_chief
 			idea_token = TRD_military_5
+			allowed = { original_tag = TRD }
+			traits = { evil_sofia_guard_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	TRD_military_6 = {
+		name = TRD_military_6
+		advisor = {
+			slot = air_chief
+			idea_token = TRD_military_6
 			allowed = { original_tag = TRD }
 			traits = { evil_sofia_air_chief }
 			cost = 100
@@ -1256,8 +1498,19 @@ characters = {
 	VAZ_military_5 = {
 		name = VAZ_military_5
 		advisor = {
-			slot = air_chief
+			slot = army_chief
 			idea_token = VAZ_military_5
+			allowed = { original_tag = VAZ }
+			traits = { evil_sofia_guard_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	VAZ_military_6 = {
+		name = VAZ_military_6
+		advisor = {
+			slot = air_chief
+			idea_token = VAZ_military_6
 			allowed = { original_tag = VAZ }
 			traits = { evil_sofia_air_chief }
 			cost = 100
@@ -1311,8 +1564,19 @@ characters = {
 	VIT_military_5 = {
 		name = VIT_military_5
 		advisor = {
-			slot = air_chief
+			slot = army_chief
 			idea_token = VIT_military_5
+			allowed = { original_tag = VIT }
+			traits = { evil_sofia_guard_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	VIT_military_6 = {
+		name = VIT_military_6
+		advisor = {
+			slot = air_chief
+			idea_token = VIT_military_6
 			allowed = { original_tag = VIT }
 			traits = { evil_sofia_air_chief }
 			cost = 100
@@ -1366,8 +1630,19 @@ characters = {
 	VRB_military_5 = {
 		name = VRB_military_5
 		advisor = {
-			slot = air_chief
+			slot = army_chief
 			idea_token = VRB_military_5
+			allowed = { original_tag = VRB }
+			traits = { evil_sofia_guard_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	VRB_military_6 = {
+		name = VRB_military_6
+		advisor = {
+			slot = air_chief
+			idea_token = VRB_military_6
 			allowed = { original_tag = VRB }
 			traits = { evil_sofia_air_chief }
 			cost = 100

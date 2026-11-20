@@ -52,99 +52,2186 @@ SRD_oborishte_question = {
 		}
 	}
 }
-SRD_grip = {
-	SRD_patrol_the_boulevards = {
-		icon = generic_police_action
-		cost = 25
-		days_re_enable = 30
+SRD_tunnels = {
+	SRD_dig_tunnel_VAZ = {
+		icon = generic_construction
+		cost = 50
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			VAZ = { exists = yes is_neighbor_of = ROOT }
+			NOT = { has_country_flag = SRD_tunnel_VAZ }
+		}
+		days_remove = 60
+		remove_effect = {
+			clr_country_flag = SRD_digging_VAZ
+			add_to_variable = { SRD_digging = -1 }
+			set_country_flag = SRD_tunnel_VAZ
+			add_to_variable = { SRD_tunnels = 1 }
+			country_event = { id = evil_sofia_srd.23 }
+		}
 		available = {
-			always = yes
+			NOT = { has_country_flag = SRD_digging_VAZ }
+			check_variable = { SRD_digging < SRD_dig_capacity }
 		}
 		complete_effect = {
-			add_to_variable = { SRD_grip = 5 }
-			SRD_update_grip = yes
+			set_country_flag = SRD_digging_VAZ
+			add_to_variable = { SRD_digging = 1 }
+			random_list = { 20 = { country_event = { id = evil_sofia_srd.22 days = 25 } } 80 = { } }
 		}
 		ai_will_do = {
 			factor = 1
 		}
 	}
-	SRD_bread_at_the_womens_market = {
-		icon = generic_civil_support
+	SRD_agents_below_VAZ = {
+		icon = generic_operation
 		cost = 40
-		days_re_enable = 60
-		available = {
-			always = yes
-		}
-		complete_effect = {
-			add_to_variable = { SRD_grip = 5 }
-			SRD_update_grip = yes
-			add_stability = 0.02
-		}
-		ai_will_do = {
-			factor = 1
-		}
-	}
-	SRD_night_raids = {
-		icon = generic_prepare_civil_war
-		cost = 50
-		days_re_enable = 60
+		days_re_enable = 180
 		visible = {
-			has_completed_focus = SRD_the_night_watch
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_agents_unlocked
+			has_country_flag = SRD_tunnel_VAZ
+			VAZ = { exists = yes }
 		}
 		available = {
-			always = yes
+			VAZ = { NOT = { has_idea = SRD_agents_below } }
 		}
 		complete_effect = {
-			add_to_variable = { SRD_grip = 10 }
-			SRD_update_grip = yes
-			add_stability = -0.02
+			VAZ = { add_timed_idea = { idea = SRD_agents_below days = 120 } }
 		}
 		ai_will_do = {
 			factor = 1
 		}
 	}
-	SRD_parade_on_tsar_osvoboditel = {
+	SRD_tunnel_strike_VAZ = {
 		icon = generic_army_support
-		cost = 50
-		days_re_enable = 90
-		visible = {
-			has_completed_focus = SRD_the_centres_army
-		}
-		available = {
-			always = yes
-		}
-		complete_effect = {
-			add_to_variable = { SRD_grip = 5 }
-			SRD_update_grip = yes
-			add_war_support = 0.03
-		}
-		ai_will_do = {
-			factor = 1
-		}
-	}
-	SRD_send_an_ultimatum = {
-		icon = generic_break_treaty
-		cost = 75
+		cost = 60
 		days_re_enable = 120
 		visible = {
-			has_country_flag = SRD_ultimatums_unlocked
-		}
-		targets = { VAZ OBR KRS SRK POD SLA IZG LOZ TRD KRP ILN NAD ISK MLA STU LYU KRE VIT OVK VRB NIS PNC BNK IAP }
-		target_trigger = {
-			FROM = {
-				exists = yes
-				is_neighbor_of = ROOT
-				NOT = { is_in_faction_with = ROOT is_subject_of = ROOT has_war_with = ROOT }
-			}
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_strike_unlocked
+			has_country_flag = SRD_tunnel_VAZ
+			VAZ = { exists = yes }
 		}
 		available = {
-			check_variable = { SRD_grip > 49 }
-			NOT = { has_war_with = FROM }
+			has_war_with = VAZ
 		}
 		complete_effect = {
-			add_to_variable = { SRD_grip = -15 }
-			SRD_update_grip = yes
-			FROM = { country_event = { id = evil_sofia_srd.22 } }
+			VAZ = { add_timed_idea = { idea = SRD_enemy_in_the_tunnels days = 45 } }
+			if = { limit = { NOT = { has_idea = SRD_through_the_tunnels } } add_timed_idea = { idea = SRD_through_the_tunnels days = 45 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_coup_from_below_VAZ = {
+		icon = generic_prepare_civil_war
+		cost = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_coup_unlocked
+			has_country_flag = SRD_tunnel_VAZ
+			VAZ = { exists = yes NOT = { is_subject_of = ROOT } }
+		}
+		available = {
+			NOT = { has_war_with = VAZ }
+			VAZ = { has_stability < 0.5 is_in_faction = no is_subject = no }
+		}
+		complete_effect = {
+			puppet = VAZ
+			VAZ = { country_event = { id = evil_sofia_srd.24 } news_event = { id = evil_sofia_news.20 hours = 6 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_dig_tunnel_OBR = {
+		icon = generic_construction
+		cost = 50
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			OBR = { exists = yes is_neighbor_of = ROOT }
+			NOT = { has_country_flag = SRD_tunnel_OBR }
+		}
+		days_remove = 60
+		remove_effect = {
+			clr_country_flag = SRD_digging_OBR
+			add_to_variable = { SRD_digging = -1 }
+			set_country_flag = SRD_tunnel_OBR
+			add_to_variable = { SRD_tunnels = 1 }
+			country_event = { id = evil_sofia_srd.23 }
+		}
+		available = {
+			NOT = { has_country_flag = SRD_digging_OBR }
+			check_variable = { SRD_digging < SRD_dig_capacity }
+		}
+		complete_effect = {
+			set_country_flag = SRD_digging_OBR
+			add_to_variable = { SRD_digging = 1 }
+			random_list = { 20 = { country_event = { id = evil_sofia_srd.22 days = 25 } } 80 = { } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_agents_below_OBR = {
+		icon = generic_operation
+		cost = 40
+		days_re_enable = 180
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_agents_unlocked
+			has_country_flag = SRD_tunnel_OBR
+			OBR = { exists = yes }
+		}
+		available = {
+			OBR = { NOT = { has_idea = SRD_agents_below } }
+		}
+		complete_effect = {
+			OBR = { add_timed_idea = { idea = SRD_agents_below days = 120 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_tunnel_strike_OBR = {
+		icon = generic_army_support
+		cost = 60
+		days_re_enable = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_strike_unlocked
+			has_country_flag = SRD_tunnel_OBR
+			OBR = { exists = yes }
+		}
+		available = {
+			has_war_with = OBR
+		}
+		complete_effect = {
+			OBR = { add_timed_idea = { idea = SRD_enemy_in_the_tunnels days = 45 } }
+			if = { limit = { NOT = { has_idea = SRD_through_the_tunnels } } add_timed_idea = { idea = SRD_through_the_tunnels days = 45 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_coup_from_below_OBR = {
+		icon = generic_prepare_civil_war
+		cost = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_coup_unlocked
+			has_country_flag = SRD_tunnel_OBR
+			OBR = { exists = yes NOT = { is_subject_of = ROOT } }
+		}
+		available = {
+			NOT = { has_war_with = OBR }
+			OBR = { has_stability < 0.5 is_in_faction = no is_subject = no }
+		}
+		complete_effect = {
+			puppet = OBR
+			OBR = { country_event = { id = evil_sofia_srd.24 } news_event = { id = evil_sofia_news.20 hours = 6 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_dig_tunnel_KRS = {
+		icon = generic_construction
+		cost = 50
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			KRS = { exists = yes is_neighbor_of = ROOT }
+			NOT = { has_country_flag = SRD_tunnel_KRS }
+		}
+		days_remove = 60
+		remove_effect = {
+			clr_country_flag = SRD_digging_KRS
+			add_to_variable = { SRD_digging = -1 }
+			set_country_flag = SRD_tunnel_KRS
+			add_to_variable = { SRD_tunnels = 1 }
+			country_event = { id = evil_sofia_srd.23 }
+		}
+		available = {
+			NOT = { has_country_flag = SRD_digging_KRS }
+			check_variable = { SRD_digging < SRD_dig_capacity }
+		}
+		complete_effect = {
+			set_country_flag = SRD_digging_KRS
+			add_to_variable = { SRD_digging = 1 }
+			random_list = { 20 = { country_event = { id = evil_sofia_srd.22 days = 25 } } 80 = { } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_agents_below_KRS = {
+		icon = generic_operation
+		cost = 40
+		days_re_enable = 180
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_agents_unlocked
+			has_country_flag = SRD_tunnel_KRS
+			KRS = { exists = yes }
+		}
+		available = {
+			KRS = { NOT = { has_idea = SRD_agents_below } }
+		}
+		complete_effect = {
+			KRS = { add_timed_idea = { idea = SRD_agents_below days = 120 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_tunnel_strike_KRS = {
+		icon = generic_army_support
+		cost = 60
+		days_re_enable = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_strike_unlocked
+			has_country_flag = SRD_tunnel_KRS
+			KRS = { exists = yes }
+		}
+		available = {
+			has_war_with = KRS
+		}
+		complete_effect = {
+			KRS = { add_timed_idea = { idea = SRD_enemy_in_the_tunnels days = 45 } }
+			if = { limit = { NOT = { has_idea = SRD_through_the_tunnels } } add_timed_idea = { idea = SRD_through_the_tunnels days = 45 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_coup_from_below_KRS = {
+		icon = generic_prepare_civil_war
+		cost = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_coup_unlocked
+			has_country_flag = SRD_tunnel_KRS
+			KRS = { exists = yes NOT = { is_subject_of = ROOT } }
+		}
+		available = {
+			NOT = { has_war_with = KRS }
+			KRS = { has_stability < 0.5 is_in_faction = no is_subject = no }
+		}
+		complete_effect = {
+			puppet = KRS
+			KRS = { country_event = { id = evil_sofia_srd.24 } news_event = { id = evil_sofia_news.20 hours = 6 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_dig_tunnel_SRK = {
+		icon = generic_construction
+		cost = 50
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			SRK = { exists = yes is_neighbor_of = ROOT }
+			NOT = { has_country_flag = SRD_tunnel_SRK }
+		}
+		days_remove = 60
+		remove_effect = {
+			clr_country_flag = SRD_digging_SRK
+			add_to_variable = { SRD_digging = -1 }
+			set_country_flag = SRD_tunnel_SRK
+			add_to_variable = { SRD_tunnels = 1 }
+			country_event = { id = evil_sofia_srd.23 }
+		}
+		available = {
+			NOT = { has_country_flag = SRD_digging_SRK }
+			check_variable = { SRD_digging < SRD_dig_capacity }
+		}
+		complete_effect = {
+			set_country_flag = SRD_digging_SRK
+			add_to_variable = { SRD_digging = 1 }
+			random_list = { 20 = { country_event = { id = evil_sofia_srd.22 days = 25 } } 80 = { } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_agents_below_SRK = {
+		icon = generic_operation
+		cost = 40
+		days_re_enable = 180
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_agents_unlocked
+			has_country_flag = SRD_tunnel_SRK
+			SRK = { exists = yes }
+		}
+		available = {
+			SRK = { NOT = { has_idea = SRD_agents_below } }
+		}
+		complete_effect = {
+			SRK = { add_timed_idea = { idea = SRD_agents_below days = 120 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_tunnel_strike_SRK = {
+		icon = generic_army_support
+		cost = 60
+		days_re_enable = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_strike_unlocked
+			has_country_flag = SRD_tunnel_SRK
+			SRK = { exists = yes }
+		}
+		available = {
+			has_war_with = SRK
+		}
+		complete_effect = {
+			SRK = { add_timed_idea = { idea = SRD_enemy_in_the_tunnels days = 45 } }
+			if = { limit = { NOT = { has_idea = SRD_through_the_tunnels } } add_timed_idea = { idea = SRD_through_the_tunnels days = 45 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_coup_from_below_SRK = {
+		icon = generic_prepare_civil_war
+		cost = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_coup_unlocked
+			has_country_flag = SRD_tunnel_SRK
+			SRK = { exists = yes NOT = { is_subject_of = ROOT } }
+		}
+		available = {
+			NOT = { has_war_with = SRK }
+			SRK = { has_stability < 0.5 is_in_faction = no is_subject = no }
+		}
+		complete_effect = {
+			puppet = SRK
+			SRK = { country_event = { id = evil_sofia_srd.24 } news_event = { id = evil_sofia_news.20 hours = 6 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_dig_tunnel_POD = {
+		icon = generic_construction
+		cost = 50
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			POD = { exists = yes is_neighbor_of = ROOT }
+			NOT = { has_country_flag = SRD_tunnel_POD }
+		}
+		days_remove = 60
+		remove_effect = {
+			clr_country_flag = SRD_digging_POD
+			add_to_variable = { SRD_digging = -1 }
+			set_country_flag = SRD_tunnel_POD
+			add_to_variable = { SRD_tunnels = 1 }
+			country_event = { id = evil_sofia_srd.23 }
+		}
+		available = {
+			NOT = { has_country_flag = SRD_digging_POD }
+			check_variable = { SRD_digging < SRD_dig_capacity }
+		}
+		complete_effect = {
+			set_country_flag = SRD_digging_POD
+			add_to_variable = { SRD_digging = 1 }
+			random_list = { 20 = { country_event = { id = evil_sofia_srd.22 days = 25 } } 80 = { } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_agents_below_POD = {
+		icon = generic_operation
+		cost = 40
+		days_re_enable = 180
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_agents_unlocked
+			has_country_flag = SRD_tunnel_POD
+			POD = { exists = yes }
+		}
+		available = {
+			POD = { NOT = { has_idea = SRD_agents_below } }
+		}
+		complete_effect = {
+			POD = { add_timed_idea = { idea = SRD_agents_below days = 120 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_tunnel_strike_POD = {
+		icon = generic_army_support
+		cost = 60
+		days_re_enable = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_strike_unlocked
+			has_country_flag = SRD_tunnel_POD
+			POD = { exists = yes }
+		}
+		available = {
+			has_war_with = POD
+		}
+		complete_effect = {
+			POD = { add_timed_idea = { idea = SRD_enemy_in_the_tunnels days = 45 } }
+			if = { limit = { NOT = { has_idea = SRD_through_the_tunnels } } add_timed_idea = { idea = SRD_through_the_tunnels days = 45 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_coup_from_below_POD = {
+		icon = generic_prepare_civil_war
+		cost = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_coup_unlocked
+			has_country_flag = SRD_tunnel_POD
+			POD = { exists = yes NOT = { is_subject_of = ROOT } }
+		}
+		available = {
+			NOT = { has_war_with = POD }
+			POD = { has_stability < 0.5 is_in_faction = no is_subject = no }
+		}
+		complete_effect = {
+			puppet = POD
+			POD = { country_event = { id = evil_sofia_srd.24 } news_event = { id = evil_sofia_news.20 hours = 6 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_dig_tunnel_SLA = {
+		icon = generic_construction
+		cost = 50
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			SLA = { exists = yes is_neighbor_of = ROOT }
+			NOT = { has_country_flag = SRD_tunnel_SLA }
+		}
+		days_remove = 60
+		remove_effect = {
+			clr_country_flag = SRD_digging_SLA
+			add_to_variable = { SRD_digging = -1 }
+			set_country_flag = SRD_tunnel_SLA
+			add_to_variable = { SRD_tunnels = 1 }
+			country_event = { id = evil_sofia_srd.23 }
+		}
+		available = {
+			NOT = { has_country_flag = SRD_digging_SLA }
+			check_variable = { SRD_digging < SRD_dig_capacity }
+		}
+		complete_effect = {
+			set_country_flag = SRD_digging_SLA
+			add_to_variable = { SRD_digging = 1 }
+			random_list = { 20 = { country_event = { id = evil_sofia_srd.22 days = 25 } } 80 = { } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_agents_below_SLA = {
+		icon = generic_operation
+		cost = 40
+		days_re_enable = 180
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_agents_unlocked
+			has_country_flag = SRD_tunnel_SLA
+			SLA = { exists = yes }
+		}
+		available = {
+			SLA = { NOT = { has_idea = SRD_agents_below } }
+		}
+		complete_effect = {
+			SLA = { add_timed_idea = { idea = SRD_agents_below days = 120 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_tunnel_strike_SLA = {
+		icon = generic_army_support
+		cost = 60
+		days_re_enable = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_strike_unlocked
+			has_country_flag = SRD_tunnel_SLA
+			SLA = { exists = yes }
+		}
+		available = {
+			has_war_with = SLA
+		}
+		complete_effect = {
+			SLA = { add_timed_idea = { idea = SRD_enemy_in_the_tunnels days = 45 } }
+			if = { limit = { NOT = { has_idea = SRD_through_the_tunnels } } add_timed_idea = { idea = SRD_through_the_tunnels days = 45 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_coup_from_below_SLA = {
+		icon = generic_prepare_civil_war
+		cost = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_coup_unlocked
+			has_country_flag = SRD_tunnel_SLA
+			SLA = { exists = yes NOT = { is_subject_of = ROOT } }
+		}
+		available = {
+			NOT = { has_war_with = SLA }
+			SLA = { has_stability < 0.5 is_in_faction = no is_subject = no }
+		}
+		complete_effect = {
+			puppet = SLA
+			SLA = { country_event = { id = evil_sofia_srd.24 } news_event = { id = evil_sofia_news.20 hours = 6 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_dig_tunnel_IZG = {
+		icon = generic_construction
+		cost = 50
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			IZG = { exists = yes is_neighbor_of = ROOT }
+			NOT = { has_country_flag = SRD_tunnel_IZG }
+		}
+		days_remove = 60
+		remove_effect = {
+			clr_country_flag = SRD_digging_IZG
+			add_to_variable = { SRD_digging = -1 }
+			set_country_flag = SRD_tunnel_IZG
+			add_to_variable = { SRD_tunnels = 1 }
+			country_event = { id = evil_sofia_srd.23 }
+		}
+		available = {
+			NOT = { has_country_flag = SRD_digging_IZG }
+			check_variable = { SRD_digging < SRD_dig_capacity }
+		}
+		complete_effect = {
+			set_country_flag = SRD_digging_IZG
+			add_to_variable = { SRD_digging = 1 }
+			random_list = { 20 = { country_event = { id = evil_sofia_srd.22 days = 25 } } 80 = { } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_agents_below_IZG = {
+		icon = generic_operation
+		cost = 40
+		days_re_enable = 180
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_agents_unlocked
+			has_country_flag = SRD_tunnel_IZG
+			IZG = { exists = yes }
+		}
+		available = {
+			IZG = { NOT = { has_idea = SRD_agents_below } }
+		}
+		complete_effect = {
+			IZG = { add_timed_idea = { idea = SRD_agents_below days = 120 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_tunnel_strike_IZG = {
+		icon = generic_army_support
+		cost = 60
+		days_re_enable = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_strike_unlocked
+			has_country_flag = SRD_tunnel_IZG
+			IZG = { exists = yes }
+		}
+		available = {
+			has_war_with = IZG
+		}
+		complete_effect = {
+			IZG = { add_timed_idea = { idea = SRD_enemy_in_the_tunnels days = 45 } }
+			if = { limit = { NOT = { has_idea = SRD_through_the_tunnels } } add_timed_idea = { idea = SRD_through_the_tunnels days = 45 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_coup_from_below_IZG = {
+		icon = generic_prepare_civil_war
+		cost = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_coup_unlocked
+			has_country_flag = SRD_tunnel_IZG
+			IZG = { exists = yes NOT = { is_subject_of = ROOT } }
+		}
+		available = {
+			NOT = { has_war_with = IZG }
+			IZG = { has_stability < 0.5 is_in_faction = no is_subject = no }
+		}
+		complete_effect = {
+			puppet = IZG
+			IZG = { country_event = { id = evil_sofia_srd.24 } news_event = { id = evil_sofia_news.20 hours = 6 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_dig_tunnel_LOZ = {
+		icon = generic_construction
+		cost = 50
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			LOZ = { exists = yes is_neighbor_of = ROOT }
+			NOT = { has_country_flag = SRD_tunnel_LOZ }
+		}
+		days_remove = 60
+		remove_effect = {
+			clr_country_flag = SRD_digging_LOZ
+			add_to_variable = { SRD_digging = -1 }
+			set_country_flag = SRD_tunnel_LOZ
+			add_to_variable = { SRD_tunnels = 1 }
+			country_event = { id = evil_sofia_srd.23 }
+		}
+		available = {
+			NOT = { has_country_flag = SRD_digging_LOZ }
+			check_variable = { SRD_digging < SRD_dig_capacity }
+		}
+		complete_effect = {
+			set_country_flag = SRD_digging_LOZ
+			add_to_variable = { SRD_digging = 1 }
+			random_list = { 20 = { country_event = { id = evil_sofia_srd.22 days = 25 } } 80 = { } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_agents_below_LOZ = {
+		icon = generic_operation
+		cost = 40
+		days_re_enable = 180
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_agents_unlocked
+			has_country_flag = SRD_tunnel_LOZ
+			LOZ = { exists = yes }
+		}
+		available = {
+			LOZ = { NOT = { has_idea = SRD_agents_below } }
+		}
+		complete_effect = {
+			LOZ = { add_timed_idea = { idea = SRD_agents_below days = 120 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_tunnel_strike_LOZ = {
+		icon = generic_army_support
+		cost = 60
+		days_re_enable = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_strike_unlocked
+			has_country_flag = SRD_tunnel_LOZ
+			LOZ = { exists = yes }
+		}
+		available = {
+			has_war_with = LOZ
+		}
+		complete_effect = {
+			LOZ = { add_timed_idea = { idea = SRD_enemy_in_the_tunnels days = 45 } }
+			if = { limit = { NOT = { has_idea = SRD_through_the_tunnels } } add_timed_idea = { idea = SRD_through_the_tunnels days = 45 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_coup_from_below_LOZ = {
+		icon = generic_prepare_civil_war
+		cost = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_coup_unlocked
+			has_country_flag = SRD_tunnel_LOZ
+			LOZ = { exists = yes NOT = { is_subject_of = ROOT } }
+		}
+		available = {
+			NOT = { has_war_with = LOZ }
+			LOZ = { has_stability < 0.5 is_in_faction = no is_subject = no }
+		}
+		complete_effect = {
+			puppet = LOZ
+			LOZ = { country_event = { id = evil_sofia_srd.24 } news_event = { id = evil_sofia_news.20 hours = 6 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_dig_tunnel_TRD = {
+		icon = generic_construction
+		cost = 50
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			TRD = { exists = yes is_neighbor_of = ROOT }
+			NOT = { has_country_flag = SRD_tunnel_TRD }
+		}
+		days_remove = 60
+		remove_effect = {
+			clr_country_flag = SRD_digging_TRD
+			add_to_variable = { SRD_digging = -1 }
+			set_country_flag = SRD_tunnel_TRD
+			add_to_variable = { SRD_tunnels = 1 }
+			country_event = { id = evil_sofia_srd.23 }
+		}
+		available = {
+			NOT = { has_country_flag = SRD_digging_TRD }
+			check_variable = { SRD_digging < SRD_dig_capacity }
+		}
+		complete_effect = {
+			set_country_flag = SRD_digging_TRD
+			add_to_variable = { SRD_digging = 1 }
+			random_list = { 20 = { country_event = { id = evil_sofia_srd.22 days = 25 } } 80 = { } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_agents_below_TRD = {
+		icon = generic_operation
+		cost = 40
+		days_re_enable = 180
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_agents_unlocked
+			has_country_flag = SRD_tunnel_TRD
+			TRD = { exists = yes }
+		}
+		available = {
+			TRD = { NOT = { has_idea = SRD_agents_below } }
+		}
+		complete_effect = {
+			TRD = { add_timed_idea = { idea = SRD_agents_below days = 120 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_tunnel_strike_TRD = {
+		icon = generic_army_support
+		cost = 60
+		days_re_enable = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_strike_unlocked
+			has_country_flag = SRD_tunnel_TRD
+			TRD = { exists = yes }
+		}
+		available = {
+			has_war_with = TRD
+		}
+		complete_effect = {
+			TRD = { add_timed_idea = { idea = SRD_enemy_in_the_tunnels days = 45 } }
+			if = { limit = { NOT = { has_idea = SRD_through_the_tunnels } } add_timed_idea = { idea = SRD_through_the_tunnels days = 45 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_coup_from_below_TRD = {
+		icon = generic_prepare_civil_war
+		cost = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_coup_unlocked
+			has_country_flag = SRD_tunnel_TRD
+			TRD = { exists = yes NOT = { is_subject_of = ROOT } }
+		}
+		available = {
+			NOT = { has_war_with = TRD }
+			TRD = { has_stability < 0.5 is_in_faction = no is_subject = no }
+		}
+		complete_effect = {
+			puppet = TRD
+			TRD = { country_event = { id = evil_sofia_srd.24 } news_event = { id = evil_sofia_news.20 hours = 6 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_dig_tunnel_KRP = {
+		icon = generic_construction
+		cost = 50
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			KRP = { exists = yes is_neighbor_of = ROOT }
+			NOT = { has_country_flag = SRD_tunnel_KRP }
+		}
+		days_remove = 60
+		remove_effect = {
+			clr_country_flag = SRD_digging_KRP
+			add_to_variable = { SRD_digging = -1 }
+			set_country_flag = SRD_tunnel_KRP
+			add_to_variable = { SRD_tunnels = 1 }
+			country_event = { id = evil_sofia_srd.23 }
+		}
+		available = {
+			NOT = { has_country_flag = SRD_digging_KRP }
+			check_variable = { SRD_digging < SRD_dig_capacity }
+		}
+		complete_effect = {
+			set_country_flag = SRD_digging_KRP
+			add_to_variable = { SRD_digging = 1 }
+			random_list = { 20 = { country_event = { id = evil_sofia_srd.22 days = 25 } } 80 = { } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_agents_below_KRP = {
+		icon = generic_operation
+		cost = 40
+		days_re_enable = 180
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_agents_unlocked
+			has_country_flag = SRD_tunnel_KRP
+			KRP = { exists = yes }
+		}
+		available = {
+			KRP = { NOT = { has_idea = SRD_agents_below } }
+		}
+		complete_effect = {
+			KRP = { add_timed_idea = { idea = SRD_agents_below days = 120 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_tunnel_strike_KRP = {
+		icon = generic_army_support
+		cost = 60
+		days_re_enable = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_strike_unlocked
+			has_country_flag = SRD_tunnel_KRP
+			KRP = { exists = yes }
+		}
+		available = {
+			has_war_with = KRP
+		}
+		complete_effect = {
+			KRP = { add_timed_idea = { idea = SRD_enemy_in_the_tunnels days = 45 } }
+			if = { limit = { NOT = { has_idea = SRD_through_the_tunnels } } add_timed_idea = { idea = SRD_through_the_tunnels days = 45 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_coup_from_below_KRP = {
+		icon = generic_prepare_civil_war
+		cost = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_coup_unlocked
+			has_country_flag = SRD_tunnel_KRP
+			KRP = { exists = yes NOT = { is_subject_of = ROOT } }
+		}
+		available = {
+			NOT = { has_war_with = KRP }
+			KRP = { has_stability < 0.5 is_in_faction = no is_subject = no }
+		}
+		complete_effect = {
+			puppet = KRP
+			KRP = { country_event = { id = evil_sofia_srd.24 } news_event = { id = evil_sofia_news.20 hours = 6 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_dig_tunnel_ILN = {
+		icon = generic_construction
+		cost = 50
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			ILN = { exists = yes is_neighbor_of = ROOT }
+			NOT = { has_country_flag = SRD_tunnel_ILN }
+		}
+		days_remove = 60
+		remove_effect = {
+			clr_country_flag = SRD_digging_ILN
+			add_to_variable = { SRD_digging = -1 }
+			set_country_flag = SRD_tunnel_ILN
+			add_to_variable = { SRD_tunnels = 1 }
+			country_event = { id = evil_sofia_srd.23 }
+		}
+		available = {
+			NOT = { has_country_flag = SRD_digging_ILN }
+			check_variable = { SRD_digging < SRD_dig_capacity }
+		}
+		complete_effect = {
+			set_country_flag = SRD_digging_ILN
+			add_to_variable = { SRD_digging = 1 }
+			random_list = { 20 = { country_event = { id = evil_sofia_srd.22 days = 25 } } 80 = { } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_agents_below_ILN = {
+		icon = generic_operation
+		cost = 40
+		days_re_enable = 180
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_agents_unlocked
+			has_country_flag = SRD_tunnel_ILN
+			ILN = { exists = yes }
+		}
+		available = {
+			ILN = { NOT = { has_idea = SRD_agents_below } }
+		}
+		complete_effect = {
+			ILN = { add_timed_idea = { idea = SRD_agents_below days = 120 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_tunnel_strike_ILN = {
+		icon = generic_army_support
+		cost = 60
+		days_re_enable = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_strike_unlocked
+			has_country_flag = SRD_tunnel_ILN
+			ILN = { exists = yes }
+		}
+		available = {
+			has_war_with = ILN
+		}
+		complete_effect = {
+			ILN = { add_timed_idea = { idea = SRD_enemy_in_the_tunnels days = 45 } }
+			if = { limit = { NOT = { has_idea = SRD_through_the_tunnels } } add_timed_idea = { idea = SRD_through_the_tunnels days = 45 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_coup_from_below_ILN = {
+		icon = generic_prepare_civil_war
+		cost = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_coup_unlocked
+			has_country_flag = SRD_tunnel_ILN
+			ILN = { exists = yes NOT = { is_subject_of = ROOT } }
+		}
+		available = {
+			NOT = { has_war_with = ILN }
+			ILN = { has_stability < 0.5 is_in_faction = no is_subject = no }
+		}
+		complete_effect = {
+			puppet = ILN
+			ILN = { country_event = { id = evil_sofia_srd.24 } news_event = { id = evil_sofia_news.20 hours = 6 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_dig_tunnel_NAD = {
+		icon = generic_construction
+		cost = 50
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			NAD = { exists = yes is_neighbor_of = ROOT }
+			NOT = { has_country_flag = SRD_tunnel_NAD }
+		}
+		days_remove = 60
+		remove_effect = {
+			clr_country_flag = SRD_digging_NAD
+			add_to_variable = { SRD_digging = -1 }
+			set_country_flag = SRD_tunnel_NAD
+			add_to_variable = { SRD_tunnels = 1 }
+			country_event = { id = evil_sofia_srd.23 }
+		}
+		available = {
+			NOT = { has_country_flag = SRD_digging_NAD }
+			check_variable = { SRD_digging < SRD_dig_capacity }
+		}
+		complete_effect = {
+			set_country_flag = SRD_digging_NAD
+			add_to_variable = { SRD_digging = 1 }
+			random_list = { 20 = { country_event = { id = evil_sofia_srd.22 days = 25 } } 80 = { } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_agents_below_NAD = {
+		icon = generic_operation
+		cost = 40
+		days_re_enable = 180
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_agents_unlocked
+			has_country_flag = SRD_tunnel_NAD
+			NAD = { exists = yes }
+		}
+		available = {
+			NAD = { NOT = { has_idea = SRD_agents_below } }
+		}
+		complete_effect = {
+			NAD = { add_timed_idea = { idea = SRD_agents_below days = 120 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_tunnel_strike_NAD = {
+		icon = generic_army_support
+		cost = 60
+		days_re_enable = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_strike_unlocked
+			has_country_flag = SRD_tunnel_NAD
+			NAD = { exists = yes }
+		}
+		available = {
+			has_war_with = NAD
+		}
+		complete_effect = {
+			NAD = { add_timed_idea = { idea = SRD_enemy_in_the_tunnels days = 45 } }
+			if = { limit = { NOT = { has_idea = SRD_through_the_tunnels } } add_timed_idea = { idea = SRD_through_the_tunnels days = 45 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_coup_from_below_NAD = {
+		icon = generic_prepare_civil_war
+		cost = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_coup_unlocked
+			has_country_flag = SRD_tunnel_NAD
+			NAD = { exists = yes NOT = { is_subject_of = ROOT } }
+		}
+		available = {
+			NOT = { has_war_with = NAD }
+			NAD = { has_stability < 0.5 is_in_faction = no is_subject = no }
+		}
+		complete_effect = {
+			puppet = NAD
+			NAD = { country_event = { id = evil_sofia_srd.24 } news_event = { id = evil_sofia_news.20 hours = 6 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_dig_tunnel_ISK = {
+		icon = generic_construction
+		cost = 50
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			ISK = { exists = yes is_neighbor_of = ROOT }
+			NOT = { has_country_flag = SRD_tunnel_ISK }
+		}
+		days_remove = 60
+		remove_effect = {
+			clr_country_flag = SRD_digging_ISK
+			add_to_variable = { SRD_digging = -1 }
+			set_country_flag = SRD_tunnel_ISK
+			add_to_variable = { SRD_tunnels = 1 }
+			country_event = { id = evil_sofia_srd.23 }
+		}
+		available = {
+			NOT = { has_country_flag = SRD_digging_ISK }
+			check_variable = { SRD_digging < SRD_dig_capacity }
+		}
+		complete_effect = {
+			set_country_flag = SRD_digging_ISK
+			add_to_variable = { SRD_digging = 1 }
+			random_list = { 20 = { country_event = { id = evil_sofia_srd.22 days = 25 } } 80 = { } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_agents_below_ISK = {
+		icon = generic_operation
+		cost = 40
+		days_re_enable = 180
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_agents_unlocked
+			has_country_flag = SRD_tunnel_ISK
+			ISK = { exists = yes }
+		}
+		available = {
+			ISK = { NOT = { has_idea = SRD_agents_below } }
+		}
+		complete_effect = {
+			ISK = { add_timed_idea = { idea = SRD_agents_below days = 120 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_tunnel_strike_ISK = {
+		icon = generic_army_support
+		cost = 60
+		days_re_enable = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_strike_unlocked
+			has_country_flag = SRD_tunnel_ISK
+			ISK = { exists = yes }
+		}
+		available = {
+			has_war_with = ISK
+		}
+		complete_effect = {
+			ISK = { add_timed_idea = { idea = SRD_enemy_in_the_tunnels days = 45 } }
+			if = { limit = { NOT = { has_idea = SRD_through_the_tunnels } } add_timed_idea = { idea = SRD_through_the_tunnels days = 45 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_coup_from_below_ISK = {
+		icon = generic_prepare_civil_war
+		cost = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_coup_unlocked
+			has_country_flag = SRD_tunnel_ISK
+			ISK = { exists = yes NOT = { is_subject_of = ROOT } }
+		}
+		available = {
+			NOT = { has_war_with = ISK }
+			ISK = { has_stability < 0.5 is_in_faction = no is_subject = no }
+		}
+		complete_effect = {
+			puppet = ISK
+			ISK = { country_event = { id = evil_sofia_srd.24 } news_event = { id = evil_sofia_news.20 hours = 6 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_dig_tunnel_MLA = {
+		icon = generic_construction
+		cost = 50
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			MLA = { exists = yes is_neighbor_of = ROOT }
+			NOT = { has_country_flag = SRD_tunnel_MLA }
+		}
+		days_remove = 60
+		remove_effect = {
+			clr_country_flag = SRD_digging_MLA
+			add_to_variable = { SRD_digging = -1 }
+			set_country_flag = SRD_tunnel_MLA
+			add_to_variable = { SRD_tunnels = 1 }
+			country_event = { id = evil_sofia_srd.23 }
+		}
+		available = {
+			NOT = { has_country_flag = SRD_digging_MLA }
+			check_variable = { SRD_digging < SRD_dig_capacity }
+		}
+		complete_effect = {
+			set_country_flag = SRD_digging_MLA
+			add_to_variable = { SRD_digging = 1 }
+			random_list = { 20 = { country_event = { id = evil_sofia_srd.22 days = 25 } } 80 = { } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_agents_below_MLA = {
+		icon = generic_operation
+		cost = 40
+		days_re_enable = 180
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_agents_unlocked
+			has_country_flag = SRD_tunnel_MLA
+			MLA = { exists = yes }
+		}
+		available = {
+			MLA = { NOT = { has_idea = SRD_agents_below } }
+		}
+		complete_effect = {
+			MLA = { add_timed_idea = { idea = SRD_agents_below days = 120 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_tunnel_strike_MLA = {
+		icon = generic_army_support
+		cost = 60
+		days_re_enable = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_strike_unlocked
+			has_country_flag = SRD_tunnel_MLA
+			MLA = { exists = yes }
+		}
+		available = {
+			has_war_with = MLA
+		}
+		complete_effect = {
+			MLA = { add_timed_idea = { idea = SRD_enemy_in_the_tunnels days = 45 } }
+			if = { limit = { NOT = { has_idea = SRD_through_the_tunnels } } add_timed_idea = { idea = SRD_through_the_tunnels days = 45 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_coup_from_below_MLA = {
+		icon = generic_prepare_civil_war
+		cost = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_coup_unlocked
+			has_country_flag = SRD_tunnel_MLA
+			MLA = { exists = yes NOT = { is_subject_of = ROOT } }
+		}
+		available = {
+			NOT = { has_war_with = MLA }
+			MLA = { has_stability < 0.5 is_in_faction = no is_subject = no }
+		}
+		complete_effect = {
+			puppet = MLA
+			MLA = { country_event = { id = evil_sofia_srd.24 } news_event = { id = evil_sofia_news.20 hours = 6 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_dig_tunnel_STU = {
+		icon = generic_construction
+		cost = 50
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			STU = { exists = yes is_neighbor_of = ROOT }
+			NOT = { has_country_flag = SRD_tunnel_STU }
+		}
+		days_remove = 60
+		remove_effect = {
+			clr_country_flag = SRD_digging_STU
+			add_to_variable = { SRD_digging = -1 }
+			set_country_flag = SRD_tunnel_STU
+			add_to_variable = { SRD_tunnels = 1 }
+			country_event = { id = evil_sofia_srd.23 }
+		}
+		available = {
+			NOT = { has_country_flag = SRD_digging_STU }
+			check_variable = { SRD_digging < SRD_dig_capacity }
+		}
+		complete_effect = {
+			set_country_flag = SRD_digging_STU
+			add_to_variable = { SRD_digging = 1 }
+			random_list = { 20 = { country_event = { id = evil_sofia_srd.22 days = 25 } } 80 = { } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_agents_below_STU = {
+		icon = generic_operation
+		cost = 40
+		days_re_enable = 180
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_agents_unlocked
+			has_country_flag = SRD_tunnel_STU
+			STU = { exists = yes }
+		}
+		available = {
+			STU = { NOT = { has_idea = SRD_agents_below } }
+		}
+		complete_effect = {
+			STU = { add_timed_idea = { idea = SRD_agents_below days = 120 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_tunnel_strike_STU = {
+		icon = generic_army_support
+		cost = 60
+		days_re_enable = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_strike_unlocked
+			has_country_flag = SRD_tunnel_STU
+			STU = { exists = yes }
+		}
+		available = {
+			has_war_with = STU
+		}
+		complete_effect = {
+			STU = { add_timed_idea = { idea = SRD_enemy_in_the_tunnels days = 45 } }
+			if = { limit = { NOT = { has_idea = SRD_through_the_tunnels } } add_timed_idea = { idea = SRD_through_the_tunnels days = 45 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_coup_from_below_STU = {
+		icon = generic_prepare_civil_war
+		cost = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_coup_unlocked
+			has_country_flag = SRD_tunnel_STU
+			STU = { exists = yes NOT = { is_subject_of = ROOT } }
+		}
+		available = {
+			NOT = { has_war_with = STU }
+			STU = { has_stability < 0.5 is_in_faction = no is_subject = no }
+		}
+		complete_effect = {
+			puppet = STU
+			STU = { country_event = { id = evil_sofia_srd.24 } news_event = { id = evil_sofia_news.20 hours = 6 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_dig_tunnel_LYU = {
+		icon = generic_construction
+		cost = 50
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			LYU = { exists = yes is_neighbor_of = ROOT }
+			NOT = { has_country_flag = SRD_tunnel_LYU }
+		}
+		days_remove = 60
+		remove_effect = {
+			clr_country_flag = SRD_digging_LYU
+			add_to_variable = { SRD_digging = -1 }
+			set_country_flag = SRD_tunnel_LYU
+			add_to_variable = { SRD_tunnels = 1 }
+			country_event = { id = evil_sofia_srd.23 }
+		}
+		available = {
+			NOT = { has_country_flag = SRD_digging_LYU }
+			check_variable = { SRD_digging < SRD_dig_capacity }
+		}
+		complete_effect = {
+			set_country_flag = SRD_digging_LYU
+			add_to_variable = { SRD_digging = 1 }
+			random_list = { 20 = { country_event = { id = evil_sofia_srd.22 days = 25 } } 80 = { } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_agents_below_LYU = {
+		icon = generic_operation
+		cost = 40
+		days_re_enable = 180
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_agents_unlocked
+			has_country_flag = SRD_tunnel_LYU
+			LYU = { exists = yes }
+		}
+		available = {
+			LYU = { NOT = { has_idea = SRD_agents_below } }
+		}
+		complete_effect = {
+			LYU = { add_timed_idea = { idea = SRD_agents_below days = 120 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_tunnel_strike_LYU = {
+		icon = generic_army_support
+		cost = 60
+		days_re_enable = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_strike_unlocked
+			has_country_flag = SRD_tunnel_LYU
+			LYU = { exists = yes }
+		}
+		available = {
+			has_war_with = LYU
+		}
+		complete_effect = {
+			LYU = { add_timed_idea = { idea = SRD_enemy_in_the_tunnels days = 45 } }
+			if = { limit = { NOT = { has_idea = SRD_through_the_tunnels } } add_timed_idea = { idea = SRD_through_the_tunnels days = 45 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_coup_from_below_LYU = {
+		icon = generic_prepare_civil_war
+		cost = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_coup_unlocked
+			has_country_flag = SRD_tunnel_LYU
+			LYU = { exists = yes NOT = { is_subject_of = ROOT } }
+		}
+		available = {
+			NOT = { has_war_with = LYU }
+			LYU = { has_stability < 0.5 is_in_faction = no is_subject = no }
+		}
+		complete_effect = {
+			puppet = LYU
+			LYU = { country_event = { id = evil_sofia_srd.24 } news_event = { id = evil_sofia_news.20 hours = 6 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_dig_tunnel_KRE = {
+		icon = generic_construction
+		cost = 50
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			KRE = { exists = yes is_neighbor_of = ROOT }
+			NOT = { has_country_flag = SRD_tunnel_KRE }
+		}
+		days_remove = 60
+		remove_effect = {
+			clr_country_flag = SRD_digging_KRE
+			add_to_variable = { SRD_digging = -1 }
+			set_country_flag = SRD_tunnel_KRE
+			add_to_variable = { SRD_tunnels = 1 }
+			country_event = { id = evil_sofia_srd.23 }
+		}
+		available = {
+			NOT = { has_country_flag = SRD_digging_KRE }
+			check_variable = { SRD_digging < SRD_dig_capacity }
+		}
+		complete_effect = {
+			set_country_flag = SRD_digging_KRE
+			add_to_variable = { SRD_digging = 1 }
+			random_list = { 20 = { country_event = { id = evil_sofia_srd.22 days = 25 } } 80 = { } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_agents_below_KRE = {
+		icon = generic_operation
+		cost = 40
+		days_re_enable = 180
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_agents_unlocked
+			has_country_flag = SRD_tunnel_KRE
+			KRE = { exists = yes }
+		}
+		available = {
+			KRE = { NOT = { has_idea = SRD_agents_below } }
+		}
+		complete_effect = {
+			KRE = { add_timed_idea = { idea = SRD_agents_below days = 120 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_tunnel_strike_KRE = {
+		icon = generic_army_support
+		cost = 60
+		days_re_enable = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_strike_unlocked
+			has_country_flag = SRD_tunnel_KRE
+			KRE = { exists = yes }
+		}
+		available = {
+			has_war_with = KRE
+		}
+		complete_effect = {
+			KRE = { add_timed_idea = { idea = SRD_enemy_in_the_tunnels days = 45 } }
+			if = { limit = { NOT = { has_idea = SRD_through_the_tunnels } } add_timed_idea = { idea = SRD_through_the_tunnels days = 45 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_coup_from_below_KRE = {
+		icon = generic_prepare_civil_war
+		cost = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_coup_unlocked
+			has_country_flag = SRD_tunnel_KRE
+			KRE = { exists = yes NOT = { is_subject_of = ROOT } }
+		}
+		available = {
+			NOT = { has_war_with = KRE }
+			KRE = { has_stability < 0.5 is_in_faction = no is_subject = no }
+		}
+		complete_effect = {
+			puppet = KRE
+			KRE = { country_event = { id = evil_sofia_srd.24 } news_event = { id = evil_sofia_news.20 hours = 6 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_dig_tunnel_VIT = {
+		icon = generic_construction
+		cost = 50
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			VIT = { exists = yes is_neighbor_of = ROOT }
+			NOT = { has_country_flag = SRD_tunnel_VIT }
+		}
+		days_remove = 60
+		remove_effect = {
+			clr_country_flag = SRD_digging_VIT
+			add_to_variable = { SRD_digging = -1 }
+			set_country_flag = SRD_tunnel_VIT
+			add_to_variable = { SRD_tunnels = 1 }
+			country_event = { id = evil_sofia_srd.23 }
+		}
+		available = {
+			NOT = { has_country_flag = SRD_digging_VIT }
+			check_variable = { SRD_digging < SRD_dig_capacity }
+		}
+		complete_effect = {
+			set_country_flag = SRD_digging_VIT
+			add_to_variable = { SRD_digging = 1 }
+			random_list = { 20 = { country_event = { id = evil_sofia_srd.22 days = 25 } } 80 = { } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_agents_below_VIT = {
+		icon = generic_operation
+		cost = 40
+		days_re_enable = 180
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_agents_unlocked
+			has_country_flag = SRD_tunnel_VIT
+			VIT = { exists = yes }
+		}
+		available = {
+			VIT = { NOT = { has_idea = SRD_agents_below } }
+		}
+		complete_effect = {
+			VIT = { add_timed_idea = { idea = SRD_agents_below days = 120 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_tunnel_strike_VIT = {
+		icon = generic_army_support
+		cost = 60
+		days_re_enable = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_strike_unlocked
+			has_country_flag = SRD_tunnel_VIT
+			VIT = { exists = yes }
+		}
+		available = {
+			has_war_with = VIT
+		}
+		complete_effect = {
+			VIT = { add_timed_idea = { idea = SRD_enemy_in_the_tunnels days = 45 } }
+			if = { limit = { NOT = { has_idea = SRD_through_the_tunnels } } add_timed_idea = { idea = SRD_through_the_tunnels days = 45 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_coup_from_below_VIT = {
+		icon = generic_prepare_civil_war
+		cost = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_coup_unlocked
+			has_country_flag = SRD_tunnel_VIT
+			VIT = { exists = yes NOT = { is_subject_of = ROOT } }
+		}
+		available = {
+			NOT = { has_war_with = VIT }
+			VIT = { has_stability < 0.5 is_in_faction = no is_subject = no }
+		}
+		complete_effect = {
+			puppet = VIT
+			VIT = { country_event = { id = evil_sofia_srd.24 } news_event = { id = evil_sofia_news.20 hours = 6 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_dig_tunnel_OVK = {
+		icon = generic_construction
+		cost = 50
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			OVK = { exists = yes is_neighbor_of = ROOT }
+			NOT = { has_country_flag = SRD_tunnel_OVK }
+		}
+		days_remove = 60
+		remove_effect = {
+			clr_country_flag = SRD_digging_OVK
+			add_to_variable = { SRD_digging = -1 }
+			set_country_flag = SRD_tunnel_OVK
+			add_to_variable = { SRD_tunnels = 1 }
+			country_event = { id = evil_sofia_srd.23 }
+		}
+		available = {
+			NOT = { has_country_flag = SRD_digging_OVK }
+			check_variable = { SRD_digging < SRD_dig_capacity }
+		}
+		complete_effect = {
+			set_country_flag = SRD_digging_OVK
+			add_to_variable = { SRD_digging = 1 }
+			random_list = { 20 = { country_event = { id = evil_sofia_srd.22 days = 25 } } 80 = { } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_agents_below_OVK = {
+		icon = generic_operation
+		cost = 40
+		days_re_enable = 180
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_agents_unlocked
+			has_country_flag = SRD_tunnel_OVK
+			OVK = { exists = yes }
+		}
+		available = {
+			OVK = { NOT = { has_idea = SRD_agents_below } }
+		}
+		complete_effect = {
+			OVK = { add_timed_idea = { idea = SRD_agents_below days = 120 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_tunnel_strike_OVK = {
+		icon = generic_army_support
+		cost = 60
+		days_re_enable = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_strike_unlocked
+			has_country_flag = SRD_tunnel_OVK
+			OVK = { exists = yes }
+		}
+		available = {
+			has_war_with = OVK
+		}
+		complete_effect = {
+			OVK = { add_timed_idea = { idea = SRD_enemy_in_the_tunnels days = 45 } }
+			if = { limit = { NOT = { has_idea = SRD_through_the_tunnels } } add_timed_idea = { idea = SRD_through_the_tunnels days = 45 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_coup_from_below_OVK = {
+		icon = generic_prepare_civil_war
+		cost = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_coup_unlocked
+			has_country_flag = SRD_tunnel_OVK
+			OVK = { exists = yes NOT = { is_subject_of = ROOT } }
+		}
+		available = {
+			NOT = { has_war_with = OVK }
+			OVK = { has_stability < 0.5 is_in_faction = no is_subject = no }
+		}
+		complete_effect = {
+			puppet = OVK
+			OVK = { country_event = { id = evil_sofia_srd.24 } news_event = { id = evil_sofia_news.20 hours = 6 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_dig_tunnel_VRB = {
+		icon = generic_construction
+		cost = 50
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			VRB = { exists = yes is_neighbor_of = ROOT }
+			NOT = { has_country_flag = SRD_tunnel_VRB }
+		}
+		days_remove = 60
+		remove_effect = {
+			clr_country_flag = SRD_digging_VRB
+			add_to_variable = { SRD_digging = -1 }
+			set_country_flag = SRD_tunnel_VRB
+			add_to_variable = { SRD_tunnels = 1 }
+			country_event = { id = evil_sofia_srd.23 }
+		}
+		available = {
+			NOT = { has_country_flag = SRD_digging_VRB }
+			check_variable = { SRD_digging < SRD_dig_capacity }
+		}
+		complete_effect = {
+			set_country_flag = SRD_digging_VRB
+			add_to_variable = { SRD_digging = 1 }
+			random_list = { 20 = { country_event = { id = evil_sofia_srd.22 days = 25 } } 80 = { } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_agents_below_VRB = {
+		icon = generic_operation
+		cost = 40
+		days_re_enable = 180
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_agents_unlocked
+			has_country_flag = SRD_tunnel_VRB
+			VRB = { exists = yes }
+		}
+		available = {
+			VRB = { NOT = { has_idea = SRD_agents_below } }
+		}
+		complete_effect = {
+			VRB = { add_timed_idea = { idea = SRD_agents_below days = 120 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_tunnel_strike_VRB = {
+		icon = generic_army_support
+		cost = 60
+		days_re_enable = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_strike_unlocked
+			has_country_flag = SRD_tunnel_VRB
+			VRB = { exists = yes }
+		}
+		available = {
+			has_war_with = VRB
+		}
+		complete_effect = {
+			VRB = { add_timed_idea = { idea = SRD_enemy_in_the_tunnels days = 45 } }
+			if = { limit = { NOT = { has_idea = SRD_through_the_tunnels } } add_timed_idea = { idea = SRD_through_the_tunnels days = 45 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_coup_from_below_VRB = {
+		icon = generic_prepare_civil_war
+		cost = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_coup_unlocked
+			has_country_flag = SRD_tunnel_VRB
+			VRB = { exists = yes NOT = { is_subject_of = ROOT } }
+		}
+		available = {
+			NOT = { has_war_with = VRB }
+			VRB = { has_stability < 0.5 is_in_faction = no is_subject = no }
+		}
+		complete_effect = {
+			puppet = VRB
+			VRB = { country_event = { id = evil_sofia_srd.24 } news_event = { id = evil_sofia_news.20 hours = 6 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_dig_tunnel_NIS = {
+		icon = generic_construction
+		cost = 50
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			NIS = { exists = yes is_neighbor_of = ROOT }
+			NOT = { has_country_flag = SRD_tunnel_NIS }
+		}
+		days_remove = 60
+		remove_effect = {
+			clr_country_flag = SRD_digging_NIS
+			add_to_variable = { SRD_digging = -1 }
+			set_country_flag = SRD_tunnel_NIS
+			add_to_variable = { SRD_tunnels = 1 }
+			country_event = { id = evil_sofia_srd.23 }
+		}
+		available = {
+			NOT = { has_country_flag = SRD_digging_NIS }
+			check_variable = { SRD_digging < SRD_dig_capacity }
+		}
+		complete_effect = {
+			set_country_flag = SRD_digging_NIS
+			add_to_variable = { SRD_digging = 1 }
+			random_list = { 20 = { country_event = { id = evil_sofia_srd.22 days = 25 } } 80 = { } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_agents_below_NIS = {
+		icon = generic_operation
+		cost = 40
+		days_re_enable = 180
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_agents_unlocked
+			has_country_flag = SRD_tunnel_NIS
+			NIS = { exists = yes }
+		}
+		available = {
+			NIS = { NOT = { has_idea = SRD_agents_below } }
+		}
+		complete_effect = {
+			NIS = { add_timed_idea = { idea = SRD_agents_below days = 120 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_tunnel_strike_NIS = {
+		icon = generic_army_support
+		cost = 60
+		days_re_enable = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_strike_unlocked
+			has_country_flag = SRD_tunnel_NIS
+			NIS = { exists = yes }
+		}
+		available = {
+			has_war_with = NIS
+		}
+		complete_effect = {
+			NIS = { add_timed_idea = { idea = SRD_enemy_in_the_tunnels days = 45 } }
+			if = { limit = { NOT = { has_idea = SRD_through_the_tunnels } } add_timed_idea = { idea = SRD_through_the_tunnels days = 45 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_coup_from_below_NIS = {
+		icon = generic_prepare_civil_war
+		cost = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_coup_unlocked
+			has_country_flag = SRD_tunnel_NIS
+			NIS = { exists = yes NOT = { is_subject_of = ROOT } }
+		}
+		available = {
+			NOT = { has_war_with = NIS }
+			NIS = { has_stability < 0.5 is_in_faction = no is_subject = no }
+		}
+		complete_effect = {
+			puppet = NIS
+			NIS = { country_event = { id = evil_sofia_srd.24 } news_event = { id = evil_sofia_news.20 hours = 6 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_dig_tunnel_PNC = {
+		icon = generic_construction
+		cost = 50
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			PNC = { exists = yes is_neighbor_of = ROOT }
+			NOT = { has_country_flag = SRD_tunnel_PNC }
+		}
+		days_remove = 60
+		remove_effect = {
+			clr_country_flag = SRD_digging_PNC
+			add_to_variable = { SRD_digging = -1 }
+			set_country_flag = SRD_tunnel_PNC
+			add_to_variable = { SRD_tunnels = 1 }
+			country_event = { id = evil_sofia_srd.23 }
+		}
+		available = {
+			NOT = { has_country_flag = SRD_digging_PNC }
+			check_variable = { SRD_digging < SRD_dig_capacity }
+		}
+		complete_effect = {
+			set_country_flag = SRD_digging_PNC
+			add_to_variable = { SRD_digging = 1 }
+			random_list = { 20 = { country_event = { id = evil_sofia_srd.22 days = 25 } } 80 = { } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_agents_below_PNC = {
+		icon = generic_operation
+		cost = 40
+		days_re_enable = 180
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_agents_unlocked
+			has_country_flag = SRD_tunnel_PNC
+			PNC = { exists = yes }
+		}
+		available = {
+			PNC = { NOT = { has_idea = SRD_agents_below } }
+		}
+		complete_effect = {
+			PNC = { add_timed_idea = { idea = SRD_agents_below days = 120 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_tunnel_strike_PNC = {
+		icon = generic_army_support
+		cost = 60
+		days_re_enable = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_strike_unlocked
+			has_country_flag = SRD_tunnel_PNC
+			PNC = { exists = yes }
+		}
+		available = {
+			has_war_with = PNC
+		}
+		complete_effect = {
+			PNC = { add_timed_idea = { idea = SRD_enemy_in_the_tunnels days = 45 } }
+			if = { limit = { NOT = { has_idea = SRD_through_the_tunnels } } add_timed_idea = { idea = SRD_through_the_tunnels days = 45 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_coup_from_below_PNC = {
+		icon = generic_prepare_civil_war
+		cost = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_coup_unlocked
+			has_country_flag = SRD_tunnel_PNC
+			PNC = { exists = yes NOT = { is_subject_of = ROOT } }
+		}
+		available = {
+			NOT = { has_war_with = PNC }
+			PNC = { has_stability < 0.5 is_in_faction = no is_subject = no }
+		}
+		complete_effect = {
+			puppet = PNC
+			PNC = { country_event = { id = evil_sofia_srd.24 } news_event = { id = evil_sofia_news.20 hours = 6 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_dig_tunnel_BNK = {
+		icon = generic_construction
+		cost = 50
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			BNK = { exists = yes is_neighbor_of = ROOT }
+			NOT = { has_country_flag = SRD_tunnel_BNK }
+		}
+		days_remove = 60
+		remove_effect = {
+			clr_country_flag = SRD_digging_BNK
+			add_to_variable = { SRD_digging = -1 }
+			set_country_flag = SRD_tunnel_BNK
+			add_to_variable = { SRD_tunnels = 1 }
+			country_event = { id = evil_sofia_srd.23 }
+		}
+		available = {
+			NOT = { has_country_flag = SRD_digging_BNK }
+			check_variable = { SRD_digging < SRD_dig_capacity }
+		}
+		complete_effect = {
+			set_country_flag = SRD_digging_BNK
+			add_to_variable = { SRD_digging = 1 }
+			random_list = { 20 = { country_event = { id = evil_sofia_srd.22 days = 25 } } 80 = { } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_agents_below_BNK = {
+		icon = generic_operation
+		cost = 40
+		days_re_enable = 180
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_agents_unlocked
+			has_country_flag = SRD_tunnel_BNK
+			BNK = { exists = yes }
+		}
+		available = {
+			BNK = { NOT = { has_idea = SRD_agents_below } }
+		}
+		complete_effect = {
+			BNK = { add_timed_idea = { idea = SRD_agents_below days = 120 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_tunnel_strike_BNK = {
+		icon = generic_army_support
+		cost = 60
+		days_re_enable = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_strike_unlocked
+			has_country_flag = SRD_tunnel_BNK
+			BNK = { exists = yes }
+		}
+		available = {
+			has_war_with = BNK
+		}
+		complete_effect = {
+			BNK = { add_timed_idea = { idea = SRD_enemy_in_the_tunnels days = 45 } }
+			if = { limit = { NOT = { has_idea = SRD_through_the_tunnels } } add_timed_idea = { idea = SRD_through_the_tunnels days = 45 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_coup_from_below_BNK = {
+		icon = generic_prepare_civil_war
+		cost = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_coup_unlocked
+			has_country_flag = SRD_tunnel_BNK
+			BNK = { exists = yes NOT = { is_subject_of = ROOT } }
+		}
+		available = {
+			NOT = { has_war_with = BNK }
+			BNK = { has_stability < 0.5 is_in_faction = no is_subject = no }
+		}
+		complete_effect = {
+			puppet = BNK
+			BNK = { country_event = { id = evil_sofia_srd.24 } news_event = { id = evil_sofia_news.20 hours = 6 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_dig_tunnel_IAP = {
+		icon = generic_construction
+		cost = 50
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			IAP = { exists = yes is_neighbor_of = ROOT }
+			NOT = { has_country_flag = SRD_tunnel_IAP }
+		}
+		days_remove = 60
+		remove_effect = {
+			clr_country_flag = SRD_digging_IAP
+			add_to_variable = { SRD_digging = -1 }
+			set_country_flag = SRD_tunnel_IAP
+			add_to_variable = { SRD_tunnels = 1 }
+			country_event = { id = evil_sofia_srd.23 }
+		}
+		available = {
+			NOT = { has_country_flag = SRD_digging_IAP }
+			check_variable = { SRD_digging < SRD_dig_capacity }
+		}
+		complete_effect = {
+			set_country_flag = SRD_digging_IAP
+			add_to_variable = { SRD_digging = 1 }
+			random_list = { 20 = { country_event = { id = evil_sofia_srd.22 days = 25 } } 80 = { } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_agents_below_IAP = {
+		icon = generic_operation
+		cost = 40
+		days_re_enable = 180
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_agents_unlocked
+			has_country_flag = SRD_tunnel_IAP
+			IAP = { exists = yes }
+		}
+		available = {
+			IAP = { NOT = { has_idea = SRD_agents_below } }
+		}
+		complete_effect = {
+			IAP = { add_timed_idea = { idea = SRD_agents_below days = 120 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_tunnel_strike_IAP = {
+		icon = generic_army_support
+		cost = 60
+		days_re_enable = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_strike_unlocked
+			has_country_flag = SRD_tunnel_IAP
+			IAP = { exists = yes }
+		}
+		available = {
+			has_war_with = IAP
+		}
+		complete_effect = {
+			IAP = { add_timed_idea = { idea = SRD_enemy_in_the_tunnels days = 45 } }
+			if = { limit = { NOT = { has_idea = SRD_through_the_tunnels } } add_timed_idea = { idea = SRD_through_the_tunnels days = 45 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_coup_from_below_IAP = {
+		icon = generic_prepare_civil_war
+		cost = 120
+		visible = {
+			has_country_flag = SRD_tunnels_active
+			has_country_flag = SRD_coup_unlocked
+			has_country_flag = SRD_tunnel_IAP
+			IAP = { exists = yes NOT = { is_subject_of = ROOT } }
+		}
+		available = {
+			NOT = { has_war_with = IAP }
+			IAP = { has_stability < 0.5 is_in_faction = no is_subject = no }
+		}
+		complete_effect = {
+			puppet = IAP
+			IAP = { country_event = { id = evil_sofia_srd.24 } news_event = { id = evil_sofia_news.20 hours = 6 } }
 		}
 		ai_will_do = {
 			factor = 1

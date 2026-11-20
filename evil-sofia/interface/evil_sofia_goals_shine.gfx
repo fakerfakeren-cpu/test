@@ -2070,11 +2070,11 @@ spriteTypes = {
 		legacy_lazy_load = no
 	}
 	SpriteType = {
-		name = "GFX_focus_SRD_order_on_the_boulevards_shine"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_order_on_the_boulevards.dds"
+		name = "GFX_focus_SRD_ruins_under_the_largo_shine"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_ruins_under_the_largo.dds"
 		effectFile = "gfx/FX/buttonstate.lua"
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_order_on_the_boulevards.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_ruins_under_the_largo.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = -90.0
 			animationlooping = no
@@ -2086,7 +2086,7 @@ spriteTypes = {
 			animationtexturescale = { x = 1.0 y = 1.0 }
 		}
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_order_on_the_boulevards.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_ruins_under_the_largo.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = 90.0
 			animationlooping = no
@@ -2100,11 +2100,11 @@ spriteTypes = {
 		legacy_lazy_load = no
 	}
 	SpriteType = {
-		name = "GFX_focus_SRD_checkpoints_on_the_bridges_shine"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_checkpoints_on_the_bridges.dds"
+		name = "GFX_focus_SRD_miners_from_pernik_shine"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_miners_from_pernik.dds"
 		effectFile = "gfx/FX/buttonstate.lua"
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_checkpoints_on_the_bridges.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_miners_from_pernik.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = -90.0
 			animationlooping = no
@@ -2116,7 +2116,7 @@ spriteTypes = {
 			animationtexturescale = { x = 1.0 y = 1.0 }
 		}
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_checkpoints_on_the_bridges.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_miners_from_pernik.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = 90.0
 			animationlooping = no
@@ -2130,11 +2130,11 @@ spriteTypes = {
 		legacy_lazy_load = no
 	}
 	SpriteType = {
-		name = "GFX_focus_SRD_the_night_watch_shine"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_the_night_watch.dds"
+		name = "GFX_focus_SRD_agents_in_the_dark_shine"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_agents_in_the_dark.dds"
 		effectFile = "gfx/FX/buttonstate.lua"
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_the_night_watch.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_agents_in_the_dark.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = -90.0
 			animationlooping = no
@@ -2146,7 +2146,7 @@ spriteTypes = {
 			animationtexturescale = { x = 1.0 y = 1.0 }
 		}
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_the_night_watch.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_agents_in_the_dark.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = 90.0
 			animationlooping = no
@@ -2160,11 +2160,11 @@ spriteTypes = {
 		legacy_lazy_load = no
 	}
 	SpriteType = {
-		name = "GFX_focus_SRD_informers_in_every_cafe_shine"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_informers_in_every_cafe.dds"
+		name = "GFX_focus_SRD_strike_from_below_shine"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_strike_from_below.dds"
 		effectFile = "gfx/FX/buttonstate.lua"
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_informers_in_every_cafe.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_strike_from_below.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = -90.0
 			animationlooping = no
@@ -2176,7 +2176,7 @@ spriteTypes = {
 			animationtexturescale = { x = 1.0 y = 1.0 }
 		}
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_informers_in_every_cafe.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_strike_from_below.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = 90.0
 			animationlooping = no
@@ -2190,11 +2190,11 @@ spriteTypes = {
 		legacy_lazy_load = no
 	}
 	SpriteType = {
-		name = "GFX_focus_SRD_ultimatums_from_the_largo_shine"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_ultimatums_from_the_largo.dds"
+		name = "GFX_focus_SRD_the_coup_from_below_shine"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_the_coup_from_below.dds"
 		effectFile = "gfx/FX/buttonstate.lua"
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_ultimatums_from_the_largo.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_the_coup_from_below.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = -90.0
 			animationlooping = no
@@ -2206,7 +2206,7 @@ spriteTypes = {
 			animationtexturescale = { x = 1.0 y = 1.0 }
 		}
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_ultimatums_from_the_largo.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_the_coup_from_below.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = 90.0
 			animationlooping = no
@@ -2220,11 +2220,11 @@ spriteTypes = {
 		legacy_lazy_load = no
 	}
 	SpriteType = {
-		name = "GFX_focus_SRD_the_iron_grip_shine"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_the_iron_grip.dds"
+		name = "GFX_focus_SRD_the_ring_under_sofia_shine"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_the_ring_under_sofia.dds"
 		effectFile = "gfx/FX/buttonstate.lua"
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_the_iron_grip.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_the_ring_under_sofia.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = -90.0
 			animationlooping = no
@@ -2236,7 +2236,7 @@ spriteTypes = {
 			animationtexturescale = { x = 1.0 y = 1.0 }
 		}
 		animation = {
-			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_the_iron_grip.dds"
+			animationmaskfile = "gfx/interface/goals/evil_sofia/SRD_the_ring_under_sofia.dds"
 			animationtexturefile = "gfx/interface/goals/shine_overlay.dds"
 			animationrotation = 90.0
 			animationlooping = no

@@ -101,30 +101,36 @@ ideas = {
 				political_power_factor = 0.10
 			}
 		}
-		SRD_grip_loose = {
-			picture = SRD_grip_loose
+		SRD_agents_below = {
+			picture = SRD_agents_below
 			allowed = { always = no }
 			modifier = {
-				stability_factor = -0.05
-				political_power_factor = -0.05
+				stability_factor = -0.10
+				war_support_factor = -0.05
 			}
 		}
-		SRD_grip_firm = {
-			picture = SRD_grip_firm
+		SRD_enemy_in_the_tunnels = {
+			picture = SRD_enemy_in_the_tunnels
 			allowed = { always = no }
 			modifier = {
+				army_defence_factor = -0.15
+				army_org_factor = -0.10
+			}
+		}
+		SRD_through_the_tunnels = {
+			picture = SRD_through_the_tunnels
+			allowed = { always = no }
+			modifier = {
+				army_attack_factor = 0.10
+			}
+		}
+		SRD_ring_under_sofia = {
+			picture = SRD_ring_under_sofia
+			allowed = { always = no }
+			modifier = {
+				army_defence_factor = 0.10
 				stability_factor = 0.05
 				political_power_factor = 0.05
-			}
-		}
-		SRD_grip_iron = {
-			picture = SRD_grip_iron
-			allowed = { always = no }
-			modifier = {
-				stability_factor = 0.10
-				political_power_factor = 0.10
-				war_support_factor = 0.05
-				army_org_factor = 0.05
 			}
 		}
 		SRD_champions_spirit = {
