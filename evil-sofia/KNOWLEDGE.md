@@ -233,6 +233,11 @@ Root choice (mutually exclusive): **Henry's Mom Was Right** (communism) at x=8, 
 - Shared trees, open on every road: industry (x51-57, 15 focuses: factories, slots, a research slot, construction
   and factory output spirits) and military (x59-65, 16 focuses: tech bonuses for infantry weapons, artillery,
   armour, doctrine, air; army/air experience; anti-air and radar; spirits).
+- The C Class Hools and the Evil Gang exclude each other both ways (Unleash needs no Evil Gang; Propose needs no
+  C Class). Every country has five default military advisors (tools/military_advisors.py → common/characters/
+  evil_sofia_military.txt): an army theorist (+0.1 army experience a day), an air theorist (+0.1 air experience),
+  an artillery expert and an entrenchment expert (high command) and an air chief; custom traits, like the political
+  advisors (untested in game).
 - Watch for duplicate focus ids across branches (a new `one_centre` once collided with the communist one).
 - Later tweaks: spirits on other districts cut to about a quarter (comrades 0.06, red newspapers 0.05, party money
   0.04, rally 0.05, leaflets 0.04, newspapers from Sredets 0.03, friends of freedom 0.06, mom was wrong 0.04, a red

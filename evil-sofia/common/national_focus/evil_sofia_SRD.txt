@@ -2302,7 +2302,7 @@ focus_tree = {
 		available = {
 			has_completed_focus = SRD_who_stands_with_sredets
 			is_in_faction = no
-			NOT = { has_completed_focus = SRD_a_free_sredets }
+			NOT = { has_completed_focus = SRD_a_free_sredets has_completed_focus = SRD_unleash_the_c_class }
 		}
 		cost = 5
 		search_filters = { FOCUS_FILTER_POLITICAL }

@@ -749,7 +749,8 @@ add_war_support = 0.10""",
      "news_event = { id = evil_sofia_news.11 hours = 6 }",
      "Every school has a class like the C Class: loud, loyal, impossible to teach and absolutely fearless. Now "
      "they have grown up, two of them rule districts of their own, and they have been waiting for a reason. "
-     "Victor gives them one.\\n\\nCreates the faction The C Class Hools. Only without the Evil Gang."),
+     "Victor gives them one.\\n\\nCreates the faction The C Class Hools. Not possible with the Evil Gang: it is one or the "
+     "other."),
     ("call_alexander", "Call Alexander", 31, 5, [["unleash_the_c_class"]], [], 3,
      "person:call_alexander", "", "{CALL:TRD}",
      "Alexander Dimitrov sat in the back row of the C Class and never once got caught. Triaditsa is his now, and "
@@ -834,7 +835,7 @@ news_event = { id = evil_sofia_news.12 hours = 6 }""",
      "states held. Needs every state of Vazrazhdane and Oborishte held."),
     # ------------------------------------------------------------------ the Evil Gang (the faction tree, open on any road but the free one)
     ("call_the_evil_gang", "Propose the Evil Gang", 46, 0, [], [], 5,
-     "photo:evil_gang", "has_completed_focus = SRD_who_stands_with_sredets\nis_in_faction = no\nNOT = { has_completed_focus = SRD_a_free_sredets }",
+     "photo:evil_gang", "has_completed_focus = SRD_who_stands_with_sredets\nis_in_faction = no\nNOT = { has_completed_focus = SRD_a_free_sredets has_completed_focus = SRD_unleash_the_c_class }",
      """create_faction = EVIL_SOFIA_FACTION_EVIL_GANG
 add_political_power = 50
 news_event = { id = evil_sofia_news.10 hours = 6 }
@@ -845,7 +846,7 @@ if = { limit = { country_exists = KRP NOT = { has_war_with = KRP } } KRP = { cou
      "on the steps of a theatre and every one of the people who now rule half the districts of Sofia.\\n\\n"
      "Victor opens it again and proposes the Evil Gang. The letters go out one by one: to Georgi Poryazov now, "
      "to Daniel-Henry Capel in a month, to Stefan Kartunov in two. Each is more likely to say yes the better he "
-     "thinks of Sredets.\\n\\nNeeds Who Stands with Sredets?. Not possible for a free Sredets."),
+     "thinks of Sredets.\\n\\nNeeds Who Stands with Sredets?. Not possible for a free Sredets or with the C Class Hools."),
     ("destroy_henry", "Destroy Henry", 43, 1, [["call_the_evil_gang"]], [], 6,
      "person:destroy_henry", "VIT = { exists = yes has_country_flag = SRD_refused_the_gang }",
      "{CLAIMS:VIT}\n{WAR:VIT}",

@@ -356,6 +356,18 @@ def build(root, facts, write, write_dds):
             ' evil_sofia_free_friends:0 "Friends of Freedom"', ' evil_sofia_mom_was_wrong:0 "Mom was wrong"']
     all_traits = dict(tree.TRAITS)
     all_traits.update({k: (n, d, mods) for k, (n, d, mods, slot) in texts.ADVISOR_TRAITS.items()})
+    # default military advisors for every country (tools/military_advisors.py)
+    import military_advisors as mil
+    all_traits.update({k: (n, d, mods) for k, (n, d, mods, slot, cost) in mil.TRAITS.items()})
+    mil_blocks = []
+    for cid, cname, ctag, trait in mil.advisors(sorted(facts["countries"])):
+        slot, cost = mil.TRAITS[trait][3], mil.TRAITS[trait][4]
+        mil_blocks.append(f"\t{cid} = {{\n\t\tname = {cid}\n\t\tadvisor = {{\n\t\t\tslot = {slot}\n"
+                          f"\t\t\tidea_token = {cid}\n\t\t\tallowed = {{ original_tag = {ctag} }}\n"
+                          f"\t\t\ttraits = {{ {trait} }}\n\t\t\tcost = {cost}\n\t\t\tai_will_do = {{ factor = 1 }}\n"
+                          f"\t\t}}\n\t}}")
+        loc.append(f' {cid}:0 "{cname}"')
+    write("common/characters/evil_sofia_military.txt", "characters = {\n" + "\n".join(mil_blocks) + "\n}\n")
     write("common/country_leader/evil_sofia_traits.txt", "leader_traits = {\n" + "".join(
         f"\t{k} = {{\n\t\trandom = no\n{indent(mods, 2)}\n\t\tai_will_do = {{ factor = 1 }}\n\t}}\n"
         for k, (n, d, mods) in all_traits.items()) + "}\n")

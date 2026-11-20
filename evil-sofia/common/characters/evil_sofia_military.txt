@@ -1,0 +1,1377 @@
+characters = {
+	BNK_military_1 = {
+		name = BNK_military_1
+		advisor = {
+			slot = theorist
+			idea_token = BNK_military_1
+			allowed = { original_tag = BNK }
+			traits = { evil_sofia_army_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	BNK_military_2 = {
+		name = BNK_military_2
+		advisor = {
+			slot = theorist
+			idea_token = BNK_military_2
+			allowed = { original_tag = BNK }
+			traits = { evil_sofia_air_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	BNK_military_3 = {
+		name = BNK_military_3
+		advisor = {
+			slot = high_command
+			idea_token = BNK_military_3
+			allowed = { original_tag = BNK }
+			traits = { evil_sofia_artillery_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	BNK_military_4 = {
+		name = BNK_military_4
+		advisor = {
+			slot = high_command
+			idea_token = BNK_military_4
+			allowed = { original_tag = BNK }
+			traits = { evil_sofia_entrenchment_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	BNK_military_5 = {
+		name = BNK_military_5
+		advisor = {
+			slot = air_chief
+			idea_token = BNK_military_5
+			allowed = { original_tag = BNK }
+			traits = { evil_sofia_air_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	IAP_military_1 = {
+		name = IAP_military_1
+		advisor = {
+			slot = theorist
+			idea_token = IAP_military_1
+			allowed = { original_tag = IAP }
+			traits = { evil_sofia_army_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	IAP_military_2 = {
+		name = IAP_military_2
+		advisor = {
+			slot = theorist
+			idea_token = IAP_military_2
+			allowed = { original_tag = IAP }
+			traits = { evil_sofia_air_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	IAP_military_3 = {
+		name = IAP_military_3
+		advisor = {
+			slot = high_command
+			idea_token = IAP_military_3
+			allowed = { original_tag = IAP }
+			traits = { evil_sofia_artillery_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	IAP_military_4 = {
+		name = IAP_military_4
+		advisor = {
+			slot = high_command
+			idea_token = IAP_military_4
+			allowed = { original_tag = IAP }
+			traits = { evil_sofia_entrenchment_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	IAP_military_5 = {
+		name = IAP_military_5
+		advisor = {
+			slot = air_chief
+			idea_token = IAP_military_5
+			allowed = { original_tag = IAP }
+			traits = { evil_sofia_air_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	ILN_military_1 = {
+		name = ILN_military_1
+		advisor = {
+			slot = theorist
+			idea_token = ILN_military_1
+			allowed = { original_tag = ILN }
+			traits = { evil_sofia_army_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	ILN_military_2 = {
+		name = ILN_military_2
+		advisor = {
+			slot = theorist
+			idea_token = ILN_military_2
+			allowed = { original_tag = ILN }
+			traits = { evil_sofia_air_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	ILN_military_3 = {
+		name = ILN_military_3
+		advisor = {
+			slot = high_command
+			idea_token = ILN_military_3
+			allowed = { original_tag = ILN }
+			traits = { evil_sofia_artillery_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	ILN_military_4 = {
+		name = ILN_military_4
+		advisor = {
+			slot = high_command
+			idea_token = ILN_military_4
+			allowed = { original_tag = ILN }
+			traits = { evil_sofia_entrenchment_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	ILN_military_5 = {
+		name = ILN_military_5
+		advisor = {
+			slot = air_chief
+			idea_token = ILN_military_5
+			allowed = { original_tag = ILN }
+			traits = { evil_sofia_air_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	ISK_military_1 = {
+		name = ISK_military_1
+		advisor = {
+			slot = theorist
+			idea_token = ISK_military_1
+			allowed = { original_tag = ISK }
+			traits = { evil_sofia_army_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	ISK_military_2 = {
+		name = ISK_military_2
+		advisor = {
+			slot = theorist
+			idea_token = ISK_military_2
+			allowed = { original_tag = ISK }
+			traits = { evil_sofia_air_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	ISK_military_3 = {
+		name = ISK_military_3
+		advisor = {
+			slot = high_command
+			idea_token = ISK_military_3
+			allowed = { original_tag = ISK }
+			traits = { evil_sofia_artillery_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	ISK_military_4 = {
+		name = ISK_military_4
+		advisor = {
+			slot = high_command
+			idea_token = ISK_military_4
+			allowed = { original_tag = ISK }
+			traits = { evil_sofia_entrenchment_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	ISK_military_5 = {
+		name = ISK_military_5
+		advisor = {
+			slot = air_chief
+			idea_token = ISK_military_5
+			allowed = { original_tag = ISK }
+			traits = { evil_sofia_air_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	IZG_military_1 = {
+		name = IZG_military_1
+		advisor = {
+			slot = theorist
+			idea_token = IZG_military_1
+			allowed = { original_tag = IZG }
+			traits = { evil_sofia_army_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	IZG_military_2 = {
+		name = IZG_military_2
+		advisor = {
+			slot = theorist
+			idea_token = IZG_military_2
+			allowed = { original_tag = IZG }
+			traits = { evil_sofia_air_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	IZG_military_3 = {
+		name = IZG_military_3
+		advisor = {
+			slot = high_command
+			idea_token = IZG_military_3
+			allowed = { original_tag = IZG }
+			traits = { evil_sofia_artillery_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	IZG_military_4 = {
+		name = IZG_military_4
+		advisor = {
+			slot = high_command
+			idea_token = IZG_military_4
+			allowed = { original_tag = IZG }
+			traits = { evil_sofia_entrenchment_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	IZG_military_5 = {
+		name = IZG_military_5
+		advisor = {
+			slot = air_chief
+			idea_token = IZG_military_5
+			allowed = { original_tag = IZG }
+			traits = { evil_sofia_air_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	KRE_military_1 = {
+		name = KRE_military_1
+		advisor = {
+			slot = theorist
+			idea_token = KRE_military_1
+			allowed = { original_tag = KRE }
+			traits = { evil_sofia_army_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	KRE_military_2 = {
+		name = KRE_military_2
+		advisor = {
+			slot = theorist
+			idea_token = KRE_military_2
+			allowed = { original_tag = KRE }
+			traits = { evil_sofia_air_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	KRE_military_3 = {
+		name = KRE_military_3
+		advisor = {
+			slot = high_command
+			idea_token = KRE_military_3
+			allowed = { original_tag = KRE }
+			traits = { evil_sofia_artillery_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	KRE_military_4 = {
+		name = KRE_military_4
+		advisor = {
+			slot = high_command
+			idea_token = KRE_military_4
+			allowed = { original_tag = KRE }
+			traits = { evil_sofia_entrenchment_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	KRE_military_5 = {
+		name = KRE_military_5
+		advisor = {
+			slot = air_chief
+			idea_token = KRE_military_5
+			allowed = { original_tag = KRE }
+			traits = { evil_sofia_air_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	KRP_military_1 = {
+		name = KRP_military_1
+		advisor = {
+			slot = theorist
+			idea_token = KRP_military_1
+			allowed = { original_tag = KRP }
+			traits = { evil_sofia_army_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	KRP_military_2 = {
+		name = KRP_military_2
+		advisor = {
+			slot = theorist
+			idea_token = KRP_military_2
+			allowed = { original_tag = KRP }
+			traits = { evil_sofia_air_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	KRP_military_3 = {
+		name = KRP_military_3
+		advisor = {
+			slot = high_command
+			idea_token = KRP_military_3
+			allowed = { original_tag = KRP }
+			traits = { evil_sofia_artillery_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	KRP_military_4 = {
+		name = KRP_military_4
+		advisor = {
+			slot = high_command
+			idea_token = KRP_military_4
+			allowed = { original_tag = KRP }
+			traits = { evil_sofia_entrenchment_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	KRP_military_5 = {
+		name = KRP_military_5
+		advisor = {
+			slot = air_chief
+			idea_token = KRP_military_5
+			allowed = { original_tag = KRP }
+			traits = { evil_sofia_air_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	KRS_military_1 = {
+		name = KRS_military_1
+		advisor = {
+			slot = theorist
+			idea_token = KRS_military_1
+			allowed = { original_tag = KRS }
+			traits = { evil_sofia_army_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	KRS_military_2 = {
+		name = KRS_military_2
+		advisor = {
+			slot = theorist
+			idea_token = KRS_military_2
+			allowed = { original_tag = KRS }
+			traits = { evil_sofia_air_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	KRS_military_3 = {
+		name = KRS_military_3
+		advisor = {
+			slot = high_command
+			idea_token = KRS_military_3
+			allowed = { original_tag = KRS }
+			traits = { evil_sofia_artillery_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	KRS_military_4 = {
+		name = KRS_military_4
+		advisor = {
+			slot = high_command
+			idea_token = KRS_military_4
+			allowed = { original_tag = KRS }
+			traits = { evil_sofia_entrenchment_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	KRS_military_5 = {
+		name = KRS_military_5
+		advisor = {
+			slot = air_chief
+			idea_token = KRS_military_5
+			allowed = { original_tag = KRS }
+			traits = { evil_sofia_air_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	LOZ_military_1 = {
+		name = LOZ_military_1
+		advisor = {
+			slot = theorist
+			idea_token = LOZ_military_1
+			allowed = { original_tag = LOZ }
+			traits = { evil_sofia_army_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	LOZ_military_2 = {
+		name = LOZ_military_2
+		advisor = {
+			slot = theorist
+			idea_token = LOZ_military_2
+			allowed = { original_tag = LOZ }
+			traits = { evil_sofia_air_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	LOZ_military_3 = {
+		name = LOZ_military_3
+		advisor = {
+			slot = high_command
+			idea_token = LOZ_military_3
+			allowed = { original_tag = LOZ }
+			traits = { evil_sofia_artillery_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	LOZ_military_4 = {
+		name = LOZ_military_4
+		advisor = {
+			slot = high_command
+			idea_token = LOZ_military_4
+			allowed = { original_tag = LOZ }
+			traits = { evil_sofia_entrenchment_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	LOZ_military_5 = {
+		name = LOZ_military_5
+		advisor = {
+			slot = air_chief
+			idea_token = LOZ_military_5
+			allowed = { original_tag = LOZ }
+			traits = { evil_sofia_air_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	LYU_military_1 = {
+		name = LYU_military_1
+		advisor = {
+			slot = theorist
+			idea_token = LYU_military_1
+			allowed = { original_tag = LYU }
+			traits = { evil_sofia_army_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	LYU_military_2 = {
+		name = LYU_military_2
+		advisor = {
+			slot = theorist
+			idea_token = LYU_military_2
+			allowed = { original_tag = LYU }
+			traits = { evil_sofia_air_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	LYU_military_3 = {
+		name = LYU_military_3
+		advisor = {
+			slot = high_command
+			idea_token = LYU_military_3
+			allowed = { original_tag = LYU }
+			traits = { evil_sofia_artillery_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	LYU_military_4 = {
+		name = LYU_military_4
+		advisor = {
+			slot = high_command
+			idea_token = LYU_military_4
+			allowed = { original_tag = LYU }
+			traits = { evil_sofia_entrenchment_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	LYU_military_5 = {
+		name = LYU_military_5
+		advisor = {
+			slot = air_chief
+			idea_token = LYU_military_5
+			allowed = { original_tag = LYU }
+			traits = { evil_sofia_air_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	MLA_military_1 = {
+		name = MLA_military_1
+		advisor = {
+			slot = theorist
+			idea_token = MLA_military_1
+			allowed = { original_tag = MLA }
+			traits = { evil_sofia_army_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	MLA_military_2 = {
+		name = MLA_military_2
+		advisor = {
+			slot = theorist
+			idea_token = MLA_military_2
+			allowed = { original_tag = MLA }
+			traits = { evil_sofia_air_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	MLA_military_3 = {
+		name = MLA_military_3
+		advisor = {
+			slot = high_command
+			idea_token = MLA_military_3
+			allowed = { original_tag = MLA }
+			traits = { evil_sofia_artillery_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	MLA_military_4 = {
+		name = MLA_military_4
+		advisor = {
+			slot = high_command
+			idea_token = MLA_military_4
+			allowed = { original_tag = MLA }
+			traits = { evil_sofia_entrenchment_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	MLA_military_5 = {
+		name = MLA_military_5
+		advisor = {
+			slot = air_chief
+			idea_token = MLA_military_5
+			allowed = { original_tag = MLA }
+			traits = { evil_sofia_air_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	NAD_military_1 = {
+		name = NAD_military_1
+		advisor = {
+			slot = theorist
+			idea_token = NAD_military_1
+			allowed = { original_tag = NAD }
+			traits = { evil_sofia_army_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	NAD_military_2 = {
+		name = NAD_military_2
+		advisor = {
+			slot = theorist
+			idea_token = NAD_military_2
+			allowed = { original_tag = NAD }
+			traits = { evil_sofia_air_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	NAD_military_3 = {
+		name = NAD_military_3
+		advisor = {
+			slot = high_command
+			idea_token = NAD_military_3
+			allowed = { original_tag = NAD }
+			traits = { evil_sofia_artillery_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	NAD_military_4 = {
+		name = NAD_military_4
+		advisor = {
+			slot = high_command
+			idea_token = NAD_military_4
+			allowed = { original_tag = NAD }
+			traits = { evil_sofia_entrenchment_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	NAD_military_5 = {
+		name = NAD_military_5
+		advisor = {
+			slot = air_chief
+			idea_token = NAD_military_5
+			allowed = { original_tag = NAD }
+			traits = { evil_sofia_air_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	NIS_military_1 = {
+		name = NIS_military_1
+		advisor = {
+			slot = theorist
+			idea_token = NIS_military_1
+			allowed = { original_tag = NIS }
+			traits = { evil_sofia_army_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	NIS_military_2 = {
+		name = NIS_military_2
+		advisor = {
+			slot = theorist
+			idea_token = NIS_military_2
+			allowed = { original_tag = NIS }
+			traits = { evil_sofia_air_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	NIS_military_3 = {
+		name = NIS_military_3
+		advisor = {
+			slot = high_command
+			idea_token = NIS_military_3
+			allowed = { original_tag = NIS }
+			traits = { evil_sofia_artillery_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	NIS_military_4 = {
+		name = NIS_military_4
+		advisor = {
+			slot = high_command
+			idea_token = NIS_military_4
+			allowed = { original_tag = NIS }
+			traits = { evil_sofia_entrenchment_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	NIS_military_5 = {
+		name = NIS_military_5
+		advisor = {
+			slot = air_chief
+			idea_token = NIS_military_5
+			allowed = { original_tag = NIS }
+			traits = { evil_sofia_air_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	OBR_military_1 = {
+		name = OBR_military_1
+		advisor = {
+			slot = theorist
+			idea_token = OBR_military_1
+			allowed = { original_tag = OBR }
+			traits = { evil_sofia_army_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	OBR_military_2 = {
+		name = OBR_military_2
+		advisor = {
+			slot = theorist
+			idea_token = OBR_military_2
+			allowed = { original_tag = OBR }
+			traits = { evil_sofia_air_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	OBR_military_3 = {
+		name = OBR_military_3
+		advisor = {
+			slot = high_command
+			idea_token = OBR_military_3
+			allowed = { original_tag = OBR }
+			traits = { evil_sofia_artillery_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	OBR_military_4 = {
+		name = OBR_military_4
+		advisor = {
+			slot = high_command
+			idea_token = OBR_military_4
+			allowed = { original_tag = OBR }
+			traits = { evil_sofia_entrenchment_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	OBR_military_5 = {
+		name = OBR_military_5
+		advisor = {
+			slot = air_chief
+			idea_token = OBR_military_5
+			allowed = { original_tag = OBR }
+			traits = { evil_sofia_air_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	OVK_military_1 = {
+		name = OVK_military_1
+		advisor = {
+			slot = theorist
+			idea_token = OVK_military_1
+			allowed = { original_tag = OVK }
+			traits = { evil_sofia_army_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	OVK_military_2 = {
+		name = OVK_military_2
+		advisor = {
+			slot = theorist
+			idea_token = OVK_military_2
+			allowed = { original_tag = OVK }
+			traits = { evil_sofia_air_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	OVK_military_3 = {
+		name = OVK_military_3
+		advisor = {
+			slot = high_command
+			idea_token = OVK_military_3
+			allowed = { original_tag = OVK }
+			traits = { evil_sofia_artillery_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	OVK_military_4 = {
+		name = OVK_military_4
+		advisor = {
+			slot = high_command
+			idea_token = OVK_military_4
+			allowed = { original_tag = OVK }
+			traits = { evil_sofia_entrenchment_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	OVK_military_5 = {
+		name = OVK_military_5
+		advisor = {
+			slot = air_chief
+			idea_token = OVK_military_5
+			allowed = { original_tag = OVK }
+			traits = { evil_sofia_air_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	PNC_military_1 = {
+		name = PNC_military_1
+		advisor = {
+			slot = theorist
+			idea_token = PNC_military_1
+			allowed = { original_tag = PNC }
+			traits = { evil_sofia_army_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	PNC_military_2 = {
+		name = PNC_military_2
+		advisor = {
+			slot = theorist
+			idea_token = PNC_military_2
+			allowed = { original_tag = PNC }
+			traits = { evil_sofia_air_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	PNC_military_3 = {
+		name = PNC_military_3
+		advisor = {
+			slot = high_command
+			idea_token = PNC_military_3
+			allowed = { original_tag = PNC }
+			traits = { evil_sofia_artillery_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	PNC_military_4 = {
+		name = PNC_military_4
+		advisor = {
+			slot = high_command
+			idea_token = PNC_military_4
+			allowed = { original_tag = PNC }
+			traits = { evil_sofia_entrenchment_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	PNC_military_5 = {
+		name = PNC_military_5
+		advisor = {
+			slot = air_chief
+			idea_token = PNC_military_5
+			allowed = { original_tag = PNC }
+			traits = { evil_sofia_air_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	POD_military_1 = {
+		name = POD_military_1
+		advisor = {
+			slot = theorist
+			idea_token = POD_military_1
+			allowed = { original_tag = POD }
+			traits = { evil_sofia_army_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	POD_military_2 = {
+		name = POD_military_2
+		advisor = {
+			slot = theorist
+			idea_token = POD_military_2
+			allowed = { original_tag = POD }
+			traits = { evil_sofia_air_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	POD_military_3 = {
+		name = POD_military_3
+		advisor = {
+			slot = high_command
+			idea_token = POD_military_3
+			allowed = { original_tag = POD }
+			traits = { evil_sofia_artillery_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	POD_military_4 = {
+		name = POD_military_4
+		advisor = {
+			slot = high_command
+			idea_token = POD_military_4
+			allowed = { original_tag = POD }
+			traits = { evil_sofia_entrenchment_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	POD_military_5 = {
+		name = POD_military_5
+		advisor = {
+			slot = air_chief
+			idea_token = POD_military_5
+			allowed = { original_tag = POD }
+			traits = { evil_sofia_air_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	SLA_military_1 = {
+		name = SLA_military_1
+		advisor = {
+			slot = theorist
+			idea_token = SLA_military_1
+			allowed = { original_tag = SLA }
+			traits = { evil_sofia_army_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	SLA_military_2 = {
+		name = SLA_military_2
+		advisor = {
+			slot = theorist
+			idea_token = SLA_military_2
+			allowed = { original_tag = SLA }
+			traits = { evil_sofia_air_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	SLA_military_3 = {
+		name = SLA_military_3
+		advisor = {
+			slot = high_command
+			idea_token = SLA_military_3
+			allowed = { original_tag = SLA }
+			traits = { evil_sofia_artillery_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	SLA_military_4 = {
+		name = SLA_military_4
+		advisor = {
+			slot = high_command
+			idea_token = SLA_military_4
+			allowed = { original_tag = SLA }
+			traits = { evil_sofia_entrenchment_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	SLA_military_5 = {
+		name = SLA_military_5
+		advisor = {
+			slot = air_chief
+			idea_token = SLA_military_5
+			allowed = { original_tag = SLA }
+			traits = { evil_sofia_air_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	SRD_military_1 = {
+		name = SRD_military_1
+		advisor = {
+			slot = theorist
+			idea_token = SRD_military_1
+			allowed = { original_tag = SRD }
+			traits = { evil_sofia_army_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	SRD_military_2 = {
+		name = SRD_military_2
+		advisor = {
+			slot = theorist
+			idea_token = SRD_military_2
+			allowed = { original_tag = SRD }
+			traits = { evil_sofia_air_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	SRD_military_3 = {
+		name = SRD_military_3
+		advisor = {
+			slot = high_command
+			idea_token = SRD_military_3
+			allowed = { original_tag = SRD }
+			traits = { evil_sofia_artillery_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	SRD_military_4 = {
+		name = SRD_military_4
+		advisor = {
+			slot = high_command
+			idea_token = SRD_military_4
+			allowed = { original_tag = SRD }
+			traits = { evil_sofia_entrenchment_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	SRD_military_5 = {
+		name = SRD_military_5
+		advisor = {
+			slot = air_chief
+			idea_token = SRD_military_5
+			allowed = { original_tag = SRD }
+			traits = { evil_sofia_air_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	SRK_military_1 = {
+		name = SRK_military_1
+		advisor = {
+			slot = theorist
+			idea_token = SRK_military_1
+			allowed = { original_tag = SRK }
+			traits = { evil_sofia_army_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	SRK_military_2 = {
+		name = SRK_military_2
+		advisor = {
+			slot = theorist
+			idea_token = SRK_military_2
+			allowed = { original_tag = SRK }
+			traits = { evil_sofia_air_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	SRK_military_3 = {
+		name = SRK_military_3
+		advisor = {
+			slot = high_command
+			idea_token = SRK_military_3
+			allowed = { original_tag = SRK }
+			traits = { evil_sofia_artillery_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	SRK_military_4 = {
+		name = SRK_military_4
+		advisor = {
+			slot = high_command
+			idea_token = SRK_military_4
+			allowed = { original_tag = SRK }
+			traits = { evil_sofia_entrenchment_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	SRK_military_5 = {
+		name = SRK_military_5
+		advisor = {
+			slot = air_chief
+			idea_token = SRK_military_5
+			allowed = { original_tag = SRK }
+			traits = { evil_sofia_air_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	STU_military_1 = {
+		name = STU_military_1
+		advisor = {
+			slot = theorist
+			idea_token = STU_military_1
+			allowed = { original_tag = STU }
+			traits = { evil_sofia_army_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	STU_military_2 = {
+		name = STU_military_2
+		advisor = {
+			slot = theorist
+			idea_token = STU_military_2
+			allowed = { original_tag = STU }
+			traits = { evil_sofia_air_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	STU_military_3 = {
+		name = STU_military_3
+		advisor = {
+			slot = high_command
+			idea_token = STU_military_3
+			allowed = { original_tag = STU }
+			traits = { evil_sofia_artillery_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	STU_military_4 = {
+		name = STU_military_4
+		advisor = {
+			slot = high_command
+			idea_token = STU_military_4
+			allowed = { original_tag = STU }
+			traits = { evil_sofia_entrenchment_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	STU_military_5 = {
+		name = STU_military_5
+		advisor = {
+			slot = air_chief
+			idea_token = STU_military_5
+			allowed = { original_tag = STU }
+			traits = { evil_sofia_air_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	TRD_military_1 = {
+		name = TRD_military_1
+		advisor = {
+			slot = theorist
+			idea_token = TRD_military_1
+			allowed = { original_tag = TRD }
+			traits = { evil_sofia_army_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	TRD_military_2 = {
+		name = TRD_military_2
+		advisor = {
+			slot = theorist
+			idea_token = TRD_military_2
+			allowed = { original_tag = TRD }
+			traits = { evil_sofia_air_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	TRD_military_3 = {
+		name = TRD_military_3
+		advisor = {
+			slot = high_command
+			idea_token = TRD_military_3
+			allowed = { original_tag = TRD }
+			traits = { evil_sofia_artillery_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	TRD_military_4 = {
+		name = TRD_military_4
+		advisor = {
+			slot = high_command
+			idea_token = TRD_military_4
+			allowed = { original_tag = TRD }
+			traits = { evil_sofia_entrenchment_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	TRD_military_5 = {
+		name = TRD_military_5
+		advisor = {
+			slot = air_chief
+			idea_token = TRD_military_5
+			allowed = { original_tag = TRD }
+			traits = { evil_sofia_air_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	VAZ_military_1 = {
+		name = VAZ_military_1
+		advisor = {
+			slot = theorist
+			idea_token = VAZ_military_1
+			allowed = { original_tag = VAZ }
+			traits = { evil_sofia_army_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	VAZ_military_2 = {
+		name = VAZ_military_2
+		advisor = {
+			slot = theorist
+			idea_token = VAZ_military_2
+			allowed = { original_tag = VAZ }
+			traits = { evil_sofia_air_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	VAZ_military_3 = {
+		name = VAZ_military_3
+		advisor = {
+			slot = high_command
+			idea_token = VAZ_military_3
+			allowed = { original_tag = VAZ }
+			traits = { evil_sofia_artillery_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	VAZ_military_4 = {
+		name = VAZ_military_4
+		advisor = {
+			slot = high_command
+			idea_token = VAZ_military_4
+			allowed = { original_tag = VAZ }
+			traits = { evil_sofia_entrenchment_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	VAZ_military_5 = {
+		name = VAZ_military_5
+		advisor = {
+			slot = air_chief
+			idea_token = VAZ_military_5
+			allowed = { original_tag = VAZ }
+			traits = { evil_sofia_air_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	VIT_military_1 = {
+		name = VIT_military_1
+		advisor = {
+			slot = theorist
+			idea_token = VIT_military_1
+			allowed = { original_tag = VIT }
+			traits = { evil_sofia_army_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	VIT_military_2 = {
+		name = VIT_military_2
+		advisor = {
+			slot = theorist
+			idea_token = VIT_military_2
+			allowed = { original_tag = VIT }
+			traits = { evil_sofia_air_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	VIT_military_3 = {
+		name = VIT_military_3
+		advisor = {
+			slot = high_command
+			idea_token = VIT_military_3
+			allowed = { original_tag = VIT }
+			traits = { evil_sofia_artillery_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	VIT_military_4 = {
+		name = VIT_military_4
+		advisor = {
+			slot = high_command
+			idea_token = VIT_military_4
+			allowed = { original_tag = VIT }
+			traits = { evil_sofia_entrenchment_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	VIT_military_5 = {
+		name = VIT_military_5
+		advisor = {
+			slot = air_chief
+			idea_token = VIT_military_5
+			allowed = { original_tag = VIT }
+			traits = { evil_sofia_air_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	VRB_military_1 = {
+		name = VRB_military_1
+		advisor = {
+			slot = theorist
+			idea_token = VRB_military_1
+			allowed = { original_tag = VRB }
+			traits = { evil_sofia_army_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	VRB_military_2 = {
+		name = VRB_military_2
+		advisor = {
+			slot = theorist
+			idea_token = VRB_military_2
+			allowed = { original_tag = VRB }
+			traits = { evil_sofia_air_theorist }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	VRB_military_3 = {
+		name = VRB_military_3
+		advisor = {
+			slot = high_command
+			idea_token = VRB_military_3
+			allowed = { original_tag = VRB }
+			traits = { evil_sofia_artillery_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	VRB_military_4 = {
+		name = VRB_military_4
+		advisor = {
+			slot = high_command
+			idea_token = VRB_military_4
+			allowed = { original_tag = VRB }
+			traits = { evil_sofia_entrenchment_expert }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+	VRB_military_5 = {
+		name = VRB_military_5
+		advisor = {
+			slot = air_chief
+			idea_token = VRB_military_5
+			allowed = { original_tag = VRB }
+			traits = { evil_sofia_air_chief }
+			cost = 100
+			ai_will_do = { factor = 1 }
+		}
+	}
+}
