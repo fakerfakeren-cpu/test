@@ -42,16 +42,16 @@ modern objects in focus. Country events are 210x176 (nearly square), news events
 | `evil_sofia_news_7.png` | 397x153 | North and South Sofia | Two leaders shaking hands on a bridge with bronze eagles, photographers around them. | done |
 | `evil_sofia_news_8.png` | 397x153 | A District Falls | Soldiers laying down rifles in a pile in a city street, civilians watching. | wanted |
 | `evil_sofia_news_9.png` | 397x153 | The Free Sredets Is Proclaimed | Soldiers taking down a checkpoint barrier on a city boulevard while crowds fill the cafés, a blue flag on a hall. | done |
-| `evil_sofia_news_10.png` | 397x153 | The Evil Gang Rides Again | A group of young men posing on the steps of a theatre, a newspaper photograph. | wanted |
-| `evil_sofia_news_11.png` | 397x153 | The C Class Hools Take to the Streets | A march of young men with scarves and lit flares through a city centre at night. | wanted |
+| `evil_sofia_news_10.png` | 397x153 | The Evil Gang Rides Again | A group of young men posing on the steps of a theatre, a newspaper photograph. | done |
+| `evil_sofia_news_11.png` | 397x153 | The C Class Hools Take to the Streets | A march of young men with scarves and lit flares through a city centre at night. | done |
 | `evil_sofia_news_12.png` | 397x153 | A Physics Teacher Seizes Sredets | A teacher with a stack of papers walking past saluting guards into a government building. | wanted |
 | `evil_sofia_news_13.png` | 397x153 | The Free Centre of Sofia | A crowd celebrating on a city square under an old cathedral, blue flags waved from balconies. | done |
 | `evil_sofia_news_14.png` | 397x153 | Henry's Mom Was Wrong | An older woman in a 1930s coat and hat surrounded by reporters with notebooks on a city street, a café behind. | done |
 | `evil_sofia_news_15.png` | 397x153 | The Vitosha Award | Men in suits and uniforms around a table with a large map, one drawing lines on it with a pen. | wanted |
-| `evil_sofia_news_16.png` | 397x153 | The Centre Is United | A military parade on a wide boulevard of the city centre, crowds and flags on both sides. | wanted |
-| `evil_sofia_news_17.png` | 397x153 | The Directorate of Sofia | A man in a dark coat proclaiming from a balcony draped with a long dark banner, soldiers in rows below. | wanted |
-| `evil_sofia_news_18.png` | 397x153 | Krum's Cup | An ornate drinking cup on a desk in a dim office, a soldier's hand setting it down. | wanted |
-| `evil_sofia_news_19.png` | 397x153 | A Temporary Emergency | Soldiers pulling down a large pale flag from a building at night, a curfew poster on the wall. | wanted |
+| `evil_sofia_news_16.png` | 397x153 | The Centre Is United | A military parade on a wide boulevard of the city centre, crowds and flags on both sides. | done |
+| `evil_sofia_news_17.png` | 397x153 | The Directorate of Sofia | A man in a dark coat proclaiming from a balcony draped with a long dark banner, soldiers in rows below. | done |
+| `evil_sofia_news_18.png` | 397x153 | Krum's Cup | An ornate drinking cup on a desk in a dim office, a soldier's hand setting it down. | done |
+| `evil_sofia_news_19.png` | 397x153 | A Temporary Emergency | Soldiers pulling down a large pale flag from a building at night, a curfew poster on the wall. | done |
 | `evil_sofia_flavour_1.png` | 210x176 | The Trams Stop | Trams standing still in a rainy street, drivers gathered beside them. | wanted |
 | `evil_sofia_flavour_2.png` | 210x176 | Derby Day | A packed football stadium at night, two sets of fans with scarves. | wanted |
 | `evil_sofia_flavour_3.png` | 210x176 | The Big Snow | People shovelling deep snow in a city street, a stuck truck. | wanted |

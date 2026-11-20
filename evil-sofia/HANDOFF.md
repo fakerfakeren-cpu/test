@@ -103,8 +103,8 @@ The user has to send these again (they are not in git); save each as PNG under `
 | `SRK.png` | Khan Krum, leader of Serdika (painting; head and shoulders cropped from the user's full-length picture) |
 
 The user's event pictures (`tools/event_pictures/<event>.png`, see `PICTURES.md`) also have to be sent again.
-Made so far (all saved already cropped to the news shape): news 1, 2, 3, 4, 5, 6, 7, 9, 13, 14 and srd 2. Still
-drawn: news 8 (A District Falls) and the news of the other branches (10, 11, 12).
+Made so far (all saved already cropped to the news shape): news 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, 14, 16, 17,
+18, 19 and srd 2. Still drawn: news 8 (A District Falls), 12 (Ilchev) and 15 (The Vitosha Award).
 
 Without them the build still works: leaders have no portrait and the person/photo icons fall back to pack icons.
 
