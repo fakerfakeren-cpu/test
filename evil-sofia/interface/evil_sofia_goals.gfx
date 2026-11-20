@@ -268,6 +268,10 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/evil_sofia/SRD_free_centre_of_sofia.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_SRD_a_temporary_emergency"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_a_temporary_emergency.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_SRD_united_centre"
 		texturefile = "gfx/interface/goals/evil_sofia/SRD_united_centre.dds"
 	}
@@ -276,20 +280,28 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/evil_sofia/SRD_order_on_the_boulevards.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_SRD_checkpoints_on_the_bridges"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_checkpoints_on_the_bridges.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_the_night_watch"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_the_night_watch.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_informers_in_every_cafe"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_informers_in_every_cafe.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_ultimatums_from_the_largo"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_ultimatums_from_the_largo.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_the_iron_grip"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_the_iron_grip.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_SRD_the_centres_army"
 		texturefile = "gfx/interface/goals/evil_sofia/SRD_the_centres_army.dds"
-	}
-	spriteType = {
-		name = "GFX_focus_SRD_workshops_of_the_centre"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_workshops_of_the_centre.dds"
-	}
-	spriteType = {
-		name = "GFX_focus_SRD_arsenal_of_the_centre"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_arsenal_of_the_centre.dds"
-	}
-	spriteType = {
-		name = "GFX_focus_SRD_unleash_the_c_class"
-		texturefile = "gfx/interface/goals/evil_sofia/people/SRD_unleash_the_c_class.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_SRD_march_on_the_old_centre"
@@ -298,6 +310,14 @@ spriteTypes = {
 	spriteType = {
 		name = "GFX_focus_SRD_the_centre_takes_shape"
 		texturefile = "gfx/interface/goals/evil_sofia/SRD_the_centre_takes_shape.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_the_khan_must_fall"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_the_khan_must_fall.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_krums_cup"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_krums_cup.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_SRD_the_centre_is_one"
@@ -318,6 +338,38 @@ spriteTypes = {
 	spriteType = {
 		name = "GFX_focus_SRD_the_centre_and_oborishte"
 		texturefile = "gfx/interface/goals/evil_sofia/SRD_the_centre_and_oborishte.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_proclaim_the_directorate"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_proclaim_the_directorate.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_one_directorate"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_one_directorate.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_sofia_answers_to_the_director"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_sofia_answers_to_the_director.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_unleash_the_c_class"
+		texturefile = "gfx/interface/goals/evil_sofia/people/SRD_unleash_the_c_class.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_call_alexander"
+		texturefile = "gfx/interface/goals/evil_sofia/people/SRD_call_alexander.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_call_poryazov"
+		texturefile = "gfx/interface/goals/evil_sofia/people/SRD_call_poryazov.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_away_days"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_away_days.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_champions_of_sofia"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_champions_of_sofia.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_SRD_ilchevs_lesson"
@@ -382,5 +434,129 @@ spriteTypes = {
 	spriteType = {
 		name = "GFX_focus_SRD_the_evil_gang_rules_sofia"
 		texturefile = "gfx/interface/goals/evil_sofia/SRD_the_evil_gang_rules_sofia.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_workshops_of_sofia"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_workshops_of_sofia.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_courtyard_workshops"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_courtyard_workshops.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_cellar_arsenals"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_cellar_arsenals.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_tram_lines"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_tram_lines.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_construction_brigades"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_construction_brigades.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_night_shifts"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_night_shifts.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_rail_yard_arms"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_rail_yard_arms.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_basement_laboratories"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_basement_laboratories.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_market_halls_reopen"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_market_halls_reopen.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_the_war_factories"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_the_war_factories.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_ammunition_works"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_ammunition_works.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_the_polytechnic"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_the_polytechnic.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_tsarigradsko_factories"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_tsarigradsko_factories.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_arsenal_of_sofia"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_arsenal_of_sofia.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_industrial_heart_of_sofia"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_industrial_heart_of_sofia.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_district_guard_reformed"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_district_guard_reformed.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_rifle_clubs"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_rifle_clubs.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_sergeants_of_the_old_army"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_sergeants_of_the_old_army.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_pilots_from_vrazhdebna"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_pilots_from_vrazhdebna.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_artillery_in_the_parks"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_artillery_in_the_parks.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_field_kitchens"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_field_kitchens.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_street_fighting_school"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_street_fighting_school.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_fighters_over_the_centre"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_fighters_over_the_centre.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_armoured_trams"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_armoured_trams.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_officer_corps"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_officer_corps.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_anti_air_belt"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_anti_air_belt.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_requisition_the_taxis"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_requisition_the_taxis.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_locomotive_works_armour"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_locomotive_works_armour.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_general_staff"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_general_staff.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_bombers_from_bozhurishte"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_bombers_from_bozhurishte.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_the_army_of_the_centre"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_the_army_of_the_centre.dds"
 	}
 }

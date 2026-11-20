@@ -355,3 +355,102 @@ country_event = {
 		ai_chance = { factor = 1 }
 	}
 }
+
+country_event = {
+	id = evil_sofia_srd.22
+	title = evil_sofia_srd.22.t
+	desc = evil_sofia_srd.22.d
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_srd.22.a
+		ai_chance = {
+			base = 10
+			modifier = { add = 30 strength_ratio = { tag = FROM ratio < 0.5 } }
+			modifier = { add = 30 strength_ratio = { tag = FROM ratio < 0.25 } }
+			modifier = { add = 10 has_opinion = { target = FROM value > 30 } }
+			modifier = { add = 15 FROM = { check_variable = { SRD_grip > 79 } } }
+			modifier = { factor = 0.3 is_in_faction = yes }
+		}
+		FROM = { puppet = ROOT country_event = { id = evil_sofia_srd.23 } }
+	}
+	option = {
+		name = evil_sofia_srd.22.b
+		ai_chance = {
+			base = 50
+			modifier = { add = 50 strength_ratio = { tag = FROM ratio > 1 } }
+			modifier = { add = 20 has_opinion = { target = FROM value < 0 } }
+		}
+		FROM = {
+			create_wargoal = { type = annex_everything target = ROOT }
+			add_to_variable = { SRD_grip = 5 }
+			SRD_update_grip = yes
+			country_event = { id = evil_sofia_srd.24 }
+		}
+	}
+}
+
+country_event = {
+	id = evil_sofia_srd.23
+	title = evil_sofia_srd.23.t
+	desc = evil_sofia_srd.23.d
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_srd.23.a
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = evil_sofia_srd.24
+	title = evil_sofia_srd.24.t
+	desc = evil_sofia_srd.24.d
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_srd.24.a
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = evil_sofia_srd.25
+	title = evil_sofia_srd.25.t
+	desc = evil_sofia_srd.25.d
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_srd.25.a
+		ai_chance = {
+			base = 90
+			modifier = { factor = 0.2 has_opinion = { target = FROM value < -20 } }
+		}
+		FROM = { add_to_faction = ROOT country_event = { id = evil_sofia_srd.26 } }
+	}
+	option = {
+		name = evil_sofia_srd.25.b
+		ai_chance = {
+			base = 10
+		}
+		FROM = { country_event = { id = evil_sofia_srd.27 } }
+	}
+}
+
+country_event = {
+	id = evil_sofia_srd.26
+	title = evil_sofia_srd.26.t
+	desc = evil_sofia_srd.26.d
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_srd.26.a
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = evil_sofia_srd.27
+	title = evil_sofia_srd.27.t
+	desc = evil_sofia_srd.27.d
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_srd.27.a
+		ai_chance = { factor = 1 }
+	}
+}

@@ -213,6 +213,26 @@ Root choice (mutually exclusive): **Henry's Mom Was Right** (communism) at x=8, 
   OBR). The Vitosha Award gives Sredets nothing: every state goes to the nearest friend in the gang (Vitosha and
   Karpuzitsa → TRD, Simeonovo → MLA, Marchaevo and Knyazhevo → KRP, Dragalevtsi and Zlatni Mostove → LOZ), with
   fallbacks in VITOSHA_SHARES when a friend is not in the gang.
+- Authoritarian road rebuilt (v36): The Dream of a United Centre (x29) with four lines. The Grip on the Centre
+  (new mechanic): variable SRD_grip 0-100 (flag SRD_grip_active), scripted effect SRD_update_grip keeps one of
+  three spirits (loose <30, firm 30-69, iron 70+), monthly drift in common/on_actions/evil_sofia_srd_on_actions.txt
+  (-2 at war with stability <40%, +1 with stability >60%), decision category SRD_grip (Patrol the Boulevards, Bread at
+  the Women's Market, Night Raids, Parade on Tsar Osvoboditel, and the targeted decision Send an Ultimatum: Grip 50+,
+  costs 15; target submits → puppet, refuses → war goal and Grip +5; events srd.22-24). Focuses: Order on the
+  Boulevards, Checkpoints on the Bridges, The Night Watch, Informers in Every Café, Ultimatums from the Largo, The
+  Iron Grip. Conquest: The Centre's Army, March on the Old Centre, The Centre Takes Shape, The Khan Must Fall (only
+  while Khan Krum leads Serdika: has_country_leader SRK_leader) → Krum's Cup (news 18), The Centre Is One, Bring
+  Anton In / Anton at Our Side, The United Centre / The Centre and Oborishte. C Class Hools (faction, only without
+  the Evil Gang): Unleash, Call Alexander (TRD) and Call Georgi Poryazov (MLA) (event srd.25, AI says yes 90%),
+  Away Days, Champions of Sofia. Formable: Proclaim the Directorate of Sofia (Grip 70+, centre held; cosmetic tag
+  SRD_DIRECTORATE, flag red_flags.directorate, trait The Director, news 17), One Directorate (annex subjects, cores
+  everywhere owned), Sofia Answers to the Director. The free road can turn evil: A Temporary Emergency (alternative
+  to The Free Centre of Sofia; despotism again, Grip 50, ultimatums; news 19) also opens the Directorate.
+  Workshops/Arsenal of the Centre were removed (the industry tree replaces them). Ilchev moved to x37-39, the Evil
+  Gang to x43-49.
+- Shared trees, open on every road: industry (x51-57, 15 focuses: factories, slots, a research slot, construction
+  and factory output spirits) and military (x59-65, 16 focuses: tech bonuses for infantry weapons, artillery,
+  armour, doctrine, air; army/air experience; anti-air and radar; spirits).
 - Watch for duplicate focus ids across branches (a new `one_centre` once collided with the communist one).
 - Later tweaks: spirits on other districts cut to about a quarter (comrades 0.06, red newspapers 0.05, party money
   0.04, rally 0.05, leaflets 0.04, newspapers from Sredets 0.03, friends of freedom 0.06, mom was wrong 0.04, a red

@@ -44,6 +44,62 @@ spriteTypes = {
 		texturefile = "gfx/interface/ideas/evil_sofia/SRD_united_centre_done.dds"
 	}
 	spriteType = {
+		name = "GFX_idea_SRD_grip_loose"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_grip_loose.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_SRD_grip_firm"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_grip_firm.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_SRD_grip_iron"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_grip_iron.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_SRD_champions_spirit"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_champions_spirit.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_SRD_away_day"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_away_day.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_SRD_krums_cup"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_krums_cup.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_SRD_directorate"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_directorate.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_SRD_construction_brigades"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_construction_brigades.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_SRD_night_shifts"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_night_shifts.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_SRD_industrial_heart"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_industrial_heart.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_SRD_field_kitchens"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_field_kitchens.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_SRD_street_fighting"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_street_fighting.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_SRD_officer_corps"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_officer_corps.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_SRD_army_of_the_centre"
+		texturefile = "gfx/interface/ideas/evil_sofia/SRD_army_of_the_centre.dds"
+	}
+	spriteType = {
 		name = "GFX_idea_SRD_laboratory"
 		texturefile = "gfx/interface/ideas/evil_sofia/SRD_laboratory.dds"
 	}

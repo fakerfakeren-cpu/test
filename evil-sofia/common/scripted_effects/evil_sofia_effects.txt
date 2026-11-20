@@ -1,0 +1,21 @@
+SRD_update_grip = {
+	clamp_variable = { var = SRD_grip min = 0 max = 100 }
+	if = {
+		limit = { check_variable = { SRD_grip > 69 } NOT = { has_idea = SRD_grip_iron } }
+		if = { limit = { has_idea = SRD_grip_firm } remove_ideas = SRD_grip_firm }
+		if = { limit = { has_idea = SRD_grip_loose } remove_ideas = SRD_grip_loose }
+		add_ideas = SRD_grip_iron
+	}
+	if = {
+		limit = { check_variable = { SRD_grip > 29 } check_variable = { SRD_grip < 70 } NOT = { has_idea = SRD_grip_firm } }
+		if = { limit = { has_idea = SRD_grip_iron } remove_ideas = SRD_grip_iron }
+		if = { limit = { has_idea = SRD_grip_loose } remove_ideas = SRD_grip_loose }
+		add_ideas = SRD_grip_firm
+	}
+	if = {
+		limit = { check_variable = { SRD_grip < 30 } NOT = { has_idea = SRD_grip_loose } }
+		if = { limit = { has_idea = SRD_grip_iron } remove_ideas = SRD_grip_iron }
+		if = { limit = { has_idea = SRD_grip_firm } remove_ideas = SRD_grip_firm }
+		add_ideas = SRD_grip_loose
+	}
+}

@@ -1,0 +1,18 @@
+on_actions = {
+	on_monthly = {
+		effect = {
+			if = {
+				limit = { tag = SRD has_country_flag = SRD_grip_active }
+				if = {
+					limit = { has_war = yes has_stability < 0.4 }
+					add_to_variable = { SRD_grip = -2 }
+				}
+				else_if = {
+					limit = { has_stability > 0.6 }
+					add_to_variable = { SRD_grip = 1 }
+				}
+				SRD_update_grip = yes
+			}
+		}
+	}
+}

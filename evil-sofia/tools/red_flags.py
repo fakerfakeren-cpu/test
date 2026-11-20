@@ -227,7 +227,35 @@ def free(root, variant=""):
     return _finish(im)
 
 
+DARK = (26, 28, 40)
+
+
+def directorate():
+    """The Directorate of Sofia: a dark field between two gold bands, a gold sword upright behind Sredets' four
+    rhombuses, framed by a gold square standing on its point: the centre held in one hand."""
+    im = Image.new("RGBA", (W, H), DARK + (255,))
+    d = ImageDraw.Draw(im)
+    for y0 in (H * 0.08, H * 0.86):
+        d.rectangle((0, y0, W, y0 + H * 0.06), fill=GOLD)
+    cx, cy, r = W * 0.5, H * 0.5, H * 0.30
+    # the sword, behind everything
+    d.rectangle((cx - r * 0.06, cy - r * 1.30, cx + r * 0.06, cy + r * 1.05), fill=GOLD_DARK)
+    d.polygon([(cx - r * 0.06, cy + r * 1.05), (cx + r * 0.06, cy + r * 1.05), (cx, cy + r * 1.25)], fill=GOLD_DARK)
+    d.rectangle((cx - r * 0.45, cy - r * 1.02, cx + r * 0.45, cy - r * 0.92), fill=GOLD_DARK)
+    d.ellipse((cx - r * 0.11, cy - r * 1.44, cx + r * 0.11, cy - r * 1.22), fill=GOLD_DARK)
+    # the frame: a gold square on its point, dark inside
+    d.polygon([(cx, cy - r), (cx + r, cy), (cx, cy + r), (cx - r, cy)], fill=GOLD)
+    k = 0.84
+    d.polygon([(cx, cy - r * k), (cx + r * k, cy), (cx, cy + r * k), (cx - r * k, cy)], fill=DARK)
+    q = r * 0.24
+    for dx, dy in ((0, -1), (1, 0), (0, 1), (-1, 0)):
+        rhombus(d, cx + dx * q * 1.25, cy + dy * q * 1.25, q * 0.95, GOLD)
+    return _finish(im)
+
+
 def make(root, recipe, arg=""):
+    if recipe == "directorate":
+        return directorate()
     if recipe == "free":
         return free(root, arg)
     if recipe == "district":

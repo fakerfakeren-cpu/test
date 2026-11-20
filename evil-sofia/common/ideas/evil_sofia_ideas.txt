@@ -101,6 +101,122 @@ ideas = {
 				political_power_factor = 0.10
 			}
 		}
+		SRD_grip_loose = {
+			picture = SRD_grip_loose
+			allowed = { always = no }
+			modifier = {
+				stability_factor = -0.05
+				political_power_factor = -0.05
+			}
+		}
+		SRD_grip_firm = {
+			picture = SRD_grip_firm
+			allowed = { always = no }
+			modifier = {
+				stability_factor = 0.05
+				political_power_factor = 0.05
+			}
+		}
+		SRD_grip_iron = {
+			picture = SRD_grip_iron
+			allowed = { always = no }
+			modifier = {
+				stability_factor = 0.10
+				political_power_factor = 0.10
+				war_support_factor = 0.05
+				army_org_factor = 0.05
+			}
+		}
+		SRD_champions_spirit = {
+			picture = SRD_champions_spirit
+			allowed = { always = no }
+			modifier = {
+				army_attack_factor = 0.10
+				army_morale_factor = 0.10
+				war_support_factor = 0.10
+			}
+		}
+		SRD_away_day = {
+			picture = SRD_away_day
+			allowed = { always = no }
+			modifier = {
+				army_attack_factor = 0.10
+			}
+		}
+		SRD_krums_cup = {
+			picture = SRD_krums_cup
+			allowed = { always = no }
+			modifier = {
+				army_attack_factor = 0.05
+				war_support_factor = 0.10
+			}
+		}
+		SRD_directorate = {
+			picture = SRD_directorate
+			allowed = { always = no }
+			modifier = {
+				stability_factor = 0.10
+				political_power_factor = 0.15
+				army_org_factor = 0.05
+				army_defence_factor = 0.10
+				conscription_factor = 0.10
+			}
+		}
+		SRD_construction_brigades = {
+			picture = SRD_construction_brigades
+			allowed = { always = no }
+			modifier = {
+				production_speed_buildings_factor = 0.10
+			}
+		}
+		SRD_night_shifts = {
+			picture = SRD_night_shifts
+			allowed = { always = no }
+			modifier = {
+				industrial_capacity_factory = 0.05
+				stability_factor = -0.02
+			}
+		}
+		SRD_industrial_heart = {
+			picture = SRD_industrial_heart
+			allowed = { always = no }
+			modifier = {
+				industrial_capacity_factory = 0.05
+				research_speed_factor = 0.03
+				production_speed_buildings_factor = 0.05
+			}
+		}
+		SRD_field_kitchens = {
+			picture = SRD_field_kitchens
+			allowed = { always = no }
+			modifier = {
+				army_morale_factor = 0.05
+			}
+		}
+		SRD_street_fighting = {
+			picture = SRD_street_fighting
+			allowed = { always = no }
+			modifier = {
+				army_defence_factor = 0.05
+				army_attack_factor = 0.03
+			}
+		}
+		SRD_officer_corps = {
+			picture = SRD_officer_corps
+			allowed = { always = no }
+			modifier = {
+				army_org_factor = 0.05
+				experience_gain_army_factor = 0.10
+			}
+		}
+		SRD_army_of_the_centre = {
+			picture = SRD_army_of_the_centre
+			allowed = { always = no }
+			modifier = {
+				army_attack_factor = 0.05
+				army_defence_factor = 0.05
+			}
+		}
 		SRD_laboratory = {
 			picture = SRD_laboratory
 			allowed = { always = no }

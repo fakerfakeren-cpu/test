@@ -166,6 +166,9 @@ def build(root, facts, write, write_dds):
         text = re.sub(r"\{INVITE:([A-Z]+)\}", lambda m: (
             f"if = {{\n\tlimit = {{ country_exists = {m.group(1)} NOT = {{ is_in_faction_with = {m.group(1)} "
             f"has_war_with = {m.group(1)} }} }}\n\t{m.group(1)} = {{ country_event = {{ id = evil_sofia_srd.11 }} }}\n}}"), text)
+        text = re.sub(r"\{CALL:([A-Z]+)\}", lambda m: (     # the C Class Hools call an old classmate
+            f"if = {{\n\tlimit = {{ country_exists = {m.group(1)} NOT = {{ has_war_with = {m.group(1)} }} "
+            f"{m.group(1)} = {{ is_in_faction = no }} }}\n\t{m.group(1)} = {{ country_event = {{ id = evil_sofia_srd.25 }} }}\n}}"), text)
         text = re.sub(r"\{OFFER_PARTS:([A-Z]+)\}", lambda m: (
             f"if = {{\n\tlimit = {{ country_exists = {m.group(1)} NOT = {{ has_war_with = {m.group(1)} }} }}\n"
             f"\t{m.group(1)} = {{ country_event = {{ id = evil_sofia_srd.20 }} }}\n}}"), text)
@@ -392,7 +395,7 @@ def build(root, facts, write, write_dds):
     srd_cats = [(cat, cname, cdesc, f"tag = {tag}", cvis, [
         dict(id=did, name=dname, desc=ddesc, cost=cost, cooldown=cooldown, visible="", available=avail,
              effect=effect, ai="factor = 1", icon="generic_political_discourse")
-        for did, dname, ddesc, cost, cooldown, avail, effect in tree.DECISIONS["decisions"]])]
+        for did, dname, ddesc, cost, cooldown, avail, effect in tree.DECISIONS["decisions"]]), tree.GRIP_DECISIONS]
 
     def decision_files(cats):
         cat_blocks, files = [], []
@@ -402,12 +405,12 @@ def build(root, facts, write, write_dds):
             loc.extend([f' {key}:0 "{L(name)}"', f' {key}_desc:0 "{L(desc)}"'])
             out = []
             for d_ in decs:
-                d_ = {"cooldown": 0, "visible": "", "ai": "factor = 1", **d_}
+                d_ = {"cooldown": 0, "visible": "", "ai": "factor = 1", "extra": "", **d_}
                 re_en = f"\n\t\tdays_re_enable = {d_['cooldown']}" if d_["cooldown"] else ""
                 vis = f"\n\t\tvisible = {{\n{indent(d_['visible'], 3)}\n\t\t}}" if d_["visible"] else ""
                 out.append(f"""\t{d_['id']} = {{
 \t\ticon = {d_['icon']}
-\t\tcost = {d_['cost']}{re_en}{vis}
+\t\tcost = {d_['cost']}{re_en}{vis}{("\n" + indent(d_["extra"], 2)) if d_["extra"] else ""}
 \t\tavailable = {{
 {indent(d_['available'], 3)}
 \t\t}}
@@ -427,6 +430,12 @@ def build(root, facts, write, write_dds):
     write("common/decisions/categories/evil_sofia.txt", c1 + c2)
     write("common/decisions/evil_sofia_generic.txt", f2)
     write("common/decisions/evil_sofia_SRD.txt", f1)
+    # scripted effects (the Grip on the Centre) and Sredets' own monthly on_action (a second on_actions file;
+    # the game merges it with the one build_map.py writes)
+    write("common/scripted_effects/evil_sofia_effects.txt", "".join(
+        f"{k} = {{\n{indent(v, 1)}\n}}\n" for k, v in tree.SCRIPTED_EFFECTS.items()))
+    write("common/on_actions/evil_sofia_srd_on_actions.txt",
+          f"on_actions = {{\n\ton_monthly = {{\n\t\teffect = {{\n{indent(tree.ON_MONTHLY, 3)}\n\t\t}}\n\t}}\n}}\n")
     # flags: hand-drawn communist flags (tools/red_flags.py), only for the countries that can go red
     import red_flags
 

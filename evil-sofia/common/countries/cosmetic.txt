@@ -10,6 +10,10 @@ SRD_SOFIA = {
 	color = rgb { 210 20 25 }
 	color_ui = rgb { 250 60 65 }
 }
+SRD_DIRECTORATE = {
+	color = rgb { 86 54 118 }
+	color_ui = rgb { 126 94 158 }
+}
 SRD_FREE = {
 	color = rgb { 40 92 190 }
 	color_ui = rgb { 80 132 230 }

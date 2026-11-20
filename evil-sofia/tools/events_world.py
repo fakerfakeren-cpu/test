@@ -136,6 +136,30 @@ NEWS = {   # namespace evil_sofia_news; major news is shown to every country
            (["SRD"], "day"),
            [("One centre.", "", 1, "tag = SRD"),
             ("And where does it stop?", "", 1, "NOT = { tag = SRD }")]),
+    "17": ("The Directorate of Sofia",
+           "From the balcony of the Party House, Victor Kolev has proclaimed the Directorate of Sofia and named himself "
+           "its Director. The centre of the city answers to him alone, its districts have been told they are provinces, "
+           "and a new flag, gold on black, hangs over the Largo. Every district hall in Sofia received a copy of the "
+           "proclamation. None of them was asked for an opinion.",
+           (["SRD_DIRECTORATE"], "dusk"),
+           [("One city, one Director.", "", 1, "tag = SRD"),
+            ("A district that calls itself a city.", "", 1, "NOT = { tag = SRD }")]),
+    "18": ("Krum's Cup",
+           "Serdika has fallen, and with it the strangest ruler Sofia has seen in this war. Khan Krum is gone, and his "
+           "famous cup now stands on Victor Kolev's desk in the Party House. Visitors report that nobody drinks from "
+           "it, and that everybody looks at it.",
+           (["SRD", "SRK"], "fire"),
+           [("To the victor, the cup.", "", 1, "tag = SRD"),
+            ("Even the Khan could not hold out.", "", 1, "NOT = { tag = SRD }")]),
+    "19": ("A Temporary Emergency",
+           "The free centre is free no longer. Victor Kolev has declared a temporary emergency: the curfew is back, the "
+           "newspapers on Rakovski Street are closed until further notice, and the blue flag has been taken down for "
+           "cleaning. Nobody has said when it will go back up.\\n\\nIn Vitosha, Daniel-Henry Capel's mother has told "
+           "reporters that she always knew. A tyrant in a blue coat, she says, is still a tyrant.",
+           (["SRD"], "night"),
+           [("Just until it is safe.", "", 1, "tag = SRD"),
+            ("Mom was right after all.", "", 1, "tag = VIT"),
+            ("So much for the free centre.", "", 1, "NOT = { tag = SRD tag = VIT }")]),
 }
 
 FLAVOUR = {   # namespace evil_sofia_flavour: random events of city life, for every district

@@ -52,3 +52,102 @@ SRD_oborishte_question = {
 		}
 	}
 }
+SRD_grip = {
+	SRD_patrol_the_boulevards = {
+		icon = generic_police_action
+		cost = 25
+		days_re_enable = 30
+		available = {
+			always = yes
+		}
+		complete_effect = {
+			add_to_variable = { SRD_grip = 5 }
+			SRD_update_grip = yes
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_bread_at_the_womens_market = {
+		icon = generic_civil_support
+		cost = 40
+		days_re_enable = 60
+		available = {
+			always = yes
+		}
+		complete_effect = {
+			add_to_variable = { SRD_grip = 5 }
+			SRD_update_grip = yes
+			add_stability = 0.02
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_night_raids = {
+		icon = generic_prepare_civil_war
+		cost = 50
+		days_re_enable = 60
+		visible = {
+			has_completed_focus = SRD_the_night_watch
+		}
+		available = {
+			always = yes
+		}
+		complete_effect = {
+			add_to_variable = { SRD_grip = 10 }
+			SRD_update_grip = yes
+			add_stability = -0.02
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_parade_on_tsar_osvoboditel = {
+		icon = generic_army_support
+		cost = 50
+		days_re_enable = 90
+		visible = {
+			has_completed_focus = SRD_the_centres_army
+		}
+		available = {
+			always = yes
+		}
+		complete_effect = {
+			add_to_variable = { SRD_grip = 5 }
+			SRD_update_grip = yes
+			add_war_support = 0.03
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	SRD_send_an_ultimatum = {
+		icon = generic_break_treaty
+		cost = 75
+		days_re_enable = 120
+		visible = {
+			has_country_flag = SRD_ultimatums_unlocked
+		}
+		targets = { VAZ OBR KRS SRK POD SLA IZG LOZ TRD KRP ILN NAD ISK MLA STU LYU KRE VIT OVK VRB NIS PNC BNK IAP }
+		target_trigger = {
+			FROM = {
+				exists = yes
+				is_neighbor_of = ROOT
+				NOT = { is_in_faction_with = ROOT is_subject_of = ROOT has_war_with = ROOT }
+			}
+		}
+		available = {
+			check_variable = { SRD_grip > 49 }
+			NOT = { has_war_with = FROM }
+		}
+		complete_effect = {
+			add_to_variable = { SRD_grip = -15 }
+			SRD_update_grip = yes
+			FROM = { country_event = { id = evil_sofia_srd.22 } }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+}
