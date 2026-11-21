@@ -420,7 +420,7 @@ HDEM = [
      "This is Radio Vitosha. Every evening, news from the free mountain for every district of Sofia.\\n\\nDemocracy grows "
      "slowly in every neighbour for six months.", ["POLITICAL"]),
     ("the_mountain_conference", "The Mountain Conference", 4, 8, [["parliament_in_boyana"]], 8, "duo:focus_generic_little_entente",
-     "OR = { is_in_faction = no is_faction_leader = yes }", "if = { limit = { is_in_faction = no } create_faction = EVIL_SOFIA_FACTION_MOUNTAIN_ENTENTE }\nadd_political_power = 50",
+     "OR = { is_in_faction = no is_faction_leader = yes }\nhas_country_flag = VIT_war_over", "if = { limit = { is_in_faction = no } create_faction = EVIL_SOFIA_FACTION_MOUNTAIN_ENTENTE }\nadd_political_power = 50",
      "Henry invites the free districts of Sofia to a conference at the villa: three days of speeches, two of lunch and "
      "one alliance.\\n\\nCreates the faction The Mountain Entente.", ["POLITICAL"]),
     ("fighters_over_vitosha", "Fighters over Vitosha", 6, 8, [["the_home_guard"]], 8, "duo:Generic_Pilots",
@@ -573,7 +573,7 @@ HAUT = [
      "add_ideas = VIT_crowns_army", "Every soldier of Vitosha now swears to the crown in the attic, whoever wears it one day.",
      ["ARMY_XP"]),
     ("the_league_of_the_mountain", "The League of the Mountain", 27, 12, [["march_into_the_valley"]], 8, "duo:goal_generic_military_deal",
-     "OR = { is_in_faction = no is_faction_leader = yes }", "if = { limit = { is_in_faction = no } create_faction = EVIL_SOFIA_FACTION_MOUNTAIN_LEAGUE }\n" + invite(16),
+     "OR = { is_in_faction = no is_faction_leader = yes }\nhas_country_flag = VIT_war_over", "if = { limit = { is_in_faction = no } create_faction = EVIL_SOFIA_FACTION_MOUNTAIN_LEAGUE }\n" + invite(16),
      "Every district that still has a strong hand at the top is invited to dinner at the villa. At midnight, of course."
      "\\n\\nCreates the League of the Mountain and invites every district outside an alliance; authoritarian ones are "
      "likelier to say yes.", ["POLITICAL"]),
@@ -652,7 +652,7 @@ YCOM = [
     ("the_mountain_committee", "The Committee for the Mountain", 38, 10, [["the_red_army_of_the_mountain"]], 7, "duo:Generic_Spy_Communist",
      "add_stability = 0.05\nadd_ideas = VIT_mountain_committee",
      "A committee that watches everyone, including the other committees.", ["STABILITY"]),
-    ("the_red_mountain", "The Red Mountain", 40, 10, [["the_red_press"]], 8, "duo:focus_generic_join_comintern", "OR = { is_in_faction = no is_faction_leader = yes }",
+    ("the_red_mountain", "The Red Mountain", 40, 10, [["the_red_press"]], 8, "duo:focus_generic_join_comintern", "OR = { is_in_faction = no is_faction_leader = yes }\nhas_country_flag = VIT_war_over",
      "if = { limit = { is_in_faction = no } create_faction = EVIL_SOFIA_FACTION_RED_MOUNTAIN }\n" + invite(10),
      "Every worker in Sofia has a friend on the mountain now.\\n\\nCreates the faction The Red Mountain and invites every "
      "district outside an alliance; communist ones are likelier to say yes.", ["POLITICAL"]),
@@ -729,7 +729,7 @@ YFAS = [
      "add_ideas = VIT_trimontium_guard",
      "The Romans called Plovdiv the city of three hills. Yani's guard takes the name and the doctrine.", ["ARMY_XP"]),
     ("the_seven_hills_pact", "The Pact of the Seven Hills", 59, 9, [["the_black_shirt_youth", "the_trimontium_radio"]], 8,
-     "duo:goal_generic_support_fascism", "OR = { is_in_faction = no is_faction_leader = yes }", "if = { limit = { is_in_faction = no } create_faction = EVIL_SOFIA_FACTION_SEVEN_HILLS }\n" + invite(13),
+     "duo:goal_generic_support_fascism", "OR = { is_in_faction = no is_faction_leader = yes }\nhas_country_flag = VIT_war_over", "if = { limit = { is_in_faction = no } create_faction = EVIL_SOFIA_FACTION_SEVEN_HILLS }\n" + invite(13),
      "Seven hills, seven seats at the table, and Yani at the head of it.\\n\\nCreates the faction The Pact of the Seven "
      "Hills and invites every district outside an alliance; fascist ones are likelier to say yes.", ["POLITICAL"]),
 ]
@@ -906,25 +906,25 @@ def call_friend(tag, event, extra=""):
 
 
 FACTION_OF = {19: "EVIL_SOFIA_FACTION_VILLA_PACT", 22: "EVIL_SOFIA_FACTION_STUDENT_PACT"}
-CAN_CALL = "OR = { is_in_faction = no is_faction_leader = yes }"
-HFRIENDS = [("KRP", "Stefan Kartunov", 7), ("MLA", "Georgi Poryazov", 9), ("SRD", "Victor Kolev", 11)]
-YFRIENDS = [("KRP", "Stefan Kartunov", 41), ("LOZ", "Georgi Yanchovichin", 43)]
-F("old_friends_of_the_villa", "Old Friends of the Villa", 10, 2, [["henry_holds_the_villa"]], [], 5, "duo:goal_generic_dangerous_deal",
-  PREWAR, "add_political_power = 50",
-  "Henry has known some of the district leaders since school. A war is coming, and old friends can help, as long as "
-  "they are not communists. Henry is very firm about that.", ["POLITICAL"])
+CAN_CALL = "OR = { is_in_faction = no is_faction_leader = yes }\nhas_country_flag = VIT_war_over"
+HFRIENDS = [("KRP", "Stefan Kartunov", 12), ("MLA", "Georgi Poryazov", 14), ("SRD", "Victor Kolev", 16)]
+YFRIENDS = [("KRP", "Stefan Kartunov", 45), ("LOZ", "Georgi Yanchovichin", 47)]
+F("old_friends_of_the_villa", "Old Friends of the Villa", 14, 16, [["h_veterans"]], [], 5, "duo:goal_generic_dangerous_deal",
+  "has_country_flag = VIT_war_over", "add_political_power = 50",
+  "Henry has known some of the district leaders since school. The war is won, and now old friends can help, as long "
+  "as they are not communists. Henry is very firm about that.", ["POLITICAL"])
 for tag, name, x in HFRIENDS:
-    F(f"henry_calls_{tag}", f"Call {name}", x, 3, [["old_friends_of_the_villa"]], [], 5, f"person:henry_calls_{tag}",
+    F(f"henry_calls_{tag}", f"Call {name}", x, 17, [["old_friends_of_the_villa"]], [], 5, f"person:henry_calls_{tag}",
       f"{CAN_CALL}\n{tag} = {{ exists = yes NOT = {{ has_government = communism }} }}", call_friend(tag, 19),
       f"Henry telephones {name}: the villa needs friends, and {name} has always been one.\\n\\nIf we are not in an "
       f"alliance we found the Villa Pact. {name} is asked to join; he usually says yes. Not possible while {name} is "
       "communist.", ["POLITICAL"])
-F("the_villa_pact", "The Villa Pact", 9, 4, [[f"henry_calls_{t}" for t, _, _ in HFRIENDS]], [], 6, "duo:goal_generic_government_deals", "",
+F("the_villa_pact", "The Villa Pact", 14, 18, [[f"henry_calls_{t}" for t, _, _ in HFRIENDS]], [], 6, "duo:goal_generic_government_deals", "",
   "add_ideas = VIT_villa_pact",
   "Dinner at the villa for every friend who answered the phone. Dinner is at midnight.", ["POLITICAL"])
-F("friends_at_the_gate", "Friends at the Gate", 9, 5, [["the_villa_pact"]], [], 6, "duo:goal_generic_corporatism", PREWAR,
+F("friends_at_the_gate", "Friends at the Gate", 10, 2, [["henry_holds_the_villa"]], [], 6, "duo:goal_generic_corporatism", PREWAR,
   "add_war_support = 0.03",
-  "Henry's friends promise to send a few volunteers up the mountain the day the shooting starts. They will go home "
+  "A few of Henry's old friends promise to send volunteers up the mountain the day the shooting starts. They will go home "
   "when it stops.", ["MANPOWER"])
 F("fortify_boyana", "Fortify Boyana", 18, 2, [["henry_holds_the_villa"]], [], 6, "duo:Generic_Protectionist_Economics", PREWAR,
   "add_political_power = 25", "Sandbags, wire and concrete around the villas of Boyana, just in case.", ["INDUSTRY"])
@@ -944,19 +944,19 @@ F("guards_for_hire", "Guards for Hire", 21, 3, [["hired_help"]], [], 7, "duo:Gen
 F("the_british_club", "The British Club", 23, 3, [["hired_help"]], [], 7, "duo:Generic_British_Soldier", PREWAR, "add_political_power = 10",
   "The British Club in Sofia has a bar, a billiard room and a surprising number of retired officers.", ["MANPOWER"])
 
-F("old_classmates", "Old Classmates", 42, 2, [["the_cafes_of_simeonovo"]], [], 5, "duo:Generic_Espionage04", PREWAR,
+F("old_classmates", "Old Classmates", 46, 16, [["y_veterans"]], [], 5, "duo:Generic_Espionage04", "has_country_flag = VIT_war_over",
   "add_political_power = 50",
   "Yani went to school with half the district leaders of Sofia. Some of them still owe him homework.", ["POLITICAL"])
 for tag, name, x in YFRIENDS:
-    F(f"yani_calls_{tag}", f"Call {name}", x, 3, [["old_classmates"]], [], 5, f"person:yani_calls_{tag}", CAN_CALL,
+    F(f"yani_calls_{tag}", f"Call {name}", x, 17, [["old_classmates"]], [], 5, f"person:yani_calls_{tag}", CAN_CALL,
       call_friend(tag, 22),
       f"{name} sat next to Yani for four years. Whatever either of them believes now, that still counts.\\n\\nIf we are "
       f"not in an alliance we found the Students' Pact. {name} is asked to join, and always says yes.", ["POLITICAL"])
-F("the_students_pact", "The Students' Pact", 42, 4, [[f"yani_calls_{t}" for t, _, _ in YFRIENDS]], [], 6, "duo:goal_generic_intelligence_exchange", "",
+F("the_students_pact", "The Students' Pact", 46, 18, [[f"yani_calls_{t}" for t, _, _ in YFRIENDS]], [], 6, "duo:goal_generic_intelligence_exchange", "",
   "add_ideas = VIT_students_pact", "A pact signed in a classroom, on a desk with all their names carved into it.", ["POLITICAL"])
-F("classmates_at_the_front", "Classmates at the Front", 42, 5, [["the_students_pact"]], [], 6, "duo:Generic_War_Propaganda", PREWAR,
+F("classmates_at_the_front", "Classmates at the Front", 42, 2, [["the_cafes_of_simeonovo"]], [], 6, "duo:Generic_War_Propaganda", PREWAR,
   "add_war_support = 0.03",
-  "The classmates will send their own volunteers the day the war starts, and take them home when it ends.", ["MANPOWER"])
+  "Yani's old classmates will send their own volunteers the day the war starts, and take them home when it ends.", ["MANPOWER"])
 F("hidden_depots", "Hidden Depots", 50, 2, [["the_cafes_of_simeonovo"]], [], 6, "duo:Generic_Black_Market", PREWAR,
   "add_political_power = 25", "A barn, a cellar, a hole under a woodpile: the movement starts hiding things.", ["INDUSTRY"])
 F("caches_in_the_forest", "Caches in the Forest", 49, 3, [["hidden_depots"]], [], 7, "duo:Generic_Jungle_Ghost", PREWAR, "add_political_power = 10",

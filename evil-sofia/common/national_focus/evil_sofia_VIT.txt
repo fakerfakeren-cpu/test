@@ -8,7 +8,7 @@ focus_tree = {
 		}
 	}
 	default = no
-	continuous_focus_position = { x = 50 y = 2400 }
+	continuous_focus_position = { x = 50 y = 2530 }
 
 	focus = {
 		id = VIT_stand_with_henry
@@ -1414,6 +1414,7 @@ focus_tree = {
 		prerequisite = { focus = VIT_parliament_in_boyana }
 		available = {
 			OR = { is_in_faction = no is_faction_leader = yes }
+			has_country_flag = VIT_war_over
 		}
 		cost = 8
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -2095,6 +2096,7 @@ focus_tree = {
 		prerequisite = { focus = VIT_march_into_the_valley }
 		available = {
 			OR = { is_in_faction = no is_faction_leader = yes }
+			has_country_flag = VIT_war_over
 		}
 		cost = 8
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -2493,6 +2495,7 @@ focus_tree = {
 		prerequisite = { focus = VIT_the_red_press }
 		available = {
 			OR = { is_in_faction = no is_faction_leader = yes }
+			has_country_flag = VIT_war_over
 		}
 		cost = 8
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -2834,6 +2837,7 @@ focus_tree = {
 		prerequisite = { focus = VIT_the_black_shirt_youth focus = VIT_the_trimontium_radio }
 		available = {
 			OR = { is_in_faction = no is_faction_leader = yes }
+			has_country_flag = VIT_war_over
 		}
 		cost = 8
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -3651,11 +3655,11 @@ focus_tree = {
 	focus = {
 		id = VIT_old_friends_of_the_villa
 		icon = GFX_focus_VIT_old_friends_of_the_villa
-		x = 10
-		y = 2
-		prerequisite = { focus = VIT_henry_holds_the_villa }
+		x = 14
+		y = 16
+		prerequisite = { focus = VIT_h_veterans }
 		available = {
-			NOT = { has_country_flag = VIT_war_started }
+			has_country_flag = VIT_war_over
 		}
 		cost = 5
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -3667,11 +3671,12 @@ focus_tree = {
 	focus = {
 		id = VIT_henry_calls_KRP
 		icon = GFX_focus_VIT_henry_calls_KRP
-		x = 7
-		y = 3
+		x = 12
+		y = 17
 		prerequisite = { focus = VIT_old_friends_of_the_villa }
 		available = {
 			OR = { is_in_faction = no is_faction_leader = yes }
+			has_country_flag = VIT_war_over
 			KRP = { exists = yes NOT = { has_government = communism } }
 		}
 		cost = 5
@@ -3691,11 +3696,12 @@ focus_tree = {
 	focus = {
 		id = VIT_henry_calls_MLA
 		icon = GFX_focus_VIT_henry_calls_MLA
-		x = 9
-		y = 3
+		x = 14
+		y = 17
 		prerequisite = { focus = VIT_old_friends_of_the_villa }
 		available = {
 			OR = { is_in_faction = no is_faction_leader = yes }
+			has_country_flag = VIT_war_over
 			MLA = { exists = yes NOT = { has_government = communism } }
 		}
 		cost = 5
@@ -3715,11 +3721,12 @@ focus_tree = {
 	focus = {
 		id = VIT_henry_calls_SRD
 		icon = GFX_focus_VIT_henry_calls_SRD
-		x = 11
-		y = 3
+		x = 16
+		y = 17
 		prerequisite = { focus = VIT_old_friends_of_the_villa }
 		available = {
 			OR = { is_in_faction = no is_faction_leader = yes }
+			has_country_flag = VIT_war_over
 			SRD = { exists = yes NOT = { has_government = communism } }
 		}
 		cost = 5
@@ -3739,8 +3746,8 @@ focus_tree = {
 	focus = {
 		id = VIT_the_villa_pact
 		icon = GFX_focus_VIT_the_villa_pact
-		x = 9
-		y = 4
+		x = 14
+		y = 18
 		prerequisite = { focus = VIT_henry_calls_KRP focus = VIT_henry_calls_MLA focus = VIT_henry_calls_SRD }
 		cost = 6
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -3752,9 +3759,9 @@ focus_tree = {
 	focus = {
 		id = VIT_friends_at_the_gate
 		icon = GFX_focus_VIT_friends_at_the_gate
-		x = 9
-		y = 5
-		prerequisite = { focus = VIT_the_villa_pact }
+		x = 10
+		y = 2
+		prerequisite = { focus = VIT_henry_holds_the_villa }
 		available = {
 			NOT = { has_country_flag = VIT_war_started }
 		}
@@ -3884,11 +3891,11 @@ focus_tree = {
 	focus = {
 		id = VIT_old_classmates
 		icon = GFX_focus_VIT_old_classmates
-		x = 42
-		y = 2
-		prerequisite = { focus = VIT_the_cafes_of_simeonovo }
+		x = 46
+		y = 16
+		prerequisite = { focus = VIT_y_veterans }
 		available = {
-			NOT = { has_country_flag = VIT_war_started }
+			has_country_flag = VIT_war_over
 		}
 		cost = 5
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -3900,11 +3907,12 @@ focus_tree = {
 	focus = {
 		id = VIT_yani_calls_KRP
 		icon = GFX_focus_VIT_yani_calls_KRP
-		x = 41
-		y = 3
+		x = 45
+		y = 17
 		prerequisite = { focus = VIT_old_classmates }
 		available = {
 			OR = { is_in_faction = no is_faction_leader = yes }
+			has_country_flag = VIT_war_over
 		}
 		cost = 5
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -3923,11 +3931,12 @@ focus_tree = {
 	focus = {
 		id = VIT_yani_calls_LOZ
 		icon = GFX_focus_VIT_yani_calls_LOZ
-		x = 43
-		y = 3
+		x = 47
+		y = 17
 		prerequisite = { focus = VIT_old_classmates }
 		available = {
 			OR = { is_in_faction = no is_faction_leader = yes }
+			has_country_flag = VIT_war_over
 		}
 		cost = 5
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -3946,8 +3955,8 @@ focus_tree = {
 	focus = {
 		id = VIT_the_students_pact
 		icon = GFX_focus_VIT_the_students_pact
-		x = 42
-		y = 4
+		x = 46
+		y = 18
 		prerequisite = { focus = VIT_yani_calls_KRP focus = VIT_yani_calls_LOZ }
 		cost = 6
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -3960,8 +3969,8 @@ focus_tree = {
 		id = VIT_classmates_at_the_front
 		icon = GFX_focus_VIT_classmates_at_the_front
 		x = 42
-		y = 5
-		prerequisite = { focus = VIT_the_students_pact }
+		y = 2
+		prerequisite = { focus = VIT_the_cafes_of_simeonovo }
 		available = {
 			NOT = { has_country_flag = VIT_war_started }
 		}
