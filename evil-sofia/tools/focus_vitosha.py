@@ -117,15 +117,13 @@ YANI_CHAIN = ["march_with_yani", "the_cafes_of_simeonovo", "cells_in_simeonovo",
               "arms_from_plovdiv", "the_plovdiv_committee", "yani_takes_the_villa"]
 HENRY_CHAIN = ["stand_with_henry", "henry_holds_the_villa", "the_boyana_garrison", "mothers_savings",
                "the_mountain_rangers", "henrys_officers", "crush_the_student_movement"]
-REBELS_ARE_YANI = ("set_cosmetic_tag = VIT_YANI\nset_country_flag = VIT_yani_side\nset_popularities = { communism = 45 fascism = 45 democratic = 5 neutrality = 5 }\n"
+REBELS_ARE_YANI = ("set_cosmetic_tag = VIT_YANI\nset_country_flag = VIT_yani_side\nset_popularities = { communism = 35 fascism = 35 neutrality = 25 democratic = 5 }\n"
                    + "".join(f"unlock_national_focus = VIT_{f}\n" for f in YANI_CHAIN)
-                   + "if = {\n\tlimit = { has_government = communism }\n" + "".join(f"\t{ln}\n" for ln in yani_leader("leninism").split("\n"))
-                   + "}\nelse = {\n" + "".join(f"\t{ln}\n" for ln in yani_leader("fascism_ideology").split("\n")) + "}\n"
+                   + "set_politics = { ruling_party = neutrality elections_allowed = no }\n" + yani_leader("despotism") + "\n"
                    "country_event = { id = evil_sofia_vit.28 days = 1 }")
 REBELS_ARE_HENRY = ("set_cosmetic_tag = VIT_HENRY\nset_country_flag = VIT_henry_side\nset_popularities = { democratic = 45 neutrality = 45 communism = 5 fascism = 5 }\n"
                     + "".join(f"unlock_national_focus = VIT_{f}\n" for f in HENRY_CHAIN)
-                    + "if = {\n\tlimit = { has_government = democratic }\n" + "".join(f"\t{ln}\n" for ln in henry_leader("conservatism").split("\n"))
-                    + "}\nelse = {\n" + "".join(f"\t{ln}\n" for ln in henry_leader("despotism").split("\n")) + "}\n"
+                    + "set_politics = { ruling_party = neutrality elections_allowed = no }\n" + henry_leader("despotism") + "\n"
                     "country_event = { id = evil_sofia_vit.27 days = 1 }")
 YANI_BOTH_ROLES = yani_role("leninism", False) + "\n" + yani_role("fascism_ideology", False)
 
@@ -139,13 +137,12 @@ CRUSH = "\n".join([
     "set_country_flag = VIT_henry_side", "set_country_flag = VIT_war_started",
     "news_event = { id = evil_sofia_vit_news.1 hours = 6 }"])
 TAKE_THE_VILLA = "\n".join([
-    "recruit_character = VIT_yani", yani_role("leninism", True), yani_role("fascism_ideology", False),
-    "set_politics = { ruling_party = communism elections_allowed = no }",
+    "recruit_character = VIT_yani", yani_role("despotism", True), yani_role("leninism", False), yani_role("fascism_ideology", False),
+    "set_politics = { ruling_party = neutrality elections_allowed = no }",
     "retire_character = VIT_leader",
     f"set_capital = {{ state = {S('Simeonovo')} }}",
-    "random_list = {\n\t50 = {\n" + ind(war("neutrality", 0.6, "Vitosha", HENRY_WEST), 2) + "\t}\n"
-    "\t50 = {\n" + ind(war("democratic", 0.6, "Vitosha", HENRY_WEST), 2) + "\t}\n}",
-    "set_popularities = { communism = 45 fascism = 45 democratic = 5 neutrality = 5 }",
+    war("democratic", 0.6, "Vitosha", HENRY_WEST),
+    "set_popularities = { communism = 35 fascism = 35 neutrality = 25 democratic = 5 }",
     "add_ideas = VIT_mountain_in_flames_3", YANI_PREP,
     "set_cosmetic_tag = VIT_YANI", "country_event = { id = evil_sofia_vit.28 days = 1 }",
     rebels(REBEL_FLAMES + "\n" + REBELS_ARE_HENRY + '\nload_oob = "VIT_henry_army"\nadd_equipment_to_stockpile = { type = infantry_equipment_1 amount = 2500 }\n'
@@ -221,7 +218,7 @@ for fid, name, x, y, pre, w, icon, rew, desc in HCHAIN:
 F("crush_the_student_movement", "Crush Yani's Movement", 14, 5, [["henrys_officers"]], [], 8, "duo:Generic_Arrests", "NOT = { has_country_flag = VIT_war_started }",
   CRUSH,
   "Henry's guard raids the cafés of Simeonovo at dawn. Yani is not there. By noon his followers hold the whole east of "
-  "the mountain, and by evening it is war.\\n\\nThe civil war begins. Yani's rebels, communist or fascist, take Simeonovo, "
+  "the mountain, and by evening it is war.\\n\\nThe civil war begins. Yani's rebels, under Yani's own authoritarian rule until he picks his road, take Simeonovo, "
   "Malinova Dolina, Dragalevtsi, Dragalevtsi Lift and Orehite. Support is split evenly between democracy and Henry's "
   "authoritarian rule: then choose his road.", ["POLITICAL", "WAR_SUPPORT"])
 

@@ -380,35 +380,27 @@ country_event = {
 			recruit_character = VIT_yani
 			add_country_leader_role = {
 				character = VIT_yani
-				country_leader = { desc = "VIT_yani_desc" ideology = leninism expire = "1965.1.1.1" traits = { evil_sofia_plovdiv_born evil_sofia_racing_driver } }
+				country_leader = { desc = "VIT_yani_desc" ideology = despotism expire = "1965.1.1.1" traits = { evil_sofia_plovdiv_born evil_sofia_racing_driver } }
 				promote_leader = yes
+			}
+			add_country_leader_role = {
+				character = VIT_yani
+				country_leader = { desc = "VIT_yani_desc" ideology = leninism expire = "1965.1.1.1" traits = { evil_sofia_plovdiv_born evil_sofia_racing_driver } }
 			}
 			add_country_leader_role = {
 				character = VIT_yani
 				country_leader = { desc = "VIT_yani_desc" ideology = fascism_ideology expire = "1965.1.1.1" traits = { evil_sofia_plovdiv_born evil_sofia_racing_driver } }
 			}
-			set_politics = { ruling_party = communism elections_allowed = no }
+			set_politics = { ruling_party = neutrality elections_allowed = no }
 			retire_character = VIT_leader
 			set_capital = { state = 94 }
-			random_list = {
-				50 = {
-					start_civil_war = {
-						ideology = neutrality
-						size = 0.6
-						capital = 79
-						states = { 79 93 92 86 85 91 84 88 90 81 }
-					}
-				}
-				50 = {
-					start_civil_war = {
-						ideology = democratic
-						size = 0.6
-						capital = 79
-						states = { 79 93 92 86 85 91 84 88 90 81 }
-					}
-				}
+			start_civil_war = {
+				ideology = democratic
+				size = 0.6
+				capital = 79
+				states = { 79 93 92 86 85 91 84 88 90 81 }
 			}
-			set_popularities = { communism = 45 fascism = 45 democratic = 5 neutrality = 5 }
+			set_popularities = { communism = 35 fascism = 35 neutrality = 25 democratic = 5 }
 			add_ideas = VIT_mountain_in_flames_3
 			if = {
 				limit = { has_completed_focus = VIT_cells_in_simeonovo }
@@ -469,28 +461,13 @@ country_event = {
 				unlock_national_focus = VIT_the_mountain_rangers
 				unlock_national_focus = VIT_henrys_officers
 				unlock_national_focus = VIT_crush_the_student_movement
+				set_politics = { ruling_party = neutrality elections_allowed = no }
 				if = {
-					limit = { has_government = democratic }
-					if = {
-						limit = { has_character = VIT_leader }
-						add_country_leader_role = {
-							character = VIT_leader
-							country_leader = { ideology = conservatism expire = "1965.1.1.1" }
-							promote_leader = yes
-						}
-					}
-					else = {
-						create_country_leader = { name = "Daniel-Henry Capel" picture = "gfx/leaders/VIT/VIT_leader.dds" expire = "1965.1.1.1" ideology = conservatism traits = { } }
-					}
+					limit = { has_character = VIT_leader }
+					promote_character = { character = VIT_leader ideology = despotism }
 				}
 				else = {
-					if = {
-						limit = { has_character = VIT_leader }
-						promote_character = { character = VIT_leader ideology = despotism }
-					}
-					else = {
-						create_country_leader = { name = "Daniel-Henry Capel" picture = "gfx/leaders/VIT/VIT_leader.dds" expire = "1965.1.1.1" ideology = despotism traits = { } }
-					}
+					create_country_leader = { name = "Daniel-Henry Capel" picture = "gfx/leaders/VIT/VIT_leader.dds" expire = "1965.1.1.1" ideology = despotism traits = { } }
 				}
 				country_event = { id = evil_sofia_vit.27 days = 1 }
 				load_oob = "VIT_henry_army"
@@ -562,7 +539,7 @@ country_event = {
 				set_country_flag = VIT_war_started
 				set_cosmetic_tag = VIT_YANI
 				set_country_flag = VIT_yani_side
-				set_popularities = { communism = 45 fascism = 45 democratic = 5 neutrality = 5 }
+				set_popularities = { communism = 35 fascism = 35 neutrality = 25 democratic = 5 }
 				unlock_national_focus = VIT_march_with_yani
 				unlock_national_focus = VIT_the_cafes_of_simeonovo
 				unlock_national_focus = VIT_cells_in_simeonovo
@@ -570,24 +547,13 @@ country_event = {
 				unlock_national_focus = VIT_arms_from_plovdiv
 				unlock_national_focus = VIT_the_plovdiv_committee
 				unlock_national_focus = VIT_yani_takes_the_villa
+				set_politics = { ruling_party = neutrality elections_allowed = no }
 				if = {
-					limit = { has_government = communism }
-					if = {
-						limit = { has_character = VIT_yani }
-						promote_character = { character = VIT_yani ideology = leninism }
-					}
-					else = {
-						create_country_leader = { name = "Yanislav Marazov" desc = "VIT_yani_desc" picture = "gfx/leaders/VIT/VIT_yani.dds" expire = "1965.1.1.1" ideology = leninism traits = { evil_sofia_plovdiv_born evil_sofia_racing_driver } }
-					}
+					limit = { has_character = VIT_yani }
+					promote_character = { character = VIT_yani ideology = despotism }
 				}
 				else = {
-					if = {
-						limit = { has_character = VIT_yani }
-						promote_character = { character = VIT_yani ideology = fascism_ideology }
-					}
-					else = {
-						create_country_leader = { name = "Yanislav Marazov" desc = "VIT_yani_desc" picture = "gfx/leaders/VIT/VIT_yani.dds" expire = "1965.1.1.1" ideology = fascism_ideology traits = { evil_sofia_plovdiv_born evil_sofia_racing_driver } }
-					}
+					create_country_leader = { name = "Yanislav Marazov" desc = "VIT_yani_desc" picture = "gfx/leaders/VIT/VIT_yani.dds" expire = "1965.1.1.1" ideology = despotism traits = { evil_sofia_plovdiv_born evil_sofia_racing_driver } }
 				}
 				country_event = { id = evil_sofia_vit.28 days = 1 }
 				load_oob = "VIT_yani_army"
