@@ -140,3 +140,141 @@ country_event = {
 		ai_chance = { factor = 1 }
 	}
 }
+
+country_event = {
+	id = evil_sofia_vit.10
+	title = evil_sofia_vit.10.t
+	desc = evil_sofia_vit.10.d
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_vit.10.a
+		ai_chance = {
+			base = 10
+			modifier = { add = 35 has_government = communism }
+			modifier = { add = 15 communism > 0.3 }
+			modifier = { add = 15 has_opinion = { target = FROM value > 30 } }
+		}
+		FROM = { add_to_faction = ROOT country_event = { id = evil_sofia_vit.11 } }
+	}
+	option = {
+		name = evil_sofia_vit.10.b
+		ai_chance = {
+			base = 50
+		}
+		FROM = { country_event = { id = evil_sofia_vit.12 } }
+	}
+}
+
+country_event = {
+	id = evil_sofia_vit.11
+	title = evil_sofia_vit.11.t
+	desc = evil_sofia_vit.11.d
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_vit.11.a
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = evil_sofia_vit.12
+	title = evil_sofia_vit.12.t
+	desc = evil_sofia_vit.12.d
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_vit.12.a
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = evil_sofia_vit.13
+	title = evil_sofia_vit.13.t
+	desc = evil_sofia_vit.13.d
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_vit.13.a
+		ai_chance = {
+			base = 10
+			modifier = { add = 35 has_government = fascism }
+			modifier = { add = 15 fascism > 0.3 }
+			modifier = { add = 15 has_opinion = { target = FROM value > 30 } }
+		}
+		FROM = { add_to_faction = ROOT country_event = { id = evil_sofia_vit.14 } }
+	}
+	option = {
+		name = evil_sofia_vit.13.b
+		ai_chance = {
+			base = 50
+		}
+		FROM = { country_event = { id = evil_sofia_vit.15 } }
+	}
+}
+
+country_event = {
+	id = evil_sofia_vit.14
+	title = evil_sofia_vit.14.t
+	desc = evil_sofia_vit.14.d
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_vit.14.a
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = evil_sofia_vit.15
+	title = evil_sofia_vit.15.t
+	desc = evil_sofia_vit.15.d
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_vit.15.a
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = evil_sofia_vit.16
+	title = evil_sofia_vit.16.t
+	desc = evil_sofia_vit.16.d
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_vit.16.a
+		ai_chance = {
+			base = 10
+			modifier = { add = 35 has_government = neutrality }
+			modifier = { add = 15 neutrality > 0.3 }
+			modifier = { add = 15 has_opinion = { target = FROM value > 30 } }
+		}
+		FROM = { add_to_faction = ROOT country_event = { id = evil_sofia_vit.17 } }
+	}
+	option = {
+		name = evil_sofia_vit.16.b
+		ai_chance = {
+			base = 50
+		}
+		FROM = { country_event = { id = evil_sofia_vit.18 } }
+	}
+}
+
+country_event = {
+	id = evil_sofia_vit.17
+	title = evil_sofia_vit.17.t
+	desc = evil_sofia_vit.17.d
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_vit.17.a
+		ai_chance = { factor = 1 }
+	}
+}
+
+country_event = {
+	id = evil_sofia_vit.18
+	title = evil_sofia_vit.18.t
+	desc = evil_sofia_vit.18.d
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_vit.18.a
+		ai_chance = { factor = 1 }
+	}
+}

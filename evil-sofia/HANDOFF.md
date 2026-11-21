@@ -120,14 +120,16 @@ Without them the build still works: leaders have no portrait and the person/phot
   whole, then the central states of TRD, LOZ, KRS and SRK, set in `WIDER_CENTRE`; ends as the Free Centre of Sofia), the Evil
   Gang (invite the friends one by one), the C Class Hools (join or get hit) and Konstantin Ilchev's takeover.
   Not yet played; expect tweaks.
-- Vitosha tree: 117 focuses, like vanilla's Spanish civil war. Henry chooses the English Way (democratic) or Zevka's
-  Dream (authoritarian); Yani's movement goes Red Plovdiv (communist) or the Black Shirts of Plovdiv (fascist). Prep
-  focuses on both sides bank divisions (`history/units/VIT_henry_army.txt`, `VIT_yani_army.txt`), rifles and spirits
-  for whichever side ends up using them. The Mountain Splits sets support to 45/45/10, then Stand with Henry (Yani's
-  rebels take 5 eastern states, size 0.3) or March with Yani (Yani leads, Henry's loyalists take 10 states, size 0.6).
-  Both sides get The Mountain in Flames (3 tiers; war focuses remove it). After the war: four paths with formables
-  (Commonwealth of the Mountain, Tsardom of the Mountain, Thracian Commune, New Philippopolis), the Evil Gang branch,
-  industry and army. Vitosha has 16 smaller states (region Boyana Slopes added) for room to fight. Not yet played.
+- Vitosha tree: 181 focuses, laid out like vanilla's Spain. Two exclusive roots: Stand with Henry (left) or March
+  with Yani (right). Each side has a prep chain (divisions in `history/units/VIT_henry_army.txt` / `VIT_yani_army.txt`,
+  rifles, spirits) ending in the war: Crush the Student Movement (Yani's rebels, communist or fascist at random, take 5
+  eastern states, size 0.3) or Yani Takes the Villa (Yani leads from Simeonovo, Henry's loyalists take 10 states, size
+  0.6, with the stronger army). Support is split 40/40 between the side's two ideologies; then three branches per side:
+  Henry: What the English Couldn't Do (democratic, UK-like, Mountain Entente, Commonwealth of the Mountain) / war branch /
+  What Zevka Wanted (authoritarian, League of the Mountain, Tsardom of the Mountain); Yani: Red Plovdiv (Red Mountain,
+  Thracian Commune) / war branch / The Seven Hills (Pact of the Seven Hills, New Philippopolis). The war branches remove
+  The Mountain in Flames (3 tiers). Evil Gang, industry and army on the far right. 16 smaller states, region Boyana
+  Slopes. Not yet played.
 - The other districts have a 13-focus starter tree; the other featured friends have no tree of their own yet.
 - Event pictures: the user is making their own in vanilla style; `tools/event_pictures/PICTURES.md` lists every
   file name, size and subject. A PNG with that name in `tools/event_pictures/` replaces the drawn picture.
@@ -135,7 +137,7 @@ Without them the build still works: leaders have no portrait and the person/phot
 ## Untested in game
  (check `Documents/Paradox Interactive/Hearts of Iron IV/logs/error.log` if something is off)
 
-- Vitosha: `start_civil_war` with `states`, the rebels inheriting Yani/Henry as the party leader of their ideology, `load_oob` on the rebels, and how long the war takes on each side
+- Vitosha: `promote_character = { character = VIT_yani ideology = fascism_ideology }` in The Seven Hills, `start_civil_war` with `states`, the rebels inheriting Yani/Henry as the party leader of their ideology, `load_oob` on the rebels, and how long the war takes on each side
 - advisor traits (custom traits in `common/country_leader/`), and that advisors without portraits look fine
 - the `rule = { can_create_factions = no can_join_factions = no }` block in the "Sredets Stands Alone" spirits
 - news events with `major = yes` reaching every country, and `[From.GetLeader]` in event titles

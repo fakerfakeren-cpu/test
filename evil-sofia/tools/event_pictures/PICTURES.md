@@ -39,6 +39,15 @@ modern objects in focus. Country events are 210x176 (nearly square), news events
 | `evil_sofia_vit_7.png` | 210x176 | The Mountain Entente |  | wanted |
 | `evil_sofia_vit_8.png` | 210x176 | [From.GetName] Joins the Entente |  | wanted |
 | `evil_sofia_vit_9.png` | 210x176 | [From.GetName] Declines |  | wanted |
+| `evil_sofia_vit_10.png` | 210x176 | The Red Mountain |  | wanted |
+| `evil_sofia_vit_11.png` | 210x176 | [From.GetName] Joins |  | wanted |
+| `evil_sofia_vit_12.png` | 210x176 | [From.GetName] Declines |  | wanted |
+| `evil_sofia_vit_13.png` | 210x176 | The Pact of the Seven Hills |  | wanted |
+| `evil_sofia_vit_14.png` | 210x176 | [From.GetName] Joins |  | wanted |
+| `evil_sofia_vit_15.png` | 210x176 | [From.GetName] Declines |  | wanted |
+| `evil_sofia_vit_16.png` | 210x176 | The League of the Mountain |  | wanted |
+| `evil_sofia_vit_17.png` | 210x176 | [From.GetName] Joins |  | wanted |
+| `evil_sofia_vit_18.png` | 210x176 | [From.GetName] Declines |  | wanted |
 | `evil_sofia_vit_news_1.png` | 397x153 | Civil War on Vitosha |  | wanted |
 | `evil_sofia_vit_news_2.png` | 397x153 | Henry Holds the Mountain |  | wanted |
 | `evil_sofia_vit_news_3.png` | 397x153 | Yani Takes the Mountain |  | wanted |

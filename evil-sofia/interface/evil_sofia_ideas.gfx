@@ -152,20 +152,76 @@ spriteTypes = {
 		texturefile = "gfx/interface/ideas/evil_sofia/SRD_red_oborishte.dds"
 	}
 	spriteType = {
-		name = "GFX_idea_VIT_english_way_drift"
-		texturefile = "gfx/interface/ideas/evil_sofia/VIT_english_way_drift.dds"
+		name = "GFX_idea_VIT_h_patrols"
+		texturefile = "gfx/interface/ideas/evil_sofia/VIT_h_patrols.dds"
 	}
 	spriteType = {
-		name = "GFX_idea_VIT_zevkas_drift"
-		texturefile = "gfx/interface/ideas/evil_sofia/VIT_zevkas_drift.dds"
+		name = "GFX_idea_VIT_y_patrols"
+		texturefile = "gfx/interface/ideas/evil_sofia/VIT_y_patrols.dds"
 	}
 	spriteType = {
-		name = "GFX_idea_VIT_red_plovdiv_drift"
-		texturefile = "gfx/interface/ideas/evil_sofia/VIT_red_plovdiv_drift.dds"
+		name = "GFX_idea_VIT_h_counter"
+		texturefile = "gfx/interface/ideas/evil_sofia/VIT_h_counter.dds"
 	}
 	spriteType = {
-		name = "GFX_idea_VIT_black_shirts_drift"
-		texturefile = "gfx/interface/ideas/evil_sofia/VIT_black_shirts_drift.dds"
+		name = "GFX_idea_VIT_y_counter"
+		texturefile = "gfx/interface/ideas/evil_sofia/VIT_y_counter.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_VIT_h_push"
+		texturefile = "gfx/interface/ideas/evil_sofia/VIT_h_push.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_VIT_y_push"
+		texturefile = "gfx/interface/ideas/evil_sofia/VIT_y_push.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_VIT_cabinet_of_talents"
+		texturefile = "gfx/interface/ideas/evil_sofia/VIT_cabinet_of_talents.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_VIT_better_than_westminster"
+		texturefile = "gfx/interface/ideas/evil_sofia/VIT_better_than_westminster.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_VIT_family_council"
+		texturefile = "gfx/interface/ideas/evil_sofia/VIT_family_council.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_VIT_grandmas_larder"
+		texturefile = "gfx/interface/ideas/evil_sofia/VIT_grandmas_larder.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_VIT_gendarmerie"
+		texturefile = "gfx/interface/ideas/evil_sofia/VIT_gendarmerie.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_VIT_bells_over_sofia"
+		texturefile = "gfx/interface/ideas/evil_sofia/VIT_bells_over_sofia.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_VIT_commissars"
+		texturefile = "gfx/interface/ideas/evil_sofia/VIT_commissars.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_VIT_mountain_committee"
+		texturefile = "gfx/interface/ideas/evil_sofia/VIT_mountain_committee.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_VIT_may_day"
+		texturefile = "gfx/interface/ideas/evil_sofia/VIT_may_day.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_VIT_trimontium_radio"
+		texturefile = "gfx/interface/ideas/evil_sofia/VIT_trimontium_radio.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_VIT_trimontium_guard"
+		texturefile = "gfx/interface/ideas/evil_sofia/VIT_trimontium_guard.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_VIT_sun_of_vergina"
+		texturefile = "gfx/interface/ideas/evil_sofia/VIT_sun_of_vergina.dds"
 	}
 	spriteType = {
 		name = "GFX_idea_VIT_mountain_in_flames_3"

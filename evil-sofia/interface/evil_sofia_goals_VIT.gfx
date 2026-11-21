@@ -1,15 +1,15 @@
 spriteTypes = {
 	spriteType = {
-		name = "GFX_focus_VIT_the_house_on_the_hill"
-		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_house_on_the_hill.dds"
+		name = "GFX_focus_VIT_stand_with_henry"
+		texturefile = "gfx/interface/goals/evil_sofia/people/VIT_stand_with_henry.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_VIT_the_english_way"
-		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_english_way.dds"
+		name = "GFX_focus_VIT_march_with_yani"
+		texturefile = "gfx/interface/goals/evil_sofia/people/VIT_march_with_yani.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_VIT_zevkas_dream"
-		texturefile = "gfx/interface/goals/evil_sofia/VIT_zevkas_dream.dds"
+		name = "GFX_focus_VIT_henry_holds_the_villa"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_henry_holds_the_villa.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_VIT_the_boyana_garrison"
@@ -28,16 +28,12 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/evil_sofia/VIT_henrys_officers.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_VIT_a_student_from_plovdiv"
-		texturefile = "gfx/interface/goals/evil_sofia/people/VIT_a_student_from_plovdiv.dds"
+		name = "GFX_focus_VIT_crush_the_student_movement"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_crush_the_student_movement.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_VIT_red_plovdiv_rises"
-		texturefile = "gfx/interface/goals/evil_sofia/VIT_red_plovdiv_rises.dds"
-	}
-	spriteType = {
-		name = "GFX_focus_VIT_black_shirts_of_plovdiv"
-		texturefile = "gfx/interface/goals/evil_sofia/VIT_black_shirts_of_plovdiv.dds"
+		name = "GFX_focus_VIT_the_cafes_of_simeonovo"
+		texturefile = "gfx/interface/goals/evil_sofia/people/VIT_the_cafes_of_simeonovo.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_VIT_cells_in_simeonovo"
@@ -52,44 +48,152 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/evil_sofia/VIT_arms_from_plovdiv.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_VIT_the_mountain_splits"
-		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_mountain_splits.dds"
+		name = "GFX_focus_VIT_the_plovdiv_committee"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_plovdiv_committee.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_VIT_stand_with_henry"
-		texturefile = "gfx/interface/goals/evil_sofia/people/VIT_stand_with_henry.dds"
+		name = "GFX_focus_VIT_yani_takes_the_villa"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_yani_takes_the_villa.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_VIT_march_with_yani"
-		texturefile = "gfx/interface/goals/evil_sofia/people/VIT_march_with_yani.dds"
+		name = "GFX_focus_VIT_h_head"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_h_head.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_VIT_restore_the_chain_of_command"
-		texturefile = "gfx/interface/goals/evil_sofia/VIT_restore_the_chain_of_command.dds"
+		name = "GFX_focus_VIT_h_command"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_h_command.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_VIT_requisition_the_workshops"
-		texturefile = "gfx/interface/goals/evil_sofia/VIT_requisition_the_workshops.dds"
+		name = "GFX_focus_VIT_h_workshops"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_h_workshops.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_VIT_martial_law_on_the_slopes"
-		texturefile = "gfx/interface/goals/evil_sofia/VIT_martial_law_on_the_slopes.dds"
+		name = "GFX_focus_VIT_h_reserves"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_h_reserves.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_VIT_volunteers_from_the_city"
-		texturefile = "gfx/interface/goals/evil_sofia/VIT_volunteers_from_the_city.dds"
+		name = "GFX_focus_VIT_h_line"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_h_line.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_VIT_the_mountain_artillery"
-		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_mountain_artillery.dds"
+		name = "GFX_focus_VIT_h_telephones"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_h_telephones.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_VIT_the_mountain_is_ours"
-		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_mountain_is_ours.dds"
+		name = "GFX_focus_VIT_h_factory"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_h_factory.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_VIT_god_save_the_mountain"
-		texturefile = "gfx/interface/goals/evil_sofia/VIT_god_save_the_mountain.dds"
+		name = "GFX_focus_VIT_h_volunteers"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_h_volunteers.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_h_patrols"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_h_patrols.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_h_martial_law"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_h_martial_law.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_h_guns"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_h_guns.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_h_counter"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_h_counter.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_h_final_push"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_h_final_push.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_h_won"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_h_won.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_h_rebuild"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_h_rebuild.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_h_amnesty"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_h_amnesty.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_h_restored"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_h_restored.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_y_head"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_y_head.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_y_command"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_y_command.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_y_workshops"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_y_workshops.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_y_reserves"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_y_reserves.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_y_line"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_y_line.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_y_telephones"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_y_telephones.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_y_factory"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_y_factory.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_y_volunteers"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_y_volunteers.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_y_patrols"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_y_patrols.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_y_martial_law"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_y_martial_law.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_y_guns"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_y_guns.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_y_counter"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_y_counter.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_y_final_push"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_y_final_push.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_y_won"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_y_won.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_y_rebuild"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_y_rebuild.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_y_amnesty"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_y_amnesty.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_y_restored"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_y_restored.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_what_the_english_couldnt_do"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_what_the_english_couldnt_do.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_VIT_tea_at_five"
@@ -102,6 +206,10 @@ spriteTypes = {
 	spriteType = {
 		name = "GFX_focus_VIT_the_home_guard"
 		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_home_guard.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_the_boyana_charter"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_boyana_charter.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_VIT_radio_vitosha_calling"
@@ -120,6 +228,10 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/evil_sofia/VIT_rule_the_reservoirs.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_VIT_a_cabinet_of_all_talents"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_a_cabinet_of_all_talents.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_VIT_guarantees_for_the_small"
 		texturefile = "gfx/interface/goals/evil_sofia/VIT_guarantees_for_the_small.dds"
 	}
@@ -128,16 +240,40 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/evil_sofia/VIT_invite_the_free_districts.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_VIT_radar_on_cherni_vrah"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_radar_on_cherni_vrah.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_the_thin_red_line"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_thin_red_line.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_the_special_relationship"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_special_relationship.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_VIT_lend_lease"
 		texturefile = "gfx/interface/goals/evil_sofia/VIT_lend_lease.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_spitfires_of_the_mountain"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_spitfires_of_the_mountain.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_dominion_status"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_dominion_status.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_VIT_fight_on_the_slopes"
 		texturefile = "gfx/interface/goals/evil_sofia/VIT_fight_on_the_slopes.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_VIT_dominion_status"
-		texturefile = "gfx/interface/goals/evil_sofia/VIT_dominion_status.dds"
+		name = "GFX_focus_VIT_the_mountain_pound"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_mountain_pound.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_the_mountain_air_ministry"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_mountain_air_ministry.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_VIT_commonwealth_of_the_mountain"
@@ -148,8 +284,16 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/evil_sofia/VIT_finest_hour.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_VIT_the_vitosha_charter"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_vitosha_charter.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_VIT_the_sun_never_sets"
 		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_sun_never_sets.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_better_than_westminster"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_better_than_westminster.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_VIT_what_zevka_wanted"
@@ -160,8 +304,8 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/evil_sofia/VIT_bells_of_boyana_church.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_VIT_grandmas_table"
-		texturefile = "gfx/interface/goals/evil_sofia/VIT_grandmas_table.dds"
+		name = "GFX_focus_VIT_dinner_at_midnight"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_dinner_at_midnight.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_VIT_the_mountain_militia"
@@ -170,6 +314,10 @@ spriteTypes = {
 	spriteType = {
 		name = "GFX_focus_VIT_monks_of_dragalevtsi"
 		texturefile = "gfx/interface/goals/evil_sofia/VIT_monks_of_dragalevtsi.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_zevkas_catechism"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_zevkas_catechism.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_VIT_land_for_the_villages"
@@ -184,24 +332,48 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/evil_sofia/VIT_bunkers_on_kopitoto.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_VIT_the_family_council"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_family_council.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_grandmas_larder"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_grandmas_larder.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_the_mountain_gendarmerie"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_mountain_gendarmerie.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_VIT_a_crown_in_the_attic"
 		texturefile = "gfx/interface/goals/evil_sofia/VIT_a_crown_in_the_attic.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_VIT_regent_of_the_mountain"
-		texturefile = "gfx/interface/goals/evil_sofia/VIT_regent_of_the_mountain.dds"
+		name = "GFX_focus_VIT_the_villages_rebuilt"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_villages_rebuilt.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_VIT_the_lowlands_below"
 		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_lowlands_below.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_VIT_the_tsars_army"
-		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_tsars_army.dds"
+		name = "GFX_focus_VIT_regent_of_the_mountain"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_regent_of_the_mountain.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_the_estates_of_knyazhevo"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_estates_of_knyazhevo.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_VIT_march_into_the_valley"
 		texturefile = "gfx/interface/goals/evil_sofia/VIT_march_into_the_valley.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_the_crowns_army"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_crowns_army.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_the_league_of_the_mountain"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_league_of_the_mountain.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_VIT_tsardom_of_the_mountain"
@@ -212,12 +384,20 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/evil_sofia/VIT_zevka_would_be_proud.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_VIT_the_court_at_boyana"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_court_at_boyana.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_VIT_the_throne_expands"
 		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_throne_expands.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_VIT_comrade_yani"
-		texturefile = "gfx/interface/goals/evil_sofia/VIT_comrade_yani.dds"
+		name = "GFX_focus_VIT_bells_over_sofia"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_bells_over_sofia.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_red_plovdiv"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_red_plovdiv.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_VIT_the_tobacco_workers"
@@ -240,6 +420,10 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_plovdiv_fair.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_VIT_commissars_of_the_slopes"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_commissars_of_the_slopes.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_VIT_partisans_of_vitosha"
 		texturefile = "gfx/interface/goals/evil_sofia/VIT_partisans_of_vitosha.dds"
 	}
@@ -248,20 +432,48 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/evil_sofia/VIT_comrades_in_the_city.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_VIT_the_thracian_dream"
-		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_thracian_dream.dds"
+		name = "GFX_focus_VIT_the_villas_to_the_people"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_villas_to_the_people.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_VIT_the_red_army_of_the_mountain"
 		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_red_army_of_the_mountain.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_VIT_the_red_press"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_red_press.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_the_thracian_dream"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_thracian_dream.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_the_five_year_plan"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_five_year_plan.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_the_red_air_brigade"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_red_air_brigade.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_the_mountain_committee"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_mountain_committee.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_the_red_mountain"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_red_mountain.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_VIT_the_road_to_plovdiv"
 		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_road_to_plovdiv.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_VIT_five_year_plan_of_the_mountain"
-		texturefile = "gfx/interface/goals/evil_sofia/VIT_five_year_plan_of_the_mountain.dds"
+		name = "GFX_focus_VIT_tractors_for_the_slopes"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_tractors_for_the_slopes.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_workers_of_sofia_unite"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_workers_of_sofia_unite.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_VIT_thracian_commune"
@@ -276,8 +488,16 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_red_hill.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_VIT_yanis_march"
-		texturefile = "gfx/interface/goals/evil_sofia/VIT_yanis_march.dds"
+		name = "GFX_focus_VIT_the_soviet_of_sofia"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_soviet_of_sofia.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_may_day_on_cherni_vrah"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_may_day_on_cherni_vrah.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_the_seven_hills"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_seven_hills.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_VIT_the_legacy_of_philip"
@@ -290,6 +510,30 @@ spriteTypes = {
 	spriteType = {
 		name = "GFX_focus_VIT_torchlight_on_the_slopes"
 		texturefile = "gfx/interface/goals/evil_sofia/VIT_torchlight_on_the_slopes.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_the_macedonian_phalanx"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_macedonian_phalanx.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_philips_generals"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_philips_generals.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_the_black_shirt_youth"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_black_shirt_youth.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_the_trimontium_radio"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_trimontium_radio.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_the_trimontium_guard"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_trimontium_guard.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_the_seven_hills_pact"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_seven_hills_pact.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_VIT_nebet_tepe"
@@ -320,20 +564,32 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/evil_sofia/VIT_markovo_tepe.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_VIT_the_trimontium_guard"
-		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_trimontium_guard.dds"
+		name = "GFX_focus_VIT_the_eighth_hill"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_eighth_hill.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_the_mountain_arsenal"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_mountain_arsenal.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_the_torch_bearers"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_torch_bearers.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_the_roman_theatre"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_roman_theatre.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_VIT_new_philippopolis"
 		texturefile = "gfx/interface/goals/evil_sofia/VIT_new_philippopolis.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_VIT_the_eighth_hill"
-		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_eighth_hill.dds"
-	}
-	spriteType = {
 		name = "GFX_focus_VIT_philippopolis_rules_sofia"
 		texturefile = "gfx/interface/goals/evil_sofia/VIT_philippopolis_rules_sofia.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_VIT_the_sun_of_vergina"
+		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_sun_of_vergina.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_VIT_the_group_chat_pings"

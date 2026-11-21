@@ -314,32 +314,150 @@ ideas = {
 				communism_drift = 0.08
 			}
 		}
-		VIT_english_way_drift = {
-			picture = VIT_english_way_drift
+		VIT_h_patrols = {
+			picture = VIT_h_patrols
 			allowed = { always = no }
 			modifier = {
-				democratic_drift = 0.3
+				attrition = -0.10
+				army_speed_factor = 0.05
 			}
 		}
-		VIT_zevkas_drift = {
-			picture = VIT_zevkas_drift
+		VIT_y_patrols = {
+			picture = VIT_y_patrols
 			allowed = { always = no }
 			modifier = {
-				neutrality_drift = 0.3
+				army_attack_factor = 0.05
+				attrition = -0.05
 			}
 		}
-		VIT_red_plovdiv_drift = {
-			picture = VIT_red_plovdiv_drift
+		VIT_h_counter = {
+			picture = VIT_h_counter
 			allowed = { always = no }
 			modifier = {
-				communism_drift = 0.3
+				army_attack_factor = 0.10
+				army_org_factor = 0.05
 			}
 		}
-		VIT_black_shirts_drift = {
-			picture = VIT_black_shirts_drift
+		VIT_y_counter = {
+			picture = VIT_y_counter
 			allowed = { always = no }
 			modifier = {
-				fascism_drift = 0.3
+				army_attack_factor = 0.10
+				war_support_factor = 0.05
+			}
+		}
+		VIT_h_push = {
+			picture = VIT_h_push
+			allowed = { always = no }
+			modifier = {
+				army_attack_factor = 0.10
+				breakthrough_factor = 0.10
+			}
+		}
+		VIT_y_push = {
+			picture = VIT_y_push
+			allowed = { always = no }
+			modifier = {
+				army_attack_factor = 0.10
+				breakthrough_factor = 0.10
+			}
+		}
+		VIT_cabinet_of_talents = {
+			picture = VIT_cabinet_of_talents
+			allowed = { always = no }
+			modifier = {
+				political_power_factor = 0.10
+				stability_factor = 0.05
+			}
+		}
+		VIT_better_than_westminster = {
+			picture = VIT_better_than_westminster
+			allowed = { always = no }
+			modifier = {
+				stability_factor = 0.10
+				political_power_factor = 0.10
+				research_speed_factor = 0.05
+				industrial_capacity_factory = 0.05
+			}
+		}
+		VIT_family_council = {
+			picture = VIT_family_council
+			allowed = { always = no }
+			modifier = {
+				political_power_factor = 0.10
+			}
+		}
+		VIT_grandmas_larder = {
+			picture = VIT_grandmas_larder
+			allowed = { always = no }
+			modifier = {
+				consumer_goods_factor = -0.05
+				stability_factor = 0.03
+			}
+		}
+		VIT_gendarmerie = {
+			picture = VIT_gendarmerie
+			allowed = { always = no }
+			modifier = {
+				stability_factor = 0.05
+				resistance_growth = -0.10
+			}
+		}
+		VIT_bells_over_sofia = {
+			picture = VIT_bells_over_sofia
+			allowed = { always = no }
+			modifier = {
+				stability_factor = 0.10
+				war_support_factor = 0.05
+				political_power_factor = 0.10
+			}
+		}
+		VIT_commissars = {
+			picture = VIT_commissars
+			allowed = { always = no }
+			modifier = {
+				army_morale_factor = 0.10
+			}
+		}
+		VIT_mountain_committee = {
+			picture = VIT_mountain_committee
+			allowed = { always = no }
+			modifier = {
+				stability_factor = 0.05
+				resistance_growth = -0.10
+			}
+		}
+		VIT_may_day = {
+			picture = VIT_may_day
+			allowed = { always = no }
+			modifier = {
+				stability_factor = 0.10
+				war_support_factor = 0.10
+				industrial_capacity_factory = 0.05
+			}
+		}
+		VIT_trimontium_radio = {
+			picture = VIT_trimontium_radio
+			allowed = { always = no }
+			modifier = {
+				fascism_drift = 0.03
+			}
+		}
+		VIT_trimontium_guard = {
+			picture = VIT_trimontium_guard
+			allowed = { always = no }
+			modifier = {
+				army_org_factor = 0.05
+				army_defence_factor = 0.05
+			}
+		}
+		VIT_sun_of_vergina = {
+			picture = VIT_sun_of_vergina
+			allowed = { always = no }
+			modifier = {
+				army_attack_factor = 0.10
+				stability_factor = 0.05
+				war_support_factor = 0.05
 			}
 		}
 		VIT_mountain_in_flames_3 = {
