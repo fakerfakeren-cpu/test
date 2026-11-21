@@ -449,11 +449,12 @@ def build(root, facts, write, write_dds):
     write("common/decisions/evil_sofia_SRD.txt", f1)
     # scripted effects (the Grip on the Centre) and Sredets' own monthly on_action (a second on_actions file;
     # the game merges it with the one build_map.py writes)
-    import tunnels_gui
-    tunnel_effects, tunnel_sloc = tunnels_gui.build(write, write_dds, loc, L, facts["countries"])
-    write("common/scripted_effects/evil_sofia_effects.txt", tunnel_effects + "".join(
-        f"{k} = {{\n{indent(v, 1)}\n}}\n" for k, v in tree.SCRIPTED_EFFECTS.items()))
-    write("common/scripted_localisation/evil_sofia.txt", tunnel_sloc)
+    eff_path = os.path.join(root, "common", "scripted_effects", "evil_sofia_effects.txt")
+    if tree.SCRIPTED_EFFECTS:
+        write("common/scripted_effects/evil_sofia_effects.txt", "".join(
+            f"{k} = {{\n{indent(v, 1)}\n}}\n" for k, v in tree.SCRIPTED_EFFECTS.items()))
+    elif os.path.exists(eff_path):
+        os.remove(eff_path)
     # at game start every country recruits its advisors (political and military), so they can be hired
     recruit = "\n".join(f"{t} = {{ " + " ".join(f"recruit_character = {c}" for c in cids) + " }"
                          for t, cids in sorted(advisor_ids.items()))

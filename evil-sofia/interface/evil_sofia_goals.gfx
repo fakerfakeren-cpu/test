@@ -276,28 +276,36 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/evil_sofia/SRD_united_centre.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_SRD_ruins_under_the_largo"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_ruins_under_the_largo.dds"
+		name = "GFX_focus_SRD_order_on_the_boulevards"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_order_on_the_boulevards.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_SRD_miners_from_pernik"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_miners_from_pernik.dds"
+		name = "GFX_focus_SRD_rule_by_the_guard"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_rule_by_the_guard.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_SRD_agents_in_the_dark"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_agents_in_the_dark.dds"
+		name = "GFX_focus_SRD_bread_and_circuses"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_bread_and_circuses.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_SRD_strike_from_below"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_strike_from_below.dds"
+		name = "GFX_focus_SRD_officers_in_the_ministries"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_officers_in_the_ministries.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_SRD_the_coup_from_below"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_the_coup_from_below.dds"
+		name = "GFX_focus_SRD_derby_at_the_national_stadium"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_derby_at_the_national_stadium.dds"
 	}
 	spriteType = {
-		name = "GFX_focus_SRD_the_ring_under_sofia"
-		texturefile = "gfx/interface/goals/evil_sofia/SRD_the_ring_under_sofia.dds"
+		name = "GFX_focus_SRD_the_guard_is_the_state"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_the_guard_is_the_state.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_only_good_news"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_only_good_news.dds"
+	}
+	spriteType = {
+		name = "GFX_focus_SRD_the_directors_office"
+		texturefile = "gfx/interface/goals/evil_sofia/SRD_the_directors_office.dds"
 	}
 	spriteType = {
 		name = "GFX_focus_SRD_the_centres_army"

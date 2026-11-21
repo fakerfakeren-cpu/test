@@ -357,17 +357,6 @@ country_event = {
 }
 
 country_event = {
-	id = evil_sofia_srd.24
-	title = evil_sofia_srd.24.t
-	desc = evil_sofia_srd.24.d
-	is_triggered_only = yes
-	option = {
-		name = evil_sofia_srd.24.a
-		ai_chance = { factor = 1 }
-	}
-}
-
-country_event = {
 	id = evil_sofia_srd.25
 	title = evil_sofia_srd.25.t
 	desc = evil_sofia_srd.25.d

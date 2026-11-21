@@ -593,17 +593,13 @@ add_country_leader_role = {
 }
 drop_cosmetic_tag = yes
 if = { limit = { has_idea = SRD_free_sredets } remove_ideas = SRD_free_sredets }
-set_variable = { SRD_dig_capacity = 3 }
-SRD_tunnels_setup = yes
-set_country_flag = SRD_agents_unlocked
-set_country_flag = SRD_strike_unlocked
-set_country_flag = SRD_coup_unlocked
+add_ideas = SRD_rule_by_the_guard
 add_stability = -0.10
 news_event = { id = evil_sofia_news.19 hours = 6 }""",
      "The whole centre is free, and the whole centre is surrounded by districts that want it back. Just for a "
      "little while, Victor explains, the curfew returns. Just until it is safe. The blue flag comes down for "
      "cleaning and somehow never goes back up.\n\nThe free centre ends: Sredets drops democracy, Victor rules "
-     "alone again, and it turns out the free centre had been digging all along: the Underground of Serdica opens with three miners at once and every action unlocked. Opens the road to the "
+     "alone again, and the guard runs the ministries (the spirit Rule by the Guard). Opens the road to the "
      "Directorate of Sofia."),
     # ------------------------------------------------------------------ a united centre (the authoritarian road)
     # left: the Tunnels of Serdica (decisions per neighbouring district); middle: the conquest of the centre;
@@ -616,39 +612,48 @@ news_event = { id = evil_sofia_news.19 hours = 6 }""",
      "Women's Market to the villas of Lozenets, under one hand and one guard. Not a commune, not a free city, "
      "just the centre as it should be.\\n\\nSredets sets out to unite the centre."),
     # the Grip
-    # the Underground of Serdica (a window of its own, tools/tunnels_gui.py): a dig map under Sofia
-    ("ruins_under_the_largo", "The Ruins under the Largo", 26, 4, [["united_centre"]], [], 6,
-     "duo:Generic_Secret_Meeting", "",
-     "SRD_tunnels_setup = yes",
-     "Under the Largo lie the streets of Roman Serdica, and under them, passages nobody has mapped since the "
-     "Romans left. Victor sends down a lantern, a surveyor and a very nervous corporal. They come back with an "
-     "idea."),
-    ("miners_from_pernik", "Miners from Pernik", 25, 5, [["ruins_under_the_largo"]], [], 7,
-     "duo:Generic_Construction", "",
-     "set_variable = { SRD_dig_capacity = 2 }\nadd_manpower = 5000",
-     "The coal miners of Pernik know more about digging than anyone in Sofia, and they are out of work. Victor "
-     "offers them double wages and a hot meal underground."),
-    ("agents_in_the_dark", "Agents in the Dark", 27, 5, [["ruins_under_the_largo"]], [], 7,
-     "duo:Generic_Spy_Sabotage", "",
-     "set_country_flag = SRD_agents_unlocked\nadd_political_power = 50",
-     "A tunnel is a door nobody knows is there. Men in long coats learn to use it: up through a cellar, a "
-     "conversation in a café, back down before dawn."),
-    ("strike_from_below", "Strike from Below", 26, 6, [["miners_from_pernik"], ["agents_in_the_dark"]], [], 10,
+    # the regime: how Victor rules the centre (a choice), leading to the Director's Office
+    ("order_on_the_boulevards", "Order on the Boulevards", 26, 4, [["united_centre"]], [], 8,
+     "duo:Generic_Secret_Police", "",
+     "add_stability = 0.05\nadd_political_power = 75",
+     "Patrols on Vitosha Boulevard and Tsar Osvoboditel, lamps fixed, trams on time. Before the centre can be "
+     "united it has to be run properly, and everyone has to see that it is."),
+    ("rule_by_the_guard", "Rule by the Guard", 25, 5, [["order_on_the_boulevards"]], ["bread_and_circuses"], 9,
      "duo:Generic_Machine_Gun", "",
-     "set_country_flag = SRD_strike_unlocked\narmy_experience = 25",
-     "A company of the guard trains for weeks in the dark: no lights, no talking, and up the ladder at the "
-     "whistle."),
-    ("the_coup_from_below", "The Coup from Below", 26, 7, [["strike_from_below"]], [], 9,
+     "add_ideas = SRD_rule_by_the_guard\narmy_experience = 25",
+     "The district guard is the only thing in the centre that works. Victor gives it the ministries too: an officer "
+     "in every office, a sentry at every door and a curfew whenever it is needed."),
+    ("bread_and_circuses", "Bread and Circuses", 27, 5, [["order_on_the_boulevards"]], ["rule_by_the_guard"], 9,
+     "duo:Generic_Working_Class_Family", "",
+     "add_ideas = SRD_bread_and_circuses\nadd_political_power = 50",
+     "A full stomach does not riot, and a full stadium does not plot. Cheap bread, free football and a band on the "
+     "Largo every Sunday: the centre will love Victor, or at least be too busy to mind him."),
+    ("officers_in_the_ministries", "Officers in the Ministries", 25, 6, [["rule_by_the_guard"]], [], 10,
+     "duo:Generic_Spy_Sabotage", "",
+     "army_experience = 30\nadd_tech_bonus = { name = SRD_officers_in_the_ministries bonus = 1.0 uses = 1 category = land_doctrine }",
+     "Colonels run the post office, majors run the trams and a general runs the bakeries. Everything is late, but "
+     "everything is in uniform."),
+    ("derby_at_the_national_stadium", "Derby at the National Stadium", 27, 6, [["bread_and_circuses"]], [], 7,
+     "duo:goal_balkan_fist", "",
+     "add_war_support = 0.08\nadd_manpower = 10000",
+     "Levski against CSKA, the whole centre in the stands and Victor in the box of honour. Between the halves the "
+     "recruiting sergeants work the crowd."),
+    ("the_guard_is_the_state", "The Guard Is the State", 25, 7, [["officers_in_the_ministries"]], [], 12,
+     "duo:focus_generic_military_mission", "",
+     "swap_ideas = { remove_idea = SRD_rule_by_the_guard add_idea = SRD_guard_state }",
+     "There is no longer any difference between the guard and the government of the centre. Nobody remembers "
+     "when the change happened, and nobody asks."),
+    ("only_good_news", "Only Good News", 27, 7, [["derby_at_the_national_stadium"]], [], 9,
+     "duo:Generic_Film_Industry", "",
+     "add_political_power = 100\nadd_stability = 0.05",
+     "Every newspaper in the centre now has the same editor, and he only prints good news. The newsreels before "
+     "the films are even better."),
+    ("the_directors_office", "The Director's Office", 26, 8, [["the_guard_is_the_state", "only_good_news"]], [], 10,
      "duo:Generic_Political_Purge", "",
-     "set_country_flag = SRD_coup_unlocked",
-     "Why fight for a district hall when you can climb into its cellar? With the right men in the tunnel and the "
-     "district in chaos, one night is enough."),
-    ("the_ring_under_sofia", "The Ring under Sofia", 26, 8, [["the_coup_from_below"]], [], 10,
-     "duo:Generic_Secret_Police", "check_variable = { SRD_breakthroughs > 3 }",
-     "add_ideas = SRD_ring_under_sofia\nadd_stability = 0.05",
-     "Four districts broken into, and the passages between them joined: under the centre lies a ring that reaches "
-     "into half of Sofia. Whoever holds the ring holds the city from below.\\n\\nNeeds four districts broken "
-     "into. Needed for the Directorate of Sofia."),
+     "add_political_power = 100\nadd_stability = 0.05",
+     "A new office on the top floor of the Party House, a new title on the door and a new chair behind the desk. "
+     "Victor does not use the title yet. He is waiting for the centre to be whole.\\n\\nNeeded for the "
+     "Directorate of Sofia."),
     # the conquest of the centre
     ("the_centres_army", "The Centre's Army", 29, 4, [["united_centre"]], [], 8,
      "duo:goal_national_mobilization", "",
@@ -667,13 +672,13 @@ news_event = { id = evil_sofia_news.19 hours = 6 }""",
      "of Lozenets, Kriva Reka and Lagera, and the railway quarter north of the Lions' Bridge.\\n\\nCores and "
      "war goals on the central states of Triaditsa, Lozenets, Krasno Selo and Serdika (" + WIDER_CENTRE_NAMES + "). "
      "Needs every state of Vazrazhdane held."),
-    ("the_khan_must_fall", "The Khan Must Fall", 28, 7, [["the_centre_takes_shape"]], [], 8,
+    ("the_khan_must_fall", "The Khan Must Fall", 28, 8, [["the_centre_takes_shape"]], [], 8,
      "duo:goal_generic_cavalry", "SRK = { exists = yes has_country_leader = { character = SRK_leader ruling_only = yes } }",
      "{COREALL:SRD:SRK}\n{WAR:SRK}",
      "Twelve centuries ago Khan Krum took Serdica from the Byzantines. Now he sits in the Central Railway Station "
      "in chain mail, drinking from a cup nobody wants to look at, and calls the centre his tribute. The centre "
      "disagrees.\\n\\nOnly while Khan Krum rules Serdika. Cores and war goals on all of Serdika."),
-    ("krums_cup", "Krum's Cup", 28, 8, [["the_khan_must_fall"]], [], 6,
+    ("krums_cup", "Krum's Cup", 28, 9, [["the_khan_must_fall"]], [], 6,
      "duo:Generic_Crown_Box", "NOT = { country_exists = SRK }",
      "add_ideas = SRD_krums_cup\nadd_war_support = 0.05\nnews_event = { id = evil_sofia_news.18 hours = 6 }",
      "The Khan is gone, and his famous cup stands on Victor's desk in the Party House. Nobody drinks from it. "
@@ -711,20 +716,19 @@ if = { limit = { is_in_faction = no } give_guarantee = OBR }""",
      "true, with Anton at his side."),
     # the Directorate of Sofia (the formable)
     ("proclaim_the_directorate", "Proclaim the Directorate of Sofia", 30, 12,
-     [["the_united_centre", "the_centre_and_oborishte", "a_temporary_emergency"], ["the_ring_under_sofia", "a_temporary_emergency"]], [], 12,
-     "duo:focus_generic_eagle", "check_variable = { SRD_breakthroughs > 3 }\n{HELD:VAZ}\n" + WIDER_CENTRE_HELD,
+     [["the_united_centre", "the_centre_and_oborishte", "a_temporary_emergency"], ["the_directors_office", "a_temporary_emergency"]], [], 12,
+     "duo:focus_generic_eagle", "{HELD:VAZ}\n" + WIDER_CENTRE_HELD,
      """set_cosmetic_tag = SRD_DIRECTORATE
 if = { limit = { has_idea = SRD_united_centre_done } remove_ideas = SRD_united_centre_done }
 add_ideas = SRD_directorate
-clr_country_flag = SRD_tunnels_active
 add_country_leader_trait = evil_sofia_the_director
 add_political_power = 150
 news_event = { id = evil_sofia_news.17 hours = 6 }""",
      "A district is too small a thing for what the centre has become. From the balcony of the Party House, Victor "
      "Kolev proclaims the Directorate of Sofia: one city, one guard, one Director. The other districts are not "
-     "asked. They will be told.\\n\\nNeeds four districts broken into from below and the whole centre held (Vazrazhdane and the "
+     "asked. They will be told.\\n\\nNeeds the whole centre held (Vazrazhdane and the "
      "central states of Triaditsa, Lozenets, Krasno Selo and Serdika). Sredets becomes the Directorate of Sofia "
-     "with a new flag, and Victor becomes the Director. The Underground of Serdica closes."),
+     "with a new flag, and Victor becomes the Director."),
     ("one_directorate", "One Directorate", 29, 13, [["proclaim_the_directorate"]], [], 10,
      "duo:goal_generic_military_sphere", "",
      """every_country = {
@@ -732,8 +736,8 @@ news_event = { id = evil_sofia_news.17 hours = 6 }""",
 	ROOT = { annex_country = { target = PREV transfer_troops = yes } }
 }
 every_owned_state = { add_core_of = ROOT }""",
-     "The districts that fell to the coups from below kept their halls and their flags. Not any more: there is one "
-     "Directorate, and they are part of it.\\n\\nEvery subject is annexed. Cores on every state we own."),
+     "Every street the Directorate holds is the Directorate, whoever ruled it before. The old district borders are "
+     "painted over on every map in the Party House.\\n\\nCores on every state we own; any subject is annexed."),
     ("sofia_answers_to_the_director", "Sofia Answers to the Director", 31, 13, [["proclaim_the_directorate"]], [], 12,
      "duo:Generic_Imperial_Eagle", "",
      """every_neighbor_country = {
@@ -1109,9 +1113,13 @@ FILTERS = {  # search filters for the focus tree's filter buttons
    
    
    
-    "ilchevs_lesson": ["POLITICAL"], "ruins_under_the_largo": ["POLITICAL"], "miners_from_pernik": ["MANPOWER"],
-    "agents_in_the_dark": ["POLITICAL"], "strike_from_below": ["ARMY_XP", "WAR_SUPPORT"],
-    "the_coup_from_below": ["ANNEXATION"], "the_ring_under_sofia": ["STABILITY"],
+    "ilchevs_lesson": ["POLITICAL"], "order_on_the_boulevards": ["STABILITY", "POLITICAL"],
+    "rule_by_the_guard": ["ARMY_XP", "MANPOWER"], "bread_and_circuses": ["STABILITY", "POLITICAL"],
+    "officers_in_the_ministries": ["ARMY_XP", "RESEARCH"], "derby_at_the_national_stadium": ["WAR_SUPPORT", "MANPOWER"],
+    "the_guard_is_the_state": ["ARMY_XP", "MANPOWER"], "only_good_news": ["POLITICAL", "STABILITY"],
+    "the_directors_office": ["POLITICAL", "STABILITY"],
+   
+   
    
    
     "the_khan_must_fall": ["ANNEXATION", "WAR_SUPPORT"], "krums_cup": ["WAR_SUPPORT"],
@@ -1224,15 +1232,15 @@ IDEAS.update({  # the authoritarian path; a fifth element is extra script for th
                                "The centre of Sofia is whole again, and it answers to Sredets.",
                                "stability_factor = 0.10\narmy_org_factor = 0.05\narmy_defence_factor = 0.10\n"
                                "political_power_factor = 0.10", ("Pentagon.png", "Lion.png")),
-    "SRD_agents_below": ("Agents from Below", "Somebody is coming up through the cellars at night.",
-                         "stability_factor = -0.10\nwar_support_factor = -0.05", ("Rectangle.png", "Documents Classified.png")),
-    "SRD_enemy_in_the_tunnels": ("Enemy in the Tunnels", "The enemy comes up behind our lines, in the dark.",
-                                 "army_defence_factor = -0.15\narmy_org_factor = -0.10", ("Circle.png", "Bomb.png")),
-    "SRD_through_the_tunnels": ("Through the Tunnels", "Up the ladder at the whistle.", "army_attack_factor = 0.10",
-                                ("Army.png", "Commando.png")),
-    "SRD_ring_under_sofia": ("The Ring under Sofia", "Whoever holds the tunnels holds the city from below.",
-                             "army_defence_factor = 0.10\nstability_factor = 0.05\npolitical_power_factor = 0.05",
-                             ("Pentagon.png", "Bunker.png")),
+    "SRD_rule_by_the_guard": ("Rule by the Guard", "An officer in every office, a sentry at every door.",
+                              "army_org_factor = 0.05\nconscription = 0.01\nstability_factor = -0.03",
+                              ("Military Police.png", "Soldier Saluting.png")),
+    "SRD_guard_state": ("The Guard Is the State", "There is no longer any difference between the guard and the government.",
+                        "army_org_factor = 0.08\narmy_defence_factor = 0.05\nconscription = 0.02\nstability_factor = -0.02",
+                        ("Military Police.png", "Soldiers in Rows.png")),
+    "SRD_bread_and_circuses": ("Bread and Circuses", "Cheap bread, free football and a band on the Largo every Sunday.",
+                               "stability_factor = 0.08\npolitical_power_factor = 0.10\nconsumer_goods_factor = 0.03",
+                               ("Circle.png", "Bread.png")),
     "SRD_champions_spirit": ("Champions of Sofia", "Every firm in the city knows who the champions are.",
                              "army_attack_factor = 0.10\narmy_morale_factor = 0.10\nwar_support_factor = 0.10",
                              ("Pentagon.png", "Fire2.png")),
@@ -1371,19 +1379,6 @@ modifier = { factor = 0.7 has_opinion = { target = FROM value > 50 } }"""
 SCRIPTED_EFFECTS = {}
 # Extra lines in a focus's effects tooltip, for what it unlocks (the user wants every unlock shown as an effect)
 UNLOCK_TOOLTIPS = {
-    "ruins_under_the_largo": "Opens the §YUnderground of Serdica§!: a window of its own (the button The Underground at "
-                             "the top of the screen). Dig tunnels through the rock under Sofia toward the cellars of ten "
-                             "districts. One miner at work at a time. Closes when the Directorate of Sofia is proclaimed.",
-    "miners_from_pernik": "§YUnderground§!: two miners can dig at the same time.",
-    "agents_in_the_dark": "§YUnderground§!: unlocks §YAgents from Below§! in every district we break into (once per "
-                          "district): -10% stability and -5% war support there for four months.",
-    "strike_from_below": "§YUnderground§!: unlocks §YTunnel Strike§! against a district we break into and are at war "
-                         "with (once per district): for 45 days its army defends 15% worse with 10% less organisation, "
-                         "ours attacks 10% better.",
-    "the_coup_from_below": "§YUnderground§!: unlocks §YThe Coup from Below§!: a district we break into, below 50% "
-                           "stability, at peace with us and without allies, becomes our subject.",
-    "a_temporary_emergency": "Opens the §YUnderground of Serdica§! with three miners at once and Agents from Below, "
-                             "Tunnel Strike and The Coup from Below unlocked.",
     "comrades_in_oborishte": "Unlocks the decisions §YThe Oborishte Question§!.",
     "united_centre": "The C Class Hools and the Evil Gang cannot both be made: whichever comes first locks the other.",
 }
@@ -1567,10 +1562,6 @@ CCLASS_YES = """base = 90
 modifier = { factor = 0.2 has_opinion = { target = FROM value < -20 } }"""
 CCLASS_NO = "base = 10"
 EVENTS.update({
-    "24": ("The Coup from Below",
-           "Armed men climbed out of the cellars of our district hall last night. By morning the guard had changed "
-           "sides and the hall answered to the Largo. We are a subject of Sredets now.",
-           [("There was nothing we could do.", "", 1)], ""),
     "25": ("The C Class Calls",
            "The old class group chat lights up for the first time in months. Victor Kolev of Sredets has unleashed the "
            "C Class Hools, and he wants [Root.GetLeader] back in the stands with them, flares and all.",
@@ -1593,7 +1584,6 @@ _PICTURES = {"1": (["SRD_RED"], "dusk"), "2": (["SRD_RED", "OBR"], "night"), "3"
              "11": (["SRD"], "night"), "12": (["SRD", "LOZ"], "day"), "13": (["SRD"], "rain"),
 
              "20": (["SRD_FREE"], "day"), "21": (["SRD_FREE"], "day"),
-             "24": (["SRD"], "fire"),
              "25": (["SRD"], "night"), "26": (["SRD"], "fire"), "27": (["SRD"], "rain"),
              "17": (["SRD_FREE"], "day"), "18": (["SRD_FREE"], "day"), "19": (["SRD_FREE"], "rain")}
 EVENTS = {k: (t, d, _PICTURES[k], o) for k, (t, d, o, _) in EVENTS.items()}

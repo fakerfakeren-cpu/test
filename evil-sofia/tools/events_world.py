@@ -160,14 +160,6 @@ NEWS = {   # namespace evil_sofia_news; major news is shown to every country
            [("Just until it is safe.", "", 1, "tag = SRD"),
             ("Mom was right after all.", "", 1, "tag = VIT"),
             ("So much for the free centre.", "", 1, "NOT = { tag = SRD tag = VIT }")]),
-    "20": ("A Coup from Below",
-           "[From.GetName] has fallen in a single night. Armed men climbed out of the cellars of its district hall, the "
-           "guard changed sides, and by morning [From.GetName] answered to Sredets. Nobody can say how they got in. "
-           "In every district of Sofia, people have started listening to their cellars at night.",
-           (["SRD"], "night"),
-           [("The centre reaches far.", "", 1, "tag = SRD"),
-            ("There was nothing we could do.", "", 1, "tag = FROM"),
-            ("Check the cellars.", "", 1, "NOT = { tag = SRD tag = FROM }")]),
 }
 
 FLAVOUR = {   # namespace evil_sofia_flavour: random events of city life, for every district

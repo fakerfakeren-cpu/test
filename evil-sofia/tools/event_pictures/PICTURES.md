@@ -27,7 +27,6 @@ modern objects in focus. Country events are 210x176 (nearly square), news events
 | `evil_sofia_srd_20.png` | 210x176 | The Free Centre Asks for Our Quarters | A young man in a coat talking to an older official at the door of a district hall, a street barrier behind. | wanted |
 | `evil_sofia_srd_21.png` | 210x176 | [From.GetName] Hands Over Its Quarters | Townspeople lifting a wooden street barrier at a crossroads, children running through. | wanted |
 | `evil_sofia_srd_19.png` | 210x176 | [From.GetName] Says No | A man reading a letter at a window, a closed barrier in the street below. | wanted |
-| `evil_sofia_srd_24.png` | 210x176 | The Coup from Below |  | wanted |
 | `evil_sofia_srd_25.png` | 210x176 | The C Class Calls |  | wanted |
 | `evil_sofia_srd_26.png` | 210x176 | [From.GetLeader] Is Back |  | wanted |
 | `evil_sofia_srd_27.png` | 210x176 | [From.GetLeader] Has Grown Up |  | wanted |
@@ -50,7 +49,6 @@ modern objects in focus. Country events are 210x176 (nearly square), news events
 | `evil_sofia_news_17.png` | 397x153 | The Directorate of Sofia | A man in a dark coat proclaiming from a balcony draped with a long dark banner, soldiers in rows below. | done |
 | `evil_sofia_news_18.png` | 397x153 | Krum's Cup | An ornate drinking cup on a desk in a dim office, a soldier's hand setting it down. | done |
 | `evil_sofia_news_19.png` | 397x153 | A Temporary Emergency | Soldiers pulling down a large pale flag from a building at night, a curfew poster on the wall. | done |
-| `evil_sofia_news_20.png` | 397x153 | A Coup from Below | Armed men in long coats climbing out of a cellar hatch in the courtyard of a district hall at night. | wanted |
 | `evil_sofia_flavour_1.png` | 210x176 | The Trams Stop | Trams standing still in a rainy street, drivers gathered beside them. | wanted |
 | `evil_sofia_flavour_2.png` | 210x176 | Derby Day | A packed football stadium at night, two sets of fans with scarves. | wanted |
 | `evil_sofia_flavour_3.png` | 210x176 | The Big Snow | People shovelling deep snow in a city street, a stuck truck. | wanted |

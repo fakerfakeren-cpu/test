@@ -46,7 +46,8 @@ The user is **Victor Kolev** and plays **Sredets (SRD)**, the city centre. The f
   painting, chain mail, skull cup). **Ivan Apostolov (IAP)** is a micro-state like Vatican City: one province, one
   state, between Mladost and Izgrev, carved after the districts snap to the neighbourhoods (`MICRO` in build_map.py:
   centre and radius in map pixels); flag after the user's logo (white sword, two peaks with yellow centres, the M,
-  on green; `tools/flags/IAP.png`), leader Apostol Penev (a made-up headmaster).
+  on green; `tools/flags/IAP.png`), leader Apostol Penev (a made-up headmaster). Its capital (state and city) is
+  Musagenitsa (CAPITAL_PLACE in build_map.py), a real neighbourhood in that corner of Sofia.
 - Full builds: `python3 tools/fetch_geodata.py` first in a new container; a build of unchanged code reproduces the
   map files exactly. Put every leader portrait in `tools/portraits/` before a full build (from the last zip's
   `gfx/leaders/*/*.dds` if the originals are not there), or the character files lose their portraits.
@@ -213,24 +214,15 @@ Root choice (mutually exclusive): **Henry's Mom Was Right** (communism) at x=8, 
   OBR). The Vitosha Award gives Sredets nothing: every state goes to the nearest friend in the gang (Vitosha and
   Karpuzitsa → TRD, Simeonovo → MLA, Marchaevo and Knyazhevo → KRP, Dragalevtsi and Zlatni Mostove → LOZ), with
   fallbacks in VITOSHA_SHARES when a friend is not in the gang.
-- Authoritarian road (v40). The user rejected decision-based mechanics twice ("a new mechanic means a new
-  mechanic", "make a new tab where you dig, be creative"): the mechanic is now **the Underground of Serdica**, a
-  window of its own (scripted GUI, tools/tunnels_gui.py → common/scripted_guis/evil_sofia_tunnels.txt,
-  interface/evil_sofia_tunnels.gui/.gfx, gfx/interface/evil_sofia/*.dds, events/evil_sofia_tunnels.txt, the set-up
-  effect SRD_tunnels_setup in common/scripted_effects, names via common/scripted_localisation). A button "The
-  Underground" at the top centre of the screen opens it (flag SRD_tunnels_open). 9x7 grid of rock (frames: rock,
-  tunnel, digging, Roman ruins, flooded, smugglers' cache, the chamber under the Largo, cellar door, open cellar,
-  bricked up); the chamber in the middle, ten district cellars on the edges by geography (VAZ, OBR, LOZ, TRD, IZG,
-  SLA, SRK, POD, KRS, ILN). Click a rock next to the tunnels: 10 political power, 14 days (28 in hard rock), hidden
-  random content per game (earth 56%, Roman ruins 14%, water 12% (blocks), cache 8%, hard rock 10%), 10% cave-in
-  (back to rock, event). Miners at once: 1, 2 after Miners from Pernik, 3 after A Temporary Emergency. Digging into
-  a cellar = breakthrough (flag SRD_tunnel_<TAG>, SRD_breakthroughs +1); click the open cellar to select it; the side
-  panel offers Agents from Below / Tunnel Strike / The Coup from Below as the focuses unlock them, each ONCE per
-  district (the user: "don't make the tunnels infinite"). The Ring under Sofia and the Directorate need 4
-  breakthroughs; the Directorate closes the Underground. Every focus that unlocks something says so in its effects
-  tooltip (UNLOCK_TOOLTIPS, custom_effect_tooltip; the user asked for it). Untested in game: expect to fix a
-  position, a font or a frame after the first screenshot.
-  Conquest: The Centre's Army, March on the Old Centre, The Centre Takes Shape, The Khan Must Fall (only while Khan
+- Authoritarian road (v41). Three mechanics were tried and dropped on the user's request: the Grip on the Centre
+  (a score with repeatable decisions: "buns", "tedious"), tunnel decisions ("annoying decisions, not a mechanic")
+  and the Underground of Serdica dig-map window (scripted GUI; the user asked to remove it). No special mechanic now.
+  Left line, the regime: Order on the Boulevards → a choice: Rule by the Guard (spirit: organisation, conscription;
+  → Officers in the Ministries → The Guard Is the State, a stronger spirit) or Bread and Circuses (spirit:
+  stability, political power; → Derby at the National Stadium → Only Good News) → The Director's Office (either;
+  needed for the Directorate). The Directorate needs one of the Anton endings (or A Temporary Emergency) and the
+  Director's Office (or the Emergency), and the whole centre held. A Temporary Emergency now gives Rule by the Guard.
+  Conquest: The Centre's Army, March on the Old Centre, The Centre Takes Shape, The Khan Must Fall (y8; only while Khan
   Krum leads Serdika) → Krum's Cup, The Centre Is One, Bring Anton In / Anton at Our Side, The United Centre / The
   Centre and Oborishte. C Class Hools (faction with TRD and MLA, excludes the Evil Gang both ways): Unleash, Call
   Alexander, Call Georgi Poryazov, Away Days, Champions of Sofia. Formable: Proclaim the Directorate of Sofia (4

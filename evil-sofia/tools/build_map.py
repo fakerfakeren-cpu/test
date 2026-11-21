@@ -74,6 +74,8 @@ DISTRICTS = {
 # them after the districts snap to the neighbourhoods; one province, one state. Ivan Apostolov sits on the border
 # of Mladost and Izgrev.
 MICRO = {25: (2812, 997, 7)}
+# A country whose capital is not named after the country: district id -> name of the capital state and city.
+CAPITAL_PLACE = {25: "Musagenitsa"}
 # Province size by kind of district: (target px, largest px, smallest px). 1 km^2 is about 450 px.
 SIZES = {"inner": (380, 650, 100), "middle": (1100, 1800, 180), "outer": (2600, 4200, 300)}
 PROVINCES_PER_STATE = {"inner": 3.0, "middle": 3.5, "outer": 4.5}
@@ -928,7 +930,7 @@ for st in sorted(states, key=lambda s: not s["country_capital"]):
         return ([f"{nm} Quarter"] if quarter and used_names[nm] == k else []) + [f"{nm} ({country})"]
 
     if st["country_capital"]:
-        options = [country]
+        options = [CAPITAL_PLACE.get(k, country)]
     else:
         options = []
         for p in st["provinces"]:
@@ -1133,7 +1135,7 @@ vp = {}            # province id -> (name, victory points)
 for st in states:
     k = st["district"]
     cap = st["provinces"][0]
-    city_name = prov_name[cap] or st["name"]
+    city_name = CAPITAL_PLACE[k] if st["country_capital"] and k in CAPITAL_PLACE else (prov_name[cap] or st["name"])
     if not st["country_capital"] and st["name"].startswith(city_name + " "):
         city_name = st["name"]          # "Kremikovtsi Quarter": told apart from the country's capital
     vp[cap] = (city_name, CAPITAL_VP.get(k, 10) if st["country_capital"] else 3)

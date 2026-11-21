@@ -10,7 +10,7 @@ districts is a country. Eight districts are led by the user's friends (real name
 Victor Kolev, the user's own country), Oborishte (OBR, Anton Zafirov), Vitosha (VIT, Daniel-Henry Capel),
 Mladost (MLA, Georgi Poryazov), Krasna Polyana (KRP, Stefan Kartunov), Lozenets (LOZ, Georgi Yanchovichin),
 Triaditsa (TRD, Alexander Dimitrov), Lyulin (LYU, GrimBoss). Serdika (SRK) is led by Khan Krum (portrait
-`tools/portraits/SRK.png`), and Ivan Apostolov (IAP) is a one-province micro-state between Mladost and Izgrev. The game starts on 1 January 1936.
+`tools/portraits/SRK.png`), and Ivan Apostolov (IAP) is a one-province micro-state between Mladost and Izgrev, capital Musagenitsa. The game starts on 1 January 1936.
 
 ## Rules from the user (keep them)
 
@@ -123,9 +123,7 @@ Without them the build still works: leaders have no portrait and the person/phot
   file name, size and subject. A PNG with that name in `tools/event_pictures/` replaces the drawn picture.
 
 ## Untested in game
-
-- The Underground of Serdica window (scripted GUI): the button position, fonts (hoi_20bs, hoi_16mbs), tile frames
-  driven by variables, and click triggers. Ask the user for a screenshot and error.log after the first test. (check `Documents/Paradox Interactive/Hearts of Iron IV/logs/error.log` if something is off)
+ (check `Documents/Paradox Interactive/Hearts of Iron IV/logs/error.log` if something is off)
 
 - advisor traits (custom traits in `common/country_leader/`), and that advisors without portraits look fine
 - the `rule = { can_create_factions = no can_join_factions = no }` block in the "Sredets Stands Alone" spirits
