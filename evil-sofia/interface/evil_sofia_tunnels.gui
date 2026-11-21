@@ -1,0 +1,162 @@
+guiTypes = {
+	containerWindowType = {
+		name = "SRD_tunnels_window"
+		position = { x = -443 y = -291 }
+		size = { width = 886 height = 582 }
+		orientation = center
+		moveable = yes
+		background = { name = "bg" spriteType = "GFX_SRD_tunnels_bg" }
+		instantTextBoxType = { name = "title" position = { x = 24 y = 14 } font = "hoi_20bs" text = "SRD_tunnels_title" maxWidth = 600 maxHeight = 28 format = left }
+		instantTextBoxType = { name = "stats" position = { x = 24 y = 44 } font = "hoi_16mbs" text = "SRD_tunnels_stats" maxWidth = 700 maxHeight = 22 format = left }
+		buttonType = { name = "close" position = { x = 842 y = 16 } spriteType = "GFX_SRD_tunnels_close" pdx_tooltip = "SRD_tunnels_close_tt" }
+		iconType = { name = "tile_0_icon" position = { x = 24 y = 92 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_0" position = { x = 24 y = 92 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_1_icon" position = { x = 96 y = 92 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_1" position = { x = 96 y = 92 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_2_icon" position = { x = 168 y = 92 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_2" position = { x = 168 y = 92 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_3_icon" position = { x = 240 y = 92 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_3" position = { x = 240 y = 92 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_4_icon" position = { x = 312 y = 92 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_4" position = { x = 312 y = 92 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_cellar_tt_SRK" }
+		instantTextBoxType = { name = "label_4" position = { x = 312 y = 137 } font = "hoi_16mbs" text = "SRD_cellar_name_SRK" maxWidth = 72 maxHeight = 14 format = centre }
+		iconType = { name = "tile_5_icon" position = { x = 384 y = 92 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_5" position = { x = 384 y = 92 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_6_icon" position = { x = 456 y = 92 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_6" position = { x = 456 y = 92 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_7_icon" position = { x = 528 y = 92 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_7" position = { x = 528 y = 92 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_cellar_tt_POD" }
+		instantTextBoxType = { name = "label_7" position = { x = 528 y = 137 } font = "hoi_16mbs" text = "SRD_cellar_name_POD" maxWidth = 72 maxHeight = 14 format = centre }
+		iconType = { name = "tile_8_icon" position = { x = 600 y = 92 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_8" position = { x = 600 y = 92 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_9_icon" position = { x = 24 y = 152 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_9" position = { x = 24 y = 152 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_10_icon" position = { x = 96 y = 152 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_10" position = { x = 96 y = 152 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_cellar_tt_ILN" }
+		instantTextBoxType = { name = "label_10" position = { x = 96 y = 197 } font = "hoi_16mbs" text = "SRD_cellar_name_ILN" maxWidth = 72 maxHeight = 14 format = centre }
+		iconType = { name = "tile_11_icon" position = { x = 168 y = 152 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_11" position = { x = 168 y = 152 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_12_icon" position = { x = 240 y = 152 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_12" position = { x = 240 y = 152 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_13_icon" position = { x = 312 y = 152 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_13" position = { x = 312 y = 152 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_14_icon" position = { x = 384 y = 152 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_14" position = { x = 384 y = 152 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_15_icon" position = { x = 456 y = 152 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_15" position = { x = 456 y = 152 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_16_icon" position = { x = 528 y = 152 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_16" position = { x = 528 y = 152 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_17_icon" position = { x = 600 y = 152 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_17" position = { x = 600 y = 152 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_18_icon" position = { x = 24 y = 212 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_18" position = { x = 24 y = 212 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_19_icon" position = { x = 96 y = 212 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_19" position = { x = 96 y = 212 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_20_icon" position = { x = 168 y = 212 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_20" position = { x = 168 y = 212 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_21_icon" position = { x = 240 y = 212 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_21" position = { x = 240 y = 212 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_22_icon" position = { x = 312 y = 212 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_22" position = { x = 312 y = 212 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_23_icon" position = { x = 384 y = 212 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_23" position = { x = 384 y = 212 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_24_icon" position = { x = 456 y = 212 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_24" position = { x = 456 y = 212 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_25_icon" position = { x = 528 y = 212 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_25" position = { x = 528 y = 212 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_26_icon" position = { x = 600 y = 212 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_26" position = { x = 600 y = 212 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_27_icon" position = { x = 24 y = 272 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_27" position = { x = 24 y = 272 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_28_icon" position = { x = 96 y = 272 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_28" position = { x = 96 y = 272 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_29_icon" position = { x = 168 y = 272 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_29" position = { x = 168 y = 272 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_cellar_tt_VAZ" }
+		instantTextBoxType = { name = "label_29" position = { x = 168 y = 317 } font = "hoi_16mbs" text = "SRD_cellar_name_VAZ" maxWidth = 72 maxHeight = 14 format = centre }
+		iconType = { name = "tile_30_icon" position = { x = 240 y = 272 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_30" position = { x = 240 y = 272 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_31_icon" position = { x = 312 y = 272 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_31" position = { x = 312 y = 272 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_largo_tt" }
+		iconType = { name = "tile_32_icon" position = { x = 384 y = 272 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_32" position = { x = 384 y = 272 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_33_icon" position = { x = 456 y = 272 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_33" position = { x = 456 y = 272 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_cellar_tt_OBR" }
+		instantTextBoxType = { name = "label_33" position = { x = 456 y = 317 } font = "hoi_16mbs" text = "SRD_cellar_name_OBR" maxWidth = 72 maxHeight = 14 format = centre }
+		iconType = { name = "tile_34_icon" position = { x = 528 y = 272 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_34" position = { x = 528 y = 272 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_35_icon" position = { x = 600 y = 272 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_35" position = { x = 600 y = 272 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_36_icon" position = { x = 24 y = 332 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_36" position = { x = 24 y = 332 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_37_icon" position = { x = 96 y = 332 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_37" position = { x = 96 y = 332 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_38_icon" position = { x = 168 y = 332 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_38" position = { x = 168 y = 332 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_39_icon" position = { x = 240 y = 332 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_39" position = { x = 240 y = 332 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_40_icon" position = { x = 312 y = 332 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_40" position = { x = 312 y = 332 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_41_icon" position = { x = 384 y = 332 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_41" position = { x = 384 y = 332 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_42_icon" position = { x = 456 y = 332 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_42" position = { x = 456 y = 332 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_43_icon" position = { x = 528 y = 332 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_43" position = { x = 528 y = 332 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_44_icon" position = { x = 600 y = 332 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_44" position = { x = 600 y = 332 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_cellar_tt_SLA" }
+		instantTextBoxType = { name = "label_44" position = { x = 600 y = 377 } font = "hoi_16mbs" text = "SRD_cellar_name_SLA" maxWidth = 72 maxHeight = 14 format = centre }
+		iconType = { name = "tile_45_icon" position = { x = 24 y = 392 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_45" position = { x = 24 y = 392 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_cellar_tt_KRS" }
+		instantTextBoxType = { name = "label_45" position = { x = 24 y = 437 } font = "hoi_16mbs" text = "SRD_cellar_name_KRS" maxWidth = 72 maxHeight = 14 format = centre }
+		iconType = { name = "tile_46_icon" position = { x = 96 y = 392 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_46" position = { x = 96 y = 392 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_47_icon" position = { x = 168 y = 392 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_47" position = { x = 168 y = 392 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_cellar_tt_TRD" }
+		instantTextBoxType = { name = "label_47" position = { x = 168 y = 437 } font = "hoi_16mbs" text = "SRD_cellar_name_TRD" maxWidth = 72 maxHeight = 14 format = centre }
+		iconType = { name = "tile_48_icon" position = { x = 240 y = 392 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_48" position = { x = 240 y = 392 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_49_icon" position = { x = 312 y = 392 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_49" position = { x = 312 y = 392 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_cellar_tt_LOZ" }
+		instantTextBoxType = { name = "label_49" position = { x = 312 y = 437 } font = "hoi_16mbs" text = "SRD_cellar_name_LOZ" maxWidth = 72 maxHeight = 14 format = centre }
+		iconType = { name = "tile_50_icon" position = { x = 384 y = 392 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_50" position = { x = 384 y = 392 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_51_icon" position = { x = 456 y = 392 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_51" position = { x = 456 y = 392 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_cellar_tt_IZG" }
+		instantTextBoxType = { name = "label_51" position = { x = 456 y = 437 } font = "hoi_16mbs" text = "SRD_cellar_name_IZG" maxWidth = 72 maxHeight = 14 format = centre }
+		iconType = { name = "tile_52_icon" position = { x = 528 y = 392 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_52" position = { x = 528 y = 392 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_53_icon" position = { x = 600 y = 392 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_53" position = { x = 600 y = 392 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_54_icon" position = { x = 24 y = 452 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_54" position = { x = 24 y = 452 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_55_icon" position = { x = 96 y = 452 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_55" position = { x = 96 y = 452 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_56_icon" position = { x = 168 y = 452 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_56" position = { x = 168 y = 452 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_57_icon" position = { x = 240 y = 452 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_57" position = { x = 240 y = 452 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_58_icon" position = { x = 312 y = 452 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_58" position = { x = 312 y = 452 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_59_icon" position = { x = 384 y = 452 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_59" position = { x = 384 y = 452 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_60_icon" position = { x = 456 y = 452 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_60" position = { x = 456 y = 452 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_61_icon" position = { x = 528 y = 452 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_61" position = { x = 528 y = 452 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		iconType = { name = "tile_62_icon" position = { x = 600 y = 452 } spriteType = "GFX_SRD_tunnel_tiles" frame = 1 }
+		buttonType = { name = "tile_62" position = { x = 600 y = 452 } spriteType = "GFX_SRD_tunnel_clear" pdx_tooltip = "SRD_tile_tt" }
+		instantTextBoxType = { name = "panel_title" position = { x = 700 y = 98 } font = "hoi_16mbs" text = "SRD_tunnels_selected" maxWidth = 170 maxHeight = 60 format = left }
+		buttonType = { name = "agents" position = { x = 698 y = 172 } spriteType = "GFX_SRD_tunnels_btn" buttonText = "SRD_tunnels_agents" buttonFont = "hoi_16mbs" pdx_tooltip = "SRD_tunnels_agents_tt" }
+		buttonType = { name = "strike" position = { x = 698 y = 218 } spriteType = "GFX_SRD_tunnels_btn" buttonText = "SRD_tunnels_strike" buttonFont = "hoi_16mbs" pdx_tooltip = "SRD_tunnels_strike_tt" }
+		buttonType = { name = "coup" position = { x = 698 y = 264 } spriteType = "GFX_SRD_tunnels_btn" buttonText = "SRD_tunnels_coup" buttonFont = "hoi_16mbs" pdx_tooltip = "SRD_tunnels_coup_tt" }
+		instantTextBoxType = { name = "help" position = { x = 700 y = 332 } font = "hoi_16mbs" text = "SRD_tunnels_help" maxWidth = 168 maxHeight = 180 format = left }
+		instantTextBoxType = { name = "legend" position = { x = 24 y = 526 } font = "hoi_16mbs" text = "SRD_tunnels_legend" maxWidth = 838 maxHeight = 44 format = left }
+	}
+	containerWindowType = {
+		name = "SRD_tunnels_button_window"
+		position = { x = -83 y = 78 }
+		size = { width = 166 height = 34 }
+		orientation = center_up
+		buttonType = { name = "open" position = { x = 0 y = 0 } spriteType = "GFX_SRD_tunnels_btn" buttonText = "SRD_tunnels_open" buttonFont = "hoi_16mbs" pdx_tooltip = "SRD_tunnels_open_tt" }
+	}
+}

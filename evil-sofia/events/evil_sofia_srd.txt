@@ -357,35 +357,6 @@ country_event = {
 }
 
 country_event = {
-	id = evil_sofia_srd.22
-	title = evil_sofia_srd.22.t
-	desc = evil_sofia_srd.22.d
-	is_triggered_only = yes
-	option = {
-		name = evil_sofia_srd.22.a
-		ai_chance = { factor = 1 }
-		add_manpower = -2000
-		add_stability = -0.02
-	}
-	option = {
-		name = evil_sofia_srd.22.b
-		ai_chance = { factor = 1 }
-		add_political_power = -40
-	}
-}
-
-country_event = {
-	id = evil_sofia_srd.23
-	title = evil_sofia_srd.23.t
-	desc = evil_sofia_srd.23.d
-	is_triggered_only = yes
-	option = {
-		name = evil_sofia_srd.23.a
-		ai_chance = { factor = 1 }
-	}
-}
-
-country_event = {
 	id = evil_sofia_srd.24
 	title = evil_sofia_srd.24.t
 	desc = evil_sofia_srd.24.d

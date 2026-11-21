@@ -245,6 +245,9 @@ def build(root, facts, write, write_dds):
             parts.append("\t\tmutually_exclusive = { " + " ".join(f"focus = {tag}_{q}" for q in mx) + " }")
         if avail:
             parts.append("\t\tavailable = {\n" + indent(filled(avail), 3) + "\n\t\t}")
+        if fid in getattr(tree, "UNLOCK_TOOLTIPS", {}):   # what a focus unlocks, shown with its effects
+            reward = reward + f"\ncustom_effect_tooltip = {tag}_{fid}_unlocks"
+            loc.append(f' {tag}_{fid}_unlocks:0 "{L(tree.UNLOCK_TOOLTIPS[fid])}"')
         parts += [f"\t\tcost = {weeks}",
                   "\t\tsearch_filters = { " + " ".join(f"FOCUS_FILTER_{f}" for f in tree.FILTERS[fid]) + " }",
                   "\t\tai_will_do = { factor = 1 }",
@@ -409,7 +412,7 @@ def build(root, facts, write, write_dds):
     srd_cats = [(cat, cname, cdesc, f"tag = {tag}", cvis, [
         dict(id=did, name=dname, desc=ddesc, cost=cost, cooldown=cooldown, visible="", available=avail,
              effect=effect, ai="factor = 1", icon="generic_political_discourse")
-        for did, dname, ddesc, cost, cooldown, avail, effect in tree.DECISIONS["decisions"]]), tree.TUNNEL_DECISIONS]
+        for did, dname, ddesc, cost, cooldown, avail, effect in tree.DECISIONS["decisions"]])]
 
     def decision_files(cats):
         cat_blocks, files = [], []
@@ -446,12 +449,11 @@ def build(root, facts, write, write_dds):
     write("common/decisions/evil_sofia_SRD.txt", f1)
     # scripted effects (the Grip on the Centre) and Sredets' own monthly on_action (a second on_actions file;
     # the game merges it with the one build_map.py writes)
-    eff_path = os.path.join(root, "common", "scripted_effects", "evil_sofia_effects.txt")
-    if tree.SCRIPTED_EFFECTS:
-        write("common/scripted_effects/evil_sofia_effects.txt", "".join(
-            f"{k} = {{\n{indent(v, 1)}\n}}\n" for k, v in tree.SCRIPTED_EFFECTS.items()))
-    elif os.path.exists(eff_path):
-        os.remove(eff_path)
+    import tunnels_gui
+    tunnel_effects, tunnel_sloc = tunnels_gui.build(write, write_dds, loc, L, facts["countries"])
+    write("common/scripted_effects/evil_sofia_effects.txt", tunnel_effects + "".join(
+        f"{k} = {{\n{indent(v, 1)}\n}}\n" for k, v in tree.SCRIPTED_EFFECTS.items()))
+    write("common/scripted_localisation/evil_sofia.txt", tunnel_sloc)
     # at game start every country recruits its advisors (political and military), so they can be hired
     recruit = "\n".join(f"{t} = {{ " + " ".join(f"recruit_character = {c}" for c in cids) + " }"
                          for t, cids in sorted(advisor_ids.items()))

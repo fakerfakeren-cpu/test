@@ -593,19 +593,17 @@ add_country_leader_role = {
 }
 drop_cosmetic_tag = yes
 if = { limit = { has_idea = SRD_free_sredets } remove_ideas = SRD_free_sredets }
-set_country_flag = SRD_tunnels_active
+set_variable = { SRD_dig_capacity = 3 }
+SRD_tunnels_setup = yes
 set_country_flag = SRD_agents_unlocked
 set_country_flag = SRD_strike_unlocked
 set_country_flag = SRD_coup_unlocked
-set_variable = { SRD_tunnels = 2 }
-set_variable = { SRD_digging = 0 }
-set_variable = { SRD_dig_capacity = 2 }
 add_stability = -0.10
 news_event = { id = evil_sofia_news.19 hours = 6 }""",
      "The whole centre is free, and the whole centre is surrounded by districts that want it back. Just for a "
      "little while, Victor explains, the curfew returns. Just until it is safe. The blue flag comes down for "
      "cleaning and somehow never goes back up.\n\nThe free centre ends: Sredets drops democracy, Victor rules "
-     "alone again, and it turns out the free centre had been digging all along: the Tunnels of Serdica open with two tunnels already finished and every tunnel action unlocked. Opens the road to the "
+     "alone again, and it turns out the free centre had been digging all along: the Underground of Serdica opens with three miners at once and every action unlocked. Opens the road to the "
      "Directorate of Sofia."),
     # ------------------------------------------------------------------ a united centre (the authoritarian road)
     # left: the Tunnels of Serdica (decisions per neighbouring district); middle: the conquest of the centre;
@@ -618,45 +616,39 @@ news_event = { id = evil_sofia_news.19 hours = 6 }""",
      "Women's Market to the villas of Lozenets, under one hand and one guard. Not a commune, not a free city, "
      "just the centre as it should be.\\n\\nSredets sets out to unite the centre."),
     # the Grip
-    # the Tunnels of Serdica (mechanic): tunnels dug from the Roman ruins under the Largo toward the neighbours
+    # the Underground of Serdica (a window of its own, tools/tunnels_gui.py): a dig map under Sofia
     ("ruins_under_the_largo", "The Ruins under the Largo", 26, 4, [["united_centre"]], [], 6,
      "duo:Generic_Secret_Meeting", "",
-     "set_country_flag = SRD_tunnels_active\nset_variable = { SRD_tunnels = 0 }\nset_variable = { SRD_digging = 0 }\n"
-     "set_variable = { SRD_dig_capacity = 1 }",
+     "SRD_tunnels_setup = yes",
      "Under the Largo lie the streets of Roman Serdica, and under them, passages nobody has mapped since the "
      "Romans left. Victor sends down a lantern, a surveyor and a very nervous corporal. They come back with an "
-     "idea.\\n\\nOpens the Tunnels of Serdica (decision category): dig a tunnel toward a neighbouring district "
-     "(60 days, one at a time). A finished tunnel opens actions against that district as the tunnel focuses "
-     "unlock them. The system closes when the Directorate of Sofia is proclaimed."),
+     "idea."),
     ("miners_from_pernik", "Miners from Pernik", 25, 5, [["ruins_under_the_largo"]], [], 7,
      "duo:Generic_Construction", "",
      "set_variable = { SRD_dig_capacity = 2 }\nadd_manpower = 5000",
      "The coal miners of Pernik know more about digging than anyone in Sofia, and they are out of work. Victor "
-     "offers them double wages and a hot meal underground.\\n\\nTwo tunnels can be dug at the same time."),
+     "offers them double wages and a hot meal underground."),
     ("agents_in_the_dark", "Agents in the Dark", 27, 5, [["ruins_under_the_largo"]], [], 7,
      "duo:Generic_Spy_Sabotage", "",
      "set_country_flag = SRD_agents_unlocked\nadd_political_power = 50",
      "A tunnel is a door nobody knows is there. Men in long coats learn to use it: up through a cellar, a "
-     "conversation in a café, back down before dawn.\\n\\nUnlocks Agents from Below through every finished "
-     "tunnel: the district loses stability and war support for four months."),
+     "conversation in a café, back down before dawn."),
     ("strike_from_below", "Strike from Below", 26, 6, [["miners_from_pernik"], ["agents_in_the_dark"]], [], 10,
      "duo:Generic_Machine_Gun", "",
      "set_country_flag = SRD_strike_unlocked\narmy_experience = 25",
      "A company of the guard trains for weeks in the dark: no lights, no talking, and up the ladder at the "
-     "whistle.\\n\\nUnlocks Tunnel Strike against a district we are at war with: for 45 days its army fights much "
-     "worse and ours better."),
+     "whistle."),
     ("the_coup_from_below", "The Coup from Below", 26, 7, [["strike_from_below"]], [], 9,
      "duo:Generic_Political_Purge", "",
      "set_country_flag = SRD_coup_unlocked",
      "Why fight for a district hall when you can climb into its cellar? With the right men in the tunnel and the "
-     "district in chaos, one night is enough.\\n\\nUnlocks The Coup from Below: a district with a tunnel, low "
-     "stability and no allies becomes our subject."),
+     "district in chaos, one night is enough."),
     ("the_ring_under_sofia", "The Ring under Sofia", 26, 8, [["the_coup_from_below"]], [], 10,
-     "duo:Generic_Secret_Police", "check_variable = { SRD_tunnels > 3 }",
+     "duo:Generic_Secret_Police", "check_variable = { SRD_breakthroughs > 3 }",
      "add_ideas = SRD_ring_under_sofia\nadd_stability = 0.05",
-     "Four tunnels, then more: under the centre lies a ring of passages that reaches into half of Sofia. Whoever "
-     "holds the ring holds the city from below.\\n\\nNeeds four finished tunnels. Needed for the Directorate of "
-     "Sofia."),
+     "Four districts broken into, and the passages between them joined: under the centre lies a ring that reaches "
+     "into half of Sofia. Whoever holds the ring holds the city from below.\\n\\nNeeds four districts broken "
+     "into. Needed for the Directorate of Sofia."),
     # the conquest of the centre
     ("the_centres_army", "The Centre's Army", 29, 4, [["united_centre"]], [], 8,
      "duo:goal_national_mobilization", "",
@@ -720,7 +712,7 @@ if = { limit = { is_in_faction = no } give_guarantee = OBR }""",
     # the Directorate of Sofia (the formable)
     ("proclaim_the_directorate", "Proclaim the Directorate of Sofia", 30, 12,
      [["the_united_centre", "the_centre_and_oborishte", "a_temporary_emergency"], ["the_ring_under_sofia", "a_temporary_emergency"]], [], 12,
-     "duo:focus_generic_eagle", "check_variable = { SRD_tunnels > 3 }\n{HELD:VAZ}\n" + WIDER_CENTRE_HELD,
+     "duo:focus_generic_eagle", "check_variable = { SRD_breakthroughs > 3 }\n{HELD:VAZ}\n" + WIDER_CENTRE_HELD,
      """set_cosmetic_tag = SRD_DIRECTORATE
 if = { limit = { has_idea = SRD_united_centre_done } remove_ideas = SRD_united_centre_done }
 add_ideas = SRD_directorate
@@ -730,9 +722,9 @@ add_political_power = 150
 news_event = { id = evil_sofia_news.17 hours = 6 }""",
      "A district is too small a thing for what the centre has become. From the balcony of the Party House, Victor "
      "Kolev proclaims the Directorate of Sofia: one city, one guard, one Director. The other districts are not "
-     "asked. They will be told.\\n\\nNeeds four finished tunnels and the whole centre held (Vazrazhdane and the "
+     "asked. They will be told.\\n\\nNeeds four districts broken into from below and the whole centre held (Vazrazhdane and the "
      "central states of Triaditsa, Lozenets, Krasno Selo and Serdika). Sredets becomes the Directorate of Sofia "
-     "with a new flag, and Victor becomes the Director. The Tunnels of Serdica close."),
+     "with a new flag, and Victor becomes the Director. The Underground of Serdica closes."),
     ("one_directorate", "One Directorate", 29, 13, [["proclaim_the_directorate"]], [], 10,
      "duo:goal_generic_military_sphere", "",
      """every_country = {
@@ -1376,67 +1368,25 @@ modifier = { add = 20 has_opinion = { target = FROM value < 0 } }
 modifier = { add = 20 has_opinion = { target = FROM value < -40 } }
 modifier = { factor = 0.7 has_opinion = { target = FROM value > 50 } }"""
 
-# The Tunnels of Serdica: one set of decisions per district (only the neighbours and the tunnels we have show).
-TUNNEL_TARGETS = {'VAZ': 'Vazrazhdane', 'OBR': 'Oborishte', 'KRS': 'Krasno Selo', 'SRK': 'Serdika', 'POD': 'Poduyane', 'SLA': 'Slatina', 'IZG': 'Izgrev', 'LOZ': 'Lozenets', 'TRD': 'Triaditsa', 'KRP': 'Krasna Polyana', 'ILN': 'Ilinden', 'NAD': 'Nadezhda', 'ISK': 'Iskar', 'MLA': 'Mladost', 'STU': 'Studentski', 'LYU': 'Lyulin', 'KRE': 'Kremikovtsi', 'VIT': 'Vitosha', 'OVK': 'Ovcha Kupel', 'VRB': 'Vrabnitsa', 'NIS': 'Novi Iskar', 'PNC': 'Pancharevo', 'BNK': 'Bankya', 'IAP': 'Ivan Apostolov'}
-
-
-def _tunnel_decisions():
-    out = []
-    for t, nm in TUNNEL_TARGETS.items():
-        out += [
-            dict(id=f"SRD_dig_tunnel_{t}", name=f"Dig a Tunnel to {nm}",
-                 desc=f"Miners, props and lanterns toward the cellars of {nm}. 60 days; sometimes a tunnel caves in.",
-                 cost=50, visible=f"has_country_flag = SRD_tunnels_active\n{t} = {{ exists = yes is_neighbor_of = ROOT }}\n"
-                 f"NOT = {{ has_country_flag = SRD_tunnel_{t} }}",
-                 available=f"NOT = {{ has_country_flag = SRD_digging_{t} }}\ncheck_variable = {{ SRD_digging < SRD_dig_capacity }}",
-                 effect=f"set_country_flag = SRD_digging_{t}\nadd_to_variable = {{ SRD_digging = 1 }}\n"
-                        "random_list = { 20 = { country_event = { id = evil_sofia_srd.22 days = 25 } } 80 = { } }",
-                 extra=f"days_remove = 60\nremove_effect = {{\n\tclr_country_flag = SRD_digging_{t}\n"
-                       f"\tadd_to_variable = {{ SRD_digging = -1 }}\n\tset_country_flag = SRD_tunnel_{t}\n"
-                       f"\tadd_to_variable = {{ SRD_tunnels = 1 }}\n\tcountry_event = {{ id = evil_sofia_srd.23 }}\n}}",
-                 ai="factor = 1", icon="generic_construction"),
-            dict(id=f"SRD_agents_below_{t}", name=f"Agents from Below: {nm}",
-                 desc=f"Up through a cellar in {nm}: rumours, sabotage and frightened ministers.\n\n{nm} loses 10% stability "
-                      "and 5% war support for four months.",
-                 cost=40, cooldown=180,
-                 visible=f"has_country_flag = SRD_tunnels_active\nhas_country_flag = SRD_agents_unlocked\n"
-                         f"has_country_flag = SRD_tunnel_{t}\n{t} = {{ exists = yes }}",
-                 available=f"{t} = {{ NOT = {{ has_idea = SRD_agents_below }} }}",
-                 effect=f"{t} = {{ add_timed_idea = {{ idea = SRD_agents_below days = 120 }} }}",
-                 ai="factor = 1", icon="generic_operation"),
-            dict(id=f"SRD_tunnel_strike_{t}", name=f"Tunnel Strike: {nm}",
-                 desc=f"The guard comes up behind the lines of {nm} in the middle of the night.\n\nFor 45 days {nm}'s "
-                      "army defends 15% worse with 10% less organisation, and ours attacks 10% better.",
-                 cost=60, cooldown=120,
-                 visible=f"has_country_flag = SRD_tunnels_active\nhas_country_flag = SRD_strike_unlocked\n"
-                         f"has_country_flag = SRD_tunnel_{t}\n{t} = {{ exists = yes }}",
-                 available=f"has_war_with = {t}",
-                 effect=f"{t} = {{ add_timed_idea = {{ idea = SRD_enemy_in_the_tunnels days = 45 }} }}\n"
-                        "if = { limit = { NOT = { has_idea = SRD_through_the_tunnels } } "
-                        "add_timed_idea = { idea = SRD_through_the_tunnels days = 45 } }",
-                 ai="factor = 1", icon="generic_army_support"),
-            dict(id=f"SRD_coup_from_below_{t}", name=f"The Coup from Below: {nm}",
-                 desc=f"Armed men climb out of the cellars of {nm}'s district hall in the night. By morning it answers "
-                      "to the Largo.\n\nNeeds {nm} below 50% stability, at peace with us and without allies. "
-                      f"{nm} becomes our subject.".replace("{nm}", nm),
-                 cost=120,
-                 visible=f"has_country_flag = SRD_tunnels_active\nhas_country_flag = SRD_coup_unlocked\n"
-                         f"has_country_flag = SRD_tunnel_{t}\n{t} = {{ exists = yes NOT = {{ is_subject_of = ROOT }} }}",
-                 available=f"NOT = {{ has_war_with = {t} }}\n{t} = {{ has_stability < 0.5 is_in_faction = no is_subject = no }}",
-                 effect=f"puppet = {t}\n{t} = {{ country_event = {{ id = evil_sofia_srd.24 }} news_event = {{ id = evil_sofia_news.20 hours = 6 }} }}",
-                 ai="factor = 1", icon="generic_prepare_civil_war"),
-        ]
-    return out
-
-
-TUNNEL_DECISIONS = ("SRD_tunnels", "The Tunnels of Serdica",
-    "Under the Largo lie the ruins of Roman Serdica, and from them Victor's miners dig toward the cellars of the "
-    "neighbouring districts.\n\nTunnels finished: [?SRD_tunnels|0]. Tunnels being dug: [?SRD_digging|0] of "
-    "[?SRD_dig_capacity|0] at a time.\n\nA finished tunnel opens the actions the tunnel focuses have unlocked: Agents "
-    "from Below, Tunnel Strike and The Coup from Below. Four tunnels are needed for The Ring under Sofia. The tunnels "
-    "close when the Directorate of Sofia is proclaimed.",
-    "tag = SRD", "has_country_flag = SRD_tunnels_active", _tunnel_decisions())
 SCRIPTED_EFFECTS = {}
+# Extra lines in a focus's effects tooltip, for what it unlocks (the user wants every unlock shown as an effect)
+UNLOCK_TOOLTIPS = {
+    "ruins_under_the_largo": "Opens the §YUnderground of Serdica§!: a window of its own (the button The Underground at "
+                             "the top of the screen). Dig tunnels through the rock under Sofia toward the cellars of ten "
+                             "districts. One miner at work at a time. Closes when the Directorate of Sofia is proclaimed.",
+    "miners_from_pernik": "§YUnderground§!: two miners can dig at the same time.",
+    "agents_in_the_dark": "§YUnderground§!: unlocks §YAgents from Below§! in every district we break into (once per "
+                          "district): -10% stability and -5% war support there for four months.",
+    "strike_from_below": "§YUnderground§!: unlocks §YTunnel Strike§! against a district we break into and are at war "
+                         "with (once per district): for 45 days its army defends 15% worse with 10% less organisation, "
+                         "ours attacks 10% better.",
+    "the_coup_from_below": "§YUnderground§!: unlocks §YThe Coup from Below§!: a district we break into, below 50% "
+                           "stability, at peace with us and without allies, becomes our subject.",
+    "a_temporary_emergency": "Opens the §YUnderground of Serdica§! with three miners at once and Agents from Below, "
+                             "Tunnel Strike and The Coup from Below unlocked.",
+    "comrades_in_oborishte": "Unlocks the decisions §YThe Oborishte Question§!.",
+    "united_centre": "The C Class Hools and the Evil Gang cannot both be made: whichever comes first locks the other.",
+}
 ON_MONTHLY = ""
 
 # Peaceful offers of the free centre: most likely no; random, better the more they like us and the more
@@ -1617,15 +1567,6 @@ CCLASS_YES = """base = 90
 modifier = { factor = 0.2 has_opinion = { target = FROM value < -20 } }"""
 CCLASS_NO = "base = 10"
 EVENTS.update({
-    "22": ("A Tunnel Caves In",
-           "The props gave way at three in the morning. Half a tunnel is full of earth and a shift of miners is "
-           "trapped behind it.",
-           [("Dig them out, whatever it takes.", "add_manpower = -2000\nadd_stability = -0.02", 1),
-            ("Pay for new props and keep going.", "add_political_power = -40", 1)], ""),
-    "23": ("A Tunnel Breaks Through",
-           "Our miners have broken through into a cellar on the other side: wine racks, coal sacks and nobody the wiser. "
-           "Another district now has a door it does not know about.",
-           [("Mark it on the map.", "", 1)], ""),
     "24": ("The Coup from Below",
            "Armed men climbed out of the cellars of our district hall last night. By morning the guard had changed "
            "sides and the hall answered to the Largo. We are a subject of Sredets now.",
@@ -1652,7 +1593,7 @@ _PICTURES = {"1": (["SRD_RED"], "dusk"), "2": (["SRD_RED", "OBR"], "night"), "3"
              "11": (["SRD"], "night"), "12": (["SRD", "LOZ"], "day"), "13": (["SRD"], "rain"),
 
              "20": (["SRD_FREE"], "day"), "21": (["SRD_FREE"], "day"),
-             "22": (["SRD"], "night"), "23": (["SRD"], "day"), "24": (["SRD"], "fire"),
+             "24": (["SRD"], "fire"),
              "25": (["SRD"], "night"), "26": (["SRD"], "fire"), "27": (["SRD"], "rain"),
              "17": (["SRD_FREE"], "day"), "18": (["SRD_FREE"], "day"), "19": (["SRD_FREE"], "rain")}
 EVENTS = {k: (t, d, _PICTURES[k], o) for k, (t, d, o, _) in EVENTS.items()}

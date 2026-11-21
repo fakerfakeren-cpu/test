@@ -213,17 +213,23 @@ Root choice (mutually exclusive): **Henry's Mom Was Right** (communism) at x=8, 
   OBR). The Vitosha Award gives Sredets nothing: every state goes to the nearest friend in the gang (Vitosha and
   Karpuzitsa → TRD, Simeonovo → MLA, Marchaevo and Knyazhevo → KRP, Dragalevtsi and Zlatni Mostove → LOZ), with
   fallbacks in VITOSHA_SHARES when a friend is not in the gang.
-- Authoritarian road (v39): The Dream of a United Centre (x29) with three lines and the formable. The user found
-  the first mechanic (the Grip on the Centre, a 0-100 score with repeatable decisions) dull and endless, so it was
-  replaced by **the Tunnels of Serdica**: from the Roman ruins under the Largo, Sredets digs tunnels toward
-  neighbouring districts (decision per district, 60 days with days_remove, one at a time, two after Miners from
-  Pernik; 20% chance of a cave-in event, srd.22; srd.23 when a tunnel is finished; variables SRD_tunnels,
-  SRD_digging, SRD_dig_capacity; flags SRD_tunnel_<TAG>). A tunnel opens actions as the focuses unlock them: Agents
-  from Below (target: -10% stability, -5% war support for 120 days), Tunnel Strike (at war: target -15% defence,
-  -10% organisation, us +10% attack for 45 days), The Coup from Below (target under 50% stability, at peace, no
-  faction: becomes our subject; srd.24 to the target, world news 20). Focuses: The Ruins under the Largo, Miners from
-  Pernik, Agents in the Dark, Strike from Below, The Coup from Below, The Ring under Sofia (needs 4 tunnels; needed
-  for the Directorate). The category closes (flag cleared) when the Directorate is proclaimed: it has an end.
+- Authoritarian road (v40). The user rejected decision-based mechanics twice ("a new mechanic means a new
+  mechanic", "make a new tab where you dig, be creative"): the mechanic is now **the Underground of Serdica**, a
+  window of its own (scripted GUI, tools/tunnels_gui.py → common/scripted_guis/evil_sofia_tunnels.txt,
+  interface/evil_sofia_tunnels.gui/.gfx, gfx/interface/evil_sofia/*.dds, events/evil_sofia_tunnels.txt, the set-up
+  effect SRD_tunnels_setup in common/scripted_effects, names via common/scripted_localisation). A button "The
+  Underground" at the top centre of the screen opens it (flag SRD_tunnels_open). 9x7 grid of rock (frames: rock,
+  tunnel, digging, Roman ruins, flooded, smugglers' cache, the chamber under the Largo, cellar door, open cellar,
+  bricked up); the chamber in the middle, ten district cellars on the edges by geography (VAZ, OBR, LOZ, TRD, IZG,
+  SLA, SRK, POD, KRS, ILN). Click a rock next to the tunnels: 10 political power, 14 days (28 in hard rock), hidden
+  random content per game (earth 56%, Roman ruins 14%, water 12% (blocks), cache 8%, hard rock 10%), 10% cave-in
+  (back to rock, event). Miners at once: 1, 2 after Miners from Pernik, 3 after A Temporary Emergency. Digging into
+  a cellar = breakthrough (flag SRD_tunnel_<TAG>, SRD_breakthroughs +1); click the open cellar to select it; the side
+  panel offers Agents from Below / Tunnel Strike / The Coup from Below as the focuses unlock them, each ONCE per
+  district (the user: "don't make the tunnels infinite"). The Ring under Sofia and the Directorate need 4
+  breakthroughs; the Directorate closes the Underground. Every focus that unlocks something says so in its effects
+  tooltip (UNLOCK_TOOLTIPS, custom_effect_tooltip; the user asked for it). Untested in game: expect to fix a
+  position, a font or a frame after the first screenshot.
   Conquest: The Centre's Army, March on the Old Centre, The Centre Takes Shape, The Khan Must Fall (only while Khan
   Krum leads Serdika) → Krum's Cup, The Centre Is One, Bring Anton In / Anton at Our Side, The United Centre / The
   Centre and Oborishte. C Class Hools (faction with TRD and MLA, excludes the Evil Gang both ways): Unleash, Call

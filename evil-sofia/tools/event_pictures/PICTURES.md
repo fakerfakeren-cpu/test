@@ -27,8 +27,6 @@ modern objects in focus. Country events are 210x176 (nearly square), news events
 | `evil_sofia_srd_20.png` | 210x176 | The Free Centre Asks for Our Quarters | A young man in a coat talking to an older official at the door of a district hall, a street barrier behind. | wanted |
 | `evil_sofia_srd_21.png` | 210x176 | [From.GetName] Hands Over Its Quarters | Townspeople lifting a wooden street barrier at a crossroads, children running through. | wanted |
 | `evil_sofia_srd_19.png` | 210x176 | [From.GetName] Says No | A man reading a letter at a window, a closed barrier in the street below. | wanted |
-| `evil_sofia_srd_22.png` | 210x176 | A Tunnel Caves In |  | wanted |
-| `evil_sofia_srd_23.png` | 210x176 | A Tunnel Breaks Through |  | wanted |
 | `evil_sofia_srd_24.png` | 210x176 | The Coup from Below |  | wanted |
 | `evil_sofia_srd_25.png` | 210x176 | The C Class Calls |  | wanted |
 | `evil_sofia_srd_26.png` | 210x176 | [From.GetLeader] Is Back |  | wanted |

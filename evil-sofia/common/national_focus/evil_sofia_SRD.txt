@@ -76,6 +76,7 @@ focus_tree = {
 		completion_reward = {
 			OBR = { add_timed_idea = { idea = SRD_comrades_from_sredets days = 180 } }
 			add_political_power = 50
+			custom_effect_tooltip = SRD_comrades_in_oborishte_unlocks
 		}
 	}
 	focus = {
@@ -1697,15 +1698,14 @@ focus_tree = {
 			}
 			drop_cosmetic_tag = yes
 			if = { limit = { has_idea = SRD_free_sredets } remove_ideas = SRD_free_sredets }
-			set_country_flag = SRD_tunnels_active
+			set_variable = { SRD_dig_capacity = 3 }
+			SRD_tunnels_setup = yes
 			set_country_flag = SRD_agents_unlocked
 			set_country_flag = SRD_strike_unlocked
 			set_country_flag = SRD_coup_unlocked
-			set_variable = { SRD_tunnels = 2 }
-			set_variable = { SRD_digging = 0 }
-			set_variable = { SRD_dig_capacity = 2 }
 			add_stability = -0.10
 			news_event = { id = evil_sofia_news.19 hours = 6 }
+			custom_effect_tooltip = SRD_a_temporary_emergency_unlocks
 		}
 	}
 	focus = {
@@ -1721,6 +1721,7 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = SRD_united_dream
 			add_political_power = 50
+			custom_effect_tooltip = SRD_united_centre_unlocks
 		}
 	}
 	focus = {
@@ -1733,10 +1734,8 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		ai_will_do = { factor = 1 }
 		completion_reward = {
-			set_country_flag = SRD_tunnels_active
-			set_variable = { SRD_tunnels = 0 }
-			set_variable = { SRD_digging = 0 }
-			set_variable = { SRD_dig_capacity = 1 }
+			SRD_tunnels_setup = yes
+			custom_effect_tooltip = SRD_ruins_under_the_largo_unlocks
 		}
 	}
 	focus = {
@@ -1751,6 +1750,7 @@ focus_tree = {
 		completion_reward = {
 			set_variable = { SRD_dig_capacity = 2 }
 			add_manpower = 5000
+			custom_effect_tooltip = SRD_miners_from_pernik_unlocks
 		}
 	}
 	focus = {
@@ -1765,6 +1765,7 @@ focus_tree = {
 		completion_reward = {
 			set_country_flag = SRD_agents_unlocked
 			add_political_power = 50
+			custom_effect_tooltip = SRD_agents_in_the_dark_unlocks
 		}
 	}
 	focus = {
@@ -1780,6 +1781,7 @@ focus_tree = {
 		completion_reward = {
 			set_country_flag = SRD_strike_unlocked
 			army_experience = 25
+			custom_effect_tooltip = SRD_strike_from_below_unlocks
 		}
 	}
 	focus = {
@@ -1793,6 +1795,7 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 		completion_reward = {
 			set_country_flag = SRD_coup_unlocked
+			custom_effect_tooltip = SRD_the_coup_from_below_unlocks
 		}
 	}
 	focus = {
@@ -1802,7 +1805,7 @@ focus_tree = {
 		y = 8
 		prerequisite = { focus = SRD_the_coup_from_below }
 		available = {
-			check_variable = { SRD_tunnels > 3 }
+			check_variable = { SRD_breakthroughs > 3 }
 		}
 		cost = 10
 		search_filters = { FOCUS_FILTER_STABILITY }
@@ -2014,7 +2017,7 @@ focus_tree = {
 		prerequisite = { focus = SRD_the_united_centre focus = SRD_the_centre_and_oborishte focus = SRD_a_temporary_emergency }
 		prerequisite = { focus = SRD_the_ring_under_sofia focus = SRD_a_temporary_emergency }
 		available = {
-			check_variable = { SRD_tunnels > 3 }
+			check_variable = { SRD_breakthroughs > 3 }
 			3 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 			4 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
 			38 = { is_controlled_by = ROOT }

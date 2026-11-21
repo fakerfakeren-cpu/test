@@ -1,0 +1,23 @@
+spriteTypes = {
+	spriteType = {
+		name = "GFX_SRD_tunnel_tiles"
+		texturefile = "gfx/interface/evil_sofia/tunnel_tiles.dds"
+		noOfFrames = 10
+	}
+	spriteType = {
+		name = "GFX_SRD_tunnels_bg"
+		texturefile = "gfx/interface/evil_sofia/tunnels_bg.dds"
+	}
+	spriteType = {
+		name = "GFX_SRD_tunnel_clear"
+		texturefile = "gfx/interface/evil_sofia/tunnel_clear.dds"
+	}
+	spriteType = {
+		name = "GFX_SRD_tunnels_btn"
+		texturefile = "gfx/interface/evil_sofia/tunnels_btn.dds"
+	}
+	spriteType = {
+		name = "GFX_SRD_tunnels_close"
+		texturefile = "gfx/interface/evil_sofia/tunnels_close.dds"
+	}
+}

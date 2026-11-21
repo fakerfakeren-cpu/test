@@ -122,7 +122,10 @@ Without them the build still works: leaders have no portrait and the person/phot
 - Event pictures: the user is making their own in vanilla style; `tools/event_pictures/PICTURES.md` lists every
   file name, size and subject. A PNG with that name in `tools/event_pictures/` replaces the drawn picture.
 
-## Untested in game (check `Documents/Paradox Interactive/Hearts of Iron IV/logs/error.log` if something is off)
+## Untested in game
+
+- The Underground of Serdica window (scripted GUI): the button position, fonts (hoi_20bs, hoi_16mbs), tile frames
+  driven by variables, and click triggers. Ask the user for a screenshot and error.log after the first test. (check `Documents/Paradox Interactive/Hearts of Iron IV/logs/error.log` if something is off)
 
 - advisor traits (custom traits in `common/country_leader/`), and that advisors without portraits look fine
 - the `rule = { can_create_factions = no can_join_factions = no }` block in the "Sredets Stands Alone" spirits
