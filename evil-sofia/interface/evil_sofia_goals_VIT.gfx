@@ -860,6 +860,10 @@ spriteTypes = {
 		texturefile = "gfx/interface/goals/evil_sofia/people/VIT_yani_calls_LOZ.dds"
 	}
 	spriteType = {
+		name = "GFX_focus_VIT_yani_calls_SRD"
+		texturefile = "gfx/interface/goals/evil_sofia/people/VIT_yani_calls_SRD.dds"
+	}
+	spriteType = {
 		name = "GFX_focus_VIT_the_students_pact"
 		texturefile = "gfx/interface/goals/evil_sofia/VIT_the_students_pact.dds"
 	}

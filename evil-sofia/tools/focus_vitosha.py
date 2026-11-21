@@ -908,7 +908,7 @@ def call_friend(tag, event, extra=""):
 FACTION_OF = {19: "EVIL_SOFIA_FACTION_VILLA_PACT", 22: "EVIL_SOFIA_FACTION_STUDENT_PACT"}
 CAN_CALL = "OR = { is_in_faction = no is_faction_leader = yes }\nhas_country_flag = VIT_war_over"
 HFRIENDS = [("KRP", "Stefan Kartunov", 12), ("MLA", "Georgi Poryazov", 14), ("SRD", "Victor Kolev", 16)]
-YFRIENDS = [("KRP", "Stefan Kartunov", 45), ("LOZ", "Georgi Yanchovichin", 47)]
+YFRIENDS = [("KRP", "Stefan Kartunov", 44), ("LOZ", "Georgi Yanchovichin", 46), ("SRD", "Victor Kolev", 48)]
 F("old_friends_of_the_villa", "Old Friends of the Villa", 14, 16, [["h_veterans"]], [], 5, "duo:goal_generic_dangerous_deal",
   "has_country_flag = VIT_war_over", "add_political_power = 50",
   "Henry has known some of the district leaders since school. The war is won, and now old friends can help, as long "
@@ -1418,6 +1418,7 @@ PERSON_ICONS.update({
     "henry_calls_SRD": ("SRD", "SilverStarFrame.png", "Megaphone2.png", 0, dict(fill=(30, 40, 60), front_width=0.40, front_y=0.95)),
     "yani_calls_KRP": ("KRP", "SpikyFrame.png", "Book Open.png", 0, dict(fill=(50, 30, 26), front_width=0.38, front_y=1.05)),
     "yani_calls_LOZ": ("LOZ", "RedWheatFrame.png", "Book Open.png", 0, dict(fill=(50, 30, 26), front_width=0.38, front_y=1.05)),
+    "yani_calls_SRD": ("SRD", "metalcircle.png", "Book Open.png", 0, dict(fill=(50, 30, 26), front_width=0.38, front_y=1.05)),
 })
 PERSON_FALLBACK.update({k: "goal_ANQ_patriotic_protests" for k in PERSON_ICONS if k not in PERSON_FALLBACK})
 

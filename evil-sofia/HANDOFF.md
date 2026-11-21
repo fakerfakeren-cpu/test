@@ -122,8 +122,8 @@ Without them the build still works: leaders have no portrait and the person/phot
   Not yet played; expect tweaks.
 - Vitosha tree: 268 focuses, laid out like vanilla's Spain. Two exclusive roots: Stand with Henry (left) or March
   with Yani (right). Each side's prep chain has side groups (Henry: Old Friends of the Villa calls Stefan, Georgi
-  Poryazov and Victor if not communist, Villa Pact; forts; hired guards. Yani: Old Classmates calls Stefan and Georgi
-  Yanchovichin, who always accept, Students' Pact; depots; Plovdiv volunteers). What completed prep focuses give at the
+  Poryazov and Victor if not communist, Villa Pact; forts; hired guards. Yani: Old Classmates calls Stefan, Georgi
+  Yanchovichin and Victor, who always accept, Students' Pact; depots; Plovdiv volunteers). What completed prep focuses give at the
   war start is shown as effect tooltips; temporary divisions have their own templates (`history/units/VIT_*`) and are
   deleted by The Mountain Is Ours. The war starts by focus or, after 400 days, by event evil_sofia_vit.25 (Yani's side
   if March with Yani was completed). Events 27/28 the next day pick the side's road (complete_national_focus). The
