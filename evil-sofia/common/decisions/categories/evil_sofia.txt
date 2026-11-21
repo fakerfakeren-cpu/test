@@ -7,6 +7,14 @@ SRD_oborishte_question = {
 		OBR = { exists = yes }
 	}
 }
+VIT_foreign_aid = {
+	allowed = {
+		original_tag = VIT
+	}
+	visible = {
+		has_country_flag = VIT_aid_open
+	}
+}
 ES_political_actions = {
 	allowed = {
 		always = yes

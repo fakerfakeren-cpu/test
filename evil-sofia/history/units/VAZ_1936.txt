@@ -6,6 +6,9 @@ division_template = {
 		infantry = { x = 1 y = 0 }
 		infantry = { x = 1 y = 1 }
 	}
+	support = {
+		engineer = { x = 0 y = 0 }
+	}
 }
 
 units = {
@@ -16,12 +19,19 @@ units = {
 		start_experience_factor = 0.2
 		start_equipment_factor = 1.0
 	}
+	division = {
+		name = "2nd Vazrazhdane Guard"
+		location = 7
+		division_template = "City Guard"
+		start_experience_factor = 0.2
+		start_equipment_factor = 1.0
+	}
 }
 
 instant_effect = {
 	add_equipment_to_stockpile = {
 		type = infantry_equipment_1
-		amount = 500
+		amount = 800
 		producer = VAZ
 	}
 }

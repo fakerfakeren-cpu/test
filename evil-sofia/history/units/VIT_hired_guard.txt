@@ -1,0 +1,32 @@
+division_template = {
+	name = "Hired Guard"
+	regiments = {
+		infantry = { x = 0 y = 0 }
+		infantry = { x = 0 y = 1 }
+		infantry = { x = 1 y = 0 }
+	}
+}
+
+units = {
+	division = {
+		name = "1st Hired Guard"
+		location = 254
+		division_template = "Hired Guard"
+		start_experience_factor = 0.2
+		start_equipment_factor = 1.0
+	}
+	division = {
+		name = "2nd Hired Guard"
+		location = 259
+		division_template = "Hired Guard"
+		start_experience_factor = 0.2
+		start_equipment_factor = 1.0
+	}
+	division = {
+		name = "3rd Hired Guard"
+		location = 264
+		division_template = "Hired Guard"
+		start_experience_factor = 0.2
+		start_equipment_factor = 1.0
+	}
+}

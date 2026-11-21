@@ -351,7 +351,7 @@ war_trunk("h", 14, "VIT_henry_side", ["what_the_english_couldnt_do", "what_zevka
     "telephones": "duo:Generic_Radio_Communication", "factory": "duo:goal_generic_production", "volunteers": "duo:Generic_Morale_Bonus_Focus",
     "patrols": "duo:Generic_Lookout", "martial_law": "duo:goal_generic_imprison_people", "guns": "duo:Generic_Artillery_Barrel",
     "counter": "duo:goal_generic_position_armies", "dig_in": "duo:Generic_Crouched_Soldier_German", "mortars": "duo:goal_generic_army_artillery2",
-    "final_push": "duo:goal_generic_occypy_start_war", "trench_raids": "duo:Generic_ENG_SAS", "lorries": "duo:Generic_Purchase_Tanks_Focus",
+    "final_push": "duo:goal_generic_occypy_start_war", "trench_raids": "duo:Generic_Political_Killing", "lorries": "duo:Generic_Purchase_Tanks_Focus",
     "won": "duo:Generic_Memories_of_the_War", "repair_factories": "duo:goal_generic_german_construction",
     "rebuild": "duo:goal_generic_construction", "amnesty": "duo:Generic_Bread_and_Peace", "reequip": "duo:goal_generic_axis_build_infantry",
     "railways": "duo:goal_generic_railway_construction", "restored": "duo:goal_generic_stable_government",
@@ -387,7 +387,7 @@ war_trunk("y", 46, "VIT_yani_side", ["red_plovdiv", "the_seven_hills"], {
     "veterans": ("Heroes of Simeonovo", "Every street in Simeonovo is named after someone who fought for it."),
 }, {
     "head": "duo:Generic_Revolutionary_Republic", "command": "duo:Generic_Socialist_Volunteers", "workshops": "duo:goal_generic_industry_reallocation",
-    "reserves": "duo:Generic_Refugees", "line": "duo:goal_generic_home_defense_bel", "telephones": "duo:Generic_Railroads",
+    "reserves": "duo:Generic_Refugees", "line": "duo:Generic_Low_Morale", "telephones": "duo:Generic_Railroads",
     "factory": "duo:goal_generic_production2", "volunteers": "duo:Generic_Urban_Partisans", "patrols": "duo:Generic_Disguise",
     "martial_law": "duo:Generic_Executions", "guns": "duo:goal_generic_build_tank", "counter": "duo:goal_generic_major_war",
     "dig_in": "duo:Generic_Russian_Soldier", "mortars": "duo:focus_generic_tank_destroyer", "final_push": "duo:goal_generic_attack_allies",
@@ -968,7 +968,7 @@ F("barricades_in_simeonovo", "Barricades in Simeonovo", 50, 4, [["caches_in_the_
   "Every street in Simeonovo knows where its barricade goes. The cobbles are already loose.", ["INDUSTRY"])
 F("the_tobacco_column", "The Tobacco Column", 53, 3, [["hidden_depots"]], [], 7, "duo:Generic_Cotton_Farming", PREWAR, "add_political_power = 10",
   "Tobacco workers from Plovdiv, ready to take the train to Sofia the moment Yani calls.", ["MANPOWER"])
-F("studentski_volunteers", "Studentski Volunteers", 55, 3, [["the_tobacco_column"]], [], 7, "duo:Generic_Revolutionary_Women", PREWAR,
+F("studentski_volunteers", "Studentski Volunteers", 54, 4, [["the_tobacco_column"]], [], 7, "duo:Generic_Revolutionary_Women", PREWAR,
   "add_political_power = 10",
   "The dormitories of Studentski Grad empty overnight when Yani needs them.", ["MANPOWER"])
 

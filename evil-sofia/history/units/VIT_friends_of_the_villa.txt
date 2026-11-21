@@ -1,0 +1,25 @@
+division_template = {
+	name = "Friends of the Villa"
+	regiments = {
+		infantry = { x = 0 y = 0 }
+		infantry = { x = 0 y = 1 }
+		infantry = { x = 1 y = 0 }
+	}
+}
+
+units = {
+	division = {
+		name = "1st Friends of the Villa"
+		location = 254
+		division_template = "Friends of the Villa"
+		start_experience_factor = 0.2
+		start_equipment_factor = 1.0
+	}
+	division = {
+		name = "2nd Friends of the Villa"
+		location = 259
+		division_template = "Friends of the Villa"
+		start_experience_factor = 0.2
+		start_equipment_factor = 1.0
+	}
+}

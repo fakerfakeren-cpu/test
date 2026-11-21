@@ -52,3 +52,96 @@ SRD_oborishte_question = {
 		}
 	}
 }
+VIT_foreign_aid = {
+	VIT_aid_rifles = {
+		icon = generic_prepare_civil_war
+		cost = 25
+		days_re_enable = 120
+		available = {
+			any_other_country = { exists = yes NOT = { original_tag = VIT } OR = { AND = { ROOT = { has_government = democratic } has_government = democratic } AND = { ROOT = { has_government = neutrality } has_government = neutrality } AND = { ROOT = { has_government = communism } has_government = communism } AND = { ROOT = { has_government = fascism } has_government = fascism } } }
+		}
+		complete_effect = {
+			random_other_country = {
+				limit = { exists = yes NOT = { original_tag = VIT } OR = { AND = { ROOT = { has_government = democratic } has_government = democratic } AND = { ROOT = { has_government = neutrality } has_government = neutrality } AND = { ROOT = { has_government = communism } has_government = communism } AND = { ROOT = { has_government = fascism } has_government = fascism } } }
+				add_equipment_to_stockpile = { type = infantry_equipment_1 amount = -1500 }
+			}
+			add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1500 }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	VIT_aid_volunteers = {
+		icon = generic_prepare_civil_war
+		cost = 50
+		days_re_enable = 120
+		available = {
+			any_other_country = { exists = yes NOT = { original_tag = VIT } OR = { AND = { ROOT = { has_government = democratic } has_government = democratic } AND = { ROOT = { has_government = neutrality } has_government = neutrality } AND = { ROOT = { has_government = communism } has_government = communism } AND = { ROOT = { has_government = fascism } has_government = fascism } } }
+		}
+		complete_effect = {
+			random_other_country = {
+				limit = { exists = yes NOT = { original_tag = VIT } OR = { AND = { ROOT = { has_government = democratic } has_government = democratic } AND = { ROOT = { has_government = neutrality } has_government = neutrality } AND = { ROOT = { has_government = communism } has_government = communism } AND = { ROOT = { has_government = fascism } has_government = fascism } } }
+				add_manpower = -8000
+			}
+			add_manpower = 8000
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	VIT_aid_aeroplanes = {
+		icon = generic_prepare_civil_war
+		cost = 75
+		days_re_enable = 120
+		available = {
+			any_other_country = { exists = yes NOT = { original_tag = VIT } OR = { AND = { ROOT = { has_government = democratic } has_government = democratic } AND = { ROOT = { has_government = neutrality } has_government = neutrality } AND = { ROOT = { has_government = communism } has_government = communism } AND = { ROOT = { has_government = fascism } has_government = fascism } } }
+		}
+		complete_effect = {
+			random_other_country = {
+				limit = { exists = yes NOT = { original_tag = VIT } OR = { AND = { ROOT = { has_government = democratic } has_government = democratic } AND = { ROOT = { has_government = neutrality } has_government = neutrality } AND = { ROOT = { has_government = communism } has_government = communism } AND = { ROOT = { has_government = fascism } has_government = fascism } } }
+				add_equipment_to_stockpile = { type = small_plane_airframe_1 amount = -10 }
+			}
+			add_equipment_to_stockpile = { type = small_plane_airframe_1 amount = 10 }
+			air_experience = 10
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	VIT_aid_lorries = {
+		icon = generic_prepare_civil_war
+		cost = 40
+		days_re_enable = 120
+		available = {
+			any_other_country = { exists = yes NOT = { original_tag = VIT } OR = { AND = { ROOT = { has_government = democratic } has_government = democratic } AND = { ROOT = { has_government = neutrality } has_government = neutrality } AND = { ROOT = { has_government = communism } has_government = communism } AND = { ROOT = { has_government = fascism } has_government = fascism } } }
+		}
+		complete_effect = {
+			random_other_country = {
+				limit = { exists = yes NOT = { original_tag = VIT } OR = { AND = { ROOT = { has_government = democratic } has_government = democratic } AND = { ROOT = { has_government = neutrality } has_government = neutrality } AND = { ROOT = { has_government = communism } has_government = communism } AND = { ROOT = { has_government = fascism } has_government = fascism } } }
+				add_equipment_to_stockpile = { type = motorized_equipment_1 amount = -60 }
+			}
+			add_equipment_to_stockpile = { type = motorized_equipment_1 amount = 60 }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	VIT_aid_advisers = {
+		icon = generic_prepare_civil_war
+		cost = 50
+		days_re_enable = 120
+		available = {
+			any_other_country = { exists = yes NOT = { original_tag = VIT } OR = { AND = { ROOT = { has_government = democratic } has_government = democratic } AND = { ROOT = { has_government = neutrality } has_government = neutrality } AND = { ROOT = { has_government = communism } has_government = communism } AND = { ROOT = { has_government = fascism } has_government = fascism } } }
+		}
+		complete_effect = {
+			random_other_country = {
+				limit = { exists = yes NOT = { original_tag = VIT } OR = { AND = { ROOT = { has_government = democratic } has_government = democratic } AND = { ROOT = { has_government = neutrality } has_government = neutrality } AND = { ROOT = { has_government = communism } has_government = communism } AND = { ROOT = { has_government = fascism } has_government = fascism } } }
+				army_experience = -10
+			}
+			army_experience = 20
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+}

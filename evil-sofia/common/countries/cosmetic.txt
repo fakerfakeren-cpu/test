@@ -46,3 +46,11 @@ VIT_PHILIPPOPOLIS = {
 	color = rgb { 60 50 40 }
 	color_ui = rgb { 100 90 80 }
 }
+VIT_HENRY = {
+	color = rgb { 40 70 150 }
+	color_ui = rgb { 80 110 190 }
+}
+VIT_YANI = {
+	color = rgb { 150 30 30 }
+	color_ui = rgb { 190 70 70 }
+}

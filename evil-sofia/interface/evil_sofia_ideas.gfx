@@ -352,6 +352,70 @@ spriteTypes = {
 		texturefile = "gfx/interface/ideas/evil_sofia/VIT_army_of_the_mountain.dds"
 	}
 	spriteType = {
+		name = "GFX_idea_VIT_scars_of_war_2"
+		texturefile = "gfx/interface/ideas/evil_sofia/VIT_scars_of_war_2.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_VIT_scars_of_war_1"
+		texturefile = "gfx/interface/ideas/evil_sofia/VIT_scars_of_war_1.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_VIT_h_dig_in"
+		texturefile = "gfx/interface/ideas/evil_sofia/VIT_h_dig_in.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_VIT_y_dig_in"
+		texturefile = "gfx/interface/ideas/evil_sofia/VIT_y_dig_in.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_VIT_h_veterans"
+		texturefile = "gfx/interface/ideas/evil_sofia/VIT_h_veterans.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_VIT_y_veterans"
+		texturefile = "gfx/interface/ideas/evil_sofia/VIT_y_veterans.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_VIT_villa_pact"
+		texturefile = "gfx/interface/ideas/evil_sofia/VIT_villa_pact.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_VIT_students_pact"
+		texturefile = "gfx/interface/ideas/evil_sofia/VIT_students_pact.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_VIT_commandos"
+		texturefile = "gfx/interface/ideas/evil_sofia/VIT_commandos.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_VIT_dispersed_workshops"
+		texturefile = "gfx/interface/ideas/evil_sofia/VIT_dispersed_workshops.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_VIT_every_machine_counts"
+		texturefile = "gfx/interface/ideas/evil_sofia/VIT_every_machine_counts.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_VIT_workshop_of_sofia"
+		texturefile = "gfx/interface/ideas/evil_sofia/VIT_workshop_of_sofia.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_VIT_rangers_of_the_peak"
+		texturefile = "gfx/interface/ideas/evil_sofia/VIT_rangers_of_the_peak.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_VIT_dig_in_doctrine"
+		texturefile = "gfx/interface/ideas/evil_sofia/VIT_dig_in_doctrine.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_VIT_mountain_reserve"
+		texturefile = "gfx/interface/ideas/evil_sofia/VIT_mountain_reserve.dds"
+	}
+	spriteType = {
+		name = "GFX_idea_VIT_unbreakable_mountain"
+		texturefile = "gfx/interface/ideas/evil_sofia/VIT_unbreakable_mountain.dds"
+	}
+	spriteType = {
 		name = "GFX_idea_ES_war_propaganda"
 		texturefile = "gfx/interface/ideas/evil_sofia/ES_war_propaganda.dds"
 	}

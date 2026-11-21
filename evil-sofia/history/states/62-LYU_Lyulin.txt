@@ -3,6 +3,7 @@ state = {
 	name = "EVIL_SOFIA_STATE_62"
 	manpower = 3587000
 	state_category = city
+	resources = { steel = 4 }
 
 	history = {
 		owner = LYU
@@ -15,7 +16,7 @@ state = {
 		victory_points = { 188 1 }
 		buildings = {
 			infrastructure = 4
-			industrial_complex = 1
+			industrial_complex = 2
 		}
 	}
 

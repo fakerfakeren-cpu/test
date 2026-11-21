@@ -728,6 +728,139 @@ ideas = {
 				army_defence_factor = 0.05
 			}
 		}
+		VIT_scars_of_war_2 = {
+			picture = VIT_scars_of_war_2
+			allowed = { always = no }
+			modifier = {
+				industrial_capacity_factory = -0.20
+				production_speed_buildings_factor = -0.20
+				army_org_factor = -0.10
+				stability_factor = -0.10
+			}
+		}
+		VIT_scars_of_war_1 = {
+			picture = VIT_scars_of_war_1
+			allowed = { always = no }
+			modifier = {
+				industrial_capacity_factory = -0.10
+				production_speed_buildings_factor = -0.10
+				army_org_factor = -0.05
+			}
+		}
+		VIT_h_dig_in = {
+			picture = VIT_h_dig_in
+			allowed = { always = no }
+			modifier = {
+				army_defence_factor = 0.15
+				dig_in_speed_factor = 0.25
+			}
+		}
+		VIT_y_dig_in = {
+			picture = VIT_y_dig_in
+			allowed = { always = no }
+			modifier = {
+				army_defence_factor = 0.15
+				dig_in_speed_factor = 0.25
+			}
+		}
+		VIT_h_veterans = {
+			picture = VIT_h_veterans
+			allowed = { always = no }
+			modifier = {
+				army_org_factor = 0.05
+				experience_gain_army_factor = 0.15
+			}
+		}
+		VIT_y_veterans = {
+			picture = VIT_y_veterans
+			allowed = { always = no }
+			modifier = {
+				army_morale_factor = 0.05
+				experience_gain_army_factor = 0.15
+			}
+		}
+		VIT_villa_pact = {
+			picture = VIT_villa_pact
+			allowed = { always = no }
+			modifier = {
+				political_power_factor = 0.05
+				war_support_factor = 0.05
+			}
+		}
+		VIT_students_pact = {
+			picture = VIT_students_pact
+			allowed = { always = no }
+			modifier = {
+				political_power_factor = 0.05
+				conscription_factor = 0.05
+			}
+		}
+		VIT_commandos = {
+			picture = VIT_commandos
+			allowed = { always = no }
+			modifier = {
+				special_forces_cap = 0.05
+				army_attack_factor = 0.03
+			}
+		}
+		VIT_dispersed_workshops = {
+			picture = VIT_dispersed_workshops
+			allowed = { always = no }
+			modifier = {
+				industrial_capacity_factory = 0.05
+				production_factory_efficiency_gain_factor = 0.05
+			}
+		}
+		VIT_every_machine_counts = {
+			picture = VIT_every_machine_counts
+			allowed = { always = no }
+			modifier = {
+				production_factory_max_efficiency_factor = 0.05
+				production_factory_efficiency_gain_factor = 0.10
+			}
+		}
+		VIT_workshop_of_sofia = {
+			picture = VIT_workshop_of_sofia
+			allowed = { always = no }
+			modifier = {
+				industrial_capacity_factory = 0.10
+				production_speed_buildings_factor = 0.15
+				research_speed_factor = 0.03
+			}
+		}
+		VIT_rangers_of_the_peak = {
+			picture = VIT_rangers_of_the_peak
+			allowed = { always = no }
+			modifier = {
+				army_attack_factor = 0.03
+				attrition = -0.10
+			}
+		}
+		VIT_dig_in_doctrine = {
+			picture = VIT_dig_in_doctrine
+			allowed = { always = no }
+			modifier = {
+				max_dig_in = 2
+				dig_in_speed_factor = 0.20
+			}
+		}
+		VIT_mountain_reserve = {
+			picture = VIT_mountain_reserve
+			allowed = { always = no }
+			modifier = {
+				conscription = 0.01
+				mobilization_speed = 0.10
+			}
+		}
+		VIT_unbreakable_mountain = {
+			picture = VIT_unbreakable_mountain
+			allowed = { always = no }
+			modifier = {
+				army_attack_factor = 0.10
+				army_defence_factor = 0.10
+				army_org_factor = 0.05
+			}
+		}
 		ES_war_propaganda = {
 			picture = ES_war_propaganda
 			allowed = { always = no }

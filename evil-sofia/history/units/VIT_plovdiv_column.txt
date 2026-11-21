@@ -1,0 +1,32 @@
+division_template = {
+	name = "Plovdiv Column"
+	regiments = {
+		infantry = { x = 0 y = 0 }
+		infantry = { x = 0 y = 1 }
+		infantry = { x = 1 y = 0 }
+	}
+}
+
+units = {
+	division = {
+		name = "1st Plovdiv Column"
+		location = 274
+		division_template = "Plovdiv Column"
+		start_experience_factor = 0.2
+		start_equipment_factor = 1.0
+	}
+	division = {
+		name = "2nd Plovdiv Column"
+		location = 275
+		division_template = "Plovdiv Column"
+		start_experience_factor = 0.2
+		start_equipment_factor = 1.0
+	}
+	division = {
+		name = "3rd Plovdiv Column"
+		location = 304
+		division_template = "Plovdiv Column"
+		start_experience_factor = 0.2
+		start_equipment_factor = 1.0
+	}
+}

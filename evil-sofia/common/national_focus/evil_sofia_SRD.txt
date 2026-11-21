@@ -4,7 +4,7 @@ focus_tree = {
 		factor = 0
 		modifier = {
 			add = 20
-			tag = SRD
+			original_tag = SRD   # also the breakaway side of a civil war
 		}
 	}
 	default = no
