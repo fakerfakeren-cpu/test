@@ -5,31 +5,31 @@ spriteTypes = {
 	}
 	spriteType = {
 		name = "GFX_evil_sofia_evil_sofia_vit_news_1"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_vit_news_1.dds"
+		texturefile = "gfx/event_pictures/evil_sofia/own/evil_sofia_vit_news_1.dds"
 	}
 	spriteType = {
 		name = "GFX_evil_sofia_evil_sofia_vit_news_2"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_vit_news_2.dds"
+		texturefile = "gfx/event_pictures/evil_sofia/own/evil_sofia_vit_news_2.dds"
 	}
 	spriteType = {
 		name = "GFX_evil_sofia_evil_sofia_vit_news_3"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_vit_news_3.dds"
+		texturefile = "gfx/event_pictures/evil_sofia/own/evil_sofia_vit_news_3.dds"
 	}
 	spriteType = {
 		name = "GFX_evil_sofia_evil_sofia_vit_news_4"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_vit_news_4.dds"
+		texturefile = "gfx/event_pictures/evil_sofia/own/evil_sofia_vit_news_4.dds"
 	}
 	spriteType = {
 		name = "GFX_evil_sofia_evil_sofia_vit_news_5"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_vit_news_5.dds"
+		texturefile = "gfx/event_pictures/evil_sofia/own/evil_sofia_vit_news_5.dds"
 	}
 	spriteType = {
 		name = "GFX_evil_sofia_evil_sofia_vit_news_6"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_vit_news_6.dds"
+		texturefile = "gfx/event_pictures/evil_sofia/own/evil_sofia_vit_news_6.dds"
 	}
 	spriteType = {
 		name = "GFX_evil_sofia_evil_sofia_vit_news_7"
-		texturefile = "gfx/event_pictures/evil_sofia/evil_sofia_vit_news_7.dds"
+		texturefile = "gfx/event_pictures/evil_sofia/own/evil_sofia_vit_news_7.dds"
 	}
 	spriteType = {
 		name = "GFX_evil_sofia_evil_sofia_news_1"

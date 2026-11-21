@@ -58,13 +58,13 @@ modern objects in focus. Country events are 210x176 (nearly square), news events
 | `evil_sofia_vit_26.png` | 210x176 | An Offer of Dominion |  | wanted |
 | `evil_sofia_vit_27.png` | 210x176 | Henry's Road |  | wanted |
 | `evil_sofia_vit_28.png` | 210x176 | Yani's Road |  | wanted |
-| `evil_sofia_vit_news_1.png` | 397x153 | Civil War on Vitosha | Civil war on a forested mountain: two groups of riflemen firing across a wooded slope, villas on the hill behind, smoke rising from a village below. | wanted |
-| `evil_sofia_vit_news_2.png` | 397x153 | Henry Holds the Mountain | A young man in a tweed jacket on the steps of a hillside villa, guardsmen saluting, his mother at the door; the city spread out below. | wanted |
-| `evil_sofia_vit_news_3.png` | 397x153 | Yani Takes the Mountain | A young student leader in a cap standing on a balcony of a captured villa, a crowd of students and workers with rifles cheering below. | wanted |
-| `evil_sofia_vit_news_4.png` | 397x153 | The Commonwealth of the Mountain | A small parliament in an old church hall, men in suits applauding a speaker; a mountain visible through tall windows. | wanted |
-| `evil_sofia_vit_news_5.png` | 397x153 | The Tsardom of the Mountain | A coronation inside a small medieval church with old frescoes, a priest placing a crown on a young man's head, candles everywhere. | wanted |
-| `evil_sofia_vit_news_6.png` | 397x153 | The Thracian Commune | Workers with red banners and pitchforks marching down a mountain road toward a plain, tobacco warehouses in the distance. | wanted |
-| `evil_sofia_vit_news_7.png` | 397x153 | New Philippopolis | A torchlight parade of men in black shirts on a hill above a city, an ancient Roman theatre in the foreground. | wanted |
+| `evil_sofia_vit_news_1.png` | 397x153 | Civil War on Vitosha | Civil war on a forested mountain: two groups of riflemen firing across a wooded slope, villas on the hill behind, smoke rising from a village below. | done |
+| `evil_sofia_vit_news_2.png` | 397x153 | Henry Holds the Mountain | A young man in a tweed jacket on the steps of a hillside villa, guardsmen saluting, his mother at the door; the city spread out below. | done |
+| `evil_sofia_vit_news_3.png` | 397x153 | Yani Takes the Mountain | A young student leader in a cap standing on a balcony of a captured villa, a crowd of students and workers with rifles cheering below. | done |
+| `evil_sofia_vit_news_4.png` | 397x153 | The Commonwealth of the Mountain | A small parliament in an old church hall, men in suits applauding a speaker; a mountain visible through tall windows. | done |
+| `evil_sofia_vit_news_5.png` | 397x153 | The Tsardom of the Mountain | A coronation inside a small medieval church with old frescoes, a priest placing a crown on a young man's head, candles everywhere. | done |
+| `evil_sofia_vit_news_6.png` | 397x153 | The Thracian Commune | Workers with red banners and pitchforks marching down a mountain road toward a plain, tobacco warehouses in the distance. | done |
+| `evil_sofia_vit_news_7.png` | 397x153 | New Philippopolis | A torchlight parade of men in black shirts on a hill above a city, an ancient Roman theatre in the foreground. | done |
 | `evil_sofia_news_1.png` | 397x153 | Red Flag over the Largo | Red banners over a large square in front of a monumental government building, crowds below. | done |
 | `evil_sofia_news_2.png` | 397x153 | Order in the Centre | Armed police at a checkpoint on a bridge, a tram waiting behind them. | done |
 | `evil_sofia_news_3.png` | 397x153 | The North-South Pact | Two men signing a document over a city map spread on a table. | done |
