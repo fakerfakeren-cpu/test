@@ -427,8 +427,8 @@ HDEM = [
      "air_experience = 25\ncapital_scope = { add_building_construction = { type = air_base level = 2 instant_build = yes } }",
      "A grass strip in the meadows below Aleko and a few aeroplanes. Henry calls it the Royal Air Force of the Mountain.",
      ["AIR_XP"]),
-    ("rule_the_reservoirs", "Rule the Reservoirs", 8, 8, [["the_home_guard"]], 8, "duo:Generic_Maritime", NOWAR, "{CLAIMS:PNC}\n{WAR:PNC}",
-     "England ruled the waves. Vitosha will rule the lake at Pancharevo, which is a start.\\n\\nClaims and war goals on "
+    ("rule_the_reservoirs", "Rule the Reservoirs", 8, 8, [["the_home_guard"]], 8, "duo:Generic_Maritime", NOWAR, "{COREALL:VIT:PNC}\n{WAR:PNC}",
+     "England ruled the waves. Vitosha will rule the lake at Pancharevo, which is a start.\\n\\nCores and war goals on "
      "Pancharevo.", ["ANNEXATION"]),
     ("a_cabinet_of_all_talents", "A Cabinet of All Talents", 0, 9, [["the_boyana_charter"]], 7, "duo:Generic_Democracy",
      "add_ideas = VIT_cabinet_of_talents",
@@ -461,8 +461,8 @@ HDEM = [
     ("spitfires_of_the_mountain", "Spitfires of the Mountain", 6, 10, [["radar_on_cherni_vrah"]], 8, "duo:Generic_Female_Pilots",
      "add_tech_bonus = { name = VIT_spitfires bonus = 1.0 uses = 1 category = air_equipment }",
      "The best fighters in Sofia, built in a hangar in Knyazhevo and named after Henry's mother's temper.", ["AIR_XP", "RESEARCH"]),
-    ("dominion_status", "Dominion Status", 8, 10, [["the_thin_red_line"]], 8, "duo:Generic_Redraw_Borders", NOWAR, "{CLAIMS:OVK}\n{WAR:OVK}",
-     "Ovcha Kupel lies at the foot of the mountain and would make an excellent dominion.\\n\\nClaims and war goals on "
+    ("dominion_status", "Dominion Status", 8, 10, [["the_thin_red_line"]], 8, "duo:Generic_Redraw_Borders", NOWAR, "{COREALL:VIT:OVK}\n{WAR:OVK}",
+     "Ovcha Kupel lies at the foot of the mountain and would make an excellent dominion.\\n\\nCores and war goals on "
      "Ovcha Kupel.", ["ANNEXATION"]),
     ("fight_on_the_slopes", "We Shall Fight on the Slopes", 2, 11, [["the_special_relationship"], ["lend_lease"]], 9,
      "duo:Generic_British_Soldiers03", "", "add_ideas = VIT_fight_on_the_slopes",
@@ -555,9 +555,9 @@ HAUT = [
      "capital_scope = { add_building_construction = { type = infrastructure level = 1 instant_build = yes } }\n" + factory("industrial_complex"),
      "Stone houses, a well in every square and a road to every village, as Zevka remembered them.", ["INDUSTRY"]),
     ("the_lowlands_below", "The Lowlands Below", 27, 10, [["the_mountain_gendarmerie"]], 8, "duo:Generic_Revanchism", NOWAR,
-     "{CLAIMS:OVK,PNC}\n{WAR:OVK,PNC}",
+     "{COREALL:VIT:OVK,PNC}\n{WAR:OVK,PNC}",
      "Every village at the foot of the mountain once paid its tithe to the monasteries on its slopes. Zevka never forgot it."
-     "\\n\\nClaims and war goals on Ovcha Kupel and Pancharevo.", ["ANNEXATION"]),
+     "\\n\\nCores and war goals on Ovcha Kupel and Pancharevo.", ["ANNEXATION"]),
     ("regent_of_the_mountain", "Regent of the Mountain", 21, 11, [["a_crown_in_the_attic"]], 8, "duo:Generic_Divine_Right",
      "add_country_leader_trait = evil_sofia_regent\nadd_stability = 0.05",
      "Henry does not put on the crown. Not yet. He governs as regent, in the crown's name, until the mountain is whole.",
@@ -566,9 +566,9 @@ HAUT = [
      factory("arms_factory"),
      "The old estates in Knyazhevo get a foundry, and the foundry gets the best workers on the mountain.", ["INDUSTRY"]),
     ("march_into_the_valley", "March into the Valley", 27, 11, [["the_lowlands_below"]], 9, "duo:Generic_Invasion", NOWAR,
-     "{CLAIMS:LOZ,TRD}\n{WAR:LOZ,TRD}",
+     "{COREALL:VIT:LOZ,TRD}\n{WAR:LOZ,TRD}",
      "Below the lowlands lies the city itself. Lozenets and Triaditsa are the first streets of Sofia that climb toward the "
-     "mountain.\\n\\nClaims and war goals on Lozenets and Triaditsa.", ["ANNEXATION"]),
+     "mountain.\\n\\nCores and war goals on Lozenets and Triaditsa.", ["ANNEXATION"]),
     ("the_crowns_army", "The Crown's Army", 21, 12, [["regent_of_the_mountain"]], 10, "duo:Generic_Ultranationalist_Monarchy",
      "add_ideas = VIT_crowns_army", "Every soldier of Vitosha now swears to the crown in the attic, whoever wears it one day.",
      ["ARMY_XP"]),
@@ -592,9 +592,9 @@ HAUT = [
      "add_research_slot = 1\nadd_political_power = 50",
      "Painters, scholars and a court poet who rhymes everything with Vitosha. It is harder than it sounds.", ["RESEARCH"]),
     ("the_throne_expands", "The Mountain Throne Expands", 26, 14, [["tsardom_of_the_mountain"]], 10, "duo:Generic_Unchecked_Expansionism",
-     NOWAR, "{CLAIMS:BNK,KRP,VRB,LYU}\n{WAR:BNK,KRP,VRB,LYU}",
+     NOWAR, "{COREALL:VIT:BNK,KRP,VRB,LYU}\n{WAR:BNK,KRP,VRB,LYU}",
      "West of the mountain lie the old villages: Bankya with its springs, Vrabnitsa, Lyulin and Krasna Polyana. Zevka "
-     "said they were always the tsar's, whatever the maps say.\\n\\nClaims and war goals on Bankya, Krasna Polyana, "
+     "said they were always the tsar's, whatever the maps say.\\n\\nCores and war goals on Bankya, Krasna Polyana, "
      "Vrabnitsa and Lyulin.", ["ANNEXATION"]),
     ("bells_over_sofia", "Bells over Sofia", 24, 15, [["zevka_would_be_proud", "the_court_at_boyana", "the_throne_expands"]], 12,
      "duo:Generic_Religious_Unity", "", "add_ideas = VIT_bells_over_sofia",
@@ -640,8 +640,8 @@ YCOM = [
      "add_political_power = 75\nadd_war_support = 0.05",
      "One newspaper, one opinion, printed on the press from the garage in Simeonovo.", ["POLITICAL", "WAR_SUPPORT"]),
     ("the_thracian_dream", "The Thracian Dream", 32, 10, [["the_villas_to_the_people"]], 8, "duo:Generic_Red_Liberation", NOWAR,
-     "{CLAIMS:PNC}\n{WAR:PNC}",
-     "Plovdiv is the heart of Thrace, and the road to Thrace runs south-east past the lake at Pancharevo.\\n\\nClaims and "
+     "{COREALL:VIT:PNC}\n{WAR:PNC}",
+     "Plovdiv is the heart of Thrace, and the road to Thrace runs south-east past the lake at Pancharevo.\\n\\nCores and "
      "war goals on Pancharevo.", ["ANNEXATION"]),
     ("the_five_year_plan", "The Mountain Five-Year Plan", 34, 10, [["the_villas_to_the_people"]], 12, "duo:Generic_State_Socialism",
      factory("arms_factory", 2),
@@ -657,8 +657,8 @@ YCOM = [
      "Every worker in Sofia has a friend on the mountain now.\\n\\nCreates the faction The Red Mountain and invites every "
      "district outside an alliance; communist ones are likelier to say yes.", ["POLITICAL"]),
     ("the_road_to_plovdiv", "The Road to Plovdiv", 32, 11, [["the_thracian_dream"]], 9, "duo:Generic_Train", NOWAR,
-     "{CLAIMS:ISK}\n{WAR:ISK}",
-     "The old road to Plovdiv leaves Sofia through Iskar. Whoever holds it holds the way home.\\n\\nClaims and war goals on "
+     "{COREALL:VIT:ISK}\n{WAR:ISK}",
+     "The old road to Plovdiv leaves Sofia through Iskar. Whoever holds it holds the way home.\\n\\nCores and war goals on "
      "Iskar.", ["ANNEXATION"]),
     ("tractors_for_the_slopes", "Tractors for the Slopes", 34, 11, [["the_five_year_plan"]], 8, "duo:focus_generic_self_management",
      factory("industrial_complex", 2),
@@ -677,9 +677,9 @@ YCOM = [
      "tobacco warehouses.\\n\\nNeeds Vitosha, Pancharevo and Iskar held. Vitosha becomes the Thracian Commune and cores "
      "the land it holds.", ["POLITICAL", "ANNEXATION"]),
     ("all_roads_lead_to_plovdiv", "All Roads Lead to Plovdiv", 32, 13, [["thracian_commune"]], 10, "duo:Generic_Internationalism",
-     NOWAR, "{CLAIMS:KRE,NIS,SLA,IZG}\n{WAR:KRE,NIS,SLA,IZG}",
+     NOWAR, "{COREALL:VIT:KRE,NIS,SLA,IZG}\n{WAR:KRE,NIS,SLA,IZG}",
      "Rome had its roads. Plovdiv had them first, and the road home runs east, through the steelworks and the "
-     "workers' districts of Kremikovtsi, Novi Iskar, Slatina and Izgrev.\\n\\nClaims and war goals on those four.",
+     "workers' districts of Kremikovtsi, Novi Iskar, Slatina and Izgrev.\\n\\nCores and war goals on those four.",
      ["ANNEXATION"]),
     ("the_red_hill", "The Red Hill", 34, 13, [["thracian_commune"]], 10, "duo:Generic_Red_Atomic", "", "add_ideas = VIT_red_hill",
      "Yani renames the mountain's highest hut after the tobacco strike of his childhood. The workers climb up to see it "
@@ -743,9 +743,9 @@ HILL_PRE = {"nebet_tepe": [["seven_hills_seven_districts"]], "dzhambaz_tepe": [[
 HILL_ICONS = ["duo:Generic_Pawns", "duo:Generic_Invasion2", "duo:Generic_Conquistador", "duo:Generic_Molotov_Cocktail",
               "duo:Generic_Helmet_Knife", "duo:Generic_Urban_Warfare", "duo:Generic_Sniper_Assassin"]
 for (hid, hname, htag, hdistrict, hx, hy), hicon in zip(HILLS, HILL_ICONS):
-    YFAS.append((hid, f"{hname}: {hdistrict}", hx, hy, HILL_PRE[hid], 7, hicon, NOWAR, "{CLAIMS:%s}\n{WAR:%s}" % (htag, htag),
+    YFAS.append((hid, f"{hname}: {hdistrict}", hx, hy, HILL_PRE[hid], 7, hicon, NOWAR, "{COREALL:VIT:%s}\n{WAR:%s}" % (htag, htag),
                  f"{hname} is one of the seven hills of Plovdiv. In Yani's new Philippopolis, its name goes to {hdistrict}.\\n\\n"
-                 f"Claims and war goals on {hdistrict}.", ["ANNEXATION"]))
+                 f"Cores and war goals on {hdistrict}.", ["ANNEXATION"]))
 YFAS += [
     ("the_eighth_hill", "The Eighth Hill", 53, 10, [["the_trimontium_guard"]], 10, "duo:Generic_Revanchism02", "", "add_ideas = VIT_eighth_hill",
      "Plovdiv has seven hills. Philippopolis has eight: the eighth is Vitosha, and it is the tallest.", ["ARMY_XP", "STABILITY"]),
@@ -768,9 +768,9 @@ YFAS += [
      "Studentski, Krasno Selo, Mladost). Vitosha becomes New Philippopolis and cores the land it holds.",
      ["POLITICAL", "ANNEXATION"]),
     ("philippopolis_rules_sofia", "Philippopolis Rules Sofia", 55, 14, [["new_philippopolis"]], 10, "duo:Generic_Checkmate", NOWAR,
-     "{CLAIMS:SRD,OBR,VAZ,SRK}\n{WAR:SRD,OBR,VAZ,SRK}",
+     "{COREALL:VIT:SRD,OBR,VAZ,SRK}\n{WAR:SRD,OBR,VAZ,SRK}",
      "Sofia was a Thracian town, Serdica, long before it was anything else. Its old heart belongs to the Thracians' "
-     "heirs.\\n\\nClaims and war goals on the old centre: Sredets, Oborishte, Vazrazhdane and Serdika.", ["ANNEXATION"]),
+     "heirs.\\n\\nCores and war goals on the old centre: Sredets, Oborishte, Vazrazhdane and Serdika.", ["ANNEXATION"]),
     ("the_sun_of_vergina", "The Sun of Vergina", 59, 14, [["new_philippopolis"]], 12, "duo:Generic_Cult_of_the_Supreme_Being", "",
      "add_ideas = VIT_sun_of_vergina",
      "The golden sun of Philip's tomb flies over the mountain, and Yani has it embroidered on every black shirt.",
