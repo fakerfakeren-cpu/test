@@ -380,12 +380,12 @@ country_event = {
 			recruit_character = VIT_yani
 			add_country_leader_role = {
 				character = VIT_yani
-				country_leader = { desc = "VIT_yani_desc" ideology = leninism expire = "1965.1.1.1" traits = { evil_sofia_plovdiv_born } }
+				country_leader = { desc = "VIT_yani_desc" ideology = leninism expire = "1965.1.1.1" traits = { evil_sofia_plovdiv_born evil_sofia_racing_driver } }
 				promote_leader = yes
 			}
 			add_country_leader_role = {
 				character = VIT_yani
-				country_leader = { desc = "VIT_yani_desc" ideology = fascism_ideology expire = "1965.1.1.1" traits = { evil_sofia_plovdiv_born } }
+				country_leader = { desc = "VIT_yani_desc" ideology = fascism_ideology expire = "1965.1.1.1" traits = { evil_sofia_plovdiv_born evil_sofia_racing_driver } }
 			}
 			set_politics = { ruling_party = communism elections_allowed = no }
 			set_popularities = { communism = 40 fascism = 40 democratic = 10 neutrality = 10 }
@@ -481,11 +481,11 @@ country_event = {
 			recruit_character = VIT_yani
 			add_country_leader_role = {
 				character = VIT_yani
-				country_leader = { desc = "VIT_yani_desc" ideology = leninism expire = "1965.1.1.1" traits = { evil_sofia_plovdiv_born } }
+				country_leader = { desc = "VIT_yani_desc" ideology = leninism expire = "1965.1.1.1" traits = { evil_sofia_plovdiv_born evil_sofia_racing_driver } }
 			}
 			add_country_leader_role = {
 				character = VIT_yani
-				country_leader = { desc = "VIT_yani_desc" ideology = fascism_ideology expire = "1965.1.1.1" traits = { evil_sofia_plovdiv_born } }
+				country_leader = { desc = "VIT_yani_desc" ideology = fascism_ideology expire = "1965.1.1.1" traits = { evil_sofia_plovdiv_born evil_sofia_racing_driver } }
 			}
 			set_popularities = { democratic = 40 neutrality = 40 communism = 10 fascism = 10 }
 			random_list = {

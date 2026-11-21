@@ -73,7 +73,7 @@ BRIEFS = {
     "evil_sofia_flavour_9": "Hikers planting a flag on a snowy mountain summit.",
     "evil_sofia_vit_news_1": "Civil war on a forested mountain: two groups of riflemen firing across a wooded slope, villas on the hill behind, smoke rising from a village below.",
     "evil_sofia_vit_news_2": "A young man in a tweed jacket on the steps of a hillside villa, guardsmen saluting, his mother at the door; the city spread out below.",
-    "evil_sofia_vit_news_3": "A young student leader in a cap standing on a balcony of a captured villa, a crowd of students and workers with rifles cheering below.",
+    "evil_sofia_vit_news_3": "A young leader in a cap standing on a balcony of a captured villa, a crowd of mechanics and workers with rifles cheering below.",
     "evil_sofia_vit_news_4": "A small parliament in an old church hall, men in suits applauding a speaker; a mountain visible through tall windows.",
     "evil_sofia_vit_news_5": "A coronation inside a small medieval church with old frescoes, a priest placing a crown on a young man's head, candles everywhere.",
     "evil_sofia_vit_news_6": "Workers with red banners and pitchforks marching down a mountain road toward a plain, tobacco warehouses in the distance.",
