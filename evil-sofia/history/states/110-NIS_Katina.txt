@@ -1,0 +1,20 @@
+state = {
+	id = 110
+	name = "EVIL_SOFIA_STATE_110"
+	manpower = 321000
+	state_category = pastoral
+
+	history = {
+		owner = NIS
+		add_core_of = NIS
+		victory_points = { 350 3 }
+		victory_points = { 357 1 }
+		buildings = {
+			infrastructure = 3
+		}
+	}
+
+	provinces = {
+		350 349 357 382
+	}
+}

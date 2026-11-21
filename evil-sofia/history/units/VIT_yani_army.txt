@@ -1,0 +1,30 @@
+units = {
+	division = {
+		name = "1st Plovdiv Volunteers"
+		location = 273
+		division_template = "City Guard"
+		start_experience_factor = 0.3
+		start_equipment_factor = 1.0
+	}
+	division = {
+		name = "2nd Plovdiv Volunteers"
+		location = 274
+		division_template = "City Guard"
+		start_experience_factor = 0.3
+		start_equipment_factor = 1.0
+	}
+	division = {
+		name = "3rd Plovdiv Volunteers"
+		location = 275
+		division_template = "City Guard"
+		start_experience_factor = 0.3
+		start_equipment_factor = 1.0
+	}
+	division = {
+		name = "4th Plovdiv Volunteers"
+		location = 304
+		division_template = "City Guard"
+		start_experience_factor = 0.3
+		start_equipment_factor = 1.0
+	}
+}

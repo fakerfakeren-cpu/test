@@ -1,0 +1,19 @@
+state = {
+	id = 115
+	name = "EVIL_SOFIA_STATE_115"
+	manpower = 392000
+	state_category = pastoral
+
+	history = {
+		owner = PNC
+		add_core_of = PNC
+		victory_points = { 425 3 }
+		buildings = {
+			infrastructure = 3
+		}
+	}
+
+	provinces = {
+		425 427 429 430 431 432 433 434
+	}
+}

@@ -1,0 +1,19 @@
+state = {
+	id = 90
+	name = "EVIL_SOFIA_STATE_90"
+	manpower = 393000
+	state_category = pastoral
+
+	history = {
+		owner = VIT
+		add_core_of = VIT
+		victory_points = { 292 3 }
+		buildings = {
+			infrastructure = 3
+		}
+	}
+
+	provinces = {
+		292 288 290
+	}
+}

@@ -30,6 +30,22 @@ modern objects in focus. Country events are 210x176 (nearly square), news events
 | `evil_sofia_srd_25.png` | 210x176 | The C Class Calls |  | wanted |
 | `evil_sofia_srd_26.png` | 210x176 | [From.GetLeader] Is Back |  | wanted |
 | `evil_sofia_srd_27.png` | 210x176 | [From.GetLeader] Has Grown Up |  | wanted |
+| `evil_sofia_vit_1.png` | 210x176 | An Invitation to the Evil Gang |  | wanted |
+| `evil_sofia_vit_2.png` | 210x176 | [From.GetLeader] Is In |  | wanted |
+| `evil_sofia_vit_3.png` | 210x176 | [From.GetLeader] Says No |  | wanted |
+| `evil_sofia_vit_4.png` | 210x176 | Vitosha Wants In |  | wanted |
+| `evil_sofia_vit_5.png` | 210x176 | Victor Says Yes |  | wanted |
+| `evil_sofia_vit_6.png` | 210x176 | Victor Says No |  | wanted |
+| `evil_sofia_vit_7.png` | 210x176 | The Mountain Entente |  | wanted |
+| `evil_sofia_vit_8.png` | 210x176 | [From.GetName] Joins the Entente |  | wanted |
+| `evil_sofia_vit_9.png` | 210x176 | [From.GetName] Declines |  | wanted |
+| `evil_sofia_vit_news_1.png` | 397x153 | Civil War on Vitosha |  | wanted |
+| `evil_sofia_vit_news_2.png` | 397x153 | Henry Holds the Mountain |  | wanted |
+| `evil_sofia_vit_news_3.png` | 397x153 | Yani Takes the Mountain |  | wanted |
+| `evil_sofia_vit_news_4.png` | 397x153 | The Commonwealth of the Mountain |  | wanted |
+| `evil_sofia_vit_news_5.png` | 397x153 | The Tsardom of the Mountain |  | wanted |
+| `evil_sofia_vit_news_6.png` | 397x153 | The Thracian Commune |  | wanted |
+| `evil_sofia_vit_news_7.png` | 397x153 | New Philippopolis |  | wanted |
 | `evil_sofia_news_1.png` | 397x153 | Red Flag over the Largo | Red banners over a large square in front of a monumental government building, crowds below. | done |
 | `evil_sofia_news_2.png` | 397x153 | Order in the Centre | Armed police at a checkpoint on a bridge, a tram waiting behind them. | done |
 | `evil_sofia_news_3.png` | 397x153 | The North-South Pact | Two men signing a document over a city map spread on a table. | done |

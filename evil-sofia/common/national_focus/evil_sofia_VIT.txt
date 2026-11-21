@@ -1,0 +1,2184 @@
+focus_tree = {
+	id = evil_sofia_VIT_focus
+	country = {
+		factor = 0
+		modifier = {
+			add = 20
+			tag = VIT
+		}
+	}
+	default = no
+	continuous_focus_position = { x = 50 y = 2400 }
+
+	focus = {
+		id = VIT_the_house_on_the_hill
+		icon = GFX_focus_VIT_the_house_on_the_hill
+		x = 12
+		y = 0
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_political_power = 50
+			army_experience = 10
+		}
+	}
+	focus = {
+		id = VIT_the_english_way
+		icon = GFX_focus_VIT_the_english_way
+		x = 3
+		y = 1
+		prerequisite = { focus = VIT_the_house_on_the_hill }
+		mutually_exclusive = { focus = VIT_zevkas_dream }
+		cost = 7
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_timed_idea = { idea = VIT_english_way_drift days = 240 }
+			add_stability = 0.03
+		}
+	}
+	focus = {
+		id = VIT_zevkas_dream
+		icon = GFX_focus_VIT_zevkas_dream
+		x = 7
+		y = 1
+		prerequisite = { focus = VIT_the_house_on_the_hill }
+		mutually_exclusive = { focus = VIT_the_english_way }
+		cost = 7
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_timed_idea = { idea = VIT_zevkas_drift days = 240 }
+			add_stability = 0.03
+		}
+	}
+	focus = {
+		id = VIT_the_boyana_garrison
+		icon = GFX_focus_VIT_the_boyana_garrison
+		x = 4
+		y = 2
+		prerequisite = { focus = VIT_the_english_way focus = VIT_zevkas_dream }
+		cost = 8
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			army_experience = 10
+		}
+	}
+	focus = {
+		id = VIT_mothers_savings
+		icon = GFX_focus_VIT_mothers_savings
+		x = 6
+		y = 2
+		prerequisite = { focus = VIT_the_english_way focus = VIT_zevkas_dream }
+		cost = 6
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_political_power = 50
+		}
+	}
+	focus = {
+		id = VIT_the_mountain_rangers
+		icon = GFX_focus_VIT_the_mountain_rangers
+		x = 4
+		y = 3
+		prerequisite = { focus = VIT_the_boyana_garrison }
+		cost = 9
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			army_experience = 10
+		}
+	}
+	focus = {
+		id = VIT_henrys_officers
+		icon = GFX_focus_VIT_henrys_officers
+		x = 6
+		y = 3
+		prerequisite = { focus = VIT_mothers_savings }
+		cost = 8
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_political_power = 25
+		}
+	}
+	focus = {
+		id = VIT_a_student_from_plovdiv
+		icon = GFX_focus_VIT_a_student_from_plovdiv
+		x = 18
+		y = 1
+		prerequisite = { focus = VIT_the_house_on_the_hill }
+		cost = 6
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_political_power = 25
+		}
+	}
+	focus = {
+		id = VIT_red_plovdiv_rises
+		icon = GFX_focus_VIT_red_plovdiv_rises
+		x = 16
+		y = 2
+		prerequisite = { focus = VIT_a_student_from_plovdiv }
+		mutually_exclusive = { focus = VIT_black_shirts_of_plovdiv }
+		cost = 7
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_timed_idea = { idea = VIT_red_plovdiv_drift days = 240 }
+		}
+	}
+	focus = {
+		id = VIT_black_shirts_of_plovdiv
+		icon = GFX_focus_VIT_black_shirts_of_plovdiv
+		x = 20
+		y = 2
+		prerequisite = { focus = VIT_a_student_from_plovdiv }
+		mutually_exclusive = { focus = VIT_red_plovdiv_rises }
+		cost = 7
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_timed_idea = { idea = VIT_black_shirts_drift days = 240 }
+		}
+	}
+	focus = {
+		id = VIT_cells_in_simeonovo
+		icon = GFX_focus_VIT_cells_in_simeonovo
+		x = 16
+		y = 3
+		prerequisite = { focus = VIT_red_plovdiv_rises focus = VIT_black_shirts_of_plovdiv }
+		cost = 8
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_political_power = 25
+		}
+	}
+	focus = {
+		id = VIT_students_from_plovdiv
+		icon = GFX_focus_VIT_students_from_plovdiv
+		x = 18
+		y = 3
+		prerequisite = { focus = VIT_red_plovdiv_rises focus = VIT_black_shirts_of_plovdiv }
+		cost = 7
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_political_power = 25
+		}
+	}
+	focus = {
+		id = VIT_arms_from_plovdiv
+		icon = GFX_focus_VIT_arms_from_plovdiv
+		x = 20
+		y = 3
+		prerequisite = { focus = VIT_red_plovdiv_rises focus = VIT_black_shirts_of_plovdiv }
+		cost = 6
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_political_power = 25
+		}
+	}
+	focus = {
+		id = VIT_the_mountain_splits
+		icon = GFX_focus_VIT_the_mountain_splits
+		x = 12
+		y = 4
+		prerequisite = { focus = VIT_the_english_way focus = VIT_zevkas_dream }
+		prerequisite = { focus = VIT_red_plovdiv_rises focus = VIT_black_shirts_of_plovdiv }
+		cost = 8
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			if = {
+				limit = { has_completed_focus = VIT_the_english_way has_completed_focus = VIT_red_plovdiv_rises }
+				set_popularities = { democratic = 45 communism = 45 neutrality = 10 fascism = 0 }
+			}
+			else_if = {
+				limit = { has_completed_focus = VIT_the_english_way has_completed_focus = VIT_black_shirts_of_plovdiv }
+				set_popularities = { democratic = 45 fascism = 45 neutrality = 10 communism = 0 }
+			}
+			else_if = {
+				limit = { has_completed_focus = VIT_zevkas_dream has_completed_focus = VIT_red_plovdiv_rises }
+				set_popularities = { neutrality = 45 communism = 45 democratic = 10 fascism = 0 }
+			}
+			else = { set_popularities = { neutrality = 45 fascism = 45 democratic = 10 communism = 0 } }
+			add_stability = -0.10
+			custom_effect_tooltip = VIT_the_mountain_splits_unlocks
+		}
+	}
+	focus = {
+		id = VIT_stand_with_henry
+		icon = GFX_focus_VIT_stand_with_henry
+		x = 10
+		y = 5
+		prerequisite = { focus = VIT_the_mountain_splits }
+		mutually_exclusive = { focus = VIT_march_with_yani }
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			if = {
+				limit = { has_completed_focus = VIT_the_english_way }
+				set_politics = { ruling_party = democratic elections_allowed = no }
+				add_country_leader_role = {
+					character = VIT_leader
+					country_leader = { ideology = conservatism expire = "1965.1.1.1" }
+					promote_leader = yes
+				}
+			}
+			recruit_character = VIT_yani
+			if = {
+				limit = { has_completed_focus = VIT_red_plovdiv_rises }
+				add_country_leader_role = {
+					character = VIT_yani
+					country_leader = { desc = "VIT_yani_desc" ideology = leninism expire = "1965.1.1.1" traits = { evil_sofia_plovdiv_born } }
+				}
+				start_civil_war = {
+					ideology = communism
+					size = 0.3
+					capital = 94
+					states = { 94 80 83 87 82 }
+				}
+			}
+			else = {
+				add_country_leader_role = {
+					character = VIT_yani
+					country_leader = { desc = "VIT_yani_desc" ideology = fascism_ideology expire = "1965.1.1.1" traits = { evil_sofia_plovdiv_born } }
+				}
+				start_civil_war = {
+					ideology = fascism
+					size = 0.3
+					capital = 94
+					states = { 94 80 83 87 82 }
+				}
+			}
+			add_ideas = VIT_mountain_in_flames_3
+			if = {
+				limit = { ROOT = { has_completed_focus = VIT_the_boyana_garrison } }
+				load_oob = "VIT_henry_army"
+			}
+			if = {
+				limit = { ROOT = { has_completed_focus = VIT_mothers_savings } }
+				add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 2500 }
+			}
+			if = {
+				limit = { ROOT = { has_completed_focus = VIT_the_mountain_rangers } }
+				add_ideas = VIT_mountain_rangers
+			}
+			if = {
+				limit = { ROOT = { has_completed_focus = VIT_henrys_officers } }
+				army_experience = 30
+				add_ideas = VIT_henrys_officers_idea
+			}
+			every_other_country = {
+				limit = { original_tag = VIT has_civil_war = yes }
+				add_timed_idea = { idea = VIT_mountain_in_flames_rebels days = 365 }
+				if = {
+					limit = { ROOT = { has_completed_focus = VIT_cells_in_simeonovo } }
+					load_oob = "VIT_yani_army"
+				}
+				if = {
+					limit = { ROOT = { has_completed_focus = VIT_students_from_plovdiv } }
+					add_manpower = 20000
+					add_ideas = VIT_plovdiv_students
+				}
+				if = {
+					limit = { ROOT = { has_completed_focus = VIT_arms_from_plovdiv } }
+					add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 2500 }
+				}
+			}
+			set_country_flag = VIT_henry_side
+			set_country_flag = VIT_war_started
+			news_event = { id = evil_sofia_vit_news.1 hours = 6 }
+			custom_effect_tooltip = VIT_stand_with_henry_unlocks
+		}
+	}
+	focus = {
+		id = VIT_march_with_yani
+		icon = GFX_focus_VIT_march_with_yani
+		x = 14
+		y = 5
+		prerequisite = { focus = VIT_the_mountain_splits }
+		mutually_exclusive = { focus = VIT_stand_with_henry }
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			recruit_character = VIT_yani
+			set_capital = { state = 94 }
+			if = {
+				limit = { has_completed_focus = VIT_red_plovdiv_rises }
+				set_politics = { ruling_party = communism elections_allowed = no }
+				add_country_leader_role = {
+					character = VIT_yani
+					country_leader = { desc = "VIT_yani_desc" ideology = leninism expire = "1965.1.1.1" traits = { evil_sofia_plovdiv_born } }
+					promote_leader = yes
+				}
+			}
+			else = {
+				set_politics = { ruling_party = fascism elections_allowed = no }
+				add_country_leader_role = {
+					character = VIT_yani
+					country_leader = { desc = "VIT_yani_desc" ideology = fascism_ideology expire = "1965.1.1.1" traits = { evil_sofia_plovdiv_born } }
+					promote_leader = yes
+				}
+			}
+			if = {
+				limit = { has_completed_focus = VIT_the_english_way }
+				add_country_leader_role = {
+					character = VIT_leader
+					country_leader = { ideology = conservatism expire = "1965.1.1.1" }
+				}
+				start_civil_war = {
+					ideology = democratic
+					size = 0.6
+					capital = 79
+					states = { 79 93 92 86 85 91 84 88 90 81 }
+				}
+			}
+			else = {
+				start_civil_war = {
+					ideology = neutrality
+					size = 0.6
+					capital = 79
+					states = { 79 93 92 86 85 91 84 88 90 81 }
+				}
+			}
+			add_ideas = VIT_mountain_in_flames_3
+			if = {
+				limit = { ROOT = { has_completed_focus = VIT_cells_in_simeonovo } }
+				load_oob = "VIT_yani_army"
+			}
+			if = {
+				limit = { ROOT = { has_completed_focus = VIT_students_from_plovdiv } }
+				add_manpower = 20000
+				add_ideas = VIT_plovdiv_students
+			}
+			if = {
+				limit = { ROOT = { has_completed_focus = VIT_arms_from_plovdiv } }
+				add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 2500 }
+			}
+			every_other_country = {
+				limit = { original_tag = VIT has_civil_war = yes }
+				add_timed_idea = { idea = VIT_mountain_in_flames_rebels days = 365 }
+				if = {
+					limit = { ROOT = { has_completed_focus = VIT_the_boyana_garrison } }
+					load_oob = "VIT_henry_army"
+				}
+				if = {
+					limit = { ROOT = { has_completed_focus = VIT_mothers_savings } }
+					add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 2500 }
+				}
+				if = {
+					limit = { ROOT = { has_completed_focus = VIT_the_mountain_rangers } }
+					add_ideas = VIT_mountain_rangers
+				}
+				if = {
+					limit = { ROOT = { has_completed_focus = VIT_henrys_officers } }
+					army_experience = 30
+					add_ideas = VIT_henrys_officers_idea
+				}
+			}
+			set_country_flag = VIT_yani_side
+			set_country_flag = VIT_war_started
+			news_event = { id = evil_sofia_vit_news.1 hours = 6 }
+			custom_effect_tooltip = VIT_march_with_yani_unlocks
+		}
+	}
+	focus = {
+		id = VIT_restore_the_chain_of_command
+		icon = GFX_focus_VIT_restore_the_chain_of_command
+		x = 10
+		y = 6
+		prerequisite = { focus = VIT_stand_with_henry focus = VIT_march_with_yani }
+		available = {
+			has_country_flag = VIT_war_started
+		}
+		cost = 7
+		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_STABILITY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			if = {
+				limit = { has_idea = VIT_mountain_in_flames_3 }
+				swap_ideas = { remove_idea = VIT_mountain_in_flames_3 add_idea = VIT_mountain_in_flames_2 }
+			}
+			else_if = {
+				limit = { has_idea = VIT_mountain_in_flames_2 }
+				swap_ideas = { remove_idea = VIT_mountain_in_flames_2 add_idea = VIT_mountain_in_flames_1 }
+			}
+			else_if = {
+				limit = { has_idea = VIT_mountain_in_flames_1 }
+				remove_ideas = VIT_mountain_in_flames_1
+			}
+			army_experience = 15
+		}
+	}
+	focus = {
+		id = VIT_requisition_the_workshops
+		icon = GFX_focus_VIT_requisition_the_workshops
+		x = 12
+		y = 6
+		prerequisite = { focus = VIT_stand_with_henry focus = VIT_march_with_yani }
+		available = {
+			has_country_flag = VIT_war_started
+		}
+		cost = 8
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			if = {
+				limit = { has_idea = VIT_mountain_in_flames_3 }
+				swap_ideas = { remove_idea = VIT_mountain_in_flames_3 add_idea = VIT_mountain_in_flames_2 }
+			}
+			else_if = {
+				limit = { has_idea = VIT_mountain_in_flames_2 }
+				swap_ideas = { remove_idea = VIT_mountain_in_flames_2 add_idea = VIT_mountain_in_flames_1 }
+			}
+			else_if = {
+				limit = { has_idea = VIT_mountain_in_flames_1 }
+				remove_ideas = VIT_mountain_in_flames_1
+			}
+		}
+	}
+	focus = {
+		id = VIT_martial_law_on_the_slopes
+		icon = GFX_focus_VIT_martial_law_on_the_slopes
+		x = 14
+		y = 6
+		prerequisite = { focus = VIT_stand_with_henry focus = VIT_march_with_yani }
+		available = {
+			has_country_flag = VIT_war_started
+		}
+		cost = 8
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			if = {
+				limit = { has_idea = VIT_mountain_in_flames_3 }
+				swap_ideas = { remove_idea = VIT_mountain_in_flames_3 add_idea = VIT_mountain_in_flames_2 }
+			}
+			else_if = {
+				limit = { has_idea = VIT_mountain_in_flames_2 }
+				swap_ideas = { remove_idea = VIT_mountain_in_flames_2 add_idea = VIT_mountain_in_flames_1 }
+			}
+			else_if = {
+				limit = { has_idea = VIT_mountain_in_flames_1 }
+				remove_ideas = VIT_mountain_in_flames_1
+			}
+			add_war_support = 0.05
+		}
+	}
+	focus = {
+		id = VIT_volunteers_from_the_city
+		icon = GFX_focus_VIT_volunteers_from_the_city
+		x = 11
+		y = 7
+		prerequisite = { focus = VIT_restore_the_chain_of_command }
+		prerequisite = { focus = VIT_martial_law_on_the_slopes }
+		cost = 6
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_manpower = 15000
+			add_war_support = 0.05
+		}
+	}
+	focus = {
+		id = VIT_the_mountain_artillery
+		icon = GFX_focus_VIT_the_mountain_artillery
+		x = 13
+		y = 7
+		prerequisite = { focus = VIT_requisition_the_workshops }
+		cost = 7
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1500 }
+			add_tech_bonus = { name = VIT_guns_on_the_ridges bonus = 1.0 uses = 1 category = artillery }
+		}
+	}
+	focus = {
+		id = VIT_the_mountain_is_ours
+		icon = GFX_focus_VIT_the_mountain_is_ours
+		x = 12
+		y = 8
+		prerequisite = { focus = VIT_volunteers_from_the_city }
+		prerequisite = { focus = VIT_the_mountain_artillery }
+		available = {
+			has_country_flag = VIT_war_started
+			has_civil_war = no
+		}
+		cost = 6
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			if = { limit = { has_idea = VIT_mountain_in_flames_1 } remove_ideas = VIT_mountain_in_flames_1 }
+			if = { limit = { has_idea = VIT_mountain_in_flames_2 } remove_ideas = VIT_mountain_in_flames_2 }
+			if = { limit = { has_idea = VIT_mountain_in_flames_3 } remove_ideas = VIT_mountain_in_flames_3 }
+			if = { limit = { 79 = { is_controlled_by = ROOT } } set_capital = { state = 79 } }
+			add_stability = 0.15
+			add_political_power = 100
+			set_country_flag = VIT_war_over
+			if = {
+				limit = { has_country_flag = VIT_henry_side }
+				news_event = { id = evil_sofia_vit_news.2 hours = 6 }
+			}
+			else = { news_event = { id = evil_sofia_vit_news.3 hours = 6 } }
+		}
+	}
+	focus = {
+		id = VIT_god_save_the_mountain
+		icon = GFX_focus_VIT_god_save_the_mountain
+		x = 3
+		y = 10
+		prerequisite = { focus = VIT_the_mountain_is_ours }
+		available = {
+			has_country_flag = VIT_henry_side
+			has_completed_focus = VIT_the_english_way
+		}
+		cost = 7
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = VIT_half_english
+			add_country_leader_trait = evil_sofia_half_english
+		}
+	}
+	focus = {
+		id = VIT_tea_at_five
+		icon = GFX_focus_VIT_tea_at_five
+		x = 1
+		y = 11
+		prerequisite = { focus = VIT_god_save_the_mountain }
+		cost = 5
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 50
+		}
+	}
+	focus = {
+		id = VIT_parliament_in_boyana
+		icon = GFX_focus_VIT_parliament_in_boyana
+		x = 3
+		y = 11
+		prerequisite = { focus = VIT_god_save_the_mountain }
+		cost = 9
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_political_power = 100
+			add_stability = 0.03
+		}
+	}
+	focus = {
+		id = VIT_the_home_guard
+		icon = GFX_focus_VIT_the_home_guard
+		x = 5
+		y = 11
+		prerequisite = { focus = VIT_god_save_the_mountain }
+		cost = 8
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = VIT_home_guard
+			add_manpower = 10000
+		}
+	}
+	focus = {
+		id = VIT_radio_vitosha_calling
+		icon = GFX_focus_VIT_radio_vitosha_calling
+		x = 0
+		y = 12
+		prerequisite = { focus = VIT_tea_at_five }
+		cost = 6
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			every_neighbor_country = { add_timed_idea = { idea = VIT_radio_vitosha days = 180 } }
+		}
+	}
+	focus = {
+		id = VIT_the_mountain_conference
+		icon = GFX_focus_VIT_the_mountain_conference
+		x = 2
+		y = 12
+		prerequisite = { focus = VIT_parliament_in_boyana }
+		available = {
+			is_in_faction = no
+		}
+		cost = 8
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			create_faction = EVIL_SOFIA_FACTION_MOUNTAIN_ENTENTE
+			add_political_power = 50
+		}
+	}
+	focus = {
+		id = VIT_fighters_over_vitosha
+		icon = GFX_focus_VIT_fighters_over_vitosha
+		x = 4
+		y = 12
+		prerequisite = { focus = VIT_parliament_in_boyana }
+		cost = 8
+		search_filters = { FOCUS_FILTER_AIR_XP FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			air_experience = 25
+			add_tech_bonus = { name = VIT_fighters bonus = 1.0 uses = 1 category = air_equipment }
+		}
+	}
+	focus = {
+		id = VIT_rule_the_reservoirs
+		icon = GFX_focus_VIT_rule_the_reservoirs
+		x = 6
+		y = 12
+		prerequisite = { focus = VIT_the_home_guard }
+		cost = 8
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_state_claim = 122
+			add_state_claim = 118
+			add_state_claim = 113
+			add_state_claim = 115
+			add_state_claim = 112
+			add_state_claim = 119
+			add_state_claim = 123
+			add_state_claim = 117
+			add_state_claim = 120
+			add_state_claim = 114
+			add_state_claim = 116
+			add_state_claim = 121
+			if = { limit = { country_exists = PNC NOT = { has_war_with = PNC is_in_faction_with = PNC } } create_wargoal = { type = annex_everything target = PNC } }
+		}
+	}
+	focus = {
+		id = VIT_guarantees_for_the_small
+		icon = GFX_focus_VIT_guarantees_for_the_small
+		x = 1
+		y = 13
+		prerequisite = { focus = VIT_radio_vitosha_calling }
+		prerequisite = { focus = VIT_the_mountain_conference }
+		cost = 6
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			every_neighbor_country = {
+				limit = { is_in_faction = no NOT = { has_war_with = ROOT } }
+				ROOT = { give_guarantee = PREV }
+			}
+		}
+	}
+	focus = {
+		id = VIT_invite_the_free_districts
+		icon = GFX_focus_VIT_invite_the_free_districts
+		x = 3
+		y = 13
+		prerequisite = { focus = VIT_the_mountain_conference }
+		cost = 7
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			every_country = {
+				limit = { NOT = { tag = ROOT } is_in_faction = no OR = { has_government = democratic is_neighbor_of = ROOT } }
+				country_event = { id = evil_sofia_vit.7 }
+			}
+		}
+	}
+	focus = {
+		id = VIT_lend_lease
+		icon = GFX_focus_VIT_lend_lease
+		x = 5
+		y = 13
+		prerequisite = { focus = VIT_fighters_over_vitosha }
+		prerequisite = { focus = VIT_rule_the_reservoirs }
+		cost = 6
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			every_other_country = {
+				limit = { is_in_faction_with = ROOT }
+				add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 500 }
+			}
+		}
+	}
+	focus = {
+		id = VIT_fight_on_the_slopes
+		icon = GFX_focus_VIT_fight_on_the_slopes
+		x = 2
+		y = 14
+		prerequisite = { focus = VIT_guarantees_for_the_small }
+		prerequisite = { focus = VIT_invite_the_free_districts }
+		cost = 9
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = VIT_fight_on_the_slopes
+		}
+	}
+	focus = {
+		id = VIT_dominion_status
+		icon = GFX_focus_VIT_dominion_status
+		x = 5
+		y = 14
+		prerequisite = { focus = VIT_lend_lease }
+		cost = 8
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_state_claim = 97
+			add_state_claim = 95
+			add_state_claim = 96
+			if = { limit = { country_exists = OVK NOT = { has_war_with = OVK is_in_faction_with = OVK } } create_wargoal = { type = annex_everything target = OVK } }
+		}
+	}
+	focus = {
+		id = VIT_commonwealth_of_the_mountain
+		icon = GFX_focus_VIT_commonwealth_of_the_mountain
+		x = 3
+		y = 15
+		prerequisite = { focus = VIT_fight_on_the_slopes }
+		prerequisite = { focus = VIT_dominion_status }
+		available = {
+			94 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			122 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			118 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			113 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			115 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			112 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			91 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			81 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			84 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			82 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			93 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			119 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			97 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			83 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			123 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			80 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			117 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			92 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			85 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			120 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			87 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			114 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			79 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			86 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			88 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			95 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			116 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			121 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			89 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			90 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			96 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			is_faction_leader = yes
+		}
+		cost = 12
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			every_state = {
+				limit = { OR = { state = 122 state = 118 state = 113 state = 115 state = 112 state = 119 state = 97 state = 123 state = 117 state = 120 state = 114 state = 95 state = 116 state = 121 state = 96 } is_controlled_by = VIT }
+				add_core_of = VIT
+			}
+			set_cosmetic_tag = VIT_COMMONWEALTH
+			swap_ideas = { remove_idea = VIT_half_english add_idea = VIT_commonwealth }
+			add_research_slot = 1
+			news_event = { id = evil_sofia_vit_news.4 hours = 6 }
+		}
+	}
+	focus = {
+		id = VIT_finest_hour
+		icon = GFX_focus_VIT_finest_hour
+		x = 2
+		y = 16
+		prerequisite = { focus = VIT_commonwealth_of_the_mountain }
+		cost = 10
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_STABILITY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = VIT_finest_hour
+		}
+	}
+	focus = {
+		id = VIT_the_sun_never_sets
+		icon = GFX_focus_VIT_the_sun_never_sets
+		x = 4
+		y = 16
+		prerequisite = { focus = VIT_commonwealth_of_the_mountain }
+		cost = 10
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			every_neighbor_country = {
+				limit = { NOT = { is_in_faction_with = ROOT has_government = democratic } }
+				ROOT = { create_wargoal = { type = annex_everything target = PREV } }
+			}
+		}
+	}
+	focus = {
+		id = VIT_what_zevka_wanted
+		icon = GFX_focus_VIT_what_zevka_wanted
+		x = 11
+		y = 10
+		prerequisite = { focus = VIT_the_mountain_is_ours }
+		available = {
+			has_country_flag = VIT_henry_side
+			has_completed_focus = VIT_zevkas_dream
+		}
+		cost = 7
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = VIT_grandmas_rules
+		}
+	}
+	focus = {
+		id = VIT_bells_of_boyana_church
+		icon = GFX_focus_VIT_bells_of_boyana_church
+		x = 9
+		y = 11
+		prerequisite = { focus = VIT_what_zevka_wanted }
+		cost = 6
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 50
+		}
+	}
+	focus = {
+		id = VIT_grandmas_table
+		icon = GFX_focus_VIT_grandmas_table
+		x = 11
+		y = 11
+		prerequisite = { focus = VIT_what_zevka_wanted }
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_political_power = 75
+		}
+	}
+	focus = {
+		id = VIT_the_mountain_militia
+		icon = GFX_focus_VIT_the_mountain_militia
+		x = 13
+		y = 11
+		prerequisite = { focus = VIT_what_zevka_wanted }
+		cost = 8
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_manpower = 15000
+			army_experience = 15
+		}
+	}
+	focus = {
+		id = VIT_monks_of_dragalevtsi
+		icon = GFX_focus_VIT_monks_of_dragalevtsi
+		x = 8
+		y = 12
+		prerequisite = { focus = VIT_bells_of_boyana_church }
+		cost = 7
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = VIT_monks_of_dragalevtsi
+		}
+	}
+	focus = {
+		id = VIT_land_for_the_villages
+		icon = GFX_focus_VIT_land_for_the_villages
+		x = 10
+		y = 12
+		prerequisite = { focus = VIT_grandmas_table }
+		cost = 8
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_political_power = 50
+			add_manpower = 5000
+			add_stability = 0.03
+		}
+	}
+	focus = {
+		id = VIT_the_old_officers
+		icon = GFX_focus_VIT_the_old_officers
+		x = 12
+		y = 12
+		prerequisite = { focus = VIT_the_mountain_militia }
+		cost = 8
+		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_tech_bonus = { name = VIT_old_officers bonus = 1.0 uses = 1 category = land_doctrine }
+			army_experience = 20
+		}
+	}
+	focus = {
+		id = VIT_bunkers_on_kopitoto
+		icon = GFX_focus_VIT_bunkers_on_kopitoto
+		x = 14
+		y = 12
+		prerequisite = { focus = VIT_the_mountain_militia }
+		cost = 8
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			capital_scope = { add_building_construction = { type = bunker level = 2 province = { all_provinces = yes limit_to_border = yes } instant_build = yes } }
+		}
+	}
+	focus = {
+		id = VIT_a_crown_in_the_attic
+		icon = GFX_focus_VIT_a_crown_in_the_attic
+		x = 9
+		y = 13
+		prerequisite = { focus = VIT_monks_of_dragalevtsi }
+		prerequisite = { focus = VIT_land_for_the_villages }
+		cost = 9
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_political_power = 100
+		}
+	}
+	focus = {
+		id = VIT_regent_of_the_mountain
+		icon = GFX_focus_VIT_regent_of_the_mountain
+		x = 9
+		y = 14
+		prerequisite = { focus = VIT_a_crown_in_the_attic }
+		cost = 8
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_country_leader_trait = evil_sofia_regent
+			add_stability = 0.05
+		}
+	}
+	focus = {
+		id = VIT_the_lowlands_below
+		icon = GFX_focus_VIT_the_lowlands_below
+		x = 13
+		y = 13
+		prerequisite = { focus = VIT_the_old_officers }
+		prerequisite = { focus = VIT_bunkers_on_kopitoto }
+		cost = 8
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_state_claim = 122
+			add_state_claim = 118
+			add_state_claim = 113
+			add_state_claim = 115
+			add_state_claim = 112
+			add_state_claim = 119
+			add_state_claim = 97
+			add_state_claim = 123
+			add_state_claim = 117
+			add_state_claim = 120
+			add_state_claim = 114
+			add_state_claim = 95
+			add_state_claim = 116
+			add_state_claim = 121
+			add_state_claim = 96
+			if = { limit = { country_exists = OVK NOT = { has_war_with = OVK is_in_faction_with = OVK } } create_wargoal = { type = annex_everything target = OVK } }
+			if = { limit = { country_exists = PNC NOT = { has_war_with = PNC is_in_faction_with = PNC } } create_wargoal = { type = annex_everything target = PNC } }
+		}
+	}
+	focus = {
+		id = VIT_the_tsars_army
+		icon = GFX_focus_VIT_the_tsars_army
+		x = 9
+		y = 15
+		prerequisite = { focus = VIT_regent_of_the_mountain }
+		cost = 10
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = VIT_crowns_army
+		}
+	}
+	focus = {
+		id = VIT_march_into_the_valley
+		icon = GFX_focus_VIT_march_into_the_valley
+		x = 13
+		y = 14
+		prerequisite = { focus = VIT_the_lowlands_below }
+		cost = 9
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_state_claim = 39
+			add_state_claim = 41
+			add_state_claim = 32
+			add_state_claim = 37
+			add_state_claim = 36
+			add_state_claim = 40
+			add_state_claim = 34
+			add_state_claim = 35
+			add_state_claim = 38
+			add_state_claim = 33
+			if = { limit = { country_exists = LOZ NOT = { has_war_with = LOZ is_in_faction_with = LOZ } } create_wargoal = { type = annex_everything target = LOZ } }
+			if = { limit = { country_exists = TRD NOT = { has_war_with = TRD is_in_faction_with = TRD } } create_wargoal = { type = annex_everything target = TRD } }
+		}
+	}
+	focus = {
+		id = VIT_tsardom_of_the_mountain
+		icon = GFX_focus_VIT_tsardom_of_the_mountain
+		x = 11
+		y = 16
+		prerequisite = { focus = VIT_the_tsars_army }
+		prerequisite = { focus = VIT_march_into_the_valley }
+		available = {
+			94 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			122 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			118 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			113 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			115 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			112 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			91 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			81 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			84 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			82 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			93 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			119 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			97 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			83 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			123 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			80 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			117 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			92 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			85 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			120 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			87 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			114 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			79 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			86 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			88 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			95 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			116 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			121 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			89 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			90 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			96 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+		}
+		cost = 12
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			every_state = {
+				limit = { OR = { state = 122 state = 118 state = 113 state = 115 state = 112 state = 119 state = 97 state = 123 state = 117 state = 120 state = 114 state = 95 state = 116 state = 121 state = 96 } is_controlled_by = VIT }
+				add_core_of = VIT
+			}
+			set_cosmetic_tag = VIT_TSARDOM
+			add_country_leader_trait = evil_sofia_tsar_of_the_mountain
+			swap_ideas = { remove_idea = VIT_grandmas_rules add_idea = VIT_zevka_proud }
+			add_research_slot = 1
+			news_event = { id = evil_sofia_vit_news.5 hours = 6 }
+		}
+	}
+	focus = {
+		id = VIT_zevka_would_be_proud
+		icon = GFX_focus_VIT_zevka_would_be_proud
+		x = 10
+		y = 17
+		prerequisite = { focus = VIT_tsardom_of_the_mountain }
+		cost = 8
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_stability = 0.10
+			add_political_power = 150
+		}
+	}
+	focus = {
+		id = VIT_the_throne_expands
+		icon = GFX_focus_VIT_the_throne_expands
+		x = 12
+		y = 17
+		prerequisite = { focus = VIT_tsardom_of_the_mountain }
+		cost = 10
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			every_neighbor_country = {
+				limit = { NOT = { is_in_faction_with = ROOT } }
+				ROOT = { create_wargoal = { type = annex_everything target = PREV } }
+			}
+		}
+	}
+	focus = {
+		id = VIT_comrade_yani
+		icon = GFX_focus_VIT_comrade_yani
+		x = 19
+		y = 10
+		prerequisite = { focus = VIT_the_mountain_is_ours }
+		available = {
+			has_country_flag = VIT_yani_side
+			has_completed_focus = VIT_red_plovdiv_rises
+		}
+		cost = 7
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = VIT_vitosha_soviet
+			add_political_power = 50
+		}
+	}
+	focus = {
+		id = VIT_the_tobacco_workers
+		icon = GFX_focus_VIT_the_tobacco_workers
+		x = 17
+		y = 11
+		prerequisite = { focus = VIT_comrade_yani }
+		cost = 8
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			capital_scope = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+		}
+	}
+	focus = {
+		id = VIT_the_red_mountain_guard
+		icon = GFX_focus_VIT_the_red_mountain_guard
+		x = 19
+		y = 11
+		prerequisite = { focus = VIT_comrade_yani }
+		cost = 8
+		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_MANPOWER }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			army_experience = 20
+			add_manpower = 15000
+		}
+	}
+	focus = {
+		id = VIT_lectures_in_kapana
+		icon = GFX_focus_VIT_lectures_in_kapana
+		x = 21
+		y = 11
+		prerequisite = { focus = VIT_comrade_yani }
+		cost = 9
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+	focus = {
+		id = VIT_the_orchards_of_orehite
+		icon = GFX_focus_VIT_the_orchards_of_orehite
+		x = 16
+		y = 12
+		prerequisite = { focus = VIT_the_tobacco_workers }
+		cost = 7
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 50
+		}
+	}
+	focus = {
+		id = VIT_the_plovdiv_fair
+		icon = GFX_focus_VIT_the_plovdiv_fair
+		x = 18
+		y = 12
+		prerequisite = { focus = VIT_the_tobacco_workers }
+		cost = 8
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			capital_scope = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+		}
+	}
+	focus = {
+		id = VIT_partisans_of_vitosha
+		icon = GFX_focus_VIT_partisans_of_vitosha
+		x = 20
+		y = 12
+		prerequisite = { focus = VIT_the_red_mountain_guard }
+		cost = 8
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = VIT_partisans
+		}
+	}
+	focus = {
+		id = VIT_comrades_in_the_city
+		icon = GFX_focus_VIT_comrades_in_the_city
+		x = 22
+		y = 12
+		prerequisite = { focus = VIT_lectures_in_kapana }
+		cost = 6
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			every_neighbor_country = { add_timed_idea = { idea = VIT_comrades_from_vitosha days = 180 } }
+		}
+	}
+	focus = {
+		id = VIT_the_thracian_dream
+		icon = GFX_focus_VIT_the_thracian_dream
+		x = 17
+		y = 13
+		prerequisite = { focus = VIT_the_orchards_of_orehite }
+		prerequisite = { focus = VIT_the_plovdiv_fair }
+		cost = 8
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_state_claim = 122
+			add_state_claim = 118
+			add_state_claim = 113
+			add_state_claim = 115
+			add_state_claim = 112
+			add_state_claim = 119
+			add_state_claim = 123
+			add_state_claim = 117
+			add_state_claim = 120
+			add_state_claim = 114
+			add_state_claim = 116
+			add_state_claim = 121
+			if = { limit = { country_exists = PNC NOT = { has_war_with = PNC is_in_faction_with = PNC } } create_wargoal = { type = annex_everything target = PNC } }
+		}
+	}
+	focus = {
+		id = VIT_the_red_army_of_the_mountain
+		icon = GFX_focus_VIT_the_red_army_of_the_mountain
+		x = 20
+		y = 13
+		prerequisite = { focus = VIT_partisans_of_vitosha }
+		cost = 10
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = VIT_red_army
+			army_experience = 20
+		}
+	}
+	focus = {
+		id = VIT_the_road_to_plovdiv
+		icon = GFX_focus_VIT_the_road_to_plovdiv
+		x = 18
+		y = 14
+		prerequisite = { focus = VIT_the_thracian_dream }
+		cost = 9
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_state_claim = 56
+			add_state_claim = 54
+			add_state_claim = 55
+			if = { limit = { country_exists = ISK NOT = { has_war_with = ISK is_in_faction_with = ISK } } create_wargoal = { type = annex_everything target = ISK } }
+		}
+	}
+	focus = {
+		id = VIT_five_year_plan_of_the_mountain
+		icon = GFX_focus_VIT_five_year_plan_of_the_mountain
+		x = 20
+		y = 14
+		prerequisite = { focus = VIT_the_red_army_of_the_mountain }
+		prerequisite = { focus = VIT_comrades_in_the_city }
+		cost = 12
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			capital_scope = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = arms_factory level = 2 instant_build = yes }
+			}
+		}
+	}
+	focus = {
+		id = VIT_thracian_commune
+		icon = GFX_focus_VIT_thracian_commune
+		x = 19
+		y = 15
+		prerequisite = { focus = VIT_the_road_to_plovdiv }
+		prerequisite = { focus = VIT_five_year_plan_of_the_mountain }
+		available = {
+			94 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			122 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			118 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			113 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			56 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			115 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			112 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			91 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			81 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			84 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			82 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			93 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			119 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			54 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			83 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			55 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			123 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			80 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			117 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			92 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			85 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			120 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			87 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			114 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			79 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			86 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			88 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			116 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			121 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			89 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			90 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+		}
+		cost = 12
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			every_state = {
+				limit = { OR = { state = 122 state = 118 state = 113 state = 56 state = 115 state = 112 state = 119 state = 54 state = 55 state = 123 state = 117 state = 120 state = 114 state = 116 state = 121 } is_controlled_by = VIT }
+				add_core_of = VIT
+			}
+			set_cosmetic_tag = VIT_THRACIA
+			swap_ideas = { remove_idea = VIT_vitosha_soviet add_idea = VIT_thracian_commune }
+			news_event = { id = evil_sofia_vit_news.6 hours = 6 }
+		}
+	}
+	focus = {
+		id = VIT_all_roads_lead_to_plovdiv
+		icon = GFX_focus_VIT_all_roads_lead_to_plovdiv
+		x = 18
+		y = 16
+		prerequisite = { focus = VIT_thracian_commune }
+		cost = 10
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			every_neighbor_country = {
+				limit = { NOT = { is_in_faction_with = ROOT has_government = communism } }
+				ROOT = { create_wargoal = { type = annex_everything target = PREV } }
+			}
+		}
+	}
+	focus = {
+		id = VIT_the_red_hill
+		icon = GFX_focus_VIT_the_red_hill
+		x = 20
+		y = 16
+		prerequisite = { focus = VIT_thracian_commune }
+		cost = 10
+		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_STABILITY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = VIT_red_hill
+		}
+	}
+	focus = {
+		id = VIT_yanis_march
+		icon = GFX_focus_VIT_yanis_march
+		x = 27
+		y = 10
+		prerequisite = { focus = VIT_the_mountain_is_ours }
+		available = {
+			has_country_flag = VIT_yani_side
+			has_completed_focus = VIT_black_shirts_of_plovdiv
+		}
+		cost = 7
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = VIT_black_shirts
+			add_war_support = 0.05
+		}
+	}
+	focus = {
+		id = VIT_the_legacy_of_philip
+		icon = GFX_focus_VIT_the_legacy_of_philip
+		x = 25
+		y = 11
+		prerequisite = { focus = VIT_yanis_march }
+		cost = 8
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = VIT_legacy_of_philip
+		}
+	}
+	focus = {
+		id = VIT_seven_hills_seven_districts
+		icon = GFX_focus_VIT_seven_hills_seven_districts
+		x = 27
+		y = 11
+		prerequisite = { focus = VIT_yanis_march }
+		cost = 6
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_political_power = 75
+		}
+	}
+	focus = {
+		id = VIT_torchlight_on_the_slopes
+		icon = GFX_focus_VIT_torchlight_on_the_slopes
+		x = 29
+		y = 11
+		prerequisite = { focus = VIT_yanis_march }
+		cost = 7
+		search_filters = { FOCUS_FILTER_WAR_SUPPORT FOCUS_FILTER_STABILITY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = VIT_torchlight
+		}
+	}
+	focus = {
+		id = VIT_nebet_tepe
+		icon = GFX_focus_VIT_nebet_tepe
+		x = 24
+		y = 12
+		prerequisite = { focus = VIT_seven_hills_seven_districts }
+		cost = 7
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_state_claim = 32
+			add_state_claim = 37
+			add_state_claim = 36
+			add_state_claim = 34
+			add_state_claim = 35
+			add_state_claim = 33
+			if = { limit = { country_exists = LOZ NOT = { has_war_with = LOZ is_in_faction_with = LOZ } } create_wargoal = { type = annex_everything target = LOZ } }
+		}
+	}
+	focus = {
+		id = VIT_dzhambaz_tepe
+		icon = GFX_focus_VIT_dzhambaz_tepe
+		x = 26
+		y = 12
+		prerequisite = { focus = VIT_seven_hills_seven_districts }
+		cost = 7
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_state_claim = 39
+			add_state_claim = 41
+			add_state_claim = 40
+			add_state_claim = 38
+			if = { limit = { country_exists = TRD NOT = { has_war_with = TRD is_in_faction_with = TRD } } create_wargoal = { type = annex_everything target = TRD } }
+		}
+	}
+	focus = {
+		id = VIT_taksim_tepe
+		icon = GFX_focus_VIT_taksim_tepe
+		x = 28
+		y = 12
+		prerequisite = { focus = VIT_seven_hills_seven_districts }
+		cost = 7
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_state_claim = 97
+			add_state_claim = 95
+			add_state_claim = 96
+			if = { limit = { country_exists = OVK NOT = { has_war_with = OVK is_in_faction_with = OVK } } create_wargoal = { type = annex_everything target = OVK } }
+		}
+	}
+	focus = {
+		id = VIT_sahat_tepe
+		icon = GFX_focus_VIT_sahat_tepe
+		x = 30
+		y = 12
+		prerequisite = { focus = VIT_seven_hills_seven_districts }
+		cost = 7
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_state_claim = 122
+			add_state_claim = 118
+			add_state_claim = 113
+			add_state_claim = 115
+			add_state_claim = 112
+			add_state_claim = 119
+			add_state_claim = 123
+			add_state_claim = 117
+			add_state_claim = 120
+			add_state_claim = 114
+			add_state_claim = 116
+			add_state_claim = 121
+			if = { limit = { country_exists = PNC NOT = { has_war_with = PNC is_in_faction_with = PNC } } create_wargoal = { type = annex_everything target = PNC } }
+		}
+	}
+	focus = {
+		id = VIT_bunardzhika
+		icon = GFX_focus_VIT_bunardzhika
+		x = 25
+		y = 13
+		prerequisite = { focus = VIT_nebet_tepe focus = VIT_dzhambaz_tepe }
+		cost = 7
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_state_claim = 60
+			add_state_claim = 61
+			if = { limit = { country_exists = STU NOT = { has_war_with = STU is_in_faction_with = STU } } create_wargoal = { type = annex_everything target = STU } }
+		}
+	}
+	focus = {
+		id = VIT_dzhendem_tepe
+		icon = GFX_focus_VIT_dzhendem_tepe
+		x = 27
+		y = 13
+		prerequisite = { focus = VIT_dzhambaz_tepe focus = VIT_taksim_tepe }
+		cost = 7
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_state_claim = 9
+			add_state_claim = 7
+			add_state_claim = 8
+			if = { limit = { country_exists = KRS NOT = { has_war_with = KRS is_in_faction_with = KRS } } create_wargoal = { type = annex_everything target = KRS } }
+		}
+	}
+	focus = {
+		id = VIT_markovo_tepe
+		icon = GFX_focus_VIT_markovo_tepe
+		x = 29
+		y = 13
+		prerequisite = { focus = VIT_taksim_tepe focus = VIT_sahat_tepe }
+		cost = 7
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_state_claim = 58
+			add_state_claim = 57
+			add_state_claim = 59
+			if = { limit = { country_exists = MLA NOT = { has_war_with = MLA is_in_faction_with = MLA } } create_wargoal = { type = annex_everything target = MLA } }
+		}
+	}
+	focus = {
+		id = VIT_the_trimontium_guard
+		icon = GFX_focus_VIT_the_trimontium_guard
+		x = 25
+		y = 14
+		prerequisite = { focus = VIT_bunardzhika }
+		cost = 9
+		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			army_experience = 25
+			add_tech_bonus = { name = VIT_trimontium bonus = 1.0 uses = 1 category = land_doctrine }
+		}
+	}
+	focus = {
+		id = VIT_new_philippopolis
+		icon = GFX_focus_VIT_new_philippopolis
+		x = 27
+		y = 14
+		prerequisite = { focus = VIT_bunardzhika focus = VIT_dzhendem_tepe focus = VIT_markovo_tepe }
+		available = {
+			94 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			39 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			122 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			118 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			41 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			113 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			115 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			112 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			91 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			32 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			81 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			84 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			82 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			93 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			9 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			119 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			7 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			97 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			83 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			37 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			123 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			36 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			80 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			117 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			40 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			92 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			85 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			8 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			58 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			120 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			34 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			87 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			35 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			114 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			79 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			57 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			86 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			60 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			59 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			88 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			61 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			95 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			38 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			116 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			121 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			89 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			33 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			90 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+			96 = { OR = { is_controlled_by = ROOT controller = { is_in_faction_with = ROOT } } }
+		}
+		cost = 12
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			every_state = {
+				limit = { OR = { state = 39 state = 122 state = 118 state = 41 state = 113 state = 115 state = 112 state = 32 state = 9 state = 119 state = 7 state = 97 state = 37 state = 123 state = 36 state = 117 state = 40 state = 8 state = 58 state = 120 state = 34 state = 35 state = 114 state = 57 state = 60 state = 59 state = 61 state = 95 state = 38 state = 116 state = 121 state = 33 state = 96 } is_controlled_by = VIT }
+				add_core_of = VIT
+			}
+			set_cosmetic_tag = VIT_PHILIPPOPOLIS
+			swap_ideas = { remove_idea = VIT_black_shirts add_idea = VIT_philippopolis }
+			add_research_slot = 1
+			news_event = { id = evil_sofia_vit_news.7 hours = 6 }
+		}
+	}
+	focus = {
+		id = VIT_the_eighth_hill
+		icon = GFX_focus_VIT_the_eighth_hill
+		x = 29
+		y = 14
+		prerequisite = { focus = VIT_markovo_tepe }
+		cost = 10
+		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_STABILITY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = VIT_eighth_hill
+		}
+	}
+	focus = {
+		id = VIT_philippopolis_rules_sofia
+		icon = GFX_focus_VIT_philippopolis_rules_sofia
+		x = 27
+		y = 15
+		prerequisite = { focus = VIT_new_philippopolis }
+		cost = 10
+		search_filters = { FOCUS_FILTER_ANNEXATION }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			every_neighbor_country = {
+				limit = { NOT = { is_in_faction_with = ROOT } }
+				ROOT = { create_wargoal = { type = annex_everything target = PREV } }
+			}
+		}
+	}
+	focus = {
+		id = VIT_the_group_chat_pings
+		icon = GFX_focus_VIT_the_group_chat_pings
+		x = 36
+		y = 0
+		available = {
+			has_country_flag = VIT_war_over
+		}
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_political_power = 50
+		}
+	}
+	focus = {
+		id = VIT_join_victors_gang
+		icon = GFX_focus_VIT_join_victors_gang
+		x = 35
+		y = 1
+		prerequisite = { focus = VIT_the_group_chat_pings }
+		mutually_exclusive = { focus = VIT_found_the_mountain_gang }
+		available = {
+			is_in_faction = no
+			SRD = { exists = yes is_faction_leader = yes has_completed_focus = SRD_call_the_evil_gang }
+		}
+		cost = 4
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			SRD = { country_event = { id = evil_sofia_vit.4 } }
+		}
+	}
+	focus = {
+		id = VIT_found_the_mountain_gang
+		icon = GFX_focus_VIT_found_the_mountain_gang
+		x = 37
+		y = 1
+		prerequisite = { focus = VIT_the_group_chat_pings }
+		mutually_exclusive = { focus = VIT_join_victors_gang }
+		available = {
+			is_in_faction = no
+			NOT = { SRD = { exists = yes is_faction_leader = yes has_completed_focus = SRD_call_the_evil_gang } }
+		}
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			create_faction = EVIL_SOFIA_FACTION_EVIL_GANG
+			add_political_power = 25
+		}
+	}
+	focus = {
+		id = VIT_vit_invite_SRD
+		icon = GFX_focus_VIT_vit_invite_SRD
+		x = 34
+		y = 2
+		prerequisite = { focus = VIT_found_the_mountain_gang }
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			if = {
+				limit = { country_exists = SRD NOT = { has_war_with = SRD is_in_faction_with = SRD } SRD = { is_in_faction = no } }
+				SRD = { country_event = { id = evil_sofia_vit.1 } }
+			}
+		}
+	}
+	focus = {
+		id = VIT_vit_invite_LOZ
+		icon = GFX_focus_VIT_vit_invite_LOZ
+		x = 36
+		y = 2
+		prerequisite = { focus = VIT_found_the_mountain_gang }
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			if = {
+				limit = { country_exists = LOZ NOT = { has_war_with = LOZ is_in_faction_with = LOZ } LOZ = { is_in_faction = no } }
+				LOZ = { country_event = { id = evil_sofia_vit.1 } }
+			}
+		}
+	}
+	focus = {
+		id = VIT_vit_invite_KRP
+		icon = GFX_focus_VIT_vit_invite_KRP
+		x = 38
+		y = 2
+		prerequisite = { focus = VIT_found_the_mountain_gang }
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			if = {
+				limit = { country_exists = KRP NOT = { has_war_with = KRP is_in_faction_with = KRP } KRP = { is_in_faction = no } }
+				KRP = { country_event = { id = evil_sofia_vit.1 } }
+			}
+		}
+	}
+	focus = {
+		id = VIT_vit_invite_MLA
+		icon = GFX_focus_VIT_vit_invite_MLA
+		x = 34
+		y = 3
+		prerequisite = { focus = VIT_vit_invite_SRD focus = VIT_vit_invite_LOZ }
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			if = {
+				limit = { country_exists = MLA NOT = { has_war_with = MLA is_in_faction_with = MLA } MLA = { is_in_faction = no } }
+				MLA = { country_event = { id = evil_sofia_vit.1 } }
+			}
+		}
+	}
+	focus = {
+		id = VIT_vit_invite_TRD
+		icon = GFX_focus_VIT_vit_invite_TRD
+		x = 36
+		y = 3
+		prerequisite = { focus = VIT_vit_invite_LOZ }
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			if = {
+				limit = { country_exists = TRD NOT = { has_war_with = TRD is_in_faction_with = TRD } TRD = { is_in_faction = no } }
+				TRD = { country_event = { id = evil_sofia_vit.1 } }
+			}
+		}
+	}
+	focus = {
+		id = VIT_vit_invite_OBR
+		icon = GFX_focus_VIT_vit_invite_OBR
+		x = 38
+		y = 3
+		prerequisite = { focus = VIT_vit_invite_KRP }
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			if = {
+				limit = { country_exists = OBR NOT = { has_war_with = OBR is_in_faction_with = OBR } OBR = { is_in_faction = no } }
+				OBR = { country_event = { id = evil_sofia_vit.1 } }
+			}
+		}
+	}
+	focus = {
+		id = VIT_vit_invite_LYU
+		icon = GFX_focus_VIT_vit_invite_LYU
+		x = 36
+		y = 4
+		prerequisite = { focus = VIT_vit_invite_MLA focus = VIT_vit_invite_TRD focus = VIT_vit_invite_OBR }
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			if = {
+				limit = { country_exists = LYU NOT = { has_war_with = LYU is_in_faction_with = LYU } LYU = { is_in_faction = no } }
+				LYU = { country_event = { id = evil_sofia_vit.1 } }
+			}
+		}
+	}
+	focus = {
+		id = VIT_the_gang_rules_the_mountain
+		icon = GFX_focus_VIT_the_gang_rules_the_mountain
+		x = 36
+		y = 5
+		prerequisite = { focus = VIT_vit_invite_LYU }
+		cost = 8
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_WAR_SUPPORT }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = SRD_evil_gang
+			every_other_country = {
+				limit = { is_in_faction_with = ROOT }
+				if = { limit = { NOT = { has_idea = SRD_evil_gang } } add_ideas = SRD_evil_gang }
+			}
+		}
+	}
+	focus = {
+		id = VIT_the_quarries_of_vitosha
+		icon = GFX_focus_VIT_the_quarries_of_vitosha
+		x = 45
+		y = 0
+		cost = 7
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			capital_scope = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+		}
+	}
+	focus = {
+		id = VIT_the_boyana_workshops
+		icon = GFX_focus_VIT_the_boyana_workshops
+		x = 43
+		y = 1
+		prerequisite = { focus = VIT_the_quarries_of_vitosha }
+		cost = 10
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			capital_scope = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = industrial_complex level = 1 instant_build = yes }
+			}
+		}
+	}
+	focus = {
+		id = VIT_the_arsenal_in_the_rock
+		icon = GFX_focus_VIT_the_arsenal_in_the_rock
+		x = 47
+		y = 1
+		prerequisite = { focus = VIT_the_quarries_of_vitosha }
+		cost = 10
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			capital_scope = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+		}
+	}
+	focus = {
+		id = VIT_the_road_to_aleko
+		icon = GFX_focus_VIT_the_road_to_aleko
+		x = 42
+		y = 2
+		prerequisite = { focus = VIT_the_boyana_workshops }
+		cost = 6
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			capital_scope = { add_building_construction = { type = infrastructure level = 1 instant_build = yes } }
+		}
+	}
+	focus = {
+		id = VIT_knyazhevo_springs
+		icon = GFX_focus_VIT_knyazhevo_springs
+		x = 44
+		y = 2
+		prerequisite = { focus = VIT_the_boyana_workshops }
+		cost = 7
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 50
+		}
+	}
+	focus = {
+		id = VIT_arms_from_the_quarries
+		icon = GFX_focus_VIT_arms_from_the_quarries
+		x = 46
+		y = 2
+		prerequisite = { focus = VIT_the_arsenal_in_the_rock }
+		cost = 10
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			capital_scope = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = { type = arms_factory level = 1 instant_build = yes }
+			}
+		}
+	}
+	focus = {
+		id = VIT_the_mountain_laboratory
+		icon = GFX_focus_VIT_the_mountain_laboratory
+		x = 48
+		y = 2
+		prerequisite = { focus = VIT_the_arsenal_in_the_rock }
+		cost = 10
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+	focus = {
+		id = VIT_factories_in_the_valley
+		icon = GFX_focus_VIT_factories_in_the_valley
+		x = 43
+		y = 3
+		prerequisite = { focus = VIT_the_road_to_aleko }
+		prerequisite = { focus = VIT_knyazhevo_springs }
+		cost = 12
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			capital_scope = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = industrial_complex level = 2 instant_build = yes }
+			}
+		}
+	}
+	focus = {
+		id = VIT_war_workshops_of_knyazhevo
+		icon = GFX_focus_VIT_war_workshops_of_knyazhevo
+		x = 47
+		y = 3
+		prerequisite = { focus = VIT_arms_from_the_quarries }
+		cost = 12
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			capital_scope = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = { type = arms_factory level = 2 instant_build = yes }
+			}
+		}
+	}
+	focus = {
+		id = VIT_the_industrial_mountain
+		icon = GFX_focus_VIT_the_industrial_mountain
+		x = 45
+		y = 4
+		prerequisite = { focus = VIT_factories_in_the_valley }
+		prerequisite = { focus = VIT_war_workshops_of_knyazhevo }
+		cost = 10
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = VIT_industrial_mountain
+		}
+	}
+	focus = {
+		id = VIT_the_mountain_army
+		icon = GFX_focus_VIT_the_mountain_army
+		x = 54
+		y = 0
+		cost = 6
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			army_experience = 25
+		}
+	}
+	focus = {
+		id = VIT_mountaineers_of_cherni_vrah
+		icon = GFX_focus_VIT_mountaineers_of_cherni_vrah
+		x = 51
+		y = 1
+		prerequisite = { focus = VIT_the_mountain_army }
+		cost = 7
+		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_tech_bonus = { name = VIT_mountaineers bonus = 1.0 uses = 1 category = land_doctrine }
+		}
+	}
+	focus = {
+		id = VIT_rifles_of_the_slopes
+		icon = GFX_focus_VIT_rifles_of_the_slopes
+		x = 54
+		y = 1
+		prerequisite = { focus = VIT_the_mountain_army }
+		cost = 6
+		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_tech_bonus = { name = VIT_rifles bonus = 1.0 uses = 1 category = infantry_weapons }
+			add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1500 }
+		}
+	}
+	focus = {
+		id = VIT_planes_over_the_peak
+		icon = GFX_focus_VIT_planes_over_the_peak
+		x = 57
+		y = 1
+		prerequisite = { focus = VIT_the_mountain_army }
+		cost = 7
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			air_experience = 25
+			capital_scope = { add_building_construction = { type = air_base level = 2 instant_build = yes } }
+		}
+	}
+	focus = {
+		id = VIT_artillery_on_the_ridges
+		icon = GFX_focus_VIT_artillery_on_the_ridges
+		x = 50
+		y = 2
+		prerequisite = { focus = VIT_mountaineers_of_cherni_vrah }
+		cost = 6
+		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_tech_bonus = { name = VIT_artillery bonus = 1.0 uses = 1 category = artillery }
+		}
+	}
+	focus = {
+		id = VIT_ski_troops
+		icon = GFX_focus_VIT_ski_troops
+		x = 52
+		y = 2
+		prerequisite = { focus = VIT_mountaineers_of_cherni_vrah }
+		cost = 7
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = VIT_ski_troops
+		}
+	}
+	focus = {
+		id = VIT_the_mountain_academy
+		icon = GFX_focus_VIT_the_mountain_academy
+		x = 55
+		y = 2
+		prerequisite = { focus = VIT_rifles_of_the_slopes }
+		cost = 8
+		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_tech_bonus = { name = VIT_academy bonus = 1.0 uses = 1 category = land_doctrine }
+			army_experience = 15
+		}
+	}
+	focus = {
+		id = VIT_fighters_over_the_slopes
+		icon = GFX_focus_VIT_fighters_over_the_slopes
+		x = 57
+		y = 2
+		prerequisite = { focus = VIT_planes_over_the_peak }
+		cost = 7
+		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_tech_bonus = { name = VIT_fighters_slopes bonus = 1.0 uses = 1 category = air_equipment }
+		}
+	}
+	focus = {
+		id = VIT_armoured_cars_on_the_mountain_road
+		icon = GFX_focus_VIT_armoured_cars_on_the_mountain_road
+		x = 51
+		y = 3
+		prerequisite = { focus = VIT_artillery_on_the_ridges }
+		prerequisite = { focus = VIT_ski_troops }
+		cost = 9
+		search_filters = { FOCUS_FILTER_ARMY_XP FOCUS_FILTER_RESEARCH }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_tech_bonus = { name = VIT_armour bonus = 1.0 uses = 1 category = armor }
+		}
+	}
+	focus = {
+		id = VIT_the_mountain_staff
+		icon = GFX_focus_VIT_the_mountain_staff
+		x = 54
+		y = 3
+		prerequisite = { focus = VIT_the_mountain_academy }
+		cost = 9
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = VIT_mountain_staff
+			army_experience = 20
+		}
+	}
+	focus = {
+		id = VIT_anti_air_on_kopitoto
+		icon = GFX_focus_VIT_anti_air_on_kopitoto
+		x = 57
+		y = 3
+		prerequisite = { focus = VIT_fighters_over_the_slopes }
+		cost = 7
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			capital_scope = {
+				add_building_construction = { type = anti_air_building level = 2 instant_build = yes }
+				add_building_construction = { type = radar_station level = 1 instant_build = yes }
+			}
+		}
+	}
+	focus = {
+		id = VIT_the_army_of_the_mountain
+		icon = GFX_focus_VIT_the_army_of_the_mountain
+		x = 54
+		y = 4
+		prerequisite = { focus = VIT_armoured_cars_on_the_mountain_road }
+		prerequisite = { focus = VIT_the_mountain_staff }
+		cost = 12
+		search_filters = { FOCUS_FILTER_ARMY_XP }
+		ai_will_do = { factor = 1 }
+		completion_reward = {
+			add_ideas = VIT_army_of_the_mountain
+		}
+	}
+}

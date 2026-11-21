@@ -1,0 +1,21 @@
+state = {
+	id = 114
+	name = "EVIL_SOFIA_STATE_114"
+	manpower = 443000
+	state_category = town
+
+	history = {
+		owner = PNC
+		add_core_of = PNC
+		victory_points = { 388 3 }
+		victory_points = { 387 1 }
+		victory_points = { 389 1 }
+		buildings = {
+			infrastructure = 3
+		}
+	}
+
+	provinces = {
+		388 387 389 435 436 437
+	}
+}

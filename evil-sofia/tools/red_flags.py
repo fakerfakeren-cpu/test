@@ -253,7 +253,71 @@ def directorate():
     return _finish(im)
 
 
+def _peaks(d, cx, base, w, h, fill, snow=None):
+    """Vitosha: a broad mountain with three summits, Cherni Vrah the highest."""
+    pts = [(cx - w / 2, base), (cx - w * 0.28, base - h * 0.62), (cx - w * 0.16, base - h * 0.50),
+           (cx, base - h), (cx + w * 0.14, base - h * 0.58), (cx + w * 0.26, base - h * 0.70), (cx + w / 2, base)]
+    d.polygon(pts, fill=fill)
+    if snow:
+        d.polygon([(cx - h * 0.18, base - h * 0.82), (cx, base - h), (cx + h * 0.18, base - h * 0.82),
+                   (cx + h * 0.06, base - h * 0.86), (cx - h * 0.05, base - h * 0.78)], fill=snow)
+
+
+def mountain(variant):
+    """The four Vitosha formables. commonwealth: a blue ensign, St George's cross in the canton and the white
+    mountain in the fly. tsardom: the white, green and red bands with the mountain and a gold crown. thracia: red,
+    the gold mountain under a gold star. philippopolis: black, seven gold hills under the sun of Vergina."""
+    navy, green = (24, 44, 110), (0, 132, 80)
+    if variant == "commonwealth":
+        im = Image.new("RGBA", (W, H), navy + (255,))
+        d = ImageDraw.Draw(im)
+        cw, ch = W * 0.42, H * 0.5
+        d.rectangle((0, 0, cw, ch), fill=WHITE)
+        t = ch * 0.2
+        d.rectangle((cw / 2 - t / 2, 0, cw / 2 + t / 2, ch), fill=RED)
+        d.rectangle((0, ch / 2 - t / 2, cw, ch / 2 + t / 2), fill=RED)
+        _peaks(d, W * 0.72, H * 0.82, W * 0.42, H * 0.46, WHITE)
+        return _finish(im)
+    if variant == "tsardom":
+        im = Image.new("RGBA", (W, H), WHITE + (255,))
+        d = ImageDraw.Draw(im)
+        d.rectangle((0, H / 3, W, H * 2 / 3), fill=green)
+        d.rectangle((0, H * 2 / 3, W, H), fill=RED)
+        cx = W * 0.5
+        _peaks(d, cx, H * 0.80, H * 0.80, H * 0.40, (40, 46, 40), WHITE)
+        cr, top = H * 0.17, H * 0.14
+        d.polygon([(cx - cr, top + cr * 0.9), (cx - cr, top + cr * 0.2), (cx - cr * 0.5, top + cr * 0.55), (cx, top),
+                   (cx + cr * 0.5, top + cr * 0.55), (cx + cr, top + cr * 0.2), (cx + cr, top + cr * 0.9)], fill=GOLD)
+        d.rectangle((cx - cr, top + cr * 0.9, cx + cr, top + cr * 1.15), fill=GOLD_DARK)
+        return _finish(im)
+    if variant == "thracia":
+        im = Image.new("RGBA", (W, H), RED + (255,))
+        d = ImageDraw.Draw(im)
+        _peaks(d, W * 0.5, H * 0.84, W * 0.56, H * 0.42, GOLD)
+        star(d, W * 0.5, H * 0.24, H * 0.13, GOLD)
+        d.rectangle((0, H * 0.88, W, H), fill=CRIMSON)
+        return _finish(im)
+    im = Image.new("RGBA", (W, H), (22, 20, 20, 255))            # philippopolis
+    d = ImageDraw.Draw(im)
+    cx, cy = W * 0.5, H * 0.36
+    for i in range(16):                                          # the sun of Vergina: sixteen rays
+        a = i * 2 * math.pi / 16 - math.pi / 2
+        r1, r2, half = H * 0.07, H * (0.26 if i % 2 == 0 else 0.20), math.pi / 40
+        d.polygon([(cx + r1 * math.cos(a - half * 2), cy + r1 * math.sin(a - half * 2)),
+                   (cx + r2 * math.cos(a), cy + r2 * math.sin(a)),
+                   (cx + r1 * math.cos(a + half * 2), cy + r1 * math.sin(a + half * 2))], fill=GOLD)
+    d.ellipse((cx - H * 0.08, cy - H * 0.08, cx + H * 0.08, cy + H * 0.08), fill=GOLD)
+    for i in range(7):                                           # the seven hills of Plovdiv
+        hx = W * (0.08 + i * 0.14)
+        hh = H * (0.16 + 0.05 * ((i * 3) % 4))
+        d.ellipse((hx - W * 0.09, H * 0.92 - hh, hx + W * 0.09, H * 0.92 + hh), fill=GOLD_DARK)
+    d.rectangle((0, H * 0.92, W, H), fill=GOLD_DARK)
+    return _finish(im)
+
+
 def make(root, recipe, arg=""):
+    if recipe == "mountain":
+        return mountain(arg)
     if recipe == "directorate":
         return directorate()
     if recipe == "free":

@@ -1,0 +1,20 @@
+state = {
+	id = 128
+	name = "EVIL_SOFIA_STATE_128"
+	manpower = 405000
+	state_category = city
+
+	history = {
+		owner = IAP
+		add_core_of = IAP
+		victory_points = { 490 10 }
+		buildings = {
+			infrastructure = 4
+			industrial_complex = 1
+		}
+	}
+
+	provinces = {
+		490
+	}
+}

@@ -1,0 +1,23 @@
+state = {
+	id = 98
+	name = "EVIL_SOFIA_STATE_98"
+	manpower = 3137000
+	state_category = town
+
+	history = {
+		owner = VRB
+		add_core_of = VRB
+		victory_points = { 328 10 }
+		victory_points = { 329 1 }
+		victory_points = { 330 1 }
+		victory_points = { 331 1 }
+		victory_points = { 332 1 }
+		buildings = {
+			infrastructure = 4
+		}
+	}
+
+	provinces = {
+		328 327 329 330 331 332
+	}
+}

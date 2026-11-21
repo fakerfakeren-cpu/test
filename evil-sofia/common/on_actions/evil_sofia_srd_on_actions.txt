@@ -26,6 +26,15 @@ on_actions = {
 			VAZ = { recruit_character = VAZ_advisor_1 recruit_character = VAZ_advisor_2 recruit_character = VAZ_advisor_3 recruit_character = VAZ_military_1 recruit_character = VAZ_military_2 recruit_character = VAZ_military_3 recruit_character = VAZ_military_4 recruit_character = VAZ_military_5 recruit_character = VAZ_military_6 }
 			VIT = { recruit_character = VIT_advisor_1 recruit_character = VIT_advisor_2 recruit_character = VIT_advisor_3 recruit_character = VIT_military_1 recruit_character = VIT_military_2 recruit_character = VIT_military_3 recruit_character = VIT_military_4 recruit_character = VIT_military_5 recruit_character = VIT_military_6 }
 			VRB = { recruit_character = VRB_advisor_1 recruit_character = VRB_advisor_2 recruit_character = VRB_advisor_3 recruit_character = VRB_military_1 recruit_character = VRB_military_2 recruit_character = VRB_military_3 recruit_character = VRB_military_4 recruit_character = VRB_military_5 recruit_character = VRB_military_6 }
+			if = {
+				limit = { NOT = { has_global_flag = evil_sofia_vitosha_army } }
+				set_global_flag = evil_sofia_vitosha_army
+				VIT = {
+					load_oob = "VIT_mountain_army"
+					add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 4000 }
+					army_experience = 25
+				}
+			}
 		}
 	}
 }

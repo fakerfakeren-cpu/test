@@ -123,10 +123,16 @@ def _idea_icon(background, piece):
 
 
 def build(root, facts, write, write_dds):
-    spec = importlib.util.spec_from_file_location("tree", os.path.join(root, "tools", "focus_sredets.py"))
-    tree = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(tree)
     sys.path.insert(0, os.path.join(root, "tools"))
+    trees = []
+    for fn in ("focus_sredets.py", "focus_vitosha.py"):     # Sredets first: the rest of this file uses it as `tree`
+        path_ = os.path.join(root, "tools", fn)
+        if os.path.exists(path_):
+            spec = importlib.util.spec_from_file_location(fn[:-3], path_)
+            mod = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(mod)
+            trees.append(mod)
+    tree = trees[0]
     import focus_icons
     import decisions_world
     tag = tree.TAG
@@ -188,72 +194,76 @@ def build(root, facts, write, write_dds):
     def indent(text, n):
         return "\n".join("\t" * n + ln if ln.strip() else ln for ln in text.split("\n"))
 
-    # ---------------------------------------------------------------- icons
     cache = os.path.join(root, "tools", "icons")
     os.makedirs(cache, exist_ok=True)
-    sprites, loc = [], ["l_english:"]
-    for fid, name, x, y, pre, mx, weeks, icon, avail, reward, desc in tree.FOCUSES:
-        kind, _, key = icon.partition(":")
-        sprite = f"GFX_focus_{tag}_{fid}"
-        if kind == "person":
-            ptag, frame, piece, rot, opts = tree.PERSON_ICONS[key]
-            portrait = os.path.join(root, "tools", "portraits", f"{ptag}.png")
-            if os.path.exists(portrait) and os.path.isdir(FRAMES):
-                pim = Image.open(portrait)
-                if pim.width > 400:
-                    pim = pim.resize((400, int(pim.height * 400 / pim.width)), Image.LANCZOS)
-                front = _piece(piece) if piece else None
-                if front is not None and rot:
-                    front = front.rotate(rot, expand=True, resample=Image.BICUBIC)
-                im = focus_icons.person_icon(Image.open(os.path.join(FRAMES, frame)), pim, front,
-                                             bust_width=1.1, head_room=0.04, **opts)
-                tex = f"gfx/interface/goals/evil_sofia/people/{tag}_{fid}.dds"
-            else:
-                kind, key = "duo", tree.PERSON_FALLBACK[key]
-        if kind == "photo":
-            src, frame, box, piece = tree.PHOTO_ICONS[key]
-            photo = os.path.join(root, "tools", "portraits", f"{src}.png")
-            if os.path.exists(photo) and os.path.isdir(FRAMES):
-                im = focus_icons.photo_icon(Image.open(os.path.join(FRAMES, frame)), Image.open(photo), box,
-                                            _piece(piece) if piece else None)
-                tex = f"gfx/interface/goals/evil_sofia/people/{tag}_{fid}.dds"
-            else:
-                kind, key = "duo", tree.PHOTO_FALLBACK[key]
-        if kind in ("duo", "custom"):
-            cached = os.path.join(cache, f"{kind}_{key}.png".replace(" ", "_"))
-            if os.path.exists(cached):
-                im = Image.open(cached).convert("RGBA")
-            else:
-                im = _pack_icon(key) if kind == "duo" else _custom(key)
-                im.save(cached)
-            tex = f"gfx/interface/goals/evil_sofia/{tag}_{fid}.dds"
-        write_dds(tex, np.asarray(im.convert("RGBA")))
-        sprites.append((sprite, tex))
-        loc += [f' {tag}_{fid}:0 "{L(name)}"', f' {tag}_{fid}_desc:0 "{L(desc)}"']
-    write("interface/evil_sofia_goals.gfx", "spriteTypes = {\n" + "".join(
-        f'\tspriteType = {{\n\t\tname = "{n}"\n\t\ttexturefile = "{t}"\n\t}}\n' for n, t in sprites) + "}\n")
-    write("interface/evil_sofia_goals_shine.gfx", "spriteTypes = {\n" + "\n".join(
-        SHINE.format(name=n, tex=t) for n, t in sprites) + "\n}\n")
+    loc = ["l_english:"]
+    for tree in trees:     # icons and the focus tree of every country that has one
+        tag = tree.TAG
+        sprites = []
+        # ---------------------------------------------------------------- icons
+        for fid, name, x, y, pre, mx, weeks, icon, avail, reward, desc in tree.FOCUSES:
+            kind, _, key = icon.partition(":")
+            sprite = f"GFX_focus_{tag}_{fid}"
+            if kind == "person":
+                ptag, frame, piece, rot, opts = tree.PERSON_ICONS[key]
+                portrait = os.path.join(root, "tools", "portraits", f"{ptag}.png")
+                if os.path.exists(portrait) and os.path.isdir(FRAMES):
+                    pim = Image.open(portrait)
+                    if pim.width > 400:
+                        pim = pim.resize((400, int(pim.height * 400 / pim.width)), Image.LANCZOS)
+                    front = _piece(piece) if piece else None
+                    if front is not None and rot:
+                        front = front.rotate(rot, expand=True, resample=Image.BICUBIC)
+                    im = focus_icons.person_icon(Image.open(os.path.join(FRAMES, frame)), pim, front,
+                                                 bust_width=1.1, head_room=0.04, **opts)
+                    tex = f"gfx/interface/goals/evil_sofia/people/{tag}_{fid}.dds"
+                else:
+                    kind, key = "duo", tree.PERSON_FALLBACK[key]
+            if kind == "photo":
+                src, frame, box, piece = tree.PHOTO_ICONS[key]
+                photo = os.path.join(root, "tools", "portraits", f"{src}.png")
+                if os.path.exists(photo) and os.path.isdir(FRAMES):
+                    im = focus_icons.photo_icon(Image.open(os.path.join(FRAMES, frame)), Image.open(photo), box,
+                                                _piece(piece) if piece else None)
+                    tex = f"gfx/interface/goals/evil_sofia/people/{tag}_{fid}.dds"
+                else:
+                    kind, key = "duo", tree.PHOTO_FALLBACK[key]
+            if kind in ("duo", "custom"):
+                cached = os.path.join(cache, f"{kind}_{key}.png".replace(" ", "_"))
+                if os.path.exists(cached):
+                    im = Image.open(cached).convert("RGBA")
+                else:
+                    im = _pack_icon(key) if kind == "duo" else _custom(key)
+                    im.save(cached)
+                tex = f"gfx/interface/goals/evil_sofia/{tag}_{fid}.dds"
+            write_dds(tex, np.asarray(im.convert("RGBA")))
+            sprites.append((sprite, tex))
+            loc += [f' {tag}_{fid}:0 "{L(name)}"', f' {tag}_{fid}_desc:0 "{L(desc)}"']
+        gfx_name = "evil_sofia_goals" if tag == "SRD" else f"evil_sofia_goals_{tag}"
+        write(f"interface/{gfx_name}.gfx", "spriteTypes = {\n" + "".join(
+            f'\tspriteType = {{\n\t\tname = "{n}"\n\t\ttexturefile = "{t}"\n\t}}\n' for n, t in sprites) + "}\n")
+        write(f"interface/{gfx_name}_shine.gfx", "spriteTypes = {\n" + "\n".join(
+            SHINE.format(name=n, tex=t) for n, t in sprites) + "\n}\n")
 
-    # ---------------------------------------------------------------- the focus tree
-    blocks = []
-    for fid, name, x, y, pre, mx, weeks, icon, avail, reward, desc in tree.FOCUSES:
-        parts = [f"\t\tid = {tag}_{fid}", f"\t\ticon = GFX_focus_{tag}_{fid}", f"\t\tx = {x}", f"\t\ty = {y}"]
-        for group in pre:
-            parts.append("\t\tprerequisite = { " + " ".join(f"focus = {tag}_{q}" for q in group) + " }")
-        if mx:
-            parts.append("\t\tmutually_exclusive = { " + " ".join(f"focus = {tag}_{q}" for q in mx) + " }")
-        if avail:
-            parts.append("\t\tavailable = {\n" + indent(filled(avail), 3) + "\n\t\t}")
-        if fid in getattr(tree, "UNLOCK_TOOLTIPS", {}):   # what a focus unlocks, shown with its effects
-            reward = reward + f"\ncustom_effect_tooltip = {tag}_{fid}_unlocks"
-            loc.append(f' {tag}_{fid}_unlocks:0 "{L(tree.UNLOCK_TOOLTIPS[fid])}"')
-        parts += [f"\t\tcost = {weeks}",
-                  "\t\tsearch_filters = { " + " ".join(f"FOCUS_FILTER_{f}" for f in tree.FILTERS[fid]) + " }",
-                  "\t\tai_will_do = { factor = 1 }",
-                  "\t\tcompletion_reward = {\n" + indent(filled(reward), 3) + "\n\t\t}"]
-        blocks.append("\tfocus = {\n" + "\n".join(parts) + "\n\t}")
-    write(f"common/national_focus/evil_sofia_{tag}.txt", f"""focus_tree = {{
+        # ---------------------------------------------------------------- the focus tree
+        blocks = []
+        for fid, name, x, y, pre, mx, weeks, icon, avail, reward, desc in tree.FOCUSES:
+            parts = [f"\t\tid = {tag}_{fid}", f"\t\ticon = GFX_focus_{tag}_{fid}", f"\t\tx = {x}", f"\t\ty = {y}"]
+            for group in pre:
+                parts.append("\t\tprerequisite = { " + " ".join(f"focus = {tag}_{q}" for q in group) + " }")
+            if mx:
+                parts.append("\t\tmutually_exclusive = { " + " ".join(f"focus = {tag}_{q}" for q in mx) + " }")
+            if avail:
+                parts.append("\t\tavailable = {\n" + indent(filled(avail), 3) + "\n\t\t}")
+            if fid in getattr(tree, "UNLOCK_TOOLTIPS", {}):   # what a focus unlocks, shown with its effects
+                reward = reward + f"\ncustom_effect_tooltip = {tag}_{fid}_unlocks"
+                loc.append(f' {tag}_{fid}_unlocks:0 "{L(tree.UNLOCK_TOOLTIPS[fid])}"')
+            parts += [f"\t\tcost = {weeks}",
+                      "\t\tsearch_filters = { " + " ".join(f"FOCUS_FILTER_{f}" for f in tree.FILTERS[fid]) + " }",
+                      "\t\tai_will_do = { factor = 1 }",
+                      "\t\tcompletion_reward = {\n" + indent(filled(reward), 3) + "\n\t\t}"]
+            blocks.append("\tfocus = {\n" + "\n".join(parts) + "\n\t}")
+        write(f"common/national_focus/evil_sofia_{tag}.txt", f"""focus_tree = {{
 \tid = evil_sofia_{tag}_focus
 \tcountry = {{
 \t\tfactor = 0
@@ -269,6 +279,7 @@ def build(root, facts, write, write_dds):
 }}
 """)
 
+    tree, tag = trees[0], trees[0].TAG
     # ---------------------------------------------------------------- events, pictures, opinion, traits
     import event_pictures
     import events_world
@@ -334,6 +345,10 @@ def build(root, facts, write, write_dds):
         return "\n".join(out)
 
     write("events/evil_sofia_srd.txt", events("evil_sofia_srd", tree.EVENTS))
+    for tr in trees[1:]:
+        write(f"events/{tr.EVENT_NS}.txt", events(tr.EVENT_NS, tr.EVENTS))
+        if getattr(tr, "NEWS", None):
+            write(f"events/{tr.EVENT_NS}_news.txt", events(f"{tr.EVENT_NS}_news", tr.NEWS, "news", major=True))
     write("events/evil_sofia_news.txt", events("evil_sofia_news", events_world.NEWS, "news", major=True))
     write("events/evil_sofia_flavour.txt", events("evil_sofia_flavour", events_world.FLAVOUR, mtth=True))
     briefs = importlib.util.spec_from_file_location("briefs", os.path.join(root, "tools", "picture_briefs.py"))
@@ -357,7 +372,9 @@ def build(root, facts, write, write_dds):
     loc += [' evil_sofia_dirty_communists:0 "Dirty communists!"', ' evil_sofia_day_ones:0 "Day ones"',
             ' evil_sofia_gang:0 "The Evil Gang"',
             ' evil_sofia_free_friends:0 "Friends of Freedom"', ' evil_sofia_mom_was_wrong:0 "Mom was wrong"']
-    all_traits = dict(tree.TRAITS)
+    all_traits = {}
+    for tr in trees:
+        all_traits.update(tr.TRAITS)
     all_traits.update({k: (n, d, mods) for k, (n, d, mods, slot) in texts.ADVISOR_TRAITS.items()})
     # default military advisors for every country (tools/military_advisors.py)
     import military_advisors as mil
@@ -379,7 +396,10 @@ def build(root, facts, write, write_dds):
     for k, (n, d, mods) in all_traits.items():
         loc += [f' {k}:0 "{L(n)}"', f' {k}_desc:0 "{L(d)}"']
     ideas, idea_sprites = [], []
-    for k, (n, d, mods, icon, *extra) in {**tree.IDEAS, **decisions_world.IDEAS}.items():
+    all_ideas = {}
+    for tr in trees:
+        all_ideas.update(tr.IDEAS)
+    for k, (n, d, mods, icon, *extra) in {**all_ideas, **decisions_world.IDEAS}.items():
         extra = ("\n" + indent(extra[0], 3)) if extra else ""
         ideas.append(f"\t\t{k} = {{\n\t\t\tpicture = {k}\n\t\t\tallowed = {{ always = no }}{extra}\n"
                      f"\t\t\tmodifier = {{\n{indent(mods, 4)}\n\t\t\t}}\n\t\t}}\n")
@@ -405,14 +425,21 @@ def build(root, facts, write, write_dds):
 \t\tstart_equipment_factor = 1.0
 \t}}""" for i in range(1, 5))
     write(f"history/units/{tag}_red_guards.txt", f"units = {{\n{divisions}\n}}\n")
-    for k, v in tree.FACTIONS.items():
-        loc.append(f' {k}:0 "{v}"')
+    for tr in trees:
+        for k, v in tr.FACTIONS.items():
+            loc.append(f' {k}:0 "{v}"')
+        for path_, text_ in (tr.extra_files(root, facts) if hasattr(tr, "extra_files") else {}).items():
+            write(path_, text_)
+        if hasattr(tr, "extra_build"):     # a tree's own characters, portraits and armies
+            tr.extra_build(root, facts, write, write_dds, loc, L)
     # decisions: the Sredets tree's own (the Oborishte Question, the Road to Power) and basic ones for everyone
     cat, cname, cdesc, cvis = tree.DECISIONS["category"]
     srd_cats = [(cat, cname, cdesc, f"tag = {tag}", cvis, [
         dict(id=did, name=dname, desc=ddesc, cost=cost, cooldown=cooldown, visible="", available=avail,
              effect=effect, ai="factor = 1", icon="generic_political_discourse")
         for did, dname, ddesc, cost, cooldown, avail, effect in tree.DECISIONS["decisions"]])]
+    for tr in trees[1:]:
+        srd_cats += list(getattr(tr, "DECISION_CATS", []))
 
     def decision_files(cats):
         cat_blocks, files = [], []
@@ -460,6 +487,9 @@ def build(root, facts, write, write_dds):
                          for t, cids in sorted(advisor_ids.items()))
     monthly = (f"\ton_monthly = {{\n\t\teffect = {{\n{indent(tree.ON_MONTHLY, 3)}\n\t\t}}\n\t}}\n"
                if tree.ON_MONTHLY else "")
+    for tr in trees[1:]:
+        if getattr(tr, "ON_STARTUP", ""):
+            recruit += "\n" + tr.ON_STARTUP
     write("common/on_actions/evil_sofia_srd_on_actions.txt",
           f"on_actions = {{\n\ton_startup = {{\n\t\teffect = {{\n{indent(recruit, 3)}\n\t\t}}\n\t}}\n{monthly}}}\n")
     # flags: hand-drawn communist flags (tools/red_flags.py), only for the countries that can go red
@@ -479,11 +509,14 @@ def build(root, facts, write, write_dds):
         nm = facts["countries"][t]
         loc += [f' {t}_communism:0 "{nm} Commune"', f' {t}_communism_DEF:0 "the {nm} Commune"']
     cosm = []
-    for ct, (nm, adj, colour, (recipe, arg)) in tree.COSMETIC.items():
+    all_cosmetic = {}
+    for tr in trees:
+        all_cosmetic.update(tr.COSMETIC)
+    for ct, (nm, adj, colour, (recipe, arg)) in all_cosmetic.items():
         save_flag(ct, red_flags.make(root, recipe, arg))
         r_, g_, b_ = colour
         cosm.append(f"{ct} = {{\n\tcolor = rgb {{ {r_} {g_} {b_} }}\n\tcolor_ui = rgb {{ {min(255, r_ + 40)} {min(255, g_ + 40)} {min(255, b_ + 40)} }}\n}}")
         loc += [f' {ct}:0 "{nm}"', f' {ct}_DEF:0 "{nm}"', f' {ct}_ADJ:0 "{adj}"']
     write("common/countries/cosmetic.txt", "\n".join(cosm) + "\n")
     write("localisation/english/replace/evil_sofia_focus_l_english.yml", "\n".join(loc) + "\n", bom=True)
-    return len(tree.FOCUSES)
+    return " + ".join(f"{len(tr.FOCUSES)} ({tr.TAG})" for tr in trees)

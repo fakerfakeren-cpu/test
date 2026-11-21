@@ -12,6 +12,31 @@ leader_traits = {
 		war_support_factor = 0.05
 		ai_will_do = { factor = 1 }
 	}
+	evil_sofia_half_english = {
+		random = no
+		stability_factor = 0.05
+		political_power_factor = 0.05
+		ai_will_do = { factor = 1 }
+	}
+	evil_sofia_regent = {
+		random = no
+		stability_factor = 0.05
+		political_power_factor = 0.10
+		ai_will_do = { factor = 1 }
+	}
+	evil_sofia_tsar_of_the_mountain = {
+		random = no
+		stability_factor = 0.10
+		political_power_factor = 0.10
+		army_org_factor = 0.05
+		ai_will_do = { factor = 1 }
+	}
+	evil_sofia_plovdiv_born = {
+		random = no
+		political_power_factor = 0.10
+		war_support_factor = 0.05
+		ai_will_do = { factor = 1 }
+	}
 	evil_sofia_market_boss = {
 		random = no
 		production_speed_industrial_complex_factor = 0.10

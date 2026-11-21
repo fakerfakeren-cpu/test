@@ -30,3 +30,19 @@ OBR_NORTH = {
 	color = rgb { 140 15 40 }
 	color_ui = rgb { 180 55 80 }
 }
+VIT_COMMONWEALTH = {
+	color = rgb { 40 90 160 }
+	color_ui = rgb { 80 130 200 }
+}
+VIT_TSARDOM = {
+	color = rgb { 60 120 70 }
+	color_ui = rgb { 100 160 110 }
+}
+VIT_THRACIA = {
+	color = rgb { 190 40 40 }
+	color_ui = rgb { 230 80 80 }
+}
+VIT_PHILIPPOPOLIS = {
+	color = rgb { 60 50 40 }
+	color_ui = rgb { 100 90 80 }
+}

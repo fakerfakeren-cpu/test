@@ -1,0 +1,162 @@
+add_namespace = evil_sofia_vit_news
+
+news_event = {
+	id = evil_sofia_vit_news.1
+	title = evil_sofia_vit_news.1.t
+	desc = evil_sofia_vit_news.1.d
+	picture = GFX_evil_sofia_evil_sofia_vit_news_1
+	major = yes
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_vit_news.1.a
+		ai_chance = { factor = 1 }
+		trigger = {
+			original_tag = VIT
+		}
+	}
+	option = {
+		name = evil_sofia_vit_news.1.b
+		ai_chance = { factor = 1 }
+		trigger = {
+			NOT = { original_tag = VIT }
+		}
+	}
+}
+
+news_event = {
+	id = evil_sofia_vit_news.2
+	title = evil_sofia_vit_news.2.t
+	desc = evil_sofia_vit_news.2.d
+	picture = GFX_evil_sofia_evil_sofia_vit_news_2
+	major = yes
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_vit_news.2.a
+		ai_chance = { factor = 1 }
+		trigger = {
+			tag = VIT
+		}
+	}
+	option = {
+		name = evil_sofia_vit_news.2.b
+		ai_chance = { factor = 1 }
+		trigger = {
+			NOT = { tag = VIT }
+		}
+	}
+}
+
+news_event = {
+	id = evil_sofia_vit_news.3
+	title = evil_sofia_vit_news.3.t
+	desc = evil_sofia_vit_news.3.d
+	picture = GFX_evil_sofia_evil_sofia_vit_news_3
+	major = yes
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_vit_news.3.a
+		ai_chance = { factor = 1 }
+		trigger = {
+			tag = VIT
+		}
+	}
+	option = {
+		name = evil_sofia_vit_news.3.b
+		ai_chance = { factor = 1 }
+		trigger = {
+			NOT = { tag = VIT }
+		}
+	}
+}
+
+news_event = {
+	id = evil_sofia_vit_news.4
+	title = evil_sofia_vit_news.4.t
+	desc = evil_sofia_vit_news.4.d
+	picture = GFX_evil_sofia_evil_sofia_vit_news_4
+	major = yes
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_vit_news.4.a
+		ai_chance = { factor = 1 }
+		trigger = {
+			tag = VIT
+		}
+	}
+	option = {
+		name = evil_sofia_vit_news.4.b
+		ai_chance = { factor = 1 }
+		trigger = {
+			NOT = { tag = VIT }
+		}
+	}
+}
+
+news_event = {
+	id = evil_sofia_vit_news.5
+	title = evil_sofia_vit_news.5.t
+	desc = evil_sofia_vit_news.5.d
+	picture = GFX_evil_sofia_evil_sofia_vit_news_5
+	major = yes
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_vit_news.5.a
+		ai_chance = { factor = 1 }
+		trigger = {
+			tag = VIT
+		}
+	}
+	option = {
+		name = evil_sofia_vit_news.5.b
+		ai_chance = { factor = 1 }
+		trigger = {
+			NOT = { tag = VIT }
+		}
+	}
+}
+
+news_event = {
+	id = evil_sofia_vit_news.6
+	title = evil_sofia_vit_news.6.t
+	desc = evil_sofia_vit_news.6.d
+	picture = GFX_evil_sofia_evil_sofia_vit_news_6
+	major = yes
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_vit_news.6.a
+		ai_chance = { factor = 1 }
+		trigger = {
+			tag = VIT
+		}
+	}
+	option = {
+		name = evil_sofia_vit_news.6.b
+		ai_chance = { factor = 1 }
+		trigger = {
+			NOT = { tag = VIT }
+		}
+	}
+}
+
+news_event = {
+	id = evil_sofia_vit_news.7
+	title = evil_sofia_vit_news.7.t
+	desc = evil_sofia_vit_news.7.d
+	picture = GFX_evil_sofia_evil_sofia_vit_news_7
+	major = yes
+	is_triggered_only = yes
+	option = {
+		name = evil_sofia_vit_news.7.a
+		ai_chance = { factor = 1 }
+		trigger = {
+			tag = VIT
+		}
+	}
+	option = {
+		name = evil_sofia_vit_news.7.b
+		ai_chance = { factor = 1 }
+		trigger = {
+			NOT = { tag = VIT }
+		}
+	}
+}

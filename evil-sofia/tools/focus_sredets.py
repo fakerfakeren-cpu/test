@@ -91,10 +91,14 @@ WIDER_CENTRE_CORES = ("every_state = {\n\tlimit = { OR = { " + " ".join(f"state 
 VITOSHA_FRIENDS = {"MLA": "Georgi Poryazov", "KRP": "Stefan Kartunov", "LOZ": "Georgi Yanchovichin",
                    "TRD": "Alexander Dimitrov"}
 VITOSHA_SHARES = [  # state of Vitosha: the friends in order of preference (border first, then distance)
-    ("Vitosha", ["TRD", "LOZ", "KRP", "MLA"]), ("Simeonovo", ["MLA", "LOZ", "TRD", "KRP"]),
-    ("Marchaevo", ["KRP", "TRD", "LOZ", "MLA"]), ("Dragalevtsi", ["LOZ", "TRD", "MLA", "KRP"]),
-    ("Zlatni Mostove", ["LOZ", "TRD", "MLA", "KRP"]), ("Knyazhevo", ["KRP", "TRD", "LOZ", "MLA"]),
-    ("Karpuzitsa", ["TRD", "KRP", "LOZ", "MLA"])]
+    ("Vitosha", ["TRD", "LOZ", "KRP", "MLA"]), ("Karpuzitsa", ["TRD", "KRP", "LOZ", "MLA"]),
+    ("Kopitoto", ["TRD", "LOZ", "KRP", "MLA"]), ("Vladaya", ["TRD", "LOZ", "KRP", "MLA"]),
+    ("Dragalevtsi", ["LOZ", "TRD", "MLA", "KRP"]), ("Dragalevtsi Lift", ["LOZ", "TRD", "MLA", "KRP"]),
+    ("Zlatni Mostove", ["LOZ", "TRD", "MLA", "KRP"]), ("Malinova Dolina Villas", ["MLA", "LOZ", "TRD", "KRP"]),
+    ("Simeonovo", ["MLA", "LOZ", "TRD", "KRP"]), ("Orehite", ["MLA", "LOZ", "TRD", "KRP"]),
+    ("Knyazhevo", ["KRP", "TRD", "LOZ", "MLA"]), ("Priplat Villas", ["KRP", "TRD", "LOZ", "MLA"]),
+    ("Vladaya Villas", ["KRP", "TRD", "LOZ", "MLA"]), ("Marchaevo", ["KRP", "TRD", "LOZ", "MLA"]),
+    ("Marchaevo Woods", ["KRP", "TRD", "LOZ", "MLA"]), ("Marchaevo Hills", ["KRP", "TRD", "LOZ", "MLA"])]
 
 
 def _award(name, order):

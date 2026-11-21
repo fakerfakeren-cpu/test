@@ -314,6 +314,302 @@ ideas = {
 				communism_drift = 0.08
 			}
 		}
+		VIT_english_way_drift = {
+			picture = VIT_english_way_drift
+			allowed = { always = no }
+			modifier = {
+				democratic_drift = 0.3
+			}
+		}
+		VIT_zevkas_drift = {
+			picture = VIT_zevkas_drift
+			allowed = { always = no }
+			modifier = {
+				neutrality_drift = 0.3
+			}
+		}
+		VIT_red_plovdiv_drift = {
+			picture = VIT_red_plovdiv_drift
+			allowed = { always = no }
+			modifier = {
+				communism_drift = 0.3
+			}
+		}
+		VIT_black_shirts_drift = {
+			picture = VIT_black_shirts_drift
+			allowed = { always = no }
+			modifier = {
+				fascism_drift = 0.3
+			}
+		}
+		VIT_mountain_in_flames_3 = {
+			picture = VIT_mountain_in_flames_3
+			allowed = { always = no }
+			modifier = {
+				stability_factor = -0.30
+				industrial_capacity_factory = -0.30
+				army_org_factor = -0.25
+				war_support_factor = -0.10
+				production_speed_buildings_factor = -0.30
+			}
+		}
+		VIT_mountain_in_flames_2 = {
+			picture = VIT_mountain_in_flames_2
+			allowed = { always = no }
+			modifier = {
+				stability_factor = -0.20
+				industrial_capacity_factory = -0.20
+				army_org_factor = -0.15
+				war_support_factor = -0.05
+				production_speed_buildings_factor = -0.20
+			}
+		}
+		VIT_mountain_in_flames_1 = {
+			picture = VIT_mountain_in_flames_1
+			allowed = { always = no }
+			modifier = {
+				stability_factor = -0.10
+				industrial_capacity_factory = -0.10
+				army_org_factor = -0.05
+				production_speed_buildings_factor = -0.10
+			}
+		}
+		VIT_mountain_in_flames_rebels = {
+			picture = VIT_mountain_in_flames_rebels
+			allowed = { always = no }
+			modifier = {
+				stability_factor = -0.20
+				industrial_capacity_factory = -0.20
+				army_org_factor = -0.15
+			}
+		}
+		VIT_mountain_rangers = {
+			picture = VIT_mountain_rangers
+			allowed = { always = no }
+			modifier = {
+				army_defence_factor = 0.10
+				attrition = -0.10
+			}
+		}
+		VIT_henrys_officers_idea = {
+			picture = VIT_henrys_officers_idea
+			allowed = { always = no }
+			modifier = {
+				army_org_factor = 0.10
+			}
+		}
+		VIT_plovdiv_students = {
+			picture = VIT_plovdiv_students
+			allowed = { always = no }
+			modifier = {
+				conscription_factor = 0.15
+			}
+		}
+		VIT_half_english = {
+			picture = VIT_half_english
+			allowed = { always = no }
+			modifier = {
+				stability_factor = 0.10
+				political_power_factor = 0.10
+			}
+		}
+		VIT_home_guard = {
+			picture = VIT_home_guard
+			allowed = { always = no }
+			modifier = {
+				army_defence_factor = 0.05
+				conscription = 0.01
+			}
+		}
+		VIT_radio_vitosha = {
+			picture = VIT_radio_vitosha
+			allowed = { always = no }
+			modifier = {
+				democratic_drift = 0.03
+			}
+		}
+		VIT_fight_on_the_slopes = {
+			picture = VIT_fight_on_the_slopes
+			allowed = { always = no }
+			modifier = {
+				army_defence_factor = 0.10
+				war_support_factor = 0.10
+			}
+		}
+		VIT_commonwealth = {
+			picture = VIT_commonwealth
+			allowed = { always = no }
+			modifier = {
+				stability_factor = 0.15
+				political_power_factor = 0.15
+				research_speed_factor = 0.03
+			}
+		}
+		VIT_finest_hour = {
+			picture = VIT_finest_hour
+			allowed = { always = no }
+			modifier = {
+				stability_factor = 0.10
+				war_support_factor = 0.10
+				army_defence_factor = 0.10
+				army_attack_factor = 0.05
+			}
+		}
+		VIT_grandmas_rules = {
+			picture = VIT_grandmas_rules
+			allowed = { always = no }
+			modifier = {
+				stability_factor = 0.10
+				political_power_factor = 0.05
+			}
+		}
+		VIT_monks_of_dragalevtsi = {
+			picture = VIT_monks_of_dragalevtsi
+			allowed = { always = no }
+			modifier = {
+				stability_factor = 0.05
+				war_support_factor = 0.05
+			}
+		}
+		VIT_crowns_army = {
+			picture = VIT_crowns_army
+			allowed = { always = no }
+			modifier = {
+				army_attack_factor = 0.05
+				army_defence_factor = 0.05
+				army_org_factor = 0.05
+			}
+		}
+		VIT_zevka_proud = {
+			picture = VIT_zevka_proud
+			allowed = { always = no }
+			modifier = {
+				stability_factor = 0.15
+				political_power_factor = 0.10
+				research_speed_factor = 0.03
+			}
+		}
+		VIT_vitosha_soviet = {
+			picture = VIT_vitosha_soviet
+			allowed = { always = no }
+			modifier = {
+				political_power_factor = 0.10
+				stability_factor = 0.05
+			}
+		}
+		VIT_partisans = {
+			picture = VIT_partisans
+			allowed = { always = no }
+			modifier = {
+				army_defence_factor = 0.10
+				attrition = -0.10
+			}
+		}
+		VIT_comrades_from_vitosha = {
+			picture = VIT_comrades_from_vitosha
+			allowed = { always = no }
+			modifier = {
+				communism_drift = 0.03
+			}
+		}
+		VIT_red_army = {
+			picture = VIT_red_army
+			allowed = { always = no }
+			modifier = {
+				army_org_factor = 0.05
+				army_attack_factor = 0.05
+			}
+		}
+		VIT_thracian_commune = {
+			picture = VIT_thracian_commune
+			allowed = { always = no }
+			modifier = {
+				political_power_factor = 0.15
+				stability_factor = 0.10
+				industrial_capacity_factory = 0.05
+			}
+		}
+		VIT_red_hill = {
+			picture = VIT_red_hill
+			allowed = { always = no }
+			modifier = {
+				research_speed_factor = 0.05
+				army_attack_factor = 0.05
+			}
+		}
+		VIT_black_shirts = {
+			picture = VIT_black_shirts
+			allowed = { always = no }
+			modifier = {
+				war_support_factor = 0.10
+				conscription_factor = 0.10
+			}
+		}
+		VIT_legacy_of_philip = {
+			picture = VIT_legacy_of_philip
+			allowed = { always = no }
+			modifier = {
+				army_attack_factor = 0.10
+			}
+		}
+		VIT_torchlight = {
+			picture = VIT_torchlight
+			allowed = { always = no }
+			modifier = {
+				war_support_factor = 0.10
+				stability_factor = 0.05
+			}
+		}
+		VIT_philippopolis = {
+			picture = VIT_philippopolis
+			allowed = { always = no }
+			modifier = {
+				army_attack_factor = 0.10
+				war_support_factor = 0.10
+				political_power_factor = 0.10
+			}
+		}
+		VIT_eighth_hill = {
+			picture = VIT_eighth_hill
+			allowed = { always = no }
+			modifier = {
+				army_attack_factor = 0.05
+				army_defence_factor = 0.05
+				political_power_factor = 0.10
+			}
+		}
+		VIT_industrial_mountain = {
+			picture = VIT_industrial_mountain
+			allowed = { always = no }
+			modifier = {
+				industrial_capacity_factory = 0.05
+				production_speed_buildings_factor = 0.10
+			}
+		}
+		VIT_ski_troops = {
+			picture = VIT_ski_troops
+			allowed = { always = no }
+			modifier = {
+				army_attack_factor = 0.03
+				attrition = -0.05
+			}
+		}
+		VIT_mountain_staff = {
+			picture = VIT_mountain_staff
+			allowed = { always = no }
+			modifier = {
+				army_org_factor = 0.05
+				experience_gain_army_factor = 0.10
+			}
+		}
+		VIT_army_of_the_mountain = {
+			picture = VIT_army_of_the_mountain
+			allowed = { always = no }
+			modifier = {
+				army_attack_factor = 0.05
+				army_defence_factor = 0.05
+			}
+		}
 		ES_war_propaganda = {
 			picture = ES_war_propaganda
 			allowed = { always = no }

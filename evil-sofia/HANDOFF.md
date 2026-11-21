@@ -75,6 +75,7 @@ new icons and for person/photo icons (frames and pieces): clone them again if th
 | `tools/build_map.py` | the whole map, states, countries, characters, advisors, starter focus tree, start screen; calls `build_focus.py` at the end |
 | `tools/build_focus.py` | writes the Sredets tree, events, decisions, ideas, traits, flags, event pictures and their texts |
 | `tools/focus_sredets.py` | the Sredets tree: focuses, filters, person/photo icons, ideas, decisions, events, factions |
+| `tools/focus_vitosha.py` | the Vitosha tree (civil war, Henry or Yani), same format plus `NEWS`, `ON_STARTUP` and `extra_build` (Yani's character and portrait, the war armies) |
 | `tools/events_world.py` | news events (everyone sees them) and random city events |
 | `tools/texts.py` | start screen and leader descriptions, advisors and their traits, Ilchev |
 | `tools/picture_briefs.py` | what each event picture should show; the build writes `tools/event_pictures/PICTURES.md` |
@@ -100,6 +101,7 @@ The user has to send these again (they are not in git); save each as PNG under `
 | `SRD_ilchev.png` | Konstantin Ilchev (Victor's physics teacher) |
 | `EVIL_GANG.png` | the Evil Gang group photo (on the steps, 1080x1080) |
 | `C_CLASS.png` | the C Class Hools group photo (mirror selfie, 1080x1080) |
+| `VIT_yani.png` | Yanislav Marazov (Yani), Vitosha's second leader |
 | `SRK.png` | Khan Krum, leader of Serdika (painting; head and shoulders cropped from the user's full-length picture) |
 
 The user's event pictures (`tools/event_pictures/<event>.png`, see `PICTURES.md`) also have to be sent again.
@@ -118,13 +120,22 @@ Without them the build still works: leaders have no portrait and the person/phot
   whole, then the central states of TRD, LOZ, KRS and SRK, set in `WIDER_CENTRE`; ends as the Free Centre of Sofia), the Evil
   Gang (invite the friends one by one), the C Class Hools (join or get hit) and Konstantin Ilchev's takeover.
   Not yet played; expect tweaks.
-- The other districts have a 13-focus starter tree; the featured friends have no tree of their own yet.
+- Vitosha tree: 117 focuses, like vanilla's Spanish civil war. Henry chooses the English Way (democratic) or Zevka's
+  Dream (authoritarian); Yani's movement goes Red Plovdiv (communist) or the Black Shirts of Plovdiv (fascist). Prep
+  focuses on both sides bank divisions (`history/units/VIT_henry_army.txt`, `VIT_yani_army.txt`), rifles and spirits
+  for whichever side ends up using them. The Mountain Splits sets support to 45/45/10, then Stand with Henry (Yani's
+  rebels take 5 eastern states, size 0.3) or March with Yani (Yani leads, Henry's loyalists take 10 states, size 0.6).
+  Both sides get The Mountain in Flames (3 tiers; war focuses remove it). After the war: four paths with formables
+  (Commonwealth of the Mountain, Tsardom of the Mountain, Thracian Commune, New Philippopolis), the Evil Gang branch,
+  industry and army. Vitosha has 16 smaller states (region Boyana Slopes added) for room to fight. Not yet played.
+- The other districts have a 13-focus starter tree; the other featured friends have no tree of their own yet.
 - Event pictures: the user is making their own in vanilla style; `tools/event_pictures/PICTURES.md` lists every
   file name, size and subject. A PNG with that name in `tools/event_pictures/` replaces the drawn picture.
 
 ## Untested in game
  (check `Documents/Paradox Interactive/Hearts of Iron IV/logs/error.log` if something is off)
 
+- Vitosha: `start_civil_war` with `states`, the rebels inheriting Yani/Henry as the party leader of their ideology, `load_oob` on the rebels, and how long the war takes on each side
 - advisor traits (custom traits in `common/country_leader/`), and that advisors without portraits look fine
 - the `rule = { can_create_factions = no can_join_factions = no }` block in the "Sredets Stands Alone" spirits
 - news events with `major = yes` reaching every country, and `[From.GetLeader]` in event titles

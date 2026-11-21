@@ -2,9 +2,10 @@ import re, textwrap
 from PIL import Image, ImageDraw, ImageFont
 import sys
 S = (sys.argv[1] if len(sys.argv) > 1 else "tree_preview.png")
-tree = open("common/national_focus/evil_sofia_SRD.txt").read()
+TAG = sys.argv[2] if len(sys.argv) > 2 else "SRD"   # python3 tools/dev/render_tree.py out.png VIT
+tree = open(f"common/national_focus/evil_sofia_{TAG}.txt").read()
 loc = dict(re.findall(r'^ (\S+):0 "(.*)"', open("localisation/english/replace/evil_sofia_focus_l_english.yml", encoding="utf-8-sig").read(), re.M))
-spr = dict(re.findall(r'name = "(GFX_\w+)"\s+texturefile = "([^"]+)"', open("interface/evil_sofia_goals.gfx").read()))
+spr = dict(re.findall(r'name = "(GFX_\w+)"\s+texturefile = "([^"]+)"', open("interface/evil_sofia_goals.gfx" if TAG == "SRD" else f"interface/evil_sofia_goals_{TAG}.gfx").read()))
 foc = []
 for blk in re.split(r"\n\tfocus = \{", tree)[1:]:
     fid = re.search(r"id = (\S+)", blk).group(1)

@@ -1,0 +1,10 @@
+characters = {
+	VIT_yani = {
+		name = VIT_yani
+		portraits = {
+			civilian = {
+				large = "gfx/leaders/VIT/VIT_yani.dds"
+			}
+		}
+	}
+}

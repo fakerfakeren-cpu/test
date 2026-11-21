@@ -81,9 +81,15 @@ SIZES = {"inner": (380, 650, 100), "middle": (1100, 1800, 180), "outer": (2600, 
 PROVINCES_PER_STATE = {"inner": 3.0, "middle": 3.5, "outer": 4.5}
 
 
+# Vitosha (the civil war district) has smaller provinces and more states, so there is room to fight.
+FINE = {19: ("middle", 2.6, 16)}   # district: (province size class, provinces per state, most states)
+
+
 def size_class(k):
     if k in MICRO:
         return "inner"
+    if k in FINE:
+        return FINE[k][0]
     return "inner" if k <= 12 else "middle" if k <= 17 else "outer"
 
 
@@ -94,6 +100,7 @@ REGION_DEFS = [(1, "Old Town", [1, 2, 3, 12]), (2, "Southern Quarters", [4, 8, 9
                (8, "Vrabnitsa Plain", [21]), (9, "Novi Iskar", [22]), (10, "Kremikovtsi", [18]),
                (11, "Pancharevo", []), (12, "Upper Iskar", [23])]
 PANCHAREVO_NORTH_REGION = 11
+VITOSHA_WEST_REGION = (14, "Boyana Slopes")   # the west of Vitosha gets an air region of its own
 SEA_REGION = (13, "Edge of the World")   # one small sea in the map corner: vanilla always has sea provinces
 SEA_BOX = 96
 
@@ -825,8 +832,8 @@ for k in DISTRICTS:
     pgraph = coo_matrix((wts, (rows, cols)), shape=(len(plist), len(plist))).tocsr()
     pd = dijkstra(pgraph, directed=False)
     pd[~np.isfinite(pd)] = 1e9
-    n_states = int(np.clip(round(len(plist) / PROVINCES_PER_STATE[size_class(k)]),
-                           1 if k in MICRO else 3 if len(plist) >= 9 else 2, 12))
+    pps, most = (FINE[k][1], FINE[k][2]) if k in FINE else (PROVINCES_PER_STATE[size_class(k)], 12)
+    n_states = int(np.clip(round(len(plist) / pps), 1 if k in MICRO else 3 if len(plist) >= 9 else 2, most))
     # the capital: the neighbourhood the district is named after ("Mladost 1" for Mladost), else the housing
     # estate, quarter or village nearest to the district's real centre
     cx_, cy_ = place_px(*CAPITALS[k]) if k in CAPITALS else (xs_.mean(), ys_.mean())
@@ -1413,7 +1420,10 @@ write("map/supplyareas/1-Sofia.txt", f"""supply_area = {{
 
 # Strategic regions: by district, Pancharevo split north/south; each lake joins the nearest land region.
 REGIONS = {rid: name for rid, name, _ in REGION_DEFS}
+REGIONS[VITOSHA_WEST_REGION[0]] = VITOSHA_WEST_REGION[1]
 district_region = {k: rid for rid, _, ds in REGION_DEFS for k in ds}
+vit_states = [st for st in states if st["district"] == 19]
+vit_mid_x = np.median([np.mean([cent[p][0] for p in st["provinces"]]) for st in vit_states])
 pan_states = [st for st in states if st["district"] == 23]
 pan_mid = np.median([np.mean([cent[p][1] for p in st["provinces"]]) for st in pan_states])
 region_of = {}
@@ -1421,6 +1431,8 @@ for st in states:
     rid = district_region[st["district"]]
     if st["district"] == 23 and np.mean([cent[p][1] for p in st["provinces"]]) < pan_mid:
         rid = PANCHAREVO_NORTH_REGION
+    if st["district"] == 19 and np.mean([cent[p][0] for p in st["provinces"]]) < vit_mid_x:
+        rid = VITOSHA_WEST_REGION[0]
     st["region"] = rid
     for p in st["provinces"]:
         region_of[p] = rid
@@ -1463,7 +1475,7 @@ for rid in REGIONS:
         lakes_here = [p for p in members if prov_district[p] == 0]
         if lakes_here:
             far = max(lakes_here, key=lambda q: (cent[q][0] - W / 2) ** 2 + (cent[q][1] - H / 2) ** 2)
-            region_of[far] = (rid % len(REGIONS)) + 1
+            region_of[far] = 6 if rid == VITOSHA_WEST_REGION[0] else (rid % len(REGION_DEFS)) + 1   # region 6: Vitosha
             continue
         # no lake to hand over: give a border state to the neighbouring region instead
         st_, to = next((st, region_of[q]) for st in states if st["region"] == rid for p in st["provinces"]
