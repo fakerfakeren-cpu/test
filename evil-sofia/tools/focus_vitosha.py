@@ -84,7 +84,25 @@ YANI_PREP = "\n".join([
     ifc(done("students_from_plovdiv"), "add_manpower = 20000\nadd_ideas = VIT_plovdiv_students"),
     ifc(done("arms_from_plovdiv"), "add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 2500 }"),
     ifc(done("the_plovdiv_committee"), "add_war_support = 0.10\narmy_experience = 20")])
-REBEL_FLAMES = "add_timed_idea = { idea = VIT_mountain_in_flames_rebels days = 365 }"
+HENRY_PREP += "\n" + "\n".join([
+    ifc(done("friends_at_the_gate"), 'load_oob = "VIT_friends_of_the_villa"'),
+    ifc(done("guards_for_hire"), 'load_oob = "VIT_hired_guard"'),
+    ifc(done("the_british_club"), 'load_oob = "VIT_club_volunteers"')])
+YANI_PREP += "\n" + "\n".join([
+    ifc(done("classmates_at_the_front"), 'load_oob = "VIT_classmates"'),
+    ifc(done("caches_in_the_forest"), "add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 2000 }"),
+    ifc(done("drills_in_the_woods"), "army_experience = 20"),
+    ifc(done("barricades_in_simeonovo"),
+        f"{S('Simeonovo')} = {{ add_building_construction = {{ type = bunker level = 3 province = {{ all_provinces = yes limit_to_border = yes }} instant_build = yes }} }}"),
+    ifc(done("the_tobacco_column"), 'load_oob = "VIT_plovdiv_column"'),
+    ifc(done("studentski_volunteers"), 'load_oob = "VIT_studentski_volunteers"')])
+REBEL_FLAMES = "add_ideas = VIT_mountain_in_flames_2\nload_focus_tree = evil_sofia_VIT_focus\nset_country_flag = VIT_war_started"
+REBELS_ARE_YANI = ("set_cosmetic_tag = VIT_YANI\nset_country_flag = VIT_yani_side\n"
+                   "unlock_national_focus = VIT_march_with_yani\nunlock_national_focus = VIT_yani_takes_the_villa\n"
+                   "country_event = { id = evil_sofia_vit.28 days = 1 }")
+REBELS_ARE_HENRY = ("set_cosmetic_tag = VIT_HENRY\nset_country_flag = VIT_henry_side\n"
+                    "unlock_national_focus = VIT_stand_with_henry\nunlock_national_focus = VIT_crush_the_student_movement\n"
+                    "country_event = { id = evil_sofia_vit.27 days = 1 }")
 YANI_BOTH_ROLES = yani_role("leninism", False) + "\n" + yani_role("fascism_ideology", False)
 
 CRUSH = "\n".join([
@@ -93,7 +111,8 @@ CRUSH = "\n".join([
     "random_list = {\n\t50 = {\n" + ind(war("communism", 0.3, "Simeonovo", YANI_EAST), 2) + "\t}\n"
     "\t50 = {\n" + ind(war("fascism", 0.3, "Simeonovo", YANI_EAST), 2) + "\t}\n}",
     "add_ideas = VIT_mountain_in_flames_3", HENRY_PREP,
-    rebels(REBEL_FLAMES + '\nload_oob = "VIT_yani_army"\nadd_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1500 }'),
+    "set_cosmetic_tag = VIT_HENRY", "country_event = { id = evil_sofia_vit.27 days = 1 }",
+    rebels(REBEL_FLAMES + "\n" + REBELS_ARE_YANI + '\nload_oob = "VIT_yani_army"\nadd_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1500 }'),
     "set_country_flag = VIT_henry_side", "set_country_flag = VIT_war_started",
     "news_event = { id = evil_sofia_vit_news.1 hours = 6 }"])
 TAKE_THE_VILLA = "\n".join([
@@ -105,7 +124,8 @@ TAKE_THE_VILLA = "\n".join([
     "random_list = {\n\t50 = {\n" + ind(war("neutrality", 0.6, "Vitosha", HENRY_WEST), 2) + "\t}\n"
     "\t50 = {\n" + ind(war("democratic", 0.6, "Vitosha", HENRY_WEST), 2) + "\t}\n}",
     "add_ideas = VIT_mountain_in_flames_3", YANI_PREP,
-    rebels(REBEL_FLAMES + '\nload_oob = "VIT_henry_army"\nadd_equipment_to_stockpile = { type = infantry_equipment_1 amount = 2500 }\n'
+    "set_cosmetic_tag = VIT_YANI", "country_event = { id = evil_sofia_vit.28 days = 1 }",
+    rebels(REBEL_FLAMES + "\n" + REBELS_ARE_HENRY + '\nload_oob = "VIT_henry_army"\nadd_equipment_to_stockpile = { type = infantry_equipment_1 amount = 2500 }\n'
            "army_experience = 25\nadd_ideas = VIT_mountain_rangers"),
     "set_country_flag = VIT_yani_side", "set_country_flag = VIT_war_started",
     "news_event = { id = evil_sofia_vit_news.1 hours = 6 }"])
@@ -115,6 +135,9 @@ FLAMES_DOWN = "\n".join([
     ifc("has_idea = VIT_mountain_in_flames_1", "remove_ideas = VIT_mountain_in_flames_1", "else_if")])
 FLAMES_OUT = "\n".join(f"if = {{ limit = {{ has_idea = VIT_mountain_in_flames_{i} }} remove_ideas = VIT_mountain_in_flames_{i} }}"
                        for i in (1, 2, 3))
+SCARS_DOWN = "\n".join([
+    ifc("has_idea = VIT_scars_of_war_2", "swap_ideas = { remove_idea = VIT_scars_of_war_2 add_idea = VIT_scars_of_war_1 }"),
+    ifc("has_idea = VIT_scars_of_war_1", "remove_ideas = VIT_scars_of_war_1", "else_if")])
 FLAMES_TT = "\\n\\nTakes The Mountain in Flames down one step."
 CAPITAL_HOME = f"if = {{ limit = {{ {S('Vitosha')} = {{ is_controlled_by = ROOT }} }} set_capital = {{ state = {S('Vitosha')} }} }}"
 
@@ -135,14 +158,14 @@ def invite(event):
 
 
 # ================================================================== the two roots and the two chains
-F("stand_with_henry", "Stand with Henry", 29, 0, [], ["march_with_yani"], 5, "person:stand_with_henry", "",
+F("stand_with_henry", "Stand with Henry", 29, 0, [], ["march_with_yani"], 5, "person:stand_with_henry", "NOT = { has_country_flag = VIT_war_started }",
   "add_political_power = 50\narmy_experience = 10",
   "Daniel-Henry Capel rules Vitosha from a villa on the hill, with the forest at his back and the whole of Sofia below. "
   "Half English, half Bulgarian and entirely sure of himself, he has the strongest guard of any district. A student "
   "from Plovdiv called Yanislav Marazov is stirring up the villages against him. We stand with Henry.\\n\\nThe left "
   "half of the tree: Henry prepares, crushes the student movement and fights the civil war as the government.",
   ["POLITICAL"])
-F("march_with_yani", "March with Yani", 31, 0, [], ["stand_with_henry"], 5, "person:march_with_yani", "",
+F("march_with_yani", "March with Yani", 31, 0, [], ["stand_with_henry"], 5, "person:march_with_yani", "NOT = { has_country_flag = VIT_war_started }",
   "add_political_power = 50",
   "Yanislav Marazov came to Sofia from Plovdiv to study and never went home. In the cafés of Simeonovo and Dragalevtsi "
   "he talks, and more people listen every week. The future belongs to him, not to the villa on the hill. We march with "
@@ -171,8 +194,8 @@ HCHAIN = [
      "experience and the spirit Henry's Officers (better organisation)."),
 ]
 for fid, name, x, y, pre, w, icon, rew, desc in HCHAIN:
-    F(fid, name, x, y, pre, [], w, icon, "", rew, desc, ["MANPOWER", "ARMY_XP"] if "army" in rew else ["POLITICAL"])
-F("crush_the_student_movement", "Crush the Student Movement", 14, 5, [["henrys_officers"]], [], 8, "duo:Generic_Arrests", "",
+    F(fid, name, x, y, pre, [], w, icon, "NOT = { has_country_flag = VIT_war_started }", rew, desc, ["MANPOWER", "ARMY_XP"] if "army" in rew else ["POLITICAL"])
+F("crush_the_student_movement", "Crush the Student Movement", 14, 5, [["henrys_officers"]], [], 8, "duo:Generic_Arrests", "NOT = { has_country_flag = VIT_war_started }",
   CRUSH,
   "Henry's guard raids the cafés of Simeonovo at dawn. Yani is not there. By noon his followers hold the whole east of "
   "the mountain, and by evening it is war.\\n\\nThe civil war begins. Yani's rebels, communist or fascist, take Simeonovo, "
@@ -200,8 +223,8 @@ YCHAIN = [
      "more war support and 20 army experience."),
 ]
 for fid, name, x, y, pre, w, icon, rew, desc in YCHAIN:
-    F(fid, name, x, y, pre, [], w, icon, "", rew, desc, ["POLITICAL"])
-F("yani_takes_the_villa", "Yani Takes the Villa", 46, 5, [["the_plovdiv_committee"]], [], 8, "duo:Generic_Violent_Coup", "",
+    F(fid, name, x, y, pre, [], w, icon, "NOT = { has_country_flag = VIT_war_started }", rew, desc, ["POLITICAL"])
+F("yani_takes_the_villa", "Yani Takes the Villa", 46, 5, [["the_plovdiv_committee"]], [], 8, "duo:Generic_Violent_Coup", "NOT = { has_country_flag = VIT_war_started }",
   TAKE_THE_VILLA,
   "At midnight Yani's people walk through the villa's gate. Henry walks out of the back door with his guard and his "
   "mother, and by morning he holds Boyana and the whole west of the mountain.\\n\\nYani becomes leader and the civil "
@@ -211,98 +234,168 @@ F("yani_takes_the_villa", "Yani Takes the Villa", 46, 5, [["the_plovdiv_committe
 
 
 # ================================================================== the war branches (one per side, like Spain's middle trunks)
-def war_trunk(p, cx, side_flag, start, T, icons, news, push_idea):
-    """T: 16 (name, desc) pairs; icons: 16 pack icons. Slot layout and prerequisites are the same on both sides."""
-    ids = [f"{p}_{k}" for k in ("head", "command", "workshops", "reserves", "line", "telephones", "factory", "volunteers",
-                                 "patrols", "martial_law", "guns", "counter", "final_push", "won", "rebuild", "amnesty",
-                                 "restored")]
-    lay = [(cx, 6, [[start]]), (cx - 3, 7, [[ids[0]]]), (cx, 7, [[ids[0]]]), (cx + 3, 7, [[ids[0]]]),
-           (cx - 4, 8, [[ids[1]]]), (cx - 2, 8, [[ids[1]]]), (cx, 8, [[ids[2]]]), (cx + 2, 8, [[ids[3]]]), (cx + 4, 8, [[ids[3]]]),
-           (cx - 3, 9, [[ids[4], ids[5]]]), (cx, 9, [[ids[6]]]), (cx + 3, 9, [[ids[7], ids[8]]]),
-           (cx, 10, [[ids[9], ids[11]], [ids[10]]]), (cx, 11, [[ids[12]]]), (cx - 2, 12, [[ids[13]]]), (cx + 2, 12, [[ids[13]]]),
-           (cx, 13, [[ids[14]], [ids[15]]])]
-    rewards = [
-        "add_war_support = 0.05\nadd_political_power = 50",
-        FLAMES_DOWN + "\narmy_experience = 15",
-        FLAMES_DOWN + "\nadd_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1000 }",
-        "add_manpower = 10000",
-        "capital_scope = { add_building_construction = { type = bunker level = 2 province = { all_provinces = yes limit_to_border = yes } instant_build = yes } }",
-        "army_experience = 20\nadd_tech_bonus = { name = VIT_" + p + "_telephones bonus = 1.0 uses = 1 category = land_doctrine }",
-        factory("arms_factory"),
-        "add_manpower = 15000\nadd_war_support = 0.05",
-        f"add_ideas = VIT_{p}_patrols",
-        FLAMES_DOWN + "\nadd_stability = 0.05",
-        "add_tech_bonus = { name = VIT_" + p + "_guns bonus = 1.0 uses = 1 category = artillery }\n"
-        "add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1500 }",
-        f"add_timed_idea = {{ idea = VIT_{p}_counter days = 180 }}",
-        f"add_timed_idea = {{ idea = {push_idea} days = 120 }}\narmy_experience = 25",
-        FLAMES_OUT + "\n" + CAPITAL_HOME + "\nadd_stability = 0.15\nadd_political_power = 100\nset_country_flag = VIT_war_over\n"
-        f"news_event = {{ id = evil_sofia_vit_news.{news} hours = 6 }}",
-        "capital_scope = { add_building_construction = { type = infrastructure level = 1 instant_build = yes } }\n" + factory("industrial_complex"),
-        "add_stability = 0.10\nadd_manpower = 10000",
-        "add_political_power = 150\nadd_stability = 0.05\nadd_research_slot = 1",
-    ]
-    filt = [["WAR_SUPPORT"], ["ARMY_XP", "STABILITY"], ["INDUSTRY", "STABILITY"], ["MANPOWER"], ["INDUSTRY"], ["ARMY_XP", "RESEARCH"],
-            ["INDUSTRY"], ["MANPOWER"], ["ARMY_XP"], ["STABILITY"], ["RESEARCH", "INDUSTRY"], ["ARMY_XP"], ["ARMY_XP"],
-            ["STABILITY"], ["INDUSTRY"], ["STABILITY", "MANPOWER"], ["POLITICAL", "RESEARCH"]]
-    weeks = [5, 7, 8, 6, 7, 7, 9, 6, 7, 8, 8, 7, 9, 6, 9, 7, 10]
-    for i, (fid, (x, y, pre)) in enumerate(zip(ids, lay)):
-        name, desc = T[i]
-        if i in (1, 2, 9):
+def war_trunk(p, cx, side_flag, heads, T, icons, news, push_idea, temp_templates):
+    """The war branch of one side: it hangs under both of the side's ideology heads, takes down The Mountain in
+    Flames during the war and repairs the scars of war afterwards. T: (name, desc) per slot; icons: one per slot."""
+    k = ["head", "command", "workshops", "reserves", "line", "telephones", "factory", "volunteers", "patrols",
+         "martial_law", "guns", "counter", "final_push", "won", "rebuild", "amnesty", "restored",
+         "dig_in", "mortars", "trench_raids", "lorries", "repair_factories", "reequip", "railways", "retrain", "veterans"]
+    i = {n: f"{p}_{n}" for n in k}
+    lay = {"head": (cx, 7, [heads]),
+           "command": (cx - 3, 8, [[i["head"]]]), "workshops": (cx, 8, [[i["head"]]]), "reserves": (cx + 3, 8, [[i["head"]]]),
+           "line": (cx - 4, 9, [[i["command"]]]), "telephones": (cx - 2, 9, [[i["command"]]]), "factory": (cx, 9, [[i["workshops"]]]),
+           "volunteers": (cx + 2, 9, [[i["reserves"]]]), "patrols": (cx + 4, 9, [[i["reserves"]]]),
+           "martial_law": (cx - 3, 10, [[i["line"], i["telephones"]]]), "guns": (cx, 10, [[i["factory"]]]),
+           "counter": (cx + 3, 10, [[i["volunteers"], i["patrols"]]]),
+           "dig_in": (cx - 3, 11, [[i["martial_law"]]]), "final_push": (cx, 11, [[i["martial_law"], i["counter"]], [i["guns"]]]),
+           "mortars": (cx + 3, 11, [[i["counter"]]]),
+           "trench_raids": (cx - 4, 12, [[i["dig_in"]]]), "won": (cx, 12, [[i["final_push"]]]), "lorries": (cx + 4, 12, [[i["mortars"]]]),
+           "repair_factories": (cx - 4, 13, [[i["won"]]]), "rebuild": (cx - 2, 13, [[i["won"]]]), "amnesty": (cx + 2, 13, [[i["won"]]]),
+           "reequip": (cx + 4, 13, [[i["won"]]]),
+           "railways": (cx - 3, 14, [[i["repair_factories"]]]), "restored": (cx, 14, [[i["rebuild"]], [i["amnesty"]]]),
+           "retrain": (cx + 3, 14, [[i["reequip"]]]),
+           "veterans": (cx, 15, [[i["railways"], i["restored"], i["retrain"]]])}
+    delete_temps = "\n".join(f'delete_unit_template_and_units = {{ division_template = "{t}" }}' for t in temp_templates)
+    rew = {
+        "head": "add_war_support = 0.05\nadd_political_power = 50",
+        "command": FLAMES_DOWN + "\narmy_experience = 15",
+        "workshops": FLAMES_DOWN + "\nadd_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1000 }",
+        "reserves": "add_manpower = 10000",
+        "line": "capital_scope = { add_building_construction = { type = bunker level = 2 province = { all_provinces = yes limit_to_border = yes } instant_build = yes } }",
+        "telephones": f"army_experience = 20\nadd_tech_bonus = {{ name = VIT_{p}_telephones bonus = 1.0 uses = 1 category = land_doctrine }}",
+        "factory": factory("arms_factory"),
+        "volunteers": "add_manpower = 15000\nadd_war_support = 0.05",
+        "patrols": f"add_ideas = VIT_{p}_patrols",
+        "martial_law": FLAMES_DOWN + "\nadd_stability = 0.05",
+        "guns": f"add_tech_bonus = {{ name = VIT_{p}_guns bonus = 1.0 uses = 1 category = artillery }}\n"
+                "add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1500 }",
+        "counter": f"add_timed_idea = {{ idea = VIT_{p}_counter days = 180 }}",
+        "dig_in": f"add_timed_idea = {{ idea = VIT_{p}_dig_in days = 180 }}",
+        "mortars": f"add_tech_bonus = {{ name = VIT_{p}_mortars bonus = 1.0 uses = 1 category = support_tech }}\n"
+                   "add_equipment_to_stockpile = { type = support_equipment_1 amount = 300 }",
+        "final_push": f"add_timed_idea = {{ idea = {push_idea} days = 120 }}\narmy_experience = 25",
+        "trench_raids": "army_experience = 20\nadd_war_support = 0.03",
+        "lorries": "add_equipment_to_stockpile = { type = motorized_equipment_1 amount = 50 }\n"
+                   f"add_tech_bonus = {{ name = VIT_{p}_lorries bonus = 1.0 uses = 1 category = motorized_equipment }}",
+        "won": FLAMES_OUT + "\nif = { limit = { OR = { has_cosmetic_tag = VIT_HENRY has_cosmetic_tag = VIT_YANI } } drop_cosmetic_tag = yes }\n" + CAPITAL_HOME + "\n" + delete_temps + "\nadd_ideas = VIT_scars_of_war_2\n"
+               "add_stability = 0.15\nadd_political_power = 100\nset_country_flag = VIT_war_over\n"
+               f"news_event = {{ id = evil_sofia_vit_news.{news} hours = 6 }}",
+        "repair_factories": SCARS_DOWN + "\n" + factory("industrial_complex"),
+        "rebuild": "capital_scope = { add_building_construction = { type = infrastructure level = 1 instant_build = yes } }\n" + factory("industrial_complex"),
+        "amnesty": "add_stability = 0.10\nadd_manpower = 10000",
+        "reequip": SCARS_DOWN + "\nadd_equipment_to_stockpile = { type = infantry_equipment_1 amount = 3000 }\n"
+                   "add_equipment_to_stockpile = { type = support_equipment_1 amount = 300 }",
+        "railways": "capital_scope = { add_building_construction = { type = infrastructure level = 1 instant_build = yes } }\n" + factory("arms_factory"),
+        "restored": "add_political_power = 150\nadd_stability = 0.05\nadd_research_slot = 1",
+        "retrain": f"army_experience = 30\nadd_tech_bonus = {{ name = VIT_{p}_retrain bonus = 1.0 uses = 2 category = land_doctrine }}",
+        "veterans": f"add_ideas = VIT_{p}_veterans",
+    }
+    filt = {"head": ["WAR_SUPPORT"], "command": ["ARMY_XP", "STABILITY"], "workshops": ["INDUSTRY", "STABILITY"],
+            "reserves": ["MANPOWER"], "line": ["INDUSTRY"], "telephones": ["ARMY_XP", "RESEARCH"], "factory": ["INDUSTRY"],
+            "volunteers": ["MANPOWER"], "patrols": ["ARMY_XP"], "martial_law": ["STABILITY"], "guns": ["RESEARCH", "INDUSTRY"],
+            "counter": ["ARMY_XP"], "dig_in": ["ARMY_XP"], "mortars": ["RESEARCH"], "final_push": ["ARMY_XP"],
+            "trench_raids": ["ARMY_XP", "WAR_SUPPORT"], "lorries": ["RESEARCH", "INDUSTRY"], "won": ["STABILITY"],
+            "repair_factories": ["INDUSTRY"], "rebuild": ["INDUSTRY"], "amnesty": ["STABILITY", "MANPOWER"],
+            "reequip": ["ARMY_XP", "INDUSTRY"], "railways": ["INDUSTRY"], "restored": ["POLITICAL", "RESEARCH"],
+            "retrain": ["ARMY_XP", "RESEARCH"], "veterans": ["ARMY_XP"]}
+    weeks = {"head": 5, "command": 7, "workshops": 8, "reserves": 6, "line": 7, "telephones": 7, "factory": 9, "volunteers": 6,
+             "patrols": 7, "martial_law": 8, "guns": 8, "counter": 7, "dig_in": 6, "mortars": 7, "final_push": 9,
+             "trench_raids": 6, "lorries": 8, "won": 6, "repair_factories": 9, "rebuild": 9, "amnesty": 7, "reequip": 8,
+             "railways": 8, "restored": 10, "retrain": 8, "veterans": 10}
+    for n in k:
+        name, desc = T[n]
+        if n in ("command", "workshops", "martial_law"):
             desc += FLAMES_TT
-        avail = (f"has_country_flag = {side_flag}" if i == 0 else
-                 "has_country_flag = VIT_war_started\nhas_civil_war = no" if i == 13 else "")
-        if i == 13:
-            desc += "\\n\\nNeeds the civil war won. Removes what is left of The Mountain in Flames."
-        F(fid, name, x, y, pre, [], weeks[i], icons[i], avail, rewards[i], desc, filt[i])
+        if n in ("repair_factories", "reequip"):
+            desc += "\\n\\nTakes the Scars of War down one step."
+        avail = ""
+        if n == "won":
+            avail = "has_country_flag = VIT_war_started\nhas_civil_war = no"
+            desc += ("\\n\\nNeeds the civil war won. Removes what is left of The Mountain in Flames, sends the hired and "
+                     "volunteer divisions home and leaves the Scars of War, which the repair focuses heal.")
+        elif n in ("dig_in", "trench_raids", "final_push", "counter"):
+            avail = "has_civil_war = yes"
+        F(i[n], name, lay[n][0], lay[n][1], lay[n][2], [], weeks[n], icons[n], avail, rew[n], desc, filt[n])
 
 
-war_trunk("h", 14, "VIT_henry_side", "crush_the_student_movement", [
-    ("The Loyal Guard", "The guard that held the villa becomes the army that will hold the mountain."),
-    ("Restore the Chain of Command", "Half the officers changed sides, the other half are not answering the telephone. A list of who is still loyal and a lot of shouting."),
-    ("Requisition the Villas", "Every garage in Boyana becomes a workshop. The owners are promised compensation after the war, in writing, on Henry's best paper."),
-    ("Call the Reserves", "Every man who ever wore the guard's uniform is called back to it."),
-    ("The Boyana Line", "Trenches across the slopes, concrete at the crossroads and barbed wire through the vineyards."),
-    ("Field Telephones", "A wire from the villa to every company on the front. Henry phones them all personally."),
-    ("The Villa Workshops", "The biggest garage in Boyana makes rifles now."),
-    ("Volunteers from the City", "Young men from all over Sofia take the tram to the end of the line and walk up the mountain to join Henry."),
-    ("The Ski Patrols", "In winter the fastest way across the front is on skis. The guard learns."),
-    ("Martial Law on the Slopes", "Curfews, checkpoints and courts that sit at night. The villages behind the front stop arguing."),
-    ("Guns on the Ridges", "Every ridge of Vitosha looks down on the rebels' villages. A gun on each of them settles a lot of arguments."),
-    ("The Counteroffensive", "Henry has waited long enough. The guard goes over to the attack."),
-    ("Take Simeonovo", "The cafés where it all started. Henry wants to have a coffee there when it is over."),
-    ("The Mountain Is Ours", "The last shots echo across the forest and the mountain is quiet. Henry has won his war."),
-    ("Rebuild the Slopes", "New roads, new roofs and a factory where the worst of the fighting was."),
-    ("An Amnesty for the Students", "Henry forgives most of them. He keeps a list of the rest."),
-    ("The Mountain Restored", "The villa is repainted, the guard is back in its barracks and Henry's mother has taken down the sandbags. Mostly."),
-], ["duo:goal_generic_special_forces", "duo:Generic_Radio_Operator", "duo:Generic_Underground_Factories", "duo:focus_generic_commonwealth_build_infantry",
-    "duo:goal_generic_defence", "duo:Generic_Radio_Communication", "duo:goal_generic_production", "duo:Generic_Morale_Bonus_Focus",
-    "duo:Generic_Lookout", "duo:goal_generic_imprison_people", "duo:Generic_Artillery_Barrel", "duo:goal_generic_position_armies",
-    "duo:goal_generic_occypy_start_war", "duo:Generic_Memories_of_the_War", "duo:goal_generic_construction",
-    "duo:Generic_Bread_and_Peace", "duo:goal_generic_stable_government"], 2, "VIT_h_push")
-war_trunk("y", 46, "VIT_yani_side", "yani_takes_the_villa", [
-    ("The Plovdiv Brigades", "Students, tobacco workers and anyone else with a rifle: Yani's army is born in a week."),
-    ("Officers from the Cafés", "Yani's best talkers become his first officers. Some of them are even good at it."),
-    ("Workshops of Simeonovo", "Every workshop on our side of the mountain now makes one thing: what the front needs."),
-    ("Every Village a Barracks", "Every village in the east sends its young men up the hill."),
-    ("Dig In at Dragalevtsi", "The monastery walls above Dragalevtsi have stopped armies before."),
-    ("Couriers on Bicycles", "No telephones, no radios, but every student owns a bicycle."),
-    ("The Orehite Arsenal", "A fruit warehouse in Orehite makes grenades now. It still smells of apples."),
-    ("Volunteers from the Lowlands", "Workers from Mladost and Pancharevo walk up the mountain road to join Yani."),
-    ("The Night Raids", "Henry's guard owns the day. Yani's people own the night."),
-    ("Revolutionary Discipline", "Committees, curfews and a firing squad that is mostly a threat." ),
-    ("Guns from the Quarries", "Quarry explosives make very good shells, if you are not too fussy."),
-    ("The Storm of Boyana", "Everything we have, at once, toward the villa."),
-    ("Take the Villa Back", "Henry's last stand is in his own house. Yani wants to sleep in it."),
-    ("The Mountain Is Ours", "The last shots echo across the forest and the mountain is quiet. The student from Plovdiv has won his war."),
-    ("Rebuild the Villages", "The east of the mountain did the fighting. It gets the new roads and the new factory."),
-    ("Mercy for the Guard", "Henry's guardsmen are sent home, minus their rifles and their pride."),
-    ("The Mountain Restored", "The villa becomes a rest home, the guard becomes a militia and Yani finally gets some sleep."),
-], ["duo:Generic_Revolutionary_Republic", "duo:Generic_Socialist_Volunteers", "duo:goal_generic_industry_reallocation", "duo:Generic_Refugees",
-    "duo:goal_generic_home_defense_bel", "duo:Generic_Railroads", "duo:goal_generic_production2", "duo:Generic_Urban_Partisans",
-    "duo:Generic_Disguise", "duo:Generic_Executions", "duo:goal_generic_army_artillery2", "duo:goal_generic_major_war",
-    "duo:goal_generic_attack_allies", "duo:Generic_Cincinnatus", "duo:goal_generic_construct_public_housing",
-    "duo:Generic_Red_Cross", "duo:goal_generic_civilian_oversight"], 3, "VIT_y_push")
+war_trunk("h", 14, "VIT_henry_side", ["what_the_english_couldnt_do", "what_zevka_wanted"], {
+    "head": ("The Loyal Guard", "Whichever road Henry takes, the guard that held the villa becomes the army that will hold the mountain."),
+    "command": ("Restore the Chain of Command", "Half the officers changed sides, the other half are not answering the telephone. A list of who is still loyal and a lot of shouting."),
+    "workshops": ("Requisition the Villas", "Every garage in Boyana becomes a workshop. The owners are promised compensation after the war, in writing, on Henry's best paper."),
+    "reserves": ("Call the Reserves", "Every man who ever wore the guard's uniform is called back to it."),
+    "line": ("The Boyana Line", "Trenches across the slopes, concrete at the crossroads and barbed wire through the vineyards."),
+    "telephones": ("Field Telephones", "A wire from the villa to every company on the front. Henry phones them all personally."),
+    "factory": ("The Villa Workshops", "The biggest garage in Boyana makes rifles now."),
+    "volunteers": ("Volunteers from the City", "Young men from all over Sofia take the tram to the end of the line and walk up the mountain to join Henry."),
+    "patrols": ("The Ski Patrols", "In winter the fastest way across the front is on skis. The guard learns."),
+    "martial_law": ("Martial Law on the Slopes", "Curfews, checkpoints and courts that sit at night. The villages behind the front stop arguing."),
+    "guns": ("Guns on the Ridges", "Every ridge of Vitosha looks down on the rebels' villages. A gun on each of them settles a lot of arguments."),
+    "counter": ("The Counteroffensive", "Henry has waited long enough. The guard goes over to the attack.\\n\\nOnly during the civil war."),
+    "dig_in": ("Hold Every Ridge", "Not one metre of the mountain is given up without a fight.\\n\\nOnly during the civil war."),
+    "mortars": ("Mortars in the Vineyards", "A mortar fits between two rows of vines and can reach the next village."),
+    "final_push": ("Take Simeonovo", "The cafés where it all started. Henry wants to have a coffee there when it is over.\\n\\nOnly during the civil war."),
+    "trench_raids": ("Trench Raids at Night", "Small parties with knives and grenades, back before dawn with prisoners and stories.\\n\\nOnly during the civil war."),
+    "lorries": ("Lorries on the Mountain Road", "Every delivery lorry in Boyana now carries soldiers up and down the mountain."),
+    "won": ("The Mountain Is Ours", "The last shots echo across the forest and the mountain is quiet. Henry has won his war."),
+    "repair_factories": ("Repair the Factories", "Glass in the windows, roofs on the halls and the machines running again."),
+    "rebuild": ("Rebuild the Slopes", "New roads, new roofs and a factory where the worst of the fighting was."),
+    "amnesty": ("An Amnesty for the Students", "Henry forgives most of them. He keeps a list of the rest."),
+    "reequip": ("Re-equip the Guard", "New rifles, new boots and new helmets for every man who fought."),
+    "railways": ("Restore the Railways", "The little railway to Vladaya runs again, and so does the arms factory at the end of it."),
+    "restored": ("The Mountain Restored", "The villa is repainted, the guard is back in its barracks and Henry's mother has taken down the sandbags. Mostly."),
+    "retrain": ("Lessons of the Civil War", "Every officer writes down what went wrong. Henry reads all of it."),
+    "veterans": ("Veterans of the Mountain", "The men who fought for the villa march past it every year, and the city below remembers them."),
+}, {
+    "head": "duo:goal_generic_special_forces", "command": "duo:Generic_Radio_Operator", "workshops": "duo:Generic_Underground_Factories",
+    "reserves": "duo:focus_generic_commonwealth_build_infantry", "line": "duo:goal_generic_defence",
+    "telephones": "duo:Generic_Radio_Communication", "factory": "duo:goal_generic_production", "volunteers": "duo:Generic_Morale_Bonus_Focus",
+    "patrols": "duo:Generic_Lookout", "martial_law": "duo:goal_generic_imprison_people", "guns": "duo:Generic_Artillery_Barrel",
+    "counter": "duo:goal_generic_position_armies", "dig_in": "duo:Generic_Crouched_Soldier_German", "mortars": "duo:goal_generic_army_artillery2",
+    "final_push": "duo:goal_generic_occypy_start_war", "trench_raids": "duo:Generic_ENG_SAS", "lorries": "duo:Generic_Purchase_Tanks_Focus",
+    "won": "duo:Generic_Memories_of_the_War", "repair_factories": "duo:goal_generic_german_construction",
+    "rebuild": "duo:goal_generic_construction", "amnesty": "duo:Generic_Bread_and_Peace", "reequip": "duo:goal_generic_axis_build_infantry",
+    "railways": "duo:goal_generic_railway_construction", "restored": "duo:goal_generic_stable_government",
+    "retrain": "duo:goal_generic_army_doctrines", "veterans": "duo:Generic_War_Propaganda05",
+}, 2, "VIT_h_push", ["Hired Guard", "Friends of the Villa", "Club Volunteers"])
+
+war_trunk("y", 46, "VIT_yani_side", ["red_plovdiv", "the_seven_hills"], {
+    "head": ("The Plovdiv Brigades", "Red or black, Yani's army is born in a week: students, tobacco workers and anyone else with a rifle."),
+    "command": ("Officers from the Cafés", "Yani's best talkers become his first officers. Some of them are even good at it."),
+    "workshops": ("Workshops of Simeonovo", "Every workshop on our side of the mountain now makes one thing: what the front needs."),
+    "reserves": ("Every Village a Barracks", "Every village in the east sends its young men up the hill."),
+    "line": ("Dig In at Dragalevtsi", "The monastery walls above Dragalevtsi have stopped armies before."),
+    "telephones": ("Couriers on Bicycles", "No telephones, no radios, but every student owns a bicycle."),
+    "factory": ("The Orehite Arsenal", "A fruit warehouse in Orehite makes grenades now. It still smells of apples."),
+    "volunteers": ("Volunteers from the Lowlands", "Workers from Mladost and Pancharevo walk up the mountain road to join Yani."),
+    "patrols": ("The Night Raids", "Henry's guard owns the day. Yani's people own the night."),
+    "martial_law": ("Revolutionary Discipline", "Committees, curfews and a firing squad that is mostly a threat."),
+    "guns": ("Guns from the Quarries", "Quarry explosives make very good shells, if you are not too fussy."),
+    "counter": ("The Storm of Boyana", "Everything we have, at once, toward the villa.\\n\\nOnly during the civil war."),
+    "dig_in": ("Not a Step Back", "Every house in Simeonovo is a fortress, and every fortress has a student in the window.\\n\\nOnly during the civil war."),
+    "mortars": ("Mortars from the Workshops", "Drainpipes, a firing pin and a lot of courage."),
+    "final_push": ("Take the Villa Back", "Henry's last stand is in his own house. Yani wants to sleep in it.\\n\\nOnly during the civil war."),
+    "trench_raids": ("Partisans behind the Lines", "Yani's people know every path behind Henry's front.\\n\\nOnly during the civil war."),
+    "lorries": ("The Fruit Lorries", "The orchard lorries of Orehite carry troops now, still smelling of apples."),
+    "won": ("The Mountain Is Ours", "The last shots echo across the forest and the mountain is quiet. The student from Plovdiv has won his war."),
+    "repair_factories": ("Repair the Workshops", "The workshops that made shells during the war make tractors and radios again."),
+    "rebuild": ("Rebuild the Villages", "The east of the mountain did the fighting. It gets the new roads and the new factory."),
+    "amnesty": ("Mercy for the Guard", "Henry's guardsmen are sent home, minus their rifles and their pride."),
+    "reequip": ("Rifles for the New Army", "Henry's old arsenal, captured whole, equips the army that beat him."),
+    "railways": ("The Mountain Railway", "A narrow railway from Simeonovo to Knyazhevo, built by the people who fought over it."),
+    "restored": ("The Mountain Restored", "The villa becomes a rest home, the guard becomes a militia and Yani finally gets some sleep."),
+    "retrain": ("The Staff College in the Villa", "Henry's dining room is now a lecture hall for Yani's officers."),
+    "veterans": ("Heroes of Simeonovo", "Every street in Simeonovo is named after someone who fought for it."),
+}, {
+    "head": "duo:Generic_Revolutionary_Republic", "command": "duo:Generic_Socialist_Volunteers", "workshops": "duo:goal_generic_industry_reallocation",
+    "reserves": "duo:Generic_Refugees", "line": "duo:goal_generic_home_defense_bel", "telephones": "duo:Generic_Railroads",
+    "factory": "duo:goal_generic_production2", "volunteers": "duo:Generic_Urban_Partisans", "patrols": "duo:Generic_Disguise",
+    "martial_law": "duo:Generic_Executions", "guns": "duo:goal_generic_build_tank", "counter": "duo:goal_generic_major_war",
+    "dig_in": "duo:Generic_Russian_Soldier", "mortars": "duo:focus_generic_tank_destroyer", "final_push": "duo:goal_generic_attack_allies",
+    "trench_raids": "duo:Generic_Russian_Partisan", "lorries": "duo:Generic_Industry_Tanks", "won": "duo:Generic_Cincinnatus",
+    "repair_factories": "duo:goal_generic_workers_democracy", "rebuild": "duo:goal_generic_construct_public_housing",
+    "amnesty": "duo:Generic_Red_Cross", "reequip": "duo:goal_generic_war_in_the_plate", "railways": "duo:focus_generic_aluminum",
+    "restored": "duo:goal_generic_civilian_oversight", "retrain": "duo:goal_generic_army_tanks2", "veterans": "duo:Generic_Female_Commander",
+}, 3, "VIT_y_push", ["Plovdiv Column", "Classmates", "Studentski Volunteers"])
 
 # ================================================================== Henry: What the English Couldn't Do (democratic, like the UK)
 HDEM = [
@@ -327,7 +420,7 @@ HDEM = [
      "This is Radio Vitosha. Every evening, news from the free mountain for every district of Sofia.\\n\\nDemocracy grows "
      "slowly in every neighbour for six months.", ["POLITICAL"]),
     ("the_mountain_conference", "The Mountain Conference", 4, 8, [["parliament_in_boyana"]], 8, "duo:focus_generic_little_entente",
-     "is_in_faction = no", "create_faction = EVIL_SOFIA_FACTION_MOUNTAIN_ENTENTE\nadd_political_power = 50",
+     "OR = { is_in_faction = no is_faction_leader = yes }", "if = { limit = { is_in_faction = no } create_faction = EVIL_SOFIA_FACTION_MOUNTAIN_ENTENTE }\nadd_political_power = 50",
      "Henry invites the free districts of Sofia to a conference at the villa: three days of speeches, two of lunch and "
      "one alliance.\\n\\nCreates the faction The Mountain Entente.", ["POLITICAL"]),
     ("fighters_over_vitosha", "Fighters over Vitosha", 6, 8, [["the_home_guard"]], 8, "duo:Generic_Pilots",
@@ -398,9 +491,18 @@ HDEM = [
      "Henry and his friends sign a charter on a ship. The ship is a rowing boat on the Pancharevo lake, but the charter "
      "is very grand.\\n\\nEvery democracy outside an alliance is invited to the Mountain Entente.", ["POLITICAL"]),
     ("the_sun_never_sets", "The Sun Never Sets on the Mountain", 7, 13, [["commonwealth_of_the_mountain"]], 10,
-     "duo:Generic_Global_Hegemony", NOWAR, wargoals_on_neighbours("has_government = democratic"),
-     "There is always somewhere on the Commonwealth where the sun is shining. Usually it is the top of the mountain.\\n\\n"
-     "War goals on every neighbour that is neither our ally nor a democracy.", ["ANNEXATION"]),
+     "duo:Generic_Global_Hegemony", NOWAR, "\n".join(
+         f"if = {{ limit = {{ country_exists = {t} NOT = {{ has_war_with = {t} is_in_faction_with = {t} }} }} "
+         f"create_wargoal = {{ type = puppet_wargoal_focus target = {t} }} }}" for t in ("LOZ", "STU", "MLA")),
+     "There is always somewhere on the Commonwealth where the sun is shining. Usually it is the top of the mountain. "
+     "The districts below it do not have to be conquered: they can be dominions.\\n\\nWar goals to make Lozenets, "
+     "Studentski and Mladost our dominions (puppets).", ["ANNEXATION"]),
+    ("an_offer_of_dominion", "An Offer of Dominion", 3, 14, [["finest_hour"]], 8, "duo:Generic_Big_Blue_Blob", NOWAR,
+     "every_neighbor_country = {\n\tlimit = { has_government = democratic is_in_faction = no is_subject = no NOT = { has_war_with = ROOT } }\n"
+     "\tcountry_event = { id = evil_sofia_vit.26 }\n}",
+     "Henry writes to every free district next to the mountain: join the Commonwealth as a dominion, keep your own "
+     "parliament, and never worry about defence again.\\n\\nEvery democratic neighbour outside an alliance is offered "
+     "dominion status. The weaker it is and the better it thinks of us, the likelier it says yes.", ["ANNEXATION", "POLITICAL"]),
     ("better_than_westminster", "Better Than Westminster", 5, 14, [["finest_hour", "the_vitosha_charter", "the_sun_never_sets"]], 12,
      "duo:Generic_Liberalism", "", "add_ideas = VIT_better_than_westminster\nadd_stability = 0.05",
      "A visiting English lord tours the villa, the parliament in Boyana and the meadow airfield, has his tea at five and "
@@ -471,7 +573,7 @@ HAUT = [
      "add_ideas = VIT_crowns_army", "Every soldier of Vitosha now swears to the crown in the attic, whoever wears it one day.",
      ["ARMY_XP"]),
     ("the_league_of_the_mountain", "The League of the Mountain", 27, 12, [["march_into_the_valley"]], 8, "duo:goal_generic_military_deal",
-     "is_in_faction = no", "create_faction = EVIL_SOFIA_FACTION_MOUNTAIN_LEAGUE\n" + invite(16),
+     "OR = { is_in_faction = no is_faction_leader = yes }", "if = { limit = { is_in_faction = no } create_faction = EVIL_SOFIA_FACTION_MOUNTAIN_LEAGUE }\n" + invite(16),
      "Every district that still has a strong hand at the top is invited to dinner at the villa. At midnight, of course."
      "\\n\\nCreates the League of the Mountain and invites every district outside an alliance; authoritarian ones are "
      "likelier to say yes.", ["POLITICAL"]),
@@ -490,8 +592,10 @@ HAUT = [
      "add_research_slot = 1\nadd_political_power = 50",
      "Painters, scholars and a court poet who rhymes everything with Vitosha. It is harder than it sounds.", ["RESEARCH"]),
     ("the_throne_expands", "The Mountain Throne Expands", 26, 14, [["tsardom_of_the_mountain"]], 10, "duo:Generic_Unchecked_Expansionism",
-     NOWAR, wargoals_on_neighbours(""),
-     "A tsardom needs subjects. Sofia is full of them.\\n\\nWar goals on every neighbour outside our faction.", ["ANNEXATION"]),
+     NOWAR, "{CLAIMS:BNK,KRP,VRB,LYU}\n{WAR:BNK,KRP,VRB,LYU}",
+     "West of the mountain lie the old villages: Bankya with its springs, Vrabnitsa, Lyulin and Krasna Polyana. Zevka "
+     "said they were always the tsar's, whatever the maps say.\\n\\nClaims and war goals on Bankya, Krasna Polyana, "
+     "Vrabnitsa and Lyulin.", ["ANNEXATION"]),
     ("bells_over_sofia", "Bells over Sofia", 24, 15, [["zevka_would_be_proud", "the_court_at_boyana", "the_throne_expands"]], 12,
      "duo:Generic_Religious_Unity", "", "add_ideas = VIT_bells_over_sofia",
      "On the tsar's name day every church bell in Sofia rings at once, and every district hears it.", ["STABILITY", "POLITICAL"]),
@@ -548,8 +652,8 @@ YCOM = [
     ("the_mountain_committee", "The Committee for the Mountain", 38, 10, [["the_red_army_of_the_mountain"]], 7, "duo:Generic_Spy_Communist",
      "add_stability = 0.05\nadd_ideas = VIT_mountain_committee",
      "A committee that watches everyone, including the other committees.", ["STABILITY"]),
-    ("the_red_mountain", "The Red Mountain", 40, 10, [["the_red_press"]], 8, "duo:focus_generic_join_comintern", "is_in_faction = no",
-     "create_faction = EVIL_SOFIA_FACTION_RED_MOUNTAIN\n" + invite(10),
+    ("the_red_mountain", "The Red Mountain", 40, 10, [["the_red_press"]], 8, "duo:focus_generic_join_comintern", "OR = { is_in_faction = no is_faction_leader = yes }",
+     "if = { limit = { is_in_faction = no } create_faction = EVIL_SOFIA_FACTION_RED_MOUNTAIN }\n" + invite(10),
      "Every worker in Sofia has a friend on the mountain now.\\n\\nCreates the faction The Red Mountain and invites every "
      "district outside an alliance; communist ones are likelier to say yes.", ["POLITICAL"]),
     ("the_road_to_plovdiv", "The Road to Plovdiv", 32, 11, [["the_thracian_dream"]], 9, "duo:Generic_Train", NOWAR,
@@ -573,8 +677,9 @@ YCOM = [
      "tobacco warehouses.\\n\\nNeeds Vitosha, Pancharevo and Iskar held. Vitosha becomes the Thracian Commune and cores "
      "the land it holds.", ["POLITICAL", "ANNEXATION"]),
     ("all_roads_lead_to_plovdiv", "All Roads Lead to Plovdiv", 32, 13, [["thracian_commune"]], 10, "duo:Generic_Internationalism",
-     NOWAR, wargoals_on_neighbours("has_government = communism"),
-     "Rome had its roads. Plovdiv had them first.\\n\\nWar goals on every neighbour that is neither our ally nor communist.",
+     NOWAR, "{CLAIMS:KRE,NIS,SLA,IZG}\n{WAR:KRE,NIS,SLA,IZG}",
+     "Rome had its roads. Plovdiv had them first, and the road home runs east, through the steelworks and the "
+     "workers' districts of Kremikovtsi, Novi Iskar, Slatina and Izgrev.\\n\\nClaims and war goals on those four.",
      ["ANNEXATION"]),
     ("the_red_hill", "The Red Hill", 34, 13, [["thracian_commune"]], 10, "duo:Generic_Red_Atomic", "", "add_ideas = VIT_red_hill",
      "Yani renames the mountain's highest hut after the tobacco strike of his childhood. The workers climb up to see it "
@@ -624,7 +729,7 @@ YFAS = [
      "add_ideas = VIT_trimontium_guard",
      "The Romans called Plovdiv the city of three hills. Yani's guard takes the name and the doctrine.", ["ARMY_XP"]),
     ("the_seven_hills_pact", "The Pact of the Seven Hills", 59, 9, [["the_black_shirt_youth", "the_trimontium_radio"]], 8,
-     "duo:goal_generic_support_fascism", "is_in_faction = no", "create_faction = EVIL_SOFIA_FACTION_SEVEN_HILLS\n" + invite(13),
+     "duo:goal_generic_support_fascism", "OR = { is_in_faction = no is_faction_leader = yes }", "if = { limit = { is_in_faction = no } create_faction = EVIL_SOFIA_FACTION_SEVEN_HILLS }\n" + invite(13),
      "Seven hills, seven seats at the table, and Yani at the head of it.\\n\\nCreates the faction The Pact of the Seven "
      "Hills and invites every district outside an alliance; fascist ones are likelier to say yes.", ["POLITICAL"]),
 ]
@@ -663,9 +768,9 @@ YFAS += [
      "Studentski, Krasno Selo, Mladost). Vitosha becomes New Philippopolis and cores the land it holds.",
      ["POLITICAL", "ANNEXATION"]),
     ("philippopolis_rules_sofia", "Philippopolis Rules Sofia", 55, 14, [["new_philippopolis"]], 10, "duo:Generic_Checkmate", NOWAR,
-     wargoals_on_neighbours(""),
-     "Sofia was once a Thracian town too. It can be one again, under Philippopolis.\\n\\nWar goals on every neighbour "
-     "outside our faction.", ["ANNEXATION"]),
+     "{CLAIMS:SRD,OBR,VAZ,SRK}\n{WAR:SRD,OBR,VAZ,SRK}",
+     "Sofia was a Thracian town, Serdica, long before it was anything else. Its old heart belongs to the Thracians' "
+     "heirs.\\n\\nClaims and war goals on the old centre: Sredets, Oborishte, Vazrazhdane and Serdika.", ["ANNEXATION"]),
     ("the_sun_of_vergina", "The Sun of Vergina", 59, 14, [["new_philippopolis"]], 12, "duo:Generic_Cult_of_the_Supreme_Being", "",
      "add_ideas = VIT_sun_of_vergina",
      "The golden sun of Philip's tomb flies over the mountain, and Yani has it embroidered on every black shirt.",
@@ -680,8 +785,7 @@ for fid, name, x, y, pre, w, icon, avail, rew, desc, filt in [(e[0], e[1], e[2],
 
 # ================================================================== the Evil Gang (for Henry and for Yani)
 GANG_FRIENDS = [("SRD", "Victor Kolev", 63, 2), ("LOZ", "Georgi Yanchovichin", 65, 2), ("KRP", "Stefan Kartunov", 67, 2),
-                ("MLA", "Georgi Poryazov", 63, 3), ("TRD", "Alexander Dimitrov", 65, 3), ("OBR", "Anton Zafirov", 67, 3),
-                ("LYU", "GrimBoss", 65, 4)]
+                ("MLA", "Georgi Poryazov", 63, 3), ("TRD", "Alexander Dimitrov", 65, 3), ("OBR", "Anton Zafirov", 67, 3)]
 F("the_group_chat_pings", "The Group Chat Pings", 65, 0, [], [], 5, "duo:Generic_Meeting",
   "has_country_flag = VIT_war_over", "add_political_power = 50",
   "The war on the mountain is over, and the phone has not stopped buzzing. The old group chat, the Evil Gang, wants to "
@@ -693,20 +797,20 @@ F("join_victors_gang", "Join Victor's Gang", 64, 1, [["the_group_chat_pings"]], 
   "Victor has already brought the Evil Gang back together. Vitosha asks to join.\\n\\nOnly if Sredets leads the Evil "
   "Gang. Victor decides; the better he thinks of us, the likelier he says yes.", ["POLITICAL"])
 F("found_the_mountain_gang", "The Gang on the Mountain", 66, 1, [["the_group_chat_pings"]], ["join_victors_gang"], 5,
-  "duo:Generic_Party_Bottle", f"is_in_faction = no\nNOT = {{ {VICTOR_GANG} }}",
-  "create_faction = EVIL_SOFIA_FACTION_EVIL_GANG\nadd_political_power = 25",
+  "duo:Generic_Party_Bottle", f"OR = {{ is_in_faction = no is_faction_leader = yes }}\nNOT = {{ {VICTOR_GANG} }}",
+  "if = { limit = { is_in_faction = no } create_faction = EVIL_SOFIA_FACTION_EVIL_GANG }\nadd_political_power = 25",
   "Nobody has brought the gang back together yet, so Vitosha will. The first meeting is at the villa, and there is "
   "plenty of food.\\n\\nCreates the faction The Evil Gang with Vitosha at its head. Not possible if Sredets already "
   "leads it.", ["POLITICAL"])
 for gtag, gname, gx, gy in GANG_FRIENDS:
-    pre = [["found_the_mountain_gang"]] if gy == 2 else ([["vit_invite_SRD", "vit_invite_LOZ"]] if gx == 63 else [["vit_invite_LOZ"]] if gx == 65 and gy == 3 else [["vit_invite_KRP"]] if gy == 3 else [["vit_invite_MLA", "vit_invite_TRD", "vit_invite_OBR"]])
+    pre = [["found_the_mountain_gang"]] if gy == 2 else ([["vit_invite_SRD", "vit_invite_LOZ"]] if gx == 63 else [["vit_invite_LOZ"]] if gx == 65 and gy == 3 else [["vit_invite_KRP"]])
     F(f"vit_invite_{gtag}", f"Invite {gname}", gx, gy, pre, [], 5, f"person:vit_invite_{gtag}", "",
       f"if = {{\n\tlimit = {{ country_exists = {gtag} NOT = {{ has_war_with = {gtag} is_in_faction_with = {gtag} }} {gtag} = {{ is_in_faction = no }} }}\n"
       f"\t{gtag} = {{ country_event = {{ id = evil_sofia_vit.1 }} }}\n}}",
       f"A message in the group chat, addressed to {gname} by name: the gang is meeting on the mountain, and there is a "
       f"seat for him.\\n\\n{gname} is invited to the Evil Gang. The better he thinks of us, the likelier he says yes.",
       ["POLITICAL"])
-F("the_gang_rules_the_mountain", "The Gang Rules the Mountain", 65, 5, [["vit_invite_LYU"]], [], 8, "duo:Generic_Hedonism", "",
+F("the_gang_rules_the_mountain", "The Gang Rules the Mountain", 65, 4, [["vit_invite_MLA", "vit_invite_TRD", "vit_invite_OBR"]], [], 8, "duo:Generic_Hedonism", "",
   "add_ideas = SRD_evil_gang\nevery_other_country = {\n\tlimit = { is_in_faction_with = ROOT }\n\tif = { limit = { NOT = { has_idea = SRD_evil_gang } } add_ideas = SRD_evil_gang }\n}",
   "The gang meets every Friday at the villa, and everyone outside it is a little more nervous on Saturdays.\\n\\nEvery "
   "member of our faction gets the Evil Gang spirit.", ["POLITICAL", "WAR_SUPPORT"])
@@ -789,6 +893,209 @@ ARMY = [
 for fid, name, x, y, pre, w, icon, rew, desc in ARMY:
     F(fid, name, x, y, pre, [], w, icon, "", rew, desc, ["ARMY_XP", "RESEARCH"] if "tech_bonus" in rew else ["ARMY_XP"])
 
+
+
+# ================================================================== before the war: friends, forts and hired help
+PREWAR = "NOT = { has_country_flag = VIT_war_started }"
+
+
+def call_friend(tag, event, extra=""):
+    return (f"if = {{\n\tlimit = {{ is_in_faction = no }}\n\tcreate_faction = {FACTION_OF[event]}\n}}\n"
+            f"if = {{\n\tlimit = {{ country_exists = {tag} {tag} = {{ is_in_faction = no }} NOT = {{ has_war_with = {tag} }} }}\n"
+            f"\t{tag} = {{ country_event = {{ id = evil_sofia_vit.{event} }} }}\n}}")
+
+
+FACTION_OF = {19: "EVIL_SOFIA_FACTION_VILLA_PACT", 22: "EVIL_SOFIA_FACTION_STUDENT_PACT"}
+CAN_CALL = "OR = { is_in_faction = no is_faction_leader = yes }"
+HFRIENDS = [("KRP", "Stefan Kartunov", 7), ("MLA", "Georgi Poryazov", 9), ("SRD", "Victor Kolev", 11)]
+YFRIENDS = [("KRP", "Stefan Kartunov", 41), ("LOZ", "Georgi Yanchovichin", 43)]
+F("old_friends_of_the_villa", "Old Friends of the Villa", 10, 2, [["henry_holds_the_villa"]], [], 5, "duo:goal_generic_dangerous_deal",
+  PREWAR, "add_political_power = 50",
+  "Henry has known some of the district leaders since school. A war is coming, and old friends can help, as long as "
+  "they are not communists. Henry is very firm about that.", ["POLITICAL"])
+for tag, name, x in HFRIENDS:
+    F(f"henry_calls_{tag}", f"Call {name}", x, 3, [["old_friends_of_the_villa"]], [], 5, f"person:henry_calls_{tag}",
+      f"{CAN_CALL}\n{tag} = {{ exists = yes NOT = {{ has_government = communism }} }}", call_friend(tag, 19),
+      f"Henry telephones {name}: the villa needs friends, and {name} has always been one.\\n\\nIf we are not in an "
+      f"alliance we found the Villa Pact. {name} is asked to join; he usually says yes. Not possible while {name} is "
+      "communist.", ["POLITICAL"])
+F("the_villa_pact", "The Villa Pact", 9, 4, [[f"henry_calls_{t}" for t, _, _ in HFRIENDS]], [], 6, "duo:goal_generic_government_deals", "",
+  "add_ideas = VIT_villa_pact",
+  "Dinner at the villa for every friend who answered the phone. Dinner is at midnight.", ["POLITICAL"])
+F("friends_at_the_gate", "Friends at the Gate", 9, 5, [["the_villa_pact"]], [], 6, "duo:goal_generic_corporatism", PREWAR,
+  "add_war_support = 0.03",
+  "Henry's friends promise to send a few volunteers up the mountain the day the shooting starts. They will go home "
+  "when it stops.", ["MANPOWER"])
+F("fortify_boyana", "Fortify Boyana", 18, 2, [["henry_holds_the_villa"]], [], 6, "duo:Generic_Protectionist_Economics", PREWAR,
+  "add_political_power = 25", "Sandbags, wire and concrete around the villas of Boyana, just in case.", ["INDUSTRY"])
+F("ring_road_bunkers", "Bunkers on the Ring Road", 17, 3, [["fortify_boyana"]], [], 8, "duo:focus_generic_provoke_border_clashes", PREWAR,
+  f"{S('Vitosha')} = {{ add_building_construction = {{ type = bunker level = 2 province = {{ all_provinces = yes limit_to_border = yes }} instant_build = yes }} }}",
+  "Concrete pillboxes along the ring road, where the mountain meets the city.", ["INDUSTRY"])
+F("trenches_in_knyazhevo", "Trenches in Knyazhevo", 19, 3, [["fortify_boyana"]], [], 7, "duo:Generic_Chemical_Warfare", PREWAR,
+  f"{S('Knyazhevo')} = {{ add_building_construction = {{ type = bunker level = 2 province = {{ all_provinces = yes limit_to_border = yes }} instant_build = yes }} }}",
+  "Trenches through the mineral springs park. The bathers are not pleased.", ["INDUSTRY"])
+F("the_vitosha_line", "The Vitosha Line", 18, 4, [["ring_road_bunkers"], ["trenches_in_knyazhevo"]], [], 10, "duo:focus_generic_strike_at_democracy1", PREWAR,
+  "every_owned_state = { add_building_construction = { type = bunker level = 1 province = { all_provinces = yes limit_to_border = yes } instant_build = yes } }",
+  "A line of bunkers around the whole mountain. Whoever is inside it will be very hard to get out.", ["INDUSTRY"])
+F("hired_help", "Hired Help", 22, 2, [["henry_holds_the_villa"]], [], 5, "duo:goal_generic_loans", PREWAR, "add_political_power = 25",
+  "Henry's mother does not trust students. She does trust money.", ["MANPOWER"])
+F("guards_for_hire", "Guards for Hire", 21, 3, [["hired_help"]], [], 7, "duo:Generic_Gunslinger", PREWAR, "add_political_power = 10",
+  "Three companies of private guards from Lozenets, paid in advance, with their own rifles.", ["MANPOWER"])
+F("the_british_club", "The British Club", 23, 3, [["hired_help"]], [], 7, "duo:Generic_British_Soldier", PREWAR, "add_political_power = 10",
+  "The British Club in Sofia has a bar, a billiard room and a surprising number of retired officers.", ["MANPOWER"])
+
+F("old_classmates", "Old Classmates", 42, 2, [["the_cafes_of_simeonovo"]], [], 5, "duo:Generic_Espionage04", PREWAR,
+  "add_political_power = 50",
+  "Yani went to school with half the district leaders of Sofia. Some of them still owe him homework.", ["POLITICAL"])
+for tag, name, x in YFRIENDS:
+    F(f"yani_calls_{tag}", f"Call {name}", x, 3, [["old_classmates"]], [], 5, f"person:yani_calls_{tag}", CAN_CALL,
+      call_friend(tag, 22),
+      f"{name} sat next to Yani for four years. Whatever either of them believes now, that still counts.\\n\\nIf we are "
+      f"not in an alliance we found the Students' Pact. {name} is asked to join, and always says yes.", ["POLITICAL"])
+F("the_students_pact", "The Students' Pact", 42, 4, [[f"yani_calls_{t}" for t, _, _ in YFRIENDS]], [], 6, "duo:goal_generic_intelligence_exchange", "",
+  "add_ideas = VIT_students_pact", "A pact signed in a classroom, on a desk with all their names carved into it.", ["POLITICAL"])
+F("classmates_at_the_front", "Classmates at the Front", 42, 5, [["the_students_pact"]], [], 6, "duo:Generic_War_Propaganda", PREWAR,
+  "add_war_support = 0.03",
+  "The classmates will send their own volunteers the day the war starts, and take them home when it ends.", ["MANPOWER"])
+F("hidden_depots", "Hidden Depots", 50, 2, [["the_cafes_of_simeonovo"]], [], 6, "duo:Generic_Black_Market", PREWAR,
+  "add_political_power = 25", "A barn, a cellar, a hole under a woodpile: the movement starts hiding things.", ["INDUSTRY"])
+F("caches_in_the_forest", "Caches in the Forest", 49, 3, [["hidden_depots"]], [], 7, "duo:Generic_Jungle_Ghost", PREWAR, "add_political_power = 10",
+  "Rifles wrapped in oilcloth, buried under the beeches above Simeonovo.", ["INDUSTRY"])
+F("drills_in_the_woods", "Drills in the Woods", 51, 3, [["hidden_depots"]], [], 7, "duo:Generic_Jungle_Insurgency", PREWAR, "add_political_power = 10",
+  "Every Sunday the students go for a long walk in the forest, and come back knowing how to strip a rifle.", ["ARMY_XP"])
+F("barricades_in_simeonovo", "Barricades in Simeonovo", 50, 4, [["caches_in_the_forest"], ["drills_in_the_woods"]], [], 8,
+  "duo:Generic_Enough", PREWAR, "add_political_power = 10",
+  "Every street in Simeonovo knows where its barricade goes. The cobbles are already loose.", ["INDUSTRY"])
+F("the_tobacco_column", "The Tobacco Column", 53, 3, [["hidden_depots"]], [], 7, "duo:Generic_Cotton_Farming", PREWAR, "add_political_power = 10",
+  "Tobacco workers from Plovdiv, ready to take the train to Sofia the moment Yani calls.", ["MANPOWER"])
+F("studentski_volunteers", "Studentski Volunteers", 55, 3, [["the_tobacco_column"]], [], 7, "duo:Generic_Revolutionary_Women", PREWAR,
+  "add_political_power = 10",
+  "The dormitories of Studentski Grad empty overnight when Yani needs them.", ["MANPOWER"])
+
+# ================================================================== more for the political paths (armies, forts, cores)
+MORE = [
+    # Henry, the English way
+    ("commandos_of_cherni_vrah", "Commandos of Cherni Vrah", 1, 12, [["fight_on_the_slopes"]], 8, "duo:focus_generic_paratrooper", "",
+     "add_ideas = VIT_commandos", "Small teams that climb at night and strike at dawn. Henry insists they wear berets.", ["ARMY_XP"]),
+    ("armoured_regiment_of_boyana", "The Armoured Regiment of Boyana", 8, 11, [["dominion_status"]], 9, "duo:goal_generic_army_tanks3", "",
+     "add_tech_bonus = { name = VIT_boyana_armour bonus = 1.0 uses = 2 category = armor }",
+     "A regiment of tanks, painted green and polished every morning.", ["RESEARCH"]),
+    ("home_rule_for_the_dominions", "Home Rule for the Dominions", 7, 14, [["the_sun_never_sets"]], 8, "duo:Generic_Autonomy", "",
+     "{COREHELD:VIT:LOZ,STU,MLA,TRD}\nadd_stability = 0.03",
+     "Every district the Commonwealth takes gets its own little council, a portrait of Henry and the full rights of a "
+     "citizen of the mountain.\\n\\nVitosha cores every state of Lozenets, Studentski, Mladost and Triaditsa it holds.", ["ANNEXATION", "STABILITY"]),
+    # Henry, Zevka's dream
+    ("mounted_gendarmes", "Mounted Gendarmes", 20, 13, [["the_crowns_army"]], 7, "duo:Generic_Imperial_Russian_Cossack", "",
+     "add_tech_bonus = { name = VIT_mounted bonus = 1.0 uses = 1 category = motorized_equipment }\narmy_experience = 15",
+     "On a mountain a horse still beats a lorry. The gendarmes ride.", ["ARMY_XP"]),
+    ("the_iron_wall_of_kopitoto", "The Iron Wall of Kopitoto", 28, 13, [["the_league_of_the_mountain"]], 9, "duo:goal_generic_isolation", "",
+     "every_owned_state = { add_building_construction = { type = bunker level = 1 province = { all_provinces = yes limit_to_border = yes } instant_build = yes } }\n"
+     "capital_scope = { add_building_construction = { type = anti_air_building level = 2 instant_build = yes } }",
+     "Concrete and guns from Kopitoto to Cherni Vrah. The Tsardom will not be taken.", ["INDUSTRY"]),
+    ("lands_of_the_crown", "Lands of the Crown", 28, 15, [["the_throne_expands"]], 8, "duo:Generic_Orthodoxy", "",
+     "{COREHELD:VIT:BNK,KRP,VRB,LYU,LOZ,TRD}",
+     "Every village the tsar's army takes is told the same thing: it always belonged to the crown, it just did not "
+     "know it.\\n\\nVitosha cores every state of Bankya, Krasna Polyana, Vrabnitsa, Lyulin, Lozenets and Triaditsa it holds.", ["ANNEXATION"]),
+    # Yani, Red Plovdiv
+    ("the_red_fortress", "The Red Fortress of Vitosha", 40, 11, [["the_red_mountain"]], 9, "duo:focus_generic_soviet_politics", "",
+     "every_owned_state = { add_building_construction = { type = bunker level = 1 province = { all_provinces = yes limit_to_border = yes } instant_build = yes } }",
+     "The revolution won the mountain. It will not give it back.", ["INDUSTRY"]),
+    ("tank_brigades_of_simeonovo", "Tank Brigades of Simeonovo", 40, 12, [["the_red_fortress"]], 10, "duo:focus_generic_army_tanks2", "",
+     "add_tech_bonus = { name = VIT_red_tanks bonus = 1.0 uses = 2 category = armor }",
+     "The tractor works in Simeonovo also builds something with a gun on it.", ["RESEARCH"]),
+    ("soviets_in_the_valley", "Soviets in the Valley", 32, 14, [["all_roads_lead_to_plovdiv"]], 8, "duo:Generic_Liberatian_Socialism", "",
+     "{COREHELD:VIT:KRE,NIS,SLA,IZG,MLA,STU,OVK}",
+     "Every district the Red Army of the Mountain reaches elects its own soviet, which joins the Thracian Commune by "
+     "an overwhelming majority.\\n\\nVitosha cores every state of Kremikovtsi, Novi Iskar, Slatina, Izgrev, Mladost, Studentski and Ovcha Kupel it holds.", ["ANNEXATION"]),
+    # Yani, the Seven Hills
+    ("the_iron_phalanx", "The Iron Phalanx", 52, 12, [["the_mountain_arsenal"]], 10, "duo:Generic_Tank_with_Flags", "",
+     "add_tech_bonus = { name = VIT_iron_phalanx bonus = 1.0 uses = 2 category = armor }",
+     "Philip's phalanx had pikes. Yani's has armour plate.", ["RESEARCH"]),
+    ("the_wall_of_philip", "The Wall of Philip", 60, 12, [["the_roman_theatre"]], 9, "duo:focus_generic_oppression", "",
+     "every_owned_state = { add_building_construction = { type = bunker level = 1 province = { all_provinces = yes limit_to_border = yes } instant_build = yes } }",
+     "Plovdiv had walls for three thousand years. Philippopolis gets new ones.", ["INDUSTRY"]),
+    ("citizens_of_philippopolis", "Citizens of Philippopolis", 55, 15, [["philippopolis_rules_sofia"]], 8, "duo:Generic_Ultranationalist_Government", "",
+     "{COREHELD:VIT:SRD,OBR,VAZ,SRK,ISK}",
+     "Every district Philippopolis takes is given a hill's name, a torch and the honour of being Philippopolitan."
+     "\\n\\nVitosha cores every state of Sredets, Oborishte, Vazrazhdane, Serdika and Iskar it holds.",
+     ["ANNEXATION"]),
+]
+for fid, name, x, y, pre, w, icon, avail, rew, desc, filt in MORE:
+    F(fid, name, x, y, pre, [], w, icon, avail, rew, desc, filt)
+
+# ================================================================== more industry and army (everyone)
+IND2 = [
+    ("the_power_station_at_pancharevo", "The Power Station", 71, 5, [["the_industrial_mountain"]], 9, "duo:goal_generic_lightbulb",
+     factory("industrial_complex"), "A dam, a turbine and electric light in every village on the mountain."),
+    ("ski_lift_freight", "Freight on the Ski Lift", 75, 5, [["the_industrial_mountain"]], 7, "duo:goal_generic_trade",
+     "capital_scope = { add_building_construction = { type = infrastructure level = 1 instant_build = yes } }",
+     "The Dragalevtsi lift carries skiers in winter and crates of shells all year round."),
+    ("the_granite_works", "The Granite Works", 70, 6, [["the_power_station_at_pancharevo"]], 9, "duo:goal_generic_coal_mining",
+     factory("industrial_complex"), "Vitosha granite, cut and polished, for every new building in Sofia."),
+    ("the_dispersed_workshops", "Dispersed Workshops", 72, 6, [["the_power_station_at_pancharevo"]], 8, "duo:focus_generic_rubber",
+     "add_ideas = VIT_dispersed_workshops", "A workshop in every barn: no bomber can hit them all."),
+    ("the_munitions_tunnels", "The Munitions Tunnels", 74, 6, [["ski_lift_freight"]], 10, "duo:focus_generic_tungsten",
+     factory("arms_factory"), "The old quarry tunnels go deep into the mountain. Now they are full of shells."),
+    ("the_cable_car_factory", "The Cable Car Factory", 76, 6, [["ski_lift_freight"]], 9, "duo:focus_generic_concessions",
+     factory("arms_factory"), "Whoever can build a cable car can build an artillery tractor."),
+    ("construction_effort", "The Mountain Builds", 71, 7, [["the_granite_works"], ["the_dispersed_workshops"]], 10, "duo:goal_generic_construct_civ_factory",
+     "add_tech_bonus = { name = VIT_construction bonus = 1.0 uses = 2 category = construction_tech }\n" + factory("industrial_complex"),
+     "Cranes on every slope."),
+    ("the_mountain_radio_works", "The Radio Works", 73, 7, [["the_dispersed_workshops"]], 9, "duo:goal_generic_radar",
+     "add_tech_bonus = { name = VIT_radio bonus = 1.0 uses = 2 category = electronics }",
+     "Valves, wires and a factory full of students who build radios faster than they can listen to them."),
+    ("the_shell_works", "The Shell Works", 75, 7, [["the_munitions_tunnels", "the_cable_car_factory"]], 11, "duo:goal_generic_construct_military",
+     factory("arms_factory", 2), "Two new arms factories cut into the rock."),
+    ("production_effort", "Every Machine Counts", 72, 8, [["construction_effort"]], 9, "duo:goal_generic_price_controls",
+     "add_ideas = VIT_every_machine_counts", "Spare parts, shift bonuses and a foreman who never sleeps."),
+    ("the_mountain_university", "The Mountain University", 74, 8, [["the_mountain_radio_works"], ["the_shell_works"]], 10, "duo:goal_generic_scientific_exchange",
+     "add_research_slot = 1", "Lecture halls in the old hotels at Aleko, with the best view of any university in Europe."),
+    ("the_workshop_of_sofia", "The Workshop of Sofia", 73, 9, [["production_effort"], ["the_mountain_university"]], 12, "duo:focus_generic_the_giant_wakes",
+     "swap_ideas = { remove_idea = VIT_industrial_mountain add_idea = VIT_workshop_of_sofia }",
+     "Half of what Sofia uses was made on the mountain. The other half was carried down it."),
+]
+ARMY2 = [
+    ("mountain_divisions", "Mountain Divisions", 79, 5, [["the_army_of_the_mountain"]], 8, "duo:Generic_Desert_Warfare",
+     "add_tech_bonus = { name = VIT_mountain_div bonus = 1.0 uses = 1 category = land_doctrine }\narmy_experience = 20",
+     "Divisions built for the mountain: mules, light guns and very strong legs."),
+    ("the_fortress_mountain", "The Fortress Mountain", 82, 5, [["the_army_of_the_mountain"]], 9, "duo:Generic_Reactionary",
+     "every_owned_state = { add_building_construction = { type = bunker level = 1 province = { all_provinces = yes limit_to_border = yes } instant_build = yes } }",
+     "Every pass, every path and every road on the mountain has a bunker on it."),
+    ("the_mountain_air_corps", "The Mountain Air Corps", 85, 5, [["the_army_of_the_mountain"]], 8, "duo:goal_generic_air_doctrine",
+     "air_experience = 25\nadd_tech_bonus = { name = VIT_air_doctrine bonus = 1.0 uses = 1 category = air_doctrine }",
+     "Pilots who can land in a meadow and take off from a ski slope."),
+    ("support_companies", "Support Companies", 78, 6, [["mountain_divisions"]], 7, "duo:Generic_Military_Women",
+     "add_tech_bonus = { name = VIT_support bonus = 1.0 uses = 2 category = support_tech }",
+     "Engineers, signallers and field hospitals for every division."),
+    ("rangers_of_the_peak", "Rangers of the Peak", 80, 6, [["mountain_divisions"]], 8, "duo:Generic_Intelligence_Gathering",
+     "add_ideas = VIT_rangers_of_the_peak", "The best shots on the mountain, trained to fight in snow and fog."),
+    ("pillboxes_on_every_pass", "Pillboxes on Every Pass", 82, 6, [["the_fortress_mountain"]], 8, "duo:Generic_Protectionism",
+     "capital_scope = { add_building_construction = { type = bunker level = 3 province = { all_provinces = yes limit_to_border = yes } instant_build = yes } }",
+     "Concrete pillboxes on every mountain pass around the capital."),
+    ("bombers_from_the_meadow", "Bombers from the Meadow", 84, 6, [["the_mountain_air_corps"]], 8, "duo:goal_generic_air_naval_bomber",
+     "add_tech_bonus = { name = VIT_bombers bonus = 1.0 uses = 1 category = air_equipment }",
+     "A few bombers, a long grass runway and a city spread out below like a map."),
+    ("close_air_support", "Close Air Support", 86, 6, [["the_mountain_air_corps"]], 8, "duo:goal_generic_CAS",
+     "add_tech_bonus = { name = VIT_cas bonus = 1.0 uses = 1 category = air_equipment }\nair_experience = 15",
+     "Dive bombers that come down the mountain faster than any avalanche."),
+    ("the_artillery_park", "The Artillery Park", 79, 7, [["support_companies"], ["rangers_of_the_peak"]], 9, "duo:Generic_Air_Defense",
+     "add_tech_bonus = { name = VIT_artillery_park bonus = 1.0 uses = 2 category = artillery }",
+     "Every gun on the mountain parked in one meadow, oiled and ready."),
+    ("dig_in_doctrine", "Dig In Doctrine", 82, 7, [["pillboxes_on_every_pass"]], 9, "duo:Generic_Sun_Tzu",
+     "add_ideas = VIT_dig_in_doctrine", "A soldier of the mountain digs before he eats."),
+    ("air_superiority", "Air Superiority over Sofia", 85, 7, [["bombers_from_the_meadow", "close_air_support"]], 9, "duo:goal_generic_investigation",
+     "air_experience = 25", "Nothing flies over the mountain without asking first."),
+    ("the_mountain_reserve", "The Mountain Reserve", 80, 8, [["the_artillery_park"]], 9, "duo:Generic_Female_Soldier03",
+     "add_ideas = VIT_mountain_reserve", "Every man who ever served is on a list, and the list is always up to date."),
+    ("the_unbreakable_mountain", "The Unbreakable Mountain", 82, 9, [["the_mountain_reserve"], ["dig_in_doctrine"]], 12, "duo:Generic_Corporatism",
+     "swap_ideas = { remove_idea = VIT_army_of_the_mountain add_idea = VIT_unbreakable_mountain }",
+     "No army in Sofia has ever taken the mountain from someone who wanted to keep it. None ever will."),
+]
+for fid, name, x, y, pre, w, icon, rew, desc in IND2:
+    F(fid, name, x, y, pre, [], w, icon, "", rew, desc, ["INDUSTRY"] + (["RESEARCH"] if "research" in rew or "tech_bonus" in rew else []))
+for fid, name, x, y, pre, w, icon, rew, desc in ARMY2:
+    F(fid, name, x, y, pre, [], w, icon, "", rew, desc,
+      (["AIR_XP"] if "air" in rew else ["ARMY_XP"]) + (["RESEARCH"] if "tech_bonus" in rew else []))
 
 UNLOCK_TOOLTIPS = {
     "crush_the_student_movement": "§YThe civil war begins.§! Everything Henry's chain prepared joins us. We get §RThe Mountain "
@@ -1077,3 +1384,237 @@ def extra_build(root, facts, write, write_dds, loc, L):
     write("common/characters/evil_sofia_VIT_yani.txt", f"characters = {{\n\tVIT_yani = {{\n\t\tname = VIT_yani{portrait}\n\t}}\n}}\n")
     loc.extend([' VIT_yani:0 "Yanislav Marazov"',
                 f' VIT_yani_desc:0 "{L("Yanislav Marazov came to Sofia from Plovdiv to study and stayed to change it. Everyone calls him Yani. He talks fast, remembers every name and never lets anyone forget that Plovdiv is older than Rome.")}"'])
+
+
+# ================================================================== additions: spirits, events, alliances, tooltips, armies
+IDEAS.update({
+    "VIT_scars_of_war_2": ("Scars of War", "Broken factories, worn-out rifles and a lot of graves.",
+                           "industrial_capacity_factory = -0.20\nproduction_speed_buildings_factor = -0.20\narmy_org_factor = -0.10\n"
+                           "stability_factor = -0.10", ("Circle.png", "Skull.png")),
+    "VIT_scars_of_war_1": ("Scars of War", "The worst is repaired. Not all of it.",
+                           "industrial_capacity_factory = -0.10\nproduction_speed_buildings_factor = -0.10\narmy_org_factor = -0.05",
+                           ("Circle.png", "Skull.png")),
+    "VIT_h_dig_in": ("Hold Every Ridge", "Not one metre given up.", "army_defence_factor = 0.15\ndig_in_speed_factor = 0.25", ("Army.png", "Shovels Crossed.png")),
+    "VIT_y_dig_in": ("Not a Step Back", "Every house a fortress.", "army_defence_factor = 0.15\ndig_in_speed_factor = 0.25", ("Rectangle.png", "Shovels Crossed.png")),
+    "VIT_h_veterans": ("Veterans of the Mountain", "The men who held the villa.", "army_org_factor = 0.05\nexperience_gain_army_factor = 0.15", ("Army.png", "Soldier Saluting.png")),
+    "VIT_y_veterans": ("Heroes of Simeonovo", "Every street named after one.", "army_morale_factor = 0.05\nexperience_gain_army_factor = 0.15", ("Rectangle.png", "Soldier Saluting.png")),
+    "VIT_villa_pact": ("The Villa Pact", "Old friends, dinner at midnight.", "political_power_factor = 0.05\nwar_support_factor = 0.05", ("Shield Blue.png", "Hands Shaking.png")),
+    "VIT_students_pact": ("The Students' Pact", "Signed on a school desk.", "political_power_factor = 0.05\nconscription_factor = 0.05", ("Rectangle.png", "Hands Shaking2.png")),
+    "VIT_commandos": ("Commandos of Cherni Vrah", "They climb at night.", "special_forces_cap = 0.05\narmy_attack_factor = 0.03", ("Army.png", "Knife2.png")),
+    "VIT_dispersed_workshops": ("Dispersed Workshops", "A workshop in every barn.", "industrial_capacity_factory = 0.05\nproduction_factory_efficiency_gain_factor = 0.05", ("Rectangle.png", "Cog.png")),
+    "VIT_every_machine_counts": ("Every Machine Counts", "A foreman who never sleeps.", "production_factory_max_efficiency_factor = 0.05\nproduction_factory_efficiency_gain_factor = 0.10", ("Rectangle.png", "Wrench.png")),
+    "VIT_workshop_of_sofia": ("The Workshop of Sofia", "Half of Sofia's goods were made on the mountain.",
+                              "industrial_capacity_factory = 0.10\nproduction_speed_buildings_factor = 0.15\nresearch_speed_factor = 0.03", ("Pentagon.png", "Cog.png")),
+    "VIT_rangers_of_the_peak": ("Rangers of the Peak", "Snow, fog and very good aim.", "army_attack_factor = 0.03\nattrition = -0.10", ("Army.png", "Rifles Crossed.png")),
+    "VIT_dig_in_doctrine": ("Dig In Doctrine", "He digs before he eats.", "max_dig_in = 2\ndig_in_speed_factor = 0.20", ("Army.png", "Shovels Crossed.png")),
+    "VIT_mountain_reserve": ("The Mountain Reserve", "The list is always up to date.", "conscription = 0.01\nmobilization_speed = 0.10", ("Army.png", "Documents.png")),
+    "VIT_unbreakable_mountain": ("The Unbreakable Mountain", "Nobody ever took it from someone who wanted to keep it.",
+                                 "army_attack_factor = 0.10\narmy_defence_factor = 0.10\narmy_org_factor = 0.05", ("Pentagon.png", "Soldiers in Rows.png")),
+})
+FACTIONS.update({"EVIL_SOFIA_FACTION_VILLA_PACT": "The Villa Pact", "EVIL_SOFIA_FACTION_STUDENT_PACT": "The Students' Pact"})
+PERSON_ICONS.update({
+    "henry_calls_KRP": ("KRP", "SunStarFrame.png", "Megaphone2.png", 0, dict(fill=(30, 40, 60), front_width=0.40, front_y=0.95)),
+    "henry_calls_MLA": ("MLA", "LeavedFrame.png", "Megaphone2.png", 0, dict(fill=(30, 40, 60), front_width=0.40, front_y=0.95)),
+    "henry_calls_SRD": ("SRD", "SilverStarFrame.png", "Megaphone2.png", 0, dict(fill=(30, 40, 60), front_width=0.40, front_y=0.95)),
+    "yani_calls_KRP": ("KRP", "SpikyFrame.png", "Book Open.png", 0, dict(fill=(50, 30, 26), front_width=0.38, front_y=1.05)),
+    "yani_calls_LOZ": ("LOZ", "RedWheatFrame.png", "Book Open.png", 0, dict(fill=(50, 30, 26), front_width=0.38, front_y=1.05)),
+})
+PERSON_FALLBACK.update({k: "goal_ANQ_patriotic_protests" for k in PERSON_ICONS if k not in PERSON_FALLBACK})
+
+_CALL_HENRY = """base = 70
+modifier = { add = 20 has_opinion = { target = FROM value > 20 } }
+modifier = { factor = 0 has_government = communism }"""
+EVENTS.update({
+    "19": ("Henry Calls", "The telephone rings at midnight. It is Daniel-Henry Capel, from the villa on the hill: a war is "
+           "coming to Vitosha, he says, and he would like his old friend [Root.GetLeader] on his side. There will be dinner.",
+           _P, [("For old times' sake.", "FROM = { add_to_faction = ROOT country_event = { id = evil_sofia_vit.20 } }", _CALL_HENRY),
+                ("Not this time, Henry.", "FROM = { country_event = { id = evil_sofia_vit.21 } }", "base = 20")]),
+    "20": ("[From.GetLeader] Answers", "[From.GetName] has joined us.", _P, [("A true friend.", "", 1)]),
+    "21": ("[From.GetLeader] Hangs Up", "[From.GetName] will not join us.", _P, [("We will remember.", "", 1)]),
+    "22": ("A Letter from Yani", "A letter in handwriting [Root.GetLeader] has not seen since school: Yanislav Marazov, "
+           "the old classmate from Plovdiv, needs his friends. Whatever they believe now, a classmate is a classmate.",
+           _P, [("A classmate is a classmate.", "FROM = { add_to_faction = ROOT country_event = { id = evil_sofia_vit.23 } }", 100),
+                ("Not even for Yani.", "FROM = { country_event = { id = evil_sofia_vit.24 } }", 0)]),
+    "23": ("[From.GetLeader] Is with Us", "[From.GetName] has joined us.", _P, [("Just like school.", "", 1)]),
+    "24": ("[From.GetLeader] Says No", "[From.GetName] will not join us.", _P, [("Some classmate.", "", 1)]),
+    "25": ("The Mountain Explodes",
+           "Nobody chose the day. A brawl outside a café in Simeonovo, a shot, a second shot, and by nightfall the whole "
+           "mountain is at war with itself. Whatever was ready is ready. Whatever was not, is not.",
+           _P, "NOT = { has_country_flag = VIT_war_started }\nexists = yes",
+           [("Then we fight.", ifc("has_completed_focus = VIT_march_with_yani",
+                                   TAKE_THE_VILLA + "\nunlock_national_focus = VIT_yani_takes_the_villa")
+             + "\nelse = {\n" + ind(CRUSH + "\nunlock_national_focus = VIT_crush_the_student_movement") + "}", 1)]),
+    "26": ("An Offer of Dominion",
+           "[From.GetLeader] of [From.GetName] offers [Root.GetName] a place in the Commonwealth of the Mountain: our own "
+           "parliament, our own laws, and the mountain's army to defend us. In return, the mountain decides our foreign policy.",
+           _P, [("We accept dominion status.", "FROM = { puppet = ROOT }", """base = 15
+modifier = { add = 25 has_opinion = { target = FROM value > 30 } }
+modifier = { add = 20 num_of_factories < 10 }"""),
+                ("We stay independent.", "", "base = 60")]),
+})
+ON_STARTUP += """
+if = {
+	limit = { NOT = { has_global_flag = evil_sofia_vitosha_timer } }
+	set_global_flag = evil_sofia_vitosha_timer
+	VIT = { country_event = { id = evil_sofia_vit.25 days = 400 } }
+}"""
+
+_W = "§YWhen the civil war starts§!, if we are on this side: "
+_TEMP = " They are §Rsent home§! when the war is won."
+UNLOCK_TOOLTIPS.update({
+    "the_boyana_garrison": _W + "§G+4 divisions§! in Boyana.",
+    "mothers_savings": _W + "§G+2,500 rifles§!.",
+    "the_mountain_rangers": _W + "the spirit §YMountain Rangers§!.",
+    "henrys_officers": _W + "§G+30 army experience§! and the spirit §YHenry's Officers§!.",
+    "friends_at_the_gate": _W + "§G+2 temporary divisions§! from Henry's friends." + _TEMP,
+    "guards_for_hire": _W + "§G+3 temporary divisions§! of hired guards." + _TEMP,
+    "the_british_club": _W + "§G+2 temporary divisions§! of British Club volunteers." + _TEMP,
+    "cells_in_simeonovo": _W + "§G+4 divisions§! in Simeonovo.",
+    "students_from_plovdiv": _W + "§G+20,000 manpower§! and the spirit §YStudents from Plovdiv§!.",
+    "arms_from_plovdiv": _W + "§G+2,500 rifles§!.",
+    "the_plovdiv_committee": _W + "§G+10% war support§! and §G+20 army experience§!.",
+    "classmates_at_the_front": _W + "§G+2 temporary divisions§! from Yani's classmates." + _TEMP,
+    "caches_in_the_forest": _W + "§G+2,000 rifles§!.",
+    "drills_in_the_woods": _W + "§G+20 army experience§!.",
+    "barricades_in_simeonovo": _W + "§Glevel 3 bunkers§! along Simeonovo's borders.",
+    "the_tobacco_column": _W + "§G+3 temporary divisions§! of Plovdiv tobacco workers." + _TEMP,
+    "studentski_volunteers": _W + "§G+2 temporary divisions§! of students." + _TEMP,
+    "stand_with_henry": "If the war has not started after §Y400 days§!, it starts by itself on Henry's side, unless we "
+                        "completed March with Yani. Only completed focuses give their bonuses.",
+    "march_with_yani": "If the war has not started after §Y400 days§!, it starts by itself on Yani's side. Only completed "
+                       "focuses give their bonuses.",
+})
+
+_extra_build_base = extra_build
+TEMP_ARMIES = {"VIT_friends_of_the_villa": ("Friends of the Villa", "Vitosha", 2),
+               "VIT_hired_guard": ("Hired Guard", "Vitosha", 3),
+               "VIT_club_volunteers": ("Club Volunteers", "Vitosha", 2),
+               "VIT_classmates": ("Classmates", "Simeonovo", 2),
+               "VIT_plovdiv_column": ("Plovdiv Column", "Simeonovo", 3),
+               "VIT_studentski_volunteers": ("Studentski Volunteers", "Simeonovo", 2)}
+_ORD = {1: "1st", 2: "2nd", 3: "3rd"}
+
+
+def extra_build(root, facts, write, write_dds, loc, L):
+    """As before, plus the temporary armies: each has its own template, so the war's end can delete them."""
+    _extra_build_base(root, facts, write, write_dds, loc, L)
+    st = _states_by_name(root, facts)
+    for fname, (template, state, n) in TEMP_ARMIES.items():
+        provs = st[state][1]
+        tpl = (f'division_template = {{\n\tname = "{template}"\n\tregiments = {{\n\t\tinfantry = {{ x = 0 y = 0 }}\n'
+               f'\t\tinfantry = {{ x = 0 y = 1 }}\n\t\tinfantry = {{ x = 1 y = 0 }}\n\t}}\n}}\n\n')
+        divs = "\n".join(f'\tdivision = {{\n\t\tname = "{_ORD[k]} {template}"\n\t\tlocation = {provs[k % len(provs)]}\n'
+                         f'\t\tdivision_template = "{template}"\n\t\tstart_experience_factor = 0.2\n\t\tstart_equipment_factor = 1.0\n\t}}'
+                         for k in range(1, n + 1))
+        write(f"history/units/{fname}.txt", tpl + "units = {\n" + divs + "\n}\n")
+
+
+# ================================================================== the war names
+COSMETIC.update({
+    "VIT_HENRY": ("Henry's Vitosha", "Vitoshan", (40, 70, 150), ("mountain", "henry")),
+    "VIT_YANI": ("Yani's Vitosha", "Vitoshan", (150, 30, 30), ("mountain", "yani")),
+})
+ON_ACTIONS = """	on_civil_war_end = {
+		effect = {
+			every_country = {
+				limit = { OR = { has_cosmetic_tag = VIT_HENRY has_cosmetic_tag = VIT_YANI } }
+				drop_cosmetic_tag = yes
+			}
+		}
+	}
+"""
+
+# ================================================================== foreign aid: a focus on every path, then decisions
+SAME = ("OR = { AND = { ROOT = { has_government = democratic } has_government = democratic } "
+        "AND = { ROOT = { has_government = neutrality } has_government = neutrality } "
+        "AND = { ROOT = { has_government = communism } has_government = communism } "
+        "AND = { ROOT = { has_government = fascism } has_government = fascism } }")
+DONOR = f"any_other_country = {{ exists = yes NOT = {{ original_tag = VIT }} {SAME} }}"
+AID_FOCUSES = [
+    ("friends_across_the_valley", "Friends Across the Valley", 0, 11, [["a_cabinet_of_all_talents"]], "duo:goal_generic_positive_trade_relations",
+     "Every free district of Sofia has something to spare for the mountain, and Henry is very good at asking."),
+    ("friends_of_the_crown", "Friends of the Crown", 25, 12, [["the_estates_of_knyazhevo"]], "duo:goal_generic_foreign_investments",
+     "Every district with a strong hand at the top understands what Henry is doing, and some of them will help."),
+    ("help_from_the_comrades", "Help from the Comrades", 36, 11, [["the_red_air_brigade"]], "duo:Generic_Bakuninist_Collectivism",
+     "Every red district in Sofia owes the revolution something. Yani sends them the bill."),
+    ("friends_of_the_torch", "Friends of the Torch", 53, 13, [["the_iron_phalanx"]], "duo:goal_generic_seize_money",
+     "The black shirts of other districts send what they can: rifles, money and young men looking for a fight."),
+]
+for fid, name, x, y, pre, icon, desc in AID_FOCUSES:
+    F(fid, name, x, y, pre, [], 6, icon, "", "set_country_flag = VIT_aid_open\nadd_political_power = 25",
+      desc + "\\n\\nUnlocks the §YForeign Aid§! decisions: ask districts with the same ideology as ours for rifles, "
+      "volunteers, aeroplanes, lorries and advisers.", ["POLITICAL"])
+    UNLOCK_TOOLTIPS[fid] = "Unlocks the §YForeign Aid§! decisions (rifles, volunteers, aeroplanes, lorries, advisers)."
+for i, (fid, *_rest) in enumerate(AID_FOCUSES):
+    FILTERS[fid] = ["POLITICAL", "MANPOWER"]
+
+
+def _aid(key, name, desc, cost, give, take):
+    return dict(id=f"VIT_aid_{key}", name=name, desc=desc + "\n\nAsks a district with the same ideology as ours; it gives "
+                "up what we receive.", cost=cost, cooldown=120, visible="", available=DONOR,
+                effect=f"random_other_country = {{\n\tlimit = {{ exists = yes NOT = {{ original_tag = VIT }} {SAME} }}\n"
+                       f"{ind(take)}}}\n{give}", ai="factor = 1", icon="generic_prepare_civil_war")
+
+
+DECISION_CATS = [("VIT_foreign_aid", "Foreign Aid",
+                  "Friends with the same ideology as ours can spare rifles, men and machines for the mountain.",
+                  "original_tag = VIT", "has_country_flag = VIT_aid_open", [
+    _aid("rifles", "Request Rifles", "Crates of rifles, sent up the mountain road by night.", 25,
+         "add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1500 }",
+         "add_equipment_to_stockpile = { type = infantry_equipment_1 amount = -1500 }"),
+    _aid("volunteers", "Request Volunteers", "Young men who want to fight for the mountain.", 50,
+         "add_manpower = 8000", "add_manpower = -8000"),
+    _aid("aeroplanes", "Request Aeroplanes", "A few aeroplanes and the pilots to fly them.", 75,
+         "add_equipment_to_stockpile = { type = small_plane_airframe_1 amount = 10 }\nair_experience = 10",
+         "add_equipment_to_stockpile = { type = small_plane_airframe_1 amount = -10 }"),
+    _aid("lorries", "Request Lorries", "Lorries for the mountain road.", 40,
+         "add_equipment_to_stockpile = { type = motorized_equipment_1 amount = 60 }",
+         "add_equipment_to_stockpile = { type = motorized_equipment_1 amount = -60 }"),
+    _aid("advisers", "Request Military Advisers", "Officers who have seen a real war, on loan.", 50,
+         "army_experience = 20", "army_experience = -10"),
+])]
+
+# ================================================================== Henry's colonies: the mines on the other side of Sofia
+COLONIES = [
+    ("the_colonial_office", "The Colonial Office", 2, 15, [["an_offer_of_dominion"]], 7, "duo:goal_generic_globe", NOWAR,
+     "add_political_power = 50",
+     "England had an empire for its coal and its metals. The mountain is made of granite, but on the other side of "
+     "Sofia there is iron at Kremikovtsi, the old mine at Buhovo and coal under Lyulin and Bankya, where the Pernik basin "
+     "begins. Henry opens a Colonial Office.", ["POLITICAL", "ANNEXATION"]),
+    ("the_kremikovtsi_company", "The Kremikovtsi Company", 1, 16, [["the_colonial_office"]], 9, "duo:Generic_More_OIL", NOWAR,
+     "if = { limit = { country_exists = KRE NOT = { has_war_with = KRE is_in_faction_with = KRE } } "
+     "create_wargoal = { type = puppet_wargoal_focus target = KRE } }\nadd_political_power = 25",
+     "A chartered company for the iron ore and the steelworks of Kremikovtsi, and the Buhovo mine next to them. Every "
+     "company needs a flag, and every flag needs a garrison.\\n\\nA war goal to make Kremikovtsi our colony (puppet).",
+     ["ANNEXATION"]),
+    ("the_lyulin_coal_concession", "The Lyulin Coal Concession", 3, 16, [["the_colonial_office"]], 9, "duo:Generic_Oil_Concern", NOWAR,
+     "\n".join(f"if = {{ limit = {{ country_exists = {t} NOT = {{ has_war_with = {t} is_in_faction_with = {t} }} }} "
+               f"create_wargoal = {{ type = puppet_wargoal_focus target = {t} }} }}" for t in ("LYU", "BNK")),
+     "The coal seams of the Pernik basin run under Lyulin mountain and Bankya. Henry would like a concession, and a "
+     "garrison to protect it.\\n\\nWar goals to make Lyulin and Bankya our colonies (puppets).", ["ANNEXATION"]),
+    ("the_mountain_mining_company", "The Mountain Mining Company", 2, 17,
+     [["the_kremikovtsi_company"], ["the_lyulin_coal_concession"]], 10, "duo:Generic_Oil_Production", "",
+     "{RESOURCE:steel:4:KRE,LYU,BNK}\n{RESOURCE:tungsten:2:KRE}\n" + factory("industrial_complex"),
+     "One company for every mine in the colonies: the ore goes up the mountain road, the money goes into the villa.\\n\\n"
+     "Every state of Kremikovtsi, Lyulin and Bankya that we or our subjects hold gets more steel, and Kremikovtsi's "
+     "more tungsten.", ["INDUSTRY"]),
+]
+for fid, name, x, y, pre, w, icon, avail, rew, desc, filt in COLONIES:
+    F(fid, name, x, y, pre, [], w, icon, avail, rew, desc, filt)
+
+EVENTS.update({
+    "27": ("Henry's Road",
+           "The guns are firing on the slopes, and the villa has to decide what it is fighting for. Henry's father's "
+           "family would hold elections and win them. His grandmother Zevka would never have bothered.",
+           _P, [("The English way: a parliament and a vote.", "complete_national_focus = VIT_what_the_english_couldnt_do", 50),
+                ("Zevka's way: one firm hand.", "complete_national_focus = VIT_what_zevka_wanted", 50)]),
+    "28": ("Yani's Road",
+           "The student from Plovdiv has his war. Now his movement must decide what it is: the red Plovdiv of the "
+           "tobacco strikes, or the black shirts and the seven hills.",
+           _P, [("Red Plovdiv.", "complete_national_focus = VIT_red_plovdiv",
+                 "base = 50\nmodifier = { add = 50 has_government = communism }\nmodifier = { factor = 0.2 has_government = fascism }"),
+                ("The Seven Hills.", "complete_national_focus = VIT_the_seven_hills",
+                 "base = 50\nmodifier = { add = 50 has_government = fascism }\nmodifier = { factor = 0.2 has_government = communism }")]),
+})
+UNLOCK_TOOLTIPS["crush_the_student_movement"] += " The next day, choose Henry's road at once by event."
+UNLOCK_TOOLTIPS["yani_takes_the_villa"] += " The next day, choose Yani's road at once by event."

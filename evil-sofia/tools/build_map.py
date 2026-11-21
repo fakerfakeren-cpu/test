@@ -1539,6 +1539,38 @@ for k, (tag, name, adj_, cat, pop) in DISTRICTS.items():
         st["pop_factor"] = int(POP_RNG.integers(100, 201))
         st["manpower"] = int(round(max(500, pop * w_ / sum(weights)) * st["pop_factor"], -3))
 industry_state = {}
+# How developed each district is: 1 = rich (more research, factories, divisions and a better template), 2 = middling,
+# 3 = poor outskirts. A judgement from the real districts: the old centre, the embassy and business districts, the
+# universities, the villas under Vitosha and the Kremikovtsi steelworks lead; the villages on the edge trail.
+DEVELOPMENT = {"SRD": 1, "OBR": 1, "LOZ": 1, "IZG": 1, "MLA": 1, "STU": 1, "VIT": 1, "KRE": 1,
+               "VAZ": 2, "TRD": 2, "SRK": 2, "KRS": 2, "NAD": 2, "ISK": 2, "SLA": 2, "POD": 2, "ILN": 2, "LYU": 2, "OVK": 2,
+               "PNC": 3, "BNK": 3, "NIS": 3, "VRB": 3, "KRP": 3, "IAP": 3}
+RESEARCH_SLOTS = {1: 3, 2: 2, 3: 1}
+EXTRA_CIV = {1: 2, 2: 1, 3: 0}
+# resources where the ground has them: Kremikovtsi's iron ore and the Buhovo mine, the edge of the Pernik coal basin
+# under Lyulin and Bankya (both counted as steel, as the game has no coal)
+SUPPORT = {1: "\n\tsupport = {\n\t\tengineer = { x = 0 y = 0 }\n\t\trecon = { x = 0 y = 1 }\n\t}",
+           2: "\n\tsupport = {\n\t\tengineer = { x = 0 y = 0 }\n\t}", 3: ""}
+STOCK = {1: 1500, 2: 800, 3: 500}
+LINE_TEMPLATE = """
+division_template = {
+\tname = "Line Division"
+\tregiments = {
+\t\tinfantry = { x = 0 y = 0 }
+\t\tinfantry = { x = 0 y = 1 }
+\t\tinfantry = { x = 0 y = 2 }
+\t\tinfantry = { x = 1 y = 0 }
+\t\tinfantry = { x = 1 y = 1 }
+\t\tinfantry = { x = 1 y = 2 }
+\t\tartillery_brigade = { x = 2 y = 0 }
+\t}
+\tsupport = {
+\t\tengineer = { x = 0 y = 0 }
+\t\trecon = { x = 0 y = 1 }
+\t}
+}
+"""
+CAPITAL_RESOURCES = {"LYU": "steel = 4", "BNK": "steel = 4"}
 for k in (18,):   # the Kremikovtsi steelworks: the state with the most industrial-zone land
     mine = [st for st in states if st["district"] == k]
     industry_state[k] = max(mine, key=lambda st: sum(P_AREA[p] for p in st["provinces"] if prov_kvtype[p] == "2")
@@ -1555,15 +1587,21 @@ for st in states:
     infra = 5 if cat in ("megalopolis", "metropolis") else 4 if urban >= 0.3 else 3
     bld = f"infrastructure = {infra}"
     if st["country_capital"]:
-        civ = {"megalopolis": 3, "metropolis": 2, "large_city": 2, "city": 1}.get(cat, 0)
+        civ = {"megalopolis": 3, "metropolis": 2, "large_city": 2, "city": 1}.get(cat, 0) + EXTRA_CIV[DEVELOPMENT[tag]]
+        if DEVELOPMENT[tag] == 1:
+            bld += "\n\t\t\tarms_factory = 1"
         if civ:
             bld += f"\n\t\t\tindustrial_complex = {civ}"
     extra = ""
     if industry_state.get(k) == st["id"]:
         bld += "\n\t\t\tarms_factory = 3"
-        extra = "\n\tresources = { steel = 12 }"
+        extra = "\n\tresources = { steel = 12 tungsten = 6 }"
         if category in ("town", "rural", "pastoral"):
             category = "large_town"      # room for the steelworks' factories
+    if st["country_capital"] and tag in CAPITAL_RESOURCES:
+        extra += f"\n\tresources = {{ {CAPITAL_RESOURCES[tag]} }}"
+    if st["country_capital"] and DEVELOPMENT[tag] == 1 and category in ("town", "rural", "pastoral"):
+        category = "large_town"          # room for a rich district's factories
     vp_lines = "\n".join(f"\t\tvictory_points = {{ {p} {vp[p][1]} }}" for p in st["provinces"] if p in vp)
     file_name = re.sub(r"[^A-Za-z0-9_-]", "", st["name"].replace(" ", "_"))
     write(f"history/states/{st['id']}-{tag}_{file_name}.txt", f"""state = {{
@@ -1674,8 +1712,8 @@ color = {{ {r} {g} {b} }}
 """)
     write(f"history/countries/{tag} - {name}.txt", f"""capital = {country_capital_state[k]}
 
-set_research_slots = 2
-set_stability = 0.5
+set_research_slots = {RESEARCH_SLOTS[DEVELOPMENT[tag]] + (1 if tag == 'STU' else 0)}
+set_stability = {0.6 if DEVELOPMENT[tag] == 1 else 0.5}
 set_war_support = 0.5
 
 set_politics = {{
@@ -1707,11 +1745,13 @@ set_technology = {{
 \tbasic_train = 1
 }}
 """)
-    n_div = 1 + pop // 40000
+    tier = DEVELOPMENT[tag]
+    n_div = 1 + pop // 40000 + (2 if tier == 1 else 1 if tier == 2 else 0)
+    n_line = 2 if tier == 1 else 0           # rich districts field proper line divisions
     divisions = "\n".join(f"""\tdivision = {{
-\t\tname = "{i + 1}{'st' if i == 0 else 'nd' if i == 1 else 'rd' if i == 2 else 'th'} {name} Guard"
+\t\tname = "{i + 1}{'st' if i == 0 else 'nd' if i == 1 else 'rd' if i == 2 else 'th'} {name} {'Line' if i < n_line else 'Guard'}"
 \t\tlocation = {capital[k]}
-\t\tdivision_template = "City Guard"
+\t\tdivision_template = "{'Line Division' if i < n_line else 'City Guard'}"
 \t\tstart_experience_factor = 0.2
 \t\tstart_equipment_factor = 1.0
 \t}}""" for i in range(n_div))
@@ -1722,9 +1762,9 @@ set_technology = {{
 \t\tinfantry = {{ x = 0 y = 1 }}
 \t\tinfantry = {{ x = 1 y = 0 }}
 \t\tinfantry = {{ x = 1 y = 1 }}
-\t}}
+\t}}{SUPPORT[tier]}
 }}
-
+{LINE_TEMPLATE if tier == 1 else ""}
 units = {{
 {divisions}
 }}
@@ -1732,7 +1772,7 @@ units = {{
 instant_effect = {{
 \tadd_equipment_to_stockpile = {{
 \t\ttype = infantry_equipment_1
-\t\tamount = 500
+\t\tamount = {STOCK[tier]}
 \t\tproducer = {tag}
 \t}}
 }}

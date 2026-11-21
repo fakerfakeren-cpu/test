@@ -168,6 +168,10 @@ def build(root, facts, write, write_dds):
             f"every_state = {{\n\tlimit = {{ OR = {{ {' '.join(f'state = {i}' for i in start_states(m.group(2).split(',')))} }} }}\n"
             f"\tadd_core_of = {m.group(1)}\n}}"), text)
         text = re.sub(r"\{COREHELD:([A-Z]+):([A-Z,]+)\}", lambda m: core_held(m.group(1), m.group(2).split(",")), text)
+        text = re.sub(r"\{RESOURCE:(\w+):(\d+):([A-Z,]+)\}", lambda m: "\n".join(   # resources in held or subject states
+            f"if = {{ limit = {{ {i} = {{ OR = {{ is_controlled_by = ROOT controller = {{ is_subject_of = ROOT }} }} }} }} "
+            f"add_resource = {{ type = {m.group(1)} amount = {m.group(2)} state = {i} }} }}"
+            for i in start_states(m.group(3).split(","))), text)
         text = re.sub(r"\{HELD:([A-Z,]+)\}", lambda m: held(m.group(1).split(",")), text)
         text = re.sub(r"\{INVITE:([A-Z]+)\}", lambda m: (
             f"if = {{\n\tlimit = {{ country_exists = {m.group(1)} NOT = {{ is_in_faction_with = {m.group(1)} "
@@ -269,7 +273,7 @@ def build(root, facts, write, write_dds):
 \t\tfactor = 0
 \t\tmodifier = {{
 \t\t\tadd = 20
-\t\t\ttag = {tag}
+\t\t\toriginal_tag = {tag}   # also the breakaway side of a civil war
 \t\t}}
 \t}}
 \tdefault = no
@@ -341,6 +345,8 @@ def build(root, facts, write, write_dds):
                          f"\t\tset_country_flag = {{ flag = {namespace}_cooldown days = 730 }}\n\t}}"]
             else:
                 head.append("\tis_triggered_only = yes")
+                if len(ev) == 5:       # (title, desc, picture, trigger, options): fires only while the trigger holds
+                    head.append("\ttrigger = {\n" + indent(filled(ev[3]), 2) + "\n\t}")
             out.append(f"{kind}_event = {{\n" + "\n".join(head) + "\n" + "\n".join(opts) + "\n}\n")
         return "\n".join(out)
 
@@ -490,8 +496,9 @@ def build(root, facts, write, write_dds):
     for tr in trees[1:]:
         if getattr(tr, "ON_STARTUP", ""):
             recruit += "\n" + tr.ON_STARTUP
+    more_actions = "".join(getattr(tr, "ON_ACTIONS", "") for tr in trees[1:])   # other on_actions of the trees
     write("common/on_actions/evil_sofia_srd_on_actions.txt",
-          f"on_actions = {{\n\ton_startup = {{\n\t\teffect = {{\n{indent(recruit, 3)}\n\t\t}}\n\t}}\n{monthly}}}\n")
+          f"on_actions = {{\n\ton_startup = {{\n\t\teffect = {{\n{indent(recruit, 3)}\n\t\t}}\n\t}}\n{monthly}{more_actions}}}\n")
     # flags: hand-drawn communist flags (tools/red_flags.py), only for the countries that can go red
     import red_flags
 

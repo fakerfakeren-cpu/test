@@ -278,6 +278,20 @@ def mountain(variant):
         d.rectangle((0, ch / 2 - t / 2, cw, ch / 2 + t / 2), fill=RED)
         _peaks(d, W * 0.72, H * 0.82, W * 0.42, H * 0.46, WHITE)
         return _finish(im)
+    if variant in ("henry", "yani"):     # the two sides of the civil war
+        field = navy if variant == "henry" else RED
+        im = Image.new("RGBA", (W, H), field + (255,))
+        d = ImageDraw.Draw(im)
+        if variant == "henry":
+            d.rectangle((0, H * 0.86, W, H), fill=WHITE)
+            _peaks(d, W * 0.5, H * 0.80, W * 0.60, H * 0.50, WHITE)
+            d.rectangle((W * 0.44, H * 0.48, W * 0.56, H * 0.62), fill=navy)          # the villa on the hill
+            d.polygon([(W * 0.42, H * 0.48), (W * 0.5, H * 0.40), (W * 0.58, H * 0.48)], fill=navy)
+        else:
+            d.polygon([(0, H), (W, 0), (W, H)], fill=(24, 22, 22))
+            _peaks(d, W * 0.5, H * 0.82, W * 0.60, H * 0.50, WHITE)
+            star(d, W * 0.5, H * 0.22, H * 0.12, GOLD)
+        return _finish(im)
     if variant == "tsardom":
         im = Image.new("RGBA", (W, H), WHITE + (255,))
         d = ImageDraw.Draw(im)

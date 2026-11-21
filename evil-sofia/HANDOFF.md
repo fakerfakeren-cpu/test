@@ -120,16 +120,22 @@ Without them the build still works: leaders have no portrait and the person/phot
   whole, then the central states of TRD, LOZ, KRS and SRK, set in `WIDER_CENTRE`; ends as the Free Centre of Sofia), the Evil
   Gang (invite the friends one by one), the C Class Hools (join or get hit) and Konstantin Ilchev's takeover.
   Not yet played; expect tweaks.
-- Vitosha tree: 181 focuses, laid out like vanilla's Spain. Two exclusive roots: Stand with Henry (left) or March
-  with Yani (right). Each side has a prep chain (divisions in `history/units/VIT_henry_army.txt` / `VIT_yani_army.txt`,
-  rifles, spirits) ending in the war: Crush the Student Movement (Yani's rebels, communist or fascist at random, take 5
-  eastern states, size 0.3) or Yani Takes the Villa (Yani leads from Simeonovo, Henry's loyalists take 10 states, size
-  0.6, with the stronger army). Support is split 40/40 between the side's two ideologies; then three branches per side:
-  Henry: What the English Couldn't Do (democratic, UK-like, Mountain Entente, Commonwealth of the Mountain) / war branch /
-  What Zevka Wanted (authoritarian, League of the Mountain, Tsardom of the Mountain); Yani: Red Plovdiv (Red Mountain,
-  Thracian Commune) / war branch / The Seven Hills (Pact of the Seven Hills, New Philippopolis). The war branches remove
-  The Mountain in Flames (3 tiers). Evil Gang, industry and army on the far right. 16 smaller states, region Boyana
-  Slopes. Not yet played.
+- Vitosha tree: 268 focuses, laid out like vanilla's Spain. Two exclusive roots: Stand with Henry (left) or March
+  with Yani (right). Each side's prep chain has side groups (Henry: Old Friends of the Villa calls Stefan, Georgi
+  Poryazov and Victor if not communist, Villa Pact; forts; hired guards. Yani: Old Classmates calls Stefan and Georgi
+  Yanchovichin, who always accept, Students' Pact; depots; Plovdiv volunteers). What completed prep focuses give at the
+  war start is shown as effect tooltips; temporary divisions have their own templates (`history/units/VIT_*`) and are
+  deleted by The Mountain Is Ours. The war starts by focus or, after 400 days, by event evil_sofia_vit.25 (Yani's side
+  if March with Yani was completed). Events 27/28 the next day pick the side's road (complete_national_focus). The
+  breakaway side gets the tree (`original_tag = VIT`), its side's start focuses unlocked, Mountain in Flames step 2.
+  During the war the sides are Henry's Vitosha / Yani's Vitosha (cosmetic tags, dropped on_civil_war_end). The war
+  branches hang under both ideology heads, remove The Mountain in Flames, and after the war repair the Scars of War.
+  Paths: What the English Couldn't Do (dominions: puppet war goals, An Offer of Dominion, Colonial Office for the
+  Kremikovtsi/Lyulin/Bankya mines), What Zevka Wanted (the western villages), Red Plovdiv (east toward Plovdiv), The
+  Seven Hills (the seven districts, then the old centre). Each path cores its land and has an aid focus that opens
+  the Foreign Aid decisions. GrimBoss is not in the Vitosha Evil Gang.
+- Development tiers (`DEVELOPMENT` in build_map.py): rich districts get more research slots, factories, divisions,
+  a Line Division template and rifles; poor ones fewer. Resources: Kremikovtsi steel and tungsten, Lyulin and Bankya steel.
 - The other districts have a 13-focus starter tree; the other featured friends have no tree of their own yet.
 - Event pictures: the user is making their own in vanilla style; `tools/event_pictures/PICTURES.md` lists every
   file name, size and subject. A PNG with that name in `tools/event_pictures/` replaces the drawn picture.
@@ -137,7 +143,7 @@ Without them the build still works: leaders have no portrait and the person/phot
 ## Untested in game
  (check `Documents/Paradox Interactive/Hearts of Iron IV/logs/error.log` if something is off)
 
-- Vitosha: `promote_character = { character = VIT_yani ideology = fascism_ideology }` in The Seven Hills, `start_civil_war` with `states`, the rebels inheriting Yani/Henry as the party leader of their ideology, `load_oob` on the rebels, and how long the war takes on each side
+- Vitosha: `load_focus_tree`/`unlock_national_focus` on the breakaway country, `small_plane_airframe_1` in the aid decisions, `promote_character = { character = VIT_yani ideology = fascism_ideology }` in The Seven Hills, `start_civil_war` with `states`, the rebels inheriting Yani/Henry as the party leader of their ideology, `load_oob` on the rebels, and how long the war takes on each side
 - advisor traits (custom traits in `common/country_leader/`), and that advisors without portraits look fine
 - the `rule = { can_create_factions = no can_join_factions = no }` block in the "Sredets Stands Alone" spirits
 - news events with `major = yes` reaching every country, and `[From.GetLeader]` in event titles
