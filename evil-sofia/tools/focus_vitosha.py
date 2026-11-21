@@ -56,6 +56,21 @@ def yani_role(ideology, promote):
             + ("\tpromote_leader = yes\n" if promote else "") + "}")
 
 
+def yani_leader(ideology):
+    return ("if = {\n\tlimit = { has_character = VIT_yani }\n"
+            f"\tpromote_character = {{ character = VIT_yani ideology = {ideology} }}\n}}\nelse = {{\n"
+            f"\tcreate_country_leader = {{ name = \"Yanislav Marazov\" desc = \"VIT_yani_desc\" picture = \"gfx/leaders/VIT/VIT_yani.dds\" "
+            f"expire = {LEADER} ideology = {ideology} traits = {{ evil_sofia_plovdiv_born evil_sofia_racing_driver }} }}\n}}")
+
+
+def henry_leader(ideology):
+    own = (henry_role(ideology, True) if ideology != "despotism"
+           else "promote_character = { character = VIT_leader ideology = despotism }")
+    return ("if = {\n\tlimit = { has_character = VIT_leader }\n" + "".join(f"\t{ln}\n" for ln in own.split("\n"))
+            + f"}}\nelse = {{\n\tcreate_country_leader = {{ name = \"Daniel-Henry Capel\" picture = \"gfx/leaders/VIT/VIT_leader.dds\" "
+            f"expire = {LEADER} ideology = {ideology} traits = {{ }} }}\n}}")
+
+
 def ifc(cond, body, kw="if"):
     return f"{kw} = {{\n\tlimit = {{ {cond} }}\n" + ind(body) + "}"
 
@@ -96,20 +111,28 @@ YANI_PREP += "\n" + "\n".join([
         f"{S('Simeonovo')} = {{ add_building_construction = {{ type = bunker level = 3 province = {{ all_provinces = yes limit_to_border = yes }} instant_build = yes }} }}"),
     ifc(done("the_tobacco_column"), 'load_oob = "VIT_plovdiv_column"'),
     ifc(done("studentski_volunteers"), 'load_oob = "VIT_studentski_volunteers"')])
-REBEL_FLAMES = "add_ideas = VIT_mountain_in_flames_2\nload_focus_tree = evil_sofia_VIT_focus\nset_country_flag = VIT_war_started"
-REBELS_ARE_YANI = ("set_cosmetic_tag = VIT_YANI\nset_country_flag = VIT_yani_side\n"
-                   "unlock_national_focus = VIT_march_with_yani\nunlock_national_focus = VIT_yani_takes_the_villa\n"
+REBEL_FLAMES = ("add_ideas = VIT_mountain_in_flames_2\n"   # the breakaway side starts the tree fresh: none of the other side's focuses
+                "load_focus_tree = { tree = evil_sofia_VIT_focus keep_completed = no }\nset_country_flag = VIT_war_started")
+YANI_CHAIN = ["march_with_yani", "the_cafes_of_simeonovo", "cells_in_simeonovo", "students_from_plovdiv",
+              "arms_from_plovdiv", "the_plovdiv_committee", "yani_takes_the_villa"]
+HENRY_CHAIN = ["stand_with_henry", "henry_holds_the_villa", "the_boyana_garrison", "mothers_savings",
+               "the_mountain_rangers", "henrys_officers", "crush_the_student_movement"]
+REBELS_ARE_YANI = ("set_cosmetic_tag = VIT_YANI\nset_country_flag = VIT_yani_side\nset_popularities = { communism = 45 fascism = 45 democratic = 5 neutrality = 5 }\n"
+                   + "".join(f"unlock_national_focus = VIT_{f}\n" for f in YANI_CHAIN)
+                   + "if = {\n\tlimit = { has_government = communism }\n" + "".join(f"\t{ln}\n" for ln in yani_leader("leninism").split("\n"))
+                   + "}\nelse = {\n" + "".join(f"\t{ln}\n" for ln in yani_leader("fascism_ideology").split("\n")) + "}\n"
                    "country_event = { id = evil_sofia_vit.28 days = 1 }")
-REBELS_ARE_HENRY = ("set_cosmetic_tag = VIT_HENRY\nset_country_flag = VIT_henry_side\n"
-                    "unlock_national_focus = VIT_stand_with_henry\nunlock_national_focus = VIT_crush_the_student_movement\n"
+REBELS_ARE_HENRY = ("set_cosmetic_tag = VIT_HENRY\nset_country_flag = VIT_henry_side\nset_popularities = { democratic = 45 neutrality = 45 communism = 5 fascism = 5 }\n"
+                    + "".join(f"unlock_national_focus = VIT_{f}\n" for f in HENRY_CHAIN)
+                    + "if = {\n\tlimit = { has_government = democratic }\n" + "".join(f"\t{ln}\n" for ln in henry_leader("conservatism").split("\n"))
+                    + "}\nelse = {\n" + "".join(f"\t{ln}\n" for ln in henry_leader("despotism").split("\n")) + "}\n"
                     "country_event = { id = evil_sofia_vit.27 days = 1 }")
 YANI_BOTH_ROLES = yani_role("leninism", False) + "\n" + yani_role("fascism_ideology", False)
 
 CRUSH = "\n".join([
-    "recruit_character = VIT_yani", YANI_BOTH_ROLES,
-    "set_popularities = { democratic = 40 neutrality = 40 communism = 10 fascism = 10 }",
     "random_list = {\n\t50 = {\n" + ind(war("communism", 0.3, "Simeonovo", YANI_EAST), 2) + "\t}\n"
     "\t50 = {\n" + ind(war("fascism", 0.3, "Simeonovo", YANI_EAST), 2) + "\t}\n}",
+    "set_popularities = { democratic = 45 neutrality = 45 communism = 5 fascism = 5 }",
     "add_ideas = VIT_mountain_in_flames_3", HENRY_PREP,
     "set_cosmetic_tag = VIT_HENRY", "country_event = { id = evil_sofia_vit.27 days = 1 }",
     rebels(REBEL_FLAMES + "\n" + REBELS_ARE_YANI + '\nload_oob = "VIT_yani_army"\nadd_equipment_to_stockpile = { type = infantry_equipment_1 amount = 1500 }'),
@@ -118,11 +141,11 @@ CRUSH = "\n".join([
 TAKE_THE_VILLA = "\n".join([
     "recruit_character = VIT_yani", yani_role("leninism", True), yani_role("fascism_ideology", False),
     "set_politics = { ruling_party = communism elections_allowed = no }",
-    "set_popularities = { communism = 40 fascism = 40 democratic = 10 neutrality = 10 }",
-    henry_role("conservatism", False),
+    "retire_character = VIT_leader",
     f"set_capital = {{ state = {S('Simeonovo')} }}",
     "random_list = {\n\t50 = {\n" + ind(war("neutrality", 0.6, "Vitosha", HENRY_WEST), 2) + "\t}\n"
     "\t50 = {\n" + ind(war("democratic", 0.6, "Vitosha", HENRY_WEST), 2) + "\t}\n}",
+    "set_popularities = { communism = 45 fascism = 45 democratic = 5 neutrality = 5 }",
     "add_ideas = VIT_mountain_in_flames_3", YANI_PREP,
     "set_cosmetic_tag = VIT_YANI", "country_event = { id = evil_sofia_vit.28 days = 1 }",
     rebels(REBEL_FLAMES + "\n" + REBELS_ARE_HENRY + '\nload_oob = "VIT_henry_army"\nadd_equipment_to_stockpile = { type = infantry_equipment_1 amount = 2500 }\n'
@@ -400,7 +423,7 @@ war_trunk("y", 46, "VIT_yani_side", ["red_plovdiv", "the_seven_hills"], {
 # ================================================================== Henry: What the English Couldn't Do (democratic, like the UK)
 HDEM = [
     ("what_the_english_couldnt_do", "What the English Couldn't Do", 4, 6, [["crush_the_student_movement"]], 8, "duo:Generic_Big_Ben02",
-     "set_politics = { ruling_party = democratic elections_allowed = yes }\n" + henry_role("conservatism", True)
+     "set_politics = { ruling_party = democratic elections_allowed = yes }\n" + henry_leader("conservatism")
      + "\nadd_ideas = VIT_half_english\nadd_country_leader_trait = evil_sofia_half_english",
      "Henry's father's family has run things the English way for three hundred years: parliaments, tea at five and never "
      "raising your voice. Henry has watched them closely, and he is quite sure he can do it better. Westminster had "
@@ -510,7 +533,9 @@ HDEM = [
 ]
 # ================================================================== Henry: What Zevka Wanted (authoritarian)
 HAUT = [
-    ("what_zevka_wanted", "What Zevka Wanted", 24, 6, [["crush_the_student_movement"]], 8, "duo:Generic_Family", "add_ideas = VIT_grandmas_rules",
+    ("what_zevka_wanted", "What Zevka Wanted", 24, 6, [["crush_the_student_movement"]], 8, "duo:Generic_Family",
+     "add_ideas = VIT_grandmas_rules\n" + ifc("NOT = { has_government = neutrality }",
+                                            "set_politics = { ruling_party = neutrality elections_allowed = no }\n" + henry_leader("despotism")),
      "Henry's Bulgarian grandmother Zevka had firm views on everything: the church on Sunday, dinner at midnight, the land "
      "in the family and a strong hand at the top. She never lived to see the mountain run properly. Henry will see to it."
      "\\n\\nHenry keeps his authoritarian rule.", ["POLITICAL", "STABILITY"]),
@@ -603,7 +628,8 @@ HAUT = [
 # ================================================================== Yani: Red Plovdiv (communist)
 YCOM = [
     ("red_plovdiv", "Red Plovdiv", 36, 6, [["yani_takes_the_villa"]], 8, "duo:Generic_Marxism",
-     "add_ideas = VIT_vitosha_soviet\nadd_political_power = 50",
+     "add_ideas = VIT_vitosha_soviet\nadd_political_power = 50\n" + ifc("NOT = { has_government = communism }",
+     "set_politics = { ruling_party = communism elections_allowed = no }\n" + yani_leader("leninism")),
      "Yani grew up among the tobacco workers of Plovdiv and their strikes. He gives the mountain what they wanted: the "
      "land to the villages, the villas to the people, the hill to the workers.\\n\\nYani stays communist.", ["POLITICAL"]),
     ("the_tobacco_workers", "The Tobacco Workers", 33, 7, [["red_plovdiv"]], 8, "duo:Generic_Tobacco_Farming", factory("industrial_complex"),
@@ -696,7 +722,7 @@ YCOM = [
 # ================================================================== Yani: The Seven Hills (fascist)
 YFAS = [
     ("the_seven_hills", "The Seven Hills", 56, 6, [["yani_takes_the_villa"]], 8, "duo:Generic_Fascist_Guy",
-     "set_politics = { ruling_party = fascism elections_allowed = no }\npromote_character = { character = VIT_yani ideology = fascism_ideology }\n"
+     "set_politics = { ruling_party = fascism elections_allowed = no }\n" + yani_leader("fascism_ideology") + "\n"
      "add_ideas = VIT_black_shirts\nadd_war_support = 0.05",
      "Plovdiv is older than Rome, older than Athens, and was built on seven hills. Yani's followers put on black shirts, "
      "light torches and march down the mountain road singing about Philip of Macedon.\\n\\nYani's movement turns fascist.",

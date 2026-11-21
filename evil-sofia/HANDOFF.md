@@ -127,7 +127,9 @@ Without them the build still works: leaders have no portrait and the person/phot
   war start is shown as effect tooltips; temporary divisions have their own templates (`history/units/VIT_*`) and are
   deleted by The Mountain Is Ours. The war starts by focus or, when the 400-day mission War on the Mountain (decisions tab) times out, by event evil_sofia_vit.25 (Yani's side
   if March with Yani was completed). Events 27/28 the next day pick the side's road (complete_national_focus). The
-  breakaway side gets the tree (`original_tag = VIT`), its side's start focuses unlocked, Mountain in Flames step 2.
+  breakaway side gets the tree (`original_tag = VIT`, reloaded with `keep_completed = no` so it has none of the
+  other side's focuses), its own side's whole chain unlocked, its leader made with create_country_leader (Yani or Henry,
+  with portrait and traits), support split 45/45 like the player's side, and Mountain in Flames step 2.
   During the war the sides are Henry's Vitosha / Yani's Vitosha (cosmetic tags, dropped on_civil_war_end). The war
   branches hang under both ideology heads, remove The Mountain in Flames, and after the war repair the Scars of War.
   Paths: What the English Couldn't Do (dominions: puppet war goals, An Offer of Dominion, Colonial Office for the
