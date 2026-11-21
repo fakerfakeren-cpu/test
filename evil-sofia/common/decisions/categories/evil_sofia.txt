@@ -15,6 +15,14 @@ VIT_foreign_aid = {
 		has_country_flag = VIT_aid_open
 	}
 }
+VIT_the_mountain_boils = {
+	allowed = {
+		original_tag = VIT
+	}
+	visible = {
+		NOT = { has_country_flag = VIT_war_started }
+	}
+}
 ES_political_actions = {
 	allowed = {
 		always = yes

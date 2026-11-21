@@ -125,7 +125,7 @@ Without them the build still works: leaders have no portrait and the person/phot
   Poryazov and Victor if not communist, Villa Pact; forts; hired guards. Yani: Old Classmates calls Stefan, Georgi
   Yanchovichin and Victor, who always accept, Students' Pact; depots; Plovdiv volunteers). What completed prep focuses give at the
   war start is shown as effect tooltips; temporary divisions have their own templates (`history/units/VIT_*`) and are
-  deleted by The Mountain Is Ours. The war starts by focus or, after 400 days, by event evil_sofia_vit.25 (Yani's side
+  deleted by The Mountain Is Ours. The war starts by focus or, when the 400-day mission War on the Mountain (decisions tab) times out, by event evil_sofia_vit.25 (Yani's side
   if March with Yani was completed). Events 27/28 the next day pick the side's road (complete_national_focus). The
   breakaway side gets the tree (`original_tag = VIT`), its side's start focuses unlocked, Mountain in Flames step 2.
   During the war the sides are Henry's Vitosha / Yani's Vitosha (cosmetic tags, dropped on_civil_war_end). The war

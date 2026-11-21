@@ -35,11 +35,6 @@ on_actions = {
 					army_experience = 25
 				}
 			}
-			if = {
-				limit = { NOT = { has_global_flag = evil_sofia_vitosha_timer } }
-				set_global_flag = evil_sofia_vitosha_timer
-				VIT = { country_event = { id = evil_sofia_vit.25 days = 400 } }
-			}
 		}
 	}
 	on_civil_war_end = {

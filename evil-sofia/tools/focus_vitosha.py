@@ -1453,12 +1453,23 @@ modifier = { add = 25 has_opinion = { target = FROM value > 30 } }
 modifier = { add = 20 num_of_factories < 10 }"""),
                 ("We stay independent.", "", "base = 60")]),
 })
-ON_STARTUP += """
-if = {
-	limit = { NOT = { has_global_flag = evil_sofia_vitosha_timer } }
-	set_global_flag = evil_sofia_vitosha_timer
-	VIT = { country_event = { id = evil_sofia_vit.25 days = 400 } }
-}"""
+# the 400-day timer: a mission with a countdown bar in the decisions tab, like Spain's. It ends quietly if a focus
+# starts the war first; if the time runs out, event evil_sofia_vit.25 starts the war by itself.
+_TIMER_CAT = (("VIT_the_mountain_boils", "The Mountain Boils",
+                      "Henry's guard and Yani's students cannot share the mountain much longer. If nobody starts the war, "
+                      "it will start by itself.",
+                      "original_tag = VIT", "NOT = { has_country_flag = VIT_war_started }", [
+    dict(id="VIT_war_on_the_mountain", name="War on the Mountain",
+         desc="When the time runs out, the civil war starts by itself: on Yani's side if we completed March with "
+              "Yani, otherwise on Henry's. Only focuses we completed give their bonuses; the side's war focus counts "
+              "as done, without its effects, so the roads after it open.\n\nStarting the war with a focus first ends "
+              "this timer.",
+         cost=0, available="has_country_flag = VIT_war_started",
+         effect="log = \"Vitosha: the war started before the timer ran out\"",
+         ai="factor = 1", icon="generic_prepare_civil_war",
+         extra="days_mission_timeout = 400\nis_good = no\nfire_only_once = yes\n"
+               "activation = {\n\tNOT = { has_country_flag = VIT_war_started }\n}\n"
+               "timeout_effect = {\n\tcountry_event = { id = evil_sofia_vit.25 }\n}")]))
 
 _W = "§YWhen the civil war starts§!, if we are on this side: "
 _TEMP = " They are §Rsent home§! when the war is won."
@@ -1480,10 +1491,11 @@ UNLOCK_TOOLTIPS.update({
     "barricades_in_simeonovo": _W + "§Glevel 3 bunkers§! along Simeonovo's borders.",
     "the_tobacco_column": _W + "§G+3 temporary divisions§! of Plovdiv tobacco workers." + _TEMP,
     "studentski_volunteers": _W + "§G+2 temporary divisions§! of students." + _TEMP,
-    "stand_with_henry": "If the war has not started after §Y400 days§!, it starts by itself on Henry's side, unless we "
-                        "completed March with Yani. Only completed focuses give their bonuses.",
-    "march_with_yani": "If the war has not started after §Y400 days§!, it starts by itself on Yani's side. Only completed "
-                       "focuses give their bonuses.",
+    "stand_with_henry": "The decision §YWar on the Mountain§! counts down §Y400 days§! from the start. If no focus has started the "
+                        "war by then, it starts by itself: on Henry's side unless we completed March with Yani. Only completed "
+                        "focuses give their bonuses.",
+    "march_with_yani": "The decision §YWar on the Mountain§! counts down §Y400 days§!. If no focus has started the war by then, "
+                       "it starts by itself on Yani's side. Only completed focuses give their bonuses.",
 })
 
 _extra_build_base = extra_build
@@ -1619,3 +1631,5 @@ EVENTS.update({
 })
 UNLOCK_TOOLTIPS["crush_the_student_movement"] += " The next day, choose Henry's road at once by event."
 UNLOCK_TOOLTIPS["yani_takes_the_villa"] += " The next day, choose Yani's road at once by event."
+
+DECISION_CATS.append(_TIMER_CAT)

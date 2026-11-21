@@ -145,3 +145,27 @@ VIT_foreign_aid = {
 		}
 	}
 }
+VIT_the_mountain_boils = {
+	VIT_war_on_the_mountain = {
+		icon = generic_prepare_civil_war
+		cost = 0
+		days_mission_timeout = 400
+		is_good = no
+		fire_only_once = yes
+		activation = {
+			NOT = { has_country_flag = VIT_war_started }
+		}
+		timeout_effect = {
+			country_event = { id = evil_sofia_vit.25 }
+		}
+		available = {
+			has_country_flag = VIT_war_started
+		}
+		complete_effect = {
+			log = "Vitosha: the war started before the timer ran out"
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+}
